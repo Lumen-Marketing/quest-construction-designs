@@ -49,16 +49,19 @@ The three dots in the gallery header change the accent on **all three designs at
 
 | Dot | Value | Text on accent |
 |-----|-------|----------------|
-| Safety Orange | `#FF7A1C` on 01/02, `#FF4A1C` on 03 | white |
-| Burnt Clay | `#C4552A` on 01/02, `#A8421C` on 03 | white |
-| Hi-Vis Yellow | `#FFC629` on 01/02, `#F5C518` on 03 | black |
+| Ochre (default) | `#D9A93C` | near-black |
+| Burnt Orange | `#D07C42` | near-black |
+| Clay | `#A8543A` | white |
 
-The gallery defaults to **Hi-Vis Yellow**, which is what the dimensional directions were designed
-against. 01 and 02 also carry a third token, `--acc-dim` — a darker shade used wherever the accent
-has to sit as *text on cream*, since the bright tints fail contrast on a light background.
+All three are **deliberately muted**. The first pass used fully saturated safety colours
+(`#FFC629`, `#FF7A1C`) which are punishing across a full-width hero band — these are desaturated
+and warmed toward earth tones instead.
 
-**03 still runs the original, slightly hotter values** because it was deliberately left untouched.
-Unifying them is a one-line change to the `P` map at the bottom of `direction-3-split-bay.html`.
+01 and 02 also carry a third token, `--acc-dim` — a darker shade used wherever the accent has to
+sit as *text on cream*, since even the muted tints fail contrast on a light background.
+
+All three directions now share the same values, 03 included. Its layout is untouched; only its
+palette map was updated, so the colour dots do the same thing on every card.
 
 Each direction also reads the accent straight off its own URL, so
 `direction-2-heavy-plant.html?acc=hivis` opens yellow. Full-screen links inherit whatever dot is

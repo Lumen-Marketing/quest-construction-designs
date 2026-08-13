@@ -14,8 +14,8 @@
    seal on the seam, giant service rows that summon their photo.
    ============================================================ */
 :root{
-  --acc:#FF4A1C;
-  --on-acc:#ffffff;
+  --acc:#D07C42;
+  --on-acc:#1C1208;
   --bg:#0A0A0A;           /* deactivated CRT — never pure black */
   --bg-2:#131313;
   --bg-3:#1C1C1B;
@@ -357,7 +357,7 @@ footer{border-top:1px solid var(--hair);background:var(--bg-2)}
 
 <script>
 (function(){
-  var P={orange:['#FF4A1C','#ffffff'],clay:['#A8421C','#ffffff'],hivis:['#F5C518','#0A0A0A']};
+  var P={orange:['#D07C42','#1C1208'],clay:['#A8543A','#ffffff'],hivis:['#D9A93C','#191307']};
   function set(k){var p=P[k];if(!p)return;var s=document.documentElement.style;s.setProperty('--acc',p[0]);s.setProperty('--on-acc',p[1]);}
   var q=new URLSearchParams(location.search).get('acc'); if(q) set(q);
   addEventListener('message',function(e){ if(e.data&&e.data.acc) set(e.data.acc); });
