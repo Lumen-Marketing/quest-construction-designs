@@ -82,7 +82,8 @@ h2,h3,h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 112,'wg
 .btn.outline{background:transparent;color:var(--ink);box-shadow:none;border:1.5px solid rgba(21,20,15,.22)}
 .btn.outline:hover{background:rgba(21,20,15,.05);box-shadow:none}
 
-.pill{display:inline-flex;align-items:center;gap:9px;background:rgba(255,198,41,.2);color:var(--ink);
+.pill{display:inline-flex;align-items:center;gap:9px;
+  background:color-mix(in srgb,var(--acc) 26%,transparent);color:var(--ink);
   border-radius:999px;padding:8px 16px;font-family:'JetBrains Mono',monospace;font-size:10.5px;
   letter-spacing:.14em;text-transform:uppercase;font-weight:700}
 .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--acc-dim)}
@@ -113,7 +114,7 @@ h2,h3,h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 112,'wg
 .lock .w{font-size:clamp(52px,17.6vw,258px);display:block;white-space:nowrap}
 /* the two poster words sit tight; the cut-out machine lands ON them */
 .lock .w1{color:var(--ink);position:relative;z-index:2;margin-bottom:-.1em}
-.lock .w2{color:var(--acc-dim);position:relative;z-index:2}
+.lock .w2{color:var(--ink);position:relative;z-index:2}
 /* accent plane behind the type, hard-edged and skewed */
 .lock .slab{position:absolute;z-index:1;right:-3%;top:6%;width:56%;bottom:10%;
   background:linear-gradient(150deg,var(--acc) 0%,var(--acc-dim) 100%);
@@ -130,7 +131,7 @@ h2,h3,h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 112,'wg
    measure. This is the third layer: type behind -> machine -> type in front. */
 .lock .front{position:absolute;left:0;width:100%;z-index:4;pointer-events:none;margin:0}
 .lock .f1{top:0;color:var(--ink);clip-path:inset(0 0 0 71%)}
-.lock .f2{color:var(--acc-dim);clip-path:inset(0 0 0 74%)}
+.lock .f2{color:var(--ink);clip-path:inset(0 0 0 74%)}
 /* floating badge over the card */
 .lock .badge{position:absolute;z-index:6;left:2%;bottom:6%;
   background:var(--dark);color:var(--on-dark);border-radius:14px;padding:13px 18px;
