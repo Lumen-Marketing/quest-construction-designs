@@ -7,23 +7,36 @@ standalone mockups for review. Nothing here is wired to a live site.
 
 ## The three directions
 
-| # | File | Personality |
-|---|------|-------------|
-| 01 | `direction-1-site-plan.html` | **Site Plan** — modular, editorial, paper-white. The safest bet. |
-| 02 | `direction-2-heavy-plant.html` | **Heavy Plant** — poster brutalism, giant wordmark interlocked with a photo band. The risk. |
-| 03 | `direction-3-split-bay.html` | **Split Bay** — dark, split hero, cursor-driven photo reveals. The most premium. |
+| # | File | Personality | Style |
+|---|------|-------------|-------|
+| 01 | `direction-1-site-plan.html` | **Site Plan** — layered, editorial. The safest bet. | Dimensional |
+| 02 | `direction-2-heavy-plant.html` | **Heavy Plant** — poster wordmark interlocked with a photo card. The risk. | Dimensional |
+| 03 | `direction-3-split-bay.html` | **Split Bay** — dark, split hero, cursor-driven photo reveals. | Brutalist |
 
-## Shared design system
+## Two design languages
 
-All three run the same rules, so the only variable is layout personality:
+The first pass made all three brutalist. That was wrong for 01 and 02 — brutalism is deliberately
+flat, which fought the layered depth the reference deck was built on. **01 and 02 were rebuilt;
+03 was explicitly left alone.**
 
-- **Black + white + one accent.** The accent is used on *whole surfaces* — a full card, a full
-  band — never on thin borders.
-- **Chamfered corners, never rounded.** Every cut is a hard 45°, done with `clip-path`.
-- **Asymmetric grids.** Never 50/50 — 60/40 or 70/30.
-- **Photos break their container** and get overlapped by type or a solid block.
-- **Oversized condensed caps**, tight tracking, compressed leading, mono for all metadata.
-- Grayscale photography throughout so the accent is the only colour that shouts.
+### Dimensional (01, 02)
+
+Depth comes from stacking real layers, in this order:
+
+1. faint engineering **grid** on cream
+2. big **ghosted machine watermark** at ~6% opacity
+3. an **angular accent slab**, offset and slightly skewed
+4. a **rounded photo card** sitting on top and breaking that slab's edge
+5. a **second photo card** overlapping the first
+6. a **floating badge card** with a hard shadow over the lot
+
+Plus: pill buttons, generous radii (`--r` 16px / `--r-lg` 30px), soft layered shadows, skewed
+diagonal bar motifs, and a cream hero that drops to dark sections and back.
+
+### Brutalist (03)
+
+Flat by design — chamfered `clip-path` corners, no radius, hard 90° grid, grayscale photography,
+accent on whole surfaces only.
 
 ## Switching the accent
 
@@ -31,9 +44,16 @@ The three dots in the gallery header change the accent on **all three designs at
 
 | Dot | Value | Text on accent |
 |-----|-------|----------------|
-| Safety Orange | `#FF4A1C` | white |
-| Burnt Clay | `#A8421C` | white |
-| Hi-Vis Yellow | `#F5C518` | black |
+| Safety Orange | `#FF7A1C` on 01/02, `#FF4A1C` on 03 | white |
+| Burnt Clay | `#C4552A` on 01/02, `#A8421C` on 03 | white |
+| Hi-Vis Yellow | `#FFC629` on 01/02, `#F5C518` on 03 | black |
+
+The gallery defaults to **Hi-Vis Yellow**, which is what the dimensional directions were designed
+against. 01 and 02 also carry a third token, `--acc-dim` — a darker shade used wherever the accent
+has to sit as *text on cream*, since the bright tints fail contrast on a light background.
+
+**03 still runs the original, slightly hotter values** because it was deliberately left untouched.
+Unifying them is a one-line change to the `P` map at the bottom of `direction-3-split-bay.html`.
 
 Each direction also reads the accent straight off its own URL, so
 `direction-2-heavy-plant.html?acc=hivis` opens yellow. Full-screen links inherit whatever dot is
