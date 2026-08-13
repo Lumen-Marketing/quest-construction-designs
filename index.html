@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Quest Construction — Design Directions</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Three brutalist design directions for the Quest Construction website — each a full, live homepage. Switch the accent colour, toggle desktop/mobile, interact with a preview, or open one full screen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --orange:#e66a1f; --orange-hot:#ed4e0d;
+  --rail:#070706; --rail-2:#141311;
+  --canvas:#efe8d9; --surface:#fffaf0;
+  --ink:#17130f; --ink-2:#473f34; --muted:#72695d;
+  --border:#e2d5bf; --border-2:#d3c1a7; --amber:#f4b234;
+  --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  --eo:cubic-bezier(.22,1,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--canvas);color:var(--ink);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img,svg{display:block;max-width:100%}
+::selection{background:var(--orange-hot);color:#fff}
+:focus-visible{outline:2px solid var(--orange-hot);outline-offset:3px;border-radius:3px}
+.mono{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.wrap{max-width:1480px;margin:0 auto;padding:0 clamp(20px,3vw,44px)}
+
+/* ---------- bar ---------- */
+.bar{position:sticky;top:0;z-index:40;background:rgba(239,232,217,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.bar .in{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:70px;padding-block:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px}
+.brand .mark{width:36px;height:36px;border-radius:8px;background:var(--rail);color:var(--canvas);display:grid;place-items:center;font-size:15px;font-weight:700;letter-spacing:-.02em;position:relative;overflow:hidden}
+.brand .mark::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 25%,rgba(230,106,31,.95),transparent 62%)}
+.brand .t b{font-weight:600;font-size:16px;letter-spacing:-.03em;display:block;line-height:1.15}
+.brand .t span{font-family:var(--mono);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.tools{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.seg{display:inline-flex;background:#e6dece;border:1px solid var(--border);border-radius:99px;padding:3px}
+.seg button{font-family:var(--mono);font-size:11px;letter-spacing:.08em;font-weight:500;padding:.55em 1.2em;border-radius:99px;color:var(--muted);transition:background-color .25s var(--eo),color .25s var(--eo);text-transform:uppercase}
+.seg button.on{background:var(--rail);color:var(--canvas)}
+
+/* palette switcher — settle the accent by eye, on the real pages */
+.pal{display:inline-flex;align-items:center;gap:10px;background:#e6dece;border:1px solid var(--border);border-radius:99px;padding:5px 14px 5px 6px}
+.pal .dots{display:inline-flex;gap:6px}
+.pal button{width:26px;height:26px;border-radius:50%;position:relative;transition:transform .25s var(--eo);border:2px solid transparent}
+.pal button:hover{transform:scale(1.12)}
+.pal button.on{border-color:var(--rail)}
+.pal button::after{content:"";position:absolute;inset:2px;border-radius:50%;background:var(--c)}
+.pal .lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);min-width:8ch}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(40px,6vw,76px) 0 clamp(28px,4vw,48px);text-align:center}
+.hero h1{font-size:clamp(30px,4.4vw,58px);font-weight:600;letter-spacing:-.045em;line-height:1.03;max-width:20ch;margin:14px auto 18px;text-wrap:balance}
+.hero p{color:var(--ink-2);max-width:70ch;margin:0 auto;font-size:16.5px}
+.hero .mono{color:var(--orange-hot)}
+.hero .note{margin:24px auto 0;max-width:74ch;font-family:var(--mono);font-size:11px;letter-spacing:.03em;text-transform:none;color:var(--muted);background:#e8e0cd;border:1px solid var(--border);border-radius:10px;padding:12px 16px;line-height:1.75;text-align:left}
+.hero .note b{color:var(--ink-2);font-weight:500}
+
+/* ---------- deck ---------- */
+.deck{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(22px,2.6vw,36px);padding-bottom:clamp(56px,8vw,96px)}
+@media(max-width:1020px){.deck{grid-template-columns:1fr}}
+.dcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;
+  box-shadow:0 14px 40px rgba(23,19,15,.07);display:flex;flex-direction:column;
+  transition:transform .4s var(--eo),box-shadow .4s var(--eo),border-color .4s var(--eo)}
+.dcard:hover{transform:translateY(-4px);box-shadow:0 26px 60px rgba(23,19,15,.14);border-color:var(--border-2)}
+.dcard.span{grid-column:1/-1}
+.dhead{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:20px 24px 16px}
+.dhead .lt{display:flex;align-items:center;gap:14px;min-width:0}
+.dhead .letter{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--orange-hot);border:1px solid var(--border-2);border-radius:50%;
+  width:34px;height:34px;display:grid;place-items:center;flex:0 0 auto;
+  transition:background-color .3s var(--eo),color .3s var(--eo),border-color .3s var(--eo)}
+.dcard:hover .letter{background:var(--orange-hot);color:#fff;border-color:var(--orange-hot)}
+.dhead h2{font-size:clamp(20px,2vw,26px);font-weight:600;letter-spacing:-.035em;line-height:1.2}
+.dhead .tagline{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.open{display:inline-flex;align-items:center;gap:.5em;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;
+  color:#fff;background:var(--rail);border-radius:99px;padding:10px 18px;flex:0 0 auto;
+  transition:transform .25s var(--eo),background-color .25s var(--eo)}
+.open:hover{background:var(--orange-hot);transform:translateY(-2px)}
+.open svg{width:.95em;height:.95em;transition:transform .25s var(--eo)}
+.open:hover svg{transform:translate(2px,-2px)}
+
+.preview{position:relative;background:#e3dbc8;border-block:1px solid var(--border);overflow:hidden}
+.preview iframe{position:absolute;top:0;left:0;border:0;transform-origin:top left;background:#fff}
+.preview .veil{position:absolute;inset:0;z-index:2;display:grid;place-items:center;cursor:pointer;
+  transition:background-color .3s var(--eo)}
+.preview .veil span{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:rgba(7,7,6,.8);
+  border-radius:99px;padding:9px 18px;opacity:0;transform:translateY(6px);
+  transition:opacity .3s var(--eo),transform .3s var(--eo)}
+.preview .veil:hover span,.preview .veil:focus-visible span{opacity:1;transform:translateY(0)}
+.preview.live .veil{display:none}
+
+.dbody{padding:18px 24px 24px;display:flex;flex-direction:column;gap:14px;flex:1}
+.dbody p{font-size:14.5px;color:var(--ink-2);max-width:74ch}
+.dbody .best{font-size:13px;color:var(--muted);font-style:italic}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto}
+.chips span{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-hot);background:rgba(230,106,31,.1);border-radius:99px;padding:6px 12px}
+
+footer{border-top:1px solid var(--border);padding:32px 0 40px;text-align:center}
+footer p{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);line-height:2.2}
+
+@media(prefers-reduced-motion:no-preference){
+  .dcard{opacity:0;transform:translateY(26px)}
+  .dcard.in{opacity:1;transform:translateY(0);transition:opacity .7s var(--eo),transform .7s var(--eo),box-shadow .4s var(--eo),border-color .4s var(--eo);transition-delay:var(--d,0s)}
+  .dcard.in:hover{transform:translateY(-4px)}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="wrap in">
+    <div class="brand">
+      <span class="mark" aria-hidden="true">Q</span>
+      <span class="t"><b>Quest Construction</b><span>Design Directions</span></span>
+    </div>
+    <div class="tools">
+      <div class="pal" role="group" aria-label="Accent colour">
+        <span class="dots">
+          <button id="palOrange" class="on" type="button" style="--c:#FF4A1C" data-acc="orange" data-name="Safety Orange" aria-label="Safety orange accent"></button>
+          <button id="palClay" type="button" style="--c:#A8421C" data-acc="clay" data-name="Burnt Clay" aria-label="Burnt clay accent"></button>
+          <button id="palHivis" type="button" style="--c:#F5C518" data-acc="hivis" data-name="Hi-Vis Yellow" aria-label="Hi-vis yellow accent"></button>
+        </span>
+        <span class="lbl" id="palLabel">Safety Orange</span>
+      </div>
+      <div class="seg" role="group" aria-label="Preview device">
+        <button id="segDesk" class="on" type="button">Desktop</button>
+        <button id="segMob" type="button">Mobile</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="hero">
+    <p class="mono">Quest Construction &mdash; General Contracting</p>
+    <h1>Three brutalist directions for the new site</h1>
+    <p>Each card below is a complete, working homepage &mdash; not a picture. Hover a preview and click once to scroll and interact with it, or open it full screen. All three share the same black&#47;white&#43;one&#8209;accent system, so the only real difference is the layout personality.</p>
+    <p class="note"><b>How to use this page.</b> Start with the three colour dots at the top &mdash; they change the accent on all three designs at once, live, so you can settle the colour argument by eye instead of by description. Then use <b>Desktop&#47;Mobile</b> to check how each one reshapes on a phone. Copy is placeholder throughout, and the photography is free stock we can swap for real Quest jobsite photos later.</p>
+  </section>
+
+  <div class="deck">
+
+    <article class="dcard" data-src="direction-1-site-plan.html">
+      <div class="dhead">
+        <div class="lt">
+          <span class="letter">01</span>
+          <div>
+            <h2>Site Plan</h2>
+            <div class="tagline">Modular &middot; Editorial &middot; Safest bet</div>
+          </div>
+        </div>
+        <a class="open" href="direction-1-site-plan.html" target="_blank" rel="noopener">Full screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+      </div>
+      <div class="preview"><div class="veil" tabindex="0" role="button" aria-label="Click to interact with this preview"><span>Click to interact</span></div></div>
+      <div class="dbody">
+        <p>A jobsite photo with its corner cut away, and a solid black slab punching out of it carrying the headline. Underneath, a three&#8209;up service grid that runs outline &rarr; black &rarr; solid accent, a black figures band, and numbered project rows that fill with colour as you pass over them.</p>
+        <p class="best">Best if you want it to look established and organised before it looks bold.</p>
+        <div class="chips"><span>Cut corners</span><span>Slab overlap</span><span>Numbered rows</span><span>Paper white</span></div>
+      </div>
+    </article>
+
+    <article class="dcard" data-src="direction-2-heavy-plant.html">
+      <div class="dhead">
+        <div class="lt">
+          <span class="letter">02</span>
+          <div>
+            <h2>Heavy Plant</h2>
+            <div class="tagline">Poster &middot; Interlocked &middot; Boldest</div>
+          </div>
+        </div>
+        <a class="open" href="direction-2-heavy-plant.html" target="_blank" rel="noopener">Full screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+      </div>
+      <div class="preview"><div class="veil" tabindex="0" role="button" aria-label="Click to interact with this preview"><span>Click to interact</span></div></div>
+      <div class="dbody">
+        <p>QUEST and BUILDS stretched edge to edge as a poster, with an aerial earthworks band slicing straight through them &mdash; some letters land in front of the photo, some disappear behind it. Chevron machine markings, full&#8209;width service slabs that wipe with colour, and a review card that is a solid accent block.</p>
+        <p class="best">Best if you want to be the loudest contractor in the valley. This is the risk.</p>
+        <div class="chips"><span>Giant wordmark</span><span>Front&#47;behind layering</span><span>Chevrons</span><span>Wipe hovers</span></div>
+      </div>
+    </article>
+
+    <article class="dcard span" data-src="direction-3-split-bay.html">
+      <div class="dhead">
+        <div class="lt">
+          <span class="letter">03</span>
+          <div>
+            <h2>Split Bay</h2>
+            <div class="tagline">Dark &middot; Interactive &middot; Most premium</div>
+          </div>
+        </div>
+        <a class="open" href="direction-3-split-bay.html" target="_blank" rel="noopener">Full screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+      </div>
+      <div class="preview"><div class="veil" tabindex="0" role="button" aria-label="Click to interact with this preview"><span>Click to interact</span></div></div>
+      <div class="dbody">
+        <p>The only dark one. The hero splits down the middle &mdash; a solid accent panel on the left holding the headline and a short yard&#8209;tour clip, a full&#8209;height crane shot on the right with the figures laid across its base, and a slowly rotating stamp sitting right on the seam. Further down, the service names become giant list rows that summon their own photo to your cursor as you move over them.</p>
+        <p class="best">Best if you want it to feel like a bigger, more expensive company than the competition. Worth opening full screen &mdash; the cursor effects do not show in a scaled preview.</p>
+        <div class="chips"><span>Split hero</span><span>Rotating seal</span><span>Cursor photo reveal</span><span>Dark substrate</span></div>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<footer>
+  <p>Quest Construction &mdash; three design directions &mdash; rev 1.0<br>
+  Placeholder copy &middot; free stock photography &middot; nothing here is live yet</p>
+</footer>
+
+<script>
+(function(){
+  var DESK={w:1440,h:1080}, MOB={w:414,h:896};
+  var mode='desk', acc='orange';
+  var cards=[].slice.call(document.querySelectorAll('.dcard'));
+
+  function layout(){
+    cards.forEach(function(card){
+      var pv=card.querySelector('.preview');
+      var f=pv.querySelector('iframe');
+      var cw=pv.clientWidth;
+      var s,w,h;
+      if(mode==='desk'){
+        w=DESK.w;h=DESK.h;s=cw/w;
+        pv.style.height=(h*s)+'px';
+        if(f){f.style.width=w+'px';f.style.height=h+'px';f.style.transform='scale('+s+')';f.style.left='0px';}
+      }else{
+        w=MOB.w;h=MOB.h;
+        var ph=Math.min(620,cw*0.9);
+        s=ph/h;
+        pv.style.height=ph+'px';
+        if(f){f.style.width=w+'px';f.style.height=h+'px';f.style.transform='scale('+s+')';f.style.left=((cw-w*s)/2)+'px';}
+      }
+    });
+  }
+
+  function srcFor(card){
+    var src=card.getAttribute('data-src');
+    return src+'?preview&acc='+acc;
+  }
+
+  function spawn(card){
+    var pv=card.querySelector('.preview');
+    if(pv.querySelector('iframe'))return;
+    var f=document.createElement('iframe');
+    f.src=srcFor(card);
+    f.title='Live preview of the '+card.querySelector('h2').textContent+' direction';
+    f.loading='lazy';
+    pv.appendChild(f);
+    layout();
+  }
+
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){spawn(e.target);io.unobserve(e.target);}});
+    },{rootMargin:'300px 0px'});
+    cards.forEach(function(c){io.observe(c);});
+  }else{cards.forEach(spawn);}
+
+  cards.forEach(function(card){
+    var pv=card.querySelector('.preview'),veil=pv.querySelector('.veil');
+    function activate(){spawn(card);pv.classList.add('live');}
+    veil.addEventListener('click',activate);
+    veil.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});
+    card.addEventListener('mouseleave',function(){pv.classList.remove('live');});
+  });
+
+  /* ---- accent switching ----
+     postMessage repaints an already-loaded preview instantly, but file:// frames
+     are opaque origins in some builds and silently drop it. So we also rewrite
+     each frame's ?acc= and keep the full-screen links in sync — the reload is the
+     guaranteed path, the message is the fast one. */
+  var palBtns=[].slice.call(document.querySelectorAll('.pal button')),
+      palLabel=document.getElementById('palLabel');
+  function setAcc(next,name,btn){
+    acc=next;
+    palBtns.forEach(function(b){b.classList.toggle('on',b===btn);});
+    palLabel.textContent=name;
+    cards.forEach(function(card){
+      var f=card.querySelector('iframe');
+      if(!f) return;
+      try{ f.contentWindow.postMessage({acc:acc},'*'); }catch(e){}
+      f.src=srcFor(card);
+      card.querySelector('.open').setAttribute('href',card.getAttribute('data-src')+'?acc='+acc);
+    });
+  }
+  palBtns.forEach(function(b){
+    b.addEventListener('click',function(){ setAcc(b.getAttribute('data-acc'),b.getAttribute('data-name'),b); });
+  });
+
+  var bd=document.getElementById('segDesk'),bm=document.getElementById('segMob');
+  function setMode(m){
+    mode=m;
+    bd.classList.toggle('on',m==='desk');
+    bm.classList.toggle('on',m==='mob');
+    layout();
+  }
+  bd.addEventListener('click',function(){setMode('desk');});
+  bm.addEventListener('click',function(){setMode('mob');});
+
+  window.addEventListener('resize',layout);
+  layout();
+
+  if(window.matchMedia && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+    var rio=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}});
+    },{rootMargin:'0px 0px -8% 0px'});
+    cards.forEach(function(c,i){c.style.setProperty('--d',((i%2)*0.08)+'s');rio.observe(c);});
+  }else{cards.forEach(function(c){c.classList.add('in');});}
+})();
+</script>
+</body>
+</html>
