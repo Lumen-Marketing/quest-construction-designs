@@ -1,15 +1,15 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Quest Construction — Direction 2 / HEAVY PLANT</title>
+<title>Quest Construction â€” Direction 2 / HEAVY PLANT</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   DIRECTION 2 — "HEAVY PLANT"  (dimensional rebuild)
+   DIRECTION 2 â€” "HEAVY PLANT"  (dimensional rebuild)
    Keeps the poster wordmark and the front/behind interlock, but
    rebuilt soft: rounded photo cards, angular accent shapes,
    floating badges, layered shadows. Cream hero, mostly dark.
@@ -90,136 +90,130 @@ h2,h3,h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 112,'wg
 .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--acc-dim)}
 .pill.on-dark{background:rgba(255,198,41,.14);color:var(--acc)}
 
-/* ---------- 01 NAV ---------- */
-/* dark to sit on the night hero — a cream bar above it reads as a seam */
-.nav{position:sticky;top:0;z-index:200;background:rgba(11,11,10,.86);backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(243,239,230,.1);color:var(--on-dark)}
-.nav .wrap{display:flex;align-items:center;gap:clamp(16px,3vw,44px);height:82px}
+/* ---------- 01 NAV â€” a dark pill floating on the cream ---------- */
+.nav{position:sticky;top:0;z-index:200;padding:14px 0;
+  background:linear-gradient(180deg,var(--cream) 58%,transparent);backdrop-filter:blur(8px)}
+.nav .wrap{display:flex;align-items:center;gap:clamp(16px,3vw,44px);height:66px;
+  background:var(--ink);color:var(--cream);border-radius:999px;
+  padding-inline:clamp(18px,2vw,28px);max-width:calc(var(--maxw) - 2*var(--m));
+  box-shadow:0 14px 34px rgba(20,19,15,.16)}
 .brand{display:flex;align-items:center;gap:11px;font-variation-settings:'wdth' 125,'wght' 900;
-  font-size:20px;letter-spacing:-.04em;text-transform:uppercase}
-.brand .mk{width:34px;height:34px;border-radius:9px;background:var(--acc);display:grid;place-items:center;
-  box-shadow:0 8px 20px rgba(224,168,0,.4)}
-.brand .mk::before{content:"";width:13px;height:13px;background:var(--ink);
+  font-size:19px;letter-spacing:-.04em;text-transform:uppercase}
+.brand .mk{width:30px;height:30px;border-radius:9px;background:var(--acc);display:grid;place-items:center}
+.brand .mk::before{content:"";width:12px;height:12px;background:var(--ink);
   clip-path:polygon(0 0,100% 0,58% 50%,100% 100%,0 100%)}
-.nav nav{display:flex;gap:clamp(14px,2.2vw,34px);margin-left:auto;font-size:14.5px;font-weight:500}
-.nav nav a{color:var(--on-dark-2);transition:color .2s}
-.nav nav a:hover{color:var(--on-dark)}
+.nav nav{display:flex;gap:clamp(14px,2.2vw,32px);margin-left:auto;font-size:14.5px;font-weight:500}
+.nav nav a{color:rgba(250,246,236,.68);transition:color .2s}
+.nav nav a:hover{color:var(--cream)}
+.nav .btn{padding:12px 20px;font-size:13px}
 @media(max-width:940px){.nav nav{display:none}}
 
-/* ---------- 02 HERO — the night yard, as a poster ----------
-   Shares nothing with Direction 01. Dark from the first pixel, the copy
-   demoted to a small block up top, and the page given over to a two-line
-   masthead fitted edge to edge. The machine parks BETWEEN the lines: line
-   one sits behind it, line two is painted over its body, and the machine
-   then drops past the hero's bottom edge onto the accent fleet rail.
-   Three overlaps, no boxes. */
-.hero{position:relative;z-index:2;background:var(--yard);color:var(--on-dark);
-  padding:clamp(16px,2vw,28px) 0 0;overflow:visible}
-.hero .grid-bg{
-  background-image:linear-gradient(rgba(243,239,230,.055) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(243,239,230,.055) 1px,transparent 1px);
-  -webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 34%,#000 30%,transparent 100%);
-          mask-image:radial-gradient(ellipse 90% 80% at 50% 34%,#000 30%,transparent 100%)}
-.hero .wm{right:-4%;top:-6%;width:min(660px,54vw);opacity:.05}
-/* the work lights: a wash off the floor and a hot pool under the machine */
-.hero .floor{position:absolute;z-index:0;inset:auto 0 0 0;height:56%;pointer-events:none;
-  background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--acc) 13%,transparent))}
-.hero .glow{position:absolute;z-index:0;left:50%;bottom:-4%;transform:translateX(-50%);
-  width:min(1180px,94%);height:min(540px,50vw);pointer-events:none;opacity:.5;
-  background:radial-gradient(ellipse at 50% 76%,color-mix(in srgb,var(--acc) 42%,transparent) 0%,transparent 66%);
-  filter:blur(26px)}
-.hero .wrap{position:relative;z-index:4}
-.hero-top{display:flex;justify-content:space-between;align-items:center;gap:20px;
-  flex-wrap:wrap;margin-bottom:clamp(18px,2.4vw,32px)}
-.hero-top .mono{color:var(--mute)}
-.hero .pill{background:color-mix(in srgb,var(--acc) 16%,transparent);color:var(--acc)}
-.hero .pill .dot{background:var(--acc)}
+/* ---------- 02 HERO â€” the trade rack ----------
+   Light, rounded and card-built. The device is the rack of discipline slats
+   beside the main plate: each one is a real photo under a flat tint, labelled
+   vertically, and it opens on hover. Direction 01 keeps the angular cut-out
+   hero; this one is all soft rectangles and colour, so the two read as
+   different designs at thumbnail size rather than different layouts. */
+.hero{position:relative;z-index:2;background:var(--cream);color:var(--ink);
+  padding:clamp(14px,2vw,28px) 0 clamp(26px,3vw,40px);overflow:hidden}
+.hero .grid-bg{-webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 30%,transparent 100%);
+          mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 30%,transparent 100%)}
+.hero .wrap{position:relative;z-index:3}
 
-/* The copy is deliberately small here — the type below is the hero. It all
-   stays in the left column: everything right of it is the machine's, and
-   anything placed there ends up buried under the cab. */
-.hero-lead{width:min(50%,560px);margin-bottom:clamp(16px,2vw,28px)}
-.hero-lead .lede{margin:0 0 22px;font-size:clamp(14.5px,1.15vw,16.5px);max-width:44ch;
-  color:var(--on-dark)}
-.hero-lead .lede b{font-weight:800;color:var(--acc)}
-.hero-acts{display:flex;flex-wrap:wrap;gap:13px;align-items:center}
-.hero .btn{background:var(--cream);color:var(--ink)}
-.hero .btn.outline{background:transparent;color:var(--on-dark);
-  border:1.5px solid rgba(243,239,230,.26);box-shadow:none}
-.hero .btn.outline:hover{background:rgba(243,239,230,.08);box-shadow:none}
+.hero-head{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);
+  gap:clamp(20px,4vw,60px);align-items:end;margin-bottom:clamp(20px,2.2vw,30px)}
+.hero-head h1{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 106,'wght' 800;
+  font-size:clamp(29px,4.1vw,57px);line-height:1.1;letter-spacing:-.035em;margin:0;
+  text-transform:none}
+/* the highlight pills â€” one ink, one accent, exactly two per headline */
+.mark{display:inline-block;padding:.02em .36em .1em;border-radius:999px;
+  transform:rotate(-1.2deg)}
+.mark.ink{background:var(--ink);color:var(--cream)}
+.mark.acc{background:var(--acc);color:var(--on-acc);transform:rotate(1deg)}
+.hero-head .lede{margin:0 0 20px;font-size:clamp(14.5px,1.2vw,16.5px);color:var(--ink-2);
+  max-width:38ch}
+.hero-acts{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 
-/* a title-block, not a row of big numerals — D1 already owns those */
-.spec{margin:20px 0 0;width:min(380px,100%)}
-.spec div{display:flex;justify-content:space-between;align-items:baseline;gap:18px;
-  padding:8px 0;border-bottom:1px solid rgba(243,239,230,.13)}
-.spec div:first-child{border-top:1px solid rgba(243,239,230,.13)}
-.spec dt{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--mute)}
-.spec dd{margin:0;font-weight:800;font-size:13.5px;letter-spacing:-.01em;
-  color:var(--on-dark);text-align:right}
+/* the plate + the rack */
+.hero-stage{display:grid;grid-template-columns:minmax(0,1.62fr) minmax(0,1fr);
+  gap:clamp(10px,1vw,14px)}
+.plate-main{position:relative;margin:0;border-radius:var(--r-lg);overflow:hidden;
+  aspect-ratio:16/8.4;box-shadow:var(--sh)}
+.plate-main img{width:100%;height:100%;object-fit:cover}
+.plate-main .tag{position:absolute;left:20px;bottom:20px;z-index:2;display:flex;align-items:center;
+  gap:10px;background:var(--cream);border-radius:999px;padding:9px 16px 9px 10px;
+  box-shadow:0 10px 26px rgba(20,19,15,.24)}
+.plate-main .tag .mk{width:26px;height:26px;border-radius:8px;background:var(--acc);flex:none}
+.plate-main .tag b{font-size:13px;letter-spacing:-.02em}
+.plate-main .tag span{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-top:2px}
 
-/* ---------- the masthead + the interlock ----------
-   No z-index on .mast itself: giving the wrapper one would make a stacking
-   context and lift all three children as a group, burying the machine. The
-   children are ordered explicitly instead. */
-.mast{position:relative;padding-bottom:clamp(4px,.8vw,12px)}
-.mast-line{display:block;white-space:nowrap;margin:0;line-height:.78;
-  font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 125,'wght' 900;
-  text-transform:uppercase;letter-spacing:-.05em;font-size:clamp(44px,11vw,150px)}
-.mast-back{position:relative;z-index:1;color:transparent;
-  -webkit-text-stroke:2.5px rgba(243,239,230,.5)}
-/* Sits between the machine and the front line: sinks the tyres into the floor
-   and, more importantly, stops the accent word from disappearing into a yellow
-   bucket. Same z-index as the machine, later in the DOM, so it paints after. */
-/* full-bleed: at -8% its vertical edges showed up as a dark box drawn across
-   the hero, which is exactly the boxed look this direction is avoiding */
-.mast-scrim{position:absolute;z-index:2;left:-50vw;right:-50vw;bottom:0;height:58%;
-  pointer-events:none;
-  background:linear-gradient(180deg,transparent 0%,color-mix(in srgb,var(--yard) 62%,transparent) 46%,color-mix(in srgb,var(--yard) 94%,transparent) 78%,var(--yard) 100%)}
-.mast-front{position:relative;z-index:3;color:var(--on-dark);margin-top:-.08em;
-  text-shadow:0 0 40px rgba(11,11,10,.92),0 8px 26px rgba(11,11,10,.75)}
-.mast-front b{font-weight:inherit;color:var(--acc)}
-/* Parked right of centre, not dead centre: it has to clear the copy block and
-   leave the back line readable, or the interlock reads as one big obstruction. */
-.rig{position:absolute;z-index:2;right:-2%;left:auto;bottom:-11%;
-  width:min(44%,560px);height:auto;pointer-events:none;
-  filter:drop-shadow(0 40px 56px rgba(0,0,0,.72));
-  animation:roll 1.15s cubic-bezier(.2,.8,.2,1) both}
-@keyframes roll{from{opacity:0;transform:translateY(4%) scale(.985)}
-                to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){.rig{animation:none}}
+.slats{display:flex;gap:clamp(8px,.7vw,10px);min-width:0}
+.slat{position:relative;flex:1 1 0;min-width:0;border-radius:var(--r-lg);overflow:hidden;
+  display:block;isolation:isolate;
+  transition:flex-grow .55s cubic-bezier(.2,.8,.2,1)}
+/* A tint, not a lid: at .76 the photographs vanished and the rack read as five
+   flat swatches. The contrast for the vertical labels is carried by darkening
+   the PHOTO rather than thickening the tint, so the images still show. */
+.slat img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:grayscale(.9) contrast(1.05) brightness(.72);transition:filter .45s ease}
+.slat::after{content:"";position:absolute;inset:0;background:var(--ink);opacity:.42;
+  transition:background .45s ease,opacity .45s ease}
+.slat:hover,.slat:focus-visible{flex-grow:2.6}
+.slat:hover img,.slat.is-on img{filter:grayscale(.15) contrast(1.02) brightness(1)}
+.slat:hover::after,.slat:focus-visible::after,.slat.is-on::after{background:var(--acc);opacity:.8}
+.slat-t{position:absolute;z-index:2;left:0;right:0;bottom:58px;margin:0 auto;width:max-content;
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  font-variation-settings:'wdth' 104,'wght' 800;font-size:clamp(13px,1.05vw,15.5px);
+  letter-spacing:-.015em;color:var(--cream);transition:color .45s ease;
+  text-shadow:0 2px 12px rgba(0,0,0,.55)}
+.slat:hover .slat-t,.slat:focus-visible .slat-t,.slat.is-on .slat-t{color:var(--on-acc);
+  text-shadow:none}
+.slat .go{position:absolute;z-index:2;left:50%;bottom:16px;transform:translateX(-50%);
+  width:32px;height:32px;border-radius:50%;display:grid;place-items:center;
+  border:1.4px solid rgba(250,246,236,.5);color:var(--cream);font-size:13px;
+  transition:transform .4s ease,border-color .45s ease,color .45s ease}
+.slat:hover .go,.slat.is-on .go{border-color:color-mix(in srgb,var(--on-acc) 55%,transparent);
+  color:var(--on-acc);transform:translateX(-50%) rotate(45deg)}
 
-@media(max-width:1080px){
-  /* absolutely-positioned art keeps colliding with reflowing copy at narrow
-     widths — below this the machine just flows between the two lines. */
-  .hero-lead{grid-template-columns:1fr;align-items:start}
-  .spec{justify-self:start}
-  .mast-line{letter-spacing:-.04em}
-  .rig{position:static;transform:none;width:min(104%,760px);margin:-4% auto -9%;
-    display:block;filter:drop-shadow(0 26px 34px rgba(0,0,0,.6))}
-  .mast-front{margin-top:0}
-  @keyframes roll{from{opacity:0;transform:translateY(4%)}to{opacity:1;transform:none}}
+/* four figures, as bordered plates rather than a bare row of numerals */
+.figs4{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1vw,14px);
+  margin-top:clamp(10px,1vw,14px)}
+.fig{border:1.5px solid rgba(21,20,15,.11);border-radius:var(--r);background:#FFFCF4;
+  padding:clamp(16px,1.6vw,22px);display:flex;align-items:baseline;gap:12px}
+.fig b{font-variation-settings:'wdth' 118,'wght' 900;font-size:clamp(22px,2.4vw,32px);
+  letter-spacing:-.045em;line-height:1;color:var(--acc-dim)}
+.fig span{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mute);line-height:1.45}
+
+@media(max-width:1000px){
+  .hero-head{grid-template-columns:1fr;align-items:start}
+  .hero-stage{grid-template-columns:1fr}
+  .plate-main{aspect-ratio:16/10}
+  .slats{height:170px}
+  .figs4{grid-template-columns:1fr 1fr}
 }
 @media(max-width:560px){
-  /* side-by-side dt/dd forces both halves to wrap at this width */
-  .spec div{flex-direction:column;align-items:flex-start;gap:3px;padding:12px 0}
-  .spec dd{text-align:left}
+  .slats{height:150px}
+  .slat-t{bottom:52px;font-size:12.5px}
+  .fig{flex-direction:column;align-items:flex-start;gap:6px}
 }
 
 /* ---------- 03 FLEET RAIL ----------
    Was a dark strip of disciplines; those are already carried by section 05
    and the footer. As the plant roster it does a job nothing else on the page
    does, and its accent gives the machine a bright edge to overhang onto. */
-.fleet{position:relative;z-index:1;background:var(--acc);color:var(--on-acc);
+/* ink, not accent: under a cream hero a full-width accent band was the loudest
+   thing on the page, and dark here leads into the dark manifesto below */
+.fleet{position:relative;z-index:1;background:var(--ink);color:var(--on-dark-2);
   padding:15px 0;overflow:hidden}
 .fleet-in{display:flex;align-items:center;width:max-content;animation:slide 46s linear infinite}
 @keyframes slide{to{transform:translateX(-50%)}}
 .fleet span{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.15em;
-  text-transform:uppercase;padding:0 10px 0 22px;white-space:nowrap;
-  color:color-mix(in srgb,var(--on-acc) 78%,transparent)}
+  text-transform:uppercase;padding:0 10px 0 22px;white-space:nowrap;color:var(--on-dark-2)}
 .fleet b{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;
-  letter-spacing:.1em;padding-right:22px;color:var(--on-acc)}
-.fleet i{flex:none;width:7px;height:7px;background:var(--on-acc);opacity:.45;
+  letter-spacing:.1em;padding-right:22px;color:var(--acc)}
+.fleet i{flex:none;width:7px;height:7px;background:var(--acc);opacity:.6;
   transform:rotate(45deg)}
 @media(prefers-reduced-motion:reduce){.fleet-in{animation:none}}
 
@@ -382,34 +376,39 @@ footer{background:var(--dark);color:var(--on-dark-2);padding-top:clamp(50px,7vw,
 <!-- 02 HERO -->
 <section class="hero">
   <div class="grid-bg"></div>
-  <div class="floor"></div>
-  <div class="glow"></div>
-  <img class="wm" src="assets/cranes.jpg" alt="">
   <div class="wrap">
-    <div class="hero-top">
-      <span class="pill"><span class="dot"></span>The yard, 05:40</span>
-      <span class="mono">Est. 2009 &nbsp;&middot;&nbsp; Valley wide</span>
-    </div>
-
-    <div class="hero-lead">
-      <p class="lede"><b>So we own the schedule.</b> Dirt to drywall under one contract &mdash; our machines, our operators, our crews, and nobody on the critical path waiting for a sub to show up.</p>
-      <div class="hero-acts">
-        <a class="btn" href="#contact">Start a Project <span class="pip">&rarr;</span></a>
-        <a class="btn outline" href="#plant">See our plant</a>
+    <div class="hero-head">
+      <h1>We own the <span class="mark ink">iron.</span><br>So we own the <span class="mark acc">schedule.</span></h1>
+      <div>
+        <p class="lede">Dirt to drywall under one contract. Our machines, our operators, our crews &mdash; nobody on the critical path is waiting for a sub to show up.</p>
+        <div class="hero-acts">
+          <a class="btn" href="#contact">Start a Project <span class="pip">&rarr;</span></a>
+          <a class="btn outline" href="#plant">See our plant</a>
+        </div>
       </div>
-      <dl class="spec">
-        <div><dt>Self&mdash;perform</dt><dd>Site work to finish</dd></div>
-        <div><dt>Mobilisation</dt><dd>48 hours</dd></div>
-        <div><dt>Plant on payroll</dt><dd>15 machines</dd></div>
-      </dl>
     </div>
 
-    <!-- back line, machine, front line — the machine is sandwiched -->
-    <div class="mast">
-      <h1 class="mast-line mast-back">We own</h1>
-      <img class="rig" src="assets/loader.webp" alt="A wheel loader from the Quest fleet">
-      <div class="mast-scrim"></div>
-      <p class="mast-line mast-front">the <b>iron.</b></p>
+    <div class="hero-stage">
+      <figure class="plate-main">
+        <img src="assets/crew-slab.jpg" alt="A Quest crew walking a finished post-tension slab">
+        <div class="tag"><span class="mk"></span><div><b>Licensed &amp; bonded</b><span>ROC #000000 &middot; Est. 2009</span></div></div>
+      </figure>
+
+      <!-- the rack: one slat per self-performed trade, opens on hover -->
+      <div class="slats">
+        <a class="slat is-on" href="#services"><img src="assets/earthworks.jpg" alt=""><span class="slat-t">Site work</span><i class="go">&#8599;</i></a>
+        <a class="slat" href="#services"><img src="assets/site-steel.jpg" alt=""><span class="slat-t">Concrete</span><i class="go">&#8599;</i></a>
+        <a class="slat" href="#services"><img src="assets/framing.jpg" alt=""><span class="slat-t">Framing</span><i class="go">&#8599;</i></a>
+        <a class="slat" href="#services"><img src="assets/facade.jpg" alt=""><span class="slat-t">Facades</span><i class="go">&#8599;</i></a>
+        <a class="slat" href="#services"><img src="assets/trade-electric.jpg" alt=""><span class="slat-t">Finish</span><i class="go">&#8599;</i></a>
+      </div>
+    </div>
+
+    <div class="figs4">
+      <div class="fig"><b>15</b><span>Machines on<br>our own payroll</span></div>
+      <div class="fig"><b>48h</b><span>Average<br>mobilisation</span></div>
+      <div class="fig"><b>9</b><span>Crews on<br>our own payroll</span></div>
+      <div class="fig"><b>4.9</b><span>Google rating<br>87 reviews</span></div>
     </div>
   </div>
 </section>
@@ -550,7 +549,7 @@ footer{background:var(--dark);color:var(--on-dark-2);padding-top:clamp(50px,7vw,
 })();
 
 (function(){
-  // the plant roster — counts add up to the 15 machines claimed above
+  // the plant roster â€” counts add up to the 15 machines claimed above
   var fleet=[['Cat 336 excavator','2'],['Deere 644 wheel loader','3'],['Cat D5 dozer','1'],
              ['Bobcat T770 track loader','4'],['Cat 420 backhoe','2'],['Sakai SV540 roller','1'],
              ['Genie S&ndash;65 boom lift','1'],['Peterbilt 348 dump','1']];
@@ -560,42 +559,18 @@ footer{background:var(--dark);color:var(--on-dark-2);padding-top:clamp(50px,7vw,
   document.getElementById('fleet').innerHTML=half+half;
 })();
 
-/* Fit each masthead line to the page width.
-   Measured with a Range, not getBoundingClientRect on the element: the lines
-   are block-level, so the element rect returns the CONTAINER width and the
-   scale ratio comes back as 1 every time. */
+/* The rack: whichever slat you touch becomes the open one, and it stays open
+   after the pointer leaves so the hero does not snap back to its first state. */
 (function(){
-  var mast=document.querySelector('.mast');
-  if(!mast) return;
-  var lines=[].slice.call(mast.querySelectorAll('.mast-line'));
-
-  function ink(el){
-    var r=document.createRange();
-    r.selectNodeContents(el);
-    return r.getBoundingClientRect().width;
-  }
-  // Capped: left uncapped the lines just keep growing with the window and the
-  // hero stops fitting on one screen, which is what made it feel shouty.
-  var CAP=150;
-  function fit(){
-    var avail=mast.clientWidth;
-    if(!avail) return;
-    lines.forEach(function(el){
-      for(var i=0;i<4;i++){
-        var w=ink(el);
-        if(!w) return;
-        if(Math.abs(w-avail)<0.5) return;
-        var next=parseFloat(getComputedStyle(el).fontSize)*avail/w;
-        if(next>CAP){el.style.fontSize=CAP+'px';return}
-        el.style.fontSize=next+'px';
-      }
+  var slats=[].slice.call(document.querySelectorAll('.slat'));
+  slats.forEach(function(s){
+    s.addEventListener('mouseenter',function(){
+      slats.forEach(function(o){o.classList.toggle('is-on',o===s)});
     });
-  }
-
-  fit();
-  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
-  addEventListener('load',fit);
-  var t; addEventListener('resize',function(){clearTimeout(t);t=setTimeout(fit,120)});
+    s.addEventListener('focus',function(){
+      slats.forEach(function(o){o.classList.toggle('is-on',o===s)});
+    });
+  });
 })();
 
 (function(){
