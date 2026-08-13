@@ -114,7 +114,7 @@ h2,h3,h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 112,'wg
    then drops past the hero's bottom edge onto the accent fleet rail.
    Three overlaps, no boxes. */
 .hero{position:relative;z-index:2;background:var(--yard);color:var(--on-dark);
-  padding:clamp(20px,2.8vw,38px) 0 0;overflow:visible}
+  padding:clamp(16px,2vw,28px) 0 0;overflow:visible}
 .hero .grid-bg{
   background-image:linear-gradient(rgba(243,239,230,.055) 1px,transparent 1px),
                    linear-gradient(90deg,rgba(243,239,230,.055) 1px,transparent 1px);
@@ -130,7 +130,7 @@ h2,h3,h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 112,'wg
   filter:blur(26px)}
 .hero .wrap{position:relative;z-index:4}
 .hero-top{display:flex;justify-content:space-between;align-items:center;gap:20px;
-  flex-wrap:wrap;margin-bottom:clamp(22px,3.4vw,44px)}
+  flex-wrap:wrap;margin-bottom:clamp(18px,2.4vw,32px)}
 .hero-top .mono{color:var(--mute)}
 .hero .pill{background:color-mix(in srgb,var(--acc) 16%,transparent);color:var(--acc)}
 .hero .pill .dot{background:var(--acc)}
@@ -138,8 +138,8 @@ h2,h3,h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 112,'wg
 /* The copy is deliberately small here — the type below is the hero. It all
    stays in the left column: everything right of it is the machine's, and
    anything placed there ends up buried under the cab. */
-.hero-lead{width:min(52%,620px);margin-bottom:clamp(20px,2.6vw,38px)}
-.hero-lead .lede{margin:0 0 26px;font-size:clamp(15px,1.35vw,17.5px);max-width:44ch;
+.hero-lead{width:min(50%,560px);margin-bottom:clamp(16px,2vw,28px)}
+.hero-lead .lede{margin:0 0 22px;font-size:clamp(14.5px,1.15vw,16.5px);max-width:44ch;
   color:var(--on-dark)}
 .hero-lead .lede b{font-weight:800;color:var(--acc)}
 .hero-acts{display:flex;flex-wrap:wrap;gap:13px;align-items:center}
@@ -149,9 +149,9 @@ h2,h3,h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 112,'wg
 .hero .btn.outline:hover{background:rgba(243,239,230,.08);box-shadow:none}
 
 /* a title-block, not a row of big numerals — D1 already owns those */
-.spec{margin:26px 0 0;width:min(380px,100%)}
+.spec{margin:20px 0 0;width:min(380px,100%)}
 .spec div{display:flex;justify-content:space-between;align-items:baseline;gap:18px;
-  padding:10px 0;border-bottom:1px solid rgba(243,239,230,.13)}
+  padding:8px 0;border-bottom:1px solid rgba(243,239,230,.13)}
 .spec div:first-child{border-top:1px solid rgba(243,239,230,.13)}
 .spec dt{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--mute)}
@@ -163,15 +163,17 @@ h2,h3,h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 112,'wg
    context and lift all three children as a group, burying the machine. The
    children are ordered explicitly instead. */
 .mast{position:relative;padding-bottom:clamp(4px,.8vw,12px)}
-.mast-line{display:block;white-space:nowrap;margin:0;line-height:.76;
+.mast-line{display:block;white-space:nowrap;margin:0;line-height:.78;
   font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 125,'wght' 900;
-  text-transform:uppercase;letter-spacing:-.05em;font-size:clamp(52px,14vw,215px)}
+  text-transform:uppercase;letter-spacing:-.05em;font-size:clamp(44px,11vw,150px)}
 .mast-back{position:relative;z-index:1;color:transparent;
   -webkit-text-stroke:2.5px rgba(243,239,230,.5)}
 /* Sits between the machine and the front line: sinks the tyres into the floor
    and, more importantly, stops the accent word from disappearing into a yellow
    bucket. Same z-index as the machine, later in the DOM, so it paints after. */
-.mast-scrim{position:absolute;z-index:2;left:-8%;right:-8%;bottom:0;height:58%;
+/* full-bleed: at -8% its vertical edges showed up as a dark box drawn across
+   the hero, which is exactly the boxed look this direction is avoiding */
+.mast-scrim{position:absolute;z-index:2;left:-50vw;right:-50vw;bottom:0;height:58%;
   pointer-events:none;
   background:linear-gradient(180deg,transparent 0%,color-mix(in srgb,var(--yard) 62%,transparent) 46%,color-mix(in srgb,var(--yard) 94%,transparent) 78%,var(--yard) 100%)}
 .mast-front{position:relative;z-index:3;color:var(--on-dark);margin-top:-.08em;
@@ -179,8 +181,8 @@ h2,h3,h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 112,'wg
 .mast-front b{font-weight:inherit;color:var(--acc)}
 /* Parked right of centre, not dead centre: it has to clear the copy block and
    leave the back line readable, or the interlock reads as one big obstruction. */
-.rig{position:absolute;z-index:2;right:-3%;left:auto;bottom:-13%;
-  width:min(60%,780px);height:auto;pointer-events:none;
+.rig{position:absolute;z-index:2;right:-2%;left:auto;bottom:-11%;
+  width:min(44%,560px);height:auto;pointer-events:none;
   filter:drop-shadow(0 40px 56px rgba(0,0,0,.72));
   animation:roll 1.15s cubic-bezier(.2,.8,.2,1) both}
 @keyframes roll{from{opacity:0;transform:translateY(4%) scale(.985)}
@@ -572,6 +574,9 @@ footer{background:var(--dark);color:var(--on-dark-2);padding-top:clamp(50px,7vw,
     r.selectNodeContents(el);
     return r.getBoundingClientRect().width;
   }
+  // Capped: left uncapped the lines just keep growing with the window and the
+  // hero stops fitting on one screen, which is what made it feel shouty.
+  var CAP=150;
   function fit(){
     var avail=mast.clientWidth;
     if(!avail) return;
@@ -580,7 +585,9 @@ footer{background:var(--dark);color:var(--on-dark-2);padding-top:clamp(50px,7vw,
         var w=ink(el);
         if(!w) return;
         if(Math.abs(w-avail)<0.5) return;
-        el.style.fontSize=(parseFloat(getComputedStyle(el).fontSize)*avail/w)+'px';
+        var next=parseFloat(getComputedStyle(el).fontSize)*avail/w;
+        if(next>CAP){el.style.fontSize=CAP+'px';return}
+        el.style.fontSize=next+'px';
       }
     });
   }
