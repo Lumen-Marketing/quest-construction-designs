@@ -122,11 +122,11 @@ footer p{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transf
     <div class="tools">
       <div class="pal" role="group" aria-label="Accent colour">
         <span class="dots">
-          <button id="palOrange" type="button" style="--c:#FF7A1C" data-acc="orange" data-name="Safety Orange" aria-label="Safety orange accent"></button>
+          <button id="palOrange" class="on" type="button" style="--c:#FF7A1C" data-acc="orange" data-name="Safety Orange" aria-label="Safety orange accent"></button>
           <button id="palClay" type="button" style="--c:#C4552A" data-acc="clay" data-name="Burnt Clay" aria-label="Burnt clay accent"></button>
-          <button id="palHivis" class="on" type="button" style="--c:#FFC629" data-acc="hivis" data-name="Hi-Vis Yellow" aria-label="Hi-vis yellow accent"></button>
+          <button id="palHivis" type="button" style="--c:#FFC629" data-acc="hivis" data-name="Hi-Vis Yellow" aria-label="Hi-vis yellow accent"></button>
         </span>
-        <span class="lbl" id="palLabel">Hi-Vis Yellow</span>
+        <span class="lbl" id="palLabel">Safety Orange</span>
       </div>
       <div class="seg" role="group" aria-label="Preview device">
         <button id="segDesk" class="on" type="button">Desktop</button>
@@ -190,7 +190,7 @@ footer p{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transf
           <span class="letter">03</span>
           <div>
             <h2>Split Bay</h2>
-            <div class="tagline">Dark &middot; Interactive &middot; Left as it was</div>
+            <div class="tagline">Dark &middot; Interactive &middot; Most premium</div>
           </div>
         </div>
         <a class="open" href="direction-3-split-bay.html" target="_blank" rel="noopener">Full screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
@@ -214,7 +214,7 @@ footer p{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transf
 <script>
 (function(){
   var DESK={w:1440,h:1080}, MOB={w:414,h:896};
-  var mode='desk', acc='hivis';
+  var mode='desk', acc='orange';
   var cards=[].slice.call(document.querySelectorAll('.dcard'));
 
   function layout(){
