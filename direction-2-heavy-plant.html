@@ -147,21 +147,12 @@ h2,h3,h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 112,'wg
 /* THE foreground layer — breaks below the band's bottom edge */
 .machine-wrap{position:relative;z-index:5;min-height:clamp(250px,29vw,380px)}
 .machine{position:absolute;z-index:5;left:50%;top:50%;
-  transform:translate(-50%,-16%);width:min(122%,880px);height:auto;pointer-events:none;
+  transform:translate(-50%,20%);width:min(132%,900px);height:auto;pointer-events:none;
   filter:drop-shadow(-18px 40px 46px rgba(20,19,15,.4));
   animation:settle 1.1s cubic-bezier(.2,.8,.2,1) both}
-@keyframes settle{from{opacity:0;transform:translate(-50%,-6%) scale(.97)}
-                  to{opacity:1;transform:translate(-50%,-16%)}}
+@keyframes settle{from{opacity:0;transform:translate(-50%,30%) scale(.97)}
+                  to{opacity:1;transform:translate(-50%,20%)}}
 @media(prefers-reduced-motion:reduce){.machine{animation:none}}
-.hero .badge{position:absolute;z-index:7;left:-6%;bottom:-16%;
-  background:var(--dark);color:var(--on-dark);border-radius:14px;padding:13px 18px;
-  box-shadow:var(--sh-lg);display:flex;align-items:center;gap:12px}
-.hero .badge .ic{width:34px;height:34px;border-radius:9px;background:var(--acc);
-  display:grid;place-items:center;flex:0 0 auto}
-.hero .badge .ic svg{width:17px;height:17px;stroke:var(--on-acc);fill:none;stroke-width:2.4}
-.hero .badge b{display:block;font-size:14px;font-weight:800;letter-spacing:-.02em;line-height:1.15}
-.hero .badge span{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.11em;
-  text-transform:uppercase;color:var(--on-dark-2)}
 
 /* figures sitting on the band, under the copy */
 .hero-figs{display:flex;flex-wrap:wrap;gap:14px 34px;margin-top:clamp(26px,3.4vw,42px);
@@ -173,12 +164,14 @@ h2,h3,h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 112,'wg
   color:color-mix(in srgb,var(--on-acc) 66%,transparent)}
 
 @media(max-width:960px){
-  .hero{padding-bottom:clamp(90px,16vw,140px)}
+  .hero{padding-bottom:clamp(34px,7vw,64px)}
   .hero-grid{grid-template-columns:1fr}
-  .machine-wrap{min-height:clamp(180px,52vw,300px)}
-  .machine{width:min(114%,640px);transform:translate(-50%,-12%)}
-  @keyframes settle{from{opacity:0;transform:translate(-50%,-2%) scale(.97)}
-                    to{opacity:1;transform:translate(-50%,-12%)}}
+  .machine-wrap{min-height:clamp(150px,40vw,300px)}
+  /* the machine overhangs into this section — give the copy room to clear it */
+  .mani .wrap{padding-top:clamp(96px,26vw,150px)}
+  .machine{width:min(122%,680px);transform:translate(-50%,20%)}
+  @keyframes settle{from{opacity:0;transform:translate(-50%,30%) scale(.97)}
+                    to{opacity:1;transform:translate(-50%,20%)}}
   .hero .badge{display:none}
   .hero-ghost{font-size:clamp(90px,26vw,180px);top:38%}
 }
@@ -377,10 +370,6 @@ footer{background:var(--dark);color:var(--on-dark-2);padding-top:clamp(50px,7vw,
       <!-- the foreground layer: breaks below the band onto the strip beneath -->
       <div class="machine-wrap">
         <img class="machine" src="assets/excavator.webp" alt="A tracked excavator from the Quest fleet">
-        <div class="badge">
-          <span class="ic"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></svg></span>
-          <span><b>Our own iron</b><span>15 machines on payroll</span></span>
-        </div>
       </div>
     </div>
   </div>
