@@ -58,17 +58,22 @@ rather than blending several:
 
 - **04 Grid North — Swiss / International Typographic.** One typeface (Schibsted Grotesk) at
   several weights on a visible 12-column grid. Flush left, ragged right, hairline rules instead of
-  boxes, no radius, no shadows, deliberate empty space. The accent is the only colour on the page.
-- **05 Ground Break — bold colour field.** Deep excavated-earth green, one oversized accent word,
-  a concentric organic arc reading as a graded pad from above.
-- **06 Red Iron — Constructivist / Bauhaus.** Everything on a diagonal: photographs cut as
-  parallelograms, blocks rotated against each other, heavy condensed slab-grotesk stacked hard,
-  and photography printed as CSS **halftone** rather than shown straight.
+  boxes, no radius, no shadows. The accent is the only colour on the page. The hero is a **photo
+  wall**: five jobsite photographs tiled edge to edge with 2px gaps, the headline and the CTA
+  occupying cells of the same grid.
+- **05 Ground Break — bold colour field.** Deep excavated-earth green. **Full-bleed hero**: a
+  jobsite fills the first screen with the wordmark knocked over it and the figures as a hard bar
+  along the base. The concentric organic arc still closes the section, now over the photograph.
+- **06 Red Iron — Constructivist / Bauhaus.** The hero is **the reel** — footage through the
+  halftone screen, the accent wedge slashing over it, each headline word reversed onto its own
+  black slab. Everything else on a diagonal: photographs cut as parallelograms, blocks rotated
+  against each other, and photography printed as CSS **halftone** rather than shown straight.
 - **07 Bid Desk — clean utility.** White, an estimate bar straddling an organic hero sweep,
   everything pointing at one form.
-- **08 Machine Age — Art Deco.** Symmetrical about a centre line, strong verticals, stepped
-  ziggurat `clip-path` frames, hairline double rules with a brass lozenge, a `repeating-conic-gradient`
-  sunburst. The style of the era that actually built the skyscrapers.
+- **08 Machine Age — Art Deco.** A **hard split hero** — charcoal type column with the sunburst
+  behind it, crane photograph running off the right edge, divided by a stepped ziggurat cut rather
+  than a straight line. Strong verticals, ziggurat `clip-path` frames, hairline double rules with a
+  brass lozenge, a `repeating-conic-gradient` sunburst. The era that actually built the skyscrapers.
 - **09 Site Notice — punk / xerox cut-and-paste.** Everything is a thing stuck to a hoarding:
   flyers stapled at angles, tape strips, a rubber stamp, typewriter captions, photographs blown out
   on a bad photocopier. Body copy always sits on clean paper so it stays readable.
@@ -86,6 +91,10 @@ rather than blending several:
 
 > logo + simple nav → short headline with one stand-out CTA → social proof → about →
 > three key offers → lead magnet → content (selected work) → footer
+
+**The heroes are all different too.** 04 is a photo wall on the grid, 05 is full bleed, 06 is the
+reel itself, 07 is an estimate bar over an organic sweep, 08 is a hard split with a stepped cut, 09
+is a pasted-up poster and 10 is a diagonal slash with a cut-out machine. No two open the same way.
 
 **The order is shared; the components are not.** An earlier pass kept the order *and* reused the
 same parts in every direction — a strip of pills, photo-beside-text, three cards in a row, a dark
@@ -215,6 +224,11 @@ a true phone viewport — render the page inside a 390px-wide iframe instead.
 - **A hide rule that also matches the thing you are showing wins on specificity.** 10's mobile nav
   hid `.nav .btn` and showed `.navtel` — but `.navtel` is also a `.btn`, so the hide rule
   outranked it and the phone button never appeared. It is `.nav .btn:not(.navtel)` now.
+- **`margin:0 auto` on a flex item shrink-wraps it.** In a column flex container, auto side margins
+  make the item `fit-content` instead of stretching — 05 and 06's new heroes both collapsed their
+  `.wrap` to the width of its own text until it got an explicit `width:100%`.
+- **`<figure>` carries a UA margin of `1em 40px`.** Every photo in 04's wall sat letterboxed inside
+  its own cell until it was zeroed.
 - **Two classes beat one class plus an element.** 04's plate captions are `figcaption.cap`, and
   `.hero .cap{display:block}` (0,2,0) outranked `.plates figcaption` (0,1,1) — every caption
   collapsed to a single run until the rule became `.plates figcaption.cap`.

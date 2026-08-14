@@ -104,42 +104,55 @@ h1,h2,h3{margin:0;font-family:'Limelight','Jost',sans-serif;font-weight:400;line
 .burger span::before{top:-5px}.burger span::after{top:5px}
 
 /* ---------- 1. HERO: symmetrical, vertical, sunburst ---------- */
-.hero{position:relative;overflow:hidden;padding:clamp(46px,6.4vw,104px) 0 0;text-align:center}
-.hero .sun{position:absolute;left:50%;top:-6%;width:min(1180px,132vw);aspect-ratio:1;
-  transform:translateX(-50%);z-index:0;opacity:.16;pointer-events:none;
+/* ---------- 1. HERO — HARD SPLIT.
+     It used to be centred type over a sunburst with one framed photo below the
+     fold of the copy. Now it is a two-part elevation: a charcoal type column on
+     the left and a photograph running off the right edge of the screen, divided
+     by a stepped ziggurat cut rather than a straight line. The sunburst stays,
+     behind the type column only. ---------- */
+.hero{position:relative;overflow:hidden;background:var(--char);
+  display:grid;grid-template-columns:1.02fr .98fr;align-items:stretch;
+  min-height:clamp(540px,82vh,860px)}
+.hero .sun{position:absolute;left:0;top:-14%;width:min(920px,74vw);aspect-ratio:1;
+  z-index:0;opacity:.2;pointer-events:none;
   background:repeating-conic-gradient(from 180deg at 50% 50%,
     var(--acc) 0deg 1.7deg,transparent 1.7deg 9deg);
   -webkit-mask-image:radial-gradient(circle at 50% 50%,#000 12%,transparent 66%);
           mask-image:radial-gradient(circle at 50% 50%,#000 12%,transparent 66%)}
-.hero .in{position:relative;z-index:3}
-.hero h1{font-size:clamp(38px,7.6vw,108px);letter-spacing:.04em}
+.hero .in{position:relative;z-index:3;display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(40px,5vw,84px) clamp(24px,4vw,64px) clamp(30px,4vw,56px) var(--m);
+  max-width:820px;margin-left:auto}
+.hero .lbl{margin-bottom:0}
+.hero h1{font-size:clamp(40px,6.4vw,96px);letter-spacing:.03em}
 .hero h1 span{display:block}
 .hero h1 .acc{color:var(--acc)}
-.hero .sub{margin:0 auto;max-width:56ch;color:var(--on-char-2);font-size:clamp(15px,1.2vw,17.5px)}
-.hero .acts{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin-top:clamp(26px,3vw,40px)}
-/* the tower: a stepped photo panel flanked by two vertical rules */
-.tower{position:relative;z-index:3;margin-top:clamp(34px,4.4vw,64px);
-  display:grid;grid-template-columns:1fr minmax(0,760px) 1fr;gap:clamp(14px,2.4vw,38px);align-items:end}
-.tower .side{display:grid;gap:16px;padding-bottom:clamp(20px,3vw,44px)}
-.tower .side.l{text-align:right}
-.tower .side .k{font-family:'Limelight',sans-serif;font-size:clamp(24px,2.6vw,38px);
-  color:var(--acc);line-height:1}
-.tower .side .v{font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;
-  color:var(--on-char-2);margin-top:6px;display:block}
-.tower figure{margin:0;position:relative;aspect-ratio:1/1.02;overflow:hidden;
-  background:var(--char-2);box-shadow:0 0 0 1px rgba(217,169,60,.4)}
-.tower figure img{width:100%;height:100%;object-fit:cover;
-  filter:grayscale(1) sepia(.28) contrast(1.1) brightness(.92)}
-/* a heavier, continuous scrim — thinned to transparent mid-frame it let a bright
-   sky read as a pale slab rather than as a photograph inside the ziggurat */
-.tower figure::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(20,20,26,.62),rgba(20,20,26,.28) 44%,rgba(20,20,26,.88))}
-.tower .plate{position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:3;
-  width:min(420px,86%);background:var(--char);padding:18px 22px 20px;text-align:center;
-  box-shadow:0 0 0 1px var(--acc)}
-.tower .plate b{display:block;font-family:'Limelight',sans-serif;font-size:19px;letter-spacing:.1em}
-.tower .plate span{display:block;margin-top:6px;font-size:10.5px;font-weight:500;letter-spacing:.24em;
-  text-transform:uppercase;color:var(--acc)}
+.hero .sub{margin:0;max-width:44ch;color:var(--on-char-2);font-size:clamp(15px,1.2vw,17.5px)}
+.hero .acts{display:flex;flex-wrap:wrap;gap:14px;margin-top:clamp(24px,2.8vw,38px)}
+.hero .drule{justify-content:flex-start}
+.hero .drule.short::before{max-width:0}
+.hero .drule.short::after{max-width:120px}
+/* the stat rail, ruled off under the copy */
+.hero .rail{display:grid;grid-template-columns:repeat(4,1fr);margin-top:clamp(28px,3.4vw,48px);
+  border-top:3px double var(--acc);padding-top:clamp(16px,1.8vw,24px)}
+.hero .rail div{padding-right:14px;border-right:1px solid rgba(217,169,60,.24)}
+.hero .rail div:last-child{border-right:0}
+.hero .rail .k{display:block;font-family:'Limelight',sans-serif;
+  font-size:clamp(22px,2.4vw,34px);color:var(--acc);line-height:1}
+.hero .rail .v{display:block;margin-top:7px;font-size:10.5px;font-weight:500;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--on-char-2);line-height:1.4}
+/* the photograph half — full bleed to the right edge, stepped on its left */
+.hero .elev{position:relative;z-index:2;overflow:hidden;background:var(--char-2);
+  clip-path:polygon(14% 0,100% 0,100% 100%,0 100%,0 86%,5% 86%,5% 60%,9% 60%,9% 30%,14% 30%)}
+.hero .elev img{width:100%;height:100%;object-fit:cover;
+  filter:grayscale(1) sepia(.3) contrast(1.12) brightness(.82)}
+.hero .elev::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(20,20,26,.72),rgba(20,20,26,.06) 44%),
+             linear-gradient(0deg,rgba(20,20,26,.86),transparent 40%)}
+.hero .elev .plate{position:absolute;z-index:3;left:clamp(22px,3vw,44px);bottom:clamp(22px,3vw,44px);
+  background:var(--char);padding:16px 22px 18px;box-shadow:0 0 0 1px var(--acc)}
+.hero .elev .plate b{display:block;font-family:'Limelight',sans-serif;font-size:19px;letter-spacing:.1em}
+.hero .elev .plate span{display:block;margin-top:6px;font-size:10.5px;font-weight:500;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--acc)}
 
 /* ---------- 2. SOCIAL PROOF: chevron-divided rail ---------- */
 .proof{background:var(--acc);color:var(--on-acc);padding:clamp(18px,2.4vw,28px) 0}
@@ -309,17 +322,16 @@ footer .bar{margin-top:clamp(30px,3.6vw,50px);padding-top:20px;
 
 /* ---------- responsive ---------- */
 @media(max-width:1080px){
-  .tower{grid-template-columns:1fr}
-  .tower .side{display:flex;justify-content:center;gap:clamp(18px,4vw,44px);flex-wrap:wrap;
-    text-align:center;padding-bottom:0}
-  .tower .side.l{text-align:center;margin-bottom:22px}
-  .tower .side.r{margin-top:26px}
   .about .in{grid-template-columns:1fr}
   .about .col.l{text-align:center}
   .about .col.r{text-align:center}
   .about .frame{max-width:400px;margin:0 auto}
   .frieze{grid-template-columns:repeat(3,1fr)}
   .frieze figure:nth-child(n+4){display:none}
+  .hero{grid-template-columns:1fr;min-height:0}
+  .hero .in{max-width:none;margin-left:0;padding-inline:var(--m)}
+  .hero .elev{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);aspect-ratio:16/10}
+  .hero .rail{grid-template-columns:repeat(2,1fr);row-gap:18px}
   .arches{grid-template-columns:1fr;max-width:460px;margin-inline:auto}
   .arch-card.mid .ph{aspect-ratio:1/1.04}
   .tiles{grid-template-columns:1fr 1fr}
@@ -351,14 +363,13 @@ footer .bar{margin-top:clamp(30px,3.6vw,50px);padding-top:20px;
   </div>
 </header>
 
-<!-- ============ 2. HERO — STATEMENT + STANDOUT CTA ============ -->
+<!-- ============ 2. HERO — SPLIT ELEVATION + STANDOUT CTA ============ -->
 <section class="hero" id="top">
   <span class="sun" aria-hidden="true"></span>
-  <div class="wrap in">
+  <div class="in">
     <p class="lbl rv is-in">Phoenix, Arizona &middot; General Contracting &middot; ROC #000000</p>
     <div class="drule short rv is-in" aria-hidden="true"><i></i></div>
     <h1 class="rv is-in"><span>Built to</span><span class="acc">stand</span></h1>
-    <div class="drule short rv is-in" aria-hidden="true"><i></i></div>
     <p class="sub rv is-in" style="--d:.06s">Custom homes, whole&#8209;home remodels and tenant improvements
       across the valley. One fixed bid, one project manager, and a schedule that holds because the
       crews keeping it are our own.</p>
@@ -367,24 +378,17 @@ footer .bar{margin-top:clamp(30px,3.6vw,50px);padding-top:20px;
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
       <a class="btn line" href="#work">See the work</a>
     </div>
-
-    <div class="tower rv is-in" style="--d:.18s">
-      <div class="side l">
-        <div><span class="k">340</span><span class="v">Projects delivered</span></div>
-        <div><span class="k">16</span><span class="v">Years in the valley</span></div>
-      </div>
-      <figure class="zig">
-        <img src="assets/cranes.jpg" alt="Tower cranes over a Quest commercial project" loading="eager">
-        <figcaption class="plate">
-          <b>Rio Salado</b><span>Tempe &middot; 11,000 sq ft</span>
-        </figcaption>
-      </figure>
-      <div class="side r">
-        <div><span class="k">96%</span><span class="v">Finished on schedule</span></div>
-        <div><span class="k">4.9</span><span class="v">From 87 reviews</span></div>
-      </div>
+    <div class="rail rv is-in" style="--d:.18s">
+      <div><span class="k">340</span><span class="v">Projects delivered</span></div>
+      <div><span class="k">16</span><span class="v">Years in the valley</span></div>
+      <div><span class="k">96%</span><span class="v">On schedule</span></div>
+      <div><span class="k">4.9</span><span class="v">From 87 reviews</span></div>
     </div>
   </div>
+  <figure class="elev rv is-in" style="--d:.1s;margin:0">
+    <img src="assets/cranes.jpg" alt="Tower cranes over a Quest commercial project in Tempe" loading="eager" decoding="async">
+    <figcaption class="plate"><b>Rio Salado</b><span>Tempe &middot; 11,000 sq ft</span></figcaption>
+  </figure>
 </section>
 
 <!-- ============ 3. SOCIAL PROOF — chevron rail ============ -->

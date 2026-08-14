@@ -99,21 +99,54 @@ h1,h2,h3{font-family:'Anybody','Chivo',sans-serif;font-weight:900;margin:0;line-
 .burger span::before{top:-5px}.burger span::after{top:5px}
 
 /* ---------- 1. HERO ---------- */
-.hero{position:relative;text-align:center;padding-top:clamp(34px,5vw,64px);overflow:hidden}
-.hero h1{font-size:clamp(52px,13.4vw,182px);color:var(--acc-lift);letter-spacing:-.045em;
-  font-variation-settings:'wdth' 118;text-wrap:balance}
+/* ---------- 1. HERO — FULL BLEED.
+     It used to be a centred wordmark on bare green with no photograph at all.
+     Now a jobsite fills the whole first screen, the wordmark is knocked over the
+     top of it, and the facts run along the bottom as a hard bar. The graded-pad
+     arc still closes the section, but over the photograph rather than instead
+     of one. ---------- */
+.hero{position:relative;overflow:hidden;min-height:clamp(560px,84vh,880px);display:flex;
+  flex-direction:column;justify-content:flex-end}
+.hero .shot{position:absolute;inset:0;z-index:0}
+.hero .shot img{width:100%;height:100%;object-fit:cover;
+  filter:saturate(.52) contrast(1.16) brightness(.66)}
+/* two scrims: a vertical one so the facts bar always has ground under it, and a
+   left-weighted one so the wordmark never sits on the busiest part of the frame */
+.hero .shot::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(22,36,26,.86) 0 22%,rgba(22,36,26,.34) 52%,rgba(22,36,26,.94)),
+             linear-gradient(90deg,rgba(22,36,26,.7),rgba(22,36,26,.12) 62%)}
+.hero .wrap{position:relative;z-index:2;width:100%;padding-top:clamp(40px,7vw,96px);
+  padding-bottom:clamp(22px,2.6vw,38px)}
+.hero .eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:clamp(16px,2vw,26px);
+  font-family:'Martian Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--acc-lift)}
+.hero .eyebrow::before{content:"";width:44px;height:3px;background:var(--acc)}
+.hero h1{font-size:clamp(52px,12.6vw,176px);color:var(--on-ground);letter-spacing:-.045em;
+  font-variation-settings:'wdth' 118;line-height:.84;text-shadow:0 10px 40px rgba(10,18,12,.5)}
 .hero h1 span{display:block}
-.hero .kick{margin:26px auto 0;max-width:52ch;font-size:clamp(15px,1.3vw,17.5px);color:var(--on-ground-2)}
-.hero .cta{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero h1 span:last-child{color:var(--acc-lift)}
+.hero .kick{margin:clamp(20px,2.4vw,32px) 0 0;max-width:46ch;
+  font-size:clamp(15.5px,1.35vw,18.5px);color:#D5DCD1}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(24px,2.8vw,36px)}
 .hero .cta .btn{font-size:13.5px;padding:17px 32px}
-.facts{display:flex;justify-content:center;gap:clamp(30px,7vw,110px);flex-wrap:wrap;
-  margin-top:clamp(34px,4.6vw,60px);text-align:center}
-.facts .col h4{font-family:'Martian Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--acc-lift);margin:0 0 12px}
-.facts .col p{margin:0;font-size:14.5px;color:var(--on-ground);line-height:1.85;font-weight:500}
+.hero .cta .btn.line{border-color:rgba(241,239,226,.7);background:rgba(15,26,18,.34);
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.hero .cta .btn.line:hover{background:rgba(15,26,18,.6);border-color:var(--on-ground)}
+/* facts as a hard bar across the base of the photograph, not centred air */
+.facts{position:relative;z-index:2;margin-top:clamp(30px,4vw,54px);
+  display:grid;grid-template-columns:repeat(4,1fr);border-top:2px solid var(--acc)}
+.facts .col{padding:clamp(16px,1.8vw,24px) clamp(14px,1.6vw,26px);
+  border-right:1px solid var(--line-d);background:rgba(15,26,18,.72);
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.facts .col:last-child{border-right:0}
+.facts .col h4{font-family:'Martian Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--acc-lift);margin:0 0 10px}
+.facts .col p{margin:0;font-size:13.5px;color:var(--on-ground);line-height:1.75;font-weight:500}
+.facts .col b{display:block;font-family:'Anybody',sans-serif;font-size:clamp(24px,2.4vw,34px);
+  font-weight:800;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
 
 /* the graded-pad arc: concentric organic rings, cropped by the section */
-.pad{position:relative;margin-top:clamp(30px,4vw,54px);height:clamp(150px,21vw,290px);overflow:hidden}
+.pad{position:relative;z-index:2;margin-top:0;height:clamp(96px,13vw,180px);overflow:hidden}
 .pad .ring{position:absolute;left:50%;top:0;transform:translateX(-50%);
   width:min(1180px,94vw);aspect-ratio:1/.72;
   border-radius:50% 50% 44% 56% / 62% 62% 40% 40%;
@@ -147,8 +180,9 @@ h1,h2,h3{font-family:'Anybody','Chivo',sans-serif;font-weight:900;margin:0;line-
 .about{background:var(--paper);color:var(--ink);padding:clamp(46px,6.4vw,92px) 0;overflow:hidden}
 .about .in{display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(28px,4.4vw,72px);align-items:center}
 .about .pic{position:relative}
-.about .pic .halo{position:absolute;inset:-6% -8% -8% -6%;background:var(--acc);opacity:.24;
-  border-radius:44% 56% 60% 40% / 54% 42% 58% 46%;animation:morph 20s ease-in-out infinite}
+.about .pic .halo{position:absolute;left:26px;top:26px;right:-26px;bottom:-26px;
+  background:var(--acc);opacity:1;
+  clip-path:polygon(0 0,100% 0,100% 100%,34px 100%,0 calc(100% - 34px))}
 .about .pic img{position:relative;width:100%;aspect-ratio:1/.82;object-fit:cover;
   border-radius:44% 56% 60% 40% / 54% 42% 58% 46%}
 .about h2{font-size:clamp(30px,4.2vw,60px);color:var(--ink)}
@@ -275,37 +309,36 @@ footer .bar{margin-top:clamp(34px,4.4vw,58px);padding-top:22px;border-top:1px so
 /* ---------- PLANT BAND — the yard, shot as five organic tiles on the green.
      Each tile takes a different silhouette so the row reads as a set of objects
      rather than a filmstrip of boxes. ---------- */
-.plant{margin-top:clamp(40px,5vw,74px);display:grid;grid-template-columns:repeat(5,1fr);
-  gap:clamp(12px,1.6vw,24px)}
+.plant{margin-block:clamp(22px,2.6vw,34px) clamp(28px,3.4vw,48px);
+  display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(12px,1.6vw,24px)}
 .plant figure{margin:0}
-.plant .fr{display:block;position:relative;overflow:hidden;aspect-ratio:1/1.08;
-  border-radius:56% 44% 48% 52% / 46% 50% 50% 54%}
-.plant figure:nth-child(2) .fr{border-radius:44% 56% 60% 40% / 54% 42% 58% 46%}
-.plant figure:nth-child(3) .fr{border-radius:52% 48% 40% 60% / 58% 46% 54% 42%}
-.plant figure:nth-child(4) .fr{border-radius:48% 52% 56% 44% / 42% 58% 42% 58%}
-.plant figure:nth-child(5) .fr{border-radius:60% 40% 44% 56% / 50% 54% 46% 50%}
+/* squared off — the near-circular tiles read soft, which is the opposite of
+   what this page is for. A notched corner keeps them from being plain boxes. */
+.plant .fr{display:block;position:relative;overflow:hidden;aspect-ratio:1/1.06;
+  clip-path:polygon(0 0,100% 0,100% 100%,22px 100%,0 calc(100% - 22px));
+  border-bottom:3px solid var(--acc)}
 .plant img{width:100%;height:100%;object-fit:cover;transition:scale .8s var(--eo)}
 .plant figure:hover img{scale:1.06}
 .plant figcaption{margin-top:12px;font-family:'Martian Mono',monospace;font-size:9.5px;
-  font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--on-ground-2);
+  font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);
   line-height:1.5}
-.plant figcaption b{display:block;color:var(--on-ground);font-weight:700}
+.plant figcaption b{display:block;color:var(--ink);font-weight:700}
 
 /* ---------- REEL — the about photo, running. Three stills cross-dissolve inside
      the same organic silhouette; a real clip drops straight in later. ---------- */
 .about .pic .reel{position:relative;aspect-ratio:1/.82;overflow:hidden;
-  border-radius:44% 56% 60% 40% / 54% 42% 58% 46%}
+  clip-path:polygon(0 0,100% 0,100% 100%,34px 100%,0 calc(100% - 34px));
+  border-bottom:4px solid var(--ink)}
 .about .pic .reel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   border-radius:0;opacity:0;aspect-ratio:auto}
 .about .pic .reel img:first-of-type{opacity:1}
 .about .pic .play{position:absolute;z-index:3;left:50%;top:50%;translate:-50% -50%;
-  width:clamp(58px,6vw,78px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
+  width:clamp(58px,6vw,78px);aspect-ratio:1;display:grid;place-items:center;
   background:var(--acc);color:var(--on-acc);box-shadow:0 14px 34px rgba(10,18,12,.4)}
 .about .pic .play svg{width:34%;height:34%}
-.about .pic .tag{position:absolute;z-index:3;left:50%;bottom:6%;translate:-50% 0;white-space:nowrap;
+.about .pic .tag{position:absolute;z-index:3;left:0;bottom:0;white-space:nowrap;
   font-family:'Martian Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--on-ground);background:var(--ground);
-  border-radius:999px;padding:8px 16px}
+  text-transform:uppercase;color:var(--on-ground);background:var(--ground);padding:9px 18px}
 @media(prefers-reduced-motion:no-preference){
   .about .pic .reel img{animation:reelfade 18s linear infinite}
   .about .pic .reel img:nth-of-type(2){animation-delay:6s}
@@ -318,6 +351,9 @@ footer .bar{margin-top:clamp(34px,4.4vw,58px);padding-top:22px;border-top:1px so
 
 /* ---------- responsive ---------- */
 @media(max-width:1080px){
+  .facts{grid-template-columns:repeat(2,1fr)}
+  .facts .col{min-width:0;border-bottom:1px solid var(--line-d)}
+  .facts .col:nth-child(2n){border-right:0}
   .plant{grid-template-columns:repeat(3,1fr)}
   .plant figure:nth-child(n+4){display:none}
   .about .in,.magnet .box{grid-template-columns:1fr}
@@ -329,6 +365,9 @@ footer .bar{margin-top:clamp(34px,4.4vw,58px);padding-top:22px;border-top:1px so
   footer .cols{grid-template-columns:1fr 1fr}
 }
 @media(max-width:720px){
+  .hero{min-height:0}
+  .facts{grid-template-columns:1fr}
+  .facts .col{border-right:0}
   .nlinks,.nright .pill{display:none}
   .burger{display:inline-flex}
   .hero h1{font-size:clamp(40px,14vw,64px);font-variation-settings:'wdth' 100}
@@ -361,43 +400,25 @@ footer .bar{margin-top:clamp(34px,4.4vw,58px);padding-top:22px;border-top:1px so
   </div>
 </header>
 
-<!-- ============ 2. HERO — STATEMENT + STANDOUT CTA ============ -->
+<!-- ============ 2. HERO — FULL-BLEED SITE + STANDOUT CTA ============ -->
 <section class="hero" id="top">
+  <div class="shot"><img src="assets/site-steel.jpg" alt="Quest crews setting structural steel on an active jobsite" loading="eager" decoding="async"></div>
   <div class="wrap">
-    <h1 class="rv is-in"><span>GROUND</span><span>BREAK</span></h1>
-    <p class="kick rv is-in" style="--d:.08s">Quest is a Phoenix&#8209;valley general contractor. Custom homes,
-      whole&#8209;home remodels and tenant improvements &mdash; one fixed bid, one project manager, and a
-      schedule we actually keep.</p>
-    <div class="cta rv is-in" style="--d:.14s">
+    <p class="eyebrow rv is-in">General contracting &mdash; Phoenix valley &mdash; ROC #000000</p>
+    <h1 class="rv is-in" style="--d:.04s"><span>GROUND</span><span>BREAK</span></h1>
+    <p class="kick rv is-in" style="--d:.1s">Custom homes, whole&#8209;home remodels and tenant
+      improvements. We self&#8209;perform concrete, framing and finish carpentry &mdash; one fixed bid,
+      one project manager, and a schedule we actually keep.</p>
+    <div class="cta rv is-in" style="--d:.16s">
       <a class="btn" href="#bid">Start a project
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
       <a class="btn line" href="#work">See the work</a>
     </div>
-    <div class="facts rv is-in" style="--d:.2s">
-      <div class="col">
-        <h4>Where we work</h4>
-        <p>Phoenix &amp; Scottsdale<br>Tempe &amp; Chandler<br>Paradise Valley</p>
-      </div>
-      <div class="col">
-        <h4>What you get</h4>
-        <p>One itemised fixed bid<br>One project manager<br>Weekly site walk</p>
-      </div>
-      <div class="col">
-        <h4>By the numbers</h4>
-        <p>340+ projects built<br>16 years in the valley<br>96% finished on schedule</p>
-      </div>
-    </div>
-    <div class="plant rv is-in" style="--d:.26s">
-      <figure><span class="fr"><img src="assets/earthworks.jpg" alt="Grading and site earthworks" loading="lazy"></span>
-        <figcaption><b>Excavation</b>Owned, not rented</figcaption></figure>
-      <figure><span class="fr"><img src="assets/rebar.jpg" alt="Reinforcing steel tied on deck" loading="lazy"></span>
-        <figcaption><b>Concrete</b>Self&#8209;performed</figcaption></figure>
-      <figure><span class="fr"><img src="assets/framing.jpg" alt="Framed walls and roof structure" loading="lazy"></span>
-        <figcaption><b>Framing</b>In&#8209;house crews</figcaption></figure>
-      <figure><span class="fr"><img src="assets/trade-weld.jpg" alt="Structural welding" loading="lazy"></span>
-        <figcaption><b>Steel</b>Certified welders</figcaption></figure>
-      <figure><span class="fr"><img src="assets/trade-electric.jpg" alt="Electrical rough-in" loading="lazy"></span>
-        <figcaption><b>Rough&#8209;in</b>Held to our dates</figcaption></figure>
+    <div class="facts rv is-in" style="--d:.22s">
+      <div class="col"><h4>Built since 2010</h4><b>340+</b><p>projects delivered</p></div>
+      <div class="col"><h4>On schedule</h4><b>96%</b><p>finished to the date we gave</p></div>
+      <div class="col"><h4>Self&#8209;performed</h4><p>Concrete<br>Framing<br>Finish carpentry</p></div>
+      <div class="col"><h4>Where we work</h4><p>Phoenix &amp; Scottsdale<br>Tempe &amp; Chandler<br>Paradise Valley</p></div>
     </div>
   </div>
   <div class="pad" aria-hidden="true">
@@ -423,6 +444,20 @@ footer .bar{margin-top:clamp(34px,4.4vw,58px);padding-top:22px;border-top:1px so
     <div class="creds">
       <span>AZ ROC Licensed</span><span>Bonded &amp; Insured</span><span>NAHB Member</span>
       <span>EPA Lead&#8209;Safe</span><span>OSHA 30 Crews</span>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="plant rv">
+      <figure><span class="fr"><img src="assets/earthworks.jpg" alt="Grading and site earthworks" loading="lazy"></span>
+        <figcaption><b>Excavation</b>Owned, not rented</figcaption></figure>
+      <figure><span class="fr"><img src="assets/rebar.jpg" alt="Reinforcing steel tied on deck" loading="lazy"></span>
+        <figcaption><b>Concrete</b>Self&#8209;performed</figcaption></figure>
+      <figure><span class="fr"><img src="assets/framing.jpg" alt="Framed walls and roof structure" loading="lazy"></span>
+        <figcaption><b>Framing</b>In&#8209;house crews</figcaption></figure>
+      <figure><span class="fr"><img src="assets/trade-weld.jpg" alt="Structural welding" loading="lazy"></span>
+        <figcaption><b>Steel</b>Certified welders</figcaption></figure>
+      <figure><span class="fr"><img src="assets/trade-electric.jpg" alt="Electrical rough-in" loading="lazy"></span>
+        <figcaption><b>Rough&#8209;in</b>Held to our dates</figcaption></figure>
     </div>
   </div>
 </section>
