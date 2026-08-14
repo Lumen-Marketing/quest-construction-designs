@@ -60,9 +60,8 @@ rather than blending several:
   several weights on a visible 12-column grid. Flush left, ragged right, hairline rules instead of
   boxes, no radius, no shadows. The accent is the only colour on the page. The hero is a **photo
   wall**: five jobsite photographs tiled with 2px gaps, the headline and the CTA occupying cells of
-  the same grid. It is **full bleed** — the wall runs to the viewport edges, and the nav bar and the
-  figures row are justified to those same two edges, so the wordmark stacks over the first figure
-  and the last link over the last one.
+  the same grid. It is **full bleed** — the wall and the figures row under it run to the viewport
+  edges, the row justified so it closes on both. The nav bar keeps the page gutter.
 - **05 Ground Break — bold colour field.** Deep excavated-earth green. **Full-bleed hero**: a
   jobsite fills the first screen with the wordmark knocked over it and the figures as a hard bar
   along the base — the figures bar is the last thing in the section, and the photograph runs
