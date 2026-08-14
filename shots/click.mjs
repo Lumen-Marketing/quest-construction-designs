@@ -4,13 +4,19 @@ import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
-const PORT = 9412;
+// random port + throwaway profile: a fixed port silently reattaches to a stale
+// Chrome from an earlier run and reports the OLD page's state
+const PORT = 9000 + Math.floor(Math.random() * 4000);
+const PROFILE = `${process.env.TEMP || '/tmp'}/cdp-${PORT}`;
 const DIR = 'C:/Users/tagal/quest-construction-designs';
 const target = process.argv[2] || 'palHivis';
 const out = process.argv[3] || `${DIR}/shots/click-hivis.png`;
 
 const chrome = spawn(CHROME, [
-  '--headless=new', '--disable-gpu', '--hide-scrollbars',
+  // file-access flag lets us read --acc from inside each preview iframe, which
+  // is the only real proof the swap landed rather than just the src changing
+  '--headless=new', '--disable-gpu', '--hide-scrollbars', '--allow-file-access-from-files',
+  `--user-data-dir=${PROFILE}`,
   `--remote-debugging-port=${PORT}`, '--window-size=1440,1400',
   `file:///${DIR}/index.html`,
 ], { stdio: 'ignore' });
@@ -48,18 +54,46 @@ function send(method, params = {}) {
 
 await send('Page.enable');
 await send('Runtime.enable');
-await sleep(4500); // let the three iframe previews load
+
+// wait for the gallery's own script to lay the deck out first — scrolling before
+// that means scrollHeight is still short and the lower cards never intersect
+await sleep(3000);
+
+// previews are lazy — scroll the whole deck so all seven iframes spawn
+await send('Runtime.evaluate', {
+  expression: `(async()=>{const h=document.body.scrollHeight;
+    for(let y=0;y<h;y+=600){window.scrollTo(0,y);await new Promise(r=>setTimeout(r,150));}
+    window.scrollTo(0,0);})()`,
+  awaitPromise: true,
+});
+await sleep(7000);
+
+const before = await send('Runtime.evaluate', {
+  expression: `document.querySelectorAll('.dcard iframe').length`, returnByValue: true,
+});
+console.log('previews loaded:', before.result?.result?.value);
 
 // click the dot exactly as a user would, then let the frames reload
 const clicked = await send('Runtime.evaluate', {
   expression: `(()=>{const b=document.getElementById(${JSON.stringify(target)});if(!b)return 'NO BUTTON';b.click();
-    return document.getElementById('palLabel').textContent+' | '+
-      [...document.querySelectorAll('.dcard iframe')].map(f=>f.getAttribute('src')).join(' , ');})()`,
+    return document.getElementById('palLabel').textContent;})()`,
   returnByValue: true,
 });
 console.log('CLICK ->', clicked.result?.result?.value);
 
-await sleep(5000);
+await sleep(8000);
+
+// the real check: what --acc is actually live inside each preview document
+const applied = await send('Runtime.evaluate', {
+  expression: `(()=>{try{return JSON.stringify([...document.querySelectorAll('.dcard')].map(c=>{
+      const f=c.querySelector('iframe'); if(!f) return c.querySelector('h2').textContent+': NO FRAME';
+      const d=f.contentDocument;
+      const acc=d?getComputedStyle(d.documentElement).getPropertyValue('--acc').trim():'?';
+      return c.querySelector('h2').textContent+': '+acc;
+    }),null,1);}catch(e){return 'ERROR: '+e.message}})()`,
+  returnByValue: true,
+});
+console.log('live --acc per preview ->', applied.result?.result?.value);
 const shot = await send('Page.captureScreenshot', { format: 'png' });
 fs.writeFileSync(out, Buffer.from(shot.result.data, 'base64'));
 console.log('wrote', out);

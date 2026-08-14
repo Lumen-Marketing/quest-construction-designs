@@ -1,19 +1,23 @@
 # Quest Construction — Design Directions
 
-Three homepage directions for **Quest Construction** (general contracting), built as
+Seven homepage directions for **Quest Construction** (general contracting), built as
 standalone mockups for review. Nothing here is wired to a live site.
 
 **Open `index.html`** — that is the chooser. Each card is a live, scaled iframe of the real page.
 
-## The three directions
+## The seven directions
 
 | # | File | Personality | Style |
 |---|------|-------------|-------|
 | 01 | `direction-1-site-plan.html` | **Site Plan** — layered, editorial. The safest bet. | Dimensional |
 | 02 | `direction-2-heavy-plant.html` | **Heavy Plant** — poster wordmark with the machine cutting through it. The risk. | Dimensional |
 | 03 | `direction-3-split-bay.html` | **Split Bay** — dark, split hero, cursor-driven photo reveals. | Brutalist |
+| 04 | `direction-4-soft-site.html` | **Soft Site** — warm off-white, blob-masked photography, rounded offer cards. | Organic |
+| 05 | `direction-5-ground-break.html` | **Ground Break** — deep green, one giant accent word, concentric pad arc. | Organic |
+| 06 | `direction-6-field-journal.html` | **Field Journal** — cream paper, optical serif, overlapping prints. | Organic |
+| 07 | `direction-7-bid-desk.html` | **Bid Desk** — clean white, estimate bar on an organic hero sweep. | Organic |
 
-## Two design languages
+## Three design languages
 
 The first pass made all three brutalist. That was wrong for 01 and 02 — brutalism is deliberately
 flat, which fought the layered depth the reference deck was built on. **01 and 02 were rebuilt;
@@ -43,9 +47,34 @@ diagonal bar motifs, and a cream hero that drops to dark sections and back.
 Flat by design — chamfered `clip-path` corners, no radius, hard 90° grid, grayscale photography,
 accent on whole surfaces only.
 
+### Organic (04–07)
+
+The second set. All four cut their photography into **organic shapes rather than rectangles**, and
+all four run the same section order — the standard high-converting homepage anatomy:
+
+> logo + simple nav → short headline with one stand-out CTA → social proof → about →
+> three key offers → lead magnet → content (selected work) → footer
+
+Same skeleton, four different skins, so a reviewer is comparing the *look* and not the layout.
+Each still reads as its own site: 04 is warm off-white and rounded, 05 is a deep green poster,
+06 is printed cream with an optical serif, 07 is clean white and conversion-shaped.
+
+**The blob discipline.** Organic shape is used as *structure*, never as decoration: it carries the
+photographs and the colour fields, while type and grid stay strict. Three techniques do all the
+work, no libraries and no images:
+
+1. Lopsided superellipses — `border-radius: 58% 42% 46% 54% / 44% 47% 53% 56%` — as photo masks.
+   Every photo on a page gets a **different** silhouette so the shapes never read as a repeated
+   motif. Because `border-radius` is animatable, a slow `morph` keyframe makes them breathe.
+2. One large accent blob per page as a ground plane, clipped by an `overflow:hidden` parent.
+3. Nested concentric blobs for 05's graded-pad arc.
+
+Deliberately avoided: pastel bubbles, gradient mush, and blobs floating loose behind text — all
+three are what make organic shapes read as amateur.
+
 ## Switching the accent
 
-The three dots in the gallery header change the accent on **all three designs at once, live**:
+The three dots in the gallery header change the accent on **all seven designs at once, live**:
 
 | Dot | Value | Text on accent |
 |-----|-------|----------------|
@@ -57,10 +86,12 @@ All three are **deliberately muted**. The first pass used fully saturated safety
 (`#FFC629`, `#FF7A1C`) which are punishing across a full-width hero band — these are desaturated
 and warmed toward earth tones instead.
 
-01 and 02 also carry a third token, `--acc-dim` — a darker shade used wherever the accent has to
-sit as *text on cream*, since even the muted tints fail contrast on a light background.
+01, 02 and 04–07 also carry a third token, `--acc-dim` — a darker shade used wherever the accent
+has to sit as *text on cream*, since even the muted tints fail contrast on a light background.
+05 needs a fourth, `--acc-lift`: a lightened tint, because the muted accents are far too dark to
+carry a 180px headline on its green ground (clay on green is only ~3:1).
 
-All three directions now share the same values, 03 included. Its layout is untouched; only its
+All seven directions share the same values, 03 included. Its layout is untouched; only its
 palette map was updated, so the colour dots do the same thing on every card.
 
 Each direction also reads the accent straight off its own URL, so
@@ -74,6 +105,9 @@ file **and** the three `data-acc` buttons in `index.html`.
 
 `assets/` holds 19 free Unsplash photos, self-hosted (never hotlinked). All were visually reviewed
 before use — one shot was discarded because a hard hat carried another firm's branding.
+
+**Do not use `assets/plans.jpg`.** It has the same problem: the subject's polo carries a visible
+"KRA" logo. It is unreferenced by every direction and should stay that way.
 
 **No stock video.** The "watch" plates in Direction 3 are stills with a play control, which is what
 the reference designs actually use. Pexels' video IDs are not guessable and every candidate that
@@ -95,9 +129,30 @@ result — useful because the accent swap is the one thing a static screenshot c
 cd shots && node click.mjs palHivis ./out.png    # palOrange | palClay | palHivis
 ```
 
-For plain page shots, headless Chrome is enough. Note that Chrome enforces a ~500px minimum window
-width, so `--window-size=390` will not give you a true phone viewport — render the page inside a
-390px-wide iframe instead.
+Three more CDP helpers, all taking a path relative to `shots/`:
+
+```bash
+node page.mjs    ../direction-4-soft-site.html ./d4.png 1440   # full-page shot, scrolls first
+node probe.mjs   ../direction-4-soft-site.html 1440            # fast layout check, no screenshot
+node inspect.mjs ../direction-7-bid-desk.html ".deskbar" 1440  # computed styles for one selector
+```
+
+`probe.mjs` is the one to reach for first: it lists broken images and **names every element
+sticking out past the viewport**, which is far quicker than eyeballing a screenshot for a page
+that scrolls sideways.
+
+Note that Chrome enforces a ~500px minimum window width, so `--window-size=390` will not give you
+a true phone viewport — render the page inside a 390px-wide iframe instead.
+
+### Two traps these scripts were bitten by
+
+- **Give every run a random port *and* its own `--user-data-dir`.** With a fixed port, a new
+  launch silently attaches to a leftover Chrome from an earlier run and screenshots the *old*
+  page. A layout bug that was already fixed kept "reproducing" for three rounds because of this.
+- **Do not animate `transform` for scroll reveals.** A `.rv.vis{transform:none}` rule wipes out
+  any transform the element needs for its own layout — it broke 07's `translateX(-50%)` estimate
+  bar and silently killed every card's hover lift. These pages animate the independent
+  `translate` property instead, which composes with `transform` rather than replacing it.
 
 
 ## Cutting out the machines
