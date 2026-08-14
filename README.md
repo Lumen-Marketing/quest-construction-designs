@@ -134,7 +134,9 @@ file **and** the three `data-acc` buttons in `index.html`.
 
 ## Assets
 
-`assets/` holds 19 free Unsplash photos, self-hosted (never hotlinked). All were visually reviewed
+`assets/` holds 19 free Unsplash photos, self-hosted (never hotlinked). 04, 05, 06 and 08 were
+reworked to lean on the jobsite half of that library — rebar, steel, welding, rough-in, earthworks —
+rather than the finished-interior half, which was reading soft for a general contractor. All were visually reviewed
 before use — one shot was discarded because a hard hat carried another firm's branding.
 
 **Do not use `assets/plans.jpg`.** It has the same problem: the subject's polo carries a visible
@@ -145,9 +147,17 @@ That is a different thing from a rival contractor's mark and it is what a real p
 like, but if Quest would rather not advertise a brand, both are replaceable — the matting script
 below turns any machine photo into a cut-out.
 
-**No stock video.** The "watch" plates in Direction 3 are stills with a play control, which is what
-the reference designs actually use. Pexels' video IDs are not guessable and every candidate that
-resolved turned out to be unrelated footage.
+**No stock video — the reels are stills.** Directions 04, 05, 06 and 08 each carry a *reel*: three
+photographs cross-dissolving on an 18-second loop behind a play control and a counter. They are
+placeholders that reserve the video slot and show what it will look like — **drop a real Quest clip
+in and the three `<img>` become one `<video>`; nothing else in the layout changes.** Direction 3's
+"watch" plates are the same idea, a still with a play control, which is what the reference designs
+actually use. Pexels' video IDs are not guessable and every candidate that resolved turned out to
+be unrelated footage, so no stock footage is committed here.
+
+Each reel is built in its own idiom rather than dropped in four times: a hairline chrome bar with a
+timecode in 04, an organic blob with a pulsing medallion in 05, a halftone parallelogram with a
+rotated plaque in 06, and a brass ziggurat frame with a Roman counter in 08.
 
 ## Placeholders to replace before this goes anywhere near production
 
@@ -205,6 +215,11 @@ a true phone viewport — render the page inside a 390px-wide iframe instead.
 - **A hide rule that also matches the thing you are showing wins on specificity.** 10's mobile nav
   hid `.nav .btn` and showed `.navtel` — but `.navtel` is also a `.btn`, so the hide rule
   outranked it and the phone button never appeared. It is `.nav .btn:not(.navtel)` now.
+- **Two classes beat one class plus an element.** 04's plate captions are `figcaption.cap`, and
+  `.hero .cap{display:block}` (0,2,0) outranked `.plates figcaption` (0,1,1) — every caption
+  collapsed to a single run until the rule became `.plates figcaption.cap`.
+- **A `<span>` is inline, so `overflow`, `aspect-ratio` and `border-radius` do nothing on it.**
+  05's plant tiles rendered as plain squares until the wrapper got `display:block`.
 - **Set `font-feature-settings:'tnum'` on the numbers, not on `body`.** Many faces make the comma
   and period tabular-width too, which opens a visible gap before every one. It made 04's copy read
   as "One bid . One manager ." until it was scoped to the tables and figures.
