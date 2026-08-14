@@ -145,21 +145,34 @@ h1,h2,h3{font-family:'Anybody','Chivo',sans-serif;font-weight:900;margin:0;line-
 .facts .col b{display:block;font-family:'Anybody',sans-serif;font-size:clamp(24px,2.4vw,34px);
   font-weight:800;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
 
-/* the graded-pad arc: concentric organic rings, cropped by the section */
-.pad{position:relative;z-index:2;margin-top:0;height:clamp(96px,13vw,180px);overflow:hidden}
-.pad .ring{position:absolute;left:50%;top:0;transform:translateX(-50%);
-  width:min(1180px,94vw);aspect-ratio:1/.72;
-  border-radius:50% 50% 44% 56% / 62% 62% 40% 40%;
-  background:var(--acc);box-shadow:0 -8px 40px rgba(0,0,0,.22)}
-.pad .ring.r2{width:min(880px,72vw);top:11%;filter:brightness(1.14)}
-.pad .ring.r3{width:min(580px,50vw);top:23%;filter:brightness(1.28)}
-.pad .ring.r4{width:min(300px,28vw);top:38%;background:var(--ground);filter:none}
-/* the stamp crosses several rings, so it carries its own ground rather than
-   relying on whatever colour happens to be behind it */
-.pad .stamp{position:absolute;left:50%;top:50%;transform:translate(-50%,0);z-index:3;white-space:nowrap;
-  font-family:'Martian Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--on-ground);
-  background:var(--ground);border-radius:999px;padding:9px 20px}
+/* the graded pad seen from above. It used to be three brightness-filtered
+   copies of the accent stacked inside 96px, which read as a rainbow: the
+   filters bleached the terracotta to peach, and 180px was not enough height
+   for any of the curves to register as curves. Now it is ONE solid field of
+   ground with the contours scribed into it as hard rules — the same 2px
+   border language the cards use — and an excavated cove at the centre that
+   the sequence line sits inside instead of a pill floating over the top. */
+.pad{position:relative;z-index:2;margin-top:0;height:clamp(184px,22vw,286px);overflow:hidden}
+/* Concentric rings centred in the page read as a rainbow, and filling the
+   innermost one turns the whole thing into a sunrise. So: one asymmetric mass
+   of graded earth instead, pushed left and run off the edge of the frame so
+   it is plainly a fragment of a bigger site rather than a symbol, with the
+   contours scribed across it and the sequence annotated on the open ground. */
+.pad .ring{position:absolute;left:20%;top:16%;transform:translateX(-50%);
+  width:min(1200px,88vw);aspect-ratio:1/.62;background:none;
+  border-radius:74% 32% 0 0 / 92% 54% 0 0}
+.pad .ring.r1{background:var(--acc);box-shadow:0 -12px 48px rgba(0,0,0,.32)}
+/* contours: scribed into the mass, not colour bands stacked on top of it */
+.pad .ring.r2{width:min(880px,64vw);top:29%;
+  border:2.5px solid color-mix(in oklab,var(--acc) 28%,var(--ground))}
+.pad .ring.r3{width:min(580px,42vw);top:42%;
+  border:2px solid color-mix(in oklab,var(--acc) 34%,var(--ground))}
+.pad .ring.r4{display:none}
+.pad .stamp{position:absolute;right:var(--m);bottom:clamp(26px,3.2vw,44px);z-index:3;
+  display:flex;align-items:center;gap:13px;white-space:nowrap;
+  font-family:'Martian Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--acc-lift)}
+.pad .stamp::before{content:"";flex:0 0 auto;width:36px;height:2px;background:var(--acc)}
 
 /* ---------- 2. SOCIAL PROOF ---------- */
 .proof{background:var(--paper);color:var(--ink);border-block:2px solid var(--ink)}
@@ -363,6 +376,13 @@ footer .bar{margin-top:clamp(34px,4.4vw,58px);padding-top:22px;border-top:1px so
   .ocard.shot{min-height:240px}
   .work{grid-template-columns:1fr 1fr}
   footer .cols{grid-template-columns:1fr 1fr}
+  /* pull the mass in as the frame narrows so the sequence keeps its own ground */
+  .pad{height:clamp(172px,23vw,240px)}
+  .pad .ring{left:12%;width:62vw}
+  .pad .ring.r2{width:46vw}
+  .pad .ring.r3{width:30vw}
+  .pad .stamp{font-size:9px;letter-spacing:.16em;gap:11px}
+  .pad .stamp::before{width:26px}
 }
 @media(max-width:720px){
   .hero{min-height:0}
@@ -373,7 +393,14 @@ footer .bar{margin-top:clamp(34px,4.4vw,58px);padding-top:22px;border-top:1px so
   .hero h1{font-size:clamp(40px,14vw,64px);font-variation-settings:'wdth' 100}
   .facts{gap:26px}
   .facts .col{flex:1 1 130px}
-  .pad{height:clamp(110px,34vw,160px)}
+  /* no ground left beside the mass on a phone, so the sequence moves above it */
+  .pad{height:clamp(170px,46vw,215px)}
+  .pad .ring{left:26%;width:120vw;top:34%}
+  .pad .ring.r2{width:88vw;top:44%}
+  .pad .ring.r3{width:58vw;top:54%}
+  .pad .stamp{left:var(--m);right:auto;top:clamp(14px,4vw,22px);bottom:auto;
+    font-size:8px;letter-spacing:.06em;gap:9px}
+  .pad .stamp::before{width:18px}
   .grid3,.work{grid-template-columns:1fr}
   .proof .in{flex-direction:column;align-items:flex-start;gap:14px}
   footer .cols{grid-template-columns:1fr}

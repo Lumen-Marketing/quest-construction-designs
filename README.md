@@ -63,7 +63,8 @@ rather than blending several:
   occupying cells of the same grid.
 - **05 Ground Break — bold colour field.** Deep excavated-earth green. **Full-bleed hero**: a
   jobsite fills the first screen with the wordmark knocked over it and the figures as a hard bar
-  along the base. The concentric organic arc still closes the section, now over the photograph.
+  along the base. A graded pad closes the section over the photograph — an asymmetric mass of earth
+  run off the left edge with the contours scribed across it, sequence annotated on the open ground.
 - **06 Red Iron — Constructivist / Bauhaus.** The hero is **the reel** — footage through the
   halftone screen, the accent wedge slashing over it, each headline word reversed onto its own
   black slab. Everything else on a diagonal: photographs cut as parallelograms, blocks rotated
