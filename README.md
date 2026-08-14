@@ -59,12 +59,14 @@ rather than blending several:
 - **04 Grid North — Swiss / International Typographic.** One typeface (Schibsted Grotesk) at
   several weights on a visible 12-column grid. Flush left, ragged right, hairline rules instead of
   boxes, no radius, no shadows. The accent is the only colour on the page. The hero is a **photo
-  wall**: five jobsite photographs tiled edge to edge with 2px gaps, the headline and the CTA
-  occupying cells of the same grid.
+  wall**: five jobsite photographs tiled with 2px gaps, the headline and the CTA occupying cells of
+  the same grid. It is **full bleed** — the wall runs to the viewport edges, and the nav bar and the
+  figures row are justified to those same two edges, so the wordmark stacks over the first figure
+  and the last link over the last one.
 - **05 Ground Break — bold colour field.** Deep excavated-earth green. **Full-bleed hero**: a
   jobsite fills the first screen with the wordmark knocked over it and the figures as a hard bar
-  along the base. A graded pad closes the section over the photograph — an asymmetric mass of earth
-  run off the left edge with the contours scribed across it, sequence annotated on the open ground.
+  along the base — the figures bar is the last thing in the section, and the photograph runs
+  straight into the cream below it with no decorative shape in between.
 - **06 Red Iron — Constructivist / Bauhaus.** The hero is **the reel** — footage through the
   halftone screen, the accent wedge slashing over it, each headline word reversed onto its own
   black slab. Everything else on a diagonal: photographs cut as parallelograms, blocks rotated

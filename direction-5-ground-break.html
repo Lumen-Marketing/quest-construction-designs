@@ -145,35 +145,6 @@ h1,h2,h3{font-family:'Anybody','Chivo',sans-serif;font-weight:900;margin:0;line-
 .facts .col b{display:block;font-family:'Anybody',sans-serif;font-size:clamp(24px,2.4vw,34px);
   font-weight:800;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
 
-/* the graded pad seen from above. It used to be three brightness-filtered
-   copies of the accent stacked inside 96px, which read as a rainbow: the
-   filters bleached the terracotta to peach, and 180px was not enough height
-   for any of the curves to register as curves. Now it is ONE solid field of
-   ground with the contours scribed into it as hard rules — the same 2px
-   border language the cards use — and an excavated cove at the centre that
-   the sequence line sits inside instead of a pill floating over the top. */
-.pad{position:relative;z-index:2;margin-top:0;height:clamp(184px,22vw,286px);overflow:hidden}
-/* Concentric rings centred in the page read as a rainbow, and filling the
-   innermost one turns the whole thing into a sunrise. So: one asymmetric mass
-   of graded earth instead, pushed left and run off the edge of the frame so
-   it is plainly a fragment of a bigger site rather than a symbol, with the
-   contours scribed across it and the sequence annotated on the open ground. */
-.pad .ring{position:absolute;left:20%;top:16%;transform:translateX(-50%);
-  width:min(1200px,88vw);aspect-ratio:1/.62;background:none;
-  border-radius:74% 32% 0 0 / 92% 54% 0 0}
-.pad .ring.r1{background:var(--acc);box-shadow:0 -12px 48px rgba(0,0,0,.32)}
-/* contours: scribed into the mass, not colour bands stacked on top of it */
-.pad .ring.r2{width:min(880px,64vw);top:29%;
-  border:2.5px solid color-mix(in oklab,var(--acc) 28%,var(--ground))}
-.pad .ring.r3{width:min(580px,42vw);top:42%;
-  border:2px solid color-mix(in oklab,var(--acc) 34%,var(--ground))}
-.pad .ring.r4{display:none}
-.pad .stamp{position:absolute;right:var(--m);bottom:clamp(26px,3.2vw,44px);z-index:3;
-  display:flex;align-items:center;gap:13px;white-space:nowrap;
-  font-family:'Martian Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--acc-lift)}
-.pad .stamp::before{content:"";flex:0 0 auto;width:36px;height:2px;background:var(--acc)}
-
 /* ---------- 2. SOCIAL PROOF ---------- */
 .proof{background:var(--paper);color:var(--ink);border-block:2px solid var(--ink)}
 .proof .in{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
@@ -376,13 +347,6 @@ footer .bar{margin-top:clamp(34px,4.4vw,58px);padding-top:22px;border-top:1px so
   .ocard.shot{min-height:240px}
   .work{grid-template-columns:1fr 1fr}
   footer .cols{grid-template-columns:1fr 1fr}
-  /* pull the mass in as the frame narrows so the sequence keeps its own ground */
-  .pad{height:clamp(172px,23vw,240px)}
-  .pad .ring{left:12%;width:62vw}
-  .pad .ring.r2{width:46vw}
-  .pad .ring.r3{width:30vw}
-  .pad .stamp{font-size:9px;letter-spacing:.16em;gap:11px}
-  .pad .stamp::before{width:26px}
 }
 @media(max-width:720px){
   .hero{min-height:0}
@@ -393,14 +357,6 @@ footer .bar{margin-top:clamp(34px,4.4vw,58px);padding-top:22px;border-top:1px so
   .hero h1{font-size:clamp(40px,14vw,64px);font-variation-settings:'wdth' 100}
   .facts{gap:26px}
   .facts .col{flex:1 1 130px}
-  /* no ground left beside the mass on a phone, so the sequence moves above it */
-  .pad{height:clamp(170px,46vw,215px)}
-  .pad .ring{left:26%;width:120vw;top:34%}
-  .pad .ring.r2{width:88vw;top:44%}
-  .pad .ring.r3{width:58vw;top:54%}
-  .pad .stamp{left:var(--m);right:auto;top:clamp(14px,4vw,22px);bottom:auto;
-    font-size:8px;letter-spacing:.06em;gap:9px}
-  .pad .stamp::before{width:18px}
   .grid3,.work{grid-template-columns:1fr}
   .proof .in{flex-direction:column;align-items:flex-start;gap:14px}
   footer .cols{grid-template-columns:1fr}
@@ -447,11 +403,6 @@ footer .bar{margin-top:clamp(34px,4.4vw,58px);padding-top:22px;border-top:1px so
       <div class="col"><h4>Self&#8209;performed</h4><p>Concrete<br>Framing<br>Finish carpentry</p></div>
       <div class="col"><h4>Where we work</h4><p>Phoenix &amp; Scottsdale<br>Tempe &amp; Chandler<br>Paradise Valley</p></div>
     </div>
-  </div>
-  <div class="pad" aria-hidden="true">
-    <span class="ring r1"></span><span class="ring r2"></span>
-    <span class="ring r3"></span><span class="ring r4"></span>
-    <span class="stamp">Excavate &middot; Form &middot; Pour &middot; Frame &middot; Finish</span>
   </div>
 </section>
 

@@ -70,6 +70,9 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.045em;line-height:.94}
 
 /* ---------- nav: a rule, a wordmark, numbered links ---------- */
 .nav{position:sticky;top:0;z-index:60;background:var(--bone);border-bottom:1px solid var(--rule)}
+/* the bar closes on the same two edges as the wall below it, so the wordmark
+   stacks over the first figure and the last link over the last one */
+.nav .wrap{max-width:none;padding-inline:0}
 .nav .in{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:62px}
 .brand{display:flex;align-items:baseline;gap:10px}
 .brand b{font-size:16px;font-weight:700;letter-spacing:-.05em}
@@ -92,6 +95,9 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.045em;line-height:.94}
      the headline occupying a cell of the same grid rather than floating above
      it. Nothing is centred and nothing is soft. ---------- */
 .hero{padding-top:0}
+/* the wall is the one full-bleed element on the page: it runs to the viewport
+   edges so the grid reads as a wall rather than a panel sitting on a margin */
+.hero .wrap{max-width:none;padding-inline:0}
 .wall{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:clamp(104px,12vw,178px);
   gap:2px;background:var(--rule-2)}
 .wall figure{margin:0}
@@ -128,10 +134,13 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.045em;line-height:.94}
 .w6{grid-column:4/7;grid-row:3/4}
 .w7{grid-column:7/10;grid-row:3/4}
 .w8{grid-column:10/13;grid-row:3/4}
+/* justified: the first figure sits on the left edge and the last one on the
+   right, so the row closes against the same two edges the wall does */
 .hero .strip{border-top:2px solid var(--rule-2);
   display:grid;grid-template-columns:repeat(6,1fr)}
-.hero .strip div{padding:18px 0 22px;border-right:1px solid var(--rule)}
-.hero .strip div:last-child{border-right:0}
+.hero .strip div{padding:18px clamp(14px,1.6vw,26px) 22px;border-right:1px solid var(--rule)}
+.hero .strip div:first-child{padding-left:0}
+.hero .strip div:last-child{padding-right:0;border-right:0;text-align:right}
 .hero .strip b{display:block;font-size:clamp(22px,2.4vw,38px);font-weight:700;letter-spacing:-.05em;line-height:1}
 .hero .strip span{display:block;margin-top:8px}
 
@@ -318,8 +327,12 @@ footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;border-top:1px so
   .w3,.w4,.w5,.w6,.w7,.w8{grid-column:auto;grid-row:auto}
   .wall .say{padding:22px 18px}
   .wall .say .cap{margin-bottom:14px}
+  /* two up, still closing on both edges: odd cells flush left, even flush right */
   .hero .strip{grid-template-columns:repeat(2,1fr)}
-  .hero .strip div{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding-inline:0 14px}
+  .hero .strip div{padding-inline:0 14px;
+    border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .hero .strip div:nth-child(even){padding-inline:14px 0;border-right:0;text-align:right}
+  .hero .strip div:nth-last-child(-n+2){border-bottom:0}
 
   .reel{aspect-ratio:16/10}
   .reel .bar{gap:10px;padding:10px 12px}
@@ -328,9 +341,6 @@ footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;border-top:1px so
 
   .nlinks{display:none}
   .burger{display:inline-flex}
-  .hero .strip{grid-template-columns:1fr 1fr}
-  .hero .strip div:nth-child(2){border-right:0}
-  .hero .strip div:nth-child(-n+2){border-bottom:1px solid var(--rule)}
   .magnet .contents{grid-template-columns:1fr}
   .proof td:first-child{width:auto}
   .index .hide{display:none}
