@@ -1,11 +1,11 @@
 # Quest Construction — Design Directions
 
-Nine homepage directions for **Quest Construction** (general contracting), built as
+Ten homepage directions for **Quest Construction** (general contracting), built as
 standalone mockups for review. Nothing here is wired to a live site.
 
 **Open `index.html`** — that is the chooser. Each card is a live, scaled iframe of the real page.
 
-## The nine directions
+## The ten directions
 
 | # | File | Personality | Style |
 |---|------|-------------|-------|
@@ -18,6 +18,7 @@ standalone mockups for review. Nothing here is wired to a live site.
 | 07 | `direction-7-bid-desk.html` | **Bid Desk** — clean white, estimate bar on an organic hero sweep. | Utility |
 | 08 | `direction-8-machine-age.html` | **Machine Age** — symmetrical, ziggurat frames, sunburst, brass on charcoal. | Art Deco |
 | 09 | `direction-9-site-notice.html` | **Site Notice** — stapled flyers, tape, xerox halftone, tear-off tabs. | Punk / xerox |
+| 10 | `direction-10-cross-cut.html` | **Cross Cut** — diagonal section slashes, cut-out plant, graphite and steel. | Industrial B2B |
 
 ## Design languages
 
@@ -49,7 +50,7 @@ diagonal bar motifs, and a cream hero that drops to dark sections and back.
 Flat by design — chamfered `clip-path` corners, no radius, hard 90° grid, grayscale photography,
 accent on whole surfaces only.
 
-### Named styles (04–09)
+### Named styles (04–10)
 
 The second set. **04 and 06 replace an earlier pair (Soft Site and Field Journal) that read too
 soft.** Each of these six takes one named style out of the graphic-design canon and commits to it
@@ -71,10 +72,17 @@ rather than blending several:
 - **09 Site Notice — punk / xerox cut-and-paste.** Everything is a thing stuck to a hoarding:
   flyers stapled at angles, tape strips, a rubber stamp, typewriter captions, photographs blown out
   on a bad photocopier. Body copy always sits on clean paper so it stays readable.
+- **10 Cross Cut — industrial B2B.** The house style of heavy-equipment and plant-hire firms:
+  every section boundary is a diagonal `clip-path` slash with an accent hairline riding it,
+  photography is full-bleed inside those slashes, and the machinery is a cut-out that breaks
+  *across* a cut rather than sitting in a frame. Graphite, steel and one accent.
+  Not to be confused with 06 — there the diagonal is the composition and the photography is
+  bone-and-black halftone; here the diagonal is the section transition and the page is glossy
+  and dark.
 
-## One skeleton, nine sets of furniture
+## One skeleton, ten sets of furniture
 
-04–09 all run the same section order — the standard high-converting homepage anatomy:
+04–10 all run the same section order — the standard high-converting homepage anatomy:
 
 > logo + simple nav → short headline with one stand-out CTA → social proof → about →
 > three key offers → lead magnet → content (selected work) → footer
@@ -84,20 +92,20 @@ same parts in every direction — a strip of pills, photo-beside-text, three car
 box with a rotated booklet, a row of work cards. Four different paint jobs on one page. That was
 the right criticism and this table is the fix:
 
-| Section | 04 Grid North | 05 Ground Break | 06 Red Iron | 07 Bid Desk | 08 Machine Age | 09 Site Notice |
-|---|---|---|---|---|---|---|
-| Social proof | Data table | Cream band of pills | Diagonal marquee | Floating pill cluster | Chevron-divided rail | Torn strip, `××` separated |
-| About | Full-bleed band, then 2 columns | Photo beside text | Angled photo, text overlapping | Photo cluster beside text | Symmetrical, ziggurat photo centred | Torn sheet + stapled photo |
-| Offers | Numbered **rows** | 3 chunky cards | Asymmetric mosaic | 3 spec cards | 3 ziggurat arches | 3 stapled flyers |
-| Lead magnet | Type-only accent band | Cream plate + booklet | Diagonal black band | Contents list, no booklet | Ornamental centred panel | A literal site notice with tear-off tabs |
-| Work | Index **table** | 4 cards in a row | Overlapping angled collage | 3 spec cards | Vertical stepped tiles | Photocopied contact sheet |
+| Section | 04 Grid North | 05 Ground Break | 06 Red Iron | 07 Bid Desk | 08 Machine Age | 09 Site Notice | 10 Cross Cut |
+|---|---|---|---|---|---|---|---|
+| Social proof | Data table | Cream band of pills | Diagonal marquee | Floating pill cluster | Chevron-divided rail | Torn strip, `××` separated | Wall of notched steel plates |
+| About | Full-bleed band, then 2 columns | Photo beside text | Angled photo, text overlapping | Photo cluster beside text | Symmetrical, ziggurat photo centred | Torn sheet + stapled photo | Slashed photo band, slab hung off its edge |
+| Offers | Numbered **rows** | 3 chunky cards | Asymmetric mosaic | 3 spec cards | 3 ziggurat arches | 3 stapled flyers | Chevron list beside a cut-out excavator |
+| Lead magnet | Type-only accent band | Cream plate + booklet | Diagonal black band | Contents list, no booklet | Ornamental centred panel | A literal site notice with tear-off tabs | Checklist card whose boxes tick on scroll |
+| Work | Index **table** | 4 cards in a row | Overlapping angled collage | 3 spec cards | Vertical stepped tiles | Photocopied contact sheet | Skewed filmstrip, panes expand on hover |
 
 If a new direction is added, fill in a new column here first. Anything that duplicates an existing
 cell should be redesigned before it ships.
 
 ## Switching the accent
 
-The three dots in the gallery header change the accent on **all nine designs at once, live**:
+The three dots in the gallery header change the accent on **all ten designs at once, live**:
 
 | Dot | Value | Text on accent |
 |-----|-------|----------------|
@@ -109,12 +117,12 @@ All three are **deliberately muted**. The first pass used fully saturated safety
 (`#FFC629`, `#FF7A1C`) which are punishing across a full-width hero band — these are desaturated
 and warmed toward earth tones instead.
 
-01, 02 and 04–09 also carry a third token, `--acc-dim` — a darker shade used wherever the accent
+01, 02 and 04–10 also carry a third token, `--acc-dim` — a darker shade used wherever the accent
 has to sit as *text on cream*, since even the muted tints fail contrast on a light background.
 05 needs a fourth, `--acc-lift`: a lightened tint, because the muted accents are far too dark to
 carry a 180px headline on its green ground (clay on green is only ~3:1).
 
-All nine directions share the same values, 03 included. Its layout is untouched; only its
+All ten directions share the same values, 03 included. Its layout is untouched; only its
 palette map was updated, so the colour dots do the same thing on every card.
 
 Each direction also reads the accent straight off its own URL, so
@@ -131,6 +139,11 @@ before use — one shot was discarded because a hard hat carried another firm's 
 
 **Do not use `assets/plans.jpg`.** It has the same problem: the subject's polo carries a visible
 "KRA" logo. It is unreferenced by every direction and should stay that way.
+
+The cut-outs do carry **equipment-manufacturer** badges (CAT on the excavator, Deere on the loader).
+That is a different thing from a rival contractor's mark and it is what a real plant photo looks
+like, but if Quest would rather not advertise a brand, both are replaceable — the matting script
+below turns any machine photo into a cut-out.
 
 **No stock video.** The "watch" plates in Direction 3 are stills with a play control, which is what
 the reference designs actually use. Pexels' video IDs are not guessable and every candidate that
@@ -186,6 +199,12 @@ a true phone viewport — render the page inside a 390px-wide iframe instead.
   wrapper.
 - **`h1 span{display:block}` is too broad** when a headline also contains inline highlight spans —
   in 09 it stretched a pasted-word patch across the full line. Use `h1>span`.
+- **`clip-path` clips paint, not scroll.** 10's accent hairlines are 106% wide so they run past
+  the diagonal edge; the sections clipped them visually but the document still scrolled 83px
+  sideways until those sections got `overflow:hidden` as well.
+- **A hide rule that also matches the thing you are showing wins on specificity.** 10's mobile nav
+  hid `.nav .btn` and showed `.navtel` — but `.navtel` is also a `.btn`, so the hide rule
+  outranked it and the phone button never appeared. It is `.nav .btn:not(.navtel)` now.
 - **Set `font-feature-settings:'tnum'` on the numbers, not on `body`.** Many faces make the comma
   and period tabular-width too, which opens a visible gap before every one. It made 04's copy read
   as "One bid . One manager ." until it was scoped to the tables and figures.
