@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quest Construction — Direction 6 / RED IRON</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=Big+Shoulders+Display:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DIRECTION 6 — "RED IRON"
+   Constructivist / Bauhaus. Everything is on a diagonal:
+   photographs are cut as parallelograms, blocks are rotated
+   against each other, and the type is heavy condensed slab-
+   grotesk stacked hard. Photography is printed as halftone
+   rather than shown straight. Bone, black, and the accent —
+   nothing else.
+
+   Anatomy order kept; furniture shared with no other
+   direction: a diagonal marquee for proof, an asymmetric
+   mosaic for offers, an overlapping angled collage for work.
+   ============================================================ */
+:root{
+  --acc:#A8543A;              /* swapped live by the gallery */
+  --on-acc:#ffffff;
+  --acc-dim:#7C3A24;
+
+  --bone:#EBE7DC;
+  --bone-2:#DED9CA;
+  --black:#121110;
+  --black-2:#1E1C19;
+  --ink-2:#4A473F;
+  --mute:#837F73;
+  --on-black:#EFECE2;
+
+  --m:clamp(16px,3.6vw,54px);
+  --maxw:1460px;
+  --eo:cubic-bezier(.2,.9,.3,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bone);color:var(--black);
+  font:400 16px/1.55 'Barlow','Helvetica Neue',Arial,sans-serif;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{margin:0;font-family:'Big Shoulders Display','Barlow Condensed',sans-serif;
+  font-weight:900;line-height:.82;letter-spacing:.005em;text-transform:uppercase}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--m)}
+.cnd{font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;font-size:12px}
+::selection{background:var(--acc);color:var(--on-acc)}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+
+/* ---------- the two constructivist devices ---------- */
+/* 1. photographs are cut on the diagonal, never rectangular */
+.cut-l{clip-path:polygon(0 0,100% 5%,100% 100%,0 95%)}
+.cut-r{clip-path:polygon(0 5%,100% 0,100% 95%,0 100%)}
+.cut-v{clip-path:polygon(8% 0,100% 0,92% 100%,0 100%)}
+/* 2. and printed as halftone, not shown straight */
+.ht{position:relative;overflow:hidden;background:var(--black)}
+.ht img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.28) brightness(1.04)}
+.ht::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(10,9,8,.82) 1.15px,transparent 1.25px);
+  background-size:4px 4px;mix-blend-mode:multiply;opacity:.62}
+.ht.tint img{filter:grayscale(1) contrast(1.3)}
+.ht.tint::before{content:"";position:absolute;inset:0;z-index:2;background:var(--acc);
+  mix-blend-mode:multiply;opacity:.72;pointer-events:none}
+
+.btn{display:inline-flex;align-items:center;gap:.6em;font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:14px;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--acc);color:var(--on-acc);padding:15px 26px;border:0;cursor:pointer;
+  clip-path:polygon(0 0,100% 0,calc(100% - 12px) 100%,0 100%);
+  transition:background-color .2s var(--eo),transform .2s var(--eo)}
+.btn:hover{background:var(--black);color:var(--on-black);transform:translate(-2px,-2px)}
+.btn svg{width:1.1em;height:1.1em}
+.btn.dark{background:var(--black);color:var(--on-black)}
+.btn.dark:hover{background:var(--acc);color:var(--on-acc)}
+.btn.line{background:transparent;color:var(--black);box-shadow:inset 0 0 0 2px var(--black)}
+.btn.line:hover{background:var(--black);color:var(--on-black)}
+
+/* ---------- nav: a heavy black bar ---------- */
+.nav{position:sticky;top:0;z-index:70;background:var(--black);color:var(--on-black)}
+.nav .in{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:64px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand .mk{width:30px;height:30px;background:var(--acc);
+  clip-path:polygon(0 0,100% 0,100% 72%,0 100%)}
+.brand b{font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:23px;
+  letter-spacing:.02em;text-transform:uppercase;line-height:1}
+.nlinks{display:flex;gap:clamp(14px,2.2vw,32px)}
+.nlinks a{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--on-black);opacity:.8;
+  transition:opacity .2s,color .2s}
+.nlinks a:hover{opacity:1;color:var(--acc)}
+.burger{display:none;width:38px;height:38px;border:2px solid var(--on-black);background:none;
+  align-items:center;justify-content:center;cursor:pointer}
+.burger span{display:block;width:15px;height:2px;background:var(--on-black);position:relative}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:15px;height:2px;background:var(--on-black)}
+.burger span::before{top:-5px}.burger span::after{top:5px}
+
+/* ---------- 1. HERO: diagonal split ---------- */
+.hero{position:relative;overflow:hidden;padding:clamp(30px,4.6vw,64px) 0 0}
+/* the big accent wedge that sets the whole page on an angle */
+/* the band is kept SHORT and high so it crosses the headline mass only — run
+   full height it sat under the body copy, which then failed contrast on it */
+.hero .wedge{position:absolute;z-index:0;background:var(--acc);
+  left:-6%;right:-6%;top:clamp(120px,17vw,250px);height:clamp(120px,15vw,210px);
+  transform:rotate(-6.5deg);opacity:.94}
+.hero .in{position:relative;z-index:2;display:grid;grid-template-columns:1.04fr .96fr;
+  gap:clamp(20px,3vw,52px);align-items:center}
+.hero .say .kicker{display:inline-block;background:var(--black);color:var(--on-black);
+  padding:8px 14px;transform:rotate(-2deg)}
+.hero h1{font-size:clamp(58px,12.4vw,168px);margin:clamp(16px,2.2vw,30px) 0 0}
+.hero h1 span{display:block}
+.hero h1 .a{margin-left:0}
+/* reversed onto a black slab: accent-on-accent was camouflage where the word
+   crosses the band, and accent text on black fails contrast on its own */
+.hero h1 .b{margin-left:.1em;color:var(--on-black);background:var(--black);
+  padding-inline:.12em .16em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.hero h1 .c{margin-left:.2em}
+.hero .say p{margin:clamp(20px,2.4vw,32px) 0 0;max-width:42ch;font-size:clamp(15px,1.2vw,17.5px);
+  color:var(--ink-2)}
+.hero .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(22px,2.6vw,34px)}
+.hero .plate{position:relative}
+.hero .plate .ht{aspect-ratio:1/1.16;transform:rotate(3deg)}
+.hero .plate .tag{position:absolute;left:-6%;bottom:9%;z-index:5;background:var(--black);
+  color:var(--on-black);padding:14px 18px;transform:rotate(-3.5deg)}
+.hero .plate .tag b{display:block;font-family:'Big Shoulders Display',sans-serif;font-weight:900;
+  font-size:34px;line-height:.86;color:var(--acc)}
+.hero .plate .tag span{display:block;margin-top:5px}
+
+/* ---------- 2. SOCIAL PROOF: a diagonal marquee ---------- */
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker{margin-top:clamp(34px,4.4vw,64px);background:var(--black);color:var(--on-black);
+  overflow:hidden;transform:rotate(-1.5deg) scale(1.045);position:relative;z-index:4}
+.ticker .t{display:flex;width:max-content;animation:slide 34s linear infinite}
+.ticker .t:hover{animation-play-state:paused}
+.ticker .t span{display:flex;align-items:center;gap:22px;padding:14px 22px;white-space:nowrap;
+  font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:.15em;
+  text-transform:uppercase}
+.ticker .t span i{font-style:normal;color:var(--acc);font-size:19px;line-height:1}
+.ticker .t span b{color:var(--acc)}
+
+/* ---------- 3. ABOUT: angled photo, text block overlapping ---------- */
+.about{padding:clamp(58px,7.4vw,112px) 0 clamp(48px,6vw,96px);position:relative}
+.about .in{position:relative;display:grid;grid-template-columns:1.1fr .9fr;align-items:center}
+.about .pic{grid-column:1;grid-row:1}
+.about .pic .ht{aspect-ratio:1/.78;transform:rotate(-2.2deg)}
+.about .say{grid-column:2;grid-row:1;position:relative;z-index:3;background:var(--black);
+  color:var(--on-black);padding:clamp(24px,3.4vw,52px);margin-left:clamp(-140px,-9vw,-40px);
+  transform:rotate(1.4deg);box-shadow:14px 14px 0 var(--acc)}
+.about .say .cnd{color:var(--acc)}
+.about h2{font-size:clamp(34px,5vw,72px);margin:14px 0 0}
+.about h2 em{font-style:normal;color:var(--acc)}
+.about .say p{margin:18px 0 0;color:#B9B4A6;font-size:15.5px;max-width:44ch}
+.about ol{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:0}
+.about ol li{display:flex;gap:14px;padding:14px 0;border-top:1px solid rgba(239,236,226,.2)}
+.about ol li:last-child{border-bottom:1px solid rgba(239,236,226,.2)}
+.about ol .n{font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:26px;
+  color:var(--acc);line-height:.9;flex:0 0 auto}
+.about ol h3{font-family:'Barlow',sans-serif;font-weight:700;font-size:16px;text-transform:none;
+  letter-spacing:-.01em;line-height:1.25}
+.about ol p{margin:5px 0 0;font-size:14px;color:#A29D90;max-width:46ch}
+.about .say .btn{margin-top:26px}
+
+/* ---------- 4. OFFERS: asymmetric mosaic ---------- */
+.offers{padding:clamp(48px,6vw,92px) 0;background:var(--bone-2);position:relative;overflow:hidden}
+.offers .bar{position:absolute;left:-8%;right:-8%;top:0;height:clamp(70px,9vw,130px);
+  background:var(--acc);transform:rotate(-3deg) translateY(-58%)}
+.offers .head{position:relative;z-index:2;display:flex;justify-content:space-between;
+  align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(24px,3vw,40px)}
+.offers h2{font-size:clamp(34px,5vw,70px)}
+.offers .head p{margin:0;max-width:36ch;font-size:15px;color:var(--ink-2)}
+.mosaic{position:relative;z-index:2;display:grid;grid-template-columns:1.18fr .82fr;
+  grid-template-rows:auto auto;gap:clamp(12px,1.6vw,22px)}
+.blk{position:relative;background:var(--black);color:var(--on-black);overflow:hidden;
+  transition:transform .3s var(--eo)}
+.blk:hover{transform:translate(-3px,-3px)}
+.blk .body{position:relative;z-index:3;padding:clamp(20px,2.4vw,34px)}
+.blk .n{font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:clamp(40px,5vw,74px);
+  line-height:.8;color:var(--acc)}
+.blk h3{font-size:clamp(26px,2.8vw,42px);margin:12px 0 10px}
+.blk p{margin:0;font-size:14.6px;color:#ABA69A;max-width:40ch}
+.blk ul{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:7px}
+.blk li{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:14px;letter-spacing:.1em;
+  text-transform:uppercase;display:flex;gap:10px}
+.blk li::before{content:"\25B6";color:var(--acc);font-size:9px;line-height:1.8}
+/* tall left block carries a halftone plate behind its type */
+.blk.tall{grid-row:1/3;display:flex;flex-direction:column;justify-content:flex-end;min-height:clamp(340px,44vw,560px)}
+.blk.tall .ht{position:absolute;inset:0;z-index:1}
+.blk.tall .ht::before{content:"";position:absolute;inset:0;z-index:3;
+  background:linear-gradient(200deg,rgba(18,17,16,.32),rgba(18,17,16,.94) 66%);mix-blend-mode:normal}
+.blk.pop{background:var(--acc);color:var(--on-acc)}
+.blk.pop .n{color:var(--black)}
+.blk.pop p{color:color-mix(in srgb,var(--on-acc) 84%,transparent)}
+.blk.pop li::before{color:var(--black)}
+.blk .go{position:absolute;right:clamp(18px,2vw,28px);top:clamp(18px,2vw,28px);z-index:4;
+  width:40px;height:40px;display:grid;place-items:center;background:var(--acc);color:var(--on-acc);
+  clip-path:polygon(0 0,100% 0,100% 74%,0 100%)}
+.blk.pop .go{background:var(--black);color:var(--on-black)}
+.blk .go svg{width:16px;height:16px}
+
+/* ---------- 5. LEAD MAGNET: a diagonal black band ---------- */
+.magnet{position:relative;background:var(--black);color:var(--on-black);
+  padding:clamp(56px,7vw,110px) 0;overflow:hidden;
+  clip-path:polygon(0 3.2vw,100% 0,100% calc(100% - 3.2vw),0 100%)}
+.magnet .slab{position:absolute;z-index:0;background:var(--acc);left:52%;top:-14%;
+  width:64%;height:130%;transform:rotate(13deg);opacity:.9}
+.magnet .in{position:relative;z-index:3;display:grid;grid-template-columns:1.08fr .92fr;
+  gap:clamp(26px,4vw,64px);align-items:center}
+.magnet .cnd{color:var(--acc)}
+.magnet h2{font-size:clamp(34px,5.2vw,76px);margin:14px 0 0;max-width:13ch}
+.magnet p{margin:18px 0 0;color:#ADA89B;max-width:44ch;font-size:15.5px}
+.magnet form{display:flex;gap:0;margin-top:28px;max-width:460px;flex-wrap:wrap}
+.magnet input{flex:1 1 220px;min-width:0;background:transparent;color:var(--on-black);
+  border:2px solid rgba(239,236,226,.35);border-right:0;padding:15px 18px;font:inherit;font-size:15px}
+.magnet input::placeholder{color:#7E7A6E}
+.magnet input:focus{outline:none;border-color:var(--acc)}
+.magnet .fine{margin-top:14px;font-size:12.5px;color:#7E7A6E}
+/* the guide as a rotated constructivist composition, not a book mockup */
+.plaque{position:relative;z-index:3;justify-self:center;width:min(340px,92%);aspect-ratio:1/1.2;
+  background:var(--bone);color:var(--black);transform:rotate(-5deg);
+  box-shadow:16px 16px 0 var(--black-2);padding:26px;display:flex;flex-direction:column;
+  transition:transform .4s var(--eo)}
+.magnet:hover .plaque{transform:rotate(-2deg) translateY(-6px)}
+.plaque .bar1{position:absolute;left:0;right:0;top:0;height:14px;background:var(--acc)}
+.plaque .tri{position:absolute;right:0;bottom:0;width:0;height:0;
+  border-left:96px solid transparent;border-bottom:96px solid var(--acc)}
+.plaque h4{font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:44px;
+  line-height:.82;text-transform:uppercase;margin:20px 0 0}
+.plaque h4 em{font-style:normal;color:var(--acc-dim)}
+.plaque .rules{margin-top:auto;display:grid;gap:8px;position:relative;z-index:2}
+.plaque .rules i{display:block;height:6px;background:var(--black)}
+.plaque .rules i:nth-child(2){width:74%}
+.plaque .rules i:nth-child(3){width:48%;background:var(--acc)}
+
+/* ---------- 6. CONTENT: overlapping angled collage ---------- */
+.content{padding:clamp(56px,7vw,104px) 0}
+.content .head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;
+  flex-wrap:wrap;margin-bottom:clamp(26px,3.2vw,46px)}
+.content h2{font-size:clamp(34px,5vw,70px)}
+.collage{position:relative;display:grid;grid-template-columns:repeat(12,1fr);
+  grid-auto-rows:clamp(58px,7vw,104px)}
+.pc{position:relative;overflow:hidden;transition:transform .35s var(--eo),z-index 0s}
+.pc .ht{position:absolute;inset:0}
+.pc figcaption{position:absolute;left:0;bottom:0;z-index:4;background:var(--black);
+  color:var(--on-black);padding:11px 15px;max-width:88%}
+.pc figcaption b{display:block;font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+  font-size:20px;text-transform:uppercase;line-height:1}
+.pc figcaption span{display:block;margin-top:4px;font-family:'Barlow Condensed',sans-serif;
+  font-weight:600;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:#9E9A8E}
+.pc:hover{transform:scale(1.03) rotate(0deg);z-index:9}
+.pc.a{grid-column:1/7;grid-row:1/5;transform:rotate(-2deg);z-index:3}
+.pc.b{grid-column:6/11;grid-row:2/6;transform:rotate(2.4deg);z-index:5}
+.pc.c{grid-column:2/6;grid-row:5/9;transform:rotate(2deg);z-index:6}
+.pc.d{grid-column:6/13;grid-row:6/10;transform:rotate(-1.6deg);z-index:4}
+.content .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;
+  flex-wrap:wrap;margin-top:clamp(30px,3.6vw,52px);padding-top:20px;border-top:3px solid var(--black)}
+
+/* ---------- footer ---------- */
+footer{background:var(--black);color:var(--on-black);padding:clamp(44px,5.4vw,78px) 0 26px;
+  position:relative;overflow:hidden}
+footer .slab{position:absolute;left:-8%;right:-8%;bottom:-14%;height:clamp(90px,11vw,160px);
+  background:var(--acc);transform:rotate(-4deg);opacity:.9}
+footer .in{position:relative;z-index:2}
+footer .big{font-family:'Big Shoulders Display',sans-serif;font-weight:900;
+  font-size:clamp(46px,10vw,140px);line-height:.82;text-transform:uppercase;margin:0 0 clamp(26px,3vw,44px)}
+footer .big em{font-style:normal;color:var(--acc)}
+footer .cols{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:clamp(22px,3vw,44px)}
+footer .lead{margin:14px 0 0;color:#9E9A8E;max-width:32ch;font-size:14.5px}
+footer h5{margin:0 0 14px;color:var(--acc)}
+footer nav{display:grid;gap:9px}
+footer nav a{font-size:14.5px;color:#C7C2B5;transition:color .2s}
+footer nav a:hover{color:var(--acc)}
+footer .bar{margin-top:clamp(30px,3.6vw,52px);padding-top:18px;
+  border-top:1px solid rgba(239,236,226,.2);display:flex;justify-content:space-between;
+  gap:14px;flex-wrap:wrap;color:#9E9A8E}
+
+/* ---------- reveal ---------- */
+@media(prefers-reduced-motion:no-preference){
+  .rv{opacity:0;translate:0 22px}
+  .rv.is-in{opacity:1;translate:none;transition:opacity .7s var(--eo),translate .7s var(--eo);
+    transition-delay:var(--d,0s)}
+}
+
+/* ---------- responsive ---------- */
+@media(max-width:1080px){
+  .hero .in,.magnet .in{grid-template-columns:1fr}
+  .hero .plate{max-width:440px;margin-top:26px}
+  .about .in{grid-template-columns:1fr}
+  .about .pic{grid-row:1}
+  .about .say{grid-column:1;grid-row:2;margin-left:0;margin-top:-46px;
+    margin-inline:clamp(0px,3vw,34px)}
+  .mosaic{grid-template-columns:1fr}
+  .blk.tall{grid-row:auto;min-height:clamp(300px,58vw,420px)}
+  .magnet .plaque{order:-1;width:min(280px,74%)}
+  .magnet .slab{left:40%;width:90%}
+  footer .cols{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+  .nlinks{display:none}
+  .burger{display:inline-flex}
+  .hero h1{font-size:clamp(46px,15vw,74px)}
+  .hero .wedge{top:clamp(120px,42vw,240px);height:clamp(150px,44vw,240px);transform:rotate(-9deg)}
+  .collage{grid-auto-rows:clamp(46px,13vw,80px)}
+  .pc.a{grid-column:1/10;grid-row:1/5}
+  .pc.b{grid-column:4/13;grid-row:5/9}
+  .pc.c{grid-column:1/10;grid-row:9/13}
+  .pc.d{grid-column:4/13;grid-row:13/17}
+  footer .cols{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ============ 1. LOGO + SIMPLE NAVIGATION ============ -->
+<header class="nav">
+  <div class="wrap in">
+    <a class="brand" href="#top"><span class="mk" aria-hidden="true"></span><b>Quest</b></a>
+    <nav class="nlinks">
+      <a href="#about">About</a><a href="#services">Services</a><a href="#work">Work</a>
+      <a href="#guide">Cost Guide</a>
+    </nav>
+    <a class="btn" href="#bid">Get a bid</a>
+    <button class="burger" type="button" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<!-- ============ 2. HERO — STATEMENT + STANDOUT CTA ============ -->
+<section class="hero" id="top">
+  <span class="wedge" aria-hidden="true"></span>
+  <div class="wrap">
+    <div class="in">
+      <div class="say rv is-in">
+        <span class="kicker cnd">Phoenix valley &middot; ROC #000000</span>
+        <h1><span class="a">We</span><span class="b">pour</span><span class="c">first</span></h1>
+        <p>Quest self&#8209;performs concrete, framing and finish carpentry &mdash; the three trades that
+          decide your dates. One fixed bid, one project manager, and a schedule that is ours to keep
+          rather than a sub's to miss.</p>
+        <div class="acts">
+          <a class="btn dark" href="#bid">Request a bid
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+          <a class="btn line" href="#work">See the work</a>
+        </div>
+      </div>
+      <div class="plate rv is-in" style="--d:.1s">
+        <div class="ht cut-r"><img src="assets/rebar.jpg" alt="Quest crews tying rebar columns on an active structure" loading="eager"></div>
+        <div class="tag"><b>340</b><span class="cnd">Built since 2010</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 3. SOCIAL PROOF — diagonal marquee ============ -->
+  <div class="ticker" aria-label="Credentials">
+    <div class="t" id="tick"></div>
+  </div>
+</section>
+
+<!-- ============ 4. ABOUT ============ -->
+<section class="about" id="about">
+  <div class="wrap in">
+    <div class="pic rv">
+      <div class="ht tint cut-l"><img src="assets/crew-slab.jpg" alt="A Quest crew walking a finished post-tension slab" loading="lazy"></div>
+    </div>
+    <div class="say rv" style="--d:.08s">
+      <span class="cnd">Who you are hiring</span>
+      <h2>The crew is <em>ours</em></h2>
+      <p>Almost nothing goes wrong on a build because someone cut a stud short. It goes wrong in the
+        three weeks nobody answered a question. We are organised against exactly that.</p>
+      <ol>
+        <li><span class="n">01</span><div><h3>One fixed bid, itemised line by line</h3>
+          <p>Allowances are labelled allowances. You see the number before you sign, not after demo.</p></div></li>
+        <li><span class="n">02</span><div><h3>One manager, walkthrough to punch list</h3>
+          <p>The person who walked your site runs it. Their mobile is written into the contract.</p></div></li>
+        <li><span class="n">03</span><div><h3>A written schedule every Friday</h3>
+          <p>What happened, what is next, and any date that moved &mdash; before you have to ask.</p></div></li>
+      </ol>
+      <a class="btn" href="#bid">Book a walkthrough
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. KEY OFFERS — asymmetric mosaic ============ -->
+<section class="offers" id="services">
+  <span class="bar" aria-hidden="true"></span>
+  <div class="wrap">
+    <div class="head rv">
+      <div>
+        <span class="cnd">What we build</span>
+        <h2>Three ways we work</h2>
+      </div>
+      <p>Same process at every scale &mdash; scope, fixed bid, written schedule, weekly walk. Only the
+        size of the pour changes.</p>
+    </div>
+    <div class="mosaic">
+      <article class="blk tall rv">
+        <div class="ht"><img src="assets/home-dusk.jpg" alt="Completed custom desert home at dusk" loading="lazy"></div>
+        <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <div class="body">
+          <span class="n">01</span>
+          <h3>Custom homes</h3>
+          <p>Ground&#8209;up residential built to the architect's set, from grading through final
+            walkthrough, on your lot or one we help you find.</p>
+          <ul><li>Design&ndash;build or plan&#8209;and&#8209;spec</li><li>10&#8209;month typical build</li></ul>
+        </div>
+      </article>
+      <article class="blk pop rv" style="--d:.07s">
+        <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <div class="body">
+          <span class="n">02</span>
+          <h3>Whole&#8209;home remodels</h3>
+          <p>Kitchens, primary suites, additions and full gut renovations, phased so you can stay in
+            the house wherever the scope allows.</p>
+          <ul><li>Most requested</li><li>12&ndash;20 weeks</li><li>Selections support</li></ul>
+        </div>
+      </article>
+      <article class="blk rv" style="--d:.14s">
+        <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        <div class="body">
+          <span class="n">03</span>
+          <h3>Tenant improvement</h3>
+          <p>Office, retail and light industrial fit&#8209;outs delivered around your opening date.</p>
+          <ul><li>After&#8209;hours phasing</li><li>6&ndash;14 weeks</li></ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. LEAD MAGNET — diagonal band ============ -->
+<section class="magnet" id="guide">
+  <span class="slab" aria-hidden="true"></span>
+  <div class="wrap in">
+    <div class="txt rv">
+      <span class="cnd">Free &mdash; 22 pages</span>
+      <h2>Know the number first</h2>
+      <p>Real line items from jobs we finished this year: per&#8209;square&#8209;foot ranges by scope, the
+        twelve questions worth asking any contractor before you sign, and the four things that blow
+        up a budget after demo day.</p>
+      <form onsubmit="return false">
+        <input type="email" placeholder="you@email.com" aria-label="Email address" required>
+        <button class="btn" type="submit">Send it
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+      </form>
+      <p class="fine">No sales call unless you ask for one. Unsubscribe in one click.</p>
+    </div>
+    <div class="plaque rv" style="--d:.08s" aria-hidden="true">
+      <span class="bar1"></span>
+      <span class="cnd" style="color:var(--mute)">Quest &middot; 2026</span>
+      <h4>Phoenix<br><em>Build Cost</em><br>Guide</h4>
+      <span class="rules"><i></i><i></i><i></i></span>
+      <span class="tri"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. CONTENT — angled collage ============ -->
+<section class="content" id="work">
+  <div class="wrap">
+    <div class="head rv">
+      <div>
+        <span class="cnd">Selected work</span>
+        <h2>Recently finished</h2>
+      </div>
+      <a class="btn line" href="#">All 340 projects</a>
+    </div>
+    <div class="collage rv" style="--d:.06s">
+      <figure class="pc a">
+        <div class="ht"><img src="assets/home-dusk.jpg" alt="Completed modern desert residence at dusk" loading="lazy"></div>
+        <figcaption><b>Camelback Residence</b><span>New build &middot; 4,200 sq ft &middot; 2025</span></figcaption>
+      </figure>
+      <figure class="pc b">
+        <div class="ht tint"><img src="assets/earthworks.jpg" alt="Excavators grading a site" loading="lazy"></div>
+        <figcaption><b>Ocotillo Grading</b><span>Site work &middot; 6.4 acres &middot; 2024</span></figcaption>
+      </figure>
+      <figure class="pc c">
+        <div class="ht"><img src="assets/kitchen.jpg" alt="Completed contemporary kitchen remodel" loading="lazy"></div>
+        <figcaption><b>Willo Kitchen</b><span>Remodel &middot; 640 sq ft &middot; 2025</span></figcaption>
+      </figure>
+      <figure class="pc d">
+        <div class="ht"><img src="assets/facade.jpg" alt="Facade detail on a completed commercial building" loading="lazy"></div>
+        <figcaption><b>Rio Salado Offices</b><span>Tenant improvement &middot; 11,000 sq ft &middot; 2024</span></figcaption>
+      </figure>
+    </div>
+    <div class="foot">
+      <span class="cnd">Four of three hundred and forty</span>
+      <a class="btn dark" href="#bid">Start a project
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. FOOTER ============ -->
+<footer id="bid">
+  <span class="slab" aria-hidden="true"></span>
+  <div class="wrap in">
+    <p class="big">Build it <em>once</em></p>
+    <div class="cols">
+      <div>
+        <a class="brand" href="#top"><span class="mk" aria-hidden="true"></span><b>Quest Construction</b></a>
+        <p class="lead">General contracting across the Phoenix valley since 2010.
+          Licensed, bonded and insured &mdash; ROC #000000.</p>
+      </div>
+      <div><h5 class="cnd">Company</h5><nav><a href="#about">About</a><a href="#work">Work</a><a href="#">Careers</a><a href="#">Safety record</a></nav></div>
+      <div><h5 class="cnd">Services</h5><nav><a href="#services">Custom homes</a><a href="#services">Remodels</a><a href="#services">Tenant improvement</a><a href="#">Design&ndash;build</a></nav></div>
+      <div><h5 class="cnd">Contact</h5><nav><a href="tel:+14805550100">(480) 555&mdash;0100</a><a href="mailto:build@questconstruction.com">build@questconstruction.com</a><a href="#">Request a bid</a></nav></div>
+    </div>
+    <div class="bar">
+      <span class="cnd">&copy; 2026 Quest Construction LLC &middot; ROC #000000</span>
+      <span class="cnd">Direction 06 &#47; Red Iron &mdash; rev 1.0</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* accent swap — URL param on load + live postMessage from the gallery. */
+(function(){
+  var P={
+    orange:['#D07C42','#1C1208','#9A4E1E'],
+    clay:  ['#A8543A','#ffffff','#7C3A24'],
+    hivis: ['#D9A93C','#191307','#8A6712']
+  };
+  function set(k){var p=P[k];if(!p)return;var s=document.documentElement.style;
+    s.setProperty('--acc',p[0]);s.setProperty('--on-acc',p[1]);s.setProperty('--acc-dim',p[2]);}
+  var q=new URLSearchParams(location.search).get('acc'); if(q) set(q);
+  addEventListener('message',function(e){ if(e.data&&e.data.acc) set(e.data.acc); });
+})();
+
+/* the marquee needs its content twice so the -50% loop is seamless */
+(function(){
+  var items=[['340','Projects delivered'],['16','Years in the valley'],['96%','Finished on schedule'],
+             ['4.9','From 87 reviews'],['12','OSHA 30 crews'],['✓','AZ ROC licensed, bonded &amp; insured']];
+  var half=items.map(function(i){return '<span><i>'+i[0]+'</i><b>&mdash;</b>'+i[1]+'</span>';}).join('');
+  document.getElementById('tick').innerHTML=half+half;
+})();
+
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add("is-in")});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){
+    if(en.isIntersecting){en.target.classList.add("is-in");io.unobserve(en.target)}})},
+    {threshold:.06,rootMargin:'0px 0px -5% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>

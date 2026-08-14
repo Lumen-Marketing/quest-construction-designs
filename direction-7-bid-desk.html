@@ -225,38 +225,39 @@ h1,h2,h3{font-family:'Instrument Sans',sans-serif;font-weight:600;margin:0;line-
   letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
 .ocard .meta div p{margin:5px 0 0;font-size:13.4px;font-weight:600;color:var(--ink)}
 
-/* ---------- 5. LEAD MAGNET ---------- */
+/* ---------- 5. LEAD MAGNET ----------
+   Deliberately NOT the dark box with a rotated booklet that 05 uses. This one
+   stays on the light ground and behaves like the rest of 07: a bordered utility
+   card, form on the left, an itemised table of contents on the right. */
 .magnet{padding:clamp(52px,7vw,102px) 0}
-.magnet .box{position:relative;display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(28px,4vw,66px);
-  align-items:center;background:var(--dark);color:var(--on-dark);border-radius:var(--r-lg);
-  padding:clamp(28px,4.2vw,66px);overflow:hidden}
-.magnet .box .plane{position:absolute;width:min(620px,64%);aspect-ratio:1;right:-15%;top:-32%;
-  background:var(--acc);opacity:.46;border-radius:58% 42% 48% 52% / 46% 50% 50% 54%;
-  animation:morph 24s ease-in-out infinite}
-.magnet .txt{position:relative;z-index:2}
-.magnet .mono{color:var(--acc)}
-.magnet h2{font-size:clamp(29px,3.8vw,50px);margin:14px 0 0;max-width:16ch}
-.magnet p{margin:18px 0 0;color:var(--on-dark-2);max-width:46ch;font-size:15.8px}
+.magnet .box{display:grid;grid-template-columns:1.02fr .98fr;background:var(--bg);
+  border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh)}
+.magnet .txt{padding:clamp(26px,3.6vw,54px);border-right:1px solid var(--line)}
+.magnet .mono{color:var(--acc-dim)}
+.magnet h2{font-size:clamp(28px,3.6vw,46px);margin:14px 0 0;max-width:15ch}
+.magnet p{margin:18px 0 0;color:var(--ink-2);max-width:44ch;font-size:15.6px}
 .magnet .form{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
-.magnet input{flex:1 1 230px;min-width:0;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);
-  color:var(--on-dark);border-radius:999px;padding:15px 22px;font:inherit;font-size:15px}
-.magnet input::placeholder{color:var(--on-dark-2)}
-.magnet input:focus{outline:none;border-color:var(--acc);background:rgba(255,255,255,.11)}
-.magnet .fine{margin-top:14px;font-size:12.5px;color:var(--on-dark-2);opacity:.85}
-/* the guide, drawn in CSS */
-.guide{position:relative;z-index:2;justify-self:center;width:min(280px,80%);aspect-ratio:1/1.32;
-  background:var(--bg);border-radius:6px 18px 18px 6px;padding:26px 24px;display:flex;flex-direction:column;
-  transform:rotate(-4deg);box-shadow:0 42px 78px rgba(0,0,0,.5);transition:transform .6s var(--eo)}
-.magnet .box:hover .guide{transform:rotate(-1deg) translateY(-6px)}
-.guide::before{content:"";position:absolute;left:0;top:0;bottom:0;width:11px;background:var(--acc);
-  border-radius:6px 0 0 6px}
-.guide .g-lbl{margin-left:6px}
-.guide h4{font-size:25px;font-weight:700;line-height:1.02;letter-spacing:-.045em;margin:12px 0 0 6px;color:var(--ink)}
-.guide .bl{margin:20px 0 0 6px;width:72px;height:72px;background:var(--acc);
-  border-radius:44% 56% 60% 40% / 55% 42% 58% 45%;animation:morph 18s ease-in-out infinite}
-.guide .lines{margin:auto 0 0 6px;display:grid;gap:7px}
-.guide .lines i{display:block;height:5px;background:var(--bg-3);border-radius:99px}
-.guide .lines i:nth-child(2){width:80%}.guide .lines i:nth-child(3){width:58%}
+.magnet input{flex:1 1 230px;min-width:0;background:var(--bg-2);border:1px solid var(--line);
+  color:var(--ink);border-radius:999px;padding:15px 22px;font:inherit;font-size:15px}
+.magnet input::placeholder{color:var(--mute)}
+.magnet input:focus{outline:none;border-color:var(--ink);background:var(--bg)}
+.magnet .fine{margin-top:14px;font-size:12.5px;color:var(--mute)}
+/* contents, as a spec list rather than a picture of a booklet */
+.toc{background:var(--bg-2);padding:clamp(24px,3.2vw,46px)}
+.toc h3{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mute);margin:0 0 6px;font-family:'IBM Plex Mono',monospace}
+.toc ol{list-style:none;margin:0;padding:0}
+.toc li{display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--line)}
+.toc li:last-child{border-bottom:0;padding-bottom:0}
+.toc li .n{flex:0 0 auto;width:30px;height:30px;border-radius:999px;background:var(--acc);
+  color:var(--on-acc);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;
+  font-size:11px;font-weight:600}
+.toc li b{display:block;font-size:15.5px;font-weight:600;letter-spacing:-.02em}
+.toc li span{display:block;margin-top:5px;font-size:13.8px;color:var(--ink-2)}
+.toc .foot{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mute)}
 
 /* ---------- 6. CONTENT ---------- */
 .content{padding:0 0 clamp(52px,7vw,100px)}
@@ -319,7 +320,7 @@ footer .bar{margin-top:clamp(34px,4.4vw,58px);padding-top:22px;border-top:1px so
   .about .in,.magnet .box{grid-template-columns:1fr}
   .cluster{max-width:470px}
   .grid3,.work{grid-template-columns:1fr 1fr}
-  .magnet .guide{order:-1;width:min(230px,60%)}
+  .magnet .txt{border-right:0;border-bottom:1px solid var(--line)}
   .deskbar{grid-template-columns:repeat(2,1fr)}
   .deskbar .go{grid-column:1/-1;padding-block:15px}
   .deskbar .f:nth-child(2n){border-right:0}
@@ -522,13 +523,11 @@ footer .bar{margin-top:clamp(34px,4.4vw,58px);padding-top:22px;border-top:1px so
 <section class="magnet" id="guide">
   <div class="wrap">
     <div class="box rv">
-      <span class="plane" aria-hidden="true"></span>
       <div class="txt">
         <span class="mono">Free download &mdash; 22 pages</span>
         <h2>Know the number before you sign anything.</h2>
-        <p>Real line items from jobs we finished this year: per&#8209;square&#8209;foot ranges by scope, the
-          twelve questions worth asking any contractor before you sign, and the four things that blow
-          up a budget after demo day.</p>
+        <p>Real line items from jobs we finished this year, sent straight to your inbox as a PDF.
+          No gate beyond an email address.</p>
         <form class="form" onsubmit="return false">
           <input type="email" placeholder="you@email.com" aria-label="Email address" required>
           <button class="btn acc" type="submit">Send the guide
@@ -536,11 +535,17 @@ footer .bar{margin-top:clamp(34px,4.4vw,58px);padding-top:22px;border-top:1px so
         </form>
         <p class="fine">No sales call unless you ask for one. Unsubscribe in one click.</p>
       </div>
-      <div class="guide" aria-hidden="true">
-        <span class="mono g-lbl">Quest &middot; 2026</span>
-        <h4>The Phoenix Build Cost Guide</h4>
-        <span class="bl"></span>
-        <span class="lines"><i></i><i></i><i></i></span>
+      <div class="toc">
+        <h3>What is inside</h3>
+        <ol>
+          <li><span class="n">01</span><div><b>Per&#8209;square&#8209;foot ranges by scope</b>
+            <span>Taken from this year's closed jobs, split by kitchen, primary suite, addition and whole&#8209;home.</span></div></li>
+          <li><span class="n">02</span><div><b>Twelve questions to ask before you sign</b>
+            <span>The ones that separate a fixed bid from a number that moves after demo.</span></div></li>
+          <li><span class="n">03</span><div><b>Four things that blow up a budget</b>
+            <span>What we actually find behind the drywall, and roughly what each one costs to put right.</span></div></li>
+        </ol>
+        <div class="foot"><span>22 pages &middot; PDF</span><span>Updated Jan 2026</span></div>
       </div>
     </div>
   </div>

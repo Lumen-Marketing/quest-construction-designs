@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quest Construction — Direction 4 / GRID NORTH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DIRECTION 4 — "GRID NORTH"
+   Swiss / International Typographic. One typeface at several
+   weights, a visible 12-column grid, everything flush left and
+   ragged right, hairline rules instead of boxes, and a great
+   deal of deliberate empty space. No rounded corners, no
+   shadows, no decoration whatsoever — the accent is the only
+   colour on the page.
+
+   Anatomy order kept, furniture deliberately NOT shared with
+   the other directions: the offers are numbered ROWS, the work
+   is an INDEX TABLE, the lead magnet is a type-only band.
+   ============================================================ */
+:root{
+  --acc:#D07C42;              /* swapped live by the gallery */
+  --on-acc:#1C1208;
+  --acc-dim:#9A4E1E;          /* accent as text on bone */
+
+  --bone:#F1F0EA;
+  --bone-2:#E6E4DB;
+  --ink:#0E0E0B;
+  --ink-2:#45443D;
+  --mute:#8A887E;
+  --rule:#C9C6BA;
+  --rule-2:#0E0E0B;
+
+  --m:clamp(16px,3.4vw,52px);
+  --maxw:1500px;
+  --gut:clamp(12px,1.5vw,24px);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bone);color:var(--ink);
+  font:400 15.5px/1.5 'Schibsted Grotesk','Helvetica Neue',Arial,sans-serif;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased}
+/* tabular figures ONLY where numbers line up in columns — set on body it also
+   makes the comma and period tabular-width, which opens a gap before every one */
+.hero .strip b,.proof td.v,.index td,.index th{font-feature-settings:'tnum' 1}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.045em;line-height:.94}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--m)}
+/* the 12-column grid every section aligns to */
+.g12{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut)}
+.cap{font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.num{font-size:10.5px;font-weight:600;letter-spacing:.14em;color:var(--acc-dim)}
+.rule{border:0;border-top:1px solid var(--rule);margin:0}
+.rule-h{border:0;border-top:2px solid var(--rule-2);margin:0}
+::selection{background:var(--acc);color:var(--on-acc)}
+:focus-visible{outline:2px solid var(--acc-dim);outline-offset:2px}
+
+.btn{display:inline-flex;align-items:center;gap:.7em;font-size:12.5px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:var(--bone);
+  padding:15px 26px;border:0;cursor:pointer;transition:background-color .2s linear}
+.btn:hover{background:var(--acc-dim)}
+.btn svg{width:1.05em;height:1.05em}
+.btn.acc{background:var(--acc);color:var(--on-acc)}
+.btn.acc:hover{background:var(--ink);color:var(--bone)}
+.btn.line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.btn.line:hover{background:var(--ink);color:var(--bone)}
+
+/* ---------- nav: a rule, a wordmark, numbered links ---------- */
+.nav{position:sticky;top:0;z-index:60;background:var(--bone);border-bottom:1px solid var(--rule)}
+.nav .in{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:62px}
+.brand{display:flex;align-items:baseline;gap:10px}
+.brand b{font-size:16px;font-weight:700;letter-spacing:-.05em}
+.brand span{font-size:9.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.nlinks{display:flex;gap:clamp(14px,2.4vw,36px)}
+.nlinks a{font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  display:flex;gap:7px;transition:color .2s linear}
+.nlinks a i{font-style:normal;color:var(--acc-dim)}
+.nlinks a:hover{color:var(--acc-dim)}
+.burger{display:none;width:38px;height:38px;border:1px solid var(--rule-2);background:none;
+  align-items:center;justify-content:center;cursor:pointer}
+.burger span{display:block;width:15px;height:1.5px;background:var(--ink);position:relative}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:15px;height:1.5px;background:var(--ink)}
+.burger span::before{top:-4px}.burger span::after{top:4px}
+
+/* ---------- 1. HERO: type block + a narrow full-height photo column ---------- */
+.hero{padding-top:clamp(30px,5vw,72px)}
+.hero .in{align-items:end}
+.hero .lead{grid-column:1/8}
+.hero .col{grid-column:9/13;position:relative}
+.hero .cap{display:block;margin-bottom:clamp(24px,4vw,56px)}
+.hero h1{font-size:clamp(40px,7.4vw,104px);letter-spacing:-.055em;max-width:13ch}
+.hero .sub{margin:clamp(22px,2.6vw,34px) 0 0;font-size:clamp(15.5px,1.25vw,18px);
+  color:var(--ink-2);max-width:46ch}
+.hero .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(26px,3vw,40px)}
+.hero .col figure{margin:0;aspect-ratio:1/1.68;overflow:hidden}
+.hero .col img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06)}
+.hero .col figcaption{margin-top:10px;display:flex;justify-content:space-between;gap:10px}
+.hero .strip{margin-top:clamp(30px,4vw,58px);border-top:2px solid var(--rule-2);
+  display:grid;grid-template-columns:repeat(4,1fr)}
+.hero .strip div{padding:18px 0 22px;border-right:1px solid var(--rule)}
+.hero .strip div:last-child{border-right:0}
+.hero .strip b{display:block;font-size:clamp(26px,3vw,44px);font-weight:700;letter-spacing:-.05em;line-height:1}
+.hero .strip span{display:block;margin-top:8px}
+
+/* ---------- 2. SOCIAL PROOF: a data table, not a strip of pills ---------- */
+.proof{padding:clamp(40px,5vw,72px) 0}
+.proof table{width:100%;border-collapse:collapse}
+.proof caption{text-align:left;padding-bottom:14px}
+.proof th{text-align:left;padding:10px 12px 10px 0;border-bottom:2px solid var(--rule-2);
+  font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.proof td{padding:14px 12px 14px 0;border-bottom:1px solid var(--rule);font-size:14.5px;vertical-align:top}
+.proof td:first-child{font-weight:600;width:34%}
+.proof td.v{font-weight:700;letter-spacing:-.02em;color:var(--acc-dim);white-space:nowrap}
+.proof tr:hover td{background:var(--bone-2)}
+
+/* ---------- 3. ABOUT: full-bleed photo band, then two columns under it ---------- */
+.about{padding-bottom:clamp(48px,6vw,88px)}
+.about .band{margin-bottom:clamp(26px,3.2vw,44px);height:clamp(220px,30vw,420px);overflow:hidden;position:relative}
+.about .band img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)}
+.about .band figcaption{position:absolute;left:0;bottom:0;background:var(--acc);color:var(--on-acc);
+  padding:9px 16px;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.about h2{grid-column:1/6;font-size:clamp(26px,3.4vw,46px);max-width:14ch}
+.about .body{grid-column:7/13;column-count:2;column-gap:var(--gut);color:var(--ink-2);font-size:15px}
+.about .body p{margin:0 0 14px}
+.about .spec{grid-column:1/13;margin-top:clamp(26px,3vw,42px);border-top:2px solid var(--rule-2)}
+.about .spec dl{margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.about .spec dl>div{padding:20px 20px 24px 0;border-right:1px solid var(--rule)}
+.about .spec dl>div:last-child{border-right:0}
+.about .spec dt{display:flex;gap:10px;font-size:14.5px;font-weight:600;letter-spacing:-.01em}
+.about .spec dt i{font-style:normal;color:var(--acc-dim);font-size:10.5px;letter-spacing:.14em;padding-top:3px}
+.about .spec dd{margin:8px 0 0 28px;font-size:14px;color:var(--ink-2)}
+
+/* ---------- 4. OFFERS: numbered rows, no cards anywhere ---------- */
+.offers{padding:clamp(44px,5.6vw,86px) 0;border-top:2px solid var(--rule-2)}
+.offers .head{margin-bottom:clamp(22px,2.6vw,36px)}
+.offers h2{grid-column:1/7;font-size:clamp(26px,3.4vw,46px)}
+.offers .head p{grid-column:8/13;margin:0;color:var(--ink-2);font-size:14.5px;align-self:end}
+.row{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);align-items:center;
+  padding:clamp(18px,2.2vw,30px) 0;border-bottom:1px solid var(--rule);position:relative;
+  transition:background-color .2s linear}
+.row:first-of-type{border-top:1px solid var(--rule)}
+.row:hover{background:var(--bone-2)}
+.row .n{grid-column:1/2;font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--acc-dim)}
+.row h3{grid-column:2/6;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.04em}
+.row p{grid-column:6/10;margin:0;font-size:14.2px;color:var(--ink-2)}
+.row .meta{grid-column:10/12;font-size:12.5px;color:var(--mute);text-align:right}
+.row .go{grid-column:12/13;justify-self:end;width:38px;height:38px;display:grid;place-items:center;
+  box-shadow:inset 0 0 0 1px var(--rule-2);transition:background-color .2s linear,color .2s linear}
+.row:hover .go{background:var(--acc);color:var(--on-acc);box-shadow:inset 0 0 0 1px var(--acc)}
+.row .go svg{width:15px;height:15px}
+/* a thumbnail that only appears on hover — the one flourish this style allows */
+.row .thumb{position:absolute;right:8%;top:50%;width:190px;aspect-ratio:4/3;overflow:hidden;
+  transform:translateY(-50%) scale(.96);opacity:0;pointer-events:none;z-index:3;
+  transition:opacity .22s linear,transform .22s linear}
+.row:hover .thumb{opacity:1;transform:translateY(-50%) scale(1)}
+.row .thumb img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
+
+/* ---------- 5. LEAD MAGNET: a full-width band, type only ---------- */
+.magnet{background:var(--acc);color:var(--on-acc);padding:clamp(40px,5.4vw,80px) 0}
+.magnet .cap{color:color-mix(in srgb,var(--on-acc) 62%,transparent)}
+.magnet h2{grid-column:1/8;font-size:clamp(28px,4.2vw,60px);margin-top:16px;max-width:17ch}
+.magnet .side{grid-column:9/13;align-self:end}
+.magnet .side p{margin:0 0 22px;font-size:14.5px;color:color-mix(in srgb,var(--on-acc) 82%,transparent)}
+.magnet form{display:flex;gap:0;border-bottom:2px solid var(--on-acc)}
+.magnet input{flex:1;min-width:0;background:transparent;border:0;padding:14px 2px;
+  font:inherit;font-size:15px;color:var(--on-acc)}
+.magnet input::placeholder{color:color-mix(in srgb,var(--on-acc) 55%,transparent)}
+.magnet input:focus{outline:none}
+.magnet button{background:none;border:0;cursor:pointer;color:var(--on-acc);
+  font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:0 0 0 16px;
+  display:flex;align-items:center;gap:.6em}
+.magnet button svg{width:14px;height:14px;transition:transform .2s linear}
+.magnet button:hover svg{transform:translateX(4px)}
+.magnet .fine{margin:12px 0 0;font-size:11.5px;color:color-mix(in srgb,var(--on-acc) 62%,transparent)}
+.magnet .contents{grid-column:1/8;margin-top:clamp(24px,3vw,38px);
+  display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gut)}
+.magnet .contents div{border-top:1px solid color-mix(in srgb,var(--on-acc) 34%,transparent);padding-top:12px}
+.magnet .contents b{display:block;font-size:13.5px;font-weight:600}
+.magnet .contents span{display:block;margin-top:5px;font-size:12.5px;
+  color:color-mix(in srgb,var(--on-acc) 74%,transparent)}
+
+/* ---------- 6. CONTENT: an index table ---------- */
+.content{padding:clamp(44px,5.6vw,86px) 0}
+.content .head{margin-bottom:clamp(20px,2.4vw,32px)}
+.content h2{grid-column:1/7;font-size:clamp(26px,3.4vw,46px)}
+.content .head a{grid-column:11/13;justify-self:end;align-self:end}
+.index{width:100%;border-collapse:collapse}
+.index th{text-align:left;padding:10px 14px 10px 0;border-bottom:2px solid var(--rule-2);
+  font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.index th:last-child,.index td:last-child{text-align:right;padding-right:0}
+.index td{padding:16px 14px 16px 0;border-bottom:1px solid var(--rule);font-size:14.5px;color:var(--ink-2)}
+.index tr{transition:background-color .2s linear}
+.index tbody tr:hover{background:var(--bone-2)}
+.index td.p{font-size:17px;font-weight:600;color:var(--ink);letter-spacing:-.025em;width:30%}
+.index td.n{font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--acc-dim);width:5%}
+.index .t{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;box-shadow:inset 0 0 0 1px var(--rule-2);padding:5px 10px}
+
+/* ---------- footer ---------- */
+footer{border-top:2px solid var(--rule-2);padding:clamp(34px,4.4vw,60px) 0 26px}
+footer .cols>div:nth-child(1){grid-column:1/5}
+footer .cols>div:nth-child(2){grid-column:6/8}
+footer .cols>div:nth-child(3){grid-column:8/10}
+footer .cols>div:nth-child(4){grid-column:10/13}
+footer .lead{margin:14px 0 0;color:var(--ink-2);font-size:14px;max-width:32ch}
+footer h5{margin:0 0 14px;font-size:10.5px;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--mute)}
+footer nav{display:grid;gap:9px}
+footer nav a{font-size:14px;color:var(--ink-2);transition:color .2s linear}
+footer nav a:hover{color:var(--acc-dim)}
+footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;border-top:1px solid var(--rule);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+
+/* ---------- reveal ---------- */
+@media(prefers-reduced-motion:no-preference){
+  .rv{opacity:0;translate:0 18px}
+  .rv.is-in{opacity:1;translate:none;transition:opacity .6s linear,translate .6s cubic-bezier(.22,1,.36,1);
+    transition-delay:var(--d,0s)}
+}
+
+/* ---------- responsive ---------- */
+@media(max-width:1080px){
+  .hero .lead{grid-column:1/13}
+  .hero .col{grid-column:1/13;margin-top:26px}
+  .hero .col figure{aspect-ratio:16/7}
+  .about h2,.about .body{grid-column:1/13}
+  .about .body{column-count:1;margin-top:18px}
+  .about .spec dl{grid-template-columns:1fr}
+  .about .spec dl>div{border-right:0;border-bottom:1px solid var(--rule)}
+  .offers h2,.offers .head p,.content h2{grid-column:1/13}
+  .offers .head p{margin-top:12px}
+  .content .head a{grid-column:1/13;justify-self:start;margin-top:14px}
+  .row .n{grid-column:1/13}
+  .row h3{grid-column:1/13;margin-top:6px}
+  .row p{grid-column:1/10;margin-top:8px}
+  .row .meta{grid-column:1/13;text-align:left;margin-top:8px}
+  .row .go{grid-column:1/13;justify-self:start;margin-top:12px}
+  .row .thumb{display:none}
+  .magnet h2,.magnet .side,.magnet .contents{grid-column:1/13}
+  .magnet .side{margin-top:24px}
+  footer .cols>div{grid-column:1/13!important}
+  footer .cols>div+div{margin-top:26px}
+}
+@media(max-width:760px){
+  .nlinks{display:none}
+  .burger{display:inline-flex}
+  .hero .strip{grid-template-columns:1fr 1fr}
+  .hero .strip div:nth-child(2){border-right:0}
+  .hero .strip div:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+  .magnet .contents{grid-template-columns:1fr}
+  .proof td:first-child{width:auto}
+  .index .hide{display:none}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ============ 1. LOGO + SIMPLE NAVIGATION ============ -->
+<header class="nav">
+  <div class="wrap in">
+    <a class="brand" href="#top"><b>QUEST</b><span>General Contracting</span></a>
+    <nav class="nlinks">
+      <a href="#about"><i>01</i>About</a><a href="#services"><i>02</i>Services</a>
+      <a href="#work"><i>03</i>Work</a><a href="#guide"><i>04</i>Cost Guide</a><a href="#bid"><i>05</i>Contact</a>
+    </nav>
+    <button class="burger" type="button" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<!-- ============ 2. HERO — STATEMENT + STANDOUT CTA ============ -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="g12 in">
+      <div class="lead rv is-in">
+        <span class="cap">Phoenix, Arizona &mdash; Est. 2010 &mdash; ROC #000000</span>
+        <h1>One bid. One manager. One schedule that holds.</h1>
+        <p class="sub">Quest is a licensed general contractor for custom homes, whole&#8209;home
+          remodels and tenant improvements across the Phoenix valley. We self&#8209;perform the three
+          trades that decide your dates.</p>
+        <div class="acts">
+          <a class="btn acc" href="#bid">Request a bid
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+          <a class="btn line" href="#work">See the index</a>
+        </div>
+      </div>
+      <div class="col rv is-in" style="--d:.1s">
+        <figure>
+          <img src="assets/site-steel.jpg" alt="Crews placing reinforcing steel on an active Quest structure" loading="eager">
+        </figure>
+        <figcaption class="cap"><span>Fig. 01</span><span>Rebar &mdash; Chandler</span></figcaption>
+      </div>
+    </div>
+    <div class="strip rv is-in" style="--d:.16s">
+      <div><b>340</b><span class="cap">Projects delivered</span></div>
+      <div><b>16</b><span class="cap">Years in the valley</span></div>
+      <div><b>96%</b><span class="cap">Finished on schedule</span></div>
+      <div><b>4.9</b><span class="cap">From 87 reviews</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. SOCIAL PROOF — as a data table ============ -->
+<section class="proof">
+  <div class="wrap">
+    <table class="rv">
+      <caption class="cap">Table 01 &mdash; Credentials and record</caption>
+      <thead>
+        <tr><th>Item</th><th>Detail</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Licence</td><td>Arizona ROC, commercial and residential</td><td class="v">#000000</td></tr>
+        <tr><td>Bond &amp; insurance</td><td>Bonded, general liability, workers' comp</td><td class="v">Current</td></tr>
+        <tr><td>Membership</td><td>National Association of Home Builders</td><td class="v">Active</td></tr>
+        <tr><td>Certification</td><td>EPA Lead&#8209;Safe renovator</td><td class="v">Certified</td></tr>
+        <tr><td>Site safety</td><td>OSHA 30 across all field crews</td><td class="v">12 of 12</td></tr>
+        <tr><td>Client rating</td><td>Verified reviews, trailing 24 months</td><td class="v">4.9 / 87</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 4. ABOUT — full-bleed band, then two columns ============ -->
+<section class="about" id="about">
+  <div class="wrap">
+    <figure class="band rv">
+      <img src="assets/crew-slab.jpg" alt="A Quest crew walking a finished post-tension slab" loading="lazy">
+      <figcaption>Fig. 02 &mdash; Post&#8209;tension slab, poured and walked the same week</figcaption>
+    </figure>
+    <div class="g12">
+      <h2 class="rv">A contractor who answers the phone.</h2>
+      <div class="body rv" style="--d:.08s">
+        <p>Almost nothing goes wrong on a build because someone cut a stud short. It goes wrong in
+          the three weeks nobody answered a question, while the tile sat on a pallet and the
+          schedule quietly slid a month.</p>
+        <p>Quest is organised against exactly that. One project manager owns the job from the first
+          walkthrough to the final punch list, and the three trades that set your dates &mdash;
+          concrete, framing, finish carpentry &mdash; are our own crews rather than a sub we are
+          queuing behind.</p>
+        <p>What you get is an itemised fixed bid, a written schedule every Friday, and a telephone
+          number that belongs to a person instead of an office.</p>
+      </div>
+      <div class="spec rv" style="--d:.14s">
+        <dl>
+          <div>
+            <dt><i>01</i>One fixed bid, itemised</dt>
+            <dd>Every line visible before you sign. Allowances are labelled allowances, not surprises found after demo.</dd>
+          </div>
+          <div>
+            <dt><i>02</i>One manager, start to finish</dt>
+            <dd>The person who walked your site runs it. Their mobile number is written into the contract.</dd>
+          </div>
+          <div>
+            <dt><i>03</i>Our own field crews</dt>
+            <dd>Concrete, framing and finish carpentry are in&#8209;house, so the schedule is ours to keep.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. KEY OFFERS — numbered rows ============ -->
+<section class="offers" id="services">
+  <div class="wrap">
+    <div class="g12 head rv">
+      <h2>What we build</h2>
+      <p>The same process at every scale &mdash; scope, fixed bid, written schedule, weekly walk.
+        Only the size of the pour changes.</p>
+    </div>
+
+    <a class="row rv" href="#bid">
+      <span class="n">01</span>
+      <h3>Custom homes</h3>
+      <p>Ground&#8209;up residential built to the architect's set, from grading through final walkthrough.</p>
+      <span class="meta">10 months typical<br>Design&ndash;build or plan&#8209;and&#8209;spec</span>
+      <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      <span class="thumb" aria-hidden="true"><img src="assets/home-dusk.jpg" alt="" loading="lazy"></span>
+    </a>
+
+    <a class="row rv" href="#bid" style="--d:.06s">
+      <span class="n">02</span>
+      <h3>Whole&#8209;home remodels</h3>
+      <p>Kitchens, primary suites, additions and full gut renovations, phased so you can stay in the house where scope allows.</p>
+      <span class="meta">12&ndash;20 weeks typical<br>Most requested service</span>
+      <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      <span class="thumb" aria-hidden="true"><img src="assets/kitchen.jpg" alt="" loading="lazy"></span>
+    </a>
+
+    <a class="row rv" href="#bid" style="--d:.12s">
+      <span class="n">03</span>
+      <h3>Tenant improvement</h3>
+      <p>Office, retail and light industrial fit&#8209;outs delivered around your opening date, with after&#8209;hours phasing.</p>
+      <span class="meta">6&ndash;14 weeks typical<br>After hours available</span>
+      <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      <span class="thumb" aria-hidden="true"><img src="assets/commercial.jpg" alt="" loading="lazy"></span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ 6. LEAD MAGNET — type-only band ============ -->
+<section class="magnet" id="guide">
+  <div class="wrap g12">
+    <h2 class="rv"><span class="cap" style="display:block;margin-bottom:14px">Free &mdash; 22 pages</span>
+      Know the number before you sign anything.</h2>
+    <div class="side rv" style="--d:.08s">
+      <p>Real line items from jobs we finished this year, sent as a PDF.</p>
+      <form onsubmit="return false">
+        <input type="email" placeholder="you@email.com" aria-label="Email address" required>
+        <button type="submit">Send it
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+      </form>
+      <p class="fine">No sales call unless you ask for one.</p>
+    </div>
+    <div class="contents rv" style="--d:.14s">
+      <div><b>Section 01</b><span>Per&#8209;square&#8209;foot ranges by scope, from this year's closed jobs</span></div>
+      <div><b>Section 02</b><span>Twelve questions worth asking any contractor before you sign</span></div>
+      <div><b>Section 03</b><span>The four things that blow up a budget after demo day</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. CONTENT — an index table ============ -->
+<section class="content" id="work">
+  <div class="wrap">
+    <div class="g12 head rv">
+      <h2>Index of recent work</h2>
+      <a class="btn line" href="#">All 340</a>
+    </div>
+    <table class="index rv" style="--d:.06s">
+      <thead>
+        <tr><th>No.</th><th>Project</th><th class="hide">Type</th><th class="hide">Location</th><th>Size</th><th>Year</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="n">001</td><td class="p">Camelback Residence</td>
+          <td class="hide"><span class="t">New build</span></td><td class="hide">Paradise Valley</td>
+          <td>4,200 sq ft</td><td>2025</td>
+        </tr>
+        <tr>
+          <td class="n">002</td><td class="p">Arcadia Primary Suite</td>
+          <td class="hide"><span class="t">Remodel</span></td><td class="hide">Phoenix</td>
+          <td>900 sq ft</td><td>2025</td>
+        </tr>
+        <tr>
+          <td class="n">003</td><td class="p">Willo Kitchen</td>
+          <td class="hide"><span class="t">Remodel</span></td><td class="hide">Phoenix</td>
+          <td>640 sq ft</td><td>2025</td>
+        </tr>
+        <tr>
+          <td class="n">004</td><td class="p">Rio Salado Offices</td>
+          <td class="hide"><span class="t">Tenant imp.</span></td><td class="hide">Tempe</td>
+          <td>11,000 sq ft</td><td>2024</td>
+        </tr>
+        <tr>
+          <td class="n">005</td><td class="p">Ocotillo Grading</td>
+          <td class="hide"><span class="t">Site work</span></td><td class="hide">Chandler</td>
+          <td>6.4 acres</td><td>2024</td>
+        </tr>
+        <tr>
+          <td class="n">006</td><td class="p">Ocotillo Twelve</td>
+          <td class="hide"><span class="t">Residential</span></td><td class="hide">Chandler</td>
+          <td>12 homes</td><td>2024</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 8. FOOTER ============ -->
+<footer id="bid">
+  <div class="wrap">
+    <div class="g12 cols">
+      <div>
+        <a class="brand" href="#top"><b>QUEST</b><span>General Contracting</span></a>
+        <p class="lead">General contracting across the Phoenix valley since 2010.
+          Licensed, bonded and insured &mdash; ROC #000000.</p>
+      </div>
+      <div><h5>Company</h5><nav><a href="#about">About</a><a href="#work">Work</a><a href="#">Careers</a><a href="#">Safety record</a></nav></div>
+      <div><h5>Services</h5><nav><a href="#services">Custom homes</a><a href="#services">Remodels</a><a href="#services">Tenant improvement</a><a href="#">Design&ndash;build</a></nav></div>
+      <div><h5>Contact</h5><nav><a href="tel:+14805550100">(480) 555&mdash;0100</a><a href="mailto:build@questconstruction.com">build@questconstruction.com</a><a href="#">Request a bid</a></nav></div>
+    </div>
+    <div class="bar">
+      <span class="cap">&copy; 2026 Quest Construction LLC &mdash; ROC #000000</span>
+      <span class="cap">Direction 04 &#47; Grid North &mdash; rev 1.0</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* accent swap — URL param on load + live postMessage from the gallery. */
+(function(){
+  var P={
+    orange:['#D07C42','#1C1208','#9A4E1E'],
+    clay:  ['#A8543A','#ffffff','#7C3A24'],
+    hivis: ['#D9A93C','#191307','#8A6712']
+  };
+  function set(k){var p=P[k];if(!p)return;var s=document.documentElement.style;
+    s.setProperty('--acc',p[0]);s.setProperty('--on-acc',p[1]);s.setProperty('--acc-dim',p[2]);}
+  var q=new URLSearchParams(location.search).get('acc'); if(q) set(q);
+  addEventListener('message',function(e){ if(e.data&&e.data.acc) set(e.data.acc); });
+})();
+
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add("is-in")});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){
+    if(en.isIntersecting){en.target.classList.add("is-in");io.unobserve(en.target)}})},
+    {threshold:.06,rootMargin:'0px 0px -5% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>

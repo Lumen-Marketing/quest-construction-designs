@@ -1,23 +1,25 @@
 # Quest Construction — Design Directions
 
-Seven homepage directions for **Quest Construction** (general contracting), built as
+Nine homepage directions for **Quest Construction** (general contracting), built as
 standalone mockups for review. Nothing here is wired to a live site.
 
 **Open `index.html`** — that is the chooser. Each card is a live, scaled iframe of the real page.
 
-## The seven directions
+## The nine directions
 
 | # | File | Personality | Style |
 |---|------|-------------|-------|
 | 01 | `direction-1-site-plan.html` | **Site Plan** — layered, editorial. The safest bet. | Dimensional |
 | 02 | `direction-2-heavy-plant.html` | **Heavy Plant** — poster wordmark with the machine cutting through it. The risk. | Dimensional |
 | 03 | `direction-3-split-bay.html` | **Split Bay** — dark, split hero, cursor-driven photo reveals. | Brutalist |
-| 04 | `direction-4-soft-site.html` | **Soft Site** — warm off-white, blob-masked photography, rounded offer cards. | Organic |
-| 05 | `direction-5-ground-break.html` | **Ground Break** — deep green, one giant accent word, concentric pad arc. | Organic |
-| 06 | `direction-6-field-journal.html` | **Field Journal** — cream paper, optical serif, overlapping prints. | Organic |
-| 07 | `direction-7-bid-desk.html` | **Bid Desk** — clean white, estimate bar on an organic hero sweep. | Organic |
+| 04 | `direction-4-grid-north.html` | **Grid North** — visible 12-column grid, hairline rules, numbered rows. | Swiss |
+| 05 | `direction-5-ground-break.html` | **Ground Break** — deep green, one giant accent word, concentric pad arc. | Colour field |
+| 06 | `direction-6-red-iron.html` | **Red Iron** — diagonal wedges, halftone photography, angled mosaic. | Constructivist |
+| 07 | `direction-7-bid-desk.html` | **Bid Desk** — clean white, estimate bar on an organic hero sweep. | Utility |
+| 08 | `direction-8-machine-age.html` | **Machine Age** — symmetrical, ziggurat frames, sunburst, brass on charcoal. | Art Deco |
+| 09 | `direction-9-site-notice.html` | **Site Notice** — stapled flyers, tape, xerox halftone, tear-off tabs. | Punk / xerox |
 
-## Three design languages
+## Design languages
 
 The first pass made all three brutalist. That was wrong for 01 and 02 — brutalism is deliberately
 flat, which fought the layered depth the reference deck was built on. **01 and 02 were rebuilt;
@@ -47,34 +49,55 @@ diagonal bar motifs, and a cream hero that drops to dark sections and back.
 Flat by design — chamfered `clip-path` corners, no radius, hard 90° grid, grayscale photography,
 accent on whole surfaces only.
 
-### Organic (04–07)
+### Named styles (04–09)
 
-The second set. All four cut their photography into **organic shapes rather than rectangles**, and
-all four run the same section order — the standard high-converting homepage anatomy:
+The second set. **04 and 06 replace an earlier pair (Soft Site and Field Journal) that read too
+soft.** Each of these six takes one named style out of the graphic-design canon and commits to it
+rather than blending several:
+
+- **04 Grid North — Swiss / International Typographic.** One typeface (Schibsted Grotesk) at
+  several weights on a visible 12-column grid. Flush left, ragged right, hairline rules instead of
+  boxes, no radius, no shadows, deliberate empty space. The accent is the only colour on the page.
+- **05 Ground Break — bold colour field.** Deep excavated-earth green, one oversized accent word,
+  a concentric organic arc reading as a graded pad from above.
+- **06 Red Iron — Constructivist / Bauhaus.** Everything on a diagonal: photographs cut as
+  parallelograms, blocks rotated against each other, heavy condensed slab-grotesk stacked hard,
+  and photography printed as CSS **halftone** rather than shown straight.
+- **07 Bid Desk — clean utility.** White, an estimate bar straddling an organic hero sweep,
+  everything pointing at one form.
+- **08 Machine Age — Art Deco.** Symmetrical about a centre line, strong verticals, stepped
+  ziggurat `clip-path` frames, hairline double rules with a brass lozenge, a `repeating-conic-gradient`
+  sunburst. The style of the era that actually built the skyscrapers.
+- **09 Site Notice — punk / xerox cut-and-paste.** Everything is a thing stuck to a hoarding:
+  flyers stapled at angles, tape strips, a rubber stamp, typewriter captions, photographs blown out
+  on a bad photocopier. Body copy always sits on clean paper so it stays readable.
+
+## One skeleton, nine sets of furniture
+
+04–09 all run the same section order — the standard high-converting homepage anatomy:
 
 > logo + simple nav → short headline with one stand-out CTA → social proof → about →
 > three key offers → lead magnet → content (selected work) → footer
 
-Same skeleton, four different skins, so a reviewer is comparing the *look* and not the layout.
-Each still reads as its own site: 04 is warm off-white and rounded, 05 is a deep green poster,
-06 is printed cream with an optical serif, 07 is clean white and conversion-shaped.
+**The order is shared; the components are not.** An earlier pass kept the order *and* reused the
+same parts in every direction — a strip of pills, photo-beside-text, three cards in a row, a dark
+box with a rotated booklet, a row of work cards. Four different paint jobs on one page. That was
+the right criticism and this table is the fix:
 
-**The blob discipline.** Organic shape is used as *structure*, never as decoration: it carries the
-photographs and the colour fields, while type and grid stay strict. Three techniques do all the
-work, no libraries and no images:
+| Section | 04 Grid North | 05 Ground Break | 06 Red Iron | 07 Bid Desk | 08 Machine Age | 09 Site Notice |
+|---|---|---|---|---|---|---|
+| Social proof | Data table | Cream band of pills | Diagonal marquee | Floating pill cluster | Chevron-divided rail | Torn strip, `××` separated |
+| About | Full-bleed band, then 2 columns | Photo beside text | Angled photo, text overlapping | Photo cluster beside text | Symmetrical, ziggurat photo centred | Torn sheet + stapled photo |
+| Offers | Numbered **rows** | 3 chunky cards | Asymmetric mosaic | 3 spec cards | 3 ziggurat arches | 3 stapled flyers |
+| Lead magnet | Type-only accent band | Cream plate + booklet | Diagonal black band | Contents list, no booklet | Ornamental centred panel | A literal site notice with tear-off tabs |
+| Work | Index **table** | 4 cards in a row | Overlapping angled collage | 3 spec cards | Vertical stepped tiles | Photocopied contact sheet |
 
-1. Lopsided superellipses — `border-radius: 58% 42% 46% 54% / 44% 47% 53% 56%` — as photo masks.
-   Every photo on a page gets a **different** silhouette so the shapes never read as a repeated
-   motif. Because `border-radius` is animatable, a slow `morph` keyframe makes them breathe.
-2. One large accent blob per page as a ground plane, clipped by an `overflow:hidden` parent.
-3. Nested concentric blobs for 05's graded-pad arc.
-
-Deliberately avoided: pastel bubbles, gradient mush, and blobs floating loose behind text — all
-three are what make organic shapes read as amateur.
+If a new direction is added, fill in a new column here first. Anything that duplicates an existing
+cell should be redesigned before it ships.
 
 ## Switching the accent
 
-The three dots in the gallery header change the accent on **all seven designs at once, live**:
+The three dots in the gallery header change the accent on **all nine designs at once, live**:
 
 | Dot | Value | Text on accent |
 |-----|-------|----------------|
@@ -86,12 +109,12 @@ All three are **deliberately muted**. The first pass used fully saturated safety
 (`#FFC629`, `#FF7A1C`) which are punishing across a full-width hero band — these are desaturated
 and warmed toward earth tones instead.
 
-01, 02 and 04–07 also carry a third token, `--acc-dim` — a darker shade used wherever the accent
+01, 02 and 04–09 also carry a third token, `--acc-dim` — a darker shade used wherever the accent
 has to sit as *text on cream*, since even the muted tints fail contrast on a light background.
 05 needs a fourth, `--acc-lift`: a lightened tint, because the muted accents are far too dark to
 carry a 180px headline on its green ground (clay on green is only ~3:1).
 
-All seven directions share the same values, 03 included. Its layout is untouched; only its
+All nine directions share the same values, 03 included. Its layout is untouched; only its
 palette map was updated, so the colour dots do the same thing on every card.
 
 Each direction also reads the accent straight off its own URL, so
@@ -149,10 +172,23 @@ a true phone viewport — render the page inside a 390px-wide iframe instead.
 - **Give every run a random port *and* its own `--user-data-dir`.** With a fixed port, a new
   launch silently attaches to a leftover Chrome from an earlier run and screenshots the *old*
   page. A layout bug that was already fixed kept "reproducing" for three rounds because of this.
-- **Do not animate `transform` for scroll reveals.** A `.rv.vis{transform:none}` rule wipes out
-  any transform the element needs for its own layout — it broke 07's `translateX(-50%)` estimate
+- **Do not animate `transform` for scroll reveals.** A `transform:none` on the revealed state wipes
+  out any transform the element needs for its own layout — it broke 07's `translateX(-50%)` estimate
   bar and silently killed every card's hover lift. These pages animate the independent
   `translate` property instead, which composes with `transform` rather than replacing it.
+- **Never name a state class the same as a layout class.** The reveal class was `in`, which collided
+  with the wrapper class `.in` (`.hero .in{display:grid}`) and turned every revealed element into a
+  two-column grid. Renamed to `vis`, which then collided with 06's `.magnet .vis` panel and repainted
+  a whole cream box dark green. It is now `is-in`, which matches nothing else.
+- **A rotated full-bleed bar needs a clipping parent, not `scale()`.** 09 tilts its nav and proof
+  strip; `scale(1.02)` hid the corner gaps but pushed the document 14px wider than the viewport.
+  The nav now clips itself and tilts an oversized slab inside; the strip sits in an `overflow:hidden`
+  wrapper.
+- **`h1 span{display:block}` is too broad** when a headline also contains inline highlight spans —
+  in 09 it stretched a pasted-word patch across the full line. Use `h1>span`.
+- **Set `font-feature-settings:'tnum'` on the numbers, not on `body`.** Many faces make the comma
+  and period tabular-width too, which opens a visible gap before every one. It made 04's copy read
+  as "One bid . One manager ." until it was scoped to the tables and figures.
 
 
 ## Cutting out the machines
