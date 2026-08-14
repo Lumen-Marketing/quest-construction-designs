@@ -2,9 +2,41 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Quest Construction — Design Directions</title>
+<title>Quest Construction — Ten Homepage Design Directions</title>
+<meta name="description" content="Ten complete, working homepage directions for Quest Construction, a licensed general contractor in Phoenix, Arizona. Switch the accent colour and open any one full screen.">
+<link rel="canonical" href="https://questconstruction.com/">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<meta name="author" content="Quest Construction LLC">
+<meta name="theme-color" content="#141310">
+<meta name="color-scheme" content="light">
+
+<!-- local search signals -->
+<meta name="geo.region" content="US-AZ">
+<meta name="geo.placename" content="Phoenix, Arizona">
+<meta name="geo.position" content="33.4484;-112.0740">
+<meta name="ICBM" content="33.4484, -112.0740">
+
+<!-- social cards -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Quest Construction">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://questconstruction.com/">
+<meta property="og:title" content="Quest Construction — Ten Homepage Design Directions">
+<meta property="og:description" content="Ten complete, working homepage directions for Quest Construction, a licensed general contractor in Phoenix, Arizona. Switch the accent colour and open any one full screen.">
+<meta property="og:image" content="https://questconstruction.com/assets/og/cranes.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tower cranes over a Quest Construction jobsite in Phoenix, Arizona">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Quest Construction — Ten Homepage Design Directions">
+<meta name="twitter:description" content="Ten complete, working homepage directions for Quest Construction, a licensed general contractor in Phoenix, Arizona. Switch the accent colour and open any one full screen.">
+<meta name="twitter:image" content="https://questconstruction.com/assets/og/cranes.jpg">
+<meta name="twitter:image:alt" content="Tower cranes over a Quest Construction jobsite in Phoenix, Arizona">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" as="image" href="assets/cranes.webp" fetchpriority="high">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Nine design directions for the Quest Construction website — each a full, live homepage. Switch the accent colour, toggle desktop/mobile, interact with a preview, or open one full screen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -107,9 +139,395 @@ footer p{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transf
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+/* skip link — keyboard users reach the content without tabbing the whole nav */
+.skip-link{position:fixed;top:10px;left:10px;z-index:9999;transform:translateY(-300%);
+  padding:11px 18px;border-radius:6px;background:#141310;color:#fff;text-decoration:none;
+  font:600 14px/1 system-ui,-apple-system,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+.skip-link:focus{transform:translateY(0)}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "GeneralContractor",
+        "HomeAndConstructionBusiness"
+      ],
+      "@id": "https://questconstruction.com/#business",
+      "name": "Quest Construction",
+      "legalName": "Quest Construction LLC",
+      "url": "https://questconstruction.com/",
+      "description": "Licensed, bonded and insured general contractor in Phoenix, Arizona. Ground-up construction, remodels, additions, tenant improvement and site work, self-performed by in-house crews.",
+      "slogan": "One bid. One manager. One schedule that holds.",
+      "telephone": "+1-480-555-0100",
+      "email": "build@questconstruction.com",
+      "foundingDate": "2010",
+      "priceRange": "$$$",
+      "currenciesAccepted": "USD",
+      "paymentAccepted": "Cash, Check, Credit Card, Invoice",
+      "identifier": {
+        "@type": "PropertyValue",
+        "name": "Arizona ROC licence",
+        "value": "ROC #000000"
+      },
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://questconstruction.com/#logo",
+        "url": "https://questconstruction.com/favicon.svg",
+        "contentUrl": "https://questconstruction.com/favicon.svg",
+        "caption": "Quest Construction"
+      },
+      "image": [
+        "https://questconstruction.com/assets/site-steel.webp",
+        "https://questconstruction.com/assets/cranes.webp",
+        "https://questconstruction.com/assets/crew-slab.webp"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1820 W Buchanan St",
+        "addressLocality": "Phoenix",
+        "addressRegion": "AZ",
+        "postalCode": "85007",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "33.4484",
+        "longitude": "-112.0740"
+      },
+      "hasMap": "https://www.google.com/maps/search/?api=1&query=33.4484,-112.0740",
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Phoenix",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Arizona"
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Scottsdale",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Arizona"
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Tempe",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Arizona"
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Mesa",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Arizona"
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Chandler",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Arizona"
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Gilbert",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Arizona"
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Glendale",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Arizona"
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Peoria",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Arizona"
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Buckeye",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Arizona"
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Queen Creek",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Arizona"
+          }
+        }
+      ],
+      "serviceArea": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "33.4484",
+          "longitude": "-112.0740"
+        },
+        "geoRadius": "64000"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "06:30",
+          "closes": "17:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "07:00",
+          "closes": "12:00"
+        }
+      ],
+      "knowsAbout": [
+        "general contracting",
+        "design-build",
+        "tenant improvement",
+        "concrete",
+        "structural steel",
+        "site work and grading",
+        "custom home building",
+        "whole-home remodels"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "87",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Construction services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "New Construction",
+              "description": "Ground-up custom homes and light commercial shells — site work, foundation, framing and finish under a single contract.",
+              "serviceType": "New Construction",
+              "provider": {
+                "@id": "https://questconstruction.com/#business"
+              },
+              "areaServed": {
+                "@type": "City",
+                "name": "Phoenix"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Remodels & Additions",
+              "description": "Kitchens, baths, whole-home reconfigurations and second-storey additions, with families staying put behind dust walls.",
+              "serviceType": "Remodels & Additions",
+              "provider": {
+                "@id": "https://questconstruction.com/#business"
+              },
+              "areaServed": {
+                "@type": "City",
+                "name": "Phoenix"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Tenant Improvement",
+              "description": "Retail, restaurant and office build-outs on landlord timelines, with night and weekend crews when the lease demands it.",
+              "serviceType": "Tenant Improvement",
+              "provider": {
+                "@id": "https://questconstruction.com/#business"
+              },
+              "areaServed": {
+                "@type": "City",
+                "name": "Phoenix"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Site Work & Grading",
+              "description": "Pads, utilities, grading and earthwork run on Quest's own iron and Quest's own operators.",
+              "serviceType": "Site Work & Grading",
+              "provider": {
+                "@id": "https://questconstruction.com/#business"
+              },
+              "areaServed": {
+                "@type": "City",
+                "name": "Phoenix"
+              }
+            }
+          }
+        ]
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-480-555-0100",
+        "email": "build@questconstruction.com",
+        "contactType": "sales",
+        "areaServed": "US",
+        "availableLanguage": [
+          "en",
+          "es"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://questconstruction.com/#website",
+      "url": "https://questconstruction.com/",
+      "name": "Quest Construction",
+      "inLanguage": "en-US",
+      "publisher": {
+        "@id": "https://questconstruction.com/#business"
+      }
+    },
+    {
+      "@type": [
+        "WebPage",
+        "CollectionPage"
+      ],
+      "@id": "https://questconstruction.com/#webpage",
+      "url": "https://questconstruction.com/",
+      "name": "Quest Construction — Ten Homepage Design Directions",
+      "description": "Ten complete, working homepage directions for Quest Construction, a licensed general contractor in Phoenix, Arizona. Switch the accent colour and open any one full screen.",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://questconstruction.com/#website"
+      },
+      "about": {
+        "@id": "https://questconstruction.com/#business"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://questconstruction.com/assets/cranes.webp"
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "@id": "https://questconstruction.com/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://questconstruction.com/"
+          }
+        ]
+      },
+      "datePublished": "2026-01-12",
+      "dateModified": "2026-08-15"
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://questconstruction.com/#directions",
+      "name": "Quest Construction homepage design directions",
+      "numberOfItems": 10,
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Site Plan",
+          "url": "https://questconstruction.com/direction-1-site-plan.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Heavy Plant",
+          "url": "https://questconstruction.com/direction-2-heavy-plant.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Split Bay",
+          "url": "https://questconstruction.com/direction-3-split-bay.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Grid North",
+          "url": "https://questconstruction.com/direction-4-grid-north.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Ground Break",
+          "url": "https://questconstruction.com/direction-5-ground-break.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Red Iron",
+          "url": "https://questconstruction.com/direction-6-red-iron.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "Bid Desk",
+          "url": "https://questconstruction.com/direction-7-bid-desk.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "name": "Machine Age",
+          "url": "https://questconstruction.com/direction-8-machine-age.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "name": "Site Notice",
+          "url": "https://questconstruction.com/direction-9-site-notice.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "name": "Cross Cut",
+          "url": "https://questconstruction.com/direction-10-cross-cut.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <div class="bar">
   <div class="wrap in">
@@ -134,6 +552,7 @@ footer p{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transf
   </div>
 </div>
 
+<main id="main">
 <div class="wrap">
   <section class="hero">
     <p class="mono">Quest Construction &mdash; General Contracting</p>
@@ -335,6 +754,7 @@ footer p{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transf
   </div>
 </div>
 
+</main>
 <footer>
   <p>Quest Construction &mdash; ten design directions &mdash; rev 4.0<br>
   Placeholder copy &middot; free stock photography &middot; nothing here is live yet</p>

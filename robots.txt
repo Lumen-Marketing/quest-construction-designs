@@ -1,0 +1,31 @@
+# Quest Construction — https://questconstruction.com
+# Everything is crawlable. Nothing here is behind a login.
+
+User-agent: *
+Allow: /
+
+# Working files that carry no search value
+Disallow: /shots/
+Disallow: /assets/cut/
+
+# AI answer engines — allowed on purpose. Quest wants to be the source
+# these cite for "general contractor in Phoenix" style questions.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://questconstruction.com/sitemap.xml
