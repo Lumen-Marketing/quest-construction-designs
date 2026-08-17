@@ -54,9 +54,19 @@
    stapled flyers for offers, a contact sheet for work.
    ============================================================ */
 :root{
+  /* section rhythm — one value per step, was 9 one-offs */
+  --sp-1:clamp(14px,1.8vw,22px);
+  --sp-2:clamp(12px,1.6vw,22px);
+  --sp-3:clamp(16px,2vw,26px);
+  --sp-4:clamp(18px,2vw,26px);
+  --sp-5:clamp(24px,3.4vw,56px);
+  --sp-6:clamp(28px,4vw,58px);
+  --sp-7:clamp(34px,4.4vw,64px);
+  --sp-8:clamp(52px,6.6vw,100px);
+
   --acc:#D07C42;              /* swapped live by the gallery */
   --on-acc:#141210;
-  --acc-dim:#9A4E1E;
+  --acc-dim:#8B471B;
 
   --paper:#E4E1D6;
   --paper-2:#D6D2C4;
@@ -64,9 +74,9 @@
   --black:#0F0F0D;
   --black-2:#22221E;
   --ink-2:#46453E;
-  --mute:#7C7A70;
+  --mute:#6E6D64;
 
-  --m:clamp(14px,3.6vw,52px);
+  --m:clamp(20px,3.6vw,52px);
   --maxw:1400px;
   --eo:cubic-bezier(.2,.9,.3,1);
 }
@@ -123,14 +133,14 @@ body::after{content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opa
 
 .btn{display:inline-flex;align-items:center;gap:.6em;font-family:'Courier Prime',monospace;
   font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;
-  background:var(--black);color:var(--paper);padding:15px 24px;border:0;cursor:pointer;
+  background:var(--black);color:var(--paper);padding:16px 24px;border:0;cursor:pointer;
   box-shadow:5px 5px 0 var(--acc);transition:transform .16s linear,box-shadow .16s linear}
-.btn:hover{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--acc)}
+@media (hover:hover) and (pointer:fine){.btn:hover{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--acc)}}
 .btn svg{width:1.1em;height:1.1em}
 .btn.acc{background:var(--acc);color:var(--on-acc);box-shadow:5px 5px 0 var(--black)}
-.btn.acc:hover{box-shadow:2px 2px 0 var(--black)}
+@media (hover:hover) and (pointer:fine){.btn.acc:hover{box-shadow:2px 2px 0 var(--black)}}
 .btn.line{background:transparent;color:var(--black);box-shadow:inset 0 0 0 2.5px var(--black)}
-.btn.line:hover{background:var(--black);color:var(--paper);transform:none;box-shadow:inset 0 0 0 2.5px var(--black)}
+@media (hover:hover) and (pointer:fine){.btn.line:hover{background:var(--black);color:var(--paper);transform:none;box-shadow:inset 0 0 0 2.5px var(--black)}}
 
 /* ---------- nav: a strip taped to the hoarding ---------- */
 /* the bar is straight and clips itself; the TILT comes from an oversized black
@@ -142,23 +152,23 @@ body::after{content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opa
   background:var(--black);transform:rotate(-.55deg)}
 .nav .in{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;
   gap:16px;min-height:60px}
-.brand{display:flex;align-items:center;gap:10px}
+.brand{display:flex;align-items:center;gap:10px;padding-block:8px}
 .brand b{font-family:'Anton',sans-serif;font-size:24px;letter-spacing:.03em;text-transform:uppercase}
 .brand .x{background:var(--acc);color:var(--on-acc);padding:1px 7px;transform:rotate(2.5deg);
   font-family:'Anton',sans-serif;font-size:24px}
 .nlinks{display:flex;gap:clamp(12px,2.2vw,30px)}
 .nlinks a{font-family:'Courier Prime',monospace;font-weight:700;font-size:12.5px;letter-spacing:.14em;
   text-transform:uppercase;opacity:.84;transition:opacity .15s,color .15s}
-.nlinks a:hover{opacity:1;color:var(--acc)}
-.burger{display:none;width:38px;height:38px;border:2px solid var(--paper);background:none;
-  align-items:center;justify-content:center;cursor:pointer}
+@media (hover:hover) and (pointer:fine){.nlinks a:hover{opacity:1;color:var(--acc)}}
+.burger{display:none;width:40px;height:40px;border:2px solid var(--paper);background:none;
+  align-items:center;justify-content:center;cursor:pointer;transition:transform .14s cubic-bezier(.23,1,.32,1)}
 .burger span{display:block;width:15px;height:2px;background:var(--paper);position:relative}
 .burger span::before,.burger span::after{content:"";position:absolute;left:0;width:15px;height:2px;background:var(--paper)}
 .burger span::before{top:-5px}.burger span::after{top:5px}
 
 /* ---------- 1. HERO: a xeroxed poster ---------- */
-.hero{padding:clamp(28px,4vw,58px) 0 clamp(34px,4.4vw,64px)}
-.poster{position:relative;background:var(--sheet);padding:clamp(16px,2vw,26px);
+.hero{padding:var(--sp-6) 0 var(--sp-7)}
+.poster{position:relative;background:var(--sheet);padding:var(--sp-3);
   box-shadow:9px 9px 0 var(--black);transform:rotate(-.7deg)}
 .poster .in{position:relative;display:grid;grid-template-columns:1.06fr .94fr;
   gap:clamp(18px,2.6vw,40px);align-items:center}
@@ -183,7 +193,7 @@ body::after{content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opa
 /* ---------- 2. SOCIAL PROOF: a torn strip ---------- */
 /* same trick: a clipping wrapper so the tilt cannot widen the document */
 .strip-clip{overflow:hidden;position:relative;z-index:5}
-.strip{background:var(--black);color:var(--paper);padding:clamp(14px,1.8vw,22px) 0;
+.strip{background:var(--black);color:var(--paper);padding:var(--sp-1) 0;
   transform:rotate(.5deg) scale(1.03);position:relative}
 .strip .in{display:flex;align-items:center;justify-content:center;gap:clamp(10px,1.8vw,26px);
   flex-wrap:wrap;font-family:'Courier Prime',monospace;font-weight:700;font-size:13px;
@@ -192,7 +202,7 @@ body::after{content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opa
 .strip b{color:var(--acc)}
 
 /* ---------- 3. ABOUT: torn sheet, stapled photo ---------- */
-.about{padding:clamp(52px,6.4vw,100px) 0}
+.about{padding:var(--sp-8) 0}
 .about .in{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(24px,3.4vw,58px);align-items:start}
 .about .pic{position:relative;padding-top:18px}
 .about .pic .xr{aspect-ratio:1/1.14;transform:rotate(-2.4deg);box-shadow:7px 7px 0 var(--black)}
@@ -217,18 +227,18 @@ body::after{content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opa
 .about .sheet .btn{margin-top:26px}
 
 /* ---------- 4. OFFERS: three flyers stapled up at angles ---------- */
-.offers{background:var(--paper-2);padding:clamp(52px,6.6vw,100px) 0;position:relative}
+.offers{background:var(--paper-2);padding:var(--sp-8) 0;position:relative}
 .offers .head{display:flex;justify-content:space-between;align-items:flex-end;gap:22px;
   flex-wrap:wrap;margin-bottom:clamp(30px,3.8vw,54px)}
 .offers h2{font-size:clamp(30px,4.4vw,62px)}
 .offers .head p{margin:0;max-width:38ch;font-size:14.6px;color:var(--ink-2)}
 .flyers{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.6vw,40px);align-items:start}
-.flyer{position:relative;background:var(--sheet);padding:clamp(18px,2vw,26px);
+.flyer{position:relative;background:var(--sheet);padding:var(--sp-4);
   box-shadow:7px 7px 0 var(--black);transition:transform .18s linear}
 .flyer:nth-child(1){transform:rotate(-1.9deg)}
 .flyer:nth-child(2){transform:rotate(1.4deg);margin-top:clamp(10px,1.6vw,26px)}
 .flyer:nth-child(3){transform:rotate(-1.1deg)}
-.flyer:hover{transform:rotate(0deg) translateY(-6px)}
+@media (hover:hover) and (pointer:fine){.flyer:hover{transform:rotate(0deg) translateY(-6px)}}
 .flyer .staple.s1{left:20px;top:-3px;transform:rotate(-8deg)}
 .flyer .staple.s2{right:20px;top:-3px;transform:rotate(6deg)}
 .flyer .xr{aspect-ratio:16/10;margin-bottom:18px}
@@ -251,9 +261,9 @@ body::after{content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opa
 .flyer.pop .tear{border-color:rgba(20,18,16,.4)}
 
 /* ---------- 5. LEAD MAGNET: a NOTICE poster ---------- */
-.magnet{padding:clamp(52px,6.6vw,100px) 0}
+.magnet{padding:var(--sp-8) 0}
 .notice{position:relative;background:var(--sheet);box-shadow:11px 11px 0 var(--black);
-  transform:rotate(.5deg);padding:clamp(24px,3.4vw,56px);
+  transform:rotate(.5deg);padding:var(--sp-5);
   border:4px double var(--black)}
 .notice .tape.t1{left:6%;top:-14px;transform:rotate(-8deg)}
 .notice .tape.t2{right:8%;top:-16px;transform:rotate(6deg)}
@@ -274,7 +284,7 @@ body::after{content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opa
 .tabs span{flex:1;background:var(--paper);border:2px solid var(--black);border-top:0;
   padding:14px 4px 16px;text-align:center;font-family:'Special Elite',cursive;font-size:11px;
   line-height:1.35;transform:rotate(var(--r,0deg));transition:transform .18s linear}
-.tabs span:hover{transform:rotate(var(--r,0deg)) translateY(4px)}
+@media (hover:hover) and (pointer:fine){.tabs span:hover{transform:rotate(var(--r,0deg)) translateY(4px)}}
 .notice .cols{display:grid;gap:12px}
 .notice .cols div{display:flex;gap:12px;align-items:flex-start;background:var(--paper);
   border:2.5px solid var(--black);padding:13px 15px}
@@ -282,11 +292,11 @@ body::after{content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opa
 .notice .cols span{font-size:13.4px;color:var(--ink-2);line-height:1.6}
 
 /* ---------- 6. CONTENT: a photocopied contact sheet ---------- */
-.content{padding:0 0 clamp(52px,6.6vw,100px)}
+.content{padding:0 0 var(--sp-8)}
 .content .head{display:flex;justify-content:space-between;align-items:flex-end;gap:22px;
   flex-wrap:wrap;margin-bottom:clamp(24px,3vw,40px)}
 .content h2{font-size:clamp(30px,4.4vw,62px)}
-.sheet-grid{background:var(--black);padding:clamp(12px,1.6vw,22px);transform:rotate(-.4deg);
+.sheet-grid{background:var(--black);padding:var(--sp-2);transform:rotate(-.4deg);
   box-shadow:9px 9px 0 rgba(15,15,13,.3)}
 .sheet-grid .g{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.4vw,18px)}
 .frame{position:relative;display:block}
@@ -294,7 +304,7 @@ body::after{content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opa
 .frame .no{position:absolute;left:6px;top:6px;z-index:5;background:var(--acc);color:var(--on-acc);
   font-family:'Courier Prime',monospace;font-weight:700;font-size:10.5px;letter-spacing:.1em;
   padding:3px 7px}
-.frame:hover .xr img{filter:grayscale(1) contrast(1.35) brightness(1.02)}
+@media (hover:hover) and (pointer:fine){.frame:hover .xr img{filter:grayscale(1) contrast(1.35) brightness(1.02)}}
 .frame .cap{display:block;margin-top:9px;color:var(--paper);font-family:'Special Elite',cursive;
   font-size:12.5px;line-height:1.4}
 .frame .cap i{display:block;font-style:normal;font-family:'Courier Prime',monospace;font-size:11px;
@@ -312,9 +322,9 @@ footer .big em{font-style:normal;background:var(--acc);color:var(--on-acc);paddi
 footer .cols{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:clamp(20px,3vw,44px)}
 footer .lead{margin:14px 0 0;color:#A9A79D;max-width:32ch;font-size:14px;line-height:1.7}
 footer h5{margin:0 0 14px;color:var(--acc)}
-footer nav{display:grid;gap:9px}
-footer nav a{font-size:14px;color:#CFCDC3;transition:color .15s}
-footer nav a:hover{color:var(--acc)}
+footer nav{display:grid;gap:0}
+footer nav a{display:block;padding-block:9px;font-size:14px;color:#CFCDC3;transition:color .15s}
+@media (hover:hover) and (pointer:fine){footer nav a:hover{color:var(--acc)}}
 footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;
   border-top:2px dashed rgba(228,225,214,.28);display:flex;justify-content:space-between;
   gap:14px;flex-wrap:wrap;color:#A9A79D}
@@ -323,8 +333,7 @@ footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;
 @media(prefers-reduced-motion:no-preference){
   .rv{opacity:0;translate:0 18px}
   .rv.is-in{opacity:1;translate:none;transition:opacity .5s linear,translate .5s var(--eo);
-    transition-delay:var(--d,0s)}
-}
+    transition-delay:var(--d,0s)}}
 
 /* ---------- responsive ---------- */
 @media(max-width:1080px){
@@ -334,19 +343,17 @@ footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;
   .flyers{grid-template-columns:1fr}
   .flyer{margin-top:0!important}
   .sheet-grid .g{grid-template-columns:1fr 1fr}
-  footer .cols{grid-template-columns:1fr 1fr}
-}
+  footer .cols{grid-template-columns:1fr 1fr}}
 @media(max-width:760px){
   .nlinks{display:none}
-  .burger{display:inline-flex}
+  .burger{display:inline-flex;transition:transform .14s cubic-bezier(.23,1,.32,1)}
   .poster h1{font-size:clamp(38px,13vw,62px)}
   /* the note badge overhangs its photo by 4%, which is 3px past a 390px viewport */
   .about .pic .note{right:0;bottom:-4%}
   .sheet-grid .g{grid-template-columns:1fr}
   .tabs{flex-wrap:wrap}
   .tabs span{flex:1 1 44%}
-  footer .cols{grid-template-columns:1fr}
-}
+  footer .cols{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
 /* skip link — keyboard users reach the content without tabbing the whole nav */
@@ -354,6 +361,11 @@ footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;
   padding:11px 18px;border-radius:6px;background:#141310;color:#fff;text-decoration:none;
   font:600 14px/1 system-ui,-apple-system,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.35)}
 .skip-link:focus{transform:translateY(0)}
+/* ---------- press feedback (punch-list 01) ----------
+   Appended last so :active wins over the :hover transforms above.
+   0.97 reads as a press; anything lower reads as a bounce. */
+.btn:active,.burger:active{transform:scale(.97);transition-duration:.12s}
+@media (prefers-reduced-motion:reduce){.btn:active,.burger:active{transform:none}}
 </style>
 <script type="application/ld+json">
 {
@@ -785,7 +797,7 @@ footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;
           <div><dt>Delivery</dt><dd>Design&ndash;build</dd></div>
         </dl>
         <div class="tear"><span class="ph">(480) 555&#8209;0100</span>
-          <a class="btn line" href="#bid" style="padding:9px 14px;font-size:11px">Enquire</a></div>
+          <a class="btn line" href="#bid" style="padding:11px 14px;font-size:11px">Enquire</a></div>
       </article>
       <article class="flyer pop rv" style="--d:.07s">
         <span class="staple s1" aria-hidden="true"></span><span class="staple s2" aria-hidden="true"></span>
@@ -799,7 +811,7 @@ footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;
           <div><dt>Note</dt><dd>Most requested</dd></div>
         </dl>
         <div class="tear"><span class="ph">(480) 555&#8209;0100</span>
-          <a class="btn line" href="#bid" style="padding:9px 14px;font-size:11px">Enquire</a></div>
+          <a class="btn line" href="#bid" style="padding:11px 14px;font-size:11px">Enquire</a></div>
       </article>
       <article class="flyer rv" style="--d:.14s">
         <span class="staple s1" aria-hidden="true"></span><span class="staple s2" aria-hidden="true"></span>
@@ -813,7 +825,7 @@ footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;
           <div><dt>Phasing</dt><dd>After hours</dd></div>
         </dl>
         <div class="tear"><span class="ph">(480) 555&#8209;0100</span>
-          <a class="btn line" href="#bid" style="padding:9px 14px;font-size:11px">Enquire</a></div>
+          <a class="btn line" href="#bid" style="padding:11px 14px;font-size:11px">Enquire</a></div>
       </article>
     </div>
   </div>

@@ -55,6 +55,12 @@
    is an INDEX TABLE, the lead magnet is a type-only band.
    ============================================================ */
 :root{
+  /* section rhythm — one value per step, was 6 one-offs */
+  --sp-1:clamp(18px,2.2vw,30px);
+  --sp-2:clamp(30px,3.4vw,48px);
+  --sp-3:clamp(40px,5vw,72px);
+  --sp-4:clamp(44px,5.6vw,86px);
+
   --acc:#D07C42;              /* swapped live by the gallery */
   --on-acc:#1C1208;
   --acc-dim:#9A4E1E;          /* accent as text on bone */
@@ -63,11 +69,11 @@
   --bone-2:#E6E4DB;
   --ink:#0E0E0B;
   --ink-2:#45443D;
-  --mute:#8A887E;
+  --mute:#6E6D65;
   --rule:#C9C6BA;
   --rule-2:#0E0E0B;
 
-  --m:clamp(16px,3.4vw,52px);
+  --m:clamp(20px,3.4vw,52px);
   --maxw:1500px;
   --gut:clamp(12px,1.5vw,24px);
 }
@@ -93,27 +99,27 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.045em;line-height:.94}
 
 .btn{display:inline-flex;align-items:center;gap:.7em;font-size:12.5px;font-weight:600;
   letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:var(--bone);
-  padding:15px 26px;border:0;cursor:pointer;transition:background-color .2s linear}
-.btn:hover{background:var(--acc-dim)}
+  padding:15px 26px;border:0;cursor:pointer;transition:background-color .2s linear,transform .14s cubic-bezier(.23,1,.32,1)}
+@media (hover:hover) and (pointer:fine){.btn:hover{background:var(--acc-dim)}}
 .btn svg{width:1.05em;height:1.05em}
 .btn.acc{background:var(--acc);color:var(--on-acc)}
-.btn.acc:hover{background:var(--ink);color:var(--bone)}
+@media (hover:hover) and (pointer:fine){.btn.acc:hover{background:var(--ink);color:var(--bone)}}
 .btn.line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
-.btn.line:hover{background:var(--ink);color:var(--bone)}
+@media (hover:hover) and (pointer:fine){.btn.line:hover{background:var(--ink);color:var(--bone)}}
 
 /* ---------- nav: a rule, a wordmark, numbered links ---------- */
 .nav{position:sticky;top:0;z-index:60;background:var(--bone);border-bottom:1px solid var(--rule)}
 .nav .in{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:62px}
-.brand{display:flex;align-items:baseline;gap:10px}
+.brand{display:flex;align-items:baseline;gap:10px;padding-block:8px}
 .brand b{font-size:16px;font-weight:700;letter-spacing:-.05em}
 .brand span{font-size:9.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
 .nlinks{display:flex;gap:clamp(14px,2.4vw,36px)}
 .nlinks a{font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
   display:flex;gap:7px;transition:color .2s linear}
 .nlinks a i{font-style:normal;color:var(--acc-dim)}
-.nlinks a:hover{color:var(--acc-dim)}
-.burger{display:none;width:38px;height:38px;border:1px solid var(--rule-2);background:none;
-  align-items:center;justify-content:center;cursor:pointer}
+@media (hover:hover) and (pointer:fine){.nlinks a:hover{color:var(--acc-dim)}}
+.burger{display:none;width:40px;height:40px;border:1px solid var(--rule-2);background:none;
+  align-items:center;justify-content:center;cursor:pointer;transition:transform .14s cubic-bezier(.23,1,.32,1)}
 .burger span{display:block;width:15px;height:1.5px;background:var(--ink);position:relative}
 .burger span::before,.burger span::after{content:"";position:absolute;left:0;width:15px;height:1.5px;background:var(--ink)}
 .burger span::before{top:-4px}.burger span::after{top:4px}
@@ -134,7 +140,7 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.045em;line-height:.94}
 .wall .ph{position:relative;overflow:hidden;background:var(--ink)}
 .wall .ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.09);
   transition:transform .8s cubic-bezier(.2,.9,.3,1)}
-.wall .ph:hover img{transform:scale(1.045)}
+@media (hover:hover) and (pointer:fine){.wall .ph:hover img{transform:scale(1.045)}}
 .wall .ph figcaption{position:absolute;left:0;bottom:0;z-index:2;padding:8px 12px;
   background:var(--ink);color:var(--bone);font-size:10px;font-weight:600;
   letter-spacing:.16em;text-transform:uppercase}
@@ -145,12 +151,12 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.045em;line-height:.94}
 .wall .act{background:var(--acc);color:var(--on-acc);padding:clamp(18px,2.2vw,30px);
   display:flex;flex-direction:column;justify-content:space-between;gap:14px;
   transition:filter .25s linear}
-.wall .act:hover{filter:brightness(1.06)}
+@media (hover:hover) and (pointer:fine){.wall .act:hover{filter:brightness(1.06)}}
 .wall .act b{font-size:clamp(20px,2.1vw,30px);font-weight:700;letter-spacing:-.035em;line-height:1.02}
 .wall .act .go{display:flex;align-items:center;justify-content:space-between;
   font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
 .wall .act svg{width:24px;height:24px;transition:transform .25s cubic-bezier(.2,.9,.3,1)}
-.wall .act:hover svg{transform:translateX(5px)}
+@media (hover:hover) and (pointer:fine){.wall .act:hover svg{transform:translateX(5px)}}
 .wall .note{background:var(--ink);color:var(--bone);padding:clamp(18px,2.2vw,30px);
   display:flex;flex-direction:column;justify-content:flex-end}
 .wall .note p{margin:0;font-size:clamp(14px,1.05vw,16px);line-height:1.45;color:#CFCCC2}
@@ -181,7 +187,7 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.045em;line-height:.94}
 /* ---------- 2. SOCIAL PROOF: a data table, not a strip of pills ---------- */
 /* the strip now closes the hero on a rule, so this no longer needs to open on
    a full section's worth of air as well */
-.proof{padding:clamp(30px,3.4vw,48px) 0 clamp(40px,5vw,72px)}
+.proof{padding:var(--sp-2) 0 var(--sp-3)}
 .proof table{width:100%;border-collapse:collapse}
 .proof caption{text-align:left;padding-bottom:14px}
 .proof th{text-align:left;padding:10px 12px 10px 0;border-bottom:2px solid var(--rule-2);
@@ -189,10 +195,10 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.045em;line-height:.94}
 .proof td{padding:14px 12px 14px 0;border-bottom:1px solid var(--rule);font-size:14.5px;vertical-align:top}
 .proof td:first-child{font-weight:600;width:34%}
 .proof td.v{font-weight:700;letter-spacing:-.02em;color:var(--acc-dim);white-space:nowrap}
-.proof tr:hover td{background:var(--bone-2)}
+@media (hover:hover) and (pointer:fine){.proof tr:hover td{background:var(--bone-2)}}
 
 /* ---------- 3. ABOUT: full-bleed photo band, then two columns under it ---------- */
-.about{padding-bottom:clamp(48px,6vw,88px)}
+.about{padding-bottom:var(--sp-4)}
 .about .band{margin-bottom:clamp(26px,3.2vw,44px);height:clamp(220px,30vw,420px);overflow:hidden;position:relative}
 .about .band img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)}
 .about .band figcaption{position:absolute;left:0;bottom:0;background:var(--acc);color:var(--on-acc);
@@ -209,32 +215,32 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.045em;line-height:.94}
 .about .spec dd{margin:8px 0 0 28px;font-size:14px;color:var(--ink-2)}
 
 /* ---------- 4. OFFERS: numbered rows, no cards anywhere ---------- */
-.offers{padding:clamp(44px,5.6vw,86px) 0;border-top:2px solid var(--rule-2)}
+.offers{padding:var(--sp-4) 0;border-top:2px solid var(--rule-2)}
 .offers .head{margin-bottom:clamp(22px,2.6vw,36px)}
 .offers h2{grid-column:1/7;font-size:clamp(26px,3.4vw,46px)}
 .offers .head p{grid-column:8/13;margin:0;color:var(--ink-2);font-size:14.5px;align-self:end}
 .row{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);align-items:center;
-  padding:clamp(18px,2.2vw,30px) 0;border-bottom:1px solid var(--rule);position:relative;
+  padding:var(--sp-1) 0;border-bottom:1px solid var(--rule);position:relative;
   transition:background-color .2s linear}
 .row:first-of-type{border-top:1px solid var(--rule)}
-.row:hover{background:var(--bone-2)}
+@media (hover:hover) and (pointer:fine){.row:hover{background:var(--bone-2)}}
 .row .n{grid-column:1/2;font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--acc-dim)}
 .row h3{grid-column:2/6;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.04em}
 .row p{grid-column:6/10;margin:0;font-size:14.2px;color:var(--ink-2)}
 .row .meta{grid-column:10/12;font-size:12.5px;color:var(--mute);text-align:right}
 .row .go{grid-column:12/13;justify-self:end;width:38px;height:38px;display:grid;place-items:center;
   box-shadow:inset 0 0 0 1px var(--rule-2);transition:background-color .2s linear,color .2s linear}
-.row:hover .go{background:var(--acc);color:var(--on-acc);box-shadow:inset 0 0 0 1px var(--acc)}
+@media (hover:hover) and (pointer:fine){.row:hover .go{background:var(--acc);color:var(--on-acc);box-shadow:inset 0 0 0 1px var(--acc)}}
 .row .go svg{width:15px;height:15px}
 /* a thumbnail that only appears on hover — the one flourish this style allows */
 .row .thumb{position:absolute;right:8%;top:50%;width:190px;aspect-ratio:4/3;overflow:hidden;
   transform:translateY(-50%) scale(.96);opacity:0;pointer-events:none;z-index:3;
   transition:opacity .22s linear,transform .22s linear}
-.row:hover .thumb{opacity:1;transform:translateY(-50%) scale(1)}
+@media (hover:hover) and (pointer:fine){.row:hover .thumb{opacity:1;transform:translateY(-50%) scale(1)}}
 .row .thumb img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
 
 /* ---------- 5. LEAD MAGNET: a full-width band, type only ---------- */
-.magnet{background:var(--acc);color:var(--on-acc);padding:clamp(40px,5.4vw,80px) 0}
+.magnet{background:var(--acc);color:var(--on-acc);padding:var(--sp-4) 0}
 .magnet .cap{color:color-mix(in srgb,var(--on-acc) 62%,transparent)}
 .magnet h2{grid-column:1/8;font-size:clamp(28px,4.2vw,60px);margin-top:16px;max-width:17ch}
 .magnet .side{grid-column:9/13;align-self:end}
@@ -248,7 +254,7 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.045em;line-height:.94}
   font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:0 0 0 16px;
   display:flex;align-items:center;gap:.6em}
 .magnet button svg{width:14px;height:14px;transition:transform .2s linear}
-.magnet button:hover svg{transform:translateX(4px)}
+@media (hover:hover) and (pointer:fine){.magnet button:hover svg{transform:translateX(4px)}}
 .magnet .fine{margin:12px 0 0;font-size:11.5px;color:color-mix(in srgb,var(--on-acc) 62%,transparent)}
 .magnet .contents{grid-column:1/8;margin-top:clamp(24px,3vw,38px);
   display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gut)}
@@ -258,7 +264,7 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.045em;line-height:.94}
   color:color-mix(in srgb,var(--on-acc) 74%,transparent)}
 
 /* ---------- 6. CONTENT: an index table ---------- */
-.content{padding:clamp(44px,5.6vw,86px) 0}
+.content{padding:var(--sp-4) 0}
 .content .head{margin-bottom:clamp(20px,2.4vw,32px)}
 .content h2{grid-column:1/7;font-size:clamp(26px,3.4vw,46px)}
 .content .head a{grid-column:11/13;justify-self:end;align-self:end}
@@ -268,7 +274,7 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.045em;line-height:.94}
 .index th:last-child,.index td:last-child{text-align:right;padding-right:0}
 .index td{padding:16px 14px 16px 0;border-bottom:1px solid var(--rule);font-size:14.5px;color:var(--ink-2)}
 .index tr{transition:background-color .2s linear}
-.index tbody tr:hover{background:var(--bone-2)}
+@media (hover:hover) and (pointer:fine){.index tbody tr:hover{background:var(--bone-2)}}
 .index td.p{font-size:17px;font-weight:600;color:var(--ink);letter-spacing:-.025em;width:30%}
 .index td.n{font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--acc-dim);width:5%}
 .index .t{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.12em;
@@ -283,9 +289,9 @@ footer .cols>div:nth-child(4){grid-column:10/13}
 footer .lead{margin:14px 0 0;color:var(--ink-2);font-size:14px;max-width:32ch}
 footer h5{margin:0 0 14px;font-size:10.5px;font-weight:600;letter-spacing:.16em;
   text-transform:uppercase;color:var(--mute)}
-footer nav{display:grid;gap:9px}
-footer nav a{font-size:14px;color:var(--ink-2);transition:color .2s linear}
-footer nav a:hover{color:var(--acc-dim)}
+footer nav{display:grid;gap:0}
+footer nav a{display:block;padding-block:10px;font-size:14px;color:var(--ink-2);transition:color .2s linear}
+@media (hover:hover) and (pointer:fine){footer nav a:hover{color:var(--acc-dim)}}
 footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;border-top:1px solid var(--rule);
   display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
 
@@ -293,8 +299,7 @@ footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;border-top:1px so
 @media(prefers-reduced-motion:no-preference){
   .rv{opacity:0;translate:0 18px}
   .rv.is-in{opacity:1;translate:none;transition:opacity .6s linear,translate .6s cubic-bezier(.22,1,.36,1);
-    transition-delay:var(--d,0s)}
-}
+    transition-delay:var(--d,0s)}}
 
 
 /* ---------- REEL — three stills cross-dissolving behind a hairline chrome bar.
@@ -317,8 +322,7 @@ footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;border-top:1px so
   .reel img{animation:reelfade 18s linear infinite}
   .reel img:nth-of-type(2){animation-delay:6s}
   .reel img:nth-of-type(3){animation-delay:12s}
-  .reel .pg i{animation:reelpg 18s linear infinite}
-}
+  .reel .pg i{animation:reelpg 18s linear infinite}}
 @keyframes reelfade{0%{opacity:0}2%{opacity:1}31%{opacity:1}34%{opacity:0}100%{opacity:0}}
 @keyframes reelpg{from{scale:0 1}to{scale:1 1}}
 
@@ -348,20 +352,17 @@ footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;border-top:1px so
   .magnet h2,.magnet .side,.magnet .contents{grid-column:1/13}
   .magnet .side{margin-top:24px}
   footer .cols>div{grid-column:1/13!important}
-  footer .cols>div+div{margin-top:26px}
-}
-@media(max-width:1080px){
-}
+  footer .cols>div+div{margin-top:26px}}
+@media(max-width:1080px){}
 @media(max-width:1080px){
   .wall{grid-auto-rows:clamp(92px,13vw,140px)}
-  .wall .say h1{font-size:clamp(26px,3.4vw,40px)}
-}
+  .wall .say h1{font-size:clamp(26px,3.4vw,40px)}}
 @media(max-width:760px){
   .wall{grid-template-columns:repeat(2,1fr);grid-auto-rows:38vw}
   .w1{grid-column:1/3;grid-row:auto}
   .w2{grid-column:1/3;grid-row:auto}
   .w3,.w4,.w5,.w6,.w7,.w8{grid-column:auto;grid-row:auto}
-  .wall .say{padding:22px 18px}
+  .wall .say{padding:22px 20px}
   .wall .say .cap{margin-bottom:14px}
   /* two up, still closing on both edges: odd cells flush left, even flush right */
   .hero .strip{grid-template-columns:repeat(2,1fr)}
@@ -376,11 +377,10 @@ footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;border-top:1px so
   .index td.th,.index th.th{display:none}
 
   .nlinks{display:none}
-  .burger{display:inline-flex}
+  .burger{display:inline-flex;transition:transform .14s cubic-bezier(.23,1,.32,1)}
   .magnet .contents{grid-template-columns:1fr}
   .proof td:first-child{width:auto}
-  .index .hide{display:none}
-}
+  .index .hide{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
 /* skip link — keyboard users reach the content without tabbing the whole nav */
@@ -388,6 +388,11 @@ footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;border-top:1px so
   padding:11px 18px;border-radius:6px;background:#141310;color:#fff;text-decoration:none;
   font:600 14px/1 system-ui,-apple-system,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.35)}
 .skip-link:focus{transform:translateY(0)}
+/* ---------- press feedback (punch-list 01) ----------
+   Appended last so :active wins over the :hover transforms above.
+   0.97 reads as a press; anything lower reads as a bounce. */
+.btn:active,.burger:active{transform:scale(.97);transition-duration:.12s}
+@media (prefers-reduced-motion:reduce){.btn:active,.burger:active{transform:none}}
 </style>
 <script type="application/ld+json">
 {

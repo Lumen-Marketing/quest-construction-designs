@@ -54,9 +54,14 @@
    ziggurat arches, and work as vertical stepped tiles.
    ============================================================ */
 :root{
+  /* section rhythm — one value per step, was 5 one-offs */
+  --sp-1:clamp(18px,2.4vw,28px);
+  --sp-2:clamp(28px,4vw,64px);
+  --sp-3:clamp(56px,7vw,110px);
+
   --acc:#D9A93C;              /* swapped live by the gallery */
   --on-acc:#191307;
-  --acc-dim:#8A6712;
+  --acc-dim:#846211;
 
   --char:#14141A;
   --char-2:#1C1C24;
@@ -69,7 +74,7 @@
   --on-char:#EDE8DB;
   --on-char-2:#A29EA8;
 
-  --m:clamp(16px,4vw,60px);
+  --m:clamp(20px,4vw,60px);
   --maxw:1340px;
   --eo:cubic-bezier(.25,.9,.3,1);
 }
@@ -107,13 +112,13 @@ h1,h2,h3{margin:0;font-family:'Limelight','Jost',sans-serif;font-weight:400;line
 .btn{display:inline-flex;align-items:center;gap:.7em;font-family:'Jost',sans-serif;font-weight:600;
   font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;background:var(--acc);
   color:var(--on-acc);padding:16px 30px;border:0;cursor:pointer;
-  transition:background-color .3s var(--eo),color .3s var(--eo),letter-spacing .3s var(--eo)}
-.btn:hover{background:var(--on-char);color:var(--char);letter-spacing:.3em}
+  transition:background-color .3s var(--eo),color .3s var(--eo),letter-spacing .3s var(--eo),transform .14s cubic-bezier(.23,1,.32,1)}
+@media (hover:hover) and (pointer:fine){.btn:hover{background:var(--on-char);color:var(--char);letter-spacing:.3em}}
 .btn svg{width:1.05em;height:1.05em}
 .btn.line{background:transparent;color:var(--on-char);box-shadow:inset 0 0 0 1px rgba(237,232,219,.45)}
-.btn.line:hover{background:var(--on-char);color:var(--char);box-shadow:none}
+@media (hover:hover) and (pointer:fine){.btn.line:hover{background:var(--on-char);color:var(--char);box-shadow:none}}
 .btn.dark{background:var(--char);color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc)}
-.btn.dark:hover{background:var(--acc);color:var(--on-acc)}
+@media (hover:hover) and (pointer:fine){.btn.dark:hover{background:var(--acc);color:var(--on-acc)}}
 
 /* ---------- nav: symmetrical, wordmark centred between rules ---------- */
 .nav{position:sticky;top:0;z-index:70;background:rgba(20,20,26,.93);backdrop-filter:blur(10px);
@@ -124,14 +129,14 @@ h1,h2,h3{margin:0;font-family:'Limelight','Jost',sans-serif;font-weight:400;line
 .nav .r{justify-content:flex-end}
 .nav a.n{font-size:11.5px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;
   color:var(--on-char);opacity:.78;transition:opacity .3s,color .3s}
-.nav a.n:hover{opacity:1;color:var(--acc)}
-.brand{text-align:center;line-height:1}
+@media (hover:hover) and (pointer:fine){.nav a.n:hover{opacity:1;color:var(--acc)}}
+.brand{display:inline-block;text-align:center;line-height:1;padding-block:4px}
 .brand b{display:block;font-family:'Limelight',sans-serif;font-weight:400;font-size:21px;
   letter-spacing:.12em;text-transform:uppercase}
 .brand span{display:block;margin-top:5px;font-size:8.5px;font-weight:500;letter-spacing:.36em;
   text-transform:uppercase;color:var(--acc)}
 .burger{display:none;width:40px;height:40px;border:1px solid rgba(237,232,219,.4);background:none;
-  align-items:center;justify-content:center;cursor:pointer;justify-self:end}
+  align-items:center;justify-content:center;cursor:pointer;justify-self:end;transition:transform .14s cubic-bezier(.23,1,.32,1)}
 .burger span{display:block;width:16px;height:1.5px;background:var(--on-char);position:relative}
 .burger span::before,.burger span::after{content:"";position:absolute;left:0;width:16px;height:1.5px;background:var(--on-char)}
 .burger span::before{top:-5px}.burger span::after{top:5px}
@@ -188,7 +193,7 @@ h1,h2,h3{margin:0;font-family:'Limelight','Jost',sans-serif;font-weight:400;line
   letter-spacing:.24em;text-transform:uppercase;color:var(--acc)}
 
 /* ---------- 2. SOCIAL PROOF: chevron-divided rail ---------- */
-.proof{background:var(--acc);color:var(--on-acc);padding:clamp(18px,2.4vw,28px) 0}
+.proof{background:var(--acc);color:var(--on-acc);padding:var(--sp-1) 0}
 .proof .in{display:flex;align-items:center;justify-content:center;gap:clamp(14px,2.6vw,40px);flex-wrap:wrap}
 .proof .it{text-align:center}
 .proof .it b{display:block;font-family:'Limelight',sans-serif;font-size:clamp(20px,2.2vw,30px);line-height:1}
@@ -197,7 +202,7 @@ h1,h2,h3{margin:0;font-family:'Limelight','Jost',sans-serif;font-weight:400;line
 .proof .chev{background:var(--on-acc);opacity:.42}
 
 /* ---------- 3. ABOUT: symmetrical, ziggurat photo between two columns ---------- */
-.about{padding:clamp(56px,7vw,110px) 0}
+.about{padding:var(--sp-3) 0}
 .about .head{max-width:44ch;margin:0 auto}
 .about h2{font-size:clamp(28px,3.8vw,52px)}
 .about .in{margin-top:clamp(30px,3.6vw,52px);display:grid;
@@ -221,7 +226,7 @@ h1,h2,h3{margin:0;font-family:'Limelight','Jost',sans-serif;font-weight:400;line
 .about .cta{margin-top:clamp(28px,3.4vw,46px)}
 
 /* ---------- 4. OFFERS: three ziggurat arches ---------- */
-.offers{background:var(--bone);color:var(--ink);padding:clamp(52px,6.6vw,100px) 0}
+.offers{background:var(--bone);color:var(--ink);padding:var(--sp-3) 0}
 .offers .lbl{color:var(--acc-dim)}
 .offers .drule::before,.offers .drule::after{border-color:var(--acc-dim)}
 .offers .drule i{background:var(--acc-dim)}
@@ -231,11 +236,11 @@ h1,h2,h3{margin:0;font-family:'Limelight','Jost',sans-serif;font-weight:400;line
   gap:clamp(16px,2.4vw,34px);align-items:end}
 .arch-card{position:relative;background:var(--bone-2);padding-bottom:26px;
   transition:transform .4s var(--eo)}
-.arch-card:hover{transform:translateY(-8px)}
+@media (hover:hover) and (pointer:fine){.arch-card:hover{transform:translateY(-8px)}}
 .arch-card .ph{position:relative;aspect-ratio:1/1.04;overflow:hidden;background:var(--char)}
 .arch-card .ph img{width:100%;height:100%;object-fit:cover;
   filter:grayscale(1) sepia(.26) contrast(1.08);transition:transform .8s var(--eo)}
-.arch-card:hover .ph img{transform:scale(1.05)}
+@media (hover:hover) and (pointer:fine){.arch-card:hover .ph img{transform:scale(1.05)}}
 .arch-card.mid .ph{aspect-ratio:1/1.24}
 .arch-card .rn{position:absolute;left:50%;top:0;transform:translate(-50%,-50%);z-index:4;
   width:46px;height:46px;background:var(--acc);color:var(--on-acc);display:grid;place-items:center;
@@ -252,14 +257,14 @@ h1,h2,h3{margin:0;font-family:'Limelight','Jost',sans-serif;font-weight:400;line
 .arch-card .go{margin-top:20px}
 
 /* ---------- 5. LEAD MAGNET: a centred ornamental panel ---------- */
-.magnet{padding:clamp(56px,7vw,110px) 0;position:relative;overflow:hidden}
+.magnet{padding:var(--sp-3) 0;position:relative;overflow:hidden}
 .magnet .sun{position:absolute;left:50%;bottom:-70%;width:min(1000px,120vw);aspect-ratio:1;
   transform:translateX(-50%);z-index:0;opacity:.13;pointer-events:none;
   background:repeating-conic-gradient(from 0deg at 50% 50%,var(--acc) 0deg 1.5deg,transparent 1.5deg 9deg);
   -webkit-mask-image:radial-gradient(circle,#000 10%,transparent 62%);
           mask-image:radial-gradient(circle,#000 10%,transparent 62%)}
 .panel{position:relative;z-index:3;max-width:900px;margin:0 auto;background:var(--char-2);
-  padding:clamp(28px,4vw,64px);text-align:center;
+  padding:var(--sp-2);text-align:center;
   box-shadow:0 0 0 1px var(--acc),0 0 0 8px var(--char-2),0 0 0 9px rgba(217,169,60,.42)}
 .panel h2{font-size:clamp(26px,3.4vw,46px);margin-top:8px}
 .panel>p{margin:0 auto;max-width:52ch;color:var(--on-char-2);font-size:15.4px}
@@ -276,12 +281,12 @@ h1,h2,h3{margin:0;font-family:'Limelight','Jost',sans-serif;font-weight:400;line
 .panel .cols span{display:block;margin-top:8px;font-size:13.4px;color:var(--on-char-2)}
 
 /* ---------- 6. CONTENT: vertical stepped tiles ---------- */
-.content{padding:0 0 clamp(56px,7vw,104px)}
+.content{padding:0 0 var(--sp-3)}
 .tiles{margin-top:clamp(30px,3.6vw,52px);display:grid;grid-template-columns:repeat(4,1fr);
   gap:clamp(12px,1.8vw,24px);align-items:end}
 .tile{position:relative;display:block;background:var(--char-2);
   transition:transform .4s var(--eo)}
-.tile:hover{transform:translateY(-8px)}
+@media (hover:hover) and (pointer:fine){.tile:hover{transform:translateY(-8px)}}
 .tile .ph{position:relative;overflow:hidden;background:var(--char)}
 .tile:nth-child(1) .ph{aspect-ratio:1/1.5}
 .tile:nth-child(2) .ph{aspect-ratio:1/1.76}
@@ -289,7 +294,7 @@ h1,h2,h3{margin:0;font-family:'Limelight','Jost',sans-serif;font-weight:400;line
 .tile:nth-child(4) .ph{aspect-ratio:1/1.62}
 .tile .ph img{width:100%;height:100%;object-fit:cover;
   filter:grayscale(1) sepia(.26) contrast(1.1) brightness(.94);transition:filter .5s,transform .8s var(--eo)}
-.tile:hover .ph img{filter:grayscale(1) sepia(.42) contrast(1.14) brightness(1.02);transform:scale(1.04)}
+@media (hover:hover) and (pointer:fine){.tile:hover .ph img{filter:grayscale(1) sepia(.42) contrast(1.14) brightness(1.02);transform:scale(1.04)}}
 .tile .ph::after{content:"";position:absolute;inset:0;
   background:linear-gradient(transparent 48%,rgba(20,20,26,.86))}
 .tile .cap{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:16px 16px 18px;text-align:center}
@@ -304,9 +309,9 @@ footer .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(22px,3vw
   margin-top:clamp(26px,3.2vw,44px);text-align:center}
 footer h5{margin:0 0 15px;font-size:10.5px;font-weight:500;letter-spacing:.3em;
   text-transform:uppercase;color:var(--acc)}
-footer nav{display:grid;gap:10px}
-footer nav a{font-size:14.4px;color:var(--on-char-2);transition:color .3s}
-footer nav a:hover{color:var(--acc)}
+footer nav{display:grid;gap:0}
+footer nav a{display:block;padding-block:9px;font-size:14.4px;color:var(--on-char-2);transition:color .3s}
+@media (hover:hover) and (pointer:fine){footer nav a:hover{color:var(--acc)}}
 footer .lead{margin:16px auto 0;max-width:46ch;color:var(--on-char-2);font-size:14.6px}
 footer .bar{margin-top:clamp(30px,3.6vw,50px);padding-top:20px;
   border-top:1px solid rgba(237,232,219,.14);display:flex;justify-content:space-between;
@@ -317,8 +322,7 @@ footer .bar{margin-top:clamp(30px,3.6vw,50px);padding-top:20px;
 @media(prefers-reduced-motion:no-preference){
   .rv{opacity:0;translate:0 20px}
   .rv.is-in{opacity:1;translate:none;transition:opacity .8s var(--eo),translate .8s var(--eo);
-    transition-delay:var(--d,0s)}
-}
+    transition-delay:var(--d,0s)}}
 
 /* ---------- REEL — the framed portrait, running. Three stills cross-dissolve
      inside the same brass ziggurat frame, with a medallion play control and a
@@ -341,7 +345,7 @@ footer .bar{margin-top:clamp(30px,3.6vw,50px);padding-top:20px;
   border-top:3px solid var(--acc)}
 .frieze .ph img{width:100%;height:100%;object-fit:cover;filter:saturate(.62) contrast(1.08) brightness(.9);
   transition:transform .6s var(--eo)}
-.frieze figure:hover .ph img{transform:scale(1.05)}
+@media (hover:hover) and (pointer:fine){.frieze figure:hover .ph img{transform:scale(1.05)}}
 .frieze figcaption{margin-top:12px;text-align:center;font-family:'Jost',sans-serif}
 .frieze .rn{display:block;color:var(--acc);font-weight:600;font-size:12px;letter-spacing:.3em}
 .frieze .nm{display:block;margin-top:5px;font-weight:500;font-size:13.5px;letter-spacing:.2em;
@@ -349,8 +353,7 @@ footer .bar{margin-top:clamp(30px,3.6vw,50px);padding-top:20px;
 @media(prefers-reduced-motion:no-preference){
   .about .arch img{animation:reelfade 18s linear infinite}
   .about .arch img:nth-of-type(2){animation-delay:6s}
-  .about .arch img:nth-of-type(3){animation-delay:12s}
-}
+  .about .arch img:nth-of-type(3){animation-delay:12s}}
 @keyframes reelfade{0%{opacity:0}2%{opacity:1}31%{opacity:1}34%{opacity:0}100%{opacity:0}}
 
 /* ---------- responsive ---------- */
@@ -369,18 +372,16 @@ footer .bar{margin-top:clamp(30px,3.6vw,50px);padding-top:20px;
   .arch-card.mid .ph{aspect-ratio:1/1.04}
   .tiles{grid-template-columns:1fr 1fr}
   .panel .cols{grid-template-columns:1fr}
-  footer .cols{grid-template-columns:1fr}
-}
+  footer .cols{grid-template-columns:1fr}}
 @media(max-width:760px){
   .nav .l,.nav .r{display:none}
   .nav .in{grid-template-columns:1fr auto}
-  .burger{display:inline-flex}
+  .burger{display:inline-flex;transition:transform .14s cubic-bezier(.23,1,.32,1)}
   .hero h1{font-size:clamp(32px,10vw,52px)}
   .tiles{grid-template-columns:1fr}
   .tile .ph{aspect-ratio:1/1!important}
   .proof .chev{display:none}
-  .proof .in{gap:20px 30px}
-}
+  .proof .in{gap:20px 30px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
 /* skip link — keyboard users reach the content without tabbing the whole nav */
@@ -388,6 +389,11 @@ footer .bar{margin-top:clamp(30px,3.6vw,50px);padding-top:20px;
   padding:11px 18px;border-radius:6px;background:#141310;color:#fff;text-decoration:none;
   font:600 14px/1 system-ui,-apple-system,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.35)}
 .skip-link:focus{transform:translateY(0)}
+/* ---------- press feedback (punch-list 01) ----------
+   Appended last so :active wins over the :hover transforms above.
+   0.97 reads as a press; anything lower reads as a bounce. */
+.btn:active,.burger:active{transform:scale(.97);transition-duration:.12s}
+@media (prefers-reduced-motion:reduce){.btn:active,.burger:active{transform:none}}
 </style>
 <script type="application/ld+json">
 {

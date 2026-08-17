@@ -47,6 +47,12 @@
    seal on the seam, giant service rows that summon their photo.
    ============================================================ */
 :root{
+  /* section rhythm — one value per step, was 5 one-offs */
+  --sp-1:clamp(22px,3.2vw,44px);
+  --sp-2:clamp(28px,3.6vw,54px);
+  --sp-3:clamp(24px,3.4vw,56px);
+  --sp-4:clamp(70px,10vw,148px);
+
   --acc:#D07C42;
   --on-acc:#1C1208;
   --bg:#0A0A0A;           /* deactivated CRT — never pure black */
@@ -54,9 +60,9 @@
   --bg-3:#1C1C1B;
   --fg:#EAEAEA;           /* white phosphor */
   --fg-2:#A3A19B;
-  --mute:#6E6C67;
+  --mute:#807E7B;
   --hair:#2A2A28;
-  --m:clamp(16px,3.6vw,56px);
+  --m:clamp(20px,3.6vw,56px);
   --maxw:1520px;
 }
 *{box-sizing:border-box}
@@ -84,10 +90,10 @@ h1,h2,h3,h4{font-family:'Archivo Black','Arial Black',sans-serif;font-weight:400
   --ch:12px;clip-path:polygon(0 0,calc(100% - var(--ch)) 0,100% var(--ch),100% 100%,0 100%);
   transition:transform .18s ease,background .22s ease,color .22s ease;
 }
-.btn:hover{transform:translate(-2px,-2px)}
+@media (hover:hover) and (pointer:fine){.btn:hover{transform:translate(-2px,-2px)}}
 .btn.acc{background:var(--acc);border-color:var(--acc);color:var(--on-acc)}
 .btn.line{background:transparent;color:var(--fg);border-color:var(--fg)}
-.btn.line:hover{background:var(--fg);color:var(--bg)}
+@media (hover:hover) and (pointer:fine){.btn.line:hover{background:var(--fg);color:var(--bg)}}
 .btn.ondark{background:transparent;border-color:currentColor;color:inherit}
 
 /* ---------- 01 NAV ---------- */
@@ -97,14 +103,14 @@ h1,h2,h3,h4{font-family:'Archivo Black','Arial Black',sans-serif;font-weight:400
 .brand .dot{width:10px;height:10px;background:var(--acc);clip-path:polygon(0 0,100% 0,100% 100%)}
 .nav nav{display:flex;gap:clamp(14px,2.2vw,32px);margin-left:auto}
 .nav nav a{color:var(--fg-2);transition:color .2s}
-.nav nav a:hover{color:var(--acc)}
+@media (hover:hover) and (pointer:fine){.nav nav a:hover{color:var(--acc)}}
 @media(max-width:920px){.nav nav{display:none}}
 
 /* ---------- 02 SPLIT HERO ---------- */
 .hero{position:relative;display:grid;grid-template-columns:.46fr .54fr;min-height:min(88svh,860px)}
 .hero-l{
   position:relative;background:var(--acc);color:var(--on-acc);
-  padding:clamp(28px,3.6vw,54px) clamp(24px,3.4vw,56px) clamp(28px,3.4vw,52px) var(--m);
+  padding:var(--sp-2) var(--sp-3) var(--sp-2) var(--m);
   display:flex;flex-direction:column;
   --ch:clamp(34px,4.6vw,78px);
   clip-path:polygon(0 0,100% 0,100% calc(100% - var(--ch)),calc(100% - var(--ch)) 100%,0 100%);
@@ -113,7 +119,7 @@ h1,h2,h3,h4{font-family:'Archivo Black','Arial Black',sans-serif;font-weight:400
 .vid{position:relative;width:min(300px,64%);margin-bottom:auto;--ch:18px;
   clip-path:polygon(0 0,calc(100% - var(--ch)) 0,100% var(--ch),100% 100%,0 100%);cursor:pointer}
 .vid img{width:100%;height:168px;object-fit:cover;filter:grayscale(1) contrast(1.1);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
-.vid:hover img{transform:scale(1.06)}
+@media (hover:hover) and (pointer:fine){.vid:hover img{transform:scale(1.06)}}
 .vid .play{
   position:absolute;inset:0;display:grid;place-items:center;background:rgba(10,10,10,.34);
 }
@@ -128,7 +134,7 @@ h1,h2,h3,h4{font-family:'Archivo Black','Arial Black',sans-serif;font-weight:400
 .hero-l .acts{display:flex;flex-wrap:wrap;gap:12px}
 .hero-l .btn{background:var(--bg);border-color:var(--bg);color:var(--fg)}
 .hero-l .btn.ondark{background:transparent;border-color:var(--on-acc);color:var(--on-acc)}
-.hero-l .btn.ondark:hover{background:var(--on-acc);color:var(--acc)}
+@media (hover:hover) and (pointer:fine){.hero-l .btn.ondark:hover{background:var(--on-acc);color:var(--acc)}}
 
 .hero-r{position:relative;overflow:hidden;min-height:340px}
 .hero-r>img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1) brightness(.86)}
@@ -158,11 +164,10 @@ h1,h2,h3,h4{font-family:'Archivo Black','Arial Black',sans-serif;font-weight:400
   .hero-l{clip-path:none;padding-inline:var(--m)}
   .hero-r{min-height:420px}
   /* clear the figures row — at -56px the seal sat on top of a stat label */
-  .seal{left:auto;right:var(--m);top:auto;bottom:-86px;transform:none}
-}
+  .seal{left:auto;right:var(--m);top:auto;bottom:-86px;transform:none}}
 
 /* ---------- SECTIONS ---------- */
-.sec{padding:clamp(70px,10vw,148px) 0}
+.sec{padding:var(--sp-4) 0}
 .eyebrow{display:flex;align-items:center;gap:12px;color:var(--mute);margin-bottom:22px}
 .eyebrow::before{content:"";width:30px;height:1px;background:var(--acc)}
 .shead{display:grid;grid-template-columns:1fr .82fr;gap:clamp(24px,5vw,80px);align-items:end;margin-bottom:clamp(32px,5vw,62px)}
@@ -184,7 +189,7 @@ h1,h2,h3,h4{font-family:'Archivo Black','Arial Black',sans-serif;font-weight:400
 .rows{border-top:1px solid var(--hair)}
 .row{
   position:relative;display:flex;align-items:baseline;gap:clamp(14px,2.4vw,34px);
-  padding:clamp(22px,3.2vw,44px) 0;border-bottom:1px solid var(--hair);
+  padding:var(--sp-1) 0;border-bottom:1px solid var(--hair);
   transition:padding-left .4s cubic-bezier(.2,.8,.2,1),color .3s ease;
 }
 .row .k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--mute);flex-shrink:0;width:44px}
@@ -192,9 +197,9 @@ h1,h2,h3,h4{font-family:'Archivo Black','Arial Black',sans-serif;font-weight:400
 .row .tail{margin-left:auto;display:flex;align-items:center;gap:18px;flex-shrink:0}
 .row .tail .mono{color:var(--mute);display:none}
 .row .arw{font-size:clamp(20px,2.4vw,30px);color:var(--mute);transition:transform .3s ease,color .3s ease}
-.row:hover{padding-left:clamp(12px,2vw,34px)}
-.row:hover h3{color:var(--fg)}
-.row:hover .arw{color:var(--acc);transform:translate(5px,-5px)}
+@media (hover:hover) and (pointer:fine){.row:hover{padding-left:clamp(12px,2vw,34px)}}
+@media (hover:hover) and (pointer:fine){.row:hover h3{color:var(--fg)}}
+@media (hover:hover) and (pointer:fine){.row:hover .arw{color:var(--acc);transform:translate(5px,-5px)}}
 @media(min-width:900px){.row .tail .mono{display:block}}
 /* the cursor-following plate */
 .peek{
@@ -213,7 +218,7 @@ h1,h2,h3,h4{font-family:'Archivo Black','Arial Black',sans-serif;font-weight:400
 .tile{position:relative;overflow:hidden;border:1px solid var(--hair);--ch:clamp(20px,2.6vw,40px);
   clip-path:polygon(0 0,calc(100% - var(--ch)) 0,100% var(--ch),100% 100%,0 100%)}
 .tile img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1) brightness(.8);transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .5s ease}
-.tile:hover img{transform:scale(1.06);filter:grayscale(0) brightness(.92)}
+@media (hover:hover) and (pointer:fine){.tile:hover img{transform:scale(1.06);filter:grayscale(0) brightness(.92)}}
 .tile .lbl{position:absolute;left:0;bottom:0;z-index:2;padding:14px 18px;background:var(--bg);display:flex;gap:14px;align-items:baseline}
 .tile .lbl b{font-family:'Archivo Black',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:-.02em;font-size:15px}
 .tile .lbl span{color:var(--mute);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
@@ -248,8 +253,8 @@ footer{border-top:1px solid var(--hair);background:var(--bg-2)}
 .fg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:1px;background:var(--hair);border-bottom:1px solid var(--hair)}
 .fg>div{background:var(--bg-2);padding:clamp(24px,3vw,38px)}
 .fg h5{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--mute);margin:0 0 16px;font-weight:700}
-.fg a{display:block;padding:5px 0;color:var(--fg-2);font-size:14.5px}
-.fg a:hover{color:var(--acc)}
+.fg a{display:block;padding:9px 0;color:var(--fg-2);font-size:14.5px}
+@media (hover:hover) and (pointer:fine){.fg a:hover{color:var(--acc)}}
 .fmark{font-family:'Archivo Black',sans-serif;font-size:clamp(26px,4vw,48px);text-transform:uppercase;letter-spacing:-.04em;line-height:.9;margin-bottom:18px}
 .fmark span{color:var(--acc)}
 .fbar{display:flex;flex-wrap:wrap;gap:14px 28px;justify-content:space-between;padding:17px var(--m);color:var(--mute)}
@@ -265,6 +270,11 @@ footer{border-top:1px solid var(--hair);background:var(--bg-2)}
   padding:11px 18px;border-radius:6px;background:#141310;color:#fff;text-decoration:none;
   font:600 14px/1 system-ui,-apple-system,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.35)}
 .skip-link:focus{transform:translateY(0)}
+/* ---------- press feedback (punch-list 01) ----------
+   Appended last so :active wins over the :hover transforms above.
+   0.97 reads as a press; anything lower reads as a bounce. */
+.btn:active{transform:scale(.97);transition-duration:.12s}
+@media (prefers-reduced-motion:reduce){.btn:active{transform:none}}
 </style>
 <script type="application/ld+json">
 {
