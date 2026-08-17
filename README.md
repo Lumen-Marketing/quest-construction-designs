@@ -145,12 +145,16 @@ file **and** the three `data-acc` buttons in `index.html`.
 
 ## Assets
 
-`assets/` holds 19 free Unsplash photos, self-hosted (never hotlinked). 04, 05, 06 and 08 were
+`assets/` holds 19 free Unsplash photos, self-hosted (never hotlinked) and **served as WebP** —
+they were 1800px JPEGs until the SEO pass re-encoded them at quality 80, which took the library
+from 8.1MB to 4.5MB (−45%) with no visible loss. The eight images used as social cards keep a
+JPEG twin at the correct 1200×630 in `assets/og/`, because Facebook's crawler is unreliable on
+WebP and a 3:2 photo crops badly in a large summary card. 04, 05, 06 and 08 were
 reworked to lean on the jobsite half of that library — rebar, steel, welding, rough-in, earthworks —
 rather than the finished-interior half, which was reading soft for a general contractor. All were visually reviewed
 before use — one shot was discarded because a hard hat carried another firm's branding.
 
-**Do not use `assets/plans.jpg`.** It has the same problem: the subject's polo carries a visible
+**Do not use `assets/plans.webp`.** It has the same problem: the subject's polo carries a visible
 "KRA" logo. It is unreferenced by every direction and should stay that way.
 
 The cut-outs do carry **equipment-manufacturer** badges (CAT on the excavator, Deere on the loader).
@@ -170,11 +174,75 @@ Each reel is built in its own idiom rather than dropped in four times: a hairlin
 timecode in 04, an organic blob with a pulsing medallion in 05, a halftone parallelogram with a
 rotated plaque in 06, and a brass ziggurat frame with a Roman counter in 08.
 
+## SEO
+
+Every direction is a *fully optimised* page, not a mockup with a title tag. Whichever one Quest
+picks ships search-ready rather than needing an SEO pass afterwards.
+
+**Ten pages, ten head terms.** Ten near-identical homepages on one domain would cannibalise each
+other, so each direction targets a different query in the Phoenix GC space — and its title, meta
+description and opening paragraph all agree on that one term:
+
+| # | Primary keyword |
+|---|---|
+| 01 | general contractor Phoenix AZ |
+| 02 | earthwork & heavy civil contractor Phoenix |
+| 03 | commercial general contractor Phoenix AZ |
+| 04 | design-build contractor Phoenix AZ |
+| 05 | site work & grading contractor Phoenix |
+| 06 | concrete & structural steel contractor Phoenix AZ |
+| 07 | free construction estimate Phoenix AZ |
+| 08 | custom home builder Phoenix AZ |
+| 09 | tenant improvement contractor Phoenix AZ |
+| 10 | ground-up commercial construction Phoenix |
+
+**What every page carries:**
+
+- Unique `<title>` (≤60 chars) and `<meta name="description">` (≤155, so the snippet is never
+  truncated), self-referencing `<link rel="canonical">`, and a `robots` directive that opts into
+  `max-image-preview:large`.
+- Open Graph + Twitter `summary_large_image` cards, pointing at a purpose-cut **1200×630** JPEG.
+- A JSON-LD `@graph`: `GeneralContractor` (NAP, geo, opening hours, areaServed for ten valley
+  cities, ROC licence as an `identifier`, `hasOfferCatalog` of four services, `aggregateRating`),
+  `WebSite`, `WebPage`, and a `BreadcrumbList`. The index adds an `ItemList` of all ten directions.
+  Title and description are kept byte-identical across the meta tags and the schema.
+- `<main id="main">` landmark and a keyboard skip link.
+- Alt text on every rendered image; intrinsic `width`/`height` on all of them so nothing shifts
+  while loading; `loading="lazy"` + `decoding="async"` below the fold, and the LCP hero marked
+  `loading="eager" fetchpriority="high"` with a matching `<link rel="preload">` in the head.
+- Local signals: `geo.region` / `geo.position` meta, and one consistent NAP everywhere —
+  **Phoenix, Arizona, est. 2010**. (01–03 previously said Gilbert / est. 2009; inconsistent NAP is
+  the classic local-SEO own goal, so they were brought in line.)
+
+Root files: `robots.txt` (which deliberately allows GPTBot, PerplexityBot, ClaudeBot and friends —
+Quest wants to be the source AI answers cite), `sitemap.xml` with image extensions, `favicon.svg`
+and `apple-touch-icon.png`.
+
+There are **no dead `href="#"` links left** — all 105 now resolve to a real section anchor, `tel:`
+or `mailto:`.
+
+### Before this goes live
+
+- `https://questconstruction.com` is assumed throughout — canonicals, OG URLs and schema `@id`s.
+  If the domain differs, it is one find-and-replace across the HTML plus `sitemap.xml` and
+  `robots.txt`.
+- **The `aggregateRating` in the schema must reflect real reviews.** 4.9 from 87 is invented, like
+  every other figure here. Marking up ratings a business cannot evidence is a manual-action risk,
+  so either wire it to the real Google Business Profile numbers or delete the `aggregateRating`
+  node from all eleven pages.
+- Same for the street address, `ROC #000000`, and the phone number — they are placeholders sitting
+  in structured data, which is exactly where wrong data does the most damage.
+- Only one direction should end up indexable. The other nine become `noindex,follow` or come down;
+  ten pages of near-identical copy left live would compete with each other.
+- Self-host the fonts. Google Fonts is still a render-blocking third-party request on every page.
+
 ## Placeholders to replace before this goes anywhere near production
 
 - All body copy is written-to-fit placeholder.
-- Phone `(480) 555-0100`, email `build@questconstruction.com`, `ROC #000000`.
-- Every figure (340+ projects, 16 years, 96% on schedule, 4.9/87 reviews, plant counts) is invented.
+- Phone `(480) 555-0100`, email `build@questconstruction.com`, `ROC #000000`, and the
+  `1820 W Buchanan St, Phoenix AZ 85007` address that now appears in the JSON-LD.
+- Every figure (340+ projects, 16 years, 96% on schedule, 4.9/87 reviews, plant counts) is invented
+  — including the rating that is now marked up as structured data. See the SEO section above.
 - Stock photography stands in for real Quest jobsite photos.
 
 ## Verifying changes
