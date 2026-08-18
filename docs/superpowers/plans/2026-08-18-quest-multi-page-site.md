@@ -12,75 +12,63 @@
 
 ---
 
-## STATUS — resume here (last updated 2026-08-18)
+## STATUS — complete (last updated 2026-08-18)
 
-**Done and pushed. 143 tests green, 124 pages, 0 broken links, 0 dead anchors.**
+**Done and pushed. All 25 tasks. 228 tests green, 310 pages, 0 broken links, 0 dead anchors,
+31 indexable, no page scrolling sideways at 1440 or 390.**
+
+`node build/verify.mjs` is the gate and reports `310 pages checked, 31 indexable, 0 problems`.
 
 | Task | State |
 |---|---|
 | 1–8 Content pipeline and generator | Complete |
-| 9–13 Direction 01 + link checker | Complete — 31 pages, the worked reference |
-| 14 Direction 02 Heavy Plant | Complete — 31 pages |
-| 15 Direction 03 Split Bay | Complete — 31 pages |
-| 16 Direction 04 Grid North | Complete — 31 pages |
-| 17–22 Directions 05–10 | **Not started.** Stylesheets extracted only |
-| 23 Repoint the chooser | Not started |
-| 24 Sitemap, robots, README | Not started |
-| 25 Full-site verification | Not started |
+| 9–13 Direction 01 + link checker | Complete |
+| 14–22 Directions 02–10 | Complete — 31 pages each |
+| 23 Repoint the chooser | Complete — legacy mockups deleted, accent dots reverified |
+| 24 Sitemap, robots, README | Complete |
+| 25 Full-site verification | Complete |
 
-`d05-ground-break/` … `d10-cross-cut/` each already contain `assets/styles.css`
-(extracted and asset-path-rewritten). They have **no** `build/directions/dNN.mjs`,
-so `node build/build.mjs` skips them with "not yet written".
+### Defects found during verification, and fixed
 
-### How to resume
-
-Read `build/directions/d01.mjs` as the reference implementation and
-`build/directions/all.test.mjs` for the contract every direction must satisfy.
-Then, per direction:
-
-1. Learn its vocabulary — the extracted stylesheet is the source of truth:
-   `grep -oE '^[^{@/][^{]*\{' dNN-slug/assets/styles.css | sed 's/{$//' | tr ',' '\n' | sort -u`
-   and read `:root` for its tokens. **Reuse its existing class names**; only add
-   CSS for furniture the single-page mockup never had.
-2. Write `build/directions/dNN.mjs` against the module contract (Task 7), taking
-   that direction's row from the furniture tables in Tasks 14–22.
-3. Write `build/css/dNN.css` and append it:
-   `cat build/css/dNN.css >> dNN-slug/assets/styles.css`
-4. `node build/build.mjs dNN && node build/check-links.mjs dNN-slug`
-5. `node --test "build/**/*.test.mjs"`
-6. Render and **look at it** — `cd shots && node page.mjs ../dNN-slug/contact-us/index.html ./x.png 1440`
-
-### Corrections already applied to this plan — do not reintroduce
-
-- **The CLI guard.** `import.meta.url === \`file://${process.argv[1]}\`` never matches on
-  Windows. Use `process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href`.
-- **`node --test build/` does not work** on Node 24 — it resolves `build` as a module.
-  Use `node --test "build/**/*.test.mjs"`.
-- **Directions 04–10 use `.rv.is-in`**, not `.rv.in`, and ship `.burger` / `.nlinks`
-  rather than a bespoke toggle. 01–03 use `.rv.in`.
-- **Animate `translate`, never `transform`, for reveals.** `transform:none` on the
-  revealed state outranks `:hover` transforms at equal specificity and silently kills
-  every hover lift.
-- **`.fg a` (0,1,1) outranks `.btn` (0,1,0)** whatever the source order. Footer buttons
-  need `.fg a.btn` or they collapse to `display:block`.
-- **`aspect-ratio` needs `height:auto`.** Every `<img>` carries intrinsic `width`/`height`
-  attributes; with `width:100%` and no CSS height, both dimensions are set and
-  `aspect-ratio` is ignored entirely.
-- **Restate colours when moving a component between light and dark sections.** Components
-  styled only for one ground inherit the wrong text colour on the other.
-- **Harness artefacts, not bugs:** `probe.mjs` reports lazy below-fold images as broken,
-  and `mob.mjs` does not scroll so `.rv` content reads as blank. Judge overflow by
-  `scrollW` vs `vw` (or `sideways`), not by the `wide` list — several heroes bleed
-  deliberately inside `overflow:hidden`. Full-page shots of long pages can exceed the
-  120s tool timeout; shoot `contact-us` instead, it exercises nav, hero, form and footer.
+- **The logo is a light-grey wordmark drawn for dark grounds** and was near-invisible on every
+  light nav — 01, 02, 04 and 07. Darkened with `invert(1) hue-rotate(180deg) saturate(1.5)`,
+  which moves the grey and leaves the orange mark alone. 03, 05, 06 and 09/10 carry it on dark
+  ground and were left as they were.
+- **04's contact form scattered its fields across six columns.** The form is itself a grid and
+  sits inside `.content`, so `.content h2` reached in and gave the form's own heading
+  `grid-column:1/7`, which built six implicit tracks. Scoped out with two classes.
+- **03's homepage scrolled 188px sideways.** A `clamp(26px,5.4vw,74px)` service headline beside a
+  `flex-shrink:0` tail; a flex item's `min-width` defaults to `auto`, so the longest trade name
+  could not wrap.
+- **09's nav both widened the page and clipped its own dropdown.** `overflow-x:clip` with
+  `overflow-y:visible` is the pair that satisfies both.
+- **08's stepped tiles only stepped four.** `:nth-child(1..4)` left every gallery tile past the
+  fourth with no aspect-ratio; the rhythm now cycles on `4n`.
 
 ### Open items for Quest, carried from the spec
 
 - `content/areas-local.json` is marked **UNVERIFIED** and must be reviewed before launch —
-  specifically the permitting authority named for each city.
-- Address, ROC number and email remain unpublished, so no `PostalAddress` and no
-  `aggregateRating` appear in any schema. Do not add them without real values.
-- Only `d01-site-plan` is indexable; the other nine are `noindex,follow`.
+  specifically the permitting authority named for each city (Florence as Pinal County rather than
+  Maricopa, Camelback East Village permitting through Phoenix, Paradise Valley as its own town).
+  A test enforces that the warning stays in the file.
+- Address, ROC number and email remain unpublished, so no `PostalAddress`, no licence
+  `identifier` and no `aggregateRating` appears in any schema node. Do not add them without real
+  values.
+- Only `d01-site-plan` is indexable; the other nine are `noindex,follow`. When Quest picks a
+  direction, flip `indexable` in its `meta`, regenerate, and take the rest down.
+- The contact form is not wired to an endpoint.
+- Gallery and project photography is stock, and every gallery says so on the page.
+
+### If you need to change a direction
+
+1. Edit `build/directions/dNN.mjs` (markup) and/or `build/css/dNN.css` (furniture CSS).
+2. `node build/apply-css.mjs dNN` — re-splices the CSS onto that direction's stylesheet,
+   idempotently, replacing everything from the MULTI-PAGE FURNITURE marker down.
+3. `node build/build.mjs dNN && node build/check-links.mjs dNN-slug`
+4. `node --test "build/**/*.test.mjs"` then `node build/verify.mjs`
+5. Look at it: `cd shots && node slices.mjs ../dNN-slug/index.html ./out 1440 1500`
+
+The traps that cost real time are all recorded in the README's "Verifying changes" section.
 
 ---
 
