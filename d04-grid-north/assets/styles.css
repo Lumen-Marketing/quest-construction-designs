@@ -358,6 +358,8 @@ footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;border-top:1px so
    ================================================================ */
 .brand img{height:26px;width:auto;display:block}
 footer .brand img{height:32px}
+/* Bone ground top and bottom, so both copies of the light wordmark darken. */
+.brand img{filter:invert(1) hue-rotate(180deg) saturate(1.5)}
 
 /* ---- nav: mega-panel dropped on the grid ---- */
 .nav{position:relative}
@@ -500,7 +502,14 @@ footer .brand img{height:32px}
 @media (hover:hover) and (pointer:fine){.arearow a:hover{color:var(--acc-dim);padding-left:8px}}
 
 /* ---- contact form on the grid ---- */
+/* The form is itself a grid, and it sits inside .content — so `.content h2`
+   was reaching in and giving the form's own heading `grid-column:1/7`. That
+   built six implicit tracks inside the form and scattered the fields across
+   them. Nothing inside the form takes part in the twelve-column grid. */
 .contact-form{display:grid;gap:14px;align-content:start}
+/* Two classes to outrank `.content h2` — one class plus an element beats one
+   class, so `.contact-form>*` on its own loses. */
+.content .contact-form>*{grid-column:auto}
 .contact-form h2{font-size:clamp(24px,3vw,38px);letter-spacing:-.04em;margin:0 0 6px}
 .contact-form label{display:grid;gap:6px}
 .contact-form input,.contact-form textarea{font:inherit;font-size:15px;padding:12px 0;

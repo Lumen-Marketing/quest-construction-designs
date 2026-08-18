@@ -385,6 +385,8 @@ footer{background:var(--dark);color:var(--on-dark-2);padding-top:clamp(50px,7vw,
    ================================================================ */
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .brand img{height:30px;width:auto;display:block}
+/* Light wordmark on a cream nav — darkened without flipping the orange mark. */
+.nav .brand img{filter:invert(1) hue-rotate(180deg) saturate(1.5)}
 footer .brand img{height:36px}
 .eyebrow{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--acc-dim);margin:0 0 14px;font-weight:700}

@@ -343,6 +343,10 @@ footer{background:var(--dark);color:var(--on-dark-2);padding-top:clamp(50px,7vw,
 
 /* ---- brand mark: the real Quest logo replaces the drawn chevron ---- */
 .brand img{height:34px;width:auto;display:block}
+/* The logo is a light wordmark drawn for dark grounds; the nav is cream, so it
+   is darkened here. invert() alone would turn the orange mark blue — the hue is
+   rotated back and re-saturated so only the grey moves. */
+.nav .brand img{filter:invert(1) hue-rotate(180deg) saturate(1.5)}
 footer .brand img{height:38px}
 
 /* ---- dropdown navigation ---- */

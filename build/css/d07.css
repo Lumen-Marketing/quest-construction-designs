@@ -1,0 +1,260 @@
+
+/* ================================================================
+   MULTI-PAGE FURNITURE — new. 07 stays Bid Desk: white ground,
+   hairline borders, generous radius, one soft organic silhouette
+   per section, and every route ending at the estimate.
+   ================================================================ */
+.brand img{height:28px;width:auto;display:block}
+footer .brand img{height:34px}
+/* White nav, dark footer: only the nav copy of the light wordmark is darkened. */
+.nav .brand img{filter:invert(1) hue-rotate(180deg) saturate(1.5)}
+.flift{color:var(--acc)}
+
+/* ---- nav: a clean white dropdown, estimate CTA on the right ---- */
+.nav{position:sticky}
+.drop{position:relative}
+.drop>button{font:inherit;font-size:13.8px;font-weight:500;color:var(--ink-2);background:none;
+  border:0;padding:9px 13px;border-radius:999px;cursor:pointer;display:inline-flex;
+  align-items:center;gap:7px;transition:background-color .3s var(--eo),color .3s var(--eo)}
+.drop>button::after{content:"";width:5px;height:5px;border-right:1.8px solid currentColor;
+  border-bottom:1.8px solid currentColor;rotate:45deg;translate:0 -2px;opacity:.65}
+@media (hover:hover) and (pointer:fine){.drop>button:hover{background:var(--bg-2);color:var(--ink)}}
+.menu{display:none;position:absolute;left:0;top:calc(100% + 10px);z-index:80;background:var(--bg);
+  border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-lg);
+  padding:14px;width:max-content;max-width:min(720px,80vw)}
+.drop.open .menu{display:block}
+@media (hover:hover) and (pointer:fine){.drop:hover .menu{display:block}}
+.mcols{display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:2px}
+.mcols a{display:block;padding:9px 12px;border-radius:12px;font-size:13.8px;font-weight:500;
+  color:var(--ink-2);transition:background-color .25s var(--eo),color .25s var(--eo)}
+@media (hover:hover) and (pointer:fine){.mcols a:hover{background:var(--bg-2);color:var(--ink)}}
+.navcta{margin-left:6px}
+@media(max-width:1240px){.navtel{display:none}}
+@media(max-width:1080px){
+  .nlinks{display:none}
+  .burger{display:inline-flex;margin-left:0}
+  .nav .in{flex-wrap:wrap}
+  .nlinks.open{display:block;order:9;width:100%;padding-bottom:14px;max-height:70vh;overflow:auto;
+    border-top:1px solid var(--line);margin-top:8px}
+  .nlinks.open>a{display:block;padding:11px 2px;border-bottom:1px solid var(--line);border-radius:0}
+  .drop{display:block}
+  .drop>button{width:100%;justify-content:space-between;padding:11px 2px;border-radius:0;
+    border-bottom:1px solid var(--line)}
+  .menu{position:static;display:none;border:0;box-shadow:none;padding:4px 0 8px 10px;
+    width:auto;max-width:none}
+  .drop.open .menu{display:block}
+  .mcols{grid-template-columns:1fr}
+  .search{order:8}
+}
+@media(max-width:640px){.navcta{padding:11px 16px;font-size:13px}}
+
+/* ---- inner-page hero ---- */
+.subhero{padding:clamp(22px,2.8vw,38px) 0 clamp(30px,3.8vw,54px);border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,var(--bg-2),var(--bg))}
+.crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:clamp(16px,2vw,26px)}
+.crumbs a:hover{color:var(--acc-dim)}
+.crumbs b{color:var(--ink)}
+.sh{display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(20px,3vw,52px);align-items:end}
+.sh h1{font-size:clamp(32px,4.4vw,62px);letter-spacing:-.05em;max-width:18ch}
+.shr .lede{margin:0 0 20px;color:var(--ink-2);font-size:16px;max-width:46ch}
+.acts{display:flex;flex-wrap:wrap;gap:11px}
+@media(max-width:900px){.sh{grid-template-columns:1fr}}
+
+/* ---- the service tab rail, as filter pills ---- */
+.svctabs{border-bottom:1px solid var(--line);background:var(--bg);padding:14px 0;margin:0}
+.svctabs .wrap{display:flex;flex-wrap:wrap;gap:8px}
+.svctabs a{font-size:13.2px;font-weight:500;background:var(--bg);border:1px solid var(--line);
+  border-radius:999px;padding:8px 15px;color:var(--ink-2);
+  transition:background-color .3s var(--eo),color .3s var(--eo),border-color .3s var(--eo)}
+@media (hover:hover) and (pointer:fine){.svctabs a:hover{border-color:var(--ink);color:var(--ink)}}
+.svctabs a.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+
+/* ---- generic section head ---- */
+.content{padding-top:var(--sp-6)}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:26px;flex-wrap:wrap;
+  margin-bottom:clamp(24px,3vw,40px)}
+.top .mono{margin:0}
+.top h2{font-size:clamp(30px,4.2vw,56px);margin-top:12px;max-width:18ch}
+.top .tlede{margin:0;max-width:40ch;color:var(--ink-2);font-size:15.5px}
+
+/* ---- about: several paragraphs, and the facts as bubbles ---- */
+.about .lede+.lede{margin-top:14px}
+.about .facts .bub>div{padding:6px}
+
+/* ---- checklist card: 07's why-choose treatment ---- */
+.checklist{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:clamp(22px,2.6vw,34px);box-shadow:var(--sh)}
+.checklist h3{margin:0 0 6px;color:var(--mute);letter-spacing:.14em}
+.checklist ul{list-style:none;margin:0;padding:0}
+.checklist li{display:flex;gap:14px;align-items:flex-start;padding:16px 0;
+  border-bottom:1px solid var(--line);font-size:15.4px;color:var(--ink-2);line-height:1.55}
+.checklist li:last-child{border-bottom:0}
+.checklist .tk{flex:0 0 auto;width:26px;height:26px;display:grid;place-items:center;
+  background:var(--acc);color:var(--on-acc);border-radius:58% 42% 48% 52% / 46% 50% 50% 54%}
+.checklist .tk svg{width:14px;height:14px}
+.checklist .foot{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mute)}
+
+/* ---- the trades, as bordered utility cards ---- */
+.trades{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.5vw,18px)}
+.trade{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:start;
+  background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:clamp(18px,2vw,24px);
+  transition:transform .4s var(--eo),box-shadow .4s var(--eo),border-color .4s var(--eo)}
+@media (hover:hover) and (pointer:fine){
+  .trade:hover{transform:translateY(-5px);box-shadow:var(--sh-lg);border-color:transparent}}
+.trade .ic{flex:0 0 auto;width:42px;height:42px;display:grid;place-items:center;background:var(--bg-2);
+  color:var(--acc-dim);border-radius:58% 42% 48% 52% / 46% 50% 50% 54%}
+.trade .ic svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
+.trade h3{font-size:17px;letter-spacing:-.035em;line-height:1.15}
+.trade p{margin:7px 0 0;font-size:13.6px;color:var(--ink-2);line-height:1.5}
+.trade .go{flex:0 0 auto;color:var(--mute);transition:color .3s var(--eo),transform .3s var(--eo)}
+.trade .go svg{width:17px;height:17px;display:block}
+@media (hover:hover) and (pointer:fine){
+  .trade:hover .go{color:var(--acc-dim);transform:translateX(3px)}}
+@media(max-width:1080px){.trades{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.trades{grid-template-columns:1fr}}
+
+/* ---- scope, as numbered spec rows ---- */
+.specrows{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:clamp(8px,1.4vw,20px) clamp(20px,2.4vw,32px);box-shadow:var(--sh)}
+.specrow{display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start;
+  padding:clamp(15px,1.7vw,20px) 0;border-bottom:1px solid var(--line)}
+.specrow:last-child{border-bottom:0}
+.specrow .n{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.1em;
+  color:var(--acc-dim);padding-top:4px}
+.specrow h3{font-size:16.5px;letter-spacing:-.03em;line-height:1.25}
+.specrow p{margin:6px 0 0;font-size:14.4px;color:var(--ink-2);max-width:78ch;line-height:1.6}
+
+/* ---- process: spec cards in a rail ---- */
+.rail{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(13px,1.6vw,20px);position:relative}
+.rail::before{content:"";position:absolute;left:0;right:0;top:clamp(52px,5vw,64px);height:1px;
+  background:var(--line);z-index:0}
+.spec{position:relative;z-index:2;background:var(--bg);border:1px solid var(--line);
+  border-radius:var(--r-lg);padding:clamp(20px,2.2vw,28px);
+  transition:transform .4s var(--eo),box-shadow .4s var(--eo)}
+@media (hover:hover) and (pointer:fine){.spec:hover{transform:translateY(-5px);box-shadow:var(--sh-lg)}}
+.spec .hd{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.spec .n{width:44px;height:44px;display:grid;place-items:center;background:var(--acc);
+  color:var(--on-acc);font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;
+  border-radius:58% 42% 48% 52% / 46% 50% 50% 54%}
+.spec .badge{background:var(--bg-2);border:1px solid var(--line);border-radius:999px;padding:6px 12px;
+  font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--mute)}
+.spec h3{font-size:18px;letter-spacing:-.035em;line-height:1.15;margin-bottom:10px}
+.spec p{margin:0;font-size:14.2px;color:var(--ink-2);line-height:1.6}
+@media(max-width:1080px){.rail{grid-template-columns:1fr 1fr}.rail::before{display:none}}
+@media(max-width:620px){.rail{grid-template-columns:1fr}}
+
+/* ---- FAQ: a plain utility accordion ---- */
+.uacc{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;
+  box-shadow:var(--sh)}
+.uacc details{border-bottom:1px solid var(--line)}
+.uacc details:last-child{border-bottom:0}
+.uacc summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;
+  align-items:center;gap:18px;padding:clamp(17px,1.9vw,23px) clamp(20px,2.4vw,32px);
+  font-size:clamp(16px,1.5vw,19px);font-weight:600;letter-spacing:-.03em;
+  transition:background-color .25s var(--eo)}
+.uacc summary::-webkit-details-marker{display:none}
+@media (hover:hover) and (pointer:fine){.uacc summary:hover{background:var(--bg-2)}}
+.uacc .pm{position:relative;flex:0 0 auto;width:20px;height:20px}
+.uacc .pm::before,.uacc .pm::after{content:"";position:absolute;left:50%;top:50%;
+  background:var(--acc-dim);translate:-50% -50%}
+.uacc .pm::before{width:15px;height:2px}
+.uacc .pm::after{width:2px;height:15px;transition:scale .28s var(--eo)}
+.uacc details[open] .pm::after{scale:1 0}
+.uacc p{margin:0;padding:0 clamp(20px,2.4vw,32px) clamp(20px,2.2vw,26px);font-size:15px;
+  color:var(--ink-2);line-height:1.68;max-width:84ch}
+
+/* ---- gallery: an even utility grid ---- */
+.ugrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(13px,1.6vw,20px)}
+.gt{margin:0;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);
+  overflow:hidden;transition:transform .4s var(--eo),box-shadow .4s var(--eo)}
+@media (hover:hover) and (pointer:fine){.gt:hover{transform:translateY(-5px);box-shadow:var(--sh-lg)}}
+.gt .ph{display:block;aspect-ratio:4/3;overflow:hidden}
+.gt .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--eo)}
+@media (hover:hover) and (pointer:fine){.gt:hover .ph img{transform:scale(1.06)}}
+.gt figcaption{padding:14px 18px 16px}
+.gt figcaption b{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;
+  letter-spacing:.12em;color:var(--acc-dim)}
+.gt figcaption span{display:block;margin-top:5px;font-size:13.4px;color:var(--ink-2);line-height:1.45}
+.note{display:block;margin-top:clamp(18px,2.2vw,26px);color:var(--mute)}
+@media(max-width:1000px){.ugrid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.ugrid{grid-template-columns:1fr}}
+
+/* ---- project spec cards ---- */
+.wcard .bdy{padding:16px 22px 0}
+.wcard .bdy p{margin:0 0 16px;font-size:14.4px;color:var(--ink-2);line-height:1.6}
+.wcard .bdy .btn{margin-bottom:4px}
+.wcard .rows{margin-top:auto}
+@media(max-width:1080px){.work{grid-template-columns:1fr 1fr}}
+
+/* ---- contact: the estimate bar, expanded ---- */
+.deskform{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);
+  box-shadow:var(--sh-lg);overflow:hidden;margin-bottom:clamp(18px,2.2vw,28px)}
+.dhead{padding:clamp(22px,2.6vw,34px) clamp(24px,2.8vw,38px) 0}
+.dhead .mono{margin:0}
+.dhead h2{font-size:clamp(26px,3.2vw,42px);margin-top:10px}
+.dfields{display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  margin-top:clamp(20px,2.4vw,30px);border-top:1px solid var(--line)}
+.dfields label{display:grid;gap:7px;padding:18px clamp(20px,2.4vw,30px);
+  border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.dfields label:nth-child(3){border-right:0}
+.dfields label.wide{grid-column:1/-1;border-right:0}
+.dfields .mono{margin:0}
+.dfields input,.dfields textarea{font:inherit;font-size:15.5px;padding:0;border:0;background:none;
+  color:var(--ink);width:100%}
+.dfields input::placeholder,.dfields textarea::placeholder{color:var(--mute)}
+.dfields input:focus,.dfields textarea:focus{outline:none}
+.dfields label:focus-within{background:var(--bg-2)}
+.dfields textarea{resize:vertical}
+.dgo{display:flex;flex-wrap:wrap;align-items:center;gap:12px;
+  padding:clamp(18px,2.2vw,26px) clamp(24px,2.8vw,38px)}
+.form-note{margin:0;flex:1 1 200px;color:var(--acc-dim);min-height:1.3em}
+.dside{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(16px,2vw,26px);align-items:start}
+.cshot{margin:0;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh)}
+.cshot img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
+@media(max-width:900px){.dfields{grid-template-columns:1fr}
+  .dfields label,.dfields label:nth-child(3){border-right:0}
+  .dside{grid-template-columns:1fr}}
+
+/* ---- sitemap: plain utility lists ---- */
+.ulists{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,26px);align-items:start}
+.ulist{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:clamp(20px,2.4vw,30px);box-shadow:var(--sh)}
+.ulist .mono{margin:0}
+.ulist h2{font-size:clamp(21px,2.2vw,28px);margin:10px 0 14px}
+.ulist nav{display:grid}
+.ulist a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;
+  border-top:1px solid var(--line);font-size:14.6px;color:var(--ink-2);
+  transition:color .25s,padding-left .28s var(--eo)}
+.ulist a svg{width:14px;height:14px;flex:0 0 auto;color:var(--mute)}
+@media (hover:hover) and (pointer:fine){.ulist a:hover{color:var(--ink);padding-left:7px}}
+@media(max-width:900px){.ulists{grid-template-columns:1fr}}
+
+/* ---- the nearby-areas row ---- */
+.arearow{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:10px}
+.arearow a{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:12px 20px;
+  font-size:14.4px;font-weight:500;color:var(--ink-2);
+  transition:border-color .3s var(--eo),color .3s var(--eo),transform .3s var(--eo)}
+.arearow a svg{width:14px;height:14px;flex:0 0 auto;color:var(--mute)}
+@media (hover:hover) and (pointer:fine){
+  .arearow a:hover{border-color:var(--ink);color:var(--ink);transform:translateY(-2px)}}
+
+/* ---- the closing magnet ---- */
+.magnet .acts{display:flex;flex-wrap:wrap;gap:11px;margin-top:26px}
+.magnet .fine{margin-top:16px}
+.toc .foot{margin-top:20px}
+
+/* ---- proof band: real figures, never a rating ---- */
+.pillbox b{color:var(--ink)}
+
+/* ---- footer ---- */
+footer .cols .btn{margin-top:18px}
+footer .bar a{transition:color .25s}
+footer .bar a:hover{color:var(--acc)}
