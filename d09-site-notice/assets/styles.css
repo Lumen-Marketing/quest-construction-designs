@@ -323,3 +323,229 @@ footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;
    0.97 reads as a press; anything lower reads as a bounce. */
 .btn:active,.burger:active{transform:scale(.97);transition-duration:.12s}
 @media (prefers-reduced-motion:reduce){.btn:active,.burger:active{transform:none}}
+
+/* ================================================================
+   MULTI-PAGE FURNITURE — new. 09 stays Site Notice: every block is
+   a thing stuck to a hoarding — stapled, taped, torn or typed. The
+   body copy always lands on clean paper, however loud the frame.
+   ================================================================ */
+.brand img{height:26px;width:auto;display:block}
+footer .brand img{height:32px}
+.facc{color:var(--acc)}
+/* the kit's wrappers are <span>s, and a span is inline: no clip, no ratio */
+.xr{display:block}
+
+/* ---- nav: a stapled column of paper dropped off the strip ---- */
+.nav{position:sticky}
+.drop{position:static;display:flex;align-items:center}
+.drop>button{background:none;border:0;padding:0;cursor:pointer;color:var(--paper);
+  font-family:'Courier Prime',monospace;font-weight:700;font-size:12.5px;letter-spacing:.14em;
+  text-transform:uppercase;opacity:.84;display:inline-flex;align-items:center;gap:7px;
+  transition:opacity .15s,color .15s}
+.drop>button::after{content:"\00d7\00d7";font-size:9px;letter-spacing:0;color:var(--acc)}
+@media (hover:hover) and (pointer:fine){.drop>button:hover{opacity:1;color:var(--acc)}}
+.pinned{display:none;position:absolute;left:0;right:0;top:100%;z-index:80;
+  padding:14px 0 clamp(24px,3vw,40px)}
+.drop.open .pinned{display:block}
+@media (hover:hover) and (pointer:fine){.drop:hover .pinned{display:block}}
+.sheetdrop{position:relative;background:var(--sheet);color:var(--black);
+  padding:clamp(20px,2.4vw,32px);box-shadow:8px 8px 0 var(--black);rotate:-.4deg}
+.sheetdrop .staple.s1{left:12%;top:-3px;rotate:-8deg}
+.sheetdrop .staple.s2{right:12%;top:-3px;rotate:6deg}
+.sheetdrop .mono{margin:0 0 14px;color:var(--mute)}
+.pcols{display:grid;grid-template-columns:repeat(4,1fr);gap:0 clamp(14px,2vw,32px)}
+.pcols a{display:block;padding:9px 0;font-size:14px;font-family:'Special Elite',cursive;
+  border-bottom:2px dotted rgba(15,15,13,.24);transition:color .15s,padding-left .18s linear}
+@media (hover:hover) and (pointer:fine){.pcols a:hover{color:var(--acc-dim);padding-left:7px}}
+@media(max-width:1180px){.pcols{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:1080px){
+  .nlinks{display:none}
+  .burger{display:inline-flex}
+  .nav .in{flex-wrap:wrap}
+  .nav{overflow:visible}
+  .nlinks.open{display:block;order:9;width:100%;padding-bottom:14px;max-height:72vh;overflow:auto;
+    border-top:2px dashed rgba(228,225,214,.3);margin-top:8px}
+  .nlinks.open>a{display:block;padding:12px 0;border-bottom:2px dashed rgba(228,225,214,.18);
+    font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+  .drop{display:block}
+  .drop>button{width:100%;justify-content:space-between;padding:12px 0;
+    border-bottom:2px dashed rgba(228,225,214,.18)}
+  .pinned{position:static;display:none;padding:8px 0 12px}
+  .drop.open .pinned{display:block}
+  .pinned .wrap{padding-inline:0;max-width:none}
+  .sheetdrop{rotate:0deg;box-shadow:5px 5px 0 var(--acc)}
+  .pcols{grid-template-columns:1fr}
+  .navtel{display:none}
+}
+
+/* ---- inner-page hero: a sheet posted to the hoarding ---- */
+.subhero{padding:var(--sp-6) 0 var(--sp-5)}
+.posted{position:relative;background:var(--sheet);padding:clamp(24px,3.2vw,52px);
+  box-shadow:9px 9px 0 var(--black);rotate:-.5deg}
+.posted .tape.t1{left:5%;top:-14px;rotate:-8deg}
+.posted .tape.t2{right:7%;top:-16px;rotate:7deg}
+.crumbs{display:flex;flex-wrap:wrap;gap:9px;align-items:center;color:var(--mute);
+  margin-bottom:clamp(16px,2vw,26px)}
+.crumbs a:hover{color:var(--acc-dim)}
+.crumbs b{color:var(--black)}
+.crumbs span{color:var(--acc-dim)}
+.posted h1{font-size:clamp(32px,5.4vw,80px);line-height:.9;max-width:20ch}
+.posted p{margin:clamp(18px,2.2vw,28px) 0 0;max-width:56ch;font-size:15px;color:var(--ink-2);
+  line-height:1.72}
+.posted .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(20px,2.4vw,30px)}
+.posted .stamp{position:absolute;right:clamp(18px,3vw,44px);bottom:clamp(18px,3vw,40px);
+  background:var(--sheet)}
+@media(max-width:820px){.posted .stamp{position:static;display:inline-block;margin-top:22px}}
+
+/* ---- the fact strip runs on every page ---- */
+.strip-clip{margin-block:0}
+.strip .in{padding-block:2px}
+
+/* ---- service tab rail ---- */
+.svctabs{background:var(--black);color:var(--paper);padding:12px 0}
+.svctabs .wrap{display:flex;flex-wrap:wrap;gap:4px 18px}
+.svctabs a{font-family:'Courier Prime',monospace;font-weight:700;font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:#A9A79D;padding:6px 0;border-bottom:2px solid transparent;
+  transition:color .15s,border-color .15s}
+@media (hover:hover) and (pointer:fine){.svctabs a:hover{color:var(--paper)}}
+.svctabs a.on{color:var(--acc);border-bottom-color:var(--acc)}
+
+/* ---- generic section head ---- */
+.content{padding-top:var(--sp-8)}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:22px;flex-wrap:wrap;
+  margin-bottom:clamp(24px,3vw,42px)}
+.head .kick{margin-bottom:14px}
+.head h2{font-size:clamp(30px,4.4vw,62px);max-width:16ch}
+.head>p{margin:0;max-width:38ch;font-size:14.6px;color:var(--ink-2);line-height:1.7}
+
+/* ---- several sheets of copy, not one ---- */
+.sheet .lede+.lede{margin-top:14px}
+.about li div{min-width:0}
+
+/* ---- the torn strip of why-choose bullets ---- */
+.tornlist{display:flex;flex-wrap:wrap;align-items:center;gap:14px clamp(14px,2vw,26px);
+  background:var(--sheet);padding:clamp(22px,2.6vw,34px) clamp(20px,2.4vw,32px);
+  box-shadow:8px 8px 0 var(--black);rotate:-.4deg;
+  clip-path:polygon(0 3%,5% .5%,11% 3.6%,16% .6%,22% 3.4%,28% .4%,33% 3.6%,39% .6%,
+    44% 3.4%,50% .4%,55% 3.6%,61% .6%,66% 3.4%,72% .4%,77% 3.6%,83% .6%,88% 3.4%,93% .4%,100% 3%,
+    100% 97%,96% 99.6%,92% 96%,87% 99.4%,82% 96.4%,77% 99.6%,72% 96%,66% 99.4%,61% 96.6%,
+    55% 99.6%,50% 96%,44% 99.4%,39% 96.4%,33% 99.6%,28% 96%,22% 99.4%,17% 96.6%,11% 99.6%,6% 96.4%,0 99%)}
+.tornlist .ti{flex:1 1 260px;display:block;font-size:14.4px;color:var(--ink-2);line-height:1.66}
+.tornlist .ti b{display:block;font-family:'Anton',sans-serif;font-weight:400;font-size:24px;
+  color:var(--acc-dim);line-height:1;margin-bottom:7px}
+.tornlist .xx{flex:0 0 auto;color:var(--acc-dim);font-family:'Anton',sans-serif;font-size:19px}
+@media(max-width:760px){.tornlist .xx{display:none}}
+
+/* ---- the trades directory, taped to clean paper ---- */
+.directory,.sheetpaper,.qa{position:relative;background:var(--sheet);
+  padding:clamp(24px,3vw,42px) clamp(20px,2.6vw,36px);box-shadow:9px 9px 0 var(--black);rotate:-.3deg}
+.directory .staple.s1,.sheetpaper .staple.s1,.qa .staple.s1{left:9%;top:-3px;rotate:-8deg}
+.directory .staple.s2,.sheetpaper .staple.s2,.qa .staple.s2{right:9%;top:-3px;rotate:6deg}
+.dhead,.qhead{margin:0 0 clamp(16px,2vw,24px);color:var(--mute);
+  border-bottom:2px dashed rgba(15,15,13,.28);padding-bottom:12px}
+.drows{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(24px,4vw,60px)}
+.drows a{display:grid;grid-template-columns:42px 1fr auto;gap:4px 12px;align-items:baseline;
+  padding:13px 0;border-bottom:2px dotted rgba(15,15,13,.26);
+  transition:color .15s,padding-left .18s linear}
+.drows .n{font-family:'Anton',sans-serif;font-size:17px;color:var(--acc-dim);line-height:1}
+.drows .nm{font-family:'Special Elite',cursive;font-size:16px;line-height:1.25}
+.drows .ds{grid-column:2/3;font-size:13.4px;color:var(--ink-2);line-height:1.55}
+.drows .go{font-family:'Anton',sans-serif;color:var(--acc-dim);opacity:0;transition:opacity .15s}
+@media (hover:hover) and (pointer:fine){
+  .drows a:hover{color:var(--acc-dim);padding-left:8px}
+  .drows a:hover .go{opacity:1}}
+@media(max-width:860px){.drows{grid-template-columns:1fr}}
+
+/* ---- scope rows on the same paper ---- */
+.srows{display:grid}
+.srow{display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start;padding:15px 0;
+  border-bottom:2px dashed rgba(15,15,13,.22)}
+.srow:last-child{border-bottom:0}
+.srow .n{font-family:'Anton',sans-serif;font-size:22px;color:var(--acc-dim);line-height:1}
+.srow h3{font-family:'Special Elite',cursive;font-size:16.5px;text-transform:none;letter-spacing:0;
+  line-height:1.3}
+.srow p{margin:7px 0 0;font-size:14.2px;color:var(--ink-2);max-width:76ch;line-height:1.7}
+
+/* ---- process: stapled index cards ---- */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.4vw,34px);align-items:start}
+.card{position:relative;background:var(--sheet);padding:clamp(22px,2.4vw,30px);
+  box-shadow:7px 7px 0 var(--black);transition:transform .18s linear}
+.card:nth-child(1){rotate:-1.6deg}
+.card:nth-child(2){rotate:1.2deg;margin-top:clamp(8px,1.4vw,22px)}
+.card:nth-child(3){rotate:-1deg}
+.card:nth-child(4){rotate:1.5deg;margin-top:clamp(8px,1.4vw,22px)}
+@media (hover:hover) and (pointer:fine){.card:hover{transform:translateY(-6px)}}
+.card .staple.s1{left:18px;top:-3px;rotate:-8deg}
+.card .staple.s2{right:18px;top:-3px;rotate:6deg}
+.card .n{display:inline-block;background:var(--black);color:var(--paper);
+  font-family:'Anton',sans-serif;font-size:19px;padding:2px 10px;rotate:-2deg}
+.card h3{font-size:clamp(18px,1.8vw,24px);margin:14px 0 10px;line-height:.94}
+.card p{margin:0;font-size:14px;color:var(--ink-2);line-height:1.7}
+.card .stg{display:block;margin-top:16px;color:var(--acc-dim);
+  border-top:2px dashed rgba(15,15,13,.26);padding-top:12px}
+@media(max-width:1080px){.cards{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.cards{grid-template-columns:1fr}.card{rotate:0deg;margin-top:0}}
+
+/* ---- FAQ: typewriter Q&A on clean paper ---- */
+.qa details{border-bottom:2px dashed rgba(15,15,13,.24);padding:clamp(14px,1.8vw,20px) 0}
+.qa details:last-child{border-bottom:0}
+.qa summary{cursor:pointer;list-style:none;display:flex;gap:16px;align-items:baseline;
+  font-family:'Special Elite',cursive;font-size:clamp(16px,1.6vw,20px);line-height:1.35;
+  transition:color .15s}
+.qa summary::-webkit-details-marker{display:none}
+@media (hover:hover) and (pointer:fine){.qa summary:hover{color:var(--acc-dim)}}
+.qa .q{flex:0 0 auto;min-width:38px;font-family:'Courier Prime',monospace;font-weight:700;
+  font-size:13px;letter-spacing:.1em;color:var(--acc-dim)}
+.qa p{display:flex;gap:16px;margin:14px 0 4px;font-size:14.4px;color:var(--ink-2);
+  line-height:1.78;max-width:84ch}
+
+/* ---- the contact sheet must hold more than four frames ---- */
+.sheet-grid .g{grid-auto-rows:auto}
+.frame{margin:0}
+.note{display:block;margin-top:clamp(20px,2.4vw,30px);color:var(--mute)}
+
+/* ---- the nearby-areas row ---- */
+.arearow{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:10px}
+.arearow a{display:block;background:var(--sheet);padding:13px 16px;
+  box-shadow:4px 4px 0 var(--black);font-family:'Special Elite',cursive;font-size:14.5px;
+  rotate:-.4deg;transition:transform .18s linear,color .15s}
+@media (hover:hover) and (pointer:fine){
+  .arearow a:hover{transform:translate(3px,3px);color:var(--acc-dim)}}
+
+/* ---- the NOTICE poster and the contact form share their chrome ---- */
+.notice .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(20px,2.4vw,30px)}
+.notice .cols{align-content:start}
+.ffields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:clamp(20px,2.4vw,28px)}
+.ffields label{display:grid;gap:7px}
+.ffields label.wide{grid-column:1/-1}
+.ffields .mono{color:var(--mute)}
+.ffields input,.ffields textarea{width:100%;background:var(--paper);border:2.5px solid var(--black);
+  padding:13px 16px;font:inherit;font-size:14.5px;color:var(--black)}
+.ffields input::placeholder,.ffields textarea::placeholder{color:var(--mute)}
+.ffields input:focus,.ffields textarea:focus{outline:none;border-color:var(--acc-dim)}
+.ffields textarea{resize:vertical}
+.form-note{display:block;margin:14px 0 0;min-height:1.4em;color:var(--acc-dim)}
+@media(max-width:640px){.ffields{grid-template-columns:1fr}}
+
+/* ---- sitemap: a pinned index on the hoarding ---- */
+.pinboard{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,44px);
+  align-items:start}
+.pin{position:relative;background:var(--sheet);padding:clamp(24px,2.8vw,36px) clamp(20px,2.4vw,30px);
+  box-shadow:9px 9px 0 var(--black);rotate:var(--r,0deg);transition:transform .18s linear}
+@media (hover:hover) and (pointer:fine){.pin:hover{transform:translateY(-6px)}}
+.pin .staple.s1{left:16%;top:-3px;rotate:-8deg}
+.pin .staple.s2{right:16%;top:-3px;rotate:6deg}
+.pin .n{display:inline-block;background:var(--acc);color:var(--on-acc);
+  font-family:'Anton',sans-serif;font-size:18px;padding:2px 10px;rotate:-2deg}
+.pin h2{font-size:clamp(22px,2.4vw,32px);margin:14px 0 10px}
+.pin nav{display:grid}
+.pin a{display:block;padding:10px 0;font-family:'Special Elite',cursive;font-size:14.5px;
+  border-bottom:2px dotted rgba(15,15,13,.26);transition:color .15s,padding-left .18s linear}
+@media (hover:hover) and (pointer:fine){.pin a:hover{color:var(--acc-dim);padding-left:7px}}
+@media(max-width:900px){.pinboard{grid-template-columns:1fr}.pin{rotate:0deg}}
+
+/* ---- footer ---- */
+footer .cols .btn{margin-top:18px}
+footer .bar a{transition:color .15s}
+footer .bar a:hover{color:var(--acc)}
