@@ -1,24 +1,65 @@
 # Quest Construction — Design Directions
 
-Ten homepage directions for **Quest Construction** (general contracting), built as
-standalone mockups for review. Nothing here is wired to a live site.
+Ten design directions for **Quest Construction** (general contracting). Each one is a complete
+**thirty-one page site** — home, fourteen services, eleven service areas, about, gallery, projects,
+contact and sitemap — so 310 pages in total. Nothing here is wired to a live site; the contact form
+is not connected.
 
-**Open `index.html`** — that is the chooser. Each card is a live, scaled iframe of the real page.
+**Open `index.html`** — that is the chooser. Each card is a live, scaled iframe of the real
+homepage, and the direction's whole site sits behind it.
 
 ## The ten directions
 
-| # | File | Personality | Style |
-|---|------|-------------|-------|
-| 01 | `direction-1-site-plan.html` | **Site Plan** — layered, editorial. The safest bet. | Dimensional |
-| 02 | `direction-2-heavy-plant.html` | **Heavy Plant** — poster wordmark with the machine cutting through it. The risk. | Dimensional |
-| 03 | `direction-3-split-bay.html` | **Split Bay** — dark, split hero, cursor-driven photo reveals. | Brutalist |
-| 04 | `direction-4-grid-north.html` | **Grid North** — visible 12-column grid, hairline rules, numbered rows. | Swiss |
-| 05 | `direction-5-ground-break.html` | **Ground Break** — deep green, one giant accent word, concentric pad arc. | Colour field |
-| 06 | `direction-6-red-iron.html` | **Red Iron** — diagonal wedges, halftone photography, angled mosaic. | Constructivist |
-| 07 | `direction-7-bid-desk.html` | **Bid Desk** — clean white, estimate bar on an organic hero sweep. | Utility |
-| 08 | `direction-8-machine-age.html` | **Machine Age** — symmetrical, ziggurat frames, sunburst, brass on charcoal. | Art Deco |
-| 09 | `direction-9-site-notice.html` | **Site Notice** — stapled flyers, tape, xerox halftone, tear-off tabs. | Punk / xerox |
-| 10 | `direction-10-cross-cut.html` | **Cross Cut** — diagonal section slashes, cut-out plant, graphite and steel. | Industrial B2B |
+| # | Folder | Personality | Style |
+|---|--------|-------------|-------|
+| 01 | `d01-site-plan/` | **Site Plan** — layered, editorial. The safest bet. | Dimensional |
+| 02 | `d02-heavy-plant/` | **Heavy Plant** — poster wordmark with the machine cutting through it. The risk. | Dimensional |
+| 03 | `d03-split-bay/` | **Split Bay** — dark, split hero, cursor-driven photo reveals. | Brutalist |
+| 04 | `d04-grid-north/` | **Grid North** — visible 12-column grid, hairline rules, numbered rows. | Swiss |
+| 05 | `d05-ground-break/` | **Ground Break** — deep green, one giant accent word, concentric pad arc. | Colour field |
+| 06 | `d06-red-iron/` | **Red Iron** — diagonal wedges, halftone photography, angled mosaic. | Constructivist |
+| 07 | `d07-bid-desk/` | **Bid Desk** — clean white, estimate bar on an organic hero sweep. | Utility |
+| 08 | `d08-machine-age/` | **Machine Age** — symmetrical, ziggurat frames, sunburst, brass on charcoal. | Art Deco |
+| 09 | `d09-site-notice/` | **Site Notice** — stapled flyers, tape, xerox halftone, tear-off tabs. | Punk / xerox |
+| 10 | `d10-cross-cut/` | **Cross Cut** — diagonal section slashes, cut-out plant, graphite and steel. | Industrial B2B |
+
+**Only `d01-site-plan` is indexable.** The other nine emit `noindex,follow` and are absent from
+`sitemap.xml`: ten near-identical sites on one domain would cannibalise each other. Pick one,
+flip its flag, and the rest can come down.
+
+## The build
+
+The pages are **generated**, not hand-written. Content lives as data in `content/*.json`; a
+zero-dependency Node generator walks ten direction modules over the thirty-one page manifest and
+writes static HTML. The generated HTML is committed — the generator is a dev tool, never a runtime
+dependency, and the folders can be served as they stand.
+
+```bash
+node build/build.mjs              # all ten directions, 310 pages
+node build/build.mjs d05          # just one
+node build/apply-css.mjs d05      # re-splice build/css/d05.css onto that direction's stylesheet
+node build/check-links.mjs d05-ground-break
+node build/sitemap.mjs            # regenerate sitemap.xml
+node build/verify.mjs             # the gate: link check + content rules across all ten
+node --test "build/**/*.test.mjs" # the whole suite
+```
+
+| Path | Responsibility |
+|---|---|
+| `content/*.json` | The site's words and figures — services, areas, pages, NAP, offers |
+| `build/lib/` | URL resolution, the page manifest, `<head>` assembly, JSON-LD, images |
+| `build/directions/dNN.mjs` | One direction's markup — ten renderers plus `meta` and `script` |
+| `build/css/dNN.css` | That direction's multi-page furniture, spliced onto its stylesheet |
+| `dNN-slug/` | Generated output, committed |
+
+`build/directions/all.test.mjs` is the contract: it discovers every direction module on disk and
+holds all of them to the same guarantees — thirty-one pages, one `h1` each, alt text and intrinsic
+dimensions on every image, navigation reaching every service and area from depth two, and no
+placeholder identity data anywhere. A new direction cannot ship without meeting it.
+
+**Area pages differ by direction.** `d01` carries authored per-city copy from
+`content/areas-local.json`; 02–10 render the ported template from `content/areas.json` with the
+`{{city}}` token filled. They are `noindex`, so the thin-content exposure never reaches the index.
 
 ## Design languages
 
@@ -179,22 +220,11 @@ rotated plaque in 06, and a brass ziggurat frame with a Roman counter in 08.
 Every direction is a *fully optimised* page, not a mockup with a title tag. Whichever one Quest
 picks ships search-ready rather than needing an SEO pass afterwards.
 
-**Ten pages, ten head terms.** Ten near-identical homepages on one domain would cannibalise each
-other, so each direction targets a different query in the Phoenix GC space — and its title, meta
-description and opening paragraph all agree on that one term:
-
-| # | Primary keyword |
-|---|---|
-| 01 | general contractor Phoenix AZ |
-| 02 | earthwork & heavy civil contractor Phoenix |
-| 03 | commercial general contractor Phoenix AZ |
-| 04 | design-build contractor Phoenix AZ |
-| 05 | site work & grading contractor Phoenix |
-| 06 | concrete & structural steel contractor Phoenix AZ |
-| 07 | free construction estimate Phoenix AZ |
-| 08 | custom home builder Phoenix AZ |
-| 09 | tenant improvement contractor Phoenix AZ |
-| 10 | ground-up commercial construction Phoenix |
+**One indexable site, thirty-one targeted pages.** The mockups each chased a different head term
+so ten homepages would not compete. That is no longer how the cannibalisation is handled: only
+`d01-site-plan` is indexable, and inside it each of the thirty-one pages targets its own query —
+one per trade, one per city, plus the six standalone pages. Titles and descriptions are composed in
+`build/lib/pages.mjs`, and a test enforces that all thirty-one are unique, ≤60 and ≤155 characters.
 
 **What every page carries:**
 
@@ -202,48 +232,66 @@ description and opening paragraph all agree on that one term:
   truncated), self-referencing `<link rel="canonical">`, and a `robots` directive that opts into
   `max-image-preview:large`.
 - Open Graph + Twitter `summary_large_image` cards, pointing at a purpose-cut **1200×630** JPEG.
-- A JSON-LD `@graph`: `GeneralContractor` (NAP, geo, opening hours, areaServed for ten valley
-  cities, ROC licence as an `identifier`, `hasOfferCatalog` of four services, `aggregateRating`),
-  `WebSite`, `WebPage`, and a `BreadcrumbList`. The index adds an `ItemList` of all ten directions.
-  Title and description are kept byte-identical across the meta tags and the schema.
+- A JSON-LD `@graph`: `GeneralContractor` + `HomeAndConstructionBusiness` (real telephone,
+  founding year, `areaServed` for all eleven cities, `knowsAbout` the fourteen trades), `WebSite`,
+  `WebPage` — `ContactPage` on contact — and a `BreadcrumbList`. Service pages add a `Service`
+  node; the concrete page alone adds an `FAQPage`, because it is the only one with real FAQs.
+  Area pages narrow `areaServed` to their own city.
+  **There is no `PostalAddress`, no `identifier` for a licence, and no `aggregateRating`** —
+  Quest has published none of them, and invented values in structured data are exactly where wrong
+  data does the most damage. Title and description stay byte-identical across the meta tags and the
+  schema.
 - `<main id="main">` landmark and a keyboard skip link.
 - Alt text on every rendered image; intrinsic `width`/`height` on all of them so nothing shifts
   while loading; `loading="lazy"` + `decoding="async"` below the fold, and the LCP hero marked
   `loading="eager" fetchpriority="high"` with a matching `<link rel="preload">` in the head.
-- Local signals: `geo.region` / `geo.position` meta, and one consistent NAP everywhere —
-  **Phoenix, Arizona, est. 2010**. (01–03 previously said Gilbert / est. 2009; inconsistent NAP is
-  the classic local-SEO own goal, so they were brought in line.)
+- Local signals: `geo.region` and `geo.placename` meta — the latter naming the city on an area
+  page — and one consistent NAP everywhere: **(602) 399-6455, Arizona, founded 2005**. Inconsistent
+  NAP is the classic local-SEO own goal, so the number lives once in `content/site.json` and every
+  page reads it from there.
 
 Root files: `robots.txt` (which deliberately allows GPTBot, PerplexityBot, ClaudeBot and friends —
 Quest wants to be the source AI answers cite), `sitemap.xml` with image extensions, `favicon.svg`
 and `apple-touch-icon.png`.
 
-There are **no dead `href="#"` links left** — all 105 now resolve to a real section anchor, `tel:`
-or `mailto:`.
+There are **no dead `href="#"` links left**, and `build/check-links.mjs` walks all 310 generated
+pages proving it: every internal href resolves to a file on disk, every `src` to a real image, and
+every in-page anchor to an element that exists.
 
 ### Before this goes live
 
 - `https://questconstruction.com` is assumed throughout — canonicals, OG URLs and schema `@id`s.
   If the domain differs, it is one find-and-replace across the HTML plus `sitemap.xml` and
   `robots.txt`.
-- **The `aggregateRating` in the schema must reflect real reviews.** 4.9 from 87 is invented, like
-  every other figure here. Marking up ratings a business cannot evidence is a manual-action risk,
-  so either wire it to the real Google Business Profile numbers or delete the `aggregateRating`
-  node from all eleven pages.
-- Same for the street address, `ROC #000000`, and the phone number — they are placeholders sitting
-  in structured data, which is exactly where wrong data does the most damage.
-- Only one direction should end up indexable. The other nine become `noindex,follow` or come down;
-  ten pages of near-identical copy left live would compete with each other.
+- **`content/areas-local.json` is marked UNVERIFIED and needs Quest's review.** It carries the
+  authored per-city copy behind `d01`'s eleven area pages. The claims worth checking hardest are
+  the permitting authorities named for each city — Florence as Pinal County rather than Maricopa,
+  Camelback East Village permitting through Phoenix, and Paradise Valley as its own town. A test
+  enforces that the warning stays in the file until someone removes it deliberately.
+- **Address, ROC number and email remain unpublished.** Nothing invents them, and no
+  `PostalAddress`, licence `identifier` or `aggregateRating` appears in any schema node. If Quest
+  supplies real values they can be added; until then, leaving them out is the correct answer, not
+  an omission to fix.
+- Only `d01-site-plan` is indexable today. Whichever direction Quest picks, flip `indexable` in
+  its `meta`, regenerate, and take the other nine down.
 - Self-host the fonts. Google Fonts is still a render-blocking third-party request on every page.
 
 ## Placeholders to replace before this goes anywhere near production
 
-- All body copy is written-to-fit placeholder.
-- Phone `(480) 555-0100`, email `build@questconstruction.com`, `ROC #000000`, and the
-  `1820 W Buchanan St, Phoenix AZ 85007` address that now appears in the JSON-LD.
-- Every figure (340+ projects, 16 years, 96% on schedule, 4.9/87 reviews, plant counts) is invented
-  — including the rating that is now marked up as structured data. See the SEO section above.
-- Stock photography stands in for real Quest jobsite photos.
+Far fewer than there used to be. The body copy is now Quest's own, extracted from the recovered
+site into `content/*.json`, and the phone number and founding year are real.
+
+- **Photography.** Only five images are genuinely Quest's (`assets/quest/`). Everything in the
+  galleries is stock standing in for real jobsite photographs, and every gallery says so on the
+  page. `assets/plans.webp` must never be referenced — it carries a visible third-party logo, and
+  the image helper throws if anything asks for it.
+- **The contact form is not wired.** Submitting it prints a note asking the visitor to call. Point
+  it at a real endpoint before launch.
+- **The per-city copy in `content/areas-local.json` is unverified.** See the SEO section above.
+- **No invented figures anywhere.** Project counts, years-in-business, percentages and review
+  numbers were all removed; every figure on every page is derived from the content files —
+  fourteen trades, eleven cities, founded 2005, reachable 24/7. A test in `all.test.mjs` fails the
+  build if the old placeholders reappear.
 
 ## Verifying changes
 
@@ -257,10 +305,35 @@ cd shots && node click.mjs palHivis ./out.png    # palOrange | palClay | palHivi
 Three more CDP helpers, all taking a path relative to `shots/`:
 
 ```bash
-node page.mjs    ../direction-4-soft-site.html ./d4.png 1440   # full-page shot, scrolls first
-node probe.mjs   ../direction-4-soft-site.html 1440            # fast layout check, no screenshot
-node inspect.mjs ../direction-7-bid-desk.html ".deskbar" 1440  # computed styles for one selector
+node page.mjs    ../d04-grid-north/index.html ./d4.png 1440       # full-page shot, scrolls first
+node probe.mjs   ../d04-grid-north/index.html 1440                # fast layout check, no screenshot
+node slices.mjs  ../d05-ground-break/index.html ./s5 1440 1500    # long page, as viewport slices
+node inspect.mjs ../d07-bid-desk/index.html ".deskbar" 1440       # computed styles for one selector
 ```
+
+`slices.mjs` exists because the generated pages are long — a full-page shot of a 7,000px page can
+hang the renderer or blow past a tool timeout. Shoot slices, or shoot `contact-us` instead: it
+exercises the nav, the inner-page hero, a form and the footer in one screen.
+
+Four more, added while verifying the 310 pages:
+
+```bash
+node sideways.mjs  ../d03-split-bay/index.html 1440       # does it REALLY scroll sideways?
+node secscan.mjs   ../d03-split-bay/index.html 1440       # which block is causing it
+node gridcheck.mjs ../d04-grid-north/contact-us/index.html ".contact-form" 1440
+node dropcheck.mjs ../d09-site-notice/index.html 1440     # open the nav drop, is it hit-testable?
+```
+
+`sideways.mjs` is the one that settles arguments: it scrolls the page right and reads the offset
+back, which is the only reliable test. `documentElement.scrollWidth` over-reports, because
+`body{overflow-x:hidden}` propagates to the viewport and leaves `body`'s own used value visible —
+so a "clipped" ancestor proves nothing. `secscan.mjs` then hides one top-level block at a time and
+names the one whose removal shrinks the page.
+
+Two things `probe.mjs` reports that are **harness artefacts, not defects**: it flags lazy
+below-fold images as broken because it never scrolls them into view, and `mob.mjs` shows `.rv`
+content as blank for the same reason. Judge sideways overflow by `scrollW` against `vw`, not by
+the `wide` list — several heroes bleed past the viewport on purpose inside `overflow:hidden`.
 
 `probe.mjs` is the one to reach for first: it lists broken images and **names every element
 sticking out past the viewport**, which is far quicker than eyeballing a screenshot for a page
@@ -304,6 +377,17 @@ a true phone viewport — render the page inside a 390px-wide iframe instead.
   collapsed to a single run until the rule became `.plates figcaption.cap`.
 - **A `<span>` is inline, so `overflow`, `aspect-ratio` and `border-radius` do nothing on it.**
   05's plant tiles rendered as plain squares until the wrapper got `display:block`.
+- **A descendant's `grid-column` builds tracks in its own grid parent.** 04's contact form is a
+  grid and sits inside `.content`, so `.content h2` reached in and gave the form's heading
+  `grid-column:1/7` — which created six implicit tracks inside the form and scattered the four
+  fields across them. Scoped out with two classes, since one class plus an element outranks one
+  class.
+- **The supplied logo is a light-grey wordmark drawn for dark grounds.** On the cream and white
+  navs it all but disappeared. `invert(1) hue-rotate(180deg) saturate(1.5)` darkens the grey and
+  leaves the orange mark where it was; plain `invert()` turns the mark blue.
+- **`:nth-child(1..4)` does not survive a longer list.** 08 stepped exactly four tiles that way;
+  the gallery runs to fourteen and every tile past the fourth lost its aspect-ratio and collapsed.
+  Cycle on `4n` instead.
 - **Set `font-feature-settings:'tnum'` on the numbers, not on `body`.** Many faces make the comma
   and period tabular-width too, which opens a visible gap before every one. It made 04's copy read
   as "One bid . One manager ." until it was scoped to the tables and figures.

@@ -440,3 +440,12 @@ h2.mid span{color:var(--acc)}
 .fg a.btn{display:inline-flex;align-items:center;padding:14px 24px;margin-top:20px;
   color:var(--on-acc)}
 @media (hover:hover) and (pointer:fine){.fg a.btn:hover{color:var(--on-acc)}}
+
+/* ---- service rows: the longest trade name overflows the row ----
+   .row is a flex line with a clamp(26px,5.4vw,74px) headline and a tail that
+   refuses to shrink. A flex item's min-width defaults to auto, so the long
+   "Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops)" pushed
+   the row 188px past the viewport instead of wrapping. */
+.row h3{min-width:0;overflow-wrap:anywhere}
+.row .tail{flex-shrink:1;min-width:0}
+.row .tail .mono{min-width:0;max-width:30ch;overflow-wrap:anywhere}

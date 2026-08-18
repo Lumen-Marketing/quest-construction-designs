@@ -335,8 +335,12 @@ footer .brand img{height:32px}
 /* the kit's wrappers are <span>s, and a span is inline: no clip, no ratio */
 .xr{display:block}
 
-/* ---- nav: a stapled column of paper dropped off the strip ---- */
-.nav{position:sticky}
+/* ---- nav: a stapled column of paper dropped off the strip ----
+   The bar clips itself because .nav::before is an oversized rotated slab; but
+   the dropdown is absolutely positioned below the bar and needs to escape.
+   overflow:hidden would clip both axes, so the horizontal one is clipped and
+   the vertical one left visible — the one pair those two values can take. */
+.nav{position:sticky;overflow-x:clip;overflow-y:visible}
 .drop{position:static;display:flex;align-items:center}
 .drop>button{background:none;border:0;padding:0;cursor:pointer;color:var(--paper);
   font-family:'Courier Prime',monospace;font-weight:700;font-size:12.5px;letter-spacing:.14em;
@@ -362,7 +366,6 @@ footer .brand img{height:32px}
   .nlinks{display:none}
   .burger{display:inline-flex}
   .nav .in{flex-wrap:wrap}
-  .nav{overflow:visible}
   .nlinks.open{display:block;order:9;width:100%;padding-bottom:14px;max-height:72vh;overflow:auto;
     border-top:2px dashed rgba(228,225,214,.3);margin-top:8px}
   .nlinks.open>a{display:block;padding:12px 0;border-bottom:2px dashed rgba(228,225,214,.18);

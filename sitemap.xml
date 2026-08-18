@@ -1,125 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://questconstruction.com/</loc>
-    <lastmod>2026-08-15</lastmod>
+    <loc>https://questconstruction.com/d01-site-plan/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://questconstruction.com/assets/cranes.webp</image:loc>
-      <image:title>Quest Construction — Ten Homepage Design Directions</image:title>
-      <image:caption>Tower cranes over a Quest Construction jobsite in Phoenix, Arizona</image:caption>
-    </image:image>
   </url>
   <url>
-    <loc>https://questconstruction.com/direction-1-site-plan.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <loc>https://questconstruction.com/d01-site-plan/services/residential-development/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://questconstruction.com/assets/excavator.webp</image:loc>
-      <image:title>General Contractor in Phoenix, AZ | Quest Construction</image:title>
-      <image:caption>A tracked excavator from the Quest Construction fleet</image:caption>
-    </image:image>
   </url>
   <url>
-    <loc>https://questconstruction.com/direction-2-heavy-plant.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <loc>https://questconstruction.com/d01-site-plan/services/casita/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://questconstruction.com/assets/crew-slab.webp</image:loc>
-      <image:title>Earthwork &amp; Heavy Civil Contractor Phoenix | Quest</image:title>
-      <image:caption>A Quest Construction crew walking a finished post-tension slab</image:caption>
-    </image:image>
   </url>
   <url>
-    <loc>https://questconstruction.com/direction-3-split-bay.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <loc>https://questconstruction.com/d01-site-plan/services/adu/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://questconstruction.com/assets/trade-weld.webp</image:loc>
-      <image:title>Commercial General Contractor Phoenix AZ | Quest</image:title>
-      <image:caption>Structural welding on a Quest Construction jobsite</image:caption>
-    </image:image>
   </url>
   <url>
-    <loc>https://questconstruction.com/direction-4-grid-north.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <loc>https://questconstruction.com/d01-site-plan/services/framing/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://questconstruction.com/assets/site-steel.webp</image:loc>
-      <image:title>Design-Build Contractor Phoenix, AZ | Quest Construction</image:title>
-      <image:caption>Structural steel being set on an active Quest Construction jobsite</image:caption>
-    </image:image>
   </url>
   <url>
-    <loc>https://questconstruction.com/direction-5-ground-break.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <loc>https://questconstruction.com/d01-site-plan/services/concrete/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://questconstruction.com/assets/site-steel.webp</image:loc>
-      <image:title>Site Work &amp; Grading Contractor Phoenix | Quest Construction</image:title>
-      <image:caption>Structural steel being set on an active Quest Construction jobsite</image:caption>
-    </image:image>
   </url>
   <url>
-    <loc>https://questconstruction.com/direction-6-red-iron.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <loc>https://questconstruction.com/d01-site-plan/services/stucco/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://questconstruction.com/assets/rebar.webp</image:loc>
-      <image:title>Concrete &amp; Steel Contractor Phoenix, AZ | Quest</image:title>
-      <image:caption>Reinforcing steel tied and ready for inspection</image:caption>
-    </image:image>
   </url>
   <url>
-    <loc>https://questconstruction.com/direction-7-bid-desk.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <loc>https://questconstruction.com/d01-site-plan/services/dry-wall/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://questconstruction.com/assets/neighborhood.webp</image:loc>
-      <image:title>Free Construction Estimates Phoenix, AZ | Quest</image:title>
-      <image:caption>Aerial view of a residential subdivision built by Quest Construction</image:caption>
-    </image:image>
   </url>
   <url>
-    <loc>https://questconstruction.com/direction-8-machine-age.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <loc>https://questconstruction.com/d01-site-plan/services/siding/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://questconstruction.com/assets/cranes.webp</image:loc>
-      <image:title>Custom Home Builder Phoenix, AZ | Quest Construction</image:title>
-      <image:caption>Tower cranes over a Quest Construction jobsite in Phoenix, Arizona</image:caption>
-    </image:image>
   </url>
   <url>
-    <loc>https://questconstruction.com/direction-9-site-notice.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <loc>https://questconstruction.com/d01-site-plan/services/roofing/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://questconstruction.com/assets/framing.webp</image:loc>
-      <image:title>Tenant Improvement Contractor Phoenix AZ | Quest</image:title>
-      <image:caption>A Quest Construction framer working on a roof structure</image:caption>
-    </image:image>
   </url>
   <url>
-    <loc>https://questconstruction.com/direction-10-cross-cut.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <loc>https://questconstruction.com/d01-site-plan/services/full-remodel-kitchen-bathroomcabinets-flooring-counter-tops/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://questconstruction.com/assets/cranes.webp</image:loc>
-      <image:title>Ground-Up Commercial Construction Phoenix | Quest</image:title>
-      <image:caption>Tower cranes over a Quest Construction jobsite in Phoenix, Arizona</image:caption>
-    </image:image>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/services/custom-home-building/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/services/painting/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/services/deck-building-uses-trex-system/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/services/window-installation/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/service-areas/mesa-az/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/service-areas/tempe-az/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/service-areas/queen-creek-az/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/service-areas/scottsdale-az/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/service-areas/gilbert-az/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/service-areas/chandler-az/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/service-areas/paradise-valley-az/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/service-areas/phoenix-az/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/service-areas/goodyear-meadows-az/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/service-areas/camelback-east-village-az/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/service-areas/florence-az/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/about-us/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/gallery/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/projects/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/contact-us/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/d01-site-plan/sitemap/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>
