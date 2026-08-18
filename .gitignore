@@ -7,3 +7,7 @@ shots/.mob-*.html
 # recovered source archive, kept local for the extractor
 .source/
 shots/*.log
+
+# Claude Code local permission grants — machine-specific, not shared
+.claude/settings.json
+.claude/settings.local.json
