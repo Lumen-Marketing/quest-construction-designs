@@ -10,6 +10,80 @@
 
 **Spec:** `docs/superpowers/specs/2026-08-18-quest-multi-page-site-design.md`
 
+---
+
+## STATUS — resume here (last updated 2026-08-18)
+
+**Done and pushed. 143 tests green, 124 pages, 0 broken links, 0 dead anchors.**
+
+| Task | State |
+|---|---|
+| 1–8 Content pipeline and generator | Complete |
+| 9–13 Direction 01 + link checker | Complete — 31 pages, the worked reference |
+| 14 Direction 02 Heavy Plant | Complete — 31 pages |
+| 15 Direction 03 Split Bay | Complete — 31 pages |
+| 16 Direction 04 Grid North | Complete — 31 pages |
+| 17–22 Directions 05–10 | **Not started.** Stylesheets extracted only |
+| 23 Repoint the chooser | Not started |
+| 24 Sitemap, robots, README | Not started |
+| 25 Full-site verification | Not started |
+
+`d05-ground-break/` … `d10-cross-cut/` each already contain `assets/styles.css`
+(extracted and asset-path-rewritten). They have **no** `build/directions/dNN.mjs`,
+so `node build/build.mjs` skips them with "not yet written".
+
+### How to resume
+
+Read `build/directions/d01.mjs` as the reference implementation and
+`build/directions/all.test.mjs` for the contract every direction must satisfy.
+Then, per direction:
+
+1. Learn its vocabulary — the extracted stylesheet is the source of truth:
+   `grep -oE '^[^{@/][^{]*\{' dNN-slug/assets/styles.css | sed 's/{$//' | tr ',' '\n' | sort -u`
+   and read `:root` for its tokens. **Reuse its existing class names**; only add
+   CSS for furniture the single-page mockup never had.
+2. Write `build/directions/dNN.mjs` against the module contract (Task 7), taking
+   that direction's row from the furniture tables in Tasks 14–22.
+3. Write `build/css/dNN.css` and append it:
+   `cat build/css/dNN.css >> dNN-slug/assets/styles.css`
+4. `node build/build.mjs dNN && node build/check-links.mjs dNN-slug`
+5. `node --test "build/**/*.test.mjs"`
+6. Render and **look at it** — `cd shots && node page.mjs ../dNN-slug/contact-us/index.html ./x.png 1440`
+
+### Corrections already applied to this plan — do not reintroduce
+
+- **The CLI guard.** `import.meta.url === \`file://${process.argv[1]}\`` never matches on
+  Windows. Use `process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href`.
+- **`node --test build/` does not work** on Node 24 — it resolves `build` as a module.
+  Use `node --test "build/**/*.test.mjs"`.
+- **Directions 04–10 use `.rv.is-in`**, not `.rv.in`, and ship `.burger` / `.nlinks`
+  rather than a bespoke toggle. 01–03 use `.rv.in`.
+- **Animate `translate`, never `transform`, for reveals.** `transform:none` on the
+  revealed state outranks `:hover` transforms at equal specificity and silently kills
+  every hover lift.
+- **`.fg a` (0,1,1) outranks `.btn` (0,1,0)** whatever the source order. Footer buttons
+  need `.fg a.btn` or they collapse to `display:block`.
+- **`aspect-ratio` needs `height:auto`.** Every `<img>` carries intrinsic `width`/`height`
+  attributes; with `width:100%` and no CSS height, both dimensions are set and
+  `aspect-ratio` is ignored entirely.
+- **Restate colours when moving a component between light and dark sections.** Components
+  styled only for one ground inherit the wrong text colour on the other.
+- **Harness artefacts, not bugs:** `probe.mjs` reports lazy below-fold images as broken,
+  and `mob.mjs` does not scroll so `.rv` content reads as blank. Judge overflow by
+  `scrollW` vs `vw` (or `sideways`), not by the `wide` list — several heroes bleed
+  deliberately inside `overflow:hidden`. Full-page shots of long pages can exceed the
+  120s tool timeout; shoot `contact-us` instead, it exercises nav, hero, form and footer.
+
+### Open items for Quest, carried from the spec
+
+- `content/areas-local.json` is marked **UNVERIFIED** and must be reviewed before launch —
+  specifically the permitting authority named for each city.
+- Address, ROC number and email remain unpublished, so no `PostalAddress` and no
+  `aggregateRating` appear in any schema. Do not add them without real values.
+- Only `d01-site-plan` is indexable; the other nine are `noindex,follow`.
+
+---
+
 ## Global Constraints
 
 - **Zero dependencies.** No `package.json`, no `npm install`. Node built-ins only. The repo is dependency-free today and stays that way.

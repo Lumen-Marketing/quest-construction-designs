@@ -6,3 +6,4 @@ shots/.mob-*.html
 
 # recovered source archive, kept local for the extractor
 .source/
+shots/*.log

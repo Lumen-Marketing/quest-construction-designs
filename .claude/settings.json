@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git commit -q -m 'Record build status and resume instructions in the plan *)"
+    ]
+  }
+}
