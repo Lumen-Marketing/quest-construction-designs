@@ -72,7 +72,9 @@ export function buildDirection(mod) {
 
 const DIRECTIONS = ['d01', 'd02', 'd03', 'd04', 'd05', 'd06', 'd07', 'd08', 'd09', 'd10'];
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+const isCli = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+
+if (isCli) {
   const only = process.argv[2];
   let total = 0;
   for (const d of DIRECTIONS) {

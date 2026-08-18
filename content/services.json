@@ -1,12 +1,12 @@
 [
   {
-    "slug": "adu",
-    "name": "ADU",
-    "shortDesc": "Enhance space and add value with your dream detached unit.",
-    "h1": "Professional ADU Services",
-    "subheroTagline": "Offering exceptional ADU solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
+    "slug": "residential-development",
+    "name": "Residential Development",
+    "shortDesc": "Transforming your vision into a dream home with expert craftsmanship.",
+    "h1": "Professional Residential Development Services",
+    "subheroTagline": "Offering exceptional Residential Development solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
     "intro": [
-      "Accessory dwelling units can expand living options, create guest space, or increase property utility. We build ADUs with thoughtful design, durable materials, and careful project coordination.",
+      "From planning through final walkthrough, Quest Construction coordinates residential development with practical scheduling, dependable craftsmanship, and a focus on long-term value.",
       "Our team focuses on clear communication, careful planning, clean execution, and a final walkthrough that confirms the details are completed properly."
     ],
     "whyChoose": [
@@ -37,7 +37,7 @@
         "body": "We complete a quality inspection and guide you through a walkthrough to confirm your satisfaction."
       }
     ],
-    "ctaHeading": "Transform Your Space with Expert ADU",
+    "ctaHeading": "Transform Your Space with Expert Residential Development",
     "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
   },
   {
@@ -79,6 +79,88 @@
       }
     ],
     "ctaHeading": "Transform Your Space with Expert Casita",
+    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
+  },
+  {
+    "slug": "adu",
+    "name": "ADU",
+    "shortDesc": "Enhance space and add value with your dream detached unit.",
+    "h1": "Professional ADU Services",
+    "subheroTagline": "Offering exceptional ADU solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
+    "intro": [
+      "Accessory dwelling units can expand living options, create guest space, or increase property utility. We build ADUs with thoughtful design, durable materials, and careful project coordination.",
+      "Our team focuses on clear communication, careful planning, clean execution, and a final walkthrough that confirms the details are completed properly."
+    ],
+    "whyChoose": [
+      "Experienced professionals with a practical build-first approach.",
+      "Customized solutions for your home, budget, and timeline.",
+      "Reliable scheduling and coordination from start to finish.",
+      "Attention to durability, appearance, and long-term value."
+    ],
+    "process": [
+      {
+        "n": 1,
+        "title": "Initial Consultation & Custom Estimate",
+        "body": "Our specialists meet to discuss your project details, analyze requirements, and create a tailored estimate. We pride ourselves on transparency, ensuring you'll know exactly what to expect from day one."
+      },
+      {
+        "n": 2,
+        "title": "Strategic Planning & Scheduling",
+        "body": "We devise a detailed plan tailored to your project's needs, scheduling the work around your timeline and coordinating resources for seamless execution."
+      },
+      {
+        "n": 3,
+        "title": "Meticulous Preparation & Execution",
+        "body": "Our team conducts thorough preparation and then executes the work with precision, focusing on durability, finish quality, and client expectations."
+      },
+      {
+        "n": 4,
+        "title": "Final Quality Inspection & Client Walkthrough",
+        "body": "We complete a quality inspection and guide you through a walkthrough to confirm your satisfaction."
+      }
+    ],
+    "ctaHeading": "Transform Your Space with Expert ADU",
+    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
+  },
+  {
+    "slug": "framing",
+    "name": "Framing",
+    "shortDesc": "Expertly shaping your structure's foundation with precision and skill.",
+    "h1": "Professional Framing Services",
+    "subheroTagline": "Offering exceptional Framing solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
+    "intro": [
+      "Framing creates the skeleton of the project. Quest Construction focuses on accuracy, structural alignment, clean layout, and coordination with the rest of the build.",
+      "Our team focuses on clear communication, careful planning, clean execution, and a final walkthrough that confirms the details are completed properly."
+    ],
+    "whyChoose": [
+      "Experienced professionals with a practical build-first approach.",
+      "Customized solutions for your home, budget, and timeline.",
+      "Reliable scheduling and coordination from start to finish.",
+      "Attention to durability, appearance, and long-term value."
+    ],
+    "process": [
+      {
+        "n": 1,
+        "title": "Initial Consultation & Custom Estimate",
+        "body": "Our specialists meet to discuss your project details, analyze requirements, and create a tailored estimate. We pride ourselves on transparency, ensuring you'll know exactly what to expect from day one."
+      },
+      {
+        "n": 2,
+        "title": "Strategic Planning & Scheduling",
+        "body": "We devise a detailed plan tailored to your project's needs, scheduling the work around your timeline and coordinating resources for seamless execution."
+      },
+      {
+        "n": 3,
+        "title": "Meticulous Preparation & Execution",
+        "body": "Our team conducts thorough preparation and then executes the work with precision, focusing on durability, finish quality, and client expectations."
+      },
+      {
+        "n": 4,
+        "title": "Final Quality Inspection & Client Walkthrough",
+        "body": "We complete a quality inspection and guide you through a walkthrough to confirm your satisfaction."
+      }
+    ],
+    "ctaHeading": "Transform Your Space with Expert Framing",
     "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
   },
   {
@@ -168,13 +250,13 @@
     ]
   },
   {
-    "slug": "custom-home-building",
-    "name": "Custom Home Building",
-    "shortDesc": "Crafting your dream home with precision, style, and reliability.",
-    "h1": "Professional Custom Home Building Services",
-    "subheroTagline": "Offering exceptional Custom Home Building solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
+    "slug": "stucco",
+    "name": "Stucco",
+    "shortDesc": "Enhance your home's exterior with durable, attractive stucco finish.",
+    "h1": "Professional Stucco Services",
+    "subheroTagline": "Offering exceptional Stucco solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
     "intro": [
-      "Custom home building turns a vision into a finished living space through disciplined planning, strong communication, and detail-focused craftsmanship.",
+      "Our stucco work helps protect exterior surfaces while improving curb appeal with clean, durable finishes tailored to the home.",
       "Our team focuses on clear communication, careful planning, clean execution, and a final walkthrough that confirms the details are completed properly."
     ],
     "whyChoose": [
@@ -205,48 +287,7 @@
         "body": "We complete a quality inspection and guide you through a walkthrough to confirm your satisfaction."
       }
     ],
-    "ctaHeading": "Transform Your Space with Expert Custom Home Building",
-    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
-  },
-  {
-    "slug": "deck-building-uses-trex-system",
-    "name": "Deck Building (uses Trex System)",
-    "shortDesc": "Transform your outdoor spaces with our top-quality Trex decking.",
-    "h1": "Professional Deck Building (uses Trex System) Services",
-    "subheroTagline": "Offering exceptional Deck Building (uses Trex System) solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
-    "intro": [
-      "Trex-system deck building creates outdoor areas that are attractive, durable, and low maintenance for Arizona homes.",
-      "Our team focuses on clear communication, careful planning, clean execution, and a final walkthrough that confirms the details are completed properly."
-    ],
-    "whyChoose": [
-      "Experienced professionals with a practical build-first approach.",
-      "Customized solutions for your home, budget, and timeline.",
-      "Reliable scheduling and coordination from start to finish.",
-      "Attention to durability, appearance, and long-term value."
-    ],
-    "process": [
-      {
-        "n": 1,
-        "title": "Initial Consultation & Custom Estimate",
-        "body": "Our specialists meet to discuss your project details, analyze requirements, and create a tailored estimate. We pride ourselves on transparency, ensuring you'll know exactly what to expect from day one."
-      },
-      {
-        "n": 2,
-        "title": "Strategic Planning & Scheduling",
-        "body": "We devise a detailed plan tailored to your project's needs, scheduling the work around your timeline and coordinating resources for seamless execution."
-      },
-      {
-        "n": 3,
-        "title": "Meticulous Preparation & Execution",
-        "body": "Our team conducts thorough preparation and then executes the work with precision, focusing on durability, finish quality, and client expectations."
-      },
-      {
-        "n": 4,
-        "title": "Final Quality Inspection & Client Walkthrough",
-        "body": "We complete a quality inspection and guide you through a walkthrough to confirm your satisfaction."
-      }
-    ],
-    "ctaHeading": "Transform Your Space with Expert Deck Building (uses Trex System)",
+    "ctaHeading": "Transform Your Space with Expert Stucco",
     "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
   },
   {
@@ -291,13 +332,13 @@
     "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
   },
   {
-    "slug": "framing",
-    "name": "Framing",
-    "shortDesc": "Expertly shaping your structure's foundation with precision and skill.",
-    "h1": "Professional Framing Services",
-    "subheroTagline": "Offering exceptional Framing solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
+    "slug": "siding",
+    "name": "Siding",
+    "shortDesc": "Enhance curb appeal and protect your home with expert siding.",
+    "h1": "Professional Siding Services",
+    "subheroTagline": "Offering exceptional Siding solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
     "intro": [
-      "Framing creates the skeleton of the project. Quest Construction focuses on accuracy, structural alignment, clean layout, and coordination with the rest of the build.",
+      "Siding upgrades help protect the structure and modernize the exterior appearance of a home. We focus on fit, durability, and detail.",
       "Our team focuses on clear communication, careful planning, clean execution, and a final walkthrough that confirms the details are completed properly."
     ],
     "whyChoose": [
@@ -328,130 +369,7 @@
         "body": "We complete a quality inspection and guide you through a walkthrough to confirm your satisfaction."
       }
     ],
-    "ctaHeading": "Transform Your Space with Expert Framing",
-    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
-  },
-  {
-    "slug": "full-remodel-kitchen-bathroomcabinets-flooring-counter-tops",
-    "name": "Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops)",
-    "shortDesc": "Transform your space with expert craftsmanship and modern design.",
-    "h1": "Professional Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops) Services",
-    "subheroTagline": "Offering exceptional Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops) solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
-    "intro": [
-      "Complete remodels require coordination across trades, finishes, and schedule. We manage kitchens, bathrooms, cabinets, flooring, countertops, and full interior transformations.",
-      "Our team focuses on clear communication, careful planning, clean execution, and a final walkthrough that confirms the details are completed properly."
-    ],
-    "whyChoose": [
-      "Experienced professionals with a practical build-first approach.",
-      "Customized solutions for your home, budget, and timeline.",
-      "Reliable scheduling and coordination from start to finish.",
-      "Attention to durability, appearance, and long-term value."
-    ],
-    "process": [
-      {
-        "n": 1,
-        "title": "Initial Consultation & Custom Estimate",
-        "body": "Our specialists meet to discuss your project details, analyze requirements, and create a tailored estimate. We pride ourselves on transparency, ensuring you'll know exactly what to expect from day one."
-      },
-      {
-        "n": 2,
-        "title": "Strategic Planning & Scheduling",
-        "body": "We devise a detailed plan tailored to your project's needs, scheduling the work around your timeline and coordinating resources for seamless execution."
-      },
-      {
-        "n": 3,
-        "title": "Meticulous Preparation & Execution",
-        "body": "Our team conducts thorough preparation and then executes the work with precision, focusing on durability, finish quality, and client expectations."
-      },
-      {
-        "n": 4,
-        "title": "Final Quality Inspection & Client Walkthrough",
-        "body": "We complete a quality inspection and guide you through a walkthrough to confirm your satisfaction."
-      }
-    ],
-    "ctaHeading": "Transform Your Space with Expert Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops)",
-    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
-  },
-  {
-    "slug": "painting",
-    "name": "Painting",
-    "shortDesc": "Transforming spaces with vibrant colors and exceptional precision.",
-    "h1": "Professional Painting Services",
-    "subheroTagline": "Offering exceptional Painting solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
-    "intro": [
-      "Painting transforms the feel of a space while protecting surfaces. We provide precise prep, clean application, and a professional finish.",
-      "Our team focuses on clear communication, careful planning, clean execution, and a final walkthrough that confirms the details are completed properly."
-    ],
-    "whyChoose": [
-      "Experienced professionals with a practical build-first approach.",
-      "Customized solutions for your home, budget, and timeline.",
-      "Reliable scheduling and coordination from start to finish.",
-      "Attention to durability, appearance, and long-term value."
-    ],
-    "process": [
-      {
-        "n": 1,
-        "title": "Initial Consultation & Custom Estimate",
-        "body": "Our specialists meet to discuss your project details, analyze requirements, and create a tailored estimate. We pride ourselves on transparency, ensuring you'll know exactly what to expect from day one."
-      },
-      {
-        "n": 2,
-        "title": "Strategic Planning & Scheduling",
-        "body": "We devise a detailed plan tailored to your project's needs, scheduling the work around your timeline and coordinating resources for seamless execution."
-      },
-      {
-        "n": 3,
-        "title": "Meticulous Preparation & Execution",
-        "body": "Our team conducts thorough preparation and then executes the work with precision, focusing on durability, finish quality, and client expectations."
-      },
-      {
-        "n": 4,
-        "title": "Final Quality Inspection & Client Walkthrough",
-        "body": "We complete a quality inspection and guide you through a walkthrough to confirm your satisfaction."
-      }
-    ],
-    "ctaHeading": "Transform Your Space with Expert Painting",
-    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
-  },
-  {
-    "slug": "residential-development",
-    "name": "Residential Development",
-    "shortDesc": "Transforming your vision into a dream home with expert craftsmanship.",
-    "h1": "Professional Residential Development Services",
-    "subheroTagline": "Offering exceptional Residential Development solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
-    "intro": [
-      "From planning through final walkthrough, Quest Construction coordinates residential development with practical scheduling, dependable craftsmanship, and a focus on long-term value.",
-      "Our team focuses on clear communication, careful planning, clean execution, and a final walkthrough that confirms the details are completed properly."
-    ],
-    "whyChoose": [
-      "Experienced professionals with a practical build-first approach.",
-      "Customized solutions for your home, budget, and timeline.",
-      "Reliable scheduling and coordination from start to finish.",
-      "Attention to durability, appearance, and long-term value."
-    ],
-    "process": [
-      {
-        "n": 1,
-        "title": "Initial Consultation & Custom Estimate",
-        "body": "Our specialists meet to discuss your project details, analyze requirements, and create a tailored estimate. We pride ourselves on transparency, ensuring you'll know exactly what to expect from day one."
-      },
-      {
-        "n": 2,
-        "title": "Strategic Planning & Scheduling",
-        "body": "We devise a detailed plan tailored to your project's needs, scheduling the work around your timeline and coordinating resources for seamless execution."
-      },
-      {
-        "n": 3,
-        "title": "Meticulous Preparation & Execution",
-        "body": "Our team conducts thorough preparation and then executes the work with precision, focusing on durability, finish quality, and client expectations."
-      },
-      {
-        "n": 4,
-        "title": "Final Quality Inspection & Client Walkthrough",
-        "body": "We complete a quality inspection and guide you through a walkthrough to confirm your satisfaction."
-      }
-    ],
-    "ctaHeading": "Transform Your Space with Expert Residential Development",
+    "ctaHeading": "Transform Your Space with Expert Siding",
     "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
   },
   {
@@ -496,13 +414,13 @@
     "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
   },
   {
-    "slug": "siding",
-    "name": "Siding",
-    "shortDesc": "Enhance curb appeal and protect your home with expert siding.",
-    "h1": "Professional Siding Services",
-    "subheroTagline": "Offering exceptional Siding solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
+    "slug": "full-remodel-kitchen-bathroomcabinets-flooring-counter-tops",
+    "name": "Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops)",
+    "shortDesc": "Transform your space with expert craftsmanship and modern design.",
+    "h1": "Professional Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops) Services",
+    "subheroTagline": "Offering exceptional Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops) solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
     "intro": [
-      "Siding upgrades help protect the structure and modernize the exterior appearance of a home. We focus on fit, durability, and detail.",
+      "Complete remodels require coordination across trades, finishes, and schedule. We manage kitchens, bathrooms, cabinets, flooring, countertops, and full interior transformations.",
       "Our team focuses on clear communication, careful planning, clean execution, and a final walkthrough that confirms the details are completed properly."
     ],
     "whyChoose": [
@@ -533,17 +451,17 @@
         "body": "We complete a quality inspection and guide you through a walkthrough to confirm your satisfaction."
       }
     ],
-    "ctaHeading": "Transform Your Space with Expert Siding",
+    "ctaHeading": "Transform Your Space with Expert Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops)",
     "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
   },
   {
-    "slug": "stucco",
-    "name": "Stucco",
-    "shortDesc": "Enhance your home's exterior with durable, attractive stucco finish.",
-    "h1": "Professional Stucco Services",
-    "subheroTagline": "Offering exceptional Stucco solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
+    "slug": "custom-home-building",
+    "name": "Custom Home Building",
+    "shortDesc": "Crafting your dream home with precision, style, and reliability.",
+    "h1": "Professional Custom Home Building Services",
+    "subheroTagline": "Offering exceptional Custom Home Building solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
     "intro": [
-      "Our stucco work helps protect exterior surfaces while improving curb appeal with clean, durable finishes tailored to the home.",
+      "Custom home building turns a vision into a finished living space through disciplined planning, strong communication, and detail-focused craftsmanship.",
       "Our team focuses on clear communication, careful planning, clean execution, and a final walkthrough that confirms the details are completed properly."
     ],
     "whyChoose": [
@@ -574,7 +492,89 @@
         "body": "We complete a quality inspection and guide you through a walkthrough to confirm your satisfaction."
       }
     ],
-    "ctaHeading": "Transform Your Space with Expert Stucco",
+    "ctaHeading": "Transform Your Space with Expert Custom Home Building",
+    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
+  },
+  {
+    "slug": "painting",
+    "name": "Painting",
+    "shortDesc": "Transforming spaces with vibrant colors and exceptional precision.",
+    "h1": "Professional Painting Services",
+    "subheroTagline": "Offering exceptional Painting solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
+    "intro": [
+      "Painting transforms the feel of a space while protecting surfaces. We provide precise prep, clean application, and a professional finish.",
+      "Our team focuses on clear communication, careful planning, clean execution, and a final walkthrough that confirms the details are completed properly."
+    ],
+    "whyChoose": [
+      "Experienced professionals with a practical build-first approach.",
+      "Customized solutions for your home, budget, and timeline.",
+      "Reliable scheduling and coordination from start to finish.",
+      "Attention to durability, appearance, and long-term value."
+    ],
+    "process": [
+      {
+        "n": 1,
+        "title": "Initial Consultation & Custom Estimate",
+        "body": "Our specialists meet to discuss your project details, analyze requirements, and create a tailored estimate. We pride ourselves on transparency, ensuring you'll know exactly what to expect from day one."
+      },
+      {
+        "n": 2,
+        "title": "Strategic Planning & Scheduling",
+        "body": "We devise a detailed plan tailored to your project's needs, scheduling the work around your timeline and coordinating resources for seamless execution."
+      },
+      {
+        "n": 3,
+        "title": "Meticulous Preparation & Execution",
+        "body": "Our team conducts thorough preparation and then executes the work with precision, focusing on durability, finish quality, and client expectations."
+      },
+      {
+        "n": 4,
+        "title": "Final Quality Inspection & Client Walkthrough",
+        "body": "We complete a quality inspection and guide you through a walkthrough to confirm your satisfaction."
+      }
+    ],
+    "ctaHeading": "Transform Your Space with Expert Painting",
+    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
+  },
+  {
+    "slug": "deck-building-uses-trex-system",
+    "name": "Deck Building (uses Trex System)",
+    "shortDesc": "Transform your outdoor spaces with our top-quality Trex decking.",
+    "h1": "Professional Deck Building (uses Trex System) Services",
+    "subheroTagline": "Offering exceptional Deck Building (uses Trex System) solutions, our team is committed to providing top-quality services to meet your needs in the Construction industry.",
+    "intro": [
+      "Trex-system deck building creates outdoor areas that are attractive, durable, and low maintenance for Arizona homes.",
+      "Our team focuses on clear communication, careful planning, clean execution, and a final walkthrough that confirms the details are completed properly."
+    ],
+    "whyChoose": [
+      "Experienced professionals with a practical build-first approach.",
+      "Customized solutions for your home, budget, and timeline.",
+      "Reliable scheduling and coordination from start to finish.",
+      "Attention to durability, appearance, and long-term value."
+    ],
+    "process": [
+      {
+        "n": 1,
+        "title": "Initial Consultation & Custom Estimate",
+        "body": "Our specialists meet to discuss your project details, analyze requirements, and create a tailored estimate. We pride ourselves on transparency, ensuring you'll know exactly what to expect from day one."
+      },
+      {
+        "n": 2,
+        "title": "Strategic Planning & Scheduling",
+        "body": "We devise a detailed plan tailored to your project's needs, scheduling the work around your timeline and coordinating resources for seamless execution."
+      },
+      {
+        "n": 3,
+        "title": "Meticulous Preparation & Execution",
+        "body": "Our team conducts thorough preparation and then executes the work with precision, focusing on durability, finish quality, and client expectations."
+      },
+      {
+        "n": 4,
+        "title": "Final Quality Inspection & Client Walkthrough",
+        "body": "We complete a quality inspection and guide you through a walkthrough to confirm your satisfaction."
+      }
+    ],
+    "ctaHeading": "Transform Your Space with Expert Deck Building (uses Trex System)",
     "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
   },
   {

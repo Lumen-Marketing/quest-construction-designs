@@ -19,7 +19,14 @@ const shortDescFor = (slug) => MANIFEST.services.find((s) => s.slug === slug).de
 const listItems = (ul) => matchAll(ul, /<li>([\s\S]*?)<\/li>/g).map(text);
 
 export function extractServices() {
-  return readdirSync(join(QUEST_SRC, 'services')).map((slug) => {
+  // Manifest order, not directory order. readdirSync is alphabetical, which
+  // would bury Residential Development — the service the real site leads with.
+  const onDisk = new Set(readdirSync(join(QUEST_SRC, 'services')));
+  const slugs = MANIFEST.services.map((s) => s.slug);
+  for (const s of onDisk) {
+    if (!slugs.includes(s)) throw new Error(`service ${s} is on disk but not in the manifest`);
+  }
+  return slugs.map((slug) => {
     const m = main(read('services', slug, 'index.html'));
 
     const sub = section(m, 'subhero');
@@ -173,7 +180,7 @@ export function extractPages() {
 
 // pathToFileURL, not string interpolation: on Windows argv[1] is a drive path,
 // which interpolates to file://C:/... against import.meta.url's file:///C:/...
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   mkdirSync('content', { recursive: true });
   const w = (f, d) => writeFileSync(`content/${f}`, JSON.stringify(d, null, 2) + '\n');
   w('services.json', extractServices());
