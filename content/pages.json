@@ -1,0 +1,80 @@
+{
+  "home": {
+    "heroTitle": "Quest Construction: From Concept to Creation",
+    "heroBody": "Expert Craftsmanship for Your Dream Space. Trust Our Proven Track Record and Personalized Service.",
+    "servicesHeading": "Our Expert Construction Services",
+    "storyEyebrow": "Our Story",
+    "storyHeading": "Founded on Craftsmanship",
+    "story": [
+      "Founded on the belief that homes are where memories thrive, Quest Construction has been shaping dreams since 2005. Our mission is to build not just structures, but trust and communities. We stand apart through our creativity, integrity, and craftsmanship, building not just homes, but legacies."
+    ],
+    "ctaHeading": "Transform Your Home Today",
+    "ctaBody": "Experience superior craftsmanship. Act now and elevate your living space—contact Quest Construction."
+  },
+  "about": {
+    "h1": "About Quest Construction",
+    "lede": "Building trust, homes, and communities through creativity, integrity, and craftsmanship.",
+    "storyHeading": "Our Story",
+    "story": [
+      "Founded on the belief that homes are where memories thrive, Quest Construction has been shaping dreams since 2005. Our mission is to build not just structures, but trust and communities. We stand apart through our creativity, integrity, and craftsmanship, building not just homes, but legacies.",
+      "We help homeowners transform their spaces through practical planning, high-quality construction, and attentive service from first conversation through final walkthrough."
+    ]
+  },
+  "gallery": {
+    "h1": "Gallery",
+    "lede": "Project imagery and construction work from Quest Construction."
+  },
+  "projects": {
+    "h1": "Project Showcase",
+    "lede": "Construction projects built with craftsmanship, planning, and attention to detail.",
+    "items": [
+      {
+        "title": "Residential Framing",
+        "body": "Custom framing and structural work with careful coordination.",
+        "alt": "Framing project"
+      },
+      {
+        "title": "Home Construction",
+        "body": "From concept to creation, our team shapes spaces that fit client goals.",
+        "alt": "Home construction project"
+      },
+      {
+        "title": "Concrete Work",
+        "body": "Durable foundations, slabs, walkways, patios, and custom concrete projects.",
+        "alt": "Concrete project"
+      }
+    ]
+  },
+  "contact": {
+    "h1": "Contact us",
+    "lede": "We'd love to hear from you and answer any questions you may have.",
+    "formHeading": "Get in touch!",
+    "fields": [
+      {
+        "name": "name",
+        "label": "Name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "label": "Email",
+        "type": "email"
+      },
+      {
+        "name": "phone",
+        "label": "Phone",
+        "type": "tel"
+      },
+      {
+        "name": "message",
+        "label": "Leave us a message",
+        "type": "textarea"
+      }
+    ],
+    "helpHeading": "We're here to help"
+  },
+  "sitemap": {
+    "h1": "Sitemap",
+    "lede": "Every page on the Quest Construction site."
+  }
+}

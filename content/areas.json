@@ -1,0 +1,80 @@
+{
+  "template": {
+    "h1": "{{city}}, AZ Construction",
+    "tagline": "Quest Construction: Your Local, Family-Owned Experts in Quality Building Solutions 24/7",
+    "servicesHeading": "Professional Construction Services in {{city}}, AZ",
+    "communityHeading": "{{city}}: A Community We Proudly Serve",
+    "community": "Quest Construction serves homeowners and property owners in {{city}}, AZ with tailored construction, remodeling, and exterior improvement solutions built around quality craftsmanship and dependable communication.",
+    "localHeading": "",
+    "local": "At Quest Construction, we pride ourselves on delivering tailored construction solutions that meet the diverse needs of {{city}}, AZ residents. Whether you're looking to renovate your home or develop a new property, our comprehensive range of services is designed to exceed your expectations.",
+    "capabilities": [
+      "Reliable Dry Wall Installation",
+      "Durable Roofing Solutions",
+      "Expert Stucco Application",
+      "Precision Concrete Work",
+      "Residential Development, Casitas, and ADUs",
+      "Complete Home Remodels including kitchens, bathrooms, cabinets, flooring, and countertops"
+    ],
+    "commitmentHeading": "",
+    "commitment": "When you choose Quest Construction, you're getting high-quality services and a partner invested in your community. Our team strives to complete projects seamlessly and to your highest standards.",
+    "ctaHeading": "Transform Your Space with Expert Construction",
+    "ctaBody": "Contact Quest Construction now for reliable 24/7 service in {{city}}, AZ. Schedule today!"
+  },
+  "areas": [
+    {
+      "slug": "mesa-az",
+      "name": "Mesa, AZ",
+      "city": "Mesa"
+    },
+    {
+      "slug": "tempe-az",
+      "name": "Tempe, AZ",
+      "city": "Tempe"
+    },
+    {
+      "slug": "queen-creek-az",
+      "name": "Queen Creek, AZ",
+      "city": "Queen Creek"
+    },
+    {
+      "slug": "scottsdale-az",
+      "name": "Scottsdale, AZ",
+      "city": "Scottsdale"
+    },
+    {
+      "slug": "gilbert-az",
+      "name": "Gilbert, AZ",
+      "city": "Gilbert"
+    },
+    {
+      "slug": "chandler-az",
+      "name": "Chandler, AZ",
+      "city": "Chandler"
+    },
+    {
+      "slug": "paradise-valley-az",
+      "name": "Paradise Valley, AZ",
+      "city": "Paradise Valley"
+    },
+    {
+      "slug": "phoenix-az",
+      "name": "Phoenix, AZ",
+      "city": "Phoenix"
+    },
+    {
+      "slug": "goodyear-meadows-az",
+      "name": "Goodyear Meadows, AZ",
+      "city": "Goodyear Meadows"
+    },
+    {
+      "slug": "camelback-east-village-az",
+      "name": "Camelback East Village, AZ",
+      "city": "Camelback East Village"
+    },
+    {
+      "slug": "florence-az",
+      "name": "Florence, AZ",
+      "city": "Florence"
+    }
+  ]
+}

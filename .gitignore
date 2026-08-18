@@ -3,3 +3,6 @@ assets/cut/*.png
 assets/cut/*.jpg
 shots/mob.html
 shots/.mob-*.html
+
+# recovered source archive, kept local for the extractor
+.source/
