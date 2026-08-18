@@ -1,0 +1,142 @@
+{
+  "bath.webp": [
+    1800,
+    1200
+  ],
+  "commercial.webp": [
+    1800,
+    1200
+  ],
+  "cranes.webp": [
+    1800,
+    1013
+  ],
+  "crew-slab.webp": [
+    1800,
+    1200
+  ],
+  "earthworks.webp": [
+    1800,
+    1349
+  ],
+  "excavator.webp": [
+    1385,
+    871
+  ],
+  "facade.webp": [
+    1800,
+    1200
+  ],
+  "framing.webp": [
+    1800,
+    1200
+  ],
+  "home-dusk.webp": [
+    1800,
+    1200
+  ],
+  "kitchen.webp": [
+    1800,
+    2700
+  ],
+  "loader.webp": [
+    1361,
+    1087
+  ],
+  "mech.webp": [
+    1800,
+    1430
+  ],
+  "neighborhood.webp": [
+    1800,
+    1200
+  ],
+  "og/cranes.jpg": [
+    1200,
+    630
+  ],
+  "og/crew-slab.jpg": [
+    1200,
+    630
+  ],
+  "og/excavator.jpg": [
+    1200,
+    630
+  ],
+  "og/framing.jpg": [
+    1200,
+    630
+  ],
+  "og/neighborhood.jpg": [
+    1200,
+    630
+  ],
+  "og/quest-hero.jpg": [
+    1200,
+    630
+  ],
+  "og/rebar.jpg": [
+    1200,
+    630
+  ],
+  "og/site-steel.jpg": [
+    1200,
+    630
+  ],
+  "og/trade-weld.jpg": [
+    1200,
+    630
+  ],
+  "planning.webp": [
+    1800,
+    1201
+  ],
+  "plans.webp": [
+    1800,
+    1013
+  ],
+  "quest/contact.webp": [
+    1800,
+    1193
+  ],
+  "quest/hero.webp": [
+    1800,
+    1013
+  ],
+  "quest/logo.webp": [
+    1261,
+    285
+  ],
+  "quest/spare.webp": [
+    1800,
+    2400
+  ],
+  "quest/story.webp": [
+    1800,
+    1350
+  ],
+  "rebar.webp": [
+    1800,
+    1311
+  ],
+  "roofline.webp": [
+    1800,
+    2700
+  ],
+  "site-steel.webp": [
+    1800,
+    1192
+  ],
+  "trade-electric.webp": [
+    1800,
+    1202
+  ],
+  "trade-weld.webp": [
+    1800,
+    1200
+  ],
+  "worker.webp": [
+    291,
+    316
+  ]
+}
