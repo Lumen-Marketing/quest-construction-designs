@@ -269,8 +269,206 @@ export function home(c) {
 </section>`;
 }
 
-export const service = () => '';
-export const area = () => '';
+/** Service page — hero, tabs, intro, why-choose badges, process, FAQ, CTA. */
+export function service(c) {
+  const s = c.item;
+
+  const tabs = c.services.map((x) => {
+    const on = x.slug === s.slug;
+    return `<a href="${c.url(`services/${x.slug}`)}"${on ? ' class="on" aria-current="page"' : ''}>${esc(x.name)}</a>`;
+  }).join('');
+
+  const why = s.whyChoose.map((w, i) => `
+    <div class="wc rv"><span class="n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
+      <p>${esc(w)}</p></div>`).join('');
+
+  const steps = s.process.map((p) => `
+    <div class="step rv"><div class="n">${p.n}</div>
+      <h4>${esc(p.title)}</h4><p>${esc(p.body)}</p></div>`).join('');
+
+  const scope = s.scope && s.scope.length ? `
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap">
+    ${shead('— What we cover', `Complete Range of <span>${esc(s.name)}</span> Services`, '')}
+    <div class="scope">${s.scope.map((x) => `
+      <article class="sc rv"><h3>${esc(x.title)}</h3><p>${esc(x.body)}</p></article>`).join('')}
+    </div>
+    ${s.quality ? `<div class="quality rv"><h3>Quality Assurance</h3><p>${esc(s.quality)}</p></div>` : ''}
+  </div>
+</section>` : '';
+
+  const faq = s.faqs && s.faqs.length ? `
+<section class="sec cream faq">
+  ${grid(false)}
+  <div class="wrap">
+    ${shead('— FAQs', `${esc(s.name)} Services <span>FAQ</span>`,
+      `Addressing your ${s.name.toLowerCase()} questions and concerns.`)}
+    <div class="faqlist">${s.faqs.map((f) => `
+      <details class="rv"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}
+    </div>
+  </div>
+</section>` : '';
+
+  return `
+<section class="subhero">
+  ${grid(false)}
+  <div class="subhero-panel" aria-hidden="true"></div>
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="${c.url('home')}">Home</a> <span aria-hidden="true">/</span>
+      <a href="${c.url('sitemap')}">Services</a> <span aria-hidden="true">/</span>
+      <b>${esc(s.name)}</b>
+    </nav>
+    <div class="subhero-in">
+      <div>
+        <span class="ic big">${icon(s.slug)}</span>
+        <h1>${esc(s.h1)}</h1>
+        <p class="lede">${esc(s.subheroTagline)}</p>
+        <div class="hero-acts">
+          ${arrowBtn(c.url('contact'), 'Get in touch')}
+          ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn ghost')}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="svctabs" aria-label="All services"><div class="wrap">${tabs}</div></nav>
+
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap prose-wrap">
+    <div class="prose rv">
+      <h2>${esc(s.name)} Services by <span>${esc(c.site.name)}</span></h2>
+      ${s.intro.map((p) => `<p>${esc(p)}</p>`).join('')}
+    </div>
+    <div class="wcs">
+      <h3>Why choose ${esc(c.site.name)}?</h3>
+      <div class="wcgrid">${why}</div>
+    </div>
+  </div>
+</section>
+${scope}
+
+<section class="sec dark">
+  ${grid(true)}
+  <div class="wrap">
+    ${shead('— How it runs', `Our Unique <span>${esc(s.name)}</span> Service Process`,
+      'Four stages, the same on every job, so you always know what happens next.')}
+    <div class="steps">${steps}</div>
+  </div>
+</section>
+${faq}
+
+<section class="cta">
+  <div class="bars" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap cta-in">
+    <div class="cta-copy">
+      <h2>${esc(s.ctaHeading)}</h2>
+      <p>${esc(s.ctaBody)}</p>
+      <div class="hero-acts">
+        ${arrowBtn(c.url('contact'), 'Get in touch')}
+        ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn ghost')}
+      </div>
+    </div>
+  </div>
+</section>`;
+}
+
+/** Service-area page. d01 renders authored local copy; see content/areas-local.json. */
+export function area(c) {
+  const a = c.item;
+  const t = c.areas.template;
+  const fill = (s) => esc(String(s).replace(/\{\{city\}\}/g, a.city));
+  const local = c.areasLocal[a.slug];
+
+  const cards = c.services.map((s, i) => `
+    <article class="svc rv${i === 4 ? ' svc--acc' : ''}">
+      <span class="ic">${icon(s.slug)}</span>
+      <h3>${esc(s.name)}</h3>
+      <p>${esc(s.shortDesc)}</p>
+      <a class="go" href="${c.url(`services/${s.slug}`)}">Learn more <i>&#8599;</i></a>
+      <span class="n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
+    </article>`).join('');
+
+  const others = c.areas.areas.filter((x) => x.slug !== a.slug).map((x) =>
+    `<a href="${c.url(`service-areas/${x.slug}`)}">${esc(x.name)}</a>`).join('');
+
+  return `
+<section class="subhero">
+  ${grid(false)}
+  <div class="subhero-panel" aria-hidden="true"></div>
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="${c.url('home')}">Home</a> <span aria-hidden="true">/</span>
+      <a href="${c.url('sitemap')}">Service Areas</a> <span aria-hidden="true">/</span>
+      <b>${esc(a.name)}</b>
+    </nav>
+    <div class="subhero-in">
+      <div>
+        <h1>${fill(t.h1)}</h1>
+        <p class="lede">${fill(t.tagline)}</p>
+        <div class="hero-acts">
+          ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn')}
+          ${arrowBtn(c.url('contact'), 'Email us', 'btn ghost')}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap split">
+    <div class="rv">
+      <p class="mono eyebrow">— ${esc(a.name)}</p>
+      <h2>Building in <span>${esc(a.city)}</span></h2>
+      ${local.paras.map((p) => `<p>${esc(p)}</p>`).join('')}
+      ${arrowBtn(c.url('contact'), 'Talk to us about your project')}
+    </div>
+    <div class="localnotes rv">
+      <h3>What that means on site</h3>
+      <ul>${local.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
+      <div class="localcall">
+        <b>${esc(c.site.phoneDisplay)}</b>
+        <span>${esc(c.site.availability)} &middot; ${esc(a.name)}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec dark">
+  ${grid(true)}
+  <div class="wrap">
+    ${shead(`— Serving ${esc(a.name)}`, fill(t.servicesHeading), fill(t.community))}
+    <div class="svcs">${cards}</div>
+  </div>
+</section>
+
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap">
+    ${shead('— Nearby', 'Other <span>Areas</span> We Serve', '')}
+    <div class="arealinks rv">${others}</div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="bars" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap cta-in">
+    <div class="cta-copy">
+      <h2>${fill(t.ctaHeading)}</h2>
+      <p>${fill(t.ctaBody)}</p>
+      <div class="hero-acts">
+        ${arrowBtn(c.url('contact'), 'Get in touch')}
+        ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn ghost')}
+      </div>
+    </div>
+  </div>
+</section>`;
+}
+
 export const about = () => '';
 export const gallery = () => '';
 export const projects = () => '';

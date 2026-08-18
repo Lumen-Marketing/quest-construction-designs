@@ -22,6 +22,7 @@ export function renderPage({ mod, key }) {
     url: res.url, asset: res.asset, local: res.local, root: res.root,
     site: content.site, services: content.services,
     areas: content.areas, pages: content.pages,
+    areasLocal: content.areasLocal,
     item: page.item,
   };
 

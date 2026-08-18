@@ -90,6 +90,85 @@ test('the marquee is fed the real service names', () => {
   assert.ok(html.includes('"Window Installation"'), 'marquee missing real service names');
 });
 
+test('every service page renders its unique intro, why-choose bullets and process', () => {
+  for (const s of services) {
+    const html = renderPage({ mod: d01, key: `services/${s.slug}` });
+    assert.ok(html.includes(esc(s.intro[0])), `${s.slug} intro missing`);
+    for (const w of s.whyChoose) assert.ok(html.includes(esc(w)), `${s.slug} bullet missing`);
+    for (const p of s.process) {
+      assert.ok(html.includes(esc(p.title)), `${s.slug} step ${p.n} title`);
+      assert.ok(html.includes(esc(p.body)), `${s.slug} step ${p.n} body`);
+    }
+    assert.ok(html.includes(esc(s.ctaHeading)), `${s.slug} cta`);
+  }
+});
+
+test('only the concrete page renders an FAQ block and a scope list', () => {
+  const concrete = renderPage({ mod: d01, key: 'services/concrete' });
+  assert.match(concrete, /class="faqlist"/);
+  assert.equal((concrete.match(/<details class="rv">/g) || []).length, 6);
+  assert.match(concrete, /class="scope"/);
+  assert.match(concrete, /Quality Assurance/);
+  const roofing = renderPage({ mod: d01, key: 'services/roofing' });
+  assert.doesNotMatch(roofing, /class="faqlist"/);
+  assert.doesNotMatch(roofing, /class="scope"/);
+});
+
+test('the service tab rail marks the current service and links the rest', () => {
+  const html = renderPage({ mod: d01, key: 'services/roofing' });
+  assert.ok(html.includes('aria-current="page"'), 'active service is not marked');
+  assert.equal((html.match(/aria-current="page"/g) || []).length, 1);
+  assert.ok(html.includes('../../services/stucco/index.html'));
+});
+
+test('every service and area page carries a breadcrumb trail', () => {
+  for (const key of ['services/roofing', 'service-areas/mesa-az']) {
+    const html = renderPage({ mod: d01, key });
+    assert.match(html, /<nav class="crumbs" aria-label="Breadcrumb">/, `${key} breadcrumb`);
+  }
+});
+
+test('every area page carries authored local copy, unique per city', () => {
+  const local = JSON.parse(readFileSync('content/areas-local.json', 'utf8'));
+  const seen = new Set();
+  for (const a of areas) {
+    const entry = local[a.slug];
+    assert.ok(entry, `no local copy for ${a.slug}`);
+    const words = entry.paras.join(' ').split(/\s+/).length;
+    assert.ok(words >= 120, `${a.slug} local copy too thin (${words} words)`);
+    assert.ok(entry.notes.length >= 3, `${a.slug} has too few notes`);
+    for (const p of entry.paras) {
+      assert.ok(!seen.has(p), `${a.slug} reuses a paragraph from another city`);
+      seen.add(p);
+    }
+    const html = renderPage({ mod: d01, key: `service-areas/${a.slug}` });
+    for (const p of entry.paras) {
+      assert.ok(html.includes(esc(p)), `${a.slug} does not render its local copy`);
+    }
+  }
+});
+
+test('the local copy carries its unverified warning for Quest to review', () => {
+  const local = JSON.parse(readFileSync('content/areas-local.json', 'utf8'));
+  assert.match(local._README, /UNVERIFIED/);
+  assert.match(local._README, /review this file before launch/);
+});
+
+test('area pages resolve the city token everywhere and name their own city', () => {
+  for (const a of areas) {
+    const html = renderPage({ mod: d01, key: `service-areas/${a.slug}` });
+    assert.doesNotMatch(html, /\{\{city\}\}/, `${a.slug} has an unresolved token`);
+    assert.ok(html.includes(esc(a.city)), `${a.slug} never names its city`);
+  }
+});
+
+test('each area page links the other ten areas', () => {
+  const html = renderPage({ mod: d01, key: 'service-areas/mesa-az' });
+  const cloud = /<div class="arealinks rv">([\s\S]*?)<\/div>/.exec(html)[1];
+  assert.equal((cloud.match(/<a /g) || []).length, 10);
+  assert.ok(!cloud.includes('mesa-az'), 'an area links to itself in the nearby cloud');
+});
+
 test('every rendered image carries alt text and intrinsic dimensions', () => {
   for (const key of allPagesFor()) {
     const html = renderPage({ mod: d01, key });

@@ -1,0 +1,157 @@
+{
+  "_README": "UNVERIFIED — written to give each service-area page genuinely distinct content instead of eleven copies of one paragraph, which is Google's textbook definition of a doorway page. Claims are kept to build practice and to jurisdiction facts believed correct at time of writing (2026-08-18). Quest must review this file before launch: confirm the permitting authority named for each city, and cut anything that does not match how Quest actually works. Only d01-site-plan renders this; the other nine directions are noindex and use the ported template.",
+
+  "mesa-az": {
+    "paras": [
+      "Mesa runs its own Development Services department, so a permit here is a City of Mesa submittal rather than a county one. We build the review window into the programme up front, because starting demolition against a permit that has not cleared is how a remodel loses three weeks it never gets back.",
+      "A great deal of Mesa's housing stock is post-war ranch and 1970s and 1980s block construction. That means slab-on-grade foundations, painted masonry or stucco-over-block exteriors, and original branch circuits that often need bringing up to current code once the walls are open. On an addition we plan to match a stucco texture that has weathered for forty years, which is a different job from matching it new.",
+      "West Mesa's older neighbourhoods come with mature landscaping and tight lot access, so we stage deliveries to keep a street passable and the neighbours on side. Further east the newer subdivisions bring HOA architectural review, which we submit alongside the city paperwork rather than discovering it afterwards."
+    ],
+    "notes": [
+      "City of Mesa permitting",
+      "Slab-on-grade and block construction",
+      "Weathered stucco matching",
+      "HOA review in east Mesa"
+    ]
+  },
+
+  "tempe-az": {
+    "paras": [
+      "Tempe is landlocked and effectively built out, so almost everything we do here is infill, remodel or addition rather than new ground. Lots are small and neighbours are close, which makes staging, dust control and working hours part of the plan rather than an afterthought.",
+      "Much of the stock around the university is 1950s to 1970s ranch, a good deal of it converted to rental over the years. We frequently find layered work from earlier owners — a bathroom redone three times, circuits added without permit — and we price the discovery honestly rather than pretending a wall will open clean.",
+      "Several older Tempe neighbourhoods sit on alleys, which can be an advantage for access if we plan for it. Shade and west-facing glass matter enormously here, so window and insulation upgrades tend to pay back faster than they would elsewhere in the valley."
+    ],
+    "notes": [
+      "Infill and remodel work",
+      "Tight lots and close neighbours",
+      "Mid-century ranch stock",
+      "Alley access where available"
+    ]
+  },
+
+  "queen-creek-az": {
+    "paras": [
+      "Queen Creek has grown quickly, and that shows in what we are asked to build. Lots are generally larger than the inner valley, and a good share of our work involves shops, casitas, extended garages and outdoor living space that simply would not fit on a Tempe or Scottsdale lot.",
+      "Parcels toward the edges of town can still be on well and septic, and utility runs are longer than most homeowners expect. We survey those runs before quoting rather than after, because a trench across a hundred and fifty feet of ground is a real line item and not a rounding error.",
+      "Much of the housing is recent enough to remain under some form of builder coverage. Where that is the case we say so plainly and help sort what belongs to the original builder from what is genuinely ours to take on."
+    ],
+    "notes": [
+      "Larger lots and outbuildings",
+      "Well and septic on rural parcels",
+      "Long utility runs",
+      "Recent stock, builder coverage"
+    ]
+  },
+
+  "scottsdale-az": {
+    "paras": [
+      "Scottsdale expects a higher standard of documentation than most valley cities, and its design review is genuinely enforced. We plan for that: elevations, materials and colours get settled and submitted before anyone orders anything, because a rejected finish schedule is far cheaper on paper than on a wall.",
+      "Central and south Scottsdale carry a lot of older ranch stock on generous lots, while north Scottsdale is newer and more heavily governed by HOA architectural committees. The two need different approaches — one is usually a reconfiguration, the other is usually a matching exercise against a controlled palette.",
+      "Desert-adjacent and hillside lots bring their own constraints: drainage, disturbed-area limits, and sun exposure that punishes west elevations. We specify finishes and glazing with that exposure in mind rather than choosing them from a showroom in isolation."
+    ],
+    "notes": [
+      "Documented design review",
+      "Older ranch and newer HOA stock",
+      "Hillside and drainage constraints",
+      "West-elevation sun exposure"
+    ]
+  },
+
+  "gilbert-az": {
+    "paras": [
+      "Gilbert is largely master-planned, and a great deal of its housing went up through the 1990s and 2000s. That stock is now hitting its first real renewal cycle, which is why so much of our work here is tile roof underlayment, mechanical replacement and original kitchens that have simply reached the end of their service life.",
+      "Architectural committees are active across most Gilbert communities, and elevations within a given neighbourhood were built to a controlled palette. Matching therefore matters more than choosing — we work from what is approved for the community and bring options that will actually clear review.",
+      "Because so many homes in a Gilbert subdivision share a builder and a vintage, the problems tend to repeat. That works in a homeowner's favour: we have usually seen the same detail on the same elevation before and can say what it will take without exploratory demolition."
+    ],
+    "notes": [
+      "1990s and 2000s master-planned stock",
+      "Tile underlayment renewal",
+      "Active architectural committees",
+      "Repeating builder details"
+    ]
+  },
+
+  "chandler-az": {
+    "paras": [
+      "Chandler spans a wide range of vintages, from established neighbourhoods near the historic centre to newer development further south. We scope each accordingly rather than assuming a Chandler address implies a particular construction type.",
+      "Kitchen and bathroom remodels make up a large share of what we are asked to do here, often in well-maintained homes where the finishes have dated but the structure is sound. That is a favourable starting point, and it means the conversation is mostly about layout, storage and light rather than repair.",
+      "Tile roofs and stucco exteriors dominate, and both reward maintenance far more than replacement. Where a roof only needs underlayment and a stucco elevation only needs proper preparation and recoating, we will say so instead of quoting the larger job."
+    ],
+    "notes": [
+      "Mixed vintages across the city",
+      "Kitchen and bathroom remodels",
+      "Tile roof and stucco maintenance",
+      "Sound structure, dated finishes"
+    ]
+  },
+
+  "phoenix-az": {
+    "paras": [
+      "Phoenix covers the widest range of housing in the state, from 1920s bungalows near the centre to homes finished last year. We do not carry one approach across all of it — a century-old lath-and-plaster wall and a 2015 truss roof are different problems that happen to share a city.",
+      "Work in the historic districts comes with overlay requirements, and those are worth respecting rather than working around. Original windows, rooflines and street-facing detail carry real value, so we plan to keep what should be kept and be straightforward about what genuinely cannot be saved.",
+      "Elsewhere in the city, 1960s and 1970s block construction is common, with slab foundations and evaporative-cooling legacies still visible in the roof structure. Opening those homes up usually means addressing electrical capacity at the same time, and we would rather price that at the start than raise it mid-project."
+    ],
+    "notes": [
+      "City of Phoenix permitting",
+      "Bungalow through new-build stock",
+      "Historic district overlays",
+      "Block construction and panel capacity"
+    ]
+  },
+
+  "paradise-valley-az": {
+    "paras": [
+      "Paradise Valley is a town rather than part of Phoenix, and it governs building on its own terms. Setbacks, height and hillside provisions are taken seriously here, and any serious project starts with what the town will actually permit rather than with a floor plan.",
+      "The work is predominantly large custom homes and substantial renovations, on lots where privacy and sightlines are part of the brief. Neighbouring properties are close enough in consequence, if not in distance, that we agree access and staging before the first truck arrives.",
+      "Mountain and hillside parcels bring grading, drainage and retaining considerations that flat-lot experience does not prepare you for. We would rather walk a site and tell an owner that a plan needs rethinking than discover the same thing halfway through excavation."
+    ],
+    "notes": [
+      "Town of Paradise Valley permitting",
+      "Hillside and setback provisions",
+      "Large custom homes",
+      "Access and staging on narrow roads"
+    ]
+  },
+
+  "camelback-east-village-az": {
+    "paras": [
+      "Camelback East Village is one of the City of Phoenix's urban villages rather than a separate municipality, so work here permits through Phoenix. It covers some of the most sought-after residential ground in the valley, and expectations for finish and for site conduct are correspondingly high.",
+      "The housing is heavily midcentury — long, low ranch homes on generous lots, many with mature citrus and established landscaping worth protecting. Several pockets still run flood irrigation, which affects grading, hardscape and where we can reasonably put a footing.",
+      "A lot of our work here is a whole-home reconfiguration rather than a single room: opening a closed midcentury plan while keeping the proportions and the roofline that make the house worth buying in the first place. That is a design conversation as much as a construction one."
+    ],
+    "notes": [
+      "Permits through City of Phoenix",
+      "Midcentury ranch homes",
+      "Mature citrus and flood irrigation",
+      "Whole-home reconfiguration"
+    ]
+  },
+
+  "goodyear-meadows-az": {
+    "paras": [
+      "Goodyear sits on the west side of the valley, and the housing here is newer than most of the East Valley. A large share of what we do is finishing what a production builder left undone — outdoor living space, extended patios, garage conversions, casitas and the storage a family discovers it needs two years after moving in.",
+      "Parts of the West Valley have soils that move with moisture, so foundations, flatwork and drainage deserve more attention here than a homeowner might expect on a newer house. We would rather specify properly at the outset than return to a cracked patio in two summers.",
+      "Summer heat governs the schedule more here than almost anywhere else we work. Concrete pours, roofing and exterior coatings get planned around the temperature rather than fought against it, which sometimes means an early start and sometimes means waiting a fortnight."
+    ],
+    "notes": [
+      "Newer production-built stock",
+      "Outdoor living and casitas",
+      "Soil movement and drainage",
+      "Heat-driven scheduling"
+    ]
+  },
+
+  "florence-az": {
+    "paras": [
+      "Florence sits in Pinal County rather than Maricopa, which means a different permitting jurisdiction from the rest of our service area. That is worth knowing before a project starts, because the review process and the timeline are not the same as a Mesa or Chandler submittal.",
+      "The town has genuine historic fabric near its centre, including territorial-era and adobe construction that behaves nothing like modern framing. Work on those buildings needs materials that let the wall breathe, and we will say plainly when a proposed finish would trap moisture and do long-term harm.",
+      "Outside the centre, parcels are rural and generously sized, frequently on well and septic with long approaches. Distance is a real factor in scheduling and delivery, so we plan fewer, fuller trips rather than pretending a Florence site is as easy to service as one twenty minutes from our yard."
+    ],
+    "notes": [
+      "Pinal County jurisdiction",
+      "Territorial-era and adobe fabric",
+      "Breathable finishes on historic walls",
+      "Rural parcels and long approaches"
+    ]
+  }
+}

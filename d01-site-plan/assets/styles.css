@@ -420,3 +420,121 @@ footer .brand img{height:38px}
 .offer h3{font-size:clamp(19px,2.1vw,26px);margin:18px 0 12px;font-weight:800}
 .offer p{margin:0 0 24px;font-size:14.5px;color:var(--on-dark-2);max-width:46ch}
 @media(max-width:780px){.offers{grid-template-columns:1fr}}
+
+/* ---- inner-page hero: the accent plane, shorter, with a breadcrumb ---- */
+.subhero{position:relative;overflow:hidden;padding:var(--sp-3) 0 var(--sp-4)}
+.subhero-panel{position:absolute;z-index:1;left:0;top:0;bottom:0;width:62%;
+  background:linear-gradient(150deg,var(--acc) 0%,var(--acc-dim) 100%);
+  clip-path:polygon(0 0,100% 0,calc(100% - 46px) 100%,0 100%)}
+.subhero .wrap{position:relative;z-index:4}
+.subhero-in{max-width:min(660px,56%)}
+.subhero h1{font-size:clamp(30px,4.4vw,58px);font-weight:900;color:var(--on-acc);
+  letter-spacing:-.03em;margin-top:18px}
+.subhero .lede{margin:20px 0 28px;font-size:clamp(14.5px,1.4vw,17px);max-width:42ch;
+  color:color-mix(in srgb,var(--on-acc) 84%,transparent)}
+.subhero .ic.big{width:64px;height:64px;border-radius:18px;background:var(--ink);
+  display:grid;place-items:center;box-shadow:var(--sh)}
+.subhero .ic.big svg{width:30px;height:30px;stroke:var(--acc);fill:none;stroke-width:2}
+@media(max-width:1080px){
+  .subhero-panel{width:100%;clip-path:polygon(0 0,100% 0,100% calc(100% - 34px),0 100%)}
+  .subhero-in{max-width:none}
+}
+
+/* ---- breadcrumb ---- */
+.crumbs{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:color-mix(in srgb,var(--on-acc) 70%,transparent);
+  display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.crumbs a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.crumbs a:hover{color:var(--on-acc)}
+.crumbs b{color:var(--on-acc);font-weight:700}
+
+/* ---- service tab rail ---- */
+.svctabs{background:var(--dark);padding:16px 0;overflow:hidden}
+.svctabs .wrap{display:flex;flex-wrap:wrap;gap:8px}
+.svctabs a{padding:9px 15px;border-radius:999px;font-size:13px;font-weight:600;
+  color:var(--on-dark-2);border:1px solid rgba(243,239,230,.14);transition:all .22s ease}
+@media (hover:hover) and (pointer:fine){
+  .svctabs a:hover{color:var(--on-dark);border-color:rgba(243,239,230,.4)}
+}
+.svctabs a.on{background:var(--acc);color:var(--on-acc);border-color:transparent}
+
+/* ---- prose + why-choose ---- */
+.prose-wrap{position:relative;z-index:3;display:grid;grid-template-columns:1.15fr .85fr;
+  gap:clamp(28px,4.5vw,70px);align-items:start}
+.prose h2{font-size:clamp(26px,3.4vw,44px);font-weight:900;margin-bottom:22px}
+.prose h2 span{color:var(--acc-dim)}
+.prose p{color:var(--ink-2);margin-bottom:18px;font-size:clamp(14.5px,1.4vw,16.5px)}
+.wcs h3{font-size:clamp(18px,2vw,23px);font-weight:800;margin-bottom:20px}
+.wcgrid{display:grid;gap:12px}
+.wc{position:relative;background:#fff;border-radius:var(--r);padding:20px 22px;
+  box-shadow:var(--sh);display:flex;gap:16px;align-items:flex-start}
+.wc .n{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  color:var(--acc-dim);flex:0 0 auto;padding-top:2px}
+.wc p{margin:0;font-size:14.5px;color:var(--ink-2)}
+@media(max-width:900px){.prose-wrap{grid-template-columns:1fr}}
+
+/* ---- scope cards + quality note (concrete only) ---- */
+.scope{position:relative;z-index:3;display:grid;grid-template-columns:repeat(2,1fr);
+  gap:clamp(14px,1.8vw,22px)}
+.sc{background:#fff;border-radius:var(--r-lg);padding:var(--sp-1);box-shadow:var(--sh)}
+.sc h3{font-size:clamp(18px,2vw,23px);font-weight:800;margin-bottom:11px}
+.sc p{margin:0;font-size:14.5px;color:var(--ink-2)}
+.quality{position:relative;z-index:3;margin-top:clamp(18px,2.4vw,28px);
+  background:var(--acc);color:var(--on-acc);border-radius:var(--r-lg);padding:var(--sp-1)}
+.quality h3{font-size:clamp(18px,2vw,23px);font-weight:800;margin-bottom:11px}
+.quality p{margin:0;font-size:14.5px;color:rgba(20,19,16,.78);max-width:76ch}
+@media(max-width:780px){.scope{grid-template-columns:1fr}}
+
+/* ---- FAQ accordion ---- */
+.faqlist{position:relative;z-index:3;display:grid;gap:12px;max-width:940px}
+.faqlist details{background:#fff;border-radius:var(--r);padding:20px 24px;box-shadow:var(--sh)}
+.faqlist summary{font-weight:800;cursor:pointer;list-style:none;font-size:clamp(15px,1.5vw,18px);
+  display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
+.faqlist summary::-webkit-details-marker{display:none}
+.faqlist summary::after{content:"+";font-weight:500;color:var(--acc-dim);flex:0 0 auto;
+  font-size:22px;line-height:1;transition:transform .25s ease}
+.faqlist details[open] summary::after{transform:rotate(45deg)}
+.faqlist details p{margin:14px 0 0;color:var(--ink-2);font-size:14.5px;max-width:78ch}
+
+/* ---- service-area local notes ---- */
+.localnotes{background:var(--dark);color:var(--on-dark);border-radius:var(--r-lg);
+  padding:var(--sp-1);box-shadow:var(--sh-lg)}
+.localnotes h3{font-size:clamp(17px,1.9vw,21px);font-weight:800;margin-bottom:18px}
+.localnotes ul{list-style:none;display:grid;gap:11px;margin:0 0 26px;padding:0}
+.localnotes li{position:relative;padding-left:22px;font-size:14.5px;color:var(--on-dark-2)}
+.localnotes li::before{content:"";position:absolute;left:0;top:.5em;width:9px;height:9px;
+  background:var(--acc)}
+.localcall{border-top:1px solid rgba(243,239,230,.14);padding-top:20px}
+.localcall b{display:block;font-size:clamp(21px,2.4vw,28px);font-weight:900;
+  letter-spacing:-.03em;color:var(--acc)}
+.localcall span{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--on-dark-2);display:block;margin-top:7px}
+
+/* ---- nearby-areas link cloud ---- */
+.arealinks{position:relative;z-index:3;display:flex;flex-wrap:wrap;gap:10px}
+.arealinks a{padding:12px 20px;border-radius:999px;background:#fff;box-shadow:var(--sh);
+  font-weight:600;font-size:14.5px;transition:transform .25s ease,background .25s ease}
+@media (hover:hover) and (pointer:fine){
+  .arealinks a:hover{background:var(--acc);color:var(--on-acc);translate:0 -3px}
+}
+
+/* ---- process band on dark ----
+   The mockup only ever placed .steps on cream, so its numerals inherit the
+   section colour: on a dark section that put near-white text on a cream disc
+   and dark body copy on near-black. Both need restating here. */
+.sec.dark .step .n{color:var(--ink)}
+.sec.dark .step p{color:var(--on-dark-2)}
+.sec.dark .steps::before{
+  background:repeating-linear-gradient(90deg,rgba(243,239,230,.22) 0 8px,transparent 8px 16px)}
+@media (hover:hover) and (pointer:fine){
+  .sec.dark .step:hover .n{background:var(--acc)}
+}
+
+/* ---- footer call button ----
+   `.fg a` is one class plus an element (0,1,1) and outranks `.btn` (0,1,0)
+   whatever the source order, so the footer's phone button was being forced to
+   display:block with the list padding and the pill fell apart. Two classes
+   plus the element wins it back. */
+.fg a.btn{display:inline-flex;align-items:center;padding:15px 26px;margin-top:22px;
+  color:var(--on-acc)}
+@media (hover:hover) and (pointer:fine){.fg a.btn:hover{color:var(--on-acc)}}

@@ -11,6 +11,9 @@ export function loadContent() {
     services: json('services.json'),
     areas: json('areas.json'),
     pages: json('pages.json'),
+    // Authored per-city copy. Only the indexable direction renders it; see the
+    // _README key in the file for why it exists and what still needs checking.
+    areasLocal: json('areas-local.json'),
   };
 }
 
