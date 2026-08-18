@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { extractServices, extractAreas } from './extract.mjs';
+import { readFileSync } from 'node:fs';
+import { extractServices, extractAreas, extractPages } from './extract.mjs';
 
 test('extracts all fourteen services', () => {
   const s = extractServices();
@@ -59,4 +60,28 @@ test('extracts eleven areas with a shared template', () => {
   assert.ok(a.areas.every((x) => x.name.endsWith(', AZ')));
   assert.ok(a.template.community.includes('{{city}}'),
     'city is tokenised so the template is provably shared');
+});
+
+test('site.json carries the real NAP and no placeholder data', () => {
+  const raw = readFileSync('content/site.json', 'utf8');
+  const s = JSON.parse(raw);
+  assert.equal(s.phoneDisplay, '(602) 399-6455');
+  assert.equal(s.phoneHref, 'tel:16023996455');
+  assert.equal(s.phoneE164, '+1-602-399-6455');
+  assert.equal(s.foundingYear, '2005');
+  assert.equal(s.offers.length, 2);
+  for (const banned of ['555-0100', 'ROC #', 'Buchanan', '4.9', 'aggregateRating']) {
+    assert.ok(!raw.includes(banned), `site.json must not contain ${banned}`);
+  }
+});
+
+test('extracts the six standalone pages with their real copy', () => {
+  const p = extractPages();
+  assert.deepEqual(Object.keys(p).sort(),
+    ['about', 'contact', 'gallery', 'home', 'projects', 'sitemap']);
+  assert.match(p.home.heroTitle, /From Concept to Creation/);
+  assert.match(p.about.story[0], /since 2005/);
+  assert.equal(p.projects.items.length, 3);
+  assert.ok(p.projects.items.every((i) => i.title && i.body));
+  assert.equal(p.contact.fields.length, 4);
 });
