@@ -29,6 +29,34 @@ const shead = (eyebrow, heading, lede) => `<div class="shead rv">
 const arrowBtn = (href, label, cls = 'btn') =>
   `<a class="${cls}" href="${href}"><span class="pip"></span>${esc(label)}</a>`;
 
+// The real site paired these three photographs with these three projects.
+// Keeping the pairing means the showcase shows the job it claims to.
+const PROJECT_SHOTS = ['quest/story.webp', 'quest/hero.webp', 'quest/spare.webp'];
+
+// The three photographs Quest actually published, and then the stock library.
+// They are kept in separate groups so the page can say which is which rather
+// than passing stock jobsite photography off as Quest's own work.
+const QUEST_SHOTS = [
+  ['quest/story.webp', 'Framing and structural work on a Quest Construction project'],
+  ['quest/hero.webp', 'A Quest Construction home under construction'],
+  ['quest/spare.webp', 'A finished interior with new windows on a Quest Construction project'],
+];
+
+const STOCK_SHOTS = [
+  ['framing.webp', 'Timber framing going up on a residential build'],
+  ['rebar.webp', 'Reinforcing steel placed and tied before a pour'],
+  ['crew-slab.webp', 'A crew working a freshly poured concrete slab'],
+  ['roofline.webp', 'A finished roofline against a clear sky'],
+  ['facade.webp', 'A rendered and painted exterior facade'],
+  ['kitchen.webp', 'A completed kitchen remodel'],
+  ['bath.webp', 'A completed bathroom remodel'],
+  ['mech.webp', 'Mechanical rough-in before the walls close up'],
+  ['trade-electric.webp', 'Electrical rough-in on a remodel'],
+  ['trade-weld.webp', 'Welding structural steel on site'],
+  ['home-dusk.webp', 'A finished home at dusk'],
+  ['neighborhood.webp', 'Completed homes on a residential street'],
+];
+
 /** Layered dropdown nav — the mockup was anchor-only, so this is new furniture. */
 export function nav(c) {
   const col = (items) => items.map(([href, label]) =>
@@ -178,10 +206,9 @@ export function home(c) {
       <button class="btn acc" type="button" data-copy="${esc(o.code)}">GET CODE</button>
     </div>`).join('');
 
-  const shots = ['quest/hero.webp', 'framing.webp', 'crew-slab.webp'];
   const work = c.pages.projects.items.map((p, i) => `
     <a class="pj ${'abc'[i]} rv" href="${c.url('projects')}">
-      ${img(c, shots[i % shots.length], p.alt || p.title)}
+      ${img(c, PROJECT_SHOTS[i % PROJECT_SHOTS.length], p.alt || p.title)}
       <span class="cap"><span><b>${esc(p.title)}</b><span>${esc(p.body)}</span></span>
       <span class="go">&#8599;</span></span>
     </a>`).join('');
@@ -469,8 +496,205 @@ export function area(c) {
 </section>`;
 }
 
-export const about = () => '';
-export const gallery = () => '';
-export const projects = () => '';
-export const contact = () => '';
-export const sitemap = () => '';
+/** Shared inner-page hero for the pages that are not a service or an area.
+    No eyebrow: the breadcrumb directly above already names the section, and
+    printing "Contact / — Contact" two lines apart reads as a mistake. */
+function pageHero(c, { h1, lede, crumb }) {
+  return `
+<section class="subhero">
+  ${grid(false)}
+  <div class="subhero-panel" aria-hidden="true"></div>
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="${c.url('home')}">Home</a> <span aria-hidden="true">/</span>
+      <b>${esc(crumb)}</b>
+    </nav>
+    <div class="subhero-in">
+      <div>
+        <h1>${esc(h1)}</h1>
+        <p class="lede">${esc(lede)}</p>
+      </div>
+    </div>
+  </div>
+</section>`;
+}
+
+const closingCta = (c, heading, body) => `
+<section class="cta">
+  <div class="bars" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap cta-in">
+    <div class="cta-copy">
+      <h2>${esc(heading)}</h2>
+      <p>${esc(body)}</p>
+      <div class="hero-acts">
+        ${arrowBtn(c.url('contact'), 'Get in touch')}
+        ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn ghost')}
+      </div>
+    </div>
+  </div>
+</section>`;
+
+export function about(c) {
+  const a = c.pages.about;
+  return `${pageHero(c, {
+    h1: a.h1, lede: a.lede, crumb: 'About Us',
+  })}
+
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap split">
+    <div class="story-shot rv">${img(c, 'quest/story.webp', 'A Quest Construction project under way')}</div>
+    <div class="rv">
+      <p class="mono eyebrow">Our Story</p>
+      <h2>${esc(a.storyHeading)}</h2>
+      ${a.story.map((p) => `<p>${esc(p)}</p>`).join('')}
+      ${arrowBtn(c.url('projects'), 'See our work')}
+    </div>
+  </div>
+</section>
+
+<section class="sec dark">
+  ${grid(true)}
+  <div class="wrap">
+    ${shead('— What we do', 'Fourteen Trades, <span>One</span> Contractor',
+      'Everything Quest offers, self-managed from first conversation through final walkthrough.')}
+    <div class="arealinks light rv">${c.services.map((s) =>
+      `<a href="${c.url(`services/${s.slug}`)}">${esc(s.name)}</a>`).join('')}</div>
+  </div>
+</section>
+
+${closingCta(c, 'Build with a team that answers the phone',
+  `${c.site.positioning} — reachable ${c.site.availability}.`)}`;
+}
+
+export function gallery(c) {
+  const g = c.pages.gallery;
+  const tile = ([f, alt]) => `<figure class="rv">${img(c, f, alt)}</figure>`;
+  return `${pageHero(c, {
+    h1: g.h1, lede: g.lede, crumb: 'Gallery',
+  })}
+
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap">
+    ${shead('— From Quest projects', 'Work <span>We</span> Have Photographed', '')}
+    <div class="gal">${QUEST_SHOTS.map(tile).join('')}</div>
+  </div>
+</section>
+
+<section class="sec cream alt">
+  ${grid(false)}
+  <div class="wrap">
+    ${shead('— Placeholder photography', 'The <span>Trades</span> We Run',
+      'Stock photography stands in below until Quest supplies jobsite photographs of its own.')}
+    <div class="gal">${STOCK_SHOTS.map(tile).join('')}</div>
+    <p class="mono note">Placeholder photography — to be replaced with Quest Construction jobsite photographs.</p>
+  </div>
+</section>
+
+${closingCta(c, c.pages.home.ctaHeading, c.pages.home.ctaBody)}`;
+}
+
+export function projects(c) {
+  const p = c.pages.projects;
+  return `${pageHero(c, {
+    h1: p.h1, lede: p.lede, crumb: 'Project Showcase',
+  })}
+
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap">
+    <div class="pjs">${p.items.map((it, i) => `
+      <article class="pjcard rv">
+        <div class="pjshot">${img(c, PROJECT_SHOTS[i % PROJECT_SHOTS.length], it.alt || it.title)}</div>
+        <div class="pjbody">
+          <span class="n mono">${String(i + 1).padStart(2, '0')}</span>
+          <h3>${esc(it.title)}</h3>
+          <p>${esc(it.body)}</p>
+        </div>
+      </article>`).join('')}
+    </div>
+  </div>
+</section>
+
+<section class="sec dark">
+  ${grid(true)}
+  <div class="wrap">
+    ${shead('— Related', 'Services <span>Behind</span> This Work',
+      'Every showcase above draws on the same trades, run by the same team.')}
+    <div class="arealinks light rv">${c.services.slice(0, 6).map((s) =>
+      `<a href="${c.url(`services/${s.slug}`)}">${esc(s.name)}</a>`).join('')}</div>
+  </div>
+</section>
+
+${closingCta(c, c.pages.home.ctaHeading, c.pages.home.ctaBody)}`;
+}
+
+export function contact(c) {
+  const p = c.pages.contact;
+  const field = (f) => f.type === 'textarea'
+    ? `<label>${esc(f.label)}<textarea name="${f.name}" rows="5" placeholder="${esc(f.label)}"></textarea></label>`
+    : `<label>${esc(f.label)}<input name="${f.name}" type="${f.type}" placeholder="${esc(f.label)}"></label>`;
+
+  return `${pageHero(c, {
+    h1: p.h1, lede: p.lede, crumb: 'Contact',
+  })}
+
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap contact-grid">
+    <form class="contact-form rv" novalidate>
+      <h2>${esc(p.formHeading)}</h2>
+      ${p.fields.map(field).join('')}
+      <button class="btn acc" type="submit"><span class="pip"></span>Submit</button>
+      <p class="form-note mono" role="status" aria-live="polite"></p>
+    </form>
+    <aside class="help-card rv">
+      <h2>${esc(p.helpHeading)}</h2>
+      <p class="mono eyebrow">Phone — ${esc(c.site.availability)}</p>
+      <a class="phone" href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a>
+      <p>${esc(c.site.footerBlurb)}</p>
+      <div class="help-shot">${img(c, 'quest/contact.webp', 'A Quest Construction project in Arizona')}</div>
+    </aside>
+  </div>
+</section>
+
+<section class="sec dark">
+  ${grid(true)}
+  <div class="wrap">
+    ${shead('— Where we work', 'Serving <span>Eleven</span> Arizona Cities', '')}
+    <div class="arealinks light rv">${c.areas.areas.map((a) =>
+      `<a href="${c.url(`service-areas/${a.slug}`)}">${esc(a.name)}</a>`).join('')}</div>
+  </div>
+</section>`;
+}
+
+export function sitemap(c) {
+  const col = (title, items) => `<div class="rv">
+  <h3>${esc(title)}</h3>
+  <ul>${items.map(([href, label]) =>
+    `<li><a href="${href}">${esc(label)}</a></li>`).join('')}</ul>
+</div>`;
+
+  return `${pageHero(c, {
+    h1: c.pages.sitemap.h1, lede: c.pages.sitemap.lede, crumb: 'Sitemap',
+  })}
+
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap smap">
+    ${col('Pages', [
+      [c.url('home'), 'Home'],
+      [c.url('about'), 'About Us'],
+      [c.url('projects'), 'Project Showcase'],
+      [c.url('gallery'), 'Gallery'],
+      [c.url('contact'), 'Contact'],
+      [c.url('sitemap'), 'Sitemap'],
+    ])}
+    ${col('Services', c.services.map((s) => [c.url(`services/${s.slug}`), s.name]))}
+    ${col('Areas Served', c.areas.areas.map((a) => [c.url(`service-areas/${a.slug}`), a.name]))}
+  </div>
+</section>
+
+${closingCta(c, c.pages.home.ctaHeading, c.pages.home.ctaBody)}`;
+}

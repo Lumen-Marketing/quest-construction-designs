@@ -169,6 +169,68 @@ test('each area page links the other ten areas', () => {
   assert.ok(!cloud.includes('mesa-az'), 'an area links to itself in the nearby cloud');
 });
 
+test('the contact page renders the whole form and the real phone number', () => {
+  const html = renderPage({ mod: d01, key: 'contact' });
+  assert.match(html, /<form class="contact-form rv"/);
+  for (const n of ['name', 'email', 'phone', 'message']) {
+    assert.ok(html.includes(`name="${n}"`), `contact form missing field ${n}`);
+  }
+  assert.match(html, /<textarea name="message"/);
+  assert.match(html, /<button class="btn acc" type="submit">/);
+  assert.ok(html.includes('href="tel:16023996455"'));
+  assert.match(html, /aria-live="polite"/);
+});
+
+test('the gallery separates real Quest photography from stock placeholders', () => {
+  const html = renderPage({ mod: d01, key: 'gallery' });
+  const imgs = html.match(/<img[^>]+>/g) || [];
+  assert.ok(imgs.length >= 15, `gallery has only ${imgs.length} images`);
+  assert.match(html, /From Quest projects/);
+  assert.match(html, /Placeholder photography/);
+  assert.ok(!html.includes('plans.webp'));
+});
+
+test('the projects page shows the three real projects with their real photographs', () => {
+  const html = renderPage({ mod: d01, key: 'projects' });
+  for (const t of ['Residential Framing', 'Home Construction', 'Concrete Work']) {
+    assert.ok(html.includes(t), `projects missing ${t}`);
+  }
+  assert.equal((html.match(/class="pjcard rv"/g) || []).length, 3);
+  // The real site paired these photographs with these projects; keep the pairing.
+  assert.ok(html.includes('quest/story.webp'));
+  assert.ok(html.includes('quest/hero.webp'));
+  assert.ok(html.includes('quest/spare.webp'));
+});
+
+test('the about page renders both real story paragraphs', () => {
+  const html = renderPage({ mod: d01, key: 'about' });
+  const about = JSON.parse(readFileSync('content/pages.json', 'utf8')).about;
+  for (const p of about.story) assert.ok(html.includes(esc(p)), 'about story paragraph missing');
+});
+
+test('the sitemap links all thirty-one pages', () => {
+  const html = renderPage({ mod: d01, key: 'sitemap' });
+  for (const s of services) {
+    assert.ok(html.includes(`../services/${s.slug}/index.html`), `sitemap missing ${s.slug}`);
+  }
+  for (const a of areas) {
+    assert.ok(html.includes(`../service-areas/${a.slug}/index.html`), `sitemap missing ${a.slug}`);
+  }
+  for (const p of ['about-us', 'projects', 'gallery', 'contact-us']) {
+    assert.ok(html.includes(`../${p}/index.html`), `sitemap missing ${p}`);
+  }
+});
+
+test('every one of the thirty-one pages renders a non-trivial body', () => {
+  for (const key of allPagesFor()) {
+    const html = renderPage({ mod: d01, key });
+    const body = /<main id="main">([\s\S]*?)<\/main>/.exec(html)[1];
+    assert.ok(body.length > 1500, `${key} body is only ${body.length} chars`);
+    assert.match(body, /<h1>/, `${key} has no h1`);
+    assert.equal((body.match(/<h1>/g) || []).length, 1, `${key} has more than one h1`);
+  }
+});
+
 test('every rendered image carries alt text and intrinsic dimensions', () => {
   for (const key of allPagesFor()) {
     const html = renderPage({ mod: d01, key });

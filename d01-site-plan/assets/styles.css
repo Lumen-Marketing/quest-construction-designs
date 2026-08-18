@@ -538,3 +538,75 @@ footer .brand img{height:38px}
 .fg a.btn{display:inline-flex;align-items:center;padding:15px 26px;margin-top:22px;
   color:var(--on-acc)}
 @media (hover:hover) and (pointer:fine){.fg a.btn:hover{color:var(--on-acc)}}
+
+/* ---- gallery, projects, contact, sitemap ---- */
+.sec.cream.alt{background:var(--cream-2)}
+.gal{position:relative;z-index:3;display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:clamp(12px,1.6vw,18px)}
+.gal figure{margin:0;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh);
+  background:var(--dark-2)}
+.gal img{width:100%;height:100%;object-fit:cover;aspect-ratio:3/2;
+  transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+@media (hover:hover) and (pointer:fine){.gal figure:hover img{transform:scale(1.06)}}
+.note{opacity:.5;margin-top:26px;font-size:10.5px;letter-spacing:.12em}
+
+.pjs{position:relative;z-index:3;display:grid;gap:clamp(18px,2.4vw,30px)}
+.pjcard{display:grid;grid-template-columns:1.1fr .9fr;background:#fff;
+  border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-lg)}
+.pjcard:nth-child(even){grid-template-columns:.9fr 1.1fr}
+.pjcard:nth-child(even) .pjshot{order:2}
+.pjshot{overflow:hidden}
+.pjshot img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+.pjbody{padding:var(--sp-2);display:flex;flex-direction:column;justify-content:center}
+.pjbody .n{color:var(--acc-dim);display:block;margin-bottom:16px}
+.pjbody h3{font-size:clamp(22px,2.8vw,36px);font-weight:900;margin-bottom:14px}
+.pjbody p{margin:0;color:var(--ink-2);font-size:clamp(14.5px,1.4vw,16.5px)}
+@media(max-width:820px){
+  .pjcard,.pjcard:nth-child(even){grid-template-columns:1fr}
+  .pjcard:nth-child(even) .pjshot{order:0}
+}
+
+.contact-grid{position:relative;z-index:3;display:grid;grid-template-columns:1.25fr .75fr;
+  gap:clamp(20px,3vw,34px);align-items:start}
+.contact-form{background:#fff;border-radius:var(--r-lg);padding:var(--sp-2);
+  box-shadow:var(--sh-lg);display:grid;gap:15px}
+.contact-form h2{font-size:clamp(24px,3vw,36px);font-weight:900;margin-bottom:6px}
+.contact-form label{display:grid;gap:7px;font-size:12px;font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
+.contact-form input,.contact-form textarea{font:inherit;font-size:15px;padding:14px 16px;
+  border:1px solid rgba(21,20,15,.16);border-radius:var(--r);background:var(--cream);
+  color:var(--ink);width:100%}
+.contact-form input:focus,.contact-form textarea:focus{outline:2px solid var(--acc);
+  outline-offset:1px;border-color:transparent}
+.contact-form textarea{resize:vertical}
+.contact-form .btn{justify-self:start;margin-top:6px}
+.form-note{color:var(--acc-dim);min-height:1.4em;letter-spacing:.08em;text-transform:none}
+.help-card{background:var(--dark);color:var(--on-dark);border-radius:var(--r-lg);
+  padding:var(--sp-2);box-shadow:var(--sh-lg);overflow:hidden}
+.help-card h2{font-size:clamp(21px,2.4vw,28px);font-weight:900;margin-bottom:18px}
+.help-card .eyebrow{color:var(--acc);margin-bottom:8px}
+.help-card .phone{display:block;font-size:clamp(26px,3.2vw,38px);font-weight:900;
+  letter-spacing:-.04em;color:var(--acc);margin-bottom:18px}
+.help-card p{color:var(--on-dark-2);font-size:14.5px;margin:0}
+.help-shot{margin-top:26px;border-radius:var(--r);overflow:hidden}
+/* height:auto is load-bearing. Every <img> carries intrinsic width/height
+   attributes, which are presentational hints; with width:100% and no CSS
+   height, both dimensions are set and aspect-ratio is ignored entirely. */
+.help-shot img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
+@media(max-width:880px){.contact-grid{grid-template-columns:1fr}}
+
+.smap{position:relative;z-index:3;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(26px,4vw,54px)}
+.smap h3{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--mute);margin-bottom:18px;font-weight:700}
+.smap ul{list-style:none;padding:0;margin:0;display:grid;gap:2px}
+.smap a{display:block;padding:10px 0;font-size:15px;font-weight:600;
+  border-bottom:1px solid rgba(21,20,15,.08);transition:color .2s,padding .2s}
+@media (hover:hover) and (pointer:fine){.smap a:hover{color:var(--acc-dim);padding-left:8px}}
+
+/* link cloud on a dark section */
+.arealinks.light a{background:var(--dark-2);color:var(--on-dark);
+  border:1px solid rgba(243,239,230,.1);box-shadow:none}
+@media (hover:hover) and (pointer:fine){
+  .arealinks.light a:hover{background:var(--acc);color:var(--on-acc);border-color:transparent}
+}
