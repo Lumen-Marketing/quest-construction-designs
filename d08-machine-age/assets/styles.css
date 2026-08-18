@@ -582,3 +582,31 @@ footer .fcta{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;
   margin-top:clamp(20px,2.4vw,30px)}
 footer .bar a{transition:color .3s}
 footer .bar a:hover{color:var(--acc)}
+
+/* ================================================================
+   PHONE FIXES — found by rendering at a true 390px rather than the
+   ~500px Chrome will actually open a window at.
+   ================================================================ */
+
+/* The mockup's mobile rule hides both nav rails, which took the telephone
+   with them. On a phone that is the most valuable control on the page, so it
+   is lifted out of .r and kept beside the burger. */
+@media(max-width:760px){
+  .nav .in{grid-template-columns:auto 1fr auto auto;gap:10px}
+  .nav .r{display:contents}
+  .nav .r .n,.nav .r .btn{display:none}
+  .nav .r .navtel{display:inline-flex;align-items:center;justify-self:end;
+    background:var(--acc);color:var(--on-acc);padding:10px 14px;font-size:11px;
+    letter-spacing:.14em;opacity:1}
+}
+@media(max-width:430px){.nav .r .navtel{padding:9px 10px;font-size:10px;letter-spacing:.08em}}
+
+/* "margin:0 auto" makes a grid item fit-content, and the framed reel's only
+   children are absolutely positioned — so it shrank to zero width, and the
+   aspect-ratio then gave it zero height. The frame needs an explicit width. */
+@media(max-width:1080px){
+  .about .frame{width:100%;max-width:400px;margin-inline:auto}
+}
+
+/* at two columns the second cell keeps a rule against nothing */
+@media(max-width:1080px){.hero .rail div:nth-child(2n){border-right:0}}

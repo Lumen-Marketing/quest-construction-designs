@@ -411,8 +411,19 @@ footer .brand img{height:32px}
   .drop.open .panel{display:block}
   .panel .wrap{padding-inline:0;max-width:none}
   .slabs{grid-template-columns:1fr 1fr}
-  .navtel{display:none}
+  /* the phone stays: on a phone it is the most valuable control on the page */
+  .navtel{padding:11px 16px;font-size:12.5px}
 }
+@media(max-width:420px){.navtel{padding:10px 12px;font-size:11.5px;letter-spacing:.1em}}
+
+/* the hero credential strip is five columns; at phone width that is five
+   two-word labels stacked three lines deep */
+@media(max-width:900px){
+  .hero .creds{grid-template-columns:repeat(2,1fr)}
+  .hero .creds div{border-bottom:1px solid rgba(239,236,226,.16)}
+  .hero .creds div:nth-child(2n){border-right:0}
+  .hero .creds div:last-child{grid-column:1/-1;border-bottom:0}}
+@media(max-width:560px){.hero .creds b{font-size:clamp(20px,6vw,28px)}}
 @media(max-width:520px){.slabs{grid-template-columns:1fr}}
 
 /* ---- inner-page hero: bone, with the wedge running under the type ---- */

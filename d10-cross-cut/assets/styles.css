@@ -642,3 +642,21 @@ p{margin:0}
 .foot .ftag{margin-top:12px}
 .bar a{transition:color .25s}
 .bar a:hover{color:var(--acc)}
+
+/* ---- the two cut-out machines were stretched on every page ----
+   Both carry intrinsic width/height attributes, and the mockup only ever set
+   a CSS width. With one dimension from CSS and the other from the attribute,
+   the natural ratio is ignored entirely: the loader rendered 825x1087 where
+   it should have been 825x659, and the excavator 696x871 instead of 696x438.
+   Desktop as well as phone. */
+.rig,.plant img{height:auto}
+
+/* ---- phone fixes, from a true 390px render ---- */
+/* the burger was wrapping onto a second row on its own */
+@media(max-width:560px){
+  .nav .in{gap:10px}
+  .navtel{padding:11px 14px;font-size:13.5px;letter-spacing:.08em}
+  .burger{width:38px;height:38px}
+}
+/* the flash badge sat on the seam between the nav and the photograph */
+@media(max-width:820px){.flash{top:auto;bottom:calc(var(--cut) + 6px);right:4%}}

@@ -227,3 +227,12 @@ footer .brand img{height:32px}
 footer .cols .btn{margin-top:18px}
 footer .bar a{transition:color .15s}
 footer .bar a:hover{color:var(--acc)}
+
+/* ---- phone fixes, from a true 390px render ---- */
+/* line-height .84 is a poster setting for two words; once the headline wraps
+   to three lines the pasted-word patch collides with the line under it. */
+@media(max-width:760px){.poster h1{line-height:.98}.poster h1 .cut{margin-block:2px}}
+/* the telephone is the most valuable control on a contractor page — it should
+   be the last thing a phone layout drops, not the first */
+@media(max-width:1080px){.nav .in .navtel{display:inline-flex;padding:11px 15px;font-size:12px}}
+@media(max-width:430px){.nav .in .navtel{padding:10px 11px;font-size:11px;letter-spacing:.1em}}

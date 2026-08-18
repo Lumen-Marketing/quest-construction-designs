@@ -54,8 +54,13 @@ const diag = await send('Runtime.evaluate', {
     var w=document.querySelector('iframe').contentWindow,d=w.document;
     d.querySelectorAll('.rv').forEach(function(e){e.classList.add('is-in')});
     // nothing scrolls inside a tall iframe, so lazy images would never fire
-    [].forEach.call(d.images,function(i){i.loading='eager';var s=i.src;i.src='';i.src=s;});
-    await new Promise(r=>setTimeout(r,2500));
+    [].forEach.call(d.images,function(i){i.loading='eager'});
+    // wait for every frame to actually DECODE, not just for a fixed delay —
+    // i.complete goes true well before the pixels exist, which is how blank
+    // photo boxes kept reaching the screenshot and reading as layout bugs
+    await Promise.all([].map.call(d.images,function(i){
+      return i.decode?i.decode().catch(function(){}):Promise.resolve();}));
+    await new Promise(r=>setTimeout(r,400));
     return JSON.stringify({
       pageH:d.body.scrollHeight, scrollW:d.documentElement.scrollWidth, vw:w.innerWidth,
       sideways:d.documentElement.scrollWidth>w.innerWidth+1,
@@ -72,6 +77,15 @@ const diag = await send('Runtime.evaluate', {
   awaitPromise: true, returnByValue: true,
 });
 console.log(file, '->', diag.result?.result?.value);
+
+// captureBeyondViewport does not reliably paint content far below the fold, so
+// the outer window is walked down the whole surface first to force it.
+await send('Runtime.evaluate', {
+  expression: `(async()=>{var h=document.body.scrollHeight;
+    for(var y=0;y<h;y+=600){window.scrollTo(0,y);await new Promise(r=>requestAnimationFrame(r));}
+    window.scrollTo(0,0);await new Promise(r=>setTimeout(r,300));})()`,
+  awaitPromise: true,
+});
 
 const shot = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true });
 fs.writeFileSync(out, Buffer.from(shot.result.data, 'base64'));

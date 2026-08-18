@@ -258,3 +258,13 @@ footer .brand img{height:34px}
 footer .cols .btn{margin-top:18px}
 footer .bar a{transition:color .25s}
 footer .bar a:hover{color:var(--acc)}
+
+/* ---- phone fixes, from a true 390px render ---- */
+/* At phone aspect the hero copy lands on framing timber rather than sky, and
+   the centre pool alone is not enough behind three lines of sub-copy. */
+@media(max-width:720px){
+  .shot::after{background:
+    radial-gradient(ellipse 90% 46% at 50% 56%,rgba(8,10,8,.62),transparent 76%),
+    linear-gradient(180deg,rgba(10,12,10,.55),rgba(10,12,10,.34) 44%,rgba(10,12,10,.62))}
+  .shot .sub{color:rgba(255,255,255,.95)}
+}

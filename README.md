@@ -330,9 +330,11 @@ back, which is the only reliable test. `documentElement.scrollWidth` over-report
 so a "clipped" ancestor proves nothing. `secscan.mjs` then hides one top-level block at a time and
 names the one whose removal shrinks the page.
 
-Two things `probe.mjs` reports that are **harness artefacts, not defects**: it flags lazy
-below-fold images as broken because it never scrolls them into view, and `mob.mjs` shows `.rv`
-content as blank for the same reason. Judge sideways overflow by `scrollW` against `vw`, not by
+`probe.mjs` flags lazy below-fold images as broken because it never scrolls them into view —
+that one **is** a harness artefact. `mob.mjs` no longer has the matching problem: it used to wait
+a fixed 2.5s and trust `img.complete`, which goes true well before the pixels exist, so photo
+boxes reached the screenshot blank and read as layout bugs. It now awaits `img.decode()` on every
+frame and walks the outer window down the whole surface to force a paint before capturing. Judge sideways overflow by `scrollW` against `vw`, not by
 the `wide` list — several heroes bleed past the viewport on purpose inside `overflow:hidden`.
 
 `probe.mjs` is the one to reach for first: it lists broken images and **names every element
@@ -377,6 +379,17 @@ a true phone viewport — render the page inside a 390px-wide iframe instead.
   collapsed to a single run until the rule became `.plates figcaption.cap`.
 - **A `<span>` is inline, so `overflow`, `aspect-ratio` and `border-radius` do nothing on it.**
   05's plant tiles rendered as plain squares until the wrapper got `display:block`.
+- **A CSS width plus an HTML `height` attribute throws the natural ratio away.** 10's two cut-out
+  machines carry intrinsic `width`/`height` attributes and the mockup only ever set a CSS width,
+  so the loader rendered 825×1087 where it should have been 825×659 — stretched 65% taller on
+  every page, desktop included, and invisible as a bug because a big machine just looks like a big
+  machine. `height:auto` is the fix, and it is worth checking on any image that carries both.
+- **`margin:0 auto` shrink-wraps a grid item too, not just a flex one.** 08's framed reel is a
+  grid item whose only children are absolutely positioned, so at phone width it collapsed to zero
+  width — and the aspect-ratio then gave it zero height. It needs an explicit `width:100%`.
+- **Do not let the phone number be the first thing a mobile layout drops.** 06, 08 and 09 all hid
+  it below 1080px, which on a contractor's site removes the single most valuable control on the
+  page. It should be the last thing to go.
 - **A descendant's `grid-column` builds tracks in its own grid parent.** 04's contact form is a
   grid and sits inside `.content`, so `.content h2` reached in and gave the form's heading
   `grid-column:1/7` — which created six implicit tracks inside the form and scattered the four
