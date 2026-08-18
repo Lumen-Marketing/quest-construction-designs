@@ -1,0 +1,325 @@
+/* ============================================================
+   DIRECTION 9 — "SITE NOTICE"
+   Punk / xerox cut-and-paste. Everything on the page is a
+   thing physically stuck to a hoarding: flyers stapled at
+   angles, torn paper edges, strips of tape, typewriter
+   captions, and photographs blown out on a bad photocopier.
+   Type is mixed on purpose — poster caps, typewriter, mono.
+
+   Loud, but the body copy always sits on clean paper. Anatomy
+   order kept; furniture shared with no other direction:
+   stapled flyers for offers, a contact sheet for work.
+   ============================================================ */
+:root{
+  /* section rhythm — one value per step, was 9 one-offs */
+  --sp-1:clamp(14px,1.8vw,22px);
+  --sp-2:clamp(12px,1.6vw,22px);
+  --sp-3:clamp(16px,2vw,26px);
+  --sp-4:clamp(18px,2vw,26px);
+  --sp-5:clamp(24px,3.4vw,56px);
+  --sp-6:clamp(28px,4vw,58px);
+  --sp-7:clamp(34px,4.4vw,64px);
+  --sp-8:clamp(52px,6.6vw,100px);
+
+  --acc:#D07C42;              /* swapped live by the gallery */
+  --on-acc:#141210;
+  --acc-dim:#8B471B;
+
+  --paper:#E4E1D6;
+  --paper-2:#D6D2C4;
+  --sheet:#F2F0E7;
+  --black:#0F0F0D;
+  --black-2:#22221E;
+  --ink-2:#46453E;
+  --mute:#6E6D64;
+
+  --m:clamp(20px,3.6vw,52px);
+  --maxw:1400px;
+  --eo:cubic-bezier(.2,.9,.3,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--black);
+  font:400 16px/1.6 'Courier Prime',ui-monospace,Consolas,monospace;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{margin:0;font-family:'Anton','Arial Black',sans-serif;font-weight:400;line-height:.88;
+  letter-spacing:.005em;text-transform:uppercase}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--m)}
+.tw{font-family:'Special Elite',cursive}
+.mono{font-family:'Courier Prime',monospace;font-size:12px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase}
+::selection{background:var(--acc);color:var(--on-acc)}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+
+/* photocopier grain over the whole page */
+body::after{content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opacity:.55;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)' opacity='.2'/%3E%3C/svg%3E")}
+
+/* ---------- the cut-and-paste kit ---------- */
+/* a photograph run through a bad photocopier */
+.xr{position:relative;overflow:hidden;background:var(--sheet)}
+.xr img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(2.15) brightness(1.14)}
+.xr::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(15,15,13,.9) 1.05px,transparent 1.15px);
+  background-size:3.4px 3.4px;mix-blend-mode:multiply;opacity:.5}
+/* torn paper edges */
+.torn-b{clip-path:polygon(0 0,100% 0,100% 97%,96% 99.6%,92% 96%,87% 99.4%,82% 96.4%,77% 99.6%,
+  72% 96%,66% 99.4%,61% 96.6%,55% 99.6%,50% 96%,44% 99.4%,39% 96.4%,33% 99.6%,28% 96%,
+  22% 99.4%,17% 96.6%,11% 99.6%,6% 96.4%,0 99%)}
+.torn-t{clip-path:polygon(0 3%,5% .5%,11% 3.6%,16% .6%,22% 3.4%,28% .4%,33% 3.6%,39% .6%,
+  44% 3.4%,50% .4%,55% 3.6%,61% .6%,66% 3.4%,72% .4%,77% 3.6%,83% .6%,88% 3.4%,93% .4%,100% 3%,
+  100% 100%,0 100%)}
+/* a strip of tape */
+.tape{position:absolute;z-index:6;width:clamp(74px,8vw,116px);height:clamp(22px,2.4vw,32px);
+  background:rgba(246,244,236,.6);box-shadow:0 1px 3px rgba(15,15,13,.28);
+  border-left:1px dashed rgba(15,15,13,.16);border-right:1px dashed rgba(15,15,13,.16)}
+/* a staple */
+.staple{position:absolute;z-index:7;width:22px;height:7px;border:2.5px solid #55544D;
+  border-bottom:0;border-radius:1px}
+/* words cut out of another page and pasted back down */
+.cut{display:inline-block;background:var(--black);color:var(--paper);padding:0 .1em;
+  transform:rotate(-1.6deg)}
+.cut.acc{background:var(--acc);color:var(--on-acc);transform:rotate(1.8deg)}
+.cut.out{background:var(--sheet);color:var(--black);box-shadow:0 2px 0 rgba(15,15,13,.3);
+  transform:rotate(1.2deg)}
+/* a rubber stamp */
+.stamp{display:inline-block;font-family:'Special Elite',cursive;font-size:13px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--acc-dim);border:2.5px solid var(--acc-dim);padding:7px 14px;
+  transform:rotate(-6deg);opacity:.86}
+
+.btn{display:inline-flex;align-items:center;gap:.6em;font-family:'Courier Prime',monospace;
+  font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--black);color:var(--paper);padding:16px 24px;border:0;cursor:pointer;
+  box-shadow:5px 5px 0 var(--acc);transition:transform .16s linear,box-shadow .16s linear}
+@media (hover:hover) and (pointer:fine){.btn:hover{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--acc)}}
+.btn svg{width:1.1em;height:1.1em}
+.btn.acc{background:var(--acc);color:var(--on-acc);box-shadow:5px 5px 0 var(--black)}
+@media (hover:hover) and (pointer:fine){.btn.acc:hover{box-shadow:2px 2px 0 var(--black)}}
+.btn.line{background:transparent;color:var(--black);box-shadow:inset 0 0 0 2.5px var(--black)}
+@media (hover:hover) and (pointer:fine){.btn.line:hover{background:var(--black);color:var(--paper);transform:none;box-shadow:inset 0 0 0 2.5px var(--black)}}
+
+/* ---------- nav: a strip taped to the hoarding ---------- */
+/* the bar is straight and clips itself; the TILT comes from an oversized black
+   slab rotated inside it. Rotating the bar itself needed scale() to hide the
+   corner gaps, and that scale pushed the document 14px wider than the viewport. */
+.nav{position:sticky;top:0;z-index:70;background:transparent;color:var(--paper);
+  overflow:hidden;box-shadow:0 3px 0 rgba(15,15,13,.28)}
+.nav::before{content:"";position:absolute;left:-4%;right:-4%;top:-11px;bottom:-11px;z-index:0;
+  background:var(--black);transform:rotate(-.55deg)}
+.nav .in{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;
+  gap:16px;min-height:60px}
+.brand{display:flex;align-items:center;gap:10px;padding-block:8px}
+.brand b{font-family:'Anton',sans-serif;font-size:24px;letter-spacing:.03em;text-transform:uppercase}
+.brand .x{background:var(--acc);color:var(--on-acc);padding:1px 7px;transform:rotate(2.5deg);
+  font-family:'Anton',sans-serif;font-size:24px}
+.nlinks{display:flex;gap:clamp(12px,2.2vw,30px)}
+.nlinks a{font-family:'Courier Prime',monospace;font-weight:700;font-size:12.5px;letter-spacing:.14em;
+  text-transform:uppercase;opacity:.84;transition:opacity .15s,color .15s}
+@media (hover:hover) and (pointer:fine){.nlinks a:hover{opacity:1;color:var(--acc)}}
+.burger{display:none;width:40px;height:40px;border:2px solid var(--paper);background:none;
+  align-items:center;justify-content:center;cursor:pointer;transition:transform .14s cubic-bezier(.23,1,.32,1)}
+.burger span{display:block;width:15px;height:2px;background:var(--paper);position:relative}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:15px;height:2px;background:var(--paper)}
+.burger span::before{top:-5px}.burger span::after{top:5px}
+
+/* ---------- 1. HERO: a xeroxed poster ---------- */
+.hero{padding:var(--sp-6) 0 var(--sp-7)}
+.poster{position:relative;background:var(--sheet);padding:var(--sp-3);
+  box-shadow:9px 9px 0 var(--black);transform:rotate(-.7deg)}
+.poster .in{position:relative;display:grid;grid-template-columns:1.06fr .94fr;
+  gap:clamp(18px,2.6vw,40px);align-items:center}
+.poster .say{position:relative;z-index:4}
+.poster h1{font-size:clamp(46px,9.6vw,132px);line-height:.84}
+/* direct children only — a blanket `h1 span` also turned the pasted-word spans
+   into blocks, so their coloured patch stretched the full line width */
+.poster h1>span{display:block}
+.poster h1 .cut{display:inline-block}
+.poster h1 .l2{margin-left:.06em}
+.poster h1 .l3{margin-left:.02em}
+.poster .kick{display:inline-block;margin-bottom:16px}
+.poster p{margin:clamp(18px,2.2vw,28px) 0 0;max-width:44ch;font-size:15px;color:var(--ink-2);
+  line-height:1.72}
+.poster .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(20px,2.4vw,32px)}
+.poster .shot{position:relative}
+.poster .shot .xr{aspect-ratio:1/1.08;transform:rotate(1.6deg);box-shadow:6px 6px 0 var(--black)}
+.poster .shot .tape.t1{left:-4%;top:-4%;transform:rotate(-24deg)}
+.poster .shot .tape.t2{right:-3%;bottom:6%;transform:rotate(16deg)}
+.poster .shot .stamp{position:absolute;left:-6%;bottom:-4%;z-index:8;background:var(--sheet)}
+
+/* ---------- 2. SOCIAL PROOF: a torn strip ---------- */
+/* same trick: a clipping wrapper so the tilt cannot widen the document */
+.strip-clip{overflow:hidden;position:relative;z-index:5}
+.strip{background:var(--black);color:var(--paper);padding:var(--sp-1) 0;
+  transform:rotate(.5deg) scale(1.03);position:relative}
+.strip .in{display:flex;align-items:center;justify-content:center;gap:clamp(10px,1.8vw,26px);
+  flex-wrap:wrap;font-family:'Courier Prime',monospace;font-weight:700;font-size:13px;
+  letter-spacing:.13em;text-transform:uppercase}
+.strip .x{color:var(--acc);font-size:16px;line-height:1}
+.strip b{color:var(--acc)}
+
+/* ---------- 3. ABOUT: torn sheet, stapled photo ---------- */
+.about{padding:var(--sp-8) 0}
+.about .in{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(24px,3.4vw,58px);align-items:start}
+.about .pic{position:relative;padding-top:18px}
+.about .pic .xr{aspect-ratio:1/1.14;transform:rotate(-2.4deg);box-shadow:7px 7px 0 var(--black)}
+.about .pic .staple.s1{left:14%;top:6px;transform:rotate(-10deg)}
+.about .pic .staple.s2{right:16%;top:12px;transform:rotate(7deg)}
+.about .pic .note{position:absolute;right:-4%;bottom:-5%;z-index:8;background:var(--acc);
+  color:var(--on-acc);padding:12px 16px;transform:rotate(3.5deg);box-shadow:4px 4px 0 var(--black);
+  max-width:200px}
+.about .pic .note b{display:block;font-family:'Anton',sans-serif;font-size:26px;line-height:.9}
+.about .pic .note span{display:block;margin-top:5px;font-family:'Special Elite',cursive;font-size:12px}
+.about .sheet{background:var(--sheet);padding:clamp(22px,3vw,44px);box-shadow:7px 7px 0 var(--black);
+  transform:rotate(.6deg)}
+.about h2{font-size:clamp(30px,4.4vw,62px)}
+.about .lede{margin:20px 0 0;font-size:15.2px;color:var(--ink-2);max-width:48ch;line-height:1.75}
+.about ul{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:0}
+.about li{display:flex;gap:14px;padding:15px 0;border-top:2px dashed rgba(15,15,13,.24)}
+.about li:last-child{border-bottom:2px dashed rgba(15,15,13,.24)}
+.about li .n{font-family:'Anton',sans-serif;font-size:22px;color:var(--acc-dim);line-height:1;flex:0 0 auto}
+.about li h3{font-family:'Special Elite',cursive;font-size:16px;text-transform:none;letter-spacing:0;
+  line-height:1.35}
+.about li p{margin:5px 0 0;font-size:14px;color:var(--ink-2);max-width:46ch}
+.about .sheet .btn{margin-top:26px}
+
+/* ---------- 4. OFFERS: three flyers stapled up at angles ---------- */
+.offers{background:var(--paper-2);padding:var(--sp-8) 0;position:relative}
+.offers .head{display:flex;justify-content:space-between;align-items:flex-end;gap:22px;
+  flex-wrap:wrap;margin-bottom:clamp(30px,3.8vw,54px)}
+.offers h2{font-size:clamp(30px,4.4vw,62px)}
+.offers .head p{margin:0;max-width:38ch;font-size:14.6px;color:var(--ink-2)}
+.flyers{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.6vw,40px);align-items:start}
+.flyer{position:relative;background:var(--sheet);padding:var(--sp-4);
+  box-shadow:7px 7px 0 var(--black);transition:transform .18s linear}
+.flyer:nth-child(1){transform:rotate(-1.9deg)}
+.flyer:nth-child(2){transform:rotate(1.4deg);margin-top:clamp(10px,1.6vw,26px)}
+.flyer:nth-child(3){transform:rotate(-1.1deg)}
+@media (hover:hover) and (pointer:fine){.flyer:hover{transform:rotate(0deg) translateY(-6px)}}
+.flyer .staple.s1{left:20px;top:-3px;transform:rotate(-8deg)}
+.flyer .staple.s2{right:20px;top:-3px;transform:rotate(6deg)}
+.flyer .xr{aspect-ratio:16/10;margin-bottom:18px}
+.flyer .n{display:inline-block;background:var(--black);color:var(--paper);
+  font-family:'Anton',sans-serif;font-size:19px;padding:2px 10px;transform:rotate(-2deg)}
+.flyer h3{font-size:clamp(21px,2.2vw,29px);margin:14px 0 10px}
+.flyer p{margin:0 0 16px;font-size:14.2px;color:var(--ink-2);line-height:1.7}
+.flyer dl{margin:0;display:grid;gap:6px;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase}
+.flyer dl div{display:flex;justify-content:space-between;gap:10px;
+  border-bottom:2px dotted rgba(15,15,13,.24);padding-bottom:6px}
+.flyer dt{color:var(--mute)}
+.flyer dd{margin:0;font-weight:700}
+.flyer .tear{margin-top:18px;border-top:2px dashed rgba(15,15,13,.3);padding-top:14px;
+  display:flex;justify-content:space-between;align-items:center;gap:10px}
+.flyer .tear .ph{font-family:'Special Elite',cursive;font-size:13px}
+.flyer.pop{background:var(--acc);color:var(--on-acc)}
+.flyer.pop p,.flyer.pop dt{color:color-mix(in srgb,var(--on-acc) 76%,transparent)}
+.flyer.pop .n{background:var(--sheet);color:var(--black)}
+.flyer.pop dl div{border-color:rgba(20,18,16,.3)}
+.flyer.pop .tear{border-color:rgba(20,18,16,.4)}
+
+/* ---------- 5. LEAD MAGNET: a NOTICE poster ---------- */
+.magnet{padding:var(--sp-8) 0}
+.notice{position:relative;background:var(--sheet);box-shadow:11px 11px 0 var(--black);
+  transform:rotate(.5deg);padding:var(--sp-5);
+  border:4px double var(--black)}
+.notice .tape.t1{left:6%;top:-14px;transform:rotate(-8deg)}
+.notice .tape.t2{right:8%;top:-16px;transform:rotate(6deg)}
+.notice .band{background:var(--black);color:var(--paper);text-align:center;
+  padding:10px 14px;margin:-8px -8px clamp(22px,2.6vw,36px);
+  font-family:'Anton',sans-serif;font-size:clamp(16px,2vw,24px);letter-spacing:.22em}
+.notice .in{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(22px,3vw,52px);align-items:center}
+.notice h2{font-size:clamp(30px,4.4vw,62px)}
+.notice p{margin:18px 0 0;font-size:15px;color:var(--ink-2);max-width:44ch;line-height:1.75}
+.notice form{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
+.notice input{flex:1 1 220px;min-width:0;background:var(--paper);border:2.5px solid var(--black);
+  padding:14px 18px;font:inherit;font-size:14.5px;color:var(--black)}
+.notice input::placeholder{color:var(--mute)}
+.notice input:focus{outline:none;border-color:var(--acc-dim)}
+.notice .fine{margin-top:14px;font-size:12.5px;color:var(--mute)}
+/* the tear-off tab row every real site notice has */
+.tabs{display:flex;gap:6px;margin-top:6px;overflow:hidden}
+.tabs span{flex:1;background:var(--paper);border:2px solid var(--black);border-top:0;
+  padding:14px 4px 16px;text-align:center;font-family:'Special Elite',cursive;font-size:11px;
+  line-height:1.35;transform:rotate(var(--r,0deg));transition:transform .18s linear}
+@media (hover:hover) and (pointer:fine){.tabs span:hover{transform:rotate(var(--r,0deg)) translateY(4px)}}
+.notice .cols{display:grid;gap:12px}
+.notice .cols div{display:flex;gap:12px;align-items:flex-start;background:var(--paper);
+  border:2.5px solid var(--black);padding:13px 15px}
+.notice .cols b{font-family:'Anton',sans-serif;font-size:20px;color:var(--acc-dim);line-height:1;flex:0 0 auto}
+.notice .cols span{font-size:13.4px;color:var(--ink-2);line-height:1.6}
+
+/* ---------- 6. CONTENT: a photocopied contact sheet ---------- */
+.content{padding:0 0 var(--sp-8)}
+.content .head{display:flex;justify-content:space-between;align-items:flex-end;gap:22px;
+  flex-wrap:wrap;margin-bottom:clamp(24px,3vw,40px)}
+.content h2{font-size:clamp(30px,4.4vw,62px)}
+.sheet-grid{background:var(--black);padding:var(--sp-2);transform:rotate(-.4deg);
+  box-shadow:9px 9px 0 rgba(15,15,13,.3)}
+.sheet-grid .g{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.4vw,18px)}
+.frame{position:relative;display:block}
+.frame .xr{aspect-ratio:1/1.16}
+.frame .no{position:absolute;left:6px;top:6px;z-index:5;background:var(--acc);color:var(--on-acc);
+  font-family:'Courier Prime',monospace;font-weight:700;font-size:10.5px;letter-spacing:.1em;
+  padding:3px 7px}
+@media (hover:hover) and (pointer:fine){.frame:hover .xr img{filter:grayscale(1) contrast(1.35) brightness(1.02)}}
+.frame .cap{display:block;margin-top:9px;color:var(--paper);font-family:'Special Elite',cursive;
+  font-size:12.5px;line-height:1.4}
+.frame .cap i{display:block;font-style:normal;font-family:'Courier Prime',monospace;font-size:11px;
+  letter-spacing:.08em;text-transform:uppercase;color:#9A988E;margin-top:4px}
+.content .after{display:flex;justify-content:space-between;align-items:center;gap:18px;
+  flex-wrap:wrap;margin-top:clamp(24px,3vw,40px)}
+
+/* ---------- footer ---------- */
+footer{background:var(--black);color:var(--paper);padding:clamp(42px,5.2vw,76px) 0 26px;
+  position:relative}
+footer .big{font-family:'Anton',sans-serif;font-size:clamp(40px,9vw,124px);line-height:.86;
+  text-transform:uppercase;margin:0 0 clamp(26px,3.2vw,46px)}
+footer .big em{font-style:normal;background:var(--acc);color:var(--on-acc);padding:0 .08em;
+  display:inline-block;transform:rotate(-1.6deg)}
+footer .cols{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:clamp(20px,3vw,44px)}
+footer .lead{margin:14px 0 0;color:#A9A79D;max-width:32ch;font-size:14px;line-height:1.7}
+footer h5{margin:0 0 14px;color:var(--acc)}
+footer nav{display:grid;gap:0}
+footer nav a{display:block;padding-block:9px;font-size:14px;color:#CFCDC3;transition:color .15s}
+@media (hover:hover) and (pointer:fine){footer nav a:hover{color:var(--acc)}}
+footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;
+  border-top:2px dashed rgba(228,225,214,.28);display:flex;justify-content:space-between;
+  gap:14px;flex-wrap:wrap;color:#A9A79D}
+
+/* ---------- reveal ---------- */
+@media(prefers-reduced-motion:no-preference){
+  .rv{opacity:0;translate:0 18px}
+  .rv.is-in{opacity:1;translate:none;transition:opacity .5s linear,translate .5s var(--eo);
+    transition-delay:var(--d,0s)}}
+
+/* ---------- responsive ---------- */
+@media(max-width:1080px){
+  .poster .in,.about .in,.notice .in{grid-template-columns:1fr}
+  .poster .shot{max-width:420px;margin-top:24px}
+  .about .pic{max-width:400px}
+  .flyers{grid-template-columns:1fr}
+  .flyer{margin-top:0!important}
+  .sheet-grid .g{grid-template-columns:1fr 1fr}
+  footer .cols{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){
+  .nlinks{display:none}
+  .burger{display:inline-flex;transition:transform .14s cubic-bezier(.23,1,.32,1)}
+  .poster h1{font-size:clamp(38px,13vw,62px)}
+  /* the note badge overhangs its photo by 4%, which is 3px past a 390px viewport */
+  .about .pic .note{right:0;bottom:-4%}
+  .sheet-grid .g{grid-template-columns:1fr}
+  .tabs{flex-wrap:wrap}
+  .tabs span{flex:1 1 44%}
+  footer .cols{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* skip link — keyboard users reach the content without tabbing the whole nav */
+.skip-link{position:fixed;top:10px;left:10px;z-index:9999;transform:translateY(-300%);
+  padding:11px 18px;border-radius:6px;background:#141310;color:#fff;text-decoration:none;
+  font:600 14px/1 system-ui,-apple-system,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+.skip-link:focus{transform:translateY(0)}
+/* ---------- press feedback (punch-list 01) ----------
+   Appended last so :active wins over the :hover transforms above.
+   0.97 reads as a press; anything lower reads as a bounce. */
+.btn:active,.burger:active{transform:scale(.97);transition-duration:.12s}
+@media (prefers-reduced-motion:reduce){.btn:active,.burger:active{transform:none}}
