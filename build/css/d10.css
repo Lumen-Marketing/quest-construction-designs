@@ -295,3 +295,11 @@
 }
 /* the flash badge sat on the seam between the nav and the photograph */
 @media(max-width:820px){.flash{top:auto;bottom:calc(var(--cut) + 6px);right:4%}}
+
+/* ---- the inner-page hero copy was centred, not left-aligned ----
+   .wrap carries margin:0 auto, so narrowing the same element to 660px centred
+   the whole copy block and left a third of the band empty. The wrap keeps its
+   own width and gutters; the children are what get constrained. */
+.subhero .in{max-width:none}
+.subhero .in>*{max-width:min(660px,58%)}
+@media(max-width:900px){.subhero .in>*{max-width:100%}}

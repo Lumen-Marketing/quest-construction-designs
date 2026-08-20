@@ -565,6 +565,10 @@ export function gallery(c) {
   const all = [...QUEST, ...SHOTS.map((f) => [f, ALT[f]])];
   const strips = [];
   for (let i = 0; i < all.length; i += 4) strips.push(all.slice(i, i + 4));
+  // a trailing strip of one would stretch a single pane across the full width
+  if (strips.length > 1 && strips.at(-1).length < 2) {
+    strips[strips.length - 2].push(...strips.pop());
+  }
 
   return `${subhero(c, {
     h1: g.h1, lede: g.lede, crumb: 'Gallery',

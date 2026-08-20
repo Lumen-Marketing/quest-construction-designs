@@ -624,3 +624,9 @@ footer .bar a:hover{color:var(--acc)}
     linear-gradient(180deg,rgba(10,12,10,.55),rgba(10,12,10,.34) 44%,rgba(10,12,10,.62))}
   .shot .sub{color:rgba(255,255,255,.95)}
 }
+
+/* ---- the fact bubbles wrapped three-and-one ----
+   Four bubbles at up to 124px plus 38px gaps need 610px; the column they sit
+   in is about 530px, so the fourth dropped to a row of its own. */
+.about .facts{gap:clamp(12px,1.4vw,20px)}
+.about .facts .bub{width:clamp(88px,7.2vw,108px)}

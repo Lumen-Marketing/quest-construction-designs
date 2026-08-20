@@ -699,3 +699,8 @@ footer .brand img{height:32px}
 footer .cols .btn{margin-top:18px}
 footer .bar a{transition:color .2s}
 footer .bar a:hover{color:var(--acc)}
+
+/* ---- the credential band runs full bleed, its text should not ----
+   The cells carry their own 20px padding, so against a 52px page gutter the
+   first figure sat 32px proud of everything above it. */
+.credband .creds{padding-inline:calc(var(--m) - clamp(10px,1.2vw,20px))}
