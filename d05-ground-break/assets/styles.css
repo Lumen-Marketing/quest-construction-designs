@@ -702,3 +702,9 @@ footer .brand img{height:34px}
 footer .cols .btn{margin-top:20px}
 footer .bar a{transition:color .25s}
 footer .bar a:hover{color:var(--acc-lift)}
+
+/* ---- the closing project card has no photograph to fill its half ----
+   Equal-height grid rows are right, but with margin-top:auto pinning the
+   phone to the bottom the card read as mostly empty accent. */
+.pcard.talk .pbody{justify-content:center}
+.pcard.talk .go{margin-top:22px;padding-top:0}

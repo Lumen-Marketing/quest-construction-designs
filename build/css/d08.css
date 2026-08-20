@@ -264,3 +264,12 @@ footer .bar a:hover{color:var(--acc)}
    white-on-light. */
 .tiles .tile .ph::after{background:linear-gradient(transparent 34%,
   rgba(20,20,26,.6) 62%,rgba(20,20,26,.95))}
+
+/* ---- the arch card carries its own ink ----
+   On the homepage these sit inside .offers, which sets color:var(--ink); on
+   the projects page they sit on the charcoal ground and inherited the body
+   cream, so every card title rendered cream on a bone card — invisible. A
+   component that can land on either ground has to state its own colour.
+   (Its p and dl were already explicit, which is why only the h3 vanished.) */
+.arch-card{color:var(--ink)}
+.arch-card h3{color:var(--ink)}
