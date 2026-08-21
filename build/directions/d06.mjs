@@ -1,16 +1,16 @@
-// Direction 06 — Goop. Modern product-site softness: big-radius cards on a
-// pale accent-tinted ground, a pure-black first screen with the headline
-// centred over full-colour footage, and every control a pill. One geometric
-// grotesk carries the page. Paper, ink and the accent, nothing else.
+// Direction 06 - Job Book. A builder's capability document: asymmetric and
+// left-aligned throughout, photographs given their own frame at full size,
+// cool neutral grounds so the clay accent reads as a mark rather than a wash,
+// and modest radii. One grotesque, Archivo, at four weights.
 import { img, preloadImage } from '../lib/images.mjs';
 
 export const meta = {
   slug: 'd06-red-iron',
-  name: 'Goop',
+  name: 'Job Book',
   indexable: false,
   fonts: `<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">`,
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">`,
   preload: (c) => (c.page.kind === 'home' ? preloadImage(c, 'quest/hero.webp') : ''),
 };
 
@@ -50,7 +50,7 @@ const QUEST = [
   ['quest/spare.webp', 'A finished interior with new windows on a Quest Construction project'],
 ];
 
-// Four short trades for the credential strip — every value is real.
+// Four short trades for the credential strip. Every value is real.
 const creds = (c) => `<div class="creds rv is-in">
   <div><b>${c.site.foundingYear}</b><span>Building since</span></div>
   <div><b>${c.services.length}</b><span>Trades offered</span></div>
@@ -120,7 +120,7 @@ export function footer(c) {
     ${col('Areas Served', c.areas.areas.map((a) => [c.url(`service-areas/${a.slug}`), a.name]))}
   </div>
   <div class="bar cnd">
-    <span>&copy; 2026 ${esc(c.site.name)} — since ${c.site.foundingYear}</span>
+    <span>&copy; 2026 ${esc(c.site.name)}. Building since ${c.site.foundingYear}.</span>
     <span><a href="${c.site.instagram}" target="_blank" rel="noreferrer">Instagram</a></span>
   </div>
 </div>
@@ -161,7 +161,7 @@ export function script(c) {
   document.querySelectorAll('.contact-form').forEach(function(f){
     f.addEventListener('submit',function(e){e.preventDefault();
       var n=f.querySelector('.form-note');
-      if(n) n.textContent='This form is not connected yet \\u2014 please call ${c.site.phoneDisplay} and we will pick up.';});
+      if(n) n.textContent='This form is not connected yet. Please call ${c.site.phoneDisplay} and we will pick up.';});
   });
 })();
 (function(){
@@ -177,34 +177,60 @@ export function script(c) {
 
 // -------------------------------------------------------------- shared parts
 
+// The eyebrow argument is deliberately ignored. Every section carried one,
+// which is the templated rhythm that makes a page read as generated. Callers
+// still pass it so the copy stays in source control if it is ever wanted.
 const head = (eyebrow, heading, lede) => `<div class="head rv">
-  <div>${eyebrow ? `<p class="cnd">${esc(eyebrow)}</p>` : ''}<h2>${heading}</h2></div>
+  <div><h2>${heading}</h2></div>
   ${lede ? `<p class="hlede">${esc(lede)}</p>` : '<div></div>'}
 </div>`;
 
-/** Halftone parallelograms — 06's why-choose treatment. */
+/** The why-choose treatment. */
 const paras = (items) => `<div class="paras">${items.map((x, i) => `
   <div class="para rv" style="--d:${(i % 4) * 0.05}s">
-    <span class="n">${String(i + 1).padStart(2, '0')}</span>
     ${x.title ? `<h3>${esc(x.title)}</h3>` : ''}
     <p>${esc(x.body)}</p>
   </div>`).join('')}</div>`;
 
-/** The fourteen trades as rotated black slabs. */
-const tradeSlabs = (c) => `<div class="tslabs">${c.services.map((s, i) => `
-  <a class="tslab rv" href="${c.url(`services/${s.slug}`)}" style="--d:${(i % 4) * 0.04}s">
-    <span class="n">${String(i + 1).padStart(2, '0')}</span>
-    <h3>${esc(s.name)}</h3>
-    <p>${esc(s.shortDesc)}</p>
-    <span class="go">${ARROW}</span>
-  </a>`).join('')}</div>`;
+/** The fourteen trades, grouped.
+ *  Fourteen identical cards in a four-up grid is a template, and it tells the
+ *  reader nothing about how the work relates. These are the four stages of a
+ *  build in the order they happen, which is also how the crews are organised.
+ *  A trade added to content/ that is not listed here still renders, under the
+ *  last group, so the page cannot silently drop a service. */
+const TRADE_GROUPS = [
+  ['What gets built', ['custom-home-building', 'residential-development', 'casita', 'adu']],
+  ['What holds it up', ['framing', 'concrete', 'roofing']],
+  ['What closes it in', ['stucco', 'siding', 'window-installation',
+    'deck-building-uses-trex-system']],
+  ['What finishes it', ['dry-wall', 'painting',
+    'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops']],
+];
+
+const tradeSlabs = (c) => {
+  const groups = TRADE_GROUPS.map(([name, slugs]) => ({
+    name,
+    items: slugs.map((sl) => c.services.find((x) => x.slug === sl)).filter(Boolean),
+  }));
+  const placed = new Set(groups.flatMap((g) => g.items.map((s) => s.slug)));
+  const rest = c.services.filter((s) => !placed.has(s.slug));
+  if (rest.length) groups[groups.length - 1].items.push(...rest);
+
+  return `<div class="tindex">${groups.filter((g) => g.items.length).map((g, i) => `
+  <div class="tgroup rv" style="--d:${(i % 2) * 0.06}s">
+    <h3>${esc(g.name)}</h3>
+    <ul>${g.items.map((s) => `
+      <li><a href="${c.url(`services/${s.slug}`)}"><b>${esc(s.name)}</b><span>${esc(s.shortDesc)}</span></a></li>`).join('')}
+    </ul>
+  </div>`).join('')}</div>`;
+};
 
 /** The diagonal marquee, reused on every page as the closing band. */
 const marquee = (c) => {
   const run = c.areas.areas.map((a) =>
     `<span><i>&#9670;</i>${esc(a.name)}</span>`).join('');
   // The bar is rotated and over-scaled, so it needs a clipping parent of its
-  // own — body{overflow-x:hidden} does not stop it widening the document.
+  // own: body{overflow-x:hidden} does not stop it widening the document.
   return `<div class="tickwrap" aria-hidden="true"><div class="ticker"><div class="t">${run}${run}</div></div></div>`;
 };
 
@@ -213,14 +239,13 @@ const closing = (c, heading, body) => `
   <div class="slab" aria-hidden="true"></div>
   <div class="wrap in">
     <div class="rv">
-      <p class="cnd">Next step</p>
       <h2>${esc(heading)}</h2>
       <p>${esc(body)}</p>
       <div class="acts">
         ${btn(c.url('contact'), 'Start a project')}
         ${btn(c.site.phoneHref, c.site.phoneDisplay, 'btn line')}
       </div>
-      <p class="fine">${esc(c.site.availability)} — ${esc(c.site.positioning)}.</p>
+      <p class="fine">${esc(c.site.availability)}. ${esc(c.site.positioning)}.</p>
     </div>
     <div class="plaque" aria-hidden="true">
       <span class="bar1"></span><span class="tri"></span>
@@ -242,7 +267,7 @@ const subhero = (c, { h1, lede, crumb, trail }) => `
     <h1>${esc(h1)}</h1>
     <p class="slede">${esc(lede)}</p>
     <div class="acts">
-      ${btn(c.url('contact'), 'Get in touch')}
+      ${btn(c.url('contact'), 'Start a project')}
       ${btn(c.site.phoneHref, c.site.phoneDisplay, 'btn line')}
     </div>
   </div>
@@ -273,8 +298,9 @@ export function home(c) {
       </div>
     </div>
   </div>
-  ${creds(c)}
 </section>
+
+<section class="credband">${creds(c)}</section>
 
 ${marquee(c)}
 
@@ -284,15 +310,14 @@ ${marquee(c)}
       <span class="ht cut-l">${img(c, 'quest/story.webp', 'Framing and structural work on a Quest Construction project')}</span>
     </div>
     <div class="say rv">
-      <p class="cnd">${esc(h.storyEyebrow)}</p>
       <h2>${esc(h.storyHeading)}</h2>
       ${h.story.map((p) => `<p>${esc(p)}</p>`).join('')}
       <ol>
-        <li><span class="n">01</span><div><h3>Family-owned since ${c.site.foundingYear}</h3>
+        <li><div><h3>Family-owned since ${c.site.foundingYear}</h3>
           <p>${esc(c.site.positioning)}.</p></div></li>
-        <li><span class="n">02</span><div><h3>${c.services.length} trades, one contractor</h3>
+        <li><div><h3>${c.services.length} trades, one contractor</h3>
           <p>Planning through final walkthrough, coordinated by the same team.</p></div></li>
-        <li><span class="n">03</span><div><h3>Reachable ${esc(c.site.availability)}</h3>
+        <li><div><h3>Reachable ${esc(c.site.availability)}</h3>
           <p>Call ${esc(c.site.phoneDisplay)} and a person picks up.</p></div></li>
       </ol>
       ${btn(c.url('about'), 'Read our story')}
@@ -304,7 +329,7 @@ ${marquee(c)}
   <span class="bar" aria-hidden="true"></span>
   <div class="wrap">
     <div class="head rv">
-      <div><p class="cnd">Standing offers</p><h2>Exclusive Offers Just For You</h2></div>
+      <div><h2>Exclusive Offers Just For You</h2></div>
       <p>Two standing offers, applied at estimate. Ask for the code when you call.</p>
     </div>
     <div class="mosaic">
@@ -360,8 +385,7 @@ ${marquee(c)}
       </figure>
     </div>
     <div class="foot">
-      <p class="cnd">Every project self-managed by ${esc(c.site.name)}</p>
-      ${btn(c.url('projects'), 'See the showcase')}
+      ${btn(c.url('projects'), 'See the work')}
     </div>
   </div>
 </section>
@@ -381,20 +405,20 @@ export function service(c) {
   <div class="wrap">
     ${head('Scope', `Complete Range of ${esc(s.name)} Services`, '')}
     <div class="slist rv">${s.scope.map((x, i) => `
-      <div class="srow"><span class="n">${String(i + 1).padStart(2, '0')}</span>
+      <div class="srow">
         <div><h3>${esc(x.title)}</h3>${x.body ? `<p>${esc(x.body)}</p>` : ''}</div></div>`).join('')}</div>
   </div>
 </section>` : '';
 
-  // Black-slab questions — 06's FAQ treatment.
+  // The FAQ treatment.
   const faq = s.faqs && s.faqs.length ? `
 <section class="content">
   <div class="wrap">
     ${head('Questions', `${esc(s.name)} Services FAQ`,
       `Addressing your ${s.name.toLowerCase()} questions and concerns.`)}
     <div class="qslabs">${s.faqs.map((f, i) => `
-      <details class="qslab rv" style="--r:${i % 2 ? 0.5 : -0.5}deg">
-        <summary><span class="n">${String(i + 1).padStart(2, '0')}</span>${esc(f.q)}<span class="pm" aria-hidden="true"></span></summary>
+      <details class="qslab rv">
+        <summary>${esc(f.q)}<span class="pm" aria-hidden="true"></span></summary>
         <p>${esc(f.a)}</p></details>`).join('')}</div>
   </div>
 </section>` : '';
@@ -409,10 +433,9 @@ export function service(c) {
       <span class="ht cut-r">${img(c, 'quest/spare.webp', `Completed ${s.name.toLowerCase()} work by Quest Construction`)}</span>
     </div>
     <div class="say rv">
-      <p class="cnd">Overview</p>
       <h2>${esc(s.name)} by <em>${esc(c.site.name)}</em></h2>
       ${s.intro.map((p) => `<p>${esc(p)}</p>`).join('')}
-      ${btn(c.url('contact'), 'Get an estimate')}
+      ${btn(c.url('contact'), 'Start a project')}
     </div>
   </div>
 </section>
@@ -431,11 +454,9 @@ ${scope}
     ${head('How it runs', `Our Unique ${esc(s.name)} Service Process`,
       'Four stages, the same on every job, so you always know what happens next.')}
     <div class="rslabs">${s.process.map((p) => `
-      <div class="rslab rv" style="--r:${p.n % 2 ? -1.6 : 1.6}deg;--d:${(p.n - 1) * 0.06}s">
-        <span class="n">${String(p.n).padStart(2, '0')}</span>
+      <div class="rslab rv" style="--d:${(p.n - 1) * 0.06}s">
         <h3>${esc(p.title)}</h3>
         <p>${esc(p.body)}</p>
-        <span class="cnd stg">Stage ${p.n} of ${s.process.length}</span>
       </div>`).join('')}</div>
   </div>
 </section>
@@ -462,7 +483,6 @@ export function area(c) {
       <span class="ht cut-l">${img(c, 'neighborhood.webp', `Completed homes on a residential street near ${a.city}, Arizona`)}</span>
     </div>
     <div class="say rv">
-      <p class="cnd">The area</p>
       <h2>${fill(t.communityHeading)}</h2>
       <p>${fill(t.community)}</p>
       <p>${fill(t.local)}</p>
@@ -528,7 +548,7 @@ export function about(c) {
 
 ${marquee(c)}
 ${closing(c, 'Build with a team that answers the phone',
-  `${c.site.positioning} — reachable ${c.site.availability}.`)}`;
+  `${c.site.positioning}, reachable ${c.site.availability}.`)}`;
 }
 
 export function gallery(c) {
@@ -552,7 +572,7 @@ export function gallery(c) {
     ${head('The trades we run', 'Placeholder Photography',
       'Stock photography stands in below until Quest supplies jobsite photographs of its own.')}
     <div class="gcollage">${SHOTS.map((f, i) => plate(f, ALT[f], i)).join('')}</div>
-    <p class="cnd note">Placeholder photography — to be replaced with Quest Construction jobsite photographs.</p>
+    <p class="cnd note">Placeholder photography, to be replaced with Quest Construction jobsite photographs.</p>
   </div>
 </section>
 
@@ -571,10 +591,9 @@ export function projects(c) {
       <article class="op rv" style="--d:${i * 0.06}s">
         <span class="ht${i === 1 ? ' tint' : ''}">${img(c, QUEST[i % QUEST.length][0], it.alt || it.title)}</span>
         <div class="obody">
-          <span class="n">${String(i + 1).padStart(2, '0')}</span>
           <h3>${esc(it.title)}</h3>
           <p>${esc(it.body)}</p>
-          <a class="btn" href="${c.url('contact')}">Start something like it</a>
+          <a class="btn" href="${c.url('contact')}">Start a project</a>
         </div>
       </article>`).join('')}
     </div>
@@ -597,7 +616,6 @@ export function contact(c) {
   <span class="slab" aria-hidden="true"></span>
   <div class="wrap in">
     <form class="contact-form rv" novalidate>
-      <p class="cnd">Send a message</p>
       <h2>${esc(p.formHeading)}</h2>
       ${p.fields.map(field).join('')}
       <button class="btn" type="submit">Submit ${ARROW}</button>

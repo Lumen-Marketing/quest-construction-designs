@@ -79,14 +79,14 @@ export function pageList() {
   push('about', 'about', `About Us${brand}`,
     clip(`${pages.about.lede} Shaping Arizona homes since ${site.foundingYear}.`, 155));
   push('gallery', 'gallery', `Project Gallery${brand}`,
-    clip('Photography from Quest Construction jobsites across Arizona — framing, concrete, ' +
+    clip('Photography from Quest Construction jobsites across Arizona: framing, concrete, ' +
       'exteriors and finished homes.', 155));
   push('projects', 'projects', `Project Showcase${brand}`,
     clip(`${pages.projects.lede} See framing, home construction and concrete work by ` +
       'Quest Construction.', 155));
   push('contact', 'contact', `Contact Us${brand}`,
-    clip(`Talk to Quest Construction about your project. Call ${site.phoneDisplay} — ` +
-      `${site.availability} — or send us a message.`, 155));
+    clip(`Talk to Quest Construction about your project. Call ${site.phoneDisplay}, ` +
+      `${site.availability}, or send us a message.`, 155));
   push('sitemap', 'sitemap', `Sitemap${brand}`,
     clip('Every page on the Quest Construction site: services, service areas, projects ' +
       'and contact details.', 155));
