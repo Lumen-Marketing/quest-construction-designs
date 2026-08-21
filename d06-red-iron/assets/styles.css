@@ -100,7 +100,7 @@ h1,h2,h3{margin:0;font-family:'Big Shoulders Display','Barlow Condensed',sans-se
      diagonal as the rest of the page, with the accent wedge and the headline
      reversed over the top. ---------- */
 .hero{position:relative;overflow:hidden;background:var(--black);color:var(--on-black);
-  min-height:clamp(560px,86vh,900px);display:flex;flex-direction:column;justify-content:flex-end;
+  min-height:clamp(560px,84vh,900px);display:flex;flex-direction:column;justify-content:flex-end;
   padding:0}
 .hero .film{position:absolute;inset:0;z-index:0;overflow:hidden;background:var(--black)}
 .hero .film img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
@@ -111,29 +111,50 @@ h1,h2,h3{margin:0;font-family:'Big Shoulders Display','Barlow Condensed',sans-se
   background-image:radial-gradient(circle,rgba(10,9,8,.86) 1.15px,transparent 1.25px);
   background-size:4px 4px;mix-blend-mode:multiply;opacity:.5}
 .hero .film::before{content:"";position:absolute;inset:0;z-index:3;
-  background:linear-gradient(92deg,rgba(18,17,16,.94) 0 34%,rgba(18,17,16,.66) 56%,rgba(18,17,16,.34)),
-             linear-gradient(0deg,rgba(18,17,16,.92),transparent 40%)}
+  background:linear-gradient(92deg,rgba(18,17,16,.90) 0 26%,rgba(18,17,16,.58) 54%,rgba(18,17,16,.26)),
+             linear-gradient(0deg,rgba(18,17,16,.94),transparent 46%)}
 /* the wedge still sets the page on an angle, now over the footage */
 .hero .wedge{position:absolute;z-index:4;background:var(--acc);
   left:-6%;right:-6%;top:clamp(96px,15vw,220px);height:clamp(104px,13vw,182px);
   transform:rotate(-6.5deg);opacity:.96}
-.hero .in{position:relative;z-index:6;width:100%;padding-block:clamp(30px,4.4vw,66px) clamp(24px,3vw,42px)}
-.hero .say{max-width:min(880px,66%)}
+.hero .in{position:relative;z-index:6;width:100%;padding-block:clamp(26px,3.4vw,54px) clamp(20px,2.4vw,34px)}
+/* 66% of the column ran 25px short of "From Concept" at every width, so the
+   first line wrapped and its fit-content slab became a ragged black blob with
+   half of it empty. The measure is the headline's now; the lede sets its own. */
+.hero .say{max-width:min(1120px,100%)}
+/* the kicker is a <p class="kicker cnd">, so the lede rule below was winning on
+   specificity and rendering the eyebrow at 17.5px capped to 46ch — two ragged
+   lines in a rotated orange box. It is a tag: one line, condensed, tracked. */
 .hero .say .kicker{display:inline-block;background:var(--acc);color:var(--on-acc);
+  font-size:13px;max-width:none;white-space:nowrap;
   padding:8px 14px;transform:rotate(-2deg)}
-.hero h1{font-size:clamp(58px,11.8vw,158px);margin:clamp(16px,2.2vw,30px) 0 0;color:var(--on-black)}
-.hero h1 span{display:block;width:fit-content;background:var(--black);color:var(--on-black);
-  padding-inline:.1em .14em}
+@media(max-width:620px){.hero .say .kicker{white-space:normal;font-size:12px}}
+/* One rule sizes the headline, derived from the line that has to fit:
+   "From Concept" measures 5.96em in Big Shoulders 900 and the column between
+   the margins is 92.8vw, so 14.4vw keeps it on one line all the way to 320px. */
+.hero h1{font-size:min(14.4vw,136px);margin:clamp(14px,1.8vw,24px) 0 0;color:var(--on-black)}
+/* nowrap is the contract that size is calculated against: three lines, always,
+   and every slab hugs its own words instead of stretching to the widest one */
+.hero h1 span{display:block;width:fit-content;white-space:nowrap;color:var(--on-black);
+  padding-inline:.1em .14em;
+  /* the slab is 86% black rather than solid so the wedge reads straight through
+     it as one continuous bar. Solid black amputated the diagonal for 810px and
+     the seam looked like a paint bug. Bone on this still clears 10:1 over the
+     brightest frame of the footage. */
+  background:rgba(18,17,16,.86)}
 .hero h1 .a{margin-left:0}
-/* the accent word sits on black, never on the wedge: accent on accent is
-   camouflage, and at 158px accent on black still clears large-text contrast */
-.hero h1 .b{margin-left:.1em;color:var(--acc)}
+/* the accent word takes the on-dark accent, not the flat one: at 86% the slab
+   can sit over the wedge or over blown-out framing, and #A8543A only clears
+   2.4:1 against the latter. --acc-on-dark holds 3.1:1 in the worst case, and
+   the gallery swaps it alongside --acc. */
+.hero h1 .b{margin-left:.1em;color:var(--acc-on-dark)}
 .hero h1 .c{margin-left:.2em}
 .hero .say p{margin:clamp(20px,2.4vw,32px) 0 0;max-width:46ch;font-size:clamp(15px,1.2vw,17.5px);
   color:#CFC9BC}
 .hero .acts{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:clamp(22px,2.6vw,34px)}
-.hero .acts .btn.line{color:var(--on-black);box-shadow:inset 0 0 0 2px rgba(239,236,226,.66);
-  background:rgba(18,17,16,.42)}
+/* .42 let bright framing through and the outline button dissolved into it */
+.hero .acts .btn.line{color:var(--on-black);box-shadow:inset 0 0 0 2px rgba(239,236,226,.74);
+  background:rgba(18,17,16,.62)}
 @media (hover:hover) and (pointer:fine){.hero .acts .btn.line:hover{background:var(--on-black);color:var(--black)}}
 /* reel chrome, bottom right of the frame */
 .hero .chrome{position:absolute;z-index:6;right:var(--m);top:clamp(78px,8vw,116px);
@@ -147,7 +168,7 @@ h1,h2,h3{margin:0;font-family:'Big Shoulders Display','Barlow Condensed',sans-se
 /* the credential strip, hard across the base of the footage */
 .hero .creds{position:relative;z-index:6;width:100%;display:grid;grid-template-columns:repeat(5,1fr);
   border-top:3px solid var(--acc);background:rgba(18,17,16,.82)}
-.hero .creds div{padding:14px clamp(10px,1.2vw,18px);border-right:1px solid rgba(239,236,226,.16)}
+.hero .creds div{padding:12px clamp(10px,1.2vw,18px);border-right:1px solid rgba(239,236,226,.16)}
 .hero .creds div:last-child{border-right:0}
 .hero .creds b{display:block;font-family:'Big Shoulders Display',sans-serif;font-weight:900;
   font-size:clamp(22px,2.3vw,34px);line-height:.9;color:var(--acc)}
@@ -340,8 +361,20 @@ footer .bar{margin-top:clamp(30px,3.6vw,52px);padding-top:18px;
 @media(max-width:760px){
   .nlinks{display:none}
   .burger{display:inline-flex;transition:transform .14s cubic-bezier(.23,1,.32,1)}
-  .hero h1{font-size:clamp(46px,15vw,74px)}
-  .hero .wedge{top:clamp(120px,42vw,240px);height:clamp(150px,44vw,240px);transform:rotate(-9deg)}
+  /* No headline override here: the vw ramp above already fits every phone, and
+     clamping it back to 74px is what re-introduced the wrap under 760px.
+     A wedge pinned to the viewport in px cannot know where the headline ended
+     up: at 390 it ran from the kicker to the buttons, put the bone lede on
+     orange and hid the orange CTA inside itself. On phones the diagonal is
+     anchored to the headline instead, so it can never reach either. */
+  .hero .wedge{display:none}
+  .hero h1{position:relative}
+  .hero h1::before{content:"";position:absolute;z-index:-1;
+    left:-14%;right:-14%;top:24%;height:46%;
+    background:var(--acc);opacity:.96;transform:rotate(-7deg)}
+  /* and with the type taking the whole frame there is no photo-forward
+     composition left to protect, so the footage goes back to being texture */
+  .hero .film::before{background:linear-gradient(0deg,rgba(18,17,16,.94),rgba(18,17,16,.76))}
   .collage{grid-auto-rows:clamp(46px,13vw,80px)}
   .pc.a{grid-column:1/10;grid-row:1/5}
   .pc.b{grid-column:4/13;grid-row:5/9}
