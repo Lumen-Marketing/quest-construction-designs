@@ -3,7 +3,7 @@
 import { writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { resolver, outPath } from './lib/url.mjs';
+import { resolver, absoluteResolver, outPath } from './lib/url.mjs';
 import { loadContent, pageList } from './lib/pages.mjs';
 import { buildHead } from './lib/head.mjs';
 
@@ -12,14 +12,23 @@ const PAGES = pageList();
 
 export function allPagesFor() { return PAGES.map((p) => p.key); }
 
-export function renderPage({ mod, key }) {
-  const page = PAGES.find((p) => p.key === key);
+/**
+ * @param pages  the manifest to render from; the standalone build passes its
+ *               own, which carries the two section landing pages as well.
+ * @param opts   { hubs, rich, built, absolute } — threaded into the resolver,
+ *               the schema graph and the renderers. Empty for the ten demos.
+ */
+export function renderPage({ mod, key, pages = PAGES, opts = {} }) {
+  const page = pages.find((p) => p.key === key);
   if (!page) throw new Error(`no such page: ${key}`);
-  const res = resolver(mod.meta.slug, key);
+  const res = opts.absolute
+    ? absoluteResolver(opts)
+    : resolver(mod.meta.slug, key, opts);
 
   const ctx = {
     page, res,
     url: res.url, asset: res.asset, local: res.local, root: res.root,
+    hub: res.hub, hubs: !!opts.hubs,
     site: content.site, services: content.services,
     areas: content.areas, pages: content.pages,
     areasLocal: content.areasLocal,
@@ -31,6 +40,9 @@ export function renderPage({ mod, key }) {
     fonts: mod.meta.fonts || '',
     preload: typeof mod.meta.preload === 'function'
       ? mod.meta.preload(ctx) : (mod.meta.preload || ''),
+    extraMeta: typeof mod.meta.extraMeta === 'function'
+      ? mod.meta.extraMeta(ctx) : (mod.meta.extraMeta || ''),
+    schemaOpts: opts,
   });
 
   const body = mod[page.kind](ctx);

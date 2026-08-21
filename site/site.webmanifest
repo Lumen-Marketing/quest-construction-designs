@@ -1,0 +1,24 @@
+{
+  "name": "Quest Construction LLC",
+  "short_name": "Quest Construction",
+  "description": "Expert craftsmanship for construction, remodeling, and home improvement projects across Arizona.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "lang": "en-US",
+  "background_color": "#FAF6EC",
+  "theme_color": "#D07C42",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

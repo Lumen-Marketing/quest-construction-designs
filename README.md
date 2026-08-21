@@ -27,6 +27,69 @@ homepage, and the direction's whole site sits behind it.
 `sitemap.xml`: ten near-identical sites on one domain would cannibalise each other. Pick one,
 flip its flag, and the rest can come down.
 
+## The choice, and the standalone site
+
+**The team picked 01 Site Plan in Burnt Orange.** `site/` is that pairing built as a standalone,
+deployable site — the deliverable, as opposed to the demo directions, which are the pitch.
+
+```bash
+node build/site/build-site.mjs      # write site/ — 33 pages, 404, assets, robots, sitemap
+node build/site/verify-site.mjs     # the gate: links, heads, schema, sitemap, accent, fonts
+```
+
+What is different from `d01-site-plan/` sitting in a subfolder:
+
+| | Demo direction | `site/` |
+|---|---|---|
+| URLs | `/d01-site-plan/services/adu/` | `/services/adu/` |
+| Accent | swapped live off the URL and the chooser | Burnt Orange baked into the stylesheet |
+| Fonts | Google Fonts, render-blocking third party | two self-hosted variable woff2, 75KB total |
+| Pages | 31 | 33 — plus `/services/` and `/service-areas/` |
+| Assets | shared repo-root `assets/` | its own `assets/`, only what is referenced |
+| Root files | shares the chooser's | own `robots.txt`, `sitemap.xml`, `llms.txt`, `404.html`, manifest, host config |
+
+It is **generated, not forked.** `build/site/module.mjs` reuses direction 01's renderers and
+changes only the shell; the stylesheet is direction 01's with the three accent tokens and eight
+literal ochre washes rewritten on the way through, and the build throws rather than shipping if
+any of those substitutions stops matching. Editing the design still means editing `d01`.
+
+**The two section landing pages are new.** `/services/` and `/service-areas/` are the URLs a
+visitor reaches by truncating, and the two pages an answer engine wants when it is asked what a
+contractor does and where. They are opt-in — `pageList({ hubs: true })` — because the ten demo
+directions are held to a thirty-one page contract. The service and area breadcrumbs point at them
+where they exist and fall back to the sitemap page where they do not, so `d01`'s demo output is
+byte-identical to what it was.
+
+### What the standalone adds on top of the SEO pass
+
+- **Self-hosted fonts.** Archivo and JetBrains Mono, latin subset, variable — one file per family
+  covering every weight the site uses. That removes the last render-blocking third-party request.
+- **Two hub pages**, each carrying an `ItemList` of what it indexes.
+- **Richer structured data**: `openingHoursSpecification`, an `OfferCatalog` of the fourteen
+  trades, `logo` and `image` on the business node, a per-city `Service` node on every area page,
+  `AboutPage` / `CollectionPage` / `ContactPage` types where they apply, and a `dateModified`.
+  Still no `PostalAddress`, no licence `identifier` and no `aggregateRating` — Quest has published
+  none of them.
+- **A fixed `primaryImageOfPage`.** It pointed at `/assets/<card>.jpg` when the social cards live
+  in `/assets/og/`, so every one of them 404'd. Fixed in `build/lib/schema.mjs`, which means the
+  ten demo directions were regenerated too.
+- **An image sitemap** — `xmlns:image` with every photograph on each page.
+- **`llms.txt`**, and `robots.txt` explicitly allowing the answer engines, including
+  `Claude-SearchBot` and `Applebot-Extended`.
+- **A real 404** with the full nav and footer, addressed root-absolutely so it works when the host
+  serves it in place of any URL.
+- **Host config for all three static hosts**: `vercel.json` and `_headers` carry the same
+  immutable-asset caching and the same five security headers, so the tree deploys as it stands on
+  Vercel, Netlify or Cloudflare Pages.
+- **Loading hints on the two logos.** The nav and footer logos are hand-written `<img>` rather
+  than built by the image renderer, so they were the only images on the site without them.
+
+### Before `site/` goes live
+
+Everything in "Before this goes live" below still applies — the domain, the unverified per-city
+copy, the unwired contact form and the stock photography. Two things are now done: the fonts are
+self-hosted, and the indexable direction has been chosen.
+
 ## The build
 
 The pages are **generated**, not hand-written. Content lives as data in `content/*.json`; a
@@ -51,6 +114,8 @@ node --test "build/**/*.test.mjs" # the whole suite
 | `build/directions/dNN.mjs` | One direction's markup — ten renderers plus `meta` and `script` |
 | `build/css/dNN.css` | That direction's multi-page furniture, spliced onto its stylesheet |
 | `dNN-slug/` | Generated output, committed |
+| `build/site/` | The standalone build: the module, the generator and its gate |
+| `site/` | The standalone deployable site, committed |
 
 `build/directions/all.test.mjs` is the contract: it discovers every direction module on disk and
 holds all of them to the same guarantees — thirty-one pages, one `h1` each, alt text and intrinsic

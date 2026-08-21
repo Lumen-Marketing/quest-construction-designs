@@ -4,7 +4,10 @@ const esc = (s) => String(s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;')
   .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-export function buildHead({ page, res, dir, content, fonts = '', preload = '', extraCss = '' }) {
+export function buildHead({
+  page, res, dir, content,
+  fonts = '', preload = '', extraCss = '', extraMeta = '', schemaOpts = {},
+}) {
   const robots = dir.indexable
     ? 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'
     : 'noindex,follow';
@@ -41,10 +44,10 @@ export function buildHead({ page, res, dir, content, fonts = '', preload = '', e
 
 <link rel="icon" href="${res.root('favicon.svg')}" type="image/svg+xml">
 <link rel="apple-touch-icon" href="${res.root('apple-touch-icon.png')}">
-${preload}${fonts}
+${extraMeta}${preload}${fonts}
 <link rel="stylesheet" href="${res.local('assets/styles.css')}">
 ${extraCss}
 <script type="application/ld+json">
-${JSON.stringify(graphFor({ page, res, content }), null, 2)}
+${JSON.stringify(graphFor({ page, res, content }, schemaOpts), null, 2)}
 </script>`;
 }

@@ -35,6 +35,8 @@ const OG = {
   sitemap: ['cranes.jpg', 'Cranes over a Quest Construction site'],
   service: ['rebar.jpg', 'Reinforcing steel placed on a Quest Construction job'],
   area: ['trade-weld.jpg', 'Welding on a Quest Construction job in Arizona'],
+  serviceIndex: ['site-steel.jpg', 'Structural steel on a Quest Construction site'],
+  areaIndex: ['neighborhood.jpg', 'Completed homes on a Quest Construction project'],
 };
 
 const clip = (s, n) => {
@@ -45,7 +47,12 @@ const clip = (s, n) => {
   return (sp > n * 0.6 ? cut.slice(0, sp) : cut).replace(/[,;:.\s]+$/, '');
 };
 
-export function pageList() {
+/**
+ * @param opts { hubs } — adds the two section landing pages. Off by default:
+ *   the ten demo directions are held to a thirty-one page contract, and only
+ *   the standalone site carries the hubs.
+ */
+export function pageList(opts = {}) {
   const { site, services, areas, pages } = loadContent();
   const brand = ' | Quest Construction';
   const budget = 60 - brand.length;
@@ -74,6 +81,15 @@ export function pageList() {
       clip(`Construction, remodeling and exterior work in ${a.name} from Quest Construction. ` +
         `Family-owned, ${site.availability}. Call ${site.phoneDisplay}.`, 155),
       a);
+  }
+
+  if (opts.hubs) {
+    push('services', 'serviceIndex', `Construction Services in Arizona${brand}`,
+      clip(`All ${services.length} trades Quest Construction self-manages across Arizona — ` +
+        'framing, concrete, roofing, stucco, remodels, ADUs and more.', 155));
+    push('service-areas', 'areaIndex', `Service Areas in Arizona${brand}`,
+      clip(`The ${areas.areas.length} Arizona cities Quest Construction builds in, from Phoenix ` +
+        `and Scottsdale to Queen Creek. Call ${site.phoneDisplay}.`, 155));
   }
 
   push('about', 'about', `About Us${brand}`,

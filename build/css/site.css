@@ -1,0 +1,57 @@
+/* ============================================================
+   STANDALONE ADDITIONS — spliced onto direction 01's stylesheet
+   by build/site/build-site.mjs. Two things live here: the
+   self-hosted faces that replace the Google Fonts request, and
+   the furniture for the two section landing pages, which only
+   the standalone site carries.
+   ============================================================ */
+
+/* Both faces are variable, latin subset, one file per family for
+   every weight the site uses — 75KB total, first-party, no
+   render-blocking third-party stylesheet in front of them. */
+@font-face{
+  font-family:'Archivo';
+  font-style:normal;
+  font-weight:100 900;
+  font-display:swap;
+  src:url(fonts/archivo-latin-var.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,
+    U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,
+    U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'JetBrains Mono';
+  font-style:normal;
+  font-weight:100 800;
+  font-display:swap;
+  src:url(fonts/jetbrains-mono-latin-var.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,
+    U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,
+    U+FEFF,U+FFFD;
+}
+
+/* ---------- city cards on /service-areas/ ---------- */
+.scope--3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:1040px){.scope--3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.scope--3{grid-template-columns:1fr}}
+a.sc{display:flex;flex-direction:column;gap:12px;color:inherit;
+  transition:translate .26s cubic-bezier(.2,.8,.2,1),box-shadow .26s ease}
+a.sc h3{margin:0}
+a.sc p{flex:1}
+.citycard .go{display:inline-flex;align-items:center;gap:9px;
+  font-family:'JetBrains Mono',ui-monospace,Consolas,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--acc-dim)}
+.citycard .go i{font-style:normal;transition:transform .28s ease}
+@media (hover:hover) and (pointer:fine){
+  a.sc:hover{translate:0 -4px;box-shadow:var(--sh-lg)}
+  a.sc:hover .go i{transform:translate(5px,-5px)}
+}
+
+/* ---------- the 404 ---------- */
+.gone{position:relative;padding:clamp(90px,14vw,190px) 0}
+.gone .wrap{position:relative;z-index:3;max-width:760px;text-align:center}
+.gone .code{font-family:'JetBrains Mono',ui-monospace,Consolas,monospace;font-size:11px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--acc-dim);margin:0 0 18px;font-weight:700}
+.gone h1{font-size:clamp(38px,6vw,78px);font-weight:900;margin-bottom:18px}
+.gone p{font-size:clamp(16px,1.5vw,18px);color:var(--ink-2);margin:0 auto 30px;max-width:52ch}
+.gone .hero-acts{justify-content:center}

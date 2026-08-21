@@ -64,7 +64,8 @@ export function nav(c) {
   return `<header class="nav">
 <div class="wrap">
   <a class="brand" href="${c.url('home')}" aria-label="${esc(c.site.name)} home">
-    <img src="${c.asset('quest/logo.webp')}" alt="${esc(c.site.name)}" width="1261" height="285">
+    <img src="${c.asset('quest/logo.webp')}" alt="${esc(c.site.name)}" width="1261" height="285"
+      loading="eager" decoding="async">
   </a>
   <button class="navtoggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -72,13 +73,15 @@ export function nav(c) {
   <nav>
     <div class="drop">
       <button type="button" aria-expanded="false">Services</button>
-      <div class="dropmenu dropmenu--svc">${col(
-        c.services.map((s) => [c.url(`services/${s.slug}`), s.name]))}</div>
+      <div class="dropmenu dropmenu--svc">${col([
+        ...(c.hubs ? [[c.url('services'), 'All Services']] : []),
+        ...c.services.map((s) => [c.url(`services/${s.slug}`), s.name])])}</div>
     </div>
     <div class="drop">
       <button type="button" aria-expanded="false">Areas Served</button>
-      <div class="dropmenu dropmenu--area">${col(
-        c.areas.areas.map((a) => [c.url(`service-areas/${a.slug}`), a.name]))}</div>
+      <div class="dropmenu dropmenu--area">${col([
+        ...(c.hubs ? [[c.url('service-areas'), 'All Areas Served']] : []),
+        ...c.areas.areas.map((a) => [c.url(`service-areas/${a.slug}`), a.name])])}</div>
     </div>
     <a href="${c.url('projects')}">Projects</a>
     <a href="${c.url('gallery')}">Gallery</a>
@@ -101,7 +104,8 @@ export function footer(c) {
 <div class="wrap fg">
   <div class="about">
     <a class="brand" href="${c.url('home')}">
-      <img src="${c.asset('quest/logo.webp')}" alt="${esc(c.site.name)}" width="1261" height="285">
+      <img src="${c.asset('quest/logo.webp')}" alt="${esc(c.site.name)}" width="1261" height="285"
+        loading="lazy" decoding="async">
     </a>
     <p>${esc(c.site.footerBlurb)}</p>
     <p class="mono">${esc(c.site.positioning)}</p>
@@ -114,8 +118,12 @@ export function footer(c) {
     [c.url('contact'), 'Contact'],
     [c.url('sitemap'), 'Sitemap'],
   ])}
-  ${col('Services', c.services.map((s) => [c.url(`services/${s.slug}`), s.name]))}
-  ${col('Areas Served', c.areas.areas.map((a) => [c.url(`service-areas/${a.slug}`), a.name]))}
+  ${col('Services', [
+    ...(c.hubs ? [[c.url('services'), 'All Services']] : []),
+    ...c.services.map((s) => [c.url(`services/${s.slug}`), s.name])])}
+  ${col('Areas Served', [
+    ...(c.hubs ? [[c.url('service-areas'), 'All Areas Served']] : []),
+    ...c.areas.areas.map((a) => [c.url(`service-areas/${a.slug}`), a.name])])}
 </div>
 <div class="wrap fbar">
   <p class="mono">&copy; 2026 ${esc(c.site.name)} &middot; Since ${c.site.foundingYear}</p>
@@ -124,8 +132,8 @@ export function footer(c) {
 </footer>`;
 }
 
-/** Accent swap, nav toggle, offer-code copy, static-form notice, scroll reveals. */
-export function script(c) {
+/** Live accent swap. Chooser furniture — the standalone site bakes one in. */
+export function accentScript() {
   return `<script>
 (function(){
   var P={orange:['#D07C42','#1C1208','#9A4E1E'],clay:['#A8543A','#ffffff','#7C3A24'],hivis:['#D9A93C','#191307','#8A6712']};
@@ -134,6 +142,12 @@ export function script(c) {
   var q=new URLSearchParams(location.search).get('acc'); if(q) set(q);
   addEventListener('message',function(e){ if(e.data&&e.data.acc) set(e.data.acc); });
 })();
+</script>`;
+}
+
+/** Nav toggle, offer-code copy, static-form notice, marquee, scroll reveals. */
+export function baseScript(c) {
+  return `<script>
 (function(){
   var t=document.querySelector('.navtoggle'), n=document.querySelector('.nav nav');
   if(t&&n){t.addEventListener('click',function(){
@@ -183,6 +197,9 @@ export function script(c) {
 })();
 </script>`;
 }
+
+export function script(c) { return `${accentScript()}
+${baseScript(c)}`; }
 
 // ---------------------------------------------------------------- page bodies
 
@@ -344,7 +361,7 @@ export function service(c) {
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb">
       <a href="${c.url('home')}">Home</a> <span aria-hidden="true">/</span>
-      <a href="${c.url('sitemap')}">Services</a> <span aria-hidden="true">/</span>
+      <a href="${c.hub('services')}">Services</a> <span aria-hidden="true">/</span>
       <b>${esc(s.name)}</b>
     </nav>
     <div class="subhero-in">
@@ -429,7 +446,7 @@ export function area(c) {
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb">
       <a href="${c.url('home')}">Home</a> <span aria-hidden="true">/</span>
-      <a href="${c.url('sitemap')}">Service Areas</a> <span aria-hidden="true">/</span>
+      <a href="${c.hub('service-areas')}">Service Areas</a> <span aria-hidden="true">/</span>
       <b>${esc(a.name)}</b>
     </nav>
     <div class="subhero-in">
@@ -669,6 +686,126 @@ export function contact(c) {
 </section>`;
 }
 
+// ------------------------------------------------------- section landing pages
+// Only the standalone site carries these: /services/ and /service-areas/ are
+// the two URLs a visitor types by truncating, and the two pages an answer
+// engine wants when it is asked what a contractor does and where.
+
+/** First sentence of a paragraph, for a card blurb. */
+const firstSentence = (s) => {
+  const m = /^[\s\S]*?[.!?](?=\s|$)/.exec(String(s).trim());
+  return (m ? m[0] : String(s)).trim();
+};
+
+export function serviceIndex(c) {
+  const cards = c.services.map((s, i) => `
+    <article class="svc rv${i === 4 ? ' svc--acc' : ''}">
+      <span class="ic">${icon(s.slug)}</span>
+      <h3>${esc(s.name)}</h3>
+      <p>${esc(s.shortDesc)}</p>
+      <a class="go" href="${c.url(`services/${s.slug}`)}">View details <i>&#8599;</i></a>
+      <span class="n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
+    </article>`).join('');
+
+  return `${pageHero(c, {
+    h1: 'Construction Services in Arizona',
+    lede: `${c.services.length} trades, one contractor, ${c.site.availability} on the phone. `
+      + 'Everything below is self-managed by Quest — no brokered subcontractor chain.',
+    crumb: 'Services',
+  })}
+
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap prose-wrap">
+    <div class="prose rv">
+      <h2>One contractor for the <span>whole</span> job</h2>
+      <p>Quest Construction has built and remodelled Arizona homes since ${c.site.foundingYear}.
+        The ${c.services.length} services below cover a project end to end — the structure that
+        gets built, the shell that closes it in, and the finishes that make it a home — so a
+        single team carries the job from first conversation through final walkthrough.</p>
+      <p>Every service runs the same four-stage process, and every one is available across the
+        ${c.areas.areas.length} Arizona cities we serve. Call
+        <a class="acc" href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a> to talk one
+        through, or start with the trade you already know you need.</p>
+    </div>
+    <div class="wcs">
+      <h3>Where to start</h3>
+      <div class="wcgrid">
+        <div class="wc rv"><span class="n" aria-hidden="true">01</span>
+          <p>Building new? Start with custom home building, residential development or framing.</p></div>
+        <div class="wc rv"><span class="n" aria-hidden="true">02</span>
+          <p>Adding space? Casitas and ADUs are their own permitting track — we run both.</p></div>
+        <div class="wc rv"><span class="n" aria-hidden="true">03</span>
+          <p>Reworking what is there? Full remodel covers kitchens, baths, cabinets, floors and tops.</p></div>
+        <div class="wc rv"><span class="n" aria-hidden="true">04</span>
+          <p>Protecting the shell? Roofing, stucco, siding and windows are the exterior envelope.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec dark">
+  ${grid(true)}
+  <div class="wrap">
+    ${shead('— Every trade', `All <span>${c.services.length}</span> Services`,
+      'Each page carries the scope, the process and the questions we get asked most.')}
+    <div class="svcs">${cards}</div>
+  </div>
+</section>
+
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap">
+    ${shead('— Where we work', 'Available in <span>Every</span> City We Serve', '')}
+    <div class="arealinks rv">${c.areas.areas.map((a) =>
+      `<a href="${c.url(`service-areas/${a.slug}`)}">${esc(a.name)}</a>`).join('')}</div>
+  </div>
+</section>
+
+${closingCta(c, c.pages.home.ctaHeading, c.pages.home.ctaBody)}`;
+}
+
+export function areaIndex(c) {
+  const cards = c.areas.areas.map((a) => {
+    const local = c.areasLocal[a.slug];
+    return `
+    <a class="sc citycard rv" href="${c.url(`service-areas/${a.slug}`)}">
+      <h3>${esc(a.name)}</h3>
+      <p>${esc(firstSentence(local.paras[0]))}</p>
+      <span class="go">Building in ${esc(a.city)} <i>&#8599;</i></span>
+    </a>`;
+  }).join('');
+
+  return `${pageHero(c, {
+    h1: 'Service Areas Across Arizona',
+    lede: `Quest Construction builds in ${c.areas.areas.length} Arizona cities. Each one permits `
+      + 'differently and each one has its own housing stock — the pages below say how.',
+    crumb: 'Service Areas',
+  })}
+
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap">
+    ${shead('— Eleven cities', 'Where <span>Quest</span> Builds',
+      'One crew, one licence, one phone number across the East Valley, Phoenix and Pinal County.')}
+    <div class="scope scope--3">${cards}</div>
+  </div>
+</section>
+
+<section class="sec dark">
+  ${grid(true)}
+  <div class="wrap">
+    ${shead('— In every city', 'The Same <span>Fourteen</span> Trades',
+      `Everything Quest offers is available in all ${c.areas.areas.length} cities above.`)}
+    <div class="arealinks light rv">${c.services.map((s) =>
+      `<a href="${c.url(`services/${s.slug}`)}">${esc(s.name)}</a>`).join('')}</div>
+  </div>
+</section>
+
+${closingCta(c, 'Tell us where the job is',
+  `${c.site.positioning} — reachable ${c.site.availability} on ${c.site.phoneDisplay}.`)}`;
+}
+
 export function sitemap(c) {
   const col = (title, items) => `<div class="rv">
   <h3>${esc(title)}</h3>
@@ -691,8 +828,12 @@ export function sitemap(c) {
       [c.url('contact'), 'Contact'],
       [c.url('sitemap'), 'Sitemap'],
     ])}
-    ${col('Services', c.services.map((s) => [c.url(`services/${s.slug}`), s.name]))}
-    ${col('Areas Served', c.areas.areas.map((a) => [c.url(`service-areas/${a.slug}`), a.name]))}
+    ${col('Services', [
+      ...(c.hubs ? [[c.url('services'), 'All Services']] : []),
+      ...c.services.map((s) => [c.url(`services/${s.slug}`), s.name])])}
+    ${col('Areas Served', [
+      ...(c.hubs ? [[c.url('service-areas'), 'All Areas Served']] : []),
+      ...c.areas.areas.map((a) => [c.url(`service-areas/${a.slug}`), a.name])])}
   </div>
 </section>
 

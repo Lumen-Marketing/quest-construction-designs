@@ -13,20 +13,25 @@ const FIXED = {
   projects: 'projects', contact: 'contact-us', sitemap: 'sitemap',
 };
 
+// Section landing pages. The ten demo directions do not carry them — they
+// would break the thirty-one page contract every direction is held to — so
+// they live outside PAGE_KEYS and only the standalone build asks for them.
+export const HUB_KEYS = ['services', 'service-areas'];
+
 export const PAGE_KEYS = [
   ...Object.keys(FIXED),
   ...services.map((s) => `services/${s.slug}`),
   ...areas.map((a) => `service-areas/${a.slug}`),
 ];
 
-const KEYS = new Set(PAGE_KEYS);
+const KEYS = new Set([...PAGE_KEYS, ...HUB_KEYS]);
 
 const dirFor = (key) => {
   if (!KEYS.has(key)) throw new Error(`unknown page key: ${key}`);
   return key in FIXED ? FIXED[key] : key;
 };
 
-/** Page key -> file path relative to the direction folder. */
+/** Page key -> file path relative to the site root. */
 export function outPath(key) {
   const dir = dirFor(key);
   return dir ? `${dir}/index.html` : 'index.html';
@@ -38,24 +43,67 @@ function dirForm(key) {
   return dir ? `${dir}/` : '';
 }
 
-export function resolver(dirSlug, pageKey) {
+/**
+ * @param dirSlug  the direction folder, or '' for the standalone site at the
+ *                 origin root — which also moves assets/ inside the tree.
+ * @param opts     { hubs } — whether the section landing pages exist. When
+ *                 they do not, anything pointing at one falls back to the
+ *                 sitemap page, which lists the same links.
+ */
+export function resolver(dirSlug, pageKey, opts = {}) {
+  const standalone = dirSlug === '';
   const depth = outPath(pageKey).split('/').length - 1;
   const up = depth === 0 ? '' : '../'.repeat(depth);
+  // In a direction folder the shared assets sit one level further up; in the
+  // standalone tree they sit inside it.
+  const outward = standalone ? up : '../'.repeat(depth + 1);
+  const base = standalone ? `${ORIGIN}/` : `${ORIGIN}/${dirSlug}/`;
+
+  const url = (key) => up + outPath(key);
+  const abs = (key = pageKey) => base + dirForm(key);
+  const hubKey = (key) => (opts.hubs ? key : 'sitemap');
 
   return {
     depth,
-    /** Link to another page in this same direction. */
-    url(key) { return up + outPath(key); },
-    /** A file inside this direction folder, e.g. assets/styles.css. */
+    /** Link to another page in this same site. */
+    url,
+    /** Link to a section landing page, or the sitemap where none exists. */
+    hubKey,
+    hub: (key) => url(hubKey(key)),
+    absHub: (key) => abs(hubKey(key)),
+    /** A file inside this site folder, e.g. assets/styles.css. */
     local(path) { return up + path; },
-    /** A shared photo at repo-root assets/, one level above the direction folder. */
-    asset(path) { return '../'.repeat(depth + 1) + 'assets/' + path; },
-    /** A repo-root file sitting beside the direction folders, e.g. favicon.svg. */
-    root(path) { return '../'.repeat(depth + 1) + path; },
+    /** A shared photo under assets/. */
+    asset(path) { return `${outward}assets/${path}`; },
+    /** A file sitting at the site root, e.g. favicon.svg. */
+    root(path) { return outward + path; },
     /** Absolute URL of a page, for canonical / OG / schema @id. */
-    abs(key = pageKey) { return `${ORIGIN}/${dirSlug}/${dirForm(key)}`; },
-    get canonical() { return `${ORIGIN}/${dirSlug}/${dirForm(pageKey)}`; },
+    abs,
+    get canonical() { return abs(pageKey); },
     /** Absolute URL of a shared asset, for OG images and schema. */
+    absAsset(path) { return `${ORIGIN}/assets/${path}`; },
+  };
+}
+
+/**
+ * Root-absolute paths, for a document that can be served from any depth —
+ * the 404, which the host returns in place of whatever URL was requested.
+ * Relative asset paths on that page resolve against the missing URL.
+ */
+export function absoluteResolver(opts = {}) {
+  const hubKey = (key) => (opts.hubs ? key : 'sitemap');
+  const url = (key) => `/${dirForm(key)}`;
+  return {
+    depth: 0,
+    url,
+    hubKey,
+    hub: (key) => url(hubKey(key)),
+    absHub: (key) => ORIGIN + url(hubKey(key)),
+    local(path) { return `/${path}`; },
+    asset(path) { return `/assets/${path}`; },
+    root(path) { return `/${path}`; },
+    abs(key = 'home') { return ORIGIN + url(key); },
+    get canonical() { return `${ORIGIN}/`; },
     absAsset(path) { return `${ORIGIN}/assets/${path}`; },
   };
 }

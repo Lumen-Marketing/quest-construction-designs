@@ -8,9 +8,43 @@ const city = (name) => ({
   containedInPlace: { '@type': 'State', name: 'Arizona' },
 });
 
-function business(content, areasServed) {
+function business(content, areasServed, opts) {
   const { site, areas } = content;
   const list = areasServed || areas.areas.map((a) => a.city);
+  // The standalone site carries the fuller node. The demo directions keep the
+  // lean one so ten noindex copies of an offer catalogue never reach an index.
+  const rich = opts.rich ? {
+    image: `${ORIGIN}/assets/og/quest-hero.jpg`,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${ORIGIN}/assets/quest/logo.webp`,
+      width: 1261,
+      height: 285,
+    },
+    // Quest states 24/7 reachability on every page; the node says the same.
+    openingHoursSpecification: [{
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
+        'Saturday', 'Sunday'],
+      opens: '00:00',
+      closes: '23:59',
+    }],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Construction and remodeling services',
+      itemListElement: content.services.map((s, i) => ({
+        '@type': 'Offer',
+        position: i + 1,
+        itemOffered: {
+          '@type': 'Service',
+          '@id': `${ORIGIN}/services/${s.slug}/#service`,
+          name: s.name,
+          description: s.shortDesc,
+          url: `${ORIGIN}/services/${s.slug}/`,
+        },
+      })),
+    },
+  } : {};
   return {
     '@type': ['GeneralContractor', 'HomeAndConstructionBusiness'],
     '@id': `${ORIGIN}/#business`,
@@ -31,19 +65,25 @@ function business(content, areasServed) {
       availableLanguage: ['en', 'es'],
     },
     knowsAbout: content.services.map((s) => s.name),
+    ...rich,
   };
 }
+
+const CRUMB = { serviceIndex: 'Services', areaIndex: 'Service Areas' };
 
 function breadcrumbs(page, res) {
   const trail = [{ name: 'Home', key: 'home' }];
   if (page.kind === 'service') {
-    trail.push({ name: 'Services', key: 'sitemap' });
+    trail.push({ name: 'Services', key: res.hubKey('services') });
     trail.push({ name: page.item.name, key: page.key });
   } else if (page.kind === 'area') {
-    trail.push({ name: 'Service Areas', key: 'sitemap' });
+    trail.push({ name: 'Service Areas', key: res.hubKey('service-areas') });
     trail.push({ name: page.item.name, key: page.key });
   } else if (page.kind !== 'home') {
-    trail.push({ name: page.title.split('|')[0].trim(), key: page.key });
+    trail.push({
+      name: CRUMB[page.kind] || page.title.split('|')[0].trim(),
+      key: page.key,
+    });
   }
   return {
     '@type': 'BreadcrumbList',
@@ -54,12 +94,25 @@ function breadcrumbs(page, res) {
   };
 }
 
-export function graphFor({ page, res, content }) {
+const PAGE_TYPE = {
+  contact: 'ContactPage',
+  about: 'AboutPage',
+  gallery: 'CollectionPage',
+  projects: 'CollectionPage',
+  serviceIndex: 'CollectionPage',
+  areaIndex: 'CollectionPage',
+};
+
+/**
+ * @param opts { rich, built } — the standalone site opts into the fuller
+ *   business node and stamps a dateModified; the demo directions do neither.
+ */
+export function graphFor({ page, res, content }, opts = {}) {
   const areasServed = page.kind === 'area' ? [page.item.city] : null;
   const crumbs = breadcrumbs(page, res);
 
   const graph = [
-    business(content, areasServed),
+    business(content, areasServed, opts),
     {
       '@type': 'WebSite',
       '@id': `${ORIGIN}/#website`,
@@ -69,7 +122,7 @@ export function graphFor({ page, res, content }) {
       publisher: { '@id': `${ORIGIN}/#business` },
     },
     {
-      '@type': page.kind === 'contact' ? 'ContactPage' : 'WebPage',
+      '@type': PAGE_TYPE[page.kind] || 'WebPage',
       '@id': `${res.canonical}#webpage`,
       url: res.canonical,
       name: page.title,
@@ -77,11 +130,56 @@ export function graphFor({ page, res, content }) {
       inLanguage: 'en-US',
       isPartOf: { '@id': `${ORIGIN}/#website` },
       about: { '@id': `${ORIGIN}/#business` },
-      primaryImageOfPage: { '@type': 'ImageObject', url: res.absAsset(page.ogImage) },
+      primaryImageOfPage: { '@type': 'ImageObject', url: res.absAsset(`og/${page.ogImage}`) },
       breadcrumb: { '@id': crumbs['@id'] },
+      ...(opts.built ? { dateModified: opts.built } : {}),
     },
     crumbs,
   ];
+
+  // A section landing page's whole job is the list it carries. Saying so in
+  // the graph is what gets it quoted back as "the services they offer are...".
+  if (page.kind === 'serviceIndex' || page.kind === 'areaIndex') {
+    const items = page.kind === 'serviceIndex'
+      ? content.services.map((s) => [s.name, res.abs(`services/${s.slug}`), s.shortDesc])
+      : content.areas.areas.map((a) => [
+        `${a.name} Construction`, res.abs(`service-areas/${a.slug}`),
+        `Construction, remodeling and exterior work in ${a.name}.`]);
+    graph.push({
+      '@type': 'ItemList',
+      '@id': `${res.canonical}#list`,
+      name: page.title.split('|')[0].trim(),
+      numberOfItems: items.length,
+      itemListOrder: 'https://schema.org/ItemListUnordered',
+      itemListElement: items.map(([name, url, description], i) => ({
+        '@type': 'ListItem', position: i + 1, name, url, description,
+      })),
+    });
+  }
+
+  // A city page is a service offered in one place. Narrowing the Service node
+  // as well as the business node is what answers "contractor in Mesa".
+  if (page.kind === 'area' && opts.rich) {
+    graph.push({
+      '@type': 'Service',
+      '@id': `${res.canonical}#service`,
+      name: `Construction and remodeling in ${page.item.name}`,
+      serviceType: 'General contracting',
+      description: page.description,
+      provider: { '@id': `${ORIGIN}/#business` },
+      areaServed: city(page.item.city),
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: `Services in ${page.item.name}`,
+        itemListElement: content.services.map((s, i) => ({
+          '@type': 'Offer',
+          position: i + 1,
+          itemOffered: { '@type': 'Service', name: s.name },
+          areaServed: city(page.item.city),
+        })),
+      },
+    });
+  }
 
   if (page.kind === 'service') {
     graph.push({
