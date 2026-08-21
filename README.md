@@ -17,7 +17,7 @@ homepage, and the direction's whole site sits behind it.
 | 03 | `d03-split-bay/` | **Split Bay** — dark, split hero, cursor-driven photo reveals. | Brutalist |
 | 04 | `d04-grid-north/` | **Grid North** — visible 12-column grid, hairline rules, numbered rows. | Swiss |
 | 05 | `d05-ground-break/` | **Ground Break** — deep green, one giant accent word, concentric pad arc. | Colour field |
-| 06 | `d06-red-iron/` | **Red Iron** — diagonal wedges, halftone photography, angled mosaic. | Constructivist |
+| 06 | `d06-red-iron/` | **Goop** — black hero, pill nav, bento cards on a tinted ground. | Product-site soft |
 | 07 | `d07-bid-desk/` | **Bid Desk** — clean white, estimate bar on an organic hero sweep. | Utility |
 | 08 | `d08-machine-age/` | **Machine Age** — symmetrical, ziggurat frames, sunburst, brass on charcoal. | Art Deco |
 | 09 | `d09-site-notice/` | **Site Notice** — stapled flyers, tape, xerox halftone, tear-off tabs. | Punk / xerox |
@@ -107,10 +107,12 @@ rather than blending several:
   jobsite fills the first screen with the wordmark knocked over it and the figures as a hard bar
   along the base — the figures bar is the last thing in the section, and the photograph runs
   straight into the cream below it with no decorative shape in between.
-- **06 Red Iron — Constructivist / Bauhaus.** The hero is **the reel** — footage through the
-  halftone screen, the accent wedge slashing over it, each headline word reversed onto its own
-  black slab. Everything else on a diagonal: photographs cut as parallelograms, blocks rotated
-  against each other, and photography printed as CSS **halftone** rather than shown straight.
+- **06 Goop — modern product-site softness.** Modelled on Womp. The first screen is **pure
+  black** with the headline centred over full-colour footage held down by an inverted vignette,
+  and the nav is a **white pill floating over it** with the wordmark on a dark badge. Below the
+  fold nothing is square: big-radius bento cards, dark rounded islands for the lead magnet and
+  the contact band, and pill controls throughout. Every pale ground is `color-mix`ed from the
+  accent, so the gallery's accent swap re-tints the whole page rather than only the buttons.
 - **07 Bid Desk — clean utility.** White, an estimate bar straddling an organic hero sweep,
   everything pointing at one form.
 - **08 Machine Age — Art Deco.** A **hard split hero** — charcoal type column with the sunburst
@@ -144,13 +146,13 @@ same parts in every direction — a strip of pills, photo-beside-text, three car
 box with a rotated booklet, a row of work cards. Four different paint jobs on one page. That was
 the right criticism and this table is the fix:
 
-| Section | 04 Grid North | 05 Ground Break | 06 Red Iron | 07 Bid Desk | 08 Machine Age | 09 Site Notice | 10 Cross Cut |
+| Section | 04 Grid North | 05 Ground Break | 06 Goop | 07 Bid Desk | 08 Machine Age | 09 Site Notice | 10 Cross Cut |
 |---|---|---|---|---|---|---|---|
-| Social proof | Data table | Cream band of pills | Diagonal marquee | Floating pill cluster | Chevron-divided rail | Torn strip, `××` separated | Wall of notched steel plates |
-| About | Full-bleed band, then 2 columns | Photo beside text | Angled photo, text overlapping | Photo cluster beside text | Symmetrical, ziggurat photo centred | Torn sheet + stapled photo | Slashed photo band, slab hung off its edge |
-| Offers | Numbered **rows** | 3 chunky cards | Asymmetric mosaic | 3 spec cards | 3 ziggurat arches | 3 stapled flyers | Chevron list beside a cut-out excavator |
-| Lead magnet | Type-only accent band | Cream plate + booklet | Diagonal black band | Contents list, no booklet | Ornamental centred panel | A literal site notice with tear-off tabs | Checklist card whose boxes tick on scroll |
-| Work | Index **table** | 4 cards in a row | Overlapping angled collage | 3 spec cards | Vertical stepped tiles | Photocopied contact sheet | Skewed filmstrip, panes expand on hover |
+| Social proof | Data table | Cream band of pills | Drift of pills | Floating pill cluster | Chevron-divided rail | Torn strip, `××` separated | Wall of notched steel plates |
+| About | Full-bleed band, then 2 columns | Photo beside text | Two rounded cards, side by side | Photo cluster beside text | Symmetrical, ziggurat photo centred | Torn sheet + stapled photo | Slashed photo band, slab hung off its edge |
+| Offers | Numbered **rows** | 3 chunky cards | Bento grid | 3 spec cards | 3 ziggurat arches | 3 stapled flyers | Chevron list beside a cut-out excavator |
+| Lead magnet | Type-only accent band | Cream plate + booklet | Dark rounded island | Contents list, no booklet | Ornamental centred panel | A literal site notice with tear-off tabs | Checklist card whose boxes tick on scroll |
+| Work | Index **table** | 4 cards in a row | Soft-tile bento, captions on glass | 3 spec cards | Vertical stepped tiles | Photocopied contact sheet | Skewed filmstrip, panes expand on hover |
 
 If a new direction is added, fill in a new column here first. Anything that duplicates an existing
 cell should be redesigned before it ships.

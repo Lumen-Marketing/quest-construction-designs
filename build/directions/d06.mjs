@@ -1,16 +1,16 @@
-// Direction 06 — Red Iron. Constructivist: everything sits on a diagonal.
-// Photographs are cut as parallelograms and printed as halftone rather than
-// shown straight, blocks rotate against each other, and the type is heavy
-// condensed slab-grotesk stacked hard. Bone, black and the accent, nothing else.
+// Direction 06 — Goop. Modern product-site softness: big-radius cards on a
+// pale accent-tinted ground, a pure-black first screen with the headline
+// centred over full-colour footage, and every control a pill. One geometric
+// grotesk carries the page. Paper, ink and the accent, nothing else.
 import { img, preloadImage } from '../lib/images.mjs';
 
 export const meta = {
   slug: 'd06-red-iron',
-  name: 'Red Iron',
+  name: 'Goop',
   indexable: false,
   fonts: `<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=Big+Shoulders+Display:wght@500;700;800;900&display=swap" rel="stylesheet">`,
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">`,
   preload: (c) => (c.page.kind === 'home' ? preloadImage(c, 'quest/hero.webp') : ''),
 };
 
