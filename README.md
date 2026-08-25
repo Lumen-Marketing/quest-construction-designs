@@ -335,6 +335,16 @@ The rest, each measured rather than guessed:
 | Footer trade and city lists | One link per row, ~1,500px of footer | Two-up |
 | Long trade names | `bathroomcabinets,` at 30px is 299px of unbreakable word; in a grid item it pushed the closing CTA a third of a screen wide and `overflow:hidden` cut the heading off mid-word | Breaks, and the track no longer grows to it |
 
+Two things reported from the live site were wide-screen faults rather than
+phone ones, and both were in the dropdown nav. The panel floats 20px clear of
+its button, and that 20px belonged to neither: moving the pointer down to click
+a trade left `.drop`, `:hover` went false, and the menu shut before it could be
+reached — a transparent `::before` bridges it now. And `.dropmenu a` was
+`white-space:nowrap` against a fixed `minmax(215px,1fr)` track, so the
+full-remodel trade rendered 422px of text out of a 215px box and printed over
+the item in the next column; the tracks are sized to the longest label that
+should hold one line, and the one that cannot now wraps.
+
 The homepage went from 10,861px to 9,804px at 390px wide, and a service page
 from 7,815px to 6,864px. Across all 34 pages at 390, 360 and 320: nothing
 scrolls sideways, no image fails to decode, no text is under 11.5px, and the

@@ -95,6 +95,33 @@ test('the long footer lists are marked for the two-up phone layout', () => {
   assert.equal((html.match(/<div class="col2">/g) || []).length, 2);
 });
 
+// ------------------------------------------------------------- the dropdowns
+// Both of these were reported from the live site: the menu vanished on the way
+// down to click an item, and the longest trade printed over the item beside it.
+
+test('the dropdown bridges the gap it floats above the button by', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  const offset = css.match(/\.dropmenu\{[^}]*top:calc\(100% \+ (\d+)px\)/);
+  assert.ok(offset, 'the panel no longer floats clear of the button');
+  const bridge = css.match(/\.dropmenu::before\{[^}]*top:-(\d+)px;height:(\d+)px/);
+  assert.ok(bridge, 'nothing bridges the gap; hover dies crossing it');
+  // The bridge has to reach the button, or the pointer still leaves `.drop`
+  // partway down and `:hover` goes false before the panel is reached.
+  assert.ok(Number(bridge[1]) >= Number(offset[1]),
+    `the bridge starts ${bridge[1]}px up but the panel floats ${offset[1]}px clear`);
+  assert.ok(Number(bridge[2]) >= Number(offset[1]),
+    `the bridge is ${bridge[2]}px tall over a ${offset[1]}px gap`);
+});
+
+test('dropdown labels wrap rather than printing over the next column', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  const link = css.match(/\.dropmenu a\{[^}]*\}/);
+  assert.ok(link, 'no rule for the dropdown links');
+  // With a fixed track and nowrap the box stayed 215px while the full-remodel
+  // trade rendered 422px of text straight out of it.
+  assert.doesNotMatch(link[0], /white-space:nowrap/);
+});
+
 test('form fields are 16px, or iOS zooms the page in and does not zoom back', () => {
   const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
   const field = css.match(/\.contact-form input,\.contact-form textarea\{[^}]*\}/);

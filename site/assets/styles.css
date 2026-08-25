@@ -218,7 +218,10 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
     width:min(100%,560px);margin:22px auto -8px;display:block}
   .hero-ghost{top:auto;bottom:2%;transform:none;right:-6%;color:rgba(20,19,16,.09)}
   .badge-float{display:none}
-  .hero-trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}}
+  /* Four figures, four columns. Three orphaned the fourth on a row of its
+     own, and this is the width where the copy stops sharing the hero with
+     the machine — so there is more room per figure here, not less. */
+  .hero-trust{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}}
 /* Four figures across three columns orphans the fourth on a row of its own.
    Two by two is even, and there is room for it from the tablet down. */
 @media(max-width:880px){.hero-trust{grid-template-columns:1fr 1fr;gap:18px 20px}}
@@ -429,10 +432,33 @@ footer .brand img{height:38px}
   background:var(--cream);border:1px solid rgba(21,20,15,.09);border-radius:var(--r-lg);
   padding:18px;box-shadow:var(--sh-lg)}
 .drop.open .dropmenu{display:grid}
-@media (hover:hover) and (pointer:fine){.drop:hover .dropmenu{display:grid}}
-.dropmenu--svc{grid-template-columns:repeat(2,minmax(215px,1fr));gap:2px 14px}
-.dropmenu--area{grid-template-columns:repeat(2,minmax(155px,1fr));gap:2px 14px}
-.dropmenu a{padding:10px 13px;border-radius:11px;font-size:14px;white-space:nowrap;
+@media (hover:hover) and (pointer:fine){
+  .drop:hover .dropmenu{display:grid}
+  /* The panel floats 20px clear of the button, and that 20px belonged to
+     neither of them: moving the pointer down to click an item left `.drop`,
+     `:hover` went false, and the menu shut before it could be reached. This
+     bridges the gap — transparent, part of the panel, so the hover holds all
+     the way down. Absolutely positioned, so it stays out of the grid rather
+     than taking a cell of its own. */
+  .dropmenu::before{content:"";position:absolute;left:0;right:0;top:-22px;height:22px}
+}
+/* The tracks are sized to the longest label that should hold one line —
+   "Deck Building (uses Trex System)" at 225px, "Camelback East Village, AZ"
+   at 187px — and the one that cannot, the full-remodel trade at 422px, wraps.
+   With `white-space:nowrap` and a fixed track it did neither: the box stayed
+   215px and the text ran straight out of it, printing over the item in the
+   next column. */
+.dropmenu--svc{grid-template-columns:repeat(2,minmax(240px,1fr));gap:2px 14px}
+.dropmenu--area{grid-template-columns:repeat(2,minmax(200px,1fr));gap:2px 14px}
+/* The panel is centred on its button, so its width is what decides whether it
+   clears the left edge. Between the burger breakpoint and 1080px the Services
+   button sits close enough to the brand that a 532px panel hangs off-screen;
+   the tracks give up the width instead, and the two longest trades wrap. */
+@media(max-width:1080px){
+  .dropmenu--svc{grid-template-columns:repeat(2,minmax(200px,1fr))}
+  .dropmenu--area{grid-template-columns:repeat(2,minmax(175px,1fr))}
+}
+.dropmenu a{padding:10px 13px;border-radius:11px;font-size:14px;line-height:1.35;
   color:var(--ink-2);transition:background .2s,color .2s}
 @media (hover:hover) and (pointer:fine){
   .dropmenu a:hover{background:rgba(21,20,15,.06);color:var(--ink)}
