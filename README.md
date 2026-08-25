@@ -298,6 +298,54 @@ Each reel is built in its own idiom rather than dropped in four times: a hairlin
 timecode in 04, an organic blob with a pulsing medallion in 05, a halftone parallelogram with a
 rotated plaque in 06, and a brass ziggurat frame with a Roman counter in 08.
 
+## The phone
+
+Most of the traffic a general contractor gets arrives on a phone, so the layout
+below 620px is held to the same standard as the wide one. Rendering the built
+tree at a true 390x844 viewport — `shots/phone.mjs`, not a narrowed desktop
+window — turned up one broken feature and a list of ergonomics.
+
+**The drawer did not work at all.** `.nav .wrap` is a fixed `height`, the open
+menu wrapped onto a second flex line inside it, and so it overflowed the header
+box: the cream band never grew behind it and twenty-six menu items rendered
+transparent on top of the hero. It is a sheet now — anchored to the bottom edge
+of the header, opaque, filling the rest of the viewport and scrolling inside
+itself, with the page behind it locked. It is positioned `absolute` rather than
+`fixed`, because `.nav` sets a `backdrop-filter` and that makes it the
+containing block for any fixed descendant; a fixed sheet collapsed back to the
+header's own 64px.
+
+**The call button was the one thing hidden at that width.** `.navtel` was
+`display:none` below 940px — the conversion action on a contractor site,
+removed at exactly the width where tapping a number is easiest. It keeps its
+place in the header as a 44px handset, and the drawer ends with the number set
+large.
+
+The rest, each measured rather than guessed:
+
+| | Was | Is |
+|---|---|---|
+| Project cards | Two per row at 175px; the caption overflowed its own tile and ran back up over the photograph | One per row |
+| Service cards | A 320px floor with `margin-bottom:auto` on the icon — 150px of dead space, fourteen times over | Packed to their content |
+| Trade rail | Fourteen chips wrapped to five rows, pushing the page's own heading below the fold | One row that scrolls, opened on the current trade |
+| Form fields | 15px, which makes iOS Safari zoom the page in on focus and not zoom back | 16px |
+| Breadcrumbs, footer social | 17px and 23px tall, under WCAG 2.2's 24px target floor | 24px |
+| Mono labelling | 9.5–10px | 11.5px |
+| Hero figures | Four across three columns, one orphaned | Two by two |
+| Footer trade and city lists | One link per row, ~1,500px of footer | Two-up |
+| Long trade names | `bathroomcabinets,` at 30px is 299px of unbreakable word; in a grid item it pushed the closing CTA a third of a screen wide and `overflow:hidden` cut the heading off mid-word | Breaks, and the track no longer grows to it |
+
+The homepage went from 10,861px to 9,804px at 390px wide, and a service page
+from 7,815px to 6,864px. Across all 34 pages at 390, 360 and 320: nothing
+scrolls sideways, no image fails to decode, no text is under 11.5px, and the
+only tap target under 24px is a phone number inside a sentence, which is
+WCAG 2.2's inline exception.
+
+Six tests in `build/directions/d01.test.mjs` pin the shape of the repair —
+that the drawer is absolutely positioned and opaque, that the header height is
+one token the anchor offset is derived from, that the call button survives the
+breakpoint, and that the form fields never drop back under 16px.
+
 ## SEO
 
 Every direction is a *fully optimised* page, not a mockup with a title tag. Whichever one Quest
@@ -397,6 +445,8 @@ node dropcheck.mjs ../site/index.html 1440         # is the open nav drop hit-te
 node acctext.mjs  ../d06-red-iron/index.html clay  # accent text, and what it sits on
 node groundtruth.mjs ../d06-red-iron/index.html ".blk.tall .n" clay
 node mob.mjs      ../site/index.html ./m.png       # true 390px phone render
+node phone.mjs --width 390 http://localhost:8099/  # the phone audit, by emulation
+node phone.mjs --shot ./m http://localhost:8099/   # ...and slice it while you are there
 node httpshot.mjs http://localhost:8099/nope/ ./404.png
 node click.mjs    palHivis ./out.png               # palOrange | palClay | palHivis
 ```
@@ -427,6 +477,24 @@ renderer or blow past a tool timeout. Shoot slices, or shoot `contact-us`
 instead: it exercises the nav, the inner-page hero, a form and the footer in one
 screen. Chrome enforces a ~500px minimum window width, so `--window-size=390`
 will not give you a true phone viewport — that is what `mob.mjs` is for.
+
+`phone.mjs` is the one to reach for on anything mobile, and it supersedes
+`mob.mjs` for most of it. `mob.mjs` renders the page inside a 390px iframe,
+which costs three things: the iframe is same-origin only, so an `http` target
+throws; the page still believes it is on a desktop, so `pointer:coarse` and
+`hover:none` never match and every `:hover` rule stays live; and the 404 cannot
+be exercised at all. `Emulation.setDeviceMetricsOverride` has none of those
+limits, so `phone.mjs` takes a list of URLs, gives each a real 390x844 mobile
+viewport with touch, and reports the four things that were actually wrong here:
+horizontal scroll, tap targets under WCAG 2.2's 24px floor, text under 11.5px,
+and images that never decoded. Serve the tree first — `npx http-server site -p
+8099 -s` — then sweep the whole thing in one command:
+
+```bash
+cd site && URLS=$(find . -name index.html | sed 's|^\./||;s|index\.html$||'   | sed 's|^|http://localhost:8099/|' | tr '
+' ' ') && cd ../shots
+node phone.mjs --width 390 $URLS http://localhost:8099/404.html
+```
 
 **The harness was written twelve times before this.** 394 of the folder's 712
 lines were the same launch-connect-teardown block, and eleven of the twelve

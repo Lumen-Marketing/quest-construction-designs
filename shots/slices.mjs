@@ -12,7 +12,7 @@ const step = Number(stepArg) || 1200;
 await withPage(file, { width, height: step }, async (page) => {
   // Fire every reveal up front so no slice catches a half-faded element.
   const h = await page.evaluate(`(() => {
-    document.querySelectorAll('.rv').forEach((e) => e.classList.add('is-in'));
+    document.querySelectorAll('.rv').forEach((e) => e.classList.add('in'));
     return document.body.scrollHeight;
   })()`);
 

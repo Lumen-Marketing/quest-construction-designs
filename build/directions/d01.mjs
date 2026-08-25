@@ -89,14 +89,25 @@ export function nav(c) {
     <a href="${c.url('gallery')}">Gallery</a>
     <a href="${c.url('about')}">About</a>
     <a href="${c.url('contact')}">Contact</a>
+    <div class="navcall">
+      <span class="mono">Call us &mdash; ${esc(c.site.availability)}</span>
+      <a href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a>
+    </div>
   </nav>
-  <a class="btn acc navtel" href="${c.site.phoneHref}"><span class="pip"></span>${esc(c.site.phoneDisplay)}</a>
+  <a class="btn acc navtel" href="${c.site.phoneHref}"
+    aria-label="Call ${esc(c.site.phoneDisplay)}"><span class="pip"><svg viewBox="0 0 24 24"
+    aria-hidden="true" focusable="false"><path
+    d="M4 5h5l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v5a15 15 0 0 1-16-16z"/></svg></span><span
+    class="navtel-num">${esc(c.site.phoneDisplay)}</span></a>
 </div>
 </header>`;
 }
 
 export function footer(c) {
-  const col = (title, items) => `<div>
+  // `col2` marks the long lists — the fourteen trades and the eleven cities.
+  // They are the two that go two-up in the phone footer rather than running
+  // to a screen and a half of one link per row.
+  const col = (title, items, cls = '') => `<div${cls ? ` class="${cls}"` : ''}>
   <h2>${esc(title)}</h2>
   <ul>${items.map(([href, label]) =>
     `<li><a href="${href}">${esc(label)}</a></li>`).join('')}</ul>
@@ -121,10 +132,10 @@ export function footer(c) {
   ])}
   ${col('Services', [
     ...(c.hubs ? [[c.url('services'), 'All Services']] : []),
-    ...c.services.map((s) => [c.url(`services/${s.slug}`), s.name])])}
+    ...c.services.map((s) => [c.url(`services/${s.slug}`), s.name])], 'col2')}
   ${col('Areas Served', [
     ...(c.hubs ? [[c.url('service-areas'), 'All Areas Served']] : []),
-    ...c.areas.areas.map((a) => [c.url(`service-areas/${a.slug}`), a.name])])}
+    ...c.areas.areas.map((a) => [c.url(`service-areas/${a.slug}`), a.name])], 'col2')}
 </div>
 <div class="wrap fbar">
   <p class="mono">&copy; 2026 ${esc(c.site.name)} &middot; Since ${c.site.foundingYear}</p>
@@ -152,10 +163,23 @@ export function baseScript(c) {
   return `<script>
 (function(){
   var t=document.querySelector('.navtoggle'), n=document.querySelector('.nav nav');
-  if(t&&n){t.addEventListener('click',function(){
-    var o=n.classList.toggle('open'); t.setAttribute('aria-expanded',String(o));
-    t.classList.toggle('on',o);
-  });}
+  // The phone drawer is a sheet over the page, so opening it has to stop the
+  // page behind from scrolling too — otherwise a flick anywhere on the menu
+  // scrolls the article underneath and the menu appears to jump.
+  function setNav(o){
+    if(!t||!n)return;
+    n.classList.toggle('open',o); t.classList.toggle('on',o);
+    t.setAttribute('aria-expanded',String(o));
+    document.documentElement.classList.toggle('nav-open',o);
+  }
+  if(t&&n){
+    t.addEventListener('click',function(){ setNav(!n.classList.contains('open')); });
+    // A rotation to landscape can put the layout back on the desktop nav with
+    // the sheet still latched open — and with the scroll lock still on.
+    addEventListener('resize',function(){
+      if(innerWidth>940&&n.classList.contains('open')) setNav(false);
+    });
+  }
   var drops=[].slice.call(document.querySelectorAll('.drop'));
   function shut(d){ if(!d.classList.contains('open'))return;
     d.classList.remove('open'); var b=d.querySelector('button');
@@ -174,8 +198,12 @@ export function baseScript(c) {
   document.addEventListener('keydown',function(e){
     if(e.key!=='Escape')return;
     var open=drops.filter(function(d){return d.classList.contains('open')});
-    if(!open.length)return;
-    open.forEach(function(d){ var b=d.querySelector('button'); shut(d); if(b&&d.contains(document.activeElement)) b.focus(); });
+    if(open.length){
+      open.forEach(function(d){ var b=d.querySelector('button'); shut(d); if(b&&d.contains(document.activeElement)) b.focus(); });
+      return;
+    }
+    // Nothing expanded inside it, so Escape dismisses the whole phone sheet.
+    if(n&&n.classList.contains('open')){ setNav(false); if(t) t.focus(); }
   });
   document.addEventListener('pointerdown',function(e){
     if(!e.target.closest('.drop')) shutAll(null);
@@ -183,6 +211,19 @@ export function baseScript(c) {
   document.addEventListener('focusin',function(e){
     if(!e.target.closest('.drop')) shutAll(null);
   });
+})();
+(function(){
+  // On a phone the trade rail is one row that scrolls sideways rather than
+  // five wrapped ones. The trade being read is often past the right edge, so
+  // bring it into view — but only when the rail is actually scrollable, or
+  // this scrolls the whole page down to the rail on a desktop.
+  var rail=document.querySelector('.svctabs .wrap'), on=rail&&rail.querySelector('a.on');
+  if(!on||rail.scrollWidth<=rail.clientWidth+1) return;
+  // Measured against the rail rather than off offsetLeft: the rail is not a
+  // positioned element, so offsetLeft is relative to the body and lands the
+  // chip flush against the screen edge instead of inside the gutter.
+  var d=on.getBoundingClientRect().left-rail.getBoundingClientRect().left-14;
+  rail.scrollLeft=Math.max(0,rail.scrollLeft+d);
 })();
 (function(){
   document.querySelectorAll('[data-copy]').forEach(function(b){

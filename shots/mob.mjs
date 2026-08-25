@@ -29,7 +29,7 @@ try {
     const diag = await page.evaluate(`(async () => {
       try {
         const w = document.querySelector('iframe').contentWindow, d = w.document;
-        d.querySelectorAll('.rv').forEach((e) => e.classList.add('is-in'));
+        d.querySelectorAll('.rv').forEach((e) => e.classList.add('in'));
         // nothing scrolls inside a tall iframe, so lazy images would never fire
         [...d.images].forEach((i) => { i.loading = 'eager'; });
         await Promise.all([...d.images].map((i) => (i.decode ? i.decode().catch(() => {}) : null)));

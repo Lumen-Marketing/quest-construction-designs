@@ -36,8 +36,14 @@
   --sh:0 20px 50px rgba(20,19,15,.10);
   --sh-lg:0 34px 80px rgba(20,19,15,.16);
   --sh-dark:0 26px 60px rgba(0,0,0,.42);
-  --m:clamp(20px,4vw,60px);
+  --m:clamp(22px,4vw,60px);
   --maxw:1400px;
+
+  /* The sticky header's height, in one place: the drawer hangs off the bottom
+     of it and every anchor jump has to clear it. It was three hardcoded
+     numbers that had already drifted apart — 82, 83 in a comment, 96 in the
+     scroll-margin — so the drawer sat a few pixels wrong at every width. */
+  --navh:82px;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--cream);color:var(--ink);
@@ -82,6 +88,9 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 @media (hover:hover) and (pointer:fine){.btn:hover{transform:translateY(-3px);box-shadow:0 18px 38px rgba(20,19,15,.3)}}
 .btn .pip{width:26px;height:26px;border-radius:50%;background:var(--acc);color:var(--on-acc);
   display:grid;place-items:center;font-size:12px;transition:transform .3s ease}
+/* The call button carries a handset for the phone header, where the digits
+   fold away and a bare dot would say nothing. Wide, the digits are there. */
+.btn .pip svg{display:none}
 @media (hover:hover) and (pointer:fine){.btn:hover .pip{transform:rotate(45deg)}}
 .btn.acc{background:var(--acc);color:var(--on-acc);box-shadow:0 12px 30px color-mix(in srgb,var(--acc) 40%,transparent)}
 .btn.acc .pip{background:var(--ink);color:var(--acc)}
@@ -104,7 +113,7 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 /* ---------- 01 NAV ---------- */
 .nav{position:sticky;top:0;z-index:200;background:rgba(250,246,236,.86);backdrop-filter:blur(14px);
   border-bottom:1px solid rgba(21,20,15,.07)}
-.nav .wrap{display:flex;align-items:center;gap:clamp(16px,3vw,44px);height:82px}
+.nav .wrap{display:flex;align-items:center;gap:clamp(16px,3vw,44px);height:var(--navh)}
 .brand{display:flex;align-items:center;gap:11px;font-weight:900;font-size:20px;letter-spacing:-.05em;text-transform:uppercase}
 .brand .mk{width:34px;height:34px;border-radius:9px;background:var(--acc);display:grid;place-items:center;
   box-shadow:0 8px 20px color-mix(in srgb,var(--acc) 40%,transparent)}
@@ -177,6 +186,9 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
   .hero-ghost{top:auto;bottom:2%;transform:none;right:-6%;color:rgba(20,19,16,.09)}
   .badge-float{display:none}
   .hero-trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}}
+/* Four figures across three columns orphans the fourth on a row of its own.
+   Two by two is even, and there is room for it from the tablet down. */
+@media(max-width:880px){.hero-trust{grid-template-columns:1fr 1fr;gap:18px 20px}}
 @media(max-width:620px){
   .badge-float{display:none}
   .machine{width:104%;right:-14%}}
@@ -231,7 +243,18 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 .svc--acc .ic svg{stroke:var(--acc)}
 .svc--acc .n{color:rgba(20,19,16,.1)}
 @media(max-width:940px){.svcs{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.svcs{grid-template-columns:1fr}}
+/* Single file, and no floor under the card. The 320px minimum is what gives
+   the three-up grid its even rhythm; stacked, it only pushed the icon and the
+   heading 150px apart and made the fourteen-card list twice as long to scroll
+   as it needed to be. */
+@media(max-width:640px){
+  .svcs{grid-template-columns:1fr}
+  .svc{min-height:0;padding:26px 24px}
+  .svc .ic{width:48px;height:48px;border-radius:14px;margin-bottom:0}
+  .svc .ic svg{width:23px;height:23px}
+  .svc h3{margin:18px 0 10px}
+  .svc p{margin-bottom:18px}
+  .svc .n{bottom:-24px;font-size:96px}}
 
 /* ---------- 05 FIGURES BAND (accent, angular) ---------- */
 .figs{position:relative;background:var(--acc);color:var(--on-acc);overflow:hidden}
@@ -272,6 +295,13 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
   .work{grid-template-columns:repeat(2,1fr)}
   .pj.a{grid-column:span 2;grid-row:span 2}
   .pj.b,.pj.c,.pj.d,.pj.e{grid-column:span 1}}
+/* One column on a phone. Two left each tile 175px wide, and the caption —
+   a title, a sentence and a 40px arrow, side by side — could not fit: the
+   text overflowed its own tile and ran back up over the photograph. */
+@media(max-width:620px){
+  .work{grid-template-columns:1fr;grid-auto-rows:minmax(190px,auto)}
+  .pj.a,.pj.b,.pj.c,.pj.d,.pj.e{grid-column:span 1;grid-row:span 1}
+  .pj.a{grid-row:span 2}}
 
 /* ---------- 07 PROCESS (cream, connected) ---------- */
 .steps{position:relative;z-index:3;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.2vw,30px)}
@@ -375,6 +405,10 @@ footer .brand img{height:38px}
   .dropmenu a:hover{background:rgba(21,20,15,.06);color:var(--ink)}
 }
 
+/* The call block at the foot of the phone sheet. The wide nav has the number
+   in the header already, so it only exists inside the drawer. */
+.navcall{display:none}
+
 /* ---- burger ---- */
 .navtoggle{display:none;margin-left:auto;width:44px;height:40px;border-radius:12px;
   border:1px solid rgba(21,20,15,.16);background:none;cursor:pointer;
@@ -385,19 +419,70 @@ footer .brand img{height:38px}
 .navtoggle.on span:nth-child(2){opacity:0}
 .navtoggle.on span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 
+/* ---- the phone drawer ----
+   This used to wrap onto a second flex line inside `.nav .wrap`, which is a
+   fixed `height` — so the drawer overflowed the header box, the cream band
+   never grew behind it, and twenty-six menu items rendered transparent on top
+   of the hero. It is a sheet now: fixed to the bottom edge of the header,
+   opaque, filling the rest of the viewport and scrolling inside itself. */
 @media(max-width:940px){
+  :root{--navh:64px}
   .navtoggle{display:flex}
-  .nav .wrap{flex-wrap:wrap}
   .nav nav{display:none}
-  .nav nav.open{display:block;order:9;width:100%;margin:0 0 18px;
-    max-height:70vh;overflow:auto;border-top:1px solid rgba(21,20,15,.09);padding-top:14px}
-  .nav nav.open a{display:block;padding:11px 2px;font-size:16px}
-  .drop{display:block}
-  .drop>button{width:100%;justify-content:space-between;padding:11px 2px;font-size:16px}
+  .nav nav.open{
+    /* Absolute against the header, not fixed to the viewport: `.nav` sets a
+       backdrop-filter, and that makes it the containing block for any fixed
+       descendant — a fixed sheet collapsed to the header's own 64px. Sticky
+       positioning on `.nav` means absolute tracks the viewport anyway. */
+    display:block;position:absolute;left:0;right:0;top:100%;z-index:210;
+    height:calc(100vh - var(--navh));height:calc(100dvh - var(--navh));
+    background:var(--cream);
+    /* The sheet covers the page, so it carries its own gutter rather than
+       inheriting the header's — and the bottom one clears the home indicator. */
+    padding:8px var(--m) calc(28px + env(safe-area-inset-bottom));
+    overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+    border-top:1px solid rgba(21,20,15,.08);
+    animation:sheet .22s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes sheet{from{opacity:0;translate:0 -8px}to{opacity:1;translate:none}}
+  /* 48px rows: the drawer is the whole navigation on a phone, and an 11px
+     padding on a 17px line left every one of them a 39px target. */
+  .nav nav.open>a{display:flex;align-items:center;min-height:48px;padding:2px;
+    font-size:16.5px;font-weight:600;color:var(--ink);
+    border-bottom:1px solid rgba(21,20,15,.07)}
+  .drop{display:block;border-bottom:1px solid rgba(21,20,15,.07)}
+  .drop>button{width:100%;justify-content:space-between;min-height:48px;padding:2px;
+    font-size:16.5px;font-weight:600;color:var(--ink)}
+  .drop>button::after{width:8px;height:8px;border-width:2px}
   .dropmenu{position:static;translate:none;display:none;box-shadow:none;border:0;
-    background:none;padding:0 0 10px 14px}
+    background:none;padding:0 0 10px}
   .drop.open .dropmenu{display:grid;grid-template-columns:1fr}
-  .navtel{display:none}
+  .dropmenu a{display:flex;align-items:center;min-height:44px;white-space:normal;
+    padding:4px 14px;border-left:2px solid rgba(21,20,15,.1);border-radius:0;font-size:15px}
+  /* The header's call button is the conversion action on a contractor site and
+     it was the one thing display:none'd at exactly the width where tapping a
+     number is easiest. It keeps its place; only the digits fold away. */
+  .navtel{margin-left:10px;padding:0;width:44px;height:44px;justify-content:center;
+    gap:0;flex:0 0 auto;box-shadow:0 6px 16px color-mix(in srgb,var(--acc) 40%,transparent)}
+  .navtel .navtel-num{display:none}
+  /* `.btn.acc .pip` fills the dot with ink, which at 44px is the whole
+     button — the accent pill would vanish under its own dot. */
+  .navtel.btn.acc .pip{width:44px;height:44px;background:transparent;color:var(--on-acc)}
+  .navtel .pip svg{display:block;width:19px;height:19px;fill:currentColor}
+  .navcall{display:block;margin-top:26px;padding-top:22px;
+    border-top:1px solid rgba(21,20,15,.1)}
+  .navcall .mono{display:block;color:var(--mute-lt);margin-bottom:8px}
+  .navcall>a{display:inline-flex;align-items:center;min-height:44px;
+    font-size:clamp(26px,7vw,32px);font-weight:900;letter-spacing:-.04em;
+    color:var(--acc-dim)}
+  .navtoggle{margin-left:0}
+  .nav .wrap{gap:0}
+  .brand{margin-right:auto;min-width:0}
+  .brand img,.nav .brand img{height:30px}
+  /* The sheet takes the scroll; the page behind it must not also move. */
+  html.nav-open,html.nav-open body{overflow:hidden}
+}
+@media(max-width:940px) and (prefers-reduced-motion:reduce){
+  .nav nav.open{animation:none}
 }
 
 /* ---- eyebrow, shared by every inner page ---- */
@@ -578,7 +663,10 @@ footer .brand img{height:38px}
 .contact-form h2{font-size:clamp(24px,3vw,36px);font-weight:900;margin-bottom:6px}
 .contact-form label{display:grid;gap:7px;font-size:12px;font-weight:700;
   letter-spacing:.04em;text-transform:uppercase;color:var(--mute-lt)}
-.contact-form input,.contact-form textarea{font:inherit;font-size:15px;padding:14px 16px;
+/* 16px, not 15px. Safari on iOS zooms the whole page in when a field under
+   16px takes focus, and it does not zoom back out — the visitor is left on a
+   form that scrolls sideways, halfway through typing. */
+.contact-form input,.contact-form textarea{font:inherit;font-size:16px;padding:14px 16px;
   border:1px solid rgba(21,20,15,.16);border-radius:var(--r);background:var(--cream);
   color:var(--ink);width:100%}
 .contact-form input:focus,.contact-form textarea:focus{outline:2px solid var(--acc);
@@ -637,8 +725,10 @@ footer .brand img{height:38px}
 .hero :focus-visible,.subhero :focus-visible,.cta-in :focus-visible,
 .figs :focus-visible,.svc--acc :focus-visible{outline-color:var(--on-acc)}
 
-/* ---- the sticky header is 83px, so an anchor jump lands under it ---- */
-:target,#main,#services,#offers,#work{scroll-margin-top:96px}
+/* ---- an anchor jump has to clear the sticky header ----
+   Off the same token the header is sized from, so the phone's shorter bar does
+   not leave a 32px hole above whatever was jumped to. */
+:target,#main,#services,#offers,#work{scroll-margin-top:calc(var(--navh) + 14px)}
 /* The skip link's target has to be focusable for the skip to move focus
    rather than only the scroll position. */
 #main:focus{outline:none}
@@ -651,10 +741,69 @@ a,button,summary,label,input,textarea,select{touch-action:manipulation}
 h1,h2,h3{text-wrap:balance}
 .lede,.prose p,.sc p,.svc p{text-wrap:pretty}
 
+/* ---- long words at display sizes ----
+   One trade is named "Full Remodel (kitchen, bathroomcabinets, flooring,
+   counter tops)", and `bathroomcabinets,` set at 30px is 299px of unbreakable
+   word. In a grid item — which defaults to min-width:auto, so the column grows
+   to its longest word — that pushed the whole closing CTA 33px past the screen
+   and `overflow:hidden` cut the heading off mid-word. Both halves are needed:
+   the break lets the word wrap, the min-width stops the track expanding. */
+h1,h2,h3,h4{overflow-wrap:break-word}
+.cta-in>*,.shead>*,.split>*,.prose-wrap>*,.contact-grid>*,.svc,.offer{min-width:0}
+
 /* ---- a 17px-tall link is under the 24px target floor ---- */
 .svc .go,.citycard .go{min-height:24px;align-items:center}
-.fbar a{display:inline-block;padding:4px 0}
+/* The breadcrumb trail is 10.5px mono, so its links measured 17px tall, and
+   the footer's Instagram link 23px. Both are padded to clear 24px without
+   moving the type off its line. */
+.crumbs a,.crumbs b{display:inline-flex;align-items:center;min-height:24px}
+.fbar a{display:inline-flex;align-items:center;min-height:24px;padding:4px 0}
 
 /* The desktop nav links measured 23px tall — one pixel under the 24px target
    floor. Padding grows the hit area without moving the type. */
 .nav nav a,.nav .drop>button{padding-block:6px}
+
+/* ================================================================
+   PHONE (punch-list 03)
+   Everything here came out of rendering the built pages at a real
+   390px viewport rather than a narrowed desktop window. Kept last
+   and kept together so the phone layout is one thing to read.
+   ================================================================ */
+@media(max-width:620px){
+  /* 9.5–10px mono is legible on a desktop at arm's length and not on a
+     phone. Nothing here is display type; it is all labelling. */
+  .mono,.pill,.figs .f span,.hero-trust div span,.badge span,.svc .go,
+  .fg h2,.smap h3,.crumbs,.eyebrow,.localcall span,.citycard .go,
+  .fbar,.note{font-size:11.5px}
+  .strip span{font-size:12px}
+  /* The band under the hero scrolls its own text past at 36s; on a narrow
+     screen that is a lot of movement for something decorative. */
+  .strip-in{animation-duration:52s}
+  /* Fourteen chips wrapped to five rows and pushed the page's own heading
+     below the fold. One row that scrolls, with the current trade first. */
+  /* scroll-padding, or `scroll-snap-align:start` aligns each chip hard
+     against the scrollport edge and undoes the gutter the rail was just
+     scrolled to — including the one the active trade is placed in. */
+  .svctabs .wrap{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+    scroll-snap-type:x proximity;scroll-padding-inline:14px;
+    -webkit-overflow-scrolling:touch}
+  .svctabs .wrap::-webkit-scrollbar{display:none}
+  .svctabs a{flex:0 0 auto;scroll-snap-align:start;min-height:38px;
+    display:inline-flex;align-items:center}
+  /* A rail with a hard edge reads as a clipped row. Fading the last few
+     millimetres is what says the trades carry on past the screen. */
+  .svctabs{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 34px),transparent);
+           mask-image:linear-gradient(90deg,#000 calc(100% - 34px),transparent)}
+  /* Two-up for the footer's trade and city lists: at one per row the
+     footer alone ran to some 1,500px of scrolling. The markers go with
+     them — at this width their indent is a sixth of the column. */
+  .fg ul{list-style:none;padding:0;margin:0}
+  .fg .col2 ul{display:grid;grid-template-columns:1fr 1fr;column-gap:18px}
+  .fg .col2 a{padding:10px 0;line-height:1.35}
+  /* The step numerals are the only thing on their row; full size they
+     cost 90px of height each, four times over. */
+  .step .n{width:54px;height:54px;border-radius:16px;font-size:18px;margin-bottom:16px}
+  /* An arrow chip inside a card caption, at 40px, took a third of the
+     line away from the words next to it. */
+  .pj .cap .go{width:34px;height:34px;font-size:13px}
+}

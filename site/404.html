@@ -36,8 +36,16 @@
     <a href="/gallery/">Gallery</a>
     <a href="/about-us/">About</a>
     <a href="/contact-us/">Contact</a>
+    <div class="navcall">
+      <span class="mono">Call us &mdash; 24/7</span>
+      <a href="tel:16023996455">(602) 399-6455</a>
+    </div>
   </nav>
-  <a class="btn acc navtel" href="tel:16023996455"><span class="pip"></span>(602) 399-6455</a>
+  <a class="btn acc navtel" href="tel:16023996455"
+    aria-label="Call (602) 399-6455"><span class="pip"><svg viewBox="0 0 24 24"
+    aria-hidden="true" focusable="false"><path
+    d="M4 5h5l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v5a15 15 0 0 1-16-16z"/></svg></span><span
+    class="navtel-num">(602) 399-6455</span></a>
 </div>
 </header>
 <main id="main" tabindex="-1">
@@ -70,11 +78,11 @@
   <h2>Company</h2>
   <ul><li><a href="/about-us/">About Us</a></li><li><a href="/projects/">Project Showcase</a></li><li><a href="/gallery/">Gallery</a></li><li><a href="/contact-us/">Contact</a></li><li><a href="/sitemap/">Sitemap</a></li></ul>
 </div>
-  <div>
+  <div class="col2">
   <h2>Services</h2>
   <ul><li><a href="/services/">All Services</a></li><li><a href="/services/residential-development/">Residential Development</a></li><li><a href="/services/casita/">Casita</a></li><li><a href="/services/adu/">ADU</a></li><li><a href="/services/framing/">Framing</a></li><li><a href="/services/concrete/">Concrete</a></li><li><a href="/services/stucco/">Stucco</a></li><li><a href="/services/dry-wall/">Dry Wall</a></li><li><a href="/services/siding/">Siding</a></li><li><a href="/services/roofing/">Roofing</a></li><li><a href="/services/full-remodel-kitchen-bathroomcabinets-flooring-counter-tops/">Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops)</a></li><li><a href="/services/custom-home-building/">Custom Home Building</a></li><li><a href="/services/painting/">Painting</a></li><li><a href="/services/deck-building-uses-trex-system/">Deck Building (uses Trex System)</a></li><li><a href="/services/window-installation/">Window Installation</a></li></ul>
 </div>
-  <div>
+  <div class="col2">
   <h2>Areas Served</h2>
   <ul><li><a href="/service-areas/">All Areas Served</a></li><li><a href="/service-areas/mesa-az/">Mesa, AZ</a></li><li><a href="/service-areas/tempe-az/">Tempe, AZ</a></li><li><a href="/service-areas/queen-creek-az/">Queen Creek, AZ</a></li><li><a href="/service-areas/scottsdale-az/">Scottsdale, AZ</a></li><li><a href="/service-areas/gilbert-az/">Gilbert, AZ</a></li><li><a href="/service-areas/chandler-az/">Chandler, AZ</a></li><li><a href="/service-areas/paradise-valley-az/">Paradise Valley, AZ</a></li><li><a href="/service-areas/phoenix-az/">Phoenix, AZ</a></li><li><a href="/service-areas/goodyear-meadows-az/">Goodyear Meadows, AZ</a></li><li><a href="/service-areas/camelback-east-village-az/">Camelback East Village, AZ</a></li><li><a href="/service-areas/florence-az/">Florence, AZ</a></li></ul>
 </div>
@@ -87,10 +95,23 @@
 <script>
 (function(){
   var t=document.querySelector('.navtoggle'), n=document.querySelector('.nav nav');
-  if(t&&n){t.addEventListener('click',function(){
-    var o=n.classList.toggle('open'); t.setAttribute('aria-expanded',String(o));
-    t.classList.toggle('on',o);
-  });}
+  // The phone drawer is a sheet over the page, so opening it has to stop the
+  // page behind from scrolling too — otherwise a flick anywhere on the menu
+  // scrolls the article underneath and the menu appears to jump.
+  function setNav(o){
+    if(!t||!n)return;
+    n.classList.toggle('open',o); t.classList.toggle('on',o);
+    t.setAttribute('aria-expanded',String(o));
+    document.documentElement.classList.toggle('nav-open',o);
+  }
+  if(t&&n){
+    t.addEventListener('click',function(){ setNav(!n.classList.contains('open')); });
+    // A rotation to landscape can put the layout back on the desktop nav with
+    // the sheet still latched open — and with the scroll lock still on.
+    addEventListener('resize',function(){
+      if(innerWidth>940&&n.classList.contains('open')) setNav(false);
+    });
+  }
   var drops=[].slice.call(document.querySelectorAll('.drop'));
   function shut(d){ if(!d.classList.contains('open'))return;
     d.classList.remove('open'); var b=d.querySelector('button');
@@ -109,8 +130,12 @@
   document.addEventListener('keydown',function(e){
     if(e.key!=='Escape')return;
     var open=drops.filter(function(d){return d.classList.contains('open')});
-    if(!open.length)return;
-    open.forEach(function(d){ var b=d.querySelector('button'); shut(d); if(b&&d.contains(document.activeElement)) b.focus(); });
+    if(open.length){
+      open.forEach(function(d){ var b=d.querySelector('button'); shut(d); if(b&&d.contains(document.activeElement)) b.focus(); });
+      return;
+    }
+    // Nothing expanded inside it, so Escape dismisses the whole phone sheet.
+    if(n&&n.classList.contains('open')){ setNav(false); if(t) t.focus(); }
   });
   document.addEventListener('pointerdown',function(e){
     if(!e.target.closest('.drop')) shutAll(null);
@@ -118,6 +143,19 @@
   document.addEventListener('focusin',function(e){
     if(!e.target.closest('.drop')) shutAll(null);
   });
+})();
+(function(){
+  // On a phone the trade rail is one row that scrolls sideways rather than
+  // five wrapped ones. The trade being read is often past the right edge, so
+  // bring it into view — but only when the rail is actually scrollable, or
+  // this scrolls the whole page down to the rail on a desktop.
+  var rail=document.querySelector('.svctabs .wrap'), on=rail&&rail.querySelector('a.on');
+  if(!on||rail.scrollWidth<=rail.clientWidth+1) return;
+  // Measured against the rail rather than off offsetLeft: the rail is not a
+  // positioned element, so offsetLeft is relative to the body and lands the
+  // chip flush against the screen edge instead of inside the gutter.
+  var d=on.getBoundingClientRect().left-rail.getBoundingClientRect().left-14;
+  rail.scrollLeft=Math.max(0,rail.scrollLeft+d);
 })();
 (function(){
   document.querySelectorAll('[data-copy]').forEach(function(b){

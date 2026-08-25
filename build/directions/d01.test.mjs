@@ -46,6 +46,63 @@ test('the mobile nav toggle and dropdowns are present and labelled', () => {
   assert.equal((html.match(/aria-expanded="false"/g) || []).length, 3);
 });
 
+// ---------------------------------------------------------------- the phone
+// The drawer shipped broken: `.nav .wrap` is a hard `height`, the open menu
+// wrapped onto a second flex line inside it, and so it overflowed the header
+// box — twenty-six items rendered transparent over the hero. These pin the
+// shape of the fix rather than the pixels.
+
+test('the phone drawer is positioned against the header, not the viewport', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  const drawer = css.match(/\.nav nav\.open\{[\s\S]*?\}/);
+  assert.ok(drawer, 'no rule for the open drawer');
+  // `.nav` sets a backdrop-filter, which makes it the containing block for
+  // any fixed descendant — a fixed drawer collapses to the header's height.
+  assert.match(drawer[0], /position:absolute/);
+  assert.doesNotMatch(drawer[0], /position:fixed/);
+  // Transparent is what it was; an opaque ground is the whole repair.
+  assert.match(drawer[0], /background:var\(--cream\)/);
+});
+
+test('the header height is one token, and the anchor offset is derived from it', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  assert.match(css, /--navh:82px/);
+  assert.match(css, /\.nav \.wrap\{[^}]*height:var\(--navh\)/);
+  assert.match(css, /scroll-margin-top:calc\(var\(--navh\)/);
+});
+
+test('the call button survives the phone breakpoint, and carries a glyph there', () => {
+  const html = renderPage({ mod: d01, key: 'home' });
+  assert.match(html, /class="btn acc navtel"[\s\S]*?aria-label="Call \(602\) 399-6455"/);
+  assert.match(html, /class="navtel-num">\(602\) 399-6455</);
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  // It used to be display:none'd at exactly the width where tapping a number
+  // is the easiest thing a visitor can do.
+  assert.doesNotMatch(css, /\.navtel\{display:none\}/);
+});
+
+test('the drawer ends with the number, and the wide nav does not repeat it', () => {
+  const html = renderPage({ mod: d01, key: 'home' });
+  assert.match(html, /<div class="navcall">[\s\S]*?tel:16023996455/);
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  assert.match(css, /\.navcall\{display:none\}/);
+});
+
+test('the long footer lists are marked for the two-up phone layout', () => {
+  const html = renderPage({ mod: d01, key: 'home' });
+  // The fourteen trades and the eleven cities, and nothing else: the five-item
+  // Company column is short enough to stay one per row.
+  assert.equal((html.match(/<div class="col2">/g) || []).length, 2);
+});
+
+test('form fields are 16px, or iOS zooms the page in and does not zoom back', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  const field = css.match(/\.contact-form input,\.contact-form textarea\{[^}]*\}/);
+  assert.ok(field, 'no rule for the contact fields');
+  const size = Number(field[0].match(/font-size:([\d.]+)px/)[1]);
+  assert.ok(size >= 16, `contact fields are ${size}px, under the 16px iOS floor`);
+});
+
 test('the home page carries all fourteen service cards with icons', () => {
   const html = renderPage({ mod: d01, key: 'home' });
   for (const s of services) assert.ok(html.includes(`<h3>${esc(s.name)}</h3>`), `card ${s.slug}`);

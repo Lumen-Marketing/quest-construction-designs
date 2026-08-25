@@ -55,3 +55,6 @@ a.sc p{flex:1}
 .gone h1{font-size:clamp(38px,6vw,78px);font-weight:900;margin-bottom:18px}
 .gone p{font-size:clamp(16px,1.5vw,18px);color:var(--ink-2);margin:0 auto 30px;max-width:52ch}
 .gone .hero-acts{justify-content:center}
+/* 11px mono is a desktop size. The phone block in direction 01's stylesheet
+   raises the labelling type, and this page's is the one it cannot see. */
+@media(max-width:620px){.gone .code{font-size:11.5px}}
