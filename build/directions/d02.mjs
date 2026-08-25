@@ -60,8 +60,7 @@ export function nav(c) {
   return `<header class="nav">
 <div class="wrap">
   <a class="brand" href="${c.url('home')}" aria-label="${esc(c.site.name)} home">
-    <img src="${c.asset('quest/logo.webp')}" alt="${esc(c.site.name)}" width="1261" height="285"
-      loading="eager" decoding="async">
+    ${img(c, 'quest/logo.webp', c.site.name, { load: 'eager' })}
   </a>
   <button class="navtoggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -96,8 +95,7 @@ export function footer(c) {
 <div class="wrap fg">
   <div class="about">
     <a class="brand" href="${c.url('home')}">
-      <img src="${c.asset('quest/logo.webp')}" alt="${esc(c.site.name)}" width="1261" height="285"
-        loading="lazy" decoding="async">
+      ${img(c, 'quest/logo.webp', c.site.name, {})}
     </a>
     <p>${esc(c.site.footerBlurb)}</p>
     <p class="mono">${esc(c.site.positioning)}</p>

@@ -26,8 +26,8 @@ const btn = (href, label, cls = 'btn') => `<a class="${cls}" href="${href}">${es
 
 // Decorative cut-outs: no alt text on purpose, and hidden from the tree. Sized
 // from content/images.json so nothing shifts while they load.
-const RIG = (c) => `<img class="rig" src="${c.asset('loader.webp')}" alt="" aria-hidden="true" decoding="async" loading="lazy" width="1361" height="1087">`;
-const PLANT = (c) => `<img src="${c.asset('excavator.webp')}" alt="" aria-hidden="true" decoding="async" loading="lazy" width="1385" height="871">`;
+const RIG = (c) => img(c, 'loader.webp', '', { decorative: true, cls: 'rig' });
+const PLANT = (c) => img(c, 'excavator.webp', '', { decorative: true });
 
 const SHOTS = ['rebar.webp', 'framing.webp', 'crew-slab.webp', 'site-steel.webp',
   'mech.webp', 'facade.webp', 'roofline.webp', 'trade-weld.webp',
@@ -63,8 +63,7 @@ export function nav(c) {
   return `<header class="nav">
 <div class="in">
   <a class="brand" href="${c.url('home')}" aria-label="${esc(c.site.name)} home">
-    <img src="${c.asset('quest/logo.webp')}" alt="${esc(c.site.name)}" width="1261" height="285"
-      loading="eager" decoding="async">
+    ${img(c, 'quest/logo.webp', c.site.name, { load: 'eager' })}
   </a>
   <nav class="nlinks">
     <div class="drop">
@@ -108,8 +107,7 @@ export function footer(c) {
   <div class="fcols">
     <div>
       <a class="brand" href="${c.url('home')}">
-        <img src="${c.asset('quest/logo.webp')}" alt="${esc(c.site.name)}" width="1261" height="285"
-        loading="lazy" decoding="async">
+        ${img(c, 'quest/logo.webp', c.site.name, {})}
       </a>
       <p>${esc(c.site.footerBlurb)}</p>
       <p class="tag acc ftag">${esc(c.site.positioning)}</p>

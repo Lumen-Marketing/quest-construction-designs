@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { img, size } from './images.mjs';
 import { resolver } from './url.mjs';
 
@@ -55,4 +55,33 @@ test('img refuses the forbidden asset, unknown files and missing alt text', () =
   assert.throws(() => img(ctx('home'), 'plans.webp', 'anything'), /must never be referenced/);
   assert.throws(() => img(ctx('home'), 'nope.webp', 'anything'), /unknown image/);
   assert.throws(() => img(ctx('home'), 'framing.webp', ''), /needs real alt text/);
+});
+
+test('img can mark an image decorative, and insists it carry no alt text', () => {
+  const html = img(ctx('home'), 'rebar.webp', '', { decorative: true });
+  assert.match(html, /alt="" aria-hidden="true"/);
+  assert.match(html, /width="1800"/);
+  assert.throws(
+    () => img(ctx('home'), 'rebar.webp', 'Reinforcing steel', { decorative: true }),
+    /must not carry alt text/,
+  );
+});
+
+test('img can load eagerly without claiming to be the LCP element', () => {
+  const html = img(ctx('home'), 'quest/logo.webp', 'Quest Construction', { load: 'eager' });
+  assert.match(html, /loading="eager"/);
+  assert.doesNotMatch(html, /fetchpriority/);
+});
+
+test('no direction writes an <img> by hand', () => {
+  // The masthead and footer logos were hand-written in all eleven directions,
+  // repeating an intrinsic size content/images.json already knows and skipping
+  // the alt and forbidden-file checks entirely. Three decorative images were
+  // hand-written for a different reason: the renderer could not express one,
+  // because it required alt text. Both holes are closed; this keeps them shut.
+  for (const f of readdirSync('build/directions').filter((x) => /^d\d\d\.mjs$/.test(x))) {
+    const src = readFileSync(`build/directions/${f}`, 'utf8');
+    assert.ok(!src.includes('<img'), `${f} writes an <img> by hand instead of calling img()`);
+  }
+  assert.ok(!readFileSync('build/site/module.mjs', 'utf8').includes('<img'));
 });

@@ -59,8 +59,7 @@ export function nav(c) {
   return `<header class="nav">
 <div class="wrap in">
   <a class="brand" href="${c.url('home')}" aria-label="${esc(c.site.name)} home">
-    <img src="${c.asset('quest/logo.webp')}" alt="${esc(c.site.name)}" width="1261" height="285"
-      loading="eager" decoding="async">
+    ${img(c, 'quest/logo.webp', c.site.name, { load: 'eager' })}
   </a>
   <a class="search" href="${c.url('sitemap')}">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -100,8 +99,7 @@ export function footer(c) {
   <div class="cols">
     <div>
       <a class="brand" href="${c.url('home')}">
-        <img src="${c.asset('quest/logo.webp')}" alt="${esc(c.site.name)}" width="1261" height="285"
-        loading="lazy" decoding="async">
+        ${img(c, 'quest/logo.webp', c.site.name, {})}
       </a>
       <p class="lead">${esc(c.site.footerBlurb)}</p>
       <p class="mono flift">${esc(c.site.positioning)}</p>

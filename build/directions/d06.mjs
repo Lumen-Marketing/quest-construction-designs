@@ -66,8 +66,7 @@ export function nav(c) {
   return `<header class="nav">
 <div class="wrap in">
   <a class="brand" href="${c.url('home')}" aria-label="${esc(c.site.name)} home">
-    <img src="${c.asset('quest/logo.webp')}" alt="${esc(c.site.name)}" width="1261" height="285"
-      loading="eager" decoding="async">
+    ${img(c, 'quest/logo.webp', c.site.name, { load: 'eager' })}
   </a>
   <nav class="nlinks">
     <div class="drop">
@@ -107,8 +106,7 @@ export function footer(c) {
   <div class="cols">
     <div>
       <a class="brand" href="${c.url('home')}">
-        <img src="${c.asset('quest/logo.webp')}" alt="${esc(c.site.name)}" width="1261" height="285"
-        loading="lazy" decoding="async">
+        ${img(c, 'quest/logo.webp', c.site.name, {})}
       </a>
       <p class="lead">${esc(c.site.footerBlurb)}</p>
       <p class="cnd flift">${esc(c.site.positioning)}</p>

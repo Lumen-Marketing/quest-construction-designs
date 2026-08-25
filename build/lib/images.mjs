@@ -21,17 +21,31 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
  * @param c    the render context (for c.asset)
  * @param file path under assets/, e.g. 'quest/hero.webp'
  * @param alt  alt text — required, and must be meaningful
- * @param opts { eager } for the LCP hero, { cls } for a class, { sizeAttr:false }
+ * @param opts { eager } for the LCP hero, { cls } for a class,
+ *             { load:'eager' } for something above the fold that is NOT the
+ *             LCP element — the masthead logo. It wants the early fetch but
+ *             not fetchpriority="high", which would make it compete with the
+ *             hero photograph for the same bandwidth.
+ *             { decorative } for an image that carries no information: it
+ *             takes an empty alt and is hidden from the accessibility tree.
+ *             Without this the renderer had no way to express a decorative
+ *             image at all, so three of them were hand-written instead —
+ *             which is how the logos ended up hand-written too.
  */
 export function img(c, file, alt, opts = {}) {
   if (FORBIDDEN.has(file)) throw new Error(`${file} must never be referenced`);
-  if (!alt || alt.length < 4) throw new Error(`image ${file} needs real alt text`);
+  if (opts.decorative) {
+    if (alt) throw new Error(`decorative image ${file} must not carry alt text`);
+  } else if (!alt || alt.length < 4) {
+    throw new Error(`image ${file} needs real alt text`);
+  }
   const [w, h] = size(file);
   const cls = opts.cls ? ` class="${opts.cls}"` : '';
-  const load = opts.eager
-    ? ' loading="eager" fetchpriority="high" decoding="async"'
-    : ' loading="lazy" decoding="async"';
-  return `<img${cls} src="${c.asset(file)}" alt="${esc(alt)}" width="${w}" height="${h}"${load}>`;
+  let load = ' loading="lazy" decoding="async"';
+  if (opts.eager) load = ' loading="eager" fetchpriority="high" decoding="async"';
+  else if (opts.load === 'eager') load = ' loading="eager" decoding="async"';
+  const a = opts.decorative ? ' alt="" aria-hidden="true"' : ` alt="${esc(alt)}"`;
+  return `<img${cls} src="${c.asset(file)}"${a} width="${w}" height="${h}"${load}>`;
 }
 
 /** <link rel="preload"> for a direction's LCP hero image. */
