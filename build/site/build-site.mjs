@@ -9,19 +9,16 @@ import {
   writeFileSync, mkdirSync, rmSync, readFileSync, copyFileSync, existsSync, readdirSync,
 } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { renderPage } from '../build.mjs';
-import { pageList, loadContent } from '../lib/pages.mjs';
+import { renderPage, contextFor } from '../build.mjs';
+import { loadContent } from '../lib/pages.mjs';
 import { outPath, ORIGIN } from '../lib/url.mjs';
+import { siteProfile, BUILT } from '../lib/profile.mjs';
 import * as mod from './module.mjs';
 
 export const OUT = 'site';
-// Stamped into <lastmod> and the WebPage dateModified. A build date is a
-// truthful freshness signal; a rolling "today" would churn the sitemap on
-// every build and tell crawlers the content changed when it did not.
-export const BUILT = '2026-08-22';
+export { BUILT };
 
-const OPTS = { hubs: true, rich: true, built: BUILT };
-const PAGES = pageList({ hubs: true });
+const PAGES = siteProfile.pages();
 const content = loadContent();
 const { site, services, areas } = content;
 
@@ -80,22 +77,10 @@ export function buildCss() {
 // Served in place of whatever URL was requested, so every path on it has to be
 // root-absolute — a relative one would resolve against the missing URL.
 
-/** The nav and footer need a render context; the 404 borrows the home page's. */
-function renderContext() {
-  let captured;
-  const spy = {
-    ...mod,
-    nav: (c) => { captured = c; return ''; },
-    footer: () => '',
-    script: () => '',
-  };
-  renderPage({ mod: spy, key: 'home', pages: PAGES, opts: { ...OPTS, absolute: true } });
-  if (!captured) throw new Error('the 404 could not capture a render context');
-  return captured;
-}
-
 function notFound() {
-  const c = renderContext();
+  // Root-absolute paths, because this page is served in place of whatever URL
+  // was requested — a relative one would resolve against the missing URL.
+  const c = contextFor({ mod, key: 'home', profile: siteProfile, absolute: true });
   const head = `<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Page not found | ${site.name}</title>
@@ -401,7 +386,7 @@ export function buildSite() {
   const htmls = [];
   const images = new Map();
   for (const p of PAGES) {
-    const html = renderPage({ mod, key: p.key, pages: PAGES, opts: OPTS });
+    const html = renderPage({ mod, key: p.key, profile: siteProfile });
     write(outPath(p.key), html);
     htmls.push(html);
     images.set(p.key, [...new Set(

@@ -3,17 +3,16 @@
 // written to disk.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { renderPage } from '../build.mjs';
+import { renderPage, contextFor } from '../build.mjs';
 import { pageList } from '../lib/pages.mjs';
+import { demoProfile, siteProfile, BUILT } from '../lib/profile.mjs';
 import { resolver, ORIGIN } from '../lib/url.mjs';
 import { MAIN_TAG, documentFindings } from '../lib/page-rules.mjs';
 import { buildCss } from './build-site.mjs';
 import * as mod from './module.mjs';
 
-const PAGES = pageList({ hubs: true });
-const OPTS = { hubs: true, rich: true, built: '2026-08-22' };
-const render = (key, extra = {}) =>
-  renderPage({ mod, key, pages: PAGES, opts: { ...OPTS, ...extra } });
+const PAGES = siteProfile.pages();
+const render = (key) => renderPage({ mod, key, profile: siteProfile });
 
 test('the manifest carries thirty-three pages, two more than a demo direction', () => {
   assert.equal(PAGES.length, 33);
@@ -135,4 +134,43 @@ test('the stylesheet comes out Burnt Orange with no ochre left in it', () => {
   // The faces have to come before any rule that names the family.
   assert.ok(css.indexOf('@font-face') < css.indexOf("font:400 16px/1.62 'Archivo'"));
   assert.ok(!css.includes('http'), 'the stylesheet reaches off-origin');
+});
+
+test('the two profiles differ in exactly three ways, all of them named', () => {
+  assert.equal(demoProfile.hubs, false);
+  assert.equal(siteProfile.hubs, true);
+  assert.equal(demoProfile.pages().length, 31);
+  assert.equal(siteProfile.pages().length, 33);
+  assert.deepEqual(demoProfile.schemaOpts(), { rich: false, built: null });
+  assert.deepEqual(siteProfile.schemaOpts(), { rich: true, built: BUILT });
+});
+
+test('a profile builds its manifest once, not on every question', () => {
+  assert.equal(siteProfile.pages(), siteProfile.pages());
+});
+
+test('the profile decides how a page addresses things', () => {
+  const rel = siteProfile.resolverFor('', 'services/adu');
+  assert.equal(rel.url('home'), '../../index.html');
+  const abs = siteProfile.resolverFor('', 'services/adu', { absolute: true });
+  assert.equal(abs.url('home'), '/');
+  assert.equal(abs.asset('quest/logo.webp'), '/assets/quest/logo.webp');
+});
+
+test('a render context can be had without rendering a page', () => {
+  const c = contextFor({ mod, key: 'home', profile: siteProfile });
+  assert.equal(c.page.key, 'home');
+  assert.equal(c.hubs, true);
+  assert.equal(c.site.name, 'Quest Construction');
+  assert.equal(c.url('services/adu'), 'services/adu/index.html');
+
+  // The 404 asks for the same thing addressed root-absolutely.
+  const four = contextFor({ mod, key: 'home', profile: siteProfile, absolute: true });
+  assert.equal(four.url('services/adu'), '/services/adu/');
+  assert.equal(four.local('assets/styles.css'), '/assets/styles.css');
+});
+
+test('an unknown page key throws rather than rendering something empty', () => {
+  assert.throws(() => contextFor({ mod, key: 'no-such-page', profile: siteProfile }),
+    /no such page/);
 });

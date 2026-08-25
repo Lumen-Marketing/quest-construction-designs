@@ -3,38 +3,47 @@
 import { writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { resolver, absoluteResolver, outPath } from './lib/url.mjs';
-import { loadContent, pageList } from './lib/pages.mjs';
+import { outPath } from './lib/url.mjs';
+import { loadContent } from './lib/pages.mjs';
 import { buildHead } from './lib/head.mjs';
+import { demoProfile } from './lib/profile.mjs';
 import { HTML_TAG, SKIP_LINK, MAIN_TAG } from './lib/page-rules.mjs';
 
 const content = loadContent();
-const PAGES = pageList();
 
-export function allPagesFor() { return PAGES.map((p) => p.key); }
+export function allPagesFor(profile = demoProfile) {
+  return profile.pages().map((p) => p.key);
+}
 
 /**
- * @param pages  the manifest to render from; the standalone build passes its
- *               own, which carries the two section landing pages as well.
- * @param opts   { hubs, rich, built, absolute } — threaded into the resolver,
- *               the schema graph and the renderers. Empty for the ten demos.
+ * Everything a renderer is handed. Split out of renderPage and exported,
+ * because the 404 needs a context without wanting a page: it used to get one by
+ * building a fake direction module whose nav was a spy, rendering the entire
+ * home page through it and keeping what the spy caught.
+ *
+ * @param profile   which product is being built — see lib/profile.mjs
+ * @param absolute  root-absolute paths, which only the 404 needs
  */
-export function renderPage({ mod, key, pages = PAGES, opts = {} }) {
-  const page = pages.find((p) => p.key === key);
+export function contextFor({ mod, key, profile = demoProfile, absolute = false }) {
+  const page = profile.pages().find((p) => p.key === key);
   if (!page) throw new Error(`no such page: ${key}`);
-  const res = opts.absolute
-    ? absoluteResolver(opts)
-    : resolver(mod.meta.slug, key, opts);
+  const res = profile.resolverFor(mod.meta.slug, key, { absolute });
 
-  const ctx = {
+  return {
     page, res,
     url: res.url, asset: res.asset, local: res.local, root: res.root,
-    hub: res.hub, hubs: !!opts.hubs,
+    hub: res.hub, hubs: profile.hubs,
     site: content.site, services: content.services,
     areas: content.areas, pages: content.pages,
     areasLocal: content.areasLocal,
     item: page.item,
   };
+}
+
+export function renderPage({ mod, key, profile = demoProfile, absolute = false }) {
+  const ctx = contextFor({ mod, key, profile, absolute });
+  const { page } = ctx;
+  const { res } = ctx;
 
   const head = buildHead({
     page, res, dir: mod.meta, content,
@@ -43,7 +52,7 @@ export function renderPage({ mod, key, pages = PAGES, opts = {} }) {
       ? mod.meta.preload(ctx) : (mod.meta.preload || ''),
     extraMeta: typeof mod.meta.extraMeta === 'function'
       ? mod.meta.extraMeta(ctx) : (mod.meta.extraMeta || ''),
-    schemaOpts: opts,
+    schemaOpts: profile.schemaOpts(),
   });
 
   const body = mod[page.kind](ctx);
@@ -68,7 +77,7 @@ ${mod.script ? mod.script(ctx) : ''}
 `;
 }
 
-export function buildDirection(mod) {
+export function buildDirection(mod, profile = demoProfile) {
   const root = mod.meta.slug;
   // Clear the generated page trees so a renamed slug cannot leave orphans
   // behind. assets/ is left alone — the stylesheet is not generated.
@@ -77,10 +86,10 @@ export function buildDirection(mod) {
     rmSync(join(root, d), { recursive: true, force: true });
   }
   let written = 0;
-  for (const key of allPagesFor()) {
+  for (const key of allPagesFor(profile)) {
     const file = join(root, outPath(key));
     mkdirSync(dirname(file), { recursive: true });
-    writeFileSync(file, renderPage({ mod, key }));
+    writeFileSync(file, renderPage({ mod, key, profile }));
     written++;
   }
   return { written };
