@@ -53,6 +53,7 @@ export function renderPage({ mod, key, profile = demoProfile, absolute = false }
     extraMeta: typeof mod.meta.extraMeta === 'function'
       ? mod.meta.extraMeta(ctx) : (mod.meta.extraMeta || ''),
     schemaOpts: profile.schemaOpts(),
+    stylesheet: profile.stylesheet(),
   });
 
   const body = mod[page.kind](ctx);

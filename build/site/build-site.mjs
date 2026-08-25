@@ -13,13 +13,14 @@ import { renderPage, contextFor } from '../build.mjs';
 import { loadContent } from '../lib/pages.mjs';
 import { outPath, ORIGIN } from '../lib/url.mjs';
 import { siteProfile, BUILT } from '../lib/profile.mjs';
-import {
-  palette, AUTHORED_KEY, CHOSEN_KEY, ORDER, CSS_PROP,
-} from '../lib/palette.mjs';
+import { palette, CHOSEN_KEY } from '../lib/palette.mjs';
+// The stylesheet lives in lib/ alongside the fingerprint of its contents, so
+// that the profile can hand every page's <head> the name it ships under.
+import { buildCss } from '../lib/site-css.mjs';
 import * as mod from './module.mjs';
 
 export const OUT = 'site';
-export { BUILT };
+export { BUILT, buildCss };
 
 const PAGES = siteProfile.pages();
 const content = loadContent();
@@ -30,57 +31,6 @@ const write = (rel, body) => {
   mkdirSync(dirname(file), { recursive: true });
   writeFileSync(file, body);
 };
-
-// ------------------------------------------------------------------ stylesheet
-// Direction 01's stylesheet is the source of truth for the design. Two things
-// happen on the way through: the accent tokens become the chosen palette, and
-// the additions in build/css/site.css are spliced on. Every substitution is
-// asserted, so a rename upstream fails the build instead of silently shipping
-// the old colour.
-//
-// This used to be literal string replacement — three exact-match swaps plus a
-// regex for eight hardcoded washes that were never tokenised. The washes are
-// color-mix on the token now, so the only accent values left in the stylesheet
-// are the declarations themselves, and the swap walks the palette's own list
-// rather than a second copy of it.
-function swapAccent(css, from, to) {
-  let out = css;
-  for (const field of ORDER) {
-    const prop = CSS_PROP[field];
-    const re = new RegExp(`(${prop}:)#[0-9A-Fa-f]{3,8}`, 'g');
-    if (!re.test(out)) throw new Error(`the stylesheet has no ${prop} to swap`);
-    out = out.replace(re, `$1${palette(to)[field]}`);
-  }
-  // The authored comment says the accent is swapped live by the gallery. That
-  // is true of a direction and false here: the standalone bakes one in.
-  out = out.replace(
-    /(--acc:#[0-9A-Fa-f]{3,8};\s*)\/\* swapped live by the gallery \*\//,
-    `$1/* ${palette(to).name} — the chosen accent, baked in */`,
-  );
-  if (out.includes(palette(from).acc)) {
-    throw new Error(`${palette(from).name} survived the accent swap`);
-  }
-  return out;
-}
-
-const FACE_MARKER = '/* ---------- city cards';
-
-function splitOnMarker(text, marker) {
-  const i = text.indexOf(marker);
-  if (i < 0) throw new Error(`marker not found in build/css/site.css: ${marker}`);
-  return [text.slice(0, i), text.slice(i)];
-}
-
-export function buildCss() {
-  const css = swapAccent(
-    readFileSync('d01-site-plan/assets/styles.css', 'utf8'), AUTHORED_KEY, CHOSEN_KEY,
-  );
-  // The @font-face rules have to precede any rule that uses the family.
-  const [faces, rest] = splitOnMarker(readFileSync('build/css/site.css', 'utf8'), FACE_MARKER);
-  return `${faces}
-${css}
-${rest}`;
-}
 
 // ----------------------------------------------------------------------- 404
 // Served in place of whatever URL was requested, so every path on it has to be
@@ -98,7 +48,7 @@ function notFound() {
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="${palette(CHOSEN_KEY).acc}">
-<link rel="stylesheet" href="/assets/styles.css">`;
+<link rel="stylesheet" href="/${siteProfile.stylesheet()}">`;
 
   return `<!doctype html>
 <html lang="en">
@@ -142,7 +92,7 @@ function copyAssets(htmls) {
   ]);
   for (const html of htmls) {
     for (const m of html.matchAll(/(?:src|href|content)="[^"]*?assets\/([^"]+)"/g)) {
-      if (!m[1].startsWith('styles.css')) wanted.add(m[1]);
+      if (!m[1].startsWith('styles.')) wanted.add(m[1]);
     }
   }
   // The social cards are only ever named in absolute form, in the OG tags and
@@ -407,7 +357,7 @@ export function buildSite() {
   write('404.html', four);
   htmls.push(four);
 
-  write('assets/styles.css', buildCss());
+  write(siteProfile.stylesheet(), buildCss());
   const assets = copyAssets(htmls);
 
   write('robots.txt', robots());

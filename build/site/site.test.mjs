@@ -9,6 +9,7 @@ import { demoProfile, siteProfile, BUILT } from '../lib/profile.mjs';
 import { resolver, ORIGIN } from '../lib/url.mjs';
 import { MAIN_TAG, documentFindings } from '../lib/page-rules.mjs';
 import { buildCss } from './build-site.mjs';
+import { fingerprint, stylesheetName } from '../lib/site-css.mjs';
 import * as mod from './module.mjs';
 
 const PAGES = siteProfile.pages();
@@ -136,13 +137,17 @@ test('the stylesheet comes out Burnt Orange with no ochre left in it', () => {
   assert.ok(!css.includes('http'), 'the stylesheet reaches off-origin');
 });
 
-test('the two profiles differ in exactly three ways, all of them named', () => {
+test('the two profiles differ in exactly four ways, all of them named', () => {
   assert.equal(demoProfile.hubs, false);
   assert.equal(siteProfile.hubs, true);
   assert.equal(demoProfile.pages().length, 31);
   assert.equal(siteProfile.pages().length, 33);
   assert.deepEqual(demoProfile.schemaOpts(), { rich: false, built: null });
   assert.deepEqual(siteProfile.schemaOpts(), { rich: true, built: BUILT });
+  // The fourth: only the standalone is served behind an immutable cache, so
+  // only the standalone has to change its stylesheet's name to bust it.
+  assert.equal(demoProfile.stylesheet(), 'assets/styles.css');
+  assert.notEqual(siteProfile.stylesheet(), 'assets/styles.css');
 });
 
 test('a profile builds its manifest once, not on every question', () => {
@@ -173,4 +178,36 @@ test('a render context can be had without rendering a page', () => {
 test('an unknown page key throws rather than rendering something empty', () => {
   assert.throws(() => contextFor({ mod, key: 'no-such-page', profile: siteProfile }),
     /no such page/);
+});
+
+
+// ------------------------------------------------------- the stylesheet's name
+// The host is told /assets/* is `immutable` for a year, which tells a browser
+// never to revalidate — not even on a reload. That was shipped against
+// `assets/styles.css`, a name that never changed, so a returning visitor kept
+// the stylesheet they first downloaded and no CSS fix ever reached them. The
+// name carries a hash of the contents now, and these hold it to that.
+
+test('the standalone fingerprints its stylesheet, and the demo directions do not', () => {
+  assert.match(siteProfile.stylesheet(), /^assets\/styles\.[0-9a-f]{10}\.css$/);
+  // Hashing the demo directions would rewrite all 310 pages on any colour change,
+  // and nothing serves them with a long cache to justify it.
+  assert.equal(demoProfile.stylesheet(), 'assets/styles.css');
+});
+
+test('the fingerprint follows the contents, or the cache is never busted', () => {
+  const css = buildCss();
+  assert.equal(fingerprint(css), fingerprint(css), 'the same bytes must hash the same');
+  assert.notEqual(fingerprint(css), fingerprint(`${css}
+.x{color:red}`),
+    'a changed stylesheet must ship under a changed name');
+  assert.ok(stylesheetName().includes(fingerprint(css)),
+    'the shipped name does not carry the hash of what was built');
+});
+
+test('the stylesheet keeps its folder, because the font urls are relative to it', () => {
+  // @font-face in build/css/site.css says url(fonts/…), resolved against the
+  // stylesheet — so the name may move but the folder may not.
+  assert.match(siteProfile.stylesheet(), /^assets\//);
+  assert.match(buildCss(), /url\(fonts\/archivo-latin-var\.woff2\)/);
 });

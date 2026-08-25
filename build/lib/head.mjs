@@ -7,6 +7,10 @@ const esc = (s) => String(s)
 export function buildHead({
   page, res, dir, content,
   fonts = '', preload = '', extraCss = '', extraMeta = '', schemaOpts = {},
+  // Fingerprinted in the standalone site, plain in the demo directions — see
+  // profile.stylesheet(). Never hardcoded here, or the hash would not reach
+  // the pages that have to point at it.
+  stylesheet = 'assets/styles.css',
 }) {
   const robots = dir.indexable
     ? 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'
@@ -45,7 +49,7 @@ export function buildHead({
 <link rel="icon" href="${res.root('favicon.svg')}" type="image/svg+xml">
 <link rel="apple-touch-icon" href="${res.root('apple-touch-icon.png')}">
 ${extraMeta}${preload}${fonts}
-<link rel="stylesheet" href="${res.local('assets/styles.css')}">
+<link rel="stylesheet" href="${res.local(stylesheet)}">
 ${extraCss}
 <script type="application/ld+json">
 ${JSON.stringify(graphFor({ page, res, content }, schemaOpts), null, 2)}

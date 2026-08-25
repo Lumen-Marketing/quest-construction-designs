@@ -298,6 +298,42 @@ Each reel is built in its own idiom rather than dropped in four times: a hairlin
 timecode in 04, an organic blob with a pulsing medallion in 05, a halftone parallelogram with a
 rotated plaque in 06, and a brass ziggurat frame with a Roman counter in 08.
 
+## The stylesheet's name is a hash of the stylesheet
+
+`vercel.json` and `_headers` give `/assets/*` `max-age=31536000, immutable`,
+which tells a browser never to revalidate — not on a reload. That promise only
+holds for a file whose name changes when its contents do, and the stylesheet
+shipped as `assets/styles.css` for every build. So a CSS fix reached new
+visitors and nobody else: anyone who had loaded the site before kept the
+stylesheet they first downloaded, for a year.
+
+It is not a theory. It shipped, and the first report back was of a bug that had
+already been fixed and deployed — the fix was live, and the browser reporting it
+was still running the stylesheet it had cached before. Every probe in `shots/`
+missed it, because `cdp.mjs` gives each run its own `--user-data-dir` and so
+always starts from an empty cache.
+
+The name now carries ten hex characters of a SHA-256 of the contents —
+`assets/styles.4a1c9e0b72.css`. The HTML is served `max-age=0, must-revalidate`
+and is therefore always fresh, so it always names the current stylesheet, and
+the browser has no choice but to fetch it. The photographs and the two font
+files really are immutable under their names and keep the long cache honestly;
+only this one file is regenerated on every build.
+
+Which product hashes is a profile question, like everything else that separates
+the two — `profile.stylesheet()`. The ten demo directions do not: nothing serves
+them with a long cache to justify it, and hashing would rewrite all 310 pages
+every time anyone touched a colour.
+
+`verify-site.mjs` holds the two invariants that a page cannot show on its own:
+that every page links the stylesheet the build actually wrote, and that no
+stylesheet from an earlier build is still lying in `assets/` for a stale page to
+reach.
+
+**If you change any CSS, rebuild.** Editing `site/assets/*.css` by hand leaves
+the pages pointing at a name that no longer describes the file, and the gate
+will say so.
+
 ## The phone
 
 Most of the traffic a general contractor gets arrives on a phone, so the layout

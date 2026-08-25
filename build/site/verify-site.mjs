@@ -6,11 +6,12 @@
 // Like the demo gate, it owns no page rules: everything it asserts about a
 // single page comes from lib/page-rules.mjs. What lives here is what can only
 // be judged across the whole site — uniqueness, the sitemap, the stylesheet.
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { walk } from '../check-links.mjs';
 import { pageList } from '../lib/pages.mjs';
 import { outPath, ORIGIN } from '../lib/url.mjs';
+import { siteProfile } from '../lib/profile.mjs';
 import {
   allFindings, siteTarget, title, description, isIndexable,
 } from '../lib/page-rules.mjs';
@@ -51,10 +52,24 @@ const titles = new Map();
 const descriptions = new Map();
 let indexable = 0;
 
+// The stylesheet's name carries a hash of its contents, so ask rather than
+// assume. The name is the cache key the host is told to hold `immutable` for a
+// year, so two things have to be true of every build and neither is obvious
+// from reading a page: that the file shipped under the name the pages point
+// at, and that no stylesheet from an earlier build is still lying in assets/
+// for a stale page to reach.
+const STYLESHEET = siteProfile.stylesheet();
+
 for (const file of files) {
   const html = readFileSync(file, 'utf8');
   const rel = relative(OUT, file).split(sep).join('/');
   const where = (m) => bad(`${rel}: ${m}`);
+
+  const sheets = [...html.matchAll(/<link rel="stylesheet" href="([^"]+)"/g)].map((m) => m[1]);
+  if (sheets.length !== 1) where(`links ${sheets.length} stylesheets, expected 1`);
+  for (const href of sheets) {
+    if (!href.endsWith(STYLESHEET)) where(`links ${href}, but the build shipped ${STYLESHEET}`);
+  }
 
   for (const leak of CHOOSER_LEAKS) {
     if (html.includes(leak)) where(`contains ${JSON.stringify(leak)}`);
@@ -91,7 +106,7 @@ if (indexable !== PAGES.length) {
 
 // --- the root files
 for (const f of ['robots.txt', 'sitemap.xml', 'llms.txt', 'site.webmanifest',
-  'favicon.svg', 'apple-touch-icon.png', 'assets/styles.css', '_headers', 'vercel.json']) {
+  'favicon.svg', 'apple-touch-icon.png', STYLESHEET, '_headers', 'vercel.json']) {
   if (!existsSync(join(OUT, f))) bad(`missing root file: ${f}`);
 }
 
@@ -112,7 +127,11 @@ if (!readFileSync(join(OUT, 'robots.txt'), 'utf8').includes(`Sitemap: ${ORIGIN}/
 }
 
 // --- the accent actually landed, and the fonts are first-party
-const css = readFileSync(join(OUT, 'assets/styles.css'), 'utf8');
+const stale = readdirSync(join(OUT, 'assets'))
+  .filter((f) => f.endsWith('.css') && f !== STYLESHEET.replace('assets/', ''));
+if (stale.length) bad(`stylesheets from an earlier build are still in assets/: ${stale}`);
+
+const css = readFileSync(join(OUT, STYLESHEET), 'utf8');
 if (!css.includes('--acc:#D07C42')) bad('the stylesheet is not Burnt Orange');
 if (/#D9A93C|255,\s*198,\s*41|224,\s*168,\s*0/i.test(css)) bad('ochre survives in the stylesheet');
 if ((css.match(/@font-face/g) || []).length !== 2) bad('the two self-hosted faces are not both there');

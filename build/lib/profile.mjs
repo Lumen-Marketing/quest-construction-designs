@@ -11,6 +11,7 @@
 // demo directions and the standalone site is readable in this one file.
 import { resolver, absoluteResolver } from './url.mjs';
 import { pageList } from './pages.mjs';
+import { stylesheetName } from './site-css.mjs';
 
 /**
  * When the standalone site was last generated. Stamped into the sitemap's
@@ -20,7 +21,7 @@ import { pageList } from './pages.mjs';
  */
 export const BUILT = '2026-08-22';
 
-function makeProfile({ name, hubs, richSchema, built }) {
+function makeProfile({ name, hubs, richSchema, built, fingerprintCss }) {
   // pageList re-reads the content files, so the manifest is built once.
   let manifest = null;
 
@@ -48,6 +49,19 @@ function makeProfile({ name, hubs, richSchema, built }) {
     schemaOpts() {
       return { rich: richSchema, built };
     },
+
+    /**
+     * What this product's stylesheet is called, relative to its site folder.
+     *
+     * The standalone fingerprints it, because its host is told /assets/* is
+     * `immutable` for a year — a promise that only holds for a file whose name
+     * changes with its contents. The ten demo directions are served off the
+     * repo root with no such header, and hashing there would rewrite 310 pages
+     * every time anyone touched a colour.
+     */
+    stylesheet() {
+      return fingerprintCss ? `assets/${stylesheetName()}` : 'assets/styles.css';
+    },
   };
 }
 
@@ -57,7 +71,7 @@ function makeProfile({ name, hubs, richSchema, built }) {
  * reach an index.
  */
 export const demoProfile = makeProfile({
-  name: 'demo', hubs: false, richSchema: false, built: null,
+  name: 'demo', hubs: false, richSchema: false, built: null, fingerprintCss: false,
 });
 
 /**
@@ -65,5 +79,5 @@ export const demoProfile = makeProfile({
  * business node, and a last-modified stamp.
  */
 export const siteProfile = makeProfile({
-  name: 'site', hubs: true, richSchema: true, built: BUILT,
+  name: 'site', hubs: true, richSchema: true, built: BUILT, fingerprintCss: true,
 });
