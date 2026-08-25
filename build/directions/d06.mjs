@@ -3,6 +3,7 @@
 // cool neutral grounds so the clay accent reads as a mark rather than a wash,
 // and modest radii. One grotesque, Archivo, at four weights.
 import { img, preloadImage } from '../lib/images.mjs';
+import { scriptMap } from '../lib/palette.mjs';
 
 export const meta = {
   slug: 'd06-red-iron',
@@ -132,9 +133,7 @@ export function footer(c) {
 export function script(c) {
   return `<script>
 (function(){
-  var P={orange:['#D07C42','#1C1208','#9A4E1E','#E0A070'],
-         clay:['#A8543A','#ffffff','#7C3A24','#B36A54'],
-         hivis:['#D9A93C','#191307','#8A6712','#E3C173']};
+  ${scriptMap()}
   function set(k){var p=P[k];if(!p)return;var s=document.documentElement.style;
     s.setProperty('--acc',p[0]);s.setProperty('--on-acc',p[1]);
     s.setProperty('--acc-dim',p[2]);s.setProperty('--acc-on-dark',p[3]);}

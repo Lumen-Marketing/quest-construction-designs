@@ -13,6 +13,7 @@ import { renderPage, contextFor } from '../build.mjs';
 import { loadContent } from '../lib/pages.mjs';
 import { outPath, ORIGIN } from '../lib/url.mjs';
 import { siteProfile, BUILT } from '../lib/profile.mjs';
+import { palette, AUTHORED_KEY, CHOSEN_KEY } from '../lib/palette.mjs';
 import * as mod from './module.mjs';
 
 export const OUT = 'site';
@@ -34,19 +35,26 @@ const write = (rel, body) => {
 // the additions in build/css/site.css are spliced on. Every substitution is
 // asserted, so a rename upstream fails the build instead of silently shipping
 // the old colour.
-const ACCENT = [
-  ['--acc:#D9A93C;              /* swapped live by the gallery */',
-    '--acc:#D07C42;              /* Burnt Orange — the chosen accent */'],
-  ['--on-acc:#191307;', '--on-acc:#1C1208;'],
-  ['--acc-dim:#8A6712;', '--acc-dim:#9A4E1E;'],
-];
-
-// Eight shadows and washes were written as literal ochre rather than as the
-// token, so the swap has to reach them by pattern. The alpha is left alone —
-// only the hue moves.
-const OCHRE_RGB = /rgba\((?:255,\s*198,\s*41|224,\s*168,\s*0),/g;
-const ORANGE_RGB = 'rgba(208,124,66,';
-
+// Direction 01's stylesheet is the source of truth for the design. Two things
+// happen on the way through: the accent tokens become the chosen palette, and
+// the additions in build/css/site.css are spliced on.
+//
+// This used to be literal string replacement — three exact-match swaps plus a
+// regex for eight hardcoded washes that were never tokenised. The washes are
+// color-mix on the token now, so the only accent values left in the stylesheet
+// are the three declarations, and those are generated rather than matched.
+function swapAccent(css, from, to) {
+  let out = css;
+  for (const prop of ['acc', 'on-acc', 'acc-dim']) {
+    const re = new RegExp(`(--${prop}:)#[0-9A-Fa-f]{3,8}`, 'g');
+    if (!re.test(out)) throw new Error(`the stylesheet has no --${prop} to swap`);
+    out = out.replace(re, `$1${palette(to)[{ acc: 'acc', 'on-acc': 'onAcc', 'acc-dim': 'dim' }[prop]]}`);
+  }
+  if (out.includes(palette(from).acc)) {
+    throw new Error(`${palette(from).name} survived the accent swap`);
+  }
+  return out;
+}
 
 const FACE_MARKER = '/* ---------- city cards';
 
@@ -57,20 +65,14 @@ function splitOnMarker(text, marker) {
 }
 
 export function buildCss() {
-  let css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
-  for (const [from, to] of ACCENT) {
-    if (!css.includes(from)) throw new Error(`accent swap missed: ${from}`);
-    css = css.split(from).join(to);
-  }
-  const washes = (css.match(OCHRE_RGB) || []).length;
-  if (!washes) throw new Error('the literal ochre washes are gone — check the stylesheet');
-  css = css.replace(OCHRE_RGB, ORANGE_RGB);
-  if (/#D9A93C|255,\s*198,\s*41|224,\s*168,\s*0/i.test(css)) {
-    throw new Error('ochre survived the accent swap');
-  }
+  const css = swapAccent(
+    readFileSync('d01-site-plan/assets/styles.css', 'utf8'), AUTHORED_KEY, CHOSEN_KEY,
+  );
   // The @font-face rules have to precede any rule that uses the family.
   const [faces, rest] = splitOnMarker(readFileSync('build/css/site.css', 'utf8'), FACE_MARKER);
-  return `${faces}\n${css}\n${rest}`;
+  return `${faces}
+${css}
+${rest}`;
 }
 
 // ----------------------------------------------------------------------- 404
@@ -88,7 +90,7 @@ function notFound() {
 <meta name="color-scheme" content="light">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="theme-color" content="#D07C42">
+<meta name="theme-color" content="${palette(CHOSEN_KEY).acc}">
 <link rel="stylesheet" href="/assets/styles.css">`;
 
   return `<!doctype html>
@@ -272,7 +274,7 @@ const webmanifest = () => `${JSON.stringify({
   display: 'browser',
   lang: 'en-US',
   background_color: '#FAF6EC',
-  theme_color: '#D07C42',
+  theme_color: palette(CHOSEN_KEY).acc,
   icons: [
     { src: '/favicon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
     { src: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },

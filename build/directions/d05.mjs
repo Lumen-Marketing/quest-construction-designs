@@ -4,6 +4,7 @@
 // Cards are chunky and hard-bordered; the process runs as concentric arcs.
 import { img, preloadImage } from '../lib/images.mjs';
 import { icon } from '../lib/icons.mjs';
+import { scriptMap } from '../lib/palette.mjs';
 
 export const meta = {
   slug: 'd05-ground-break',
@@ -135,11 +136,7 @@ export function footer(c) {
 export function script(c) {
   return `<script>
 (function(){
-  var P={
-    orange:['#D07C42','#1C1208','#9A4E1E','#EFA372'],
-    clay:  ['#A8543A','#ffffff','#7C3A24','#D98A6A'],
-    hivis: ['#D9A93C','#191307','#8A6712','#EFC96B']
-  };
+  ${scriptMap({ lift: true })}
   function set(k){var p=P[k];if(!p)return;var s=document.documentElement.style;
     s.setProperty('--acc',p[0]);s.setProperty('--on-acc',p[1]);
     s.setProperty('--acc-dim',p[2]);s.setProperty('--acc-lift',p[3]);}

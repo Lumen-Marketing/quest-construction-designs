@@ -3,6 +3,7 @@
 // whole surfaces only. Services are an index of oversized rows; the process is
 // a ruled timeline; the gallery is a chamfered bento.
 import { img, preloadImage } from '../lib/images.mjs';
+import { scriptMap } from '../lib/palette.mjs';
 
 export const meta = {
   slug: 'd03-split-bay',
@@ -122,7 +123,7 @@ export function footer(c) {
 export function script(c) {
   return `<script>
 (function(){
-  var P={orange:['#D07C42','#1C1208','#9A4E1E'],clay:['#A8543A','#ffffff','#7C3A24'],hivis:['#D9A93C','#191307','#8A6712']};
+  ${scriptMap()}
   function set(k){var p=P[k];if(!p)return;var s=document.documentElement.style;
     s.setProperty('--acc',p[0]);s.setProperty('--on-acc',p[1]);s.setProperty('--acc-dim',p[2]);}
   var q=new URLSearchParams(location.search).get('acc'); if(q) set(q);

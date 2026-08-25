@@ -4,6 +4,7 @@
 // radii, soft layered shadows.
 import { img, preloadImage } from '../lib/images.mjs';
 import { icon } from '../lib/icons.mjs';
+import { scriptMap } from '../lib/palette.mjs';
 
 export const meta = {
   slug: 'd01-site-plan',
@@ -138,7 +139,7 @@ export function footer(c) {
 export function accentScript() {
   return `<script>
 (function(){
-  var P={orange:['#D07C42','#1C1208','#9A4E1E'],clay:['#A8543A','#ffffff','#7C3A24'],hivis:['#D9A93C','#191307','#8A6712']};
+  ${scriptMap()}
   function set(k){var p=P[k];if(!p)return;var s=document.documentElement.style;
     s.setProperty('--acc',p[0]);s.setProperty('--on-acc',p[1]);s.setProperty('--acc-dim',p[2]);}
   var q=new URLSearchParams(location.search).get('acc'); if(q) set(q);

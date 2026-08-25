@@ -82,7 +82,7 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 .btn .pip{width:26px;height:26px;border-radius:50%;background:var(--acc);color:var(--on-acc);
   display:grid;place-items:center;font-size:12px;transition:transform .3s ease}
 @media (hover:hover) and (pointer:fine){.btn:hover .pip{transform:rotate(45deg)}}
-.btn.acc{background:var(--acc);color:var(--on-acc);box-shadow:0 12px 30px rgba(224,168,0,.4)}
+.btn.acc{background:var(--acc);color:var(--on-acc);box-shadow:0 12px 30px color-mix(in srgb,var(--acc) 40%,transparent)}
 .btn.acc .pip{background:var(--ink);color:var(--acc)}
 .btn.ghost{background:transparent;color:var(--on-acc);box-shadow:none;
   border:1.5px solid color-mix(in srgb,var(--on-acc) 68%,transparent)}
@@ -92,11 +92,11 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 .btn.on-dark{background:var(--on-dark);color:var(--ink)}
 
 /* pill label */
-.pill{display:inline-flex;align-items:center;gap:9px;background:rgba(255,198,41,.18);
+.pill{display:inline-flex;align-items:center;gap:9px;background:color-mix(in srgb,var(--acc) 18%,transparent);
   color:var(--ink);border-radius:999px;padding:8px 16px;font-family:'JetBrains Mono',monospace;
   font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
 .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--acc-dim)}
-.pill.on-dark{background:rgba(255,198,41,.14);color:var(--acc)}
+.pill.on-dark{background:color-mix(in srgb,var(--acc) 14%,transparent);color:var(--acc)}
 .pill.on-acc{background:color-mix(in srgb,var(--on-acc) 15%,transparent);color:var(--on-acc)}
 .pill.on-acc .dot{background:var(--on-acc)}
 
@@ -106,7 +106,7 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 .nav .wrap{display:flex;align-items:center;gap:clamp(16px,3vw,44px);height:82px}
 .brand{display:flex;align-items:center;gap:11px;font-weight:900;font-size:20px;letter-spacing:-.05em;text-transform:uppercase}
 .brand .mk{width:34px;height:34px;border-radius:9px;background:var(--acc);display:grid;place-items:center;
-  box-shadow:0 8px 20px rgba(224,168,0,.4)}
+  box-shadow:0 8px 20px color-mix(in srgb,var(--acc) 40%,transparent)}
 .brand .mk::before{content:"";width:13px;height:13px;background:var(--ink);clip-path:polygon(0 0,100% 0,58% 50%,100% 100%,0 100%)}
 .nav nav{display:flex;gap:clamp(14px,2.2vw,34px);margin-left:auto;font-size:14.5px;font-weight:500}
 .nav nav a{color:var(--ink-2);transition:color .2s}
@@ -211,7 +211,7 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
   transition:transform .38s cubic-bezier(.2,.8,.2,1),box-shadow .38s ease,background .38s ease}
 @media (hover:hover) and (pointer:fine){.svc:hover{transform:translateY(-10px);box-shadow:var(--sh-dark);background:var(--dark-3)}}
 .svc .ic{width:56px;height:56px;border-radius:16px;background:var(--acc);display:grid;place-items:center;
-  margin-bottom:auto;box-shadow:0 12px 28px rgba(224,168,0,.28)}
+  margin-bottom:auto;box-shadow:0 12px 28px color-mix(in srgb,var(--acc) 28%,transparent)}
 .svc .ic svg{width:26px;height:26px;stroke:var(--on-acc);fill:none;stroke-width:2.1}
 .svc h3{font-size:clamp(19px,2.1vw,26px);margin:26px 0 12px;font-weight:800}
 .svc p{margin:0 0 24px;font-size:14.5px;color:var(--on-dark-2)}

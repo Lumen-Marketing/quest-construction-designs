@@ -361,11 +361,7 @@
 </footer>
 <script>
 (function(){
-  var P={
-    orange:['#D07C42','#1C1208','#9A4E1E','#EFA372'],
-    clay:  ['#A8543A','#ffffff','#7C3A24','#D98A6A'],
-    hivis: ['#D9A93C','#191307','#8A6712','#EFC96B']
-  };
+  var P={orange:['#D07C42','#1C1208','#9A4E1E','#EFA372'],clay:['#A8543A','#ffffff','#7C3A24','#D98A6A'],hivis:['#D9A93C','#191307','#8A6712','#EFC96B']};
   function set(k){var p=P[k];if(!p)return;var s=document.documentElement.style;
     s.setProperty('--acc',p[0]);s.setProperty('--on-acc',p[1]);
     s.setProperty('--acc-dim',p[2]);s.setProperty('--acc-lift',p[3]);}

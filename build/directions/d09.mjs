@@ -3,6 +3,7 @@
 // torn paper, strips of tape, typewriter captions, and photographs blown out
 // on a bad photocopier. Loud, but the body copy always lands on clean paper.
 import { img, preloadImage } from '../lib/images.mjs';
+import { scriptMap } from '../lib/palette.mjs';
 
 export const meta = {
   slug: 'd09-site-notice',
@@ -123,7 +124,7 @@ export function footer(c) {
 export function script(c) {
   return `<script>
 (function(){
-  var P={orange:['#D07C42','#1C1208','#8B471B'],clay:['#A8543A','#ffffff','#7C3A24'],hivis:['#D9A93C','#191307','#8A6712']};
+  ${scriptMap()}
   function set(k){var p=P[k];if(!p)return;var s=document.documentElement.style;
     s.setProperty('--acc',p[0]);s.setProperty('--on-acc',p[1]);s.setProperty('--acc-dim',p[2]);}
   var q=new URLSearchParams(location.search).get('acc'); if(q) set(q);

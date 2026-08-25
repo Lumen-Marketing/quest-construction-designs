@@ -3,6 +3,7 @@
 // Charcoal and brass, Limelight for display and Jost for text — the palette
 // and the lettering of the era that built the skyscrapers.
 import { img, preloadImage } from '../lib/images.mjs';
+import { scriptMap } from '../lib/palette.mjs';
 
 export const meta = {
   slug: 'd08-machine-age',
@@ -145,7 +146,7 @@ export function footer(c) {
 export function script(c) {
   return `<script>
 (function(){
-  var P={orange:['#D07C42','#1C1208','#9A4E1E'],clay:['#A8543A','#ffffff','#7C3A24'],hivis:['#D9A93C','#191307','#846211']};
+  ${scriptMap()}
   function set(k){var p=P[k];if(!p)return;var s=document.documentElement.style;
     s.setProperty('--acc',p[0]);s.setProperty('--on-acc',p[1]);s.setProperty('--acc-dim',p[2]);}
   var q=new URLSearchParams(location.search).get('acc'); if(q) set(q);
