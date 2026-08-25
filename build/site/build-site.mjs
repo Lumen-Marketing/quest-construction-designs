@@ -50,6 +50,12 @@ function swapAccent(css, from, to) {
     if (!re.test(out)) throw new Error(`the stylesheet has no --${prop} to swap`);
     out = out.replace(re, `$1${palette(to)[{ acc: 'acc', 'on-acc': 'onAcc', 'acc-dim': 'dim' }[prop]]}`);
   }
+  // The authored comment says the accent is swapped live by the gallery. That
+  // is true of a direction and false here: the standalone bakes one in.
+  out = out.replace(
+    /(--acc:#[0-9A-Fa-f]{3,8};\s*)\/\* swapped live by the gallery \*\//,
+    `$1/* ${palette(to).name} — the chosen accent, baked in */`,
+  );
   if (out.includes(palette(from).acc)) {
     throw new Error(`${palette(from).name} survived the accent swap`);
   }
