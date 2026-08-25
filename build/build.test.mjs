@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { renderPage, allPagesFor } from './build.mjs';
+import { HTML_TAG, SKIP_LINK, MAIN_TAG } from './lib/page-rules.mjs';
 import * as stub from './directions/_stub.mjs';
 
 test('a direction renders all thirty-one pages', () => {
@@ -10,10 +11,8 @@ test('a direction renders all thirty-one pages', () => {
 test('a rendered page is a complete document with the landmarks', () => {
   const html = renderPage({ mod: stub, key: 'services/roofing' });
   assert.match(html, /^<!doctype html>/);
-  assert.match(html, /<html lang="en">/);
-  assert.match(html, /<a class="skip-link" href="#main">/);
-  assert.match(html, /<main id="main" tabindex="-1">/);
   assert.match(html, /<\/html>\s*$/);
+  for (const tag of [HTML_TAG, SKIP_LINK, MAIN_TAG]) assert.ok(html.includes(tag), tag);
 });
 
 test('rendered links resolve relative to the page depth', () => {
@@ -33,7 +32,8 @@ test('every page kind renders through its own hook', () => {
   const seen = new Set();
   for (const key of allPagesFor()) {
     const html = renderPage({ mod: stub, key });
-    assert.match(html, /<main id="main" tabindex="-1">\s*\n?<h1>/, `${key} rendered no h1`);
+    assert.ok(html.includes(`${MAIN_TAG}
+<h1>`), `${key} rendered no h1`);
     seen.add(key);
   }
   assert.equal(seen.size, 31);

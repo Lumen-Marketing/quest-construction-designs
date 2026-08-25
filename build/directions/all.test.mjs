@@ -5,6 +5,9 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import { renderPage, allPagesFor } from '../build.mjs';
+import {
+  documentFindings, HTML_TAG, SKIP_LINK, MAIN_TAG,
+} from '../lib/page-rules.mjs';
 
 const esc = (s) => String(s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -19,12 +22,6 @@ const NAMES = readdirSync(new URL('.', import.meta.url))
 
 const mods = await Promise.all(NAMES.map((f) => import(`./${f}`)));
 
-// Anything here means placeholder identity data or invented figures leaked into
-// a generated page. Every one of these is a real-world liability, not a nit.
-const BANNED = [
-  '555-0100', 'Buchanan', 'ROC #', 'aggregateRating', 'plans.webp',
-  'est. 2010', '{{city}}', 'href="#"', 'undefined', 'NaN', '[object Object]',
-];
 
 test('at least one direction module exists', () => {
   assert.ok(mods.length > 0, 'no direction modules found');
@@ -45,18 +42,19 @@ for (const mod of mods) {
   test(`${d}: is a complete document with the accessibility landmarks`, () => {
     const html = renderPage({ mod, key: 'home' });
     assert.match(html, /^<!doctype html>/);
-    assert.match(html, /<html lang="en">/);
-    assert.match(html, /<a class="skip-link" href="#main">/);
-    assert.match(html, /<main id="main" tabindex="-1">/);
     assert.match(html, /<\/html>\s*$/);
+    for (const tag of [HTML_TAG, SKIP_LINK, MAIN_TAG]) {
+      assert.ok(html.includes(tag), `${d}: missing ${tag}`);
+    }
   });
 
-  test(`${d}: leaks no placeholder identity data on any page`, () => {
+  // One assertion for every structural rule the gate enforces — banned strings,
+  // landmarks, one h1, and alt text plus intrinsic size plus a loading hint on
+  // every image. The rules live in lib/page-rules.mjs; this just runs them.
+  test(`${d}: breaks none of the page rules, on any of the thirty-one pages`, () => {
     for (const key of allPagesFor()) {
-      const html = renderPage({ mod, key });
-      for (const bad of BANNED) {
-        assert.ok(!html.includes(bad), `${d} ${key}: leaked ${JSON.stringify(bad)}`);
-      }
+      const findings = documentFindings(renderPage({ mod, key }));
+      assert.deepEqual(findings, [], `${d} ${key}: ${findings.map((f) => f.message).join('; ')}`);
     }
   });
 

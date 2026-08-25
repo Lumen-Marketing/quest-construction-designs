@@ -6,6 +6,7 @@ import { pathToFileURL } from 'node:url';
 import { resolver, absoluteResolver, outPath } from './lib/url.mjs';
 import { loadContent, pageList } from './lib/pages.mjs';
 import { buildHead } from './lib/head.mjs';
+import { HTML_TAG, SKIP_LINK, MAIN_TAG } from './lib/page-rules.mjs';
 
 const content = loadContent();
 const PAGES = pageList();
@@ -47,15 +48,17 @@ export function renderPage({ mod, key, pages = PAGES, opts = {} }) {
 
   const body = mod[page.kind](ctx);
 
+  // The shell's landmarks come from page-rules, which is also what checks for
+  // them — so a change here can never drift from the rule that enforces it.
   return `<!doctype html>
-<html lang="en">
+${HTML_TAG}
 <head>
 ${head}
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
+${SKIP_LINK}
 ${mod.nav(ctx)}
-<main id="main" tabindex="-1">
+${MAIN_TAG}
 ${body}
 </main>
 ${mod.footer(ctx)}

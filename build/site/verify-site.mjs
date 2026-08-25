@@ -2,34 +2,25 @@
 // rather than the renderers, so it catches anything that slipped between the
 // two — and it is what "ready to deploy" means here.
 //   node build/site/verify-site.mjs
-import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
-import { join, dirname, resolve, relative, sep } from 'node:path';
+//
+// Like the demo gate, it owns no page rules: everything it asserts about a
+// single page comes from lib/page-rules.mjs. What lives here is what can only
+// be judged across the whole site — uniqueness, the sitemap, the stylesheet.
+import { readFileSync, existsSync } from 'node:fs';
+import { join, relative, sep } from 'node:path';
+import { walk } from '../check-links.mjs';
 import { pageList } from '../lib/pages.mjs';
 import { outPath, ORIGIN } from '../lib/url.mjs';
+import {
+  allFindings, siteTarget, title, description, isIndexable,
+} from '../lib/page-rules.mjs';
 
 const OUT = 'site';
 const PAGES = pageList({ hubs: true });
 
-// Placeholder identity data and invented figures. Every one is a real-world
-// liability, not a nit — plus the three things that would mean the chooser
-// leaked into the standalone build.
-const BANNED = [
-  '555-0100', 'Buchanan', 'ROC #', 'aggregateRating', 'plans.webp',
-  'est. 2010', '{{city}}', 'href="#"', 'undefined', 'NaN', '[object Object]',
-  'd01-site-plan', '?acc=', 'fonts.googleapis.com', 'fonts.gstatic.com',
-];
-
-function walk(dir, out = []) {
-  for (const e of readdirSync(dir, { withFileTypes: true })) {
-    // Hidden entries are not ours: site/.vercel holds the deployment link, and
-    // `vercel build` drops a second copy of the whole site inside it.
-    if (e.name.startsWith('.')) continue;
-    const p = join(dir, e.name);
-    if (e.isDirectory()) walk(p, out);
-    else if (e.name.endsWith('.html')) out.push(p);
-  }
-  return out;
-}
+// The four things that would mean the chooser leaked into the standalone build.
+// The placeholder-identity list is not repeated here — it lives in page-rules.
+const CHOOSER_LEAKS = ['d01-site-plan', '?acc=', 'fonts.googleapis.com', 'fonts.gstatic.com'];
 
 let fail = 0;
 const say = (m) => console.log(m);
@@ -46,19 +37,15 @@ if (files.length !== PAGES.length + 1) {
   bad(`${files.length} html files, expected ${PAGES.length} pages + the 404`);
 }
 
-// Every page key in the manifest has a file on disk, and nothing extra is
-// there — a stale file from a renamed slug is a duplicate-content problem.
+// Every page key has a file, and nothing extra is there — a stale file from a
+// renamed slug is a duplicate-content problem.
 const expected = new Set([...PAGES.map((p) => outPath(p.key)), '404.html']);
 const actual = new Set(files.map((f) => relative(OUT, f).split(sep).join('/')));
 for (const e of expected) if (!actual.has(e)) bad(`missing page: ${e}`);
 for (const a of actual) if (!expected.has(a)) bad(`unexpected page: ${a}`);
 
-// Titles and descriptions are measured as they render, not as they are
-// escaped — "&amp;" is one character in a SERP, not five.
-const decode = (s) => String(s)
-  .replace(/&quot;/g, '"').replace(/&#39;/g, "'")
-  .replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-  .replace(/&mdash;/g, '—').replace(/&amp;/g, '&');
+const resolve = siteTarget(OUT);
+const assetOnDisk = (url) => existsSync(join(OUT, url.replace(`${ORIGIN}/`, '')));
 
 const titles = new Map();
 const descriptions = new Map();
@@ -69,106 +56,32 @@ for (const file of files) {
   const rel = relative(OUT, file).split(sep).join('/');
   const where = (m) => bad(`${rel}: ${m}`);
 
-  for (const b of BANNED) if (html.includes(b)) where(`contains ${JSON.stringify(b)}`);
-
-  // --- landmarks and headings
-  if (!html.includes('<main id="main" tabindex="-1">')) where('no main landmark');
-  if (!html.includes('<a class="skip-link" href="#main">')) where('no skip link');
-  const h1s = (html.match(/<h1[ >]/g) || []).length;
-  if (h1s !== 1) where(`${h1s} h1 elements, expected exactly 1`);
-  if (!/<html lang="en">/.test(html)) where('no lang on <html>');
-
-  // --- links resolve, on disk. A leading slash is the site root, which is
-  // how the 404 has to address everything.
-  const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]));
-  for (const m of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
-    const href = m[1];
-    if (/^(https?:|tel:|mailto:|data:|\/\/)/.test(href)) continue;
-    if (href.startsWith('#')) {
-      if (!ids.has(href.slice(1))) where(`dead anchor ${href}`);
-      continue;
-    }
-    const [path, hash] = href.split('#');
-    let target = path.startsWith('/')
-      ? resolve(OUT, `.${path}`)
-      : resolve(dirname(file), path);
-    // Directory form is what the 404 uses, since it has to address the site
-    // root; a static host serves the index inside.
-    if (existsSync(target) && statSync(target).isDirectory()) {
-      target = join(target, 'index.html');
-    }
-    if (!existsSync(target) || statSync(target).isDirectory()) {
-      where(`broken link ${href}`);
-      continue;
-    }
-    if (hash) {
-      const targetIds = new Set(
-        [...readFileSync(target, 'utf8').matchAll(/\bid="([^"]+)"/g)].map((x) => x[1]),
-      );
-      if (!targetIds.has(hash)) where(`dead anchor ${href}`);
-    }
+  for (const leak of CHOOSER_LEAKS) {
+    if (html.includes(leak)) where(`contains ${JSON.stringify(leak)}`);
   }
 
-  // --- every image carries alt text and intrinsic dimensions
-  for (const m of html.matchAll(/<img\b[^>]*>/g)) {
-    const tag = m[0];
-    const alt = /\balt="([^"]*)"/.exec(tag);
-    if (!alt || alt[1].trim().length < 4) where(`image without real alt text: ${tag.slice(0, 90)}`);
-    if (!/\bwidth="\d+"/.test(tag) || !/\bheight="\d+"/.test(tag)) {
-      where(`image without intrinsic size: ${tag.slice(0, 90)}`);
-    }
-    if (!/\bloading="(lazy|eager)"/.test(tag)) where(`image without a loading hint`);
-  }
+  // The 404 is deliberately noindex and carries no canonical, so it is judged
+  // on the structural rules and its links, not on the head or the graph.
+  const isFourOhFour = rel === '404.html';
+  const url = isFourOhFour ? null : `${ORIGIN}/${rel.replace(/index\.html$/, '')}`;
+  for (const f of allFindings(html, { file, resolve, url, assetOnDisk })) where(f.message);
 
-  if (rel === '404.html') {
+  if (isFourOhFour) {
     if (!/content="noindex/.test(html)) where('the 404 must be noindex');
     continue;
   }
 
-  // --- head: title, description, canonical, robots
-  const title = decode(/<title>([^<]*)<\/title>/.exec(html)?.[1] ?? '') || null;
-  const desc = decode(/<meta name="description" content="([^"]*)">/.exec(html)?.[1] ?? '') || null;
-  const canonical = /<link rel="canonical" href="([^"]*)">/.exec(html)?.[1];
+  if (isIndexable(html)) indexable++;
 
-  if (!title) where('no title');
-  else {
-    if (title.length > 60) where(`title is ${title.length} chars, over 60`);
-    if (titles.has(title)) where(`title duplicates ${titles.get(title)}`);
-    titles.set(title, rel);
+  const t = title(html);
+  const d = description(html);
+  if (t) {
+    if (titles.has(t)) where(`title duplicates ${titles.get(t)}`);
+    titles.set(t, rel);
   }
-  if (!desc) where('no meta description');
-  else {
-    if (desc.length > 155) where(`description is ${desc.length} chars, over 155`);
-    if (descriptions.has(desc)) where(`description duplicates ${descriptions.get(desc)}`);
-    descriptions.set(desc, rel);
-  }
-
-  const want = `${ORIGIN}/${rel.replace(/index\.html$/, '')}`;
-  if (canonical !== want) where(`canonical is ${canonical}, expected ${want}`);
-  if (/content="index,follow/.test(html)) indexable++;
-  else where('not indexable');
-
-  // --- the social card points at a file that exists at 1200x630
-  const og = /<meta property="og:image" content="([^"]*)">/.exec(html)?.[1];
-  if (!og) where('no og:image');
-  else {
-    const local = join(OUT, og.replace(`${ORIGIN}/`, ''));
-    if (!existsSync(local)) where(`og:image is not on disk: ${og}`);
-  }
-
-  // --- the graph parses, and says what page this is
-  const ld = /<script type="application\/ld\+json">\n([\s\S]*?)\n<\/script>/.exec(html)?.[1];
-  if (!ld) where('no JSON-LD');
-  else {
-    try {
-      const graph = JSON.parse(ld)['@graph'];
-      const page = graph.find((n) => String(n['@id']).endsWith('#webpage'));
-      if (!page) where('graph has no WebPage node');
-      else if (page.url !== want) where(`graph url is ${page.url}, expected ${want}`);
-      if (!graph.some((n) => n['@type'] === 'BreadcrumbList')) where('graph has no breadcrumb');
-    } catch (e) {
-      where(`JSON-LD does not parse: ${e.message}`);
-    }
+  if (d) {
+    if (descriptions.has(d)) where(`description duplicates ${descriptions.get(d)}`);
+    descriptions.set(d, rel);
   }
 }
 
@@ -192,9 +105,7 @@ for (const p of PAGES) {
   if (!locs.includes(url)) bad(`sitemap is missing ${url}`);
 }
 for (const img of [...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)].map((m) => m[1])) {
-  if (!existsSync(join(OUT, img.replace(`${ORIGIN}/`, '')))) {
-    bad(`sitemap names an image that is not on disk: ${img}`);
-  }
+  if (!assetOnDisk(img)) bad(`sitemap names an image that is not on disk: ${img}`);
 }
 if (!readFileSync(join(OUT, 'robots.txt'), 'utf8').includes(`Sitemap: ${ORIGIN}/sitemap.xml`)) {
   bad('robots.txt does not point at the sitemap');

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { renderPage, allPagesFor } from '../build.mjs';
 import * as d01 from './d01.mjs';
+import { MAIN_TAG } from '../lib/page-rules.mjs';
 
 const esc = (s) => String(s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -224,7 +225,7 @@ test('the sitemap links all thirty-one pages', () => {
 test('every one of the thirty-one pages renders a non-trivial body', () => {
   for (const key of allPagesFor()) {
     const html = renderPage({ mod: d01, key });
-    const body = /<main id="main"[^>]*>([\s\S]*?)<\/main>/.exec(html)[1];
+    const body = html.split(MAIN_TAG)[1].split('</main>')[0];
     assert.ok(body.length > 1500, `${key} body is only ${body.length} chars`);
     assert.match(body, /<h1>/, `${key} has no h1`);
     assert.equal((body.match(/<h1>/g) || []).length, 1, `${key} has more than one h1`);

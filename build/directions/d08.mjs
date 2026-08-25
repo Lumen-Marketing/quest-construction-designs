@@ -88,7 +88,8 @@ export function nav(c) {
     <a class="n" href="${c.url('projects')}">Works</a>
   </div>
   <a class="brand" href="${c.url('home')}" aria-label="${esc(c.site.name)} home">
-    <img src="${c.asset('quest/logo.webp')}" alt="${esc(c.site.name)}" width="1261" height="285">
+    <img src="${c.asset('quest/logo.webp')}" alt="${esc(c.site.name)}" width="1261" height="285"
+      loading="eager" decoding="async">
   </a>
   <div class="r">
     <a class="n" href="${c.url('gallery')}">Gallery</a>
@@ -116,7 +117,8 @@ export function footer(c) {
   return `<footer>
 <div class="wrap">
   <a class="brand" href="${c.url('home')}">
-    <img src="${c.asset('quest/logo.webp')}" alt="${esc(c.site.name)}" width="1261" height="285">
+    <img src="${c.asset('quest/logo.webp')}" alt="${esc(c.site.name)}" width="1261" height="285"
+        loading="lazy" decoding="async">
   </a>
   <p class="lead">${esc(c.site.footerBlurb)}</p>
   ${RULE}

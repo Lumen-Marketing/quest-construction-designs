@@ -6,6 +6,7 @@ import assert from 'node:assert/strict';
 import { renderPage } from '../build.mjs';
 import { pageList } from '../lib/pages.mjs';
 import { resolver, ORIGIN } from '../lib/url.mjs';
+import { MAIN_TAG, documentFindings } from '../lib/page-rules.mjs';
 import { buildCss } from './build-site.mjs';
 import * as mod from './module.mjs';
 
@@ -21,12 +22,13 @@ test('the manifest carries thirty-three pages, two more than a demo direction', 
   assert.ok(PAGES.some((p) => p.key === 'service-areas'));
 });
 
-test('every page renders with one h1 and a real body', () => {
+test('every page renders with a real body and breaks no page rule', () => {
   for (const p of PAGES) {
     const html = render(p.key);
-    const body = /<main id="main"[^>]*>([\s\S]*?)<\/main>/.exec(html)[1];
+    const body = html.split(MAIN_TAG)[1].split('</main>')[0];
     assert.ok(body.length > 1200, `${p.key}: body only ${body.length} chars`);
-    assert.equal((body.match(/<h1[ >]/g) || []).length, 1, `${p.key}: not exactly one h1`);
+    const findings = documentFindings(html);
+    assert.deepEqual(findings, [], `${p.key}: ${findings.map((f) => f.message).join('; ')}`);
   }
 });
 
