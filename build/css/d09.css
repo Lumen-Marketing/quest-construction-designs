@@ -6,7 +6,7 @@
    ================================================================ */
 .brand img{height:26px;width:auto;display:block}
 footer .brand img{height:32px}
-.facc{color:var(--acc)}
+.facc{color:var(--acc-on-dark)}
 /* the kit's wrappers are <span>s, and a span is inline: no clip, no ratio */
 .xr{display:block}
 

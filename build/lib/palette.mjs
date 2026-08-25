@@ -7,27 +7,51 @@
 // the standalone build reconciled them by running literal string replacements
 // over someone else's CSS text.
 //
-// Each accent carries four values because that is what the designs need:
+// Each accent carries five values because that is what the designs need:
 //
-//   acc    the accent itself, for whole surfaces and large shapes
-//   onAcc  text and marks ON that accent — near-black, or white for clay
-//   dim    the same accent as TEXT on cream or white, where even the muted
-//          tints fail contrast at body size
-//   lift   a lightened tint for text on a dark COLOURED ground; only 05 uses
-//          it, because clay on its excavated green is about 3:1
+//   acc     the accent itself, for whole surfaces and large shapes
+//   onAcc   text and marks ON that accent — near-black, or white for clay
+//   dim     the same accent as TEXT on cream or white, where even the muted
+//           tints fail contrast at body size
+//   onDark  the same accent as TEXT on a near-black band. Ochre and orange
+//           clear 4.5:1 there and are simply themselves; clay is 3.51:1 —
+//           fine for a rule or a focus ring, short of the body-text bar — so
+//           clay's on-dark value is its lifted tint. Every direction sets
+//           small mono labels in the accent on a dark band, so this pairing
+//           is not a corner case: it was failing on seven of the ten.
+//   lift    a lightened tint for text on a dark COLOURED ground; only 05 uses
+//           it, because clay on its excavated green is about 3:1
 //
-// All three are deliberately muted. An earlier pass used fully saturated safety
+// All are deliberately muted. An earlier pass used fully saturated safety
 // colours (#FFC629, #FF7A1C) which are punishing across a full-width hero band.
 
 export const PALETTES = {
   hivis: {
-    key: 'hivis', name: 'Ochre', acc: '#D9A93C', onAcc: '#191307', dim: '#8A6712', lift: '#EFC96B',
+    key: 'hivis',
+    name: 'Ochre',
+    acc: '#D9A93C',
+    onAcc: '#191307',
+    dim: '#8A6712',
+    onDark: '#D9A93C',
+    lift: '#EFC96B',
   },
   orange: {
-    key: 'orange', name: 'Burnt Orange', acc: '#D07C42', onAcc: '#1C1208', dim: '#9A4E1E', lift: '#EFA372',
+    key: 'orange',
+    name: 'Burnt Orange',
+    acc: '#D07C42',
+    onAcc: '#1C1208',
+    dim: '#9A4E1E',
+    onDark: '#D07C42',
+    lift: '#EFA372',
   },
   clay: {
-    key: 'clay', name: 'Clay', acc: '#A8543A', onAcc: '#ffffff', dim: '#7C3A24', lift: '#D98A6A',
+    key: 'clay',
+    name: 'Clay',
+    acc: '#A8543A',
+    onAcc: '#ffffff',
+    dim: '#7C3A24',
+    onDark: '#D08D74',
+    lift: '#D98A6A',
   },
 };
 
@@ -46,27 +70,35 @@ export const palette = (key) => {
 export const KEYS = ['orange', 'clay', 'hivis'];
 
 /**
- * The three accent declarations, exactly as a direction's :root carries them.
+ * The order the values are written in, which is the order the setters read,
+ * paired with the custom property each one lands in. Every consumer — the
+ * :root block, the live-swap map, the standalone build's rewrite — walks this
+ * list, so a value added here reaches all three. `lift` is deliberately not in
+ * it: only 05 carries that token, and it is appended on request.
+ */
+export const ORDER = ['acc', 'onAcc', 'dim', 'onDark'];
+export const CSS_PROP = {
+  acc: '--acc', onAcc: '--on-acc', dim: '--acc-dim', onDark: '--acc-on-dark', lift: '--acc-lift',
+};
+
+/**
+ * The accent declarations, exactly as a direction's :root carries them.
  * The standalone build swaps this block rather than replacing loose hexes.
  */
 export function accentDeclarations(key, { lift = false } = {}) {
   const p = palette(key);
-  return [
-    `  --acc:${p.acc};`,
-    `  --on-acc:${p.onAcc};`,
-    `  --acc-dim:${p.dim};`,
-    ...(lift ? [`  --acc-lift:${p.lift};`] : []),
-  ].join('\n');
+  const fields = [...ORDER, ...(lift ? ['lift'] : [])];
+  return fields.map((f) => `  ${CSS_PROP[f]}:${p[f]};`).join('\n');
 }
 
 /**
  * The map every direction's inline script embeds so the chooser can swap the
- * accent live. `lift` adds the fourth value, which only 05 reads.
+ * accent live. `lift` adds a fifth value, which only 05 reads.
  */
 export function scriptMap({ lift = false } = {}) {
   const row = (k) => {
     const p = palette(k);
-    const vals = [p.acc, p.onAcc, p.dim, ...(lift ? [p.lift] : [])];
+    const vals = [...ORDER.map((f) => p[f]), ...(lift ? [p.lift] : [])];
     return `${k}:[${vals.map((v) => `'${v}'`).join(',')}]`;
   };
   return `var P={${KEYS.map(row).join(',')}};`;

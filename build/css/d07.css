@@ -8,7 +8,7 @@
 footer .brand img{height:34px}
 /* White nav, dark footer: only the nav copy of the light wordmark is darkened. */
 .nav .brand img{filter:invert(1) hue-rotate(180deg) saturate(1.5)}
-.flift{color:var(--acc)}
+.flift{color:var(--acc-on-dark)}
 
 /* ---- nav: a clean white dropdown, estimate CTA on the right ---- */
 .nav{position:sticky}

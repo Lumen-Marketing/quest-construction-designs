@@ -50,6 +50,7 @@
   --acc:#D07C42;              /* Burnt Orange — the chosen accent, baked in */
   --on-acc:#1C1208;
   --acc-dim:#9A4E1E;
+  --acc-on-dark:#D07C42;   /* accent as TEXT on a near-black band */
 
   --cream:#FAF6EC;
   --cream-2:#F2ECDD;
@@ -219,7 +220,7 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 @keyframes slide{to{transform:translateX(-50%)}}
 .strip span{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;
   text-transform:uppercase;padding:0 24px;white-space:nowrap}
-.strip span.d{color:var(--acc)}
+.strip span.d{color:var(--acc-on-dark)}
 @media(prefers-reduced-motion:reduce){.strip-in{animation:none}}
 
 /* ---------- SECTIONS ---------- */
@@ -249,7 +250,7 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 .svc h3{font-size:clamp(19px,2.1vw,26px);margin:26px 0 12px;font-weight:800}
 .svc p{margin:0 0 24px;font-size:14.5px;color:var(--on-dark-2)}
 .svc .go{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;
-  font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:var(--acc)}
+  font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:var(--acc-on-dark)}
 .svc .go i{font-style:normal;transition:transform .28s ease}
 @media (hover:hover) and (pointer:fine){.svc:hover .go i{transform:translate(5px,-5px)}}
 /* ghost numeral for depth */
@@ -435,7 +436,7 @@ footer .brand img{height:38px}
 /* ---- eyebrow, shared by every inner page ---- */
 .eyebrow{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--acc-dim);margin:0 0 14px;font-weight:700}
-.sec.dark .eyebrow{color:var(--acc)}
+.sec.dark .eyebrow{color:var(--acc-on-dark)}
 
 /* ---- story split ---- */
 .split{position:relative;z-index:3;display:grid;grid-template-columns:1fr 1fr;
@@ -621,7 +622,7 @@ footer .brand img{height:38px}
 .help-card{background:var(--dark);color:var(--on-dark);border-radius:var(--r-lg);
   padding:var(--sp-2);box-shadow:var(--sh-lg);overflow:hidden}
 .help-card h2{font-size:clamp(21px,2.4vw,28px);font-weight:900;margin-bottom:18px}
-.help-card .eyebrow{color:var(--acc);margin-bottom:8px}
+.help-card .eyebrow{color:var(--acc-on-dark);margin-bottom:8px}
 .help-card .phone{display:block;font-size:clamp(26px,3.2vw,38px);font-weight:900;
   letter-spacing:-.04em;color:var(--acc);margin-bottom:18px}
 .help-card p{color:var(--on-dark-2);font-size:14.5px;margin:0}
@@ -676,7 +677,7 @@ footer .brand img{height:38px}
 #main:focus{outline:none}
 
 /* ---- touch ---- */
-body{-webkit-tap-highlight-color:rgba(208,124,66,.18)}
+body{-webkit-tap-highlight-color:color-mix(in srgb,var(--acc) 18%,transparent)}
 a,button,summary,label,input,textarea,select{touch-action:manipulation}
 
 /* ---- headline widows ---- */

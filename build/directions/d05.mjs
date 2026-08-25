@@ -139,7 +139,7 @@ export function script(c) {
   ${scriptMap({ lift: true })}
   function set(k){var p=P[k];if(!p)return;var s=document.documentElement.style;
     s.setProperty('--acc',p[0]);s.setProperty('--on-acc',p[1]);
-    s.setProperty('--acc-dim',p[2]);s.setProperty('--acc-lift',p[3]);}
+    s.setProperty('--acc-dim',p[2]);s.setProperty('--acc-on-dark',p[3]);s.setProperty('--acc-lift',p[4]);}
   var q=new URLSearchParams(location.search).get('acc'); if(q) set(q);
   addEventListener('message',function(e){ if(e.data&&e.data.acc) set(e.data.acc); });
 })();

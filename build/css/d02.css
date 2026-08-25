@@ -10,7 +10,7 @@
 footer .brand img{height:36px}
 .eyebrow{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--acc-dim);margin:0 0 14px;font-weight:700}
-.sec.dark .eyebrow,.mani .eyebrow{color:var(--acc)}
+.sec.dark .eyebrow,.mani .eyebrow{color:var(--acc-on-dark)}
 
 /* ---- nav: dropdowns inside the ink pill ---- */
 .nav .wrap{position:relative}
@@ -205,7 +205,7 @@ footer .brand img{height:36px}
 .side h2{font-size:clamp(21px,2.4vw,28px);margin-bottom:20px;color:var(--on-dark)}
 .side .dl{border-top-color:rgba(243,239,230,.2)}
 .side .dl div{border-bottom-color:rgba(243,239,230,.12)}
-.side .dl dd{color:var(--acc)}
+.side .dl dd{color:var(--acc-on-dark)}
 .sideshot{margin-top:24px;border-radius:var(--r);overflow:hidden}
 .sideshot img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
 @media(max-width:880px){.plate2{grid-template-columns:1fr}}

@@ -185,10 +185,10 @@ footer .brand img{height:32px}
 
 /* ---- closing magnet band ---- */
 .magnet{background:var(--acc);color:var(--on-acc);padding:clamp(40px,5vw,74px) 0}
-.magnet .num{color:rgba(28,18,8,.6)}
+.magnet .num{color:color-mix(in srgb,var(--on-acc) 60%,transparent)}
 .magnet h2{grid-column:1/8;font-size:clamp(26px,3.6vw,50px);letter-spacing:-.04em;margin:0}
 .magnet .num{grid-column:1/3}
-.magnet .lede{grid-column:8/13;margin:0;font-size:14.5px;color:rgba(28,18,8,.78)}
+.magnet .lede{grid-column:8/13;margin:0;font-size:14.5px;color:color-mix(in srgb,var(--on-acc) 78%,transparent)}
 .magnet .acts{grid-column:1/13;margin-top:clamp(20px,2.4vw,32px)}
 .magnet .btn{background:var(--ink);color:var(--bone)}
 .magnet .btn.line{background:transparent;color:var(--on-acc);box-shadow:inset 0 0 0 1px var(--on-acc)}

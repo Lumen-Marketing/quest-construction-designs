@@ -13,6 +13,11 @@
 // on-dark value if every ground it ever lands on is dark. One row per element:
 // the authored rule, the glyph size, the ground's luminance, and the measured
 // ratio against it.
+//
+// A finding marked `layered` sits over a photograph or a scrim — something
+// painted between the ancestor's background and the glyph, which no computed
+// style can report. Its ratio is null rather than wrong. Settle those with
+// groundtruth.mjs, which reads the rendered pixels.
 import { withPage, report } from './cdp.mjs';
 
 const [, , target, acc = 'clay'] = process.argv;
@@ -39,14 +44,54 @@ const SCAN = `(() => {
     }
     return [255, 255, 255];
   };
+
+  // ...unless something is painted OVER that ancestor and UNDER the glyph: a
+  // positioned photo layer, or a scrim on its ::before. 06 has a card built
+  // exactly that way, and reading the ancestor's own white background there
+  // gives a number that is not what anyone sees. Say so instead of guessing —
+  // a ratio nobody can act on is worse than an admitted unknown.
+  const covered = (el) => {
+    const r = el.getBoundingClientRect();
+    for (let n = el.parentElement; n; n = n.parentElement) {
+      for (const sib of n.children) {
+        if (sib === el || sib.contains(el)) continue;
+        const cs = getComputedStyle(sib);
+        if (cs.position !== 'absolute' && cs.position !== 'fixed') continue;
+        // A photograph only. Several directions lay a faint gradient grid over
+        // their dark sections; that is a texture on a known ground, not an
+        // unknown one, and calling it layered would blind the probe to a whole
+        // section rather than sharpen it.
+        const photo = (v) => v.includes('url(');
+        const paints = photo(cs.backgroundImage)
+          || photo(getComputedStyle(sib, '::before').backgroundImage)
+          || sib.querySelector('img');
+        if (!paints) continue;
+        const b = sib.getBoundingClientRect();
+        if (b.left <= r.left && b.right >= r.right && b.top <= r.top && b.bottom >= r.bottom) {
+          return true;
+        }
+      }
+      if (parse(getComputedStyle(n).backgroundColor)[3] !== 0) return false;
+    }
+    return false;
+  };
   const label = (e) => e.tagName.toLowerCase()
     + (e.id ? '#' + e.id : '')
     + '.' + String(e.className || '').trim().split(/\\s+/).filter(Boolean).join('.');
 
-  const hex = getComputedStyle(document.documentElement).getPropertyValue('--acc').trim();
-  const rgb = hex.startsWith('#')
+  // Both accent-as-text values, because a rule switched to the on-dark one
+  // stops matching --acc and would otherwise fall out of the report entirely.
+  // A rule that was moved to on-dark but also lands somewhere light is exactly
+  // the mistake this probe has to be able to see.
+  const root = getComputedStyle(document.documentElement);
+  const toRgb = (hex) => (hex.startsWith('#')
     ? [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16))
-    : parse(hex);
+    : parse(hex).slice(0, 3));
+  const TOKENS = [['--acc', root.getPropertyValue('--acc').trim()],
+    ['--acc-on-dark', root.getPropertyValue('--acc-on-dark').trim()],
+    ['--acc-lift', root.getPropertyValue('--acc-lift').trim()]]
+    .filter(([, v]) => v)
+    .map(([name, v]) => [name, v, toRgb(v)]);
 
   // Which authored rule painted this glyph. Knowing the finding is not the
   // same as knowing what to edit: the same eyebrow is set by a different
@@ -87,25 +132,28 @@ const SCAN = `(() => {
     if (!own) continue;
     const cs = getComputedStyle(el);
     const col = parse(cs.color).slice(0, 3);
-    if (!near(col, rgb)) continue;
+    const token = TOKENS.find(([, , t]) => near(col, t));
+    if (!token) continue;
     const size = parseFloat(cs.fontSize);
     const weight = Number(cs.fontWeight) || 400;
     // WCAG large text: 24px, or 18.66px at 700+. Those clear at 3:1.
     const large = size >= 24 || (size >= 18.66 && weight >= 700);
     const g = ground(el);
+    const layered = covered(el);
     const rule = painter(el);
     const key = rule + '|' + Math.round(size) + '|' + g.join(',');
     if (seen.has(key)) continue;
     seen.add(key);
     out.push({
-      rule, el: label(el).slice(0, 60),
+      rule, token: token[0], el: label(el).slice(0, 60),
       text: el.textContent.trim().replace(/\\s+/g, ' ').slice(0, 30),
       px: Math.round(size * 10) / 10, weight, large,
-      groundLum: Math.round(lum(g) * 1000) / 1000,
-      ratio: ratio(col, g), needs: large ? 3 : 4.5,
+      groundLum: layered ? null : Math.round(lum(g) * 1000) / 1000,
+      ratio: layered ? null : ratio(col, g), needs: large ? 3 : 4.5,
+      layered: layered || undefined,
     });
   }
-  return { accent: hex, findings: out };
+  return { accents: TOKENS.map(([n, v]) => n + '=' + v), findings: out };
 })()`;
 
 // Under file:// every document gets an opaque origin, so reading .cssRules off

@@ -98,7 +98,7 @@ footer .brand img{height:30px}
 
 /* ---- the about band, flipped ---- */
 .about .in.flip .pic,.about .in.flip .say{grid-column:auto;grid-row:auto}
-.about h2 em{font-style:normal;color:var(--acc)}
+.about h2 em{font-style:normal;color:var(--acc-dim)}
 .about .say p+p{margin-top:14px}
 .about ol div{min-width:0}
 
@@ -133,7 +133,7 @@ footer .brand img{height:30px}
 .tgroup{padding-top:clamp(20px,2.2vw,28px);border-top:2px solid var(--ink)}
 .tgroup+.tgroup{}
 .tgroup:nth-child(n+3){margin-top:clamp(26px,3vw,44px)}
-.tgroup h3{font-size:15px;font-weight:700;letter-spacing:.01em;color:var(--acc);
+.tgroup h3{font-size:15px;font-weight:700;letter-spacing:.01em;color:var(--acc-dim);
   margin-bottom:6px}
 .tgroup ul{list-style:none;margin:0;padding:0}
 .tgroup li{border-bottom:1px solid var(--line)}
@@ -275,7 +275,7 @@ footer .brand img{height:30px}
   gap:clamp(20px,3vw,48px);align-items:start}
 .mcol{background:none;color:var(--ink);border-radius:0;padding:clamp(18px,2vw,24px) 0 0;
   rotate:0deg;box-shadow:none;border-top:2px solid var(--ink);transition:none}
-.mcol .cnd{margin:0 0 6px;color:var(--acc)}
+.mcol .cnd{margin:0 0 6px;color:var(--acc-dim)}
 .mcol h2{font-size:clamp(19px,2vw,26px);margin-bottom:10px}
 .mcol nav{display:grid}
 .mcol a{display:block;padding:10px 0;border-bottom:1px solid var(--line);font-size:14.6px;

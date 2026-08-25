@@ -49,9 +49,10 @@ What is different from `d01-site-plan/` sitting in a subfolder:
 | Root files | shares the chooser's | own `robots.txt`, `sitemap.xml`, `llms.txt`, `404.html`, manifest, host config |
 
 It is **generated, not forked.** `build/site/module.mjs` reuses direction 01's renderers and
-changes only the shell; the stylesheet is direction 01's with the three accent tokens and eight
-literal ochre washes rewritten on the way through, and the build throws rather than shipping if
-any of those substitutions stops matching. Editing the design still means editing `d01`.
+changes only the shell; the stylesheet is direction 01's with its accent declarations rewritten
+on the way through, and the build throws rather than shipping if any of those substitutions
+stops matching. The washes that used to be rewritten alongside them are `color-mix` on the token
+now, so there is nothing left to match. Editing the design still means editing `d01`.
 
 **The two section landing pages are new.** `/services/` and `/service-areas/` are the URLs a
 visitor reaches by truncating, and the two pages an answer engine wants when it is asked what a
@@ -112,7 +113,7 @@ node --test "build/**/*.test.mjs" # the whole suite
 | `content/*.json` | The site's words and figures — services, areas, pages, NAP, offers |
 | `build/lib/page-rules.mjs` | What makes a generated page valid — the one home for every rule |
 | `build/lib/profile.mjs` | The two products: the ten demo directions, and the standalone site |
-| `build/lib/palette.mjs` | The three accents, and contrast a test can assert |
+| `build/lib/palette.mjs` | The three accents, their four values, and contrast a test can assert |
 | `build/lib/` | URL resolution, the page manifest, `<head>` assembly, JSON-LD, images |
 | `build/directions/dNN.mjs` | One direction's markup — ten renderers plus `meta` and `script` |
 | `build/css/dNN.css` | That direction's multi-page furniture, spliced onto its stylesheet |
@@ -239,9 +240,15 @@ All three are **deliberately muted**. The first pass used fully saturated safety
 (`#FFC629`, `#FF7A1C`) which are punishing across a full-width hero band — these are desaturated
 and warmed toward earth tones instead.
 
-01, 02 and 04–10 also carry a third token, `--acc-dim` — a darker shade used wherever the accent
-has to sit as *text on cream*, since even the muted tints fail contrast on a light background.
-05 needs a fourth, `--acc-lift`: a lightened tint, because the muted accents are far too dark to
+Every direction carries two more tokens beside `--acc` and `--on-acc`. `--acc-dim` is a darker
+shade used wherever the accent has to sit as *text on cream*, since even the muted tints fail
+contrast on a light background. `--acc-on-dark` is the mirror of it: the accent as text on a
+near-black band. Ochre and orange clear 4.5:1 there and are simply themselves, but clay is
+3.51:1 — fine for a rule or a focus ring, short of the body-text bar — so clay's on-dark value
+is a lifted tint. Seven of the ten directions were failing that pairing; `shots/acctext.mjs`
+is what found them and what proves they are clear.
+
+05 needs one more, `--acc-lift`: a lightened tint, because the muted accents are far too dark to
 carry a 180px headline on its green ground (clay on green is only ~3:1).
 
 All ten directions share the same values, 03 included. Its layout is untouched; only its
@@ -387,10 +394,24 @@ node inspect.mjs  ../site/index.html ".hero" 1440  # computed styles for one sel
 node gridcheck.mjs ../site/contact-us/index.html ".contact-form" 1440
 node boxes.mjs    ../site/index.html ".svc" 1440   # box metrics for the first few
 node dropcheck.mjs ../site/index.html 1440         # is the open nav drop hit-testable?
+node acctext.mjs  ../d06-red-iron/index.html clay  # accent text, and what it sits on
+node groundtruth.mjs ../d06-red-iron/index.html ".blk.tall .n" clay
 node mob.mjs      ../site/index.html ./m.png       # true 390px phone render
 node httpshot.mjs http://localhost:8099/nope/ ./404.png
 node click.mjs    palHivis ./out.png               # palOrange | palClay | palHivis
 ```
+
+`acctext.mjs` answers the question a stylesheet cannot: a rule may say
+`color:var(--acc)`, but only the rendered page knows whether that glyph lands on
+cream, on a near-black band or on the accent plane. It reports every
+accent-coloured run of text with the ground's luminance and the measured ratio,
+which is what turned "clay is short of the bar somewhere" into a list of
+forty-four rules to change. Where the ground is painted by a sibling layer —
+a photograph under a gradient scrim — no computed style can report it, so
+those findings come back marked `layered` with a null ratio rather than a
+wrong one; `groundtruth.mjs` settles them from the rendered pixels. That is
+how 06's offer card turned out to be setting a 38px accent numeral at 1.9:1
+over a photograph.
 
 `probe.mjs` is the one to reach for first: it names every element sticking out
 past the viewport, which is far quicker than eyeballing a screenshot.

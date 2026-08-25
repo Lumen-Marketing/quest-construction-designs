@@ -12,6 +12,7 @@
 
   --acc:#D07C42;
   --on-acc:#1C1208;
+  --acc-on-dark:#D07C42;   /* accent as TEXT on a near-black band */
   --bg:#0A0A0A;           /* deactivated CRT — never pure black */
   --bg-2:#131313;
   --bg-3:#1C1C1B;
@@ -295,7 +296,7 @@ footer .brand img{height:36px}
 .crumbs a{text-decoration:underline;text-underline-offset:3px}
 .crumbs a:hover{color:var(--fg)}
 .crumbs b{color:var(--fg)}
-.crumbs span{color:var(--acc)}
+.crumbs span{color:var(--acc-on-dark)}
 @media(max-width:900px){.subhero-in{grid-template-columns:1fr;align-items:start}}
 
 /* ---- service tab rail ---- */
@@ -319,7 +320,7 @@ h2.mid span{color:var(--acc)}
   border:1px solid var(--hair)}
 .blocks.two{grid-template-columns:1fr 1fr}
 .blk{background:var(--bg);padding:clamp(20px,2.2vw,28px)}
-.blk .k{display:block;color:var(--acc);margin-bottom:12px}
+.blk .k{display:block;color:var(--acc-on-dark);margin-bottom:12px}
 .blk h3{font-size:clamp(16px,1.7vw,20px);margin:0 0 10px}
 .blk p{margin:0;color:var(--fg-2);font-size:14.5px}
 @media(max-width:620px){.blocks,.blocks.two{grid-template-columns:1fr}}
@@ -339,7 +340,7 @@ h2.mid span{color:var(--acc)}
 .qbar{margin-top:clamp(18px,2.2vw,26px);background:var(--acc);color:var(--on-acc);
   padding:clamp(22px,2.6vw,34px)}
 .qbar h3{margin:0 0 10px;font-size:clamp(17px,1.9vw,22px)}
-.qbar p{margin:0;font-size:14.5px;max-width:76ch;color:rgba(28,18,8,.82)}
+.qbar p{margin:0;font-size:14.5px;max-width:76ch;color:color-mix(in srgb,var(--on-acc) 82%,transparent)}
 
 /* ---- chamfered FAQ toggles ---- */
 .chamf{display:grid;gap:10px;max-width:1000px}
@@ -368,7 +369,7 @@ h2.mid span{color:var(--acc)}
 .bay{display:grid;grid-template-columns:1fr 1fr;background:var(--bg)}
 .bay:nth-child(even) .bay-r{order:-1}
 .bay-l{padding:clamp(26px,3.4vw,52px);display:flex;flex-direction:column;justify-content:center}
-.bay-l .k{color:var(--acc);margin-bottom:16px}
+.bay-l .k{color:var(--acc-on-dark);margin-bottom:16px}
 .bay-l h3{font-size:clamp(24px,3.2vw,44px);letter-spacing:-.035em;margin:0 0 14px}
 .bay-l p{margin:0;color:var(--fg-2);font-size:clamp(14.5px,1.4vw,16.5px)}
 .bay-r img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06);

@@ -18,6 +18,7 @@
   --acc:#D9A93C;
   --on-acc:#191307;
   --acc-dim:#8A6712;
+  --acc-on-dark:#D9A93C;   /* accent as TEXT on a near-black band */
 
   --cream:#FAF6EC;
   --cream-2:#F2ECDD;
@@ -78,7 +79,7 @@ h2,h3,h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 112,'wg
 .btn .pip{width:26px;height:26px;border-radius:50%;background:var(--acc);color:var(--on-acc);
   display:grid;place-items:center;font-size:12px;transition:transform .3s ease}
 @media (hover:hover) and (pointer:fine){.btn:hover .pip{transform:rotate(45deg)}}
-.btn.acc{background:var(--acc);color:var(--on-acc);box-shadow:0 12px 30px rgba(224,168,0,.4)}
+.btn.acc{background:var(--acc);color:var(--on-acc);box-shadow:0 12px 30px color-mix(in srgb,var(--acc) 40%,transparent)}
 .btn.acc .pip{background:var(--ink);color:var(--acc)}
 .btn.outline{background:transparent;color:var(--ink);box-shadow:none;border:1.5px solid rgba(21,20,15,.22)}
 @media (hover:hover) and (pointer:fine){.btn.outline:hover{background:rgba(21,20,15,.05);box-shadow:none}}
@@ -88,7 +89,7 @@ h2,h3,h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 112,'wg
   border-radius:999px;padding:8px 16px;font-family:'JetBrains Mono',monospace;font-size:10.5px;
   letter-spacing:.14em;text-transform:uppercase;font-weight:700}
 .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--acc-dim)}
-.pill.on-dark{background:rgba(255,198,41,.14);color:var(--acc)}
+.pill.on-dark{background:color-mix(in srgb,var(--acc) 14%,transparent);color:var(--acc)}
 
 /* ---------- 01 NAV â€” a dark pill floating on the cream ---------- */
 .nav{position:sticky;top:0;z-index:200;padding:14px 0;
@@ -256,7 +257,7 @@ h2,h3,h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 112,'wg
 @media (hover:hover) and (pointer:fine){.disc:hover{transform:translateY(-8px);box-shadow:var(--sh-dark);background:var(--dark-3)}}
 .disc .txt{padding:clamp(24px,2.6vw,36px);display:flex;flex-direction:column}
 .disc .no{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;
-  color:var(--acc);font-weight:700;margin-bottom:auto}
+  color:var(--acc-on-dark);font-weight:700;margin-bottom:auto}
 .disc h3{font-size:clamp(19px,2vw,26px);margin:22px 0 10px}
 .disc p{margin:0;font-size:14px;color:var(--on-dark-2)}
 .disc .shot{position:relative;overflow:hidden}
@@ -270,7 +271,7 @@ h2,h3,h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 112,'wg
 .disc--acc h3{color:var(--on-acc)}
 .disc--acc p{color:rgba(20,19,16,.74)}
 .disc--acc .no{color:rgba(20,19,16,.6)}
-.disc--acc .shot::after{background:linear-gradient(90deg,var(--acc) 0%,rgba(255,198,41,.2) 42%,transparent 70%)}
+.disc--acc .shot::after{background:linear-gradient(90deg,var(--acc) 0%,color-mix(in srgb,var(--acc) 20%,transparent) 42%,transparent 70%)}
 @media(max-width:900px){.discs{grid-template-columns:1fr}}
 @media(max-width:520px){.disc{grid-template-columns:1fr}.disc .shot{min-height:150px;order:-1}
   .disc .shot::after{background:linear-gradient(0deg,var(--dark-2) 0%,transparent 60%)}
@@ -390,7 +391,7 @@ footer{background:var(--dark);color:var(--on-dark-2);padding-top:clamp(50px,7vw,
 footer .brand img{height:36px}
 .eyebrow{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--acc-dim);margin:0 0 14px;font-weight:700}
-.sec.dark .eyebrow,.mani .eyebrow{color:var(--acc)}
+.sec.dark .eyebrow,.mani .eyebrow{color:var(--acc-on-dark)}
 
 /* ---- nav: dropdowns inside the ink pill ---- */
 .nav .wrap{position:relative}
@@ -585,7 +586,7 @@ footer .brand img{height:36px}
 .side h2{font-size:clamp(21px,2.4vw,28px);margin-bottom:20px;color:var(--on-dark)}
 .side .dl{border-top-color:rgba(243,239,230,.2)}
 .side .dl div{border-bottom-color:rgba(243,239,230,.12)}
-.side .dl dd{color:var(--acc)}
+.side .dl dd{color:var(--acc-on-dark)}
 .sideshot{margin-top:24px;border-radius:var(--r);overflow:hidden}
 .sideshot img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
 @media(max-width:880px){.plate2{grid-template-columns:1fr}}

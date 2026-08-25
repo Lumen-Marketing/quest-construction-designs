@@ -26,6 +26,7 @@
   --acc:#D07C42;             /* swapped live by the gallery */
   --on-acc:#1C1208;
   --acc-dim:#9A4E1E;         /* accent as TEXT on a light ground */
+  --acc-on-dark:#D07C42;   /* accent as TEXT on a near-black band */
 
   --void:#0D0F10;
   --graphite:#16191B;
@@ -59,7 +60,7 @@ p{margin:0}
 /* the technical label used everywhere — tracked, small, mono-ish */
 .tag{font-family:'Saira Condensed',sans-serif;font-weight:700;font-size:12.5px;
   letter-spacing:.26em;text-transform:uppercase;line-height:1}
-.tag.acc{color:var(--acc)}
+.tag.acc{color:var(--acc-on-dark)}
 .figs{font-variant-numeric:tabular-nums}
 
 /* diagonal hatch — the page texture. Sits under content, never over type. */
@@ -120,7 +121,7 @@ p{margin:0}
   filter:blur(18px)}
 .hero .in{position:relative;z-index:3;max-width:var(--maxw);margin:0 auto;padding-inline:var(--m)}
 .hero .copy{max-width:min(620px,54%)}
-.hero .tag{margin-bottom:20px;display:flex;align-items:center;gap:12px;color:var(--acc)}
+.hero .tag{margin-bottom:20px;display:flex;align-items:center;gap:12px;color:var(--acc-on-dark)}
 .hero .tag::before{content:"";width:34px;height:2px;background:var(--acc)}
 .hero h1{font-size:clamp(50px,7.4vw,110px);letter-spacing:-.018em}
 .hero h1 em{font-style:normal;display:block;color:var(--acc)}
@@ -175,7 +176,7 @@ p{margin:0}
 .band::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,15,16,.86),rgba(13,15,16,.15) 70%)}
 .band .stamp{position:absolute;z-index:2;left:var(--m);top:clamp(28px,4vw,54px);color:var(--paper);max-width:min(560px,52%)}
 .band .stamp h2{font-size:clamp(34px,4.4vw,64px);color:var(--paper)}
-.band .stamp .tag{margin-bottom:16px;color:var(--acc)}
+.band .stamp .tag{margin-bottom:16px;color:var(--acc-on-dark)}
 .slab{position:relative;z-index:3;margin-top:clamp(-90px,-7vw,-58px);
   background:var(--steel);border:1px solid var(--edge);color:var(--paper);
   clip-path:polygon(0 0,100% 0,100% 100%,26px 100%,0 calc(100% - 26px));
@@ -268,7 +269,7 @@ p{margin:0}
   background:linear-gradient(0deg,rgba(13,15,16,.92),rgba(13,15,16,.1) 62%)}
 .pane .lab{position:absolute;z-index:2;left:0;right:0;bottom:0;padding:22px 20px 22px 44px;
   transform:skewX(7deg);transform-origin:bottom left}
-.pane .lab .tag{color:var(--acc);margin-bottom:8px}
+.pane .lab .tag{color:var(--acc-on-dark);margin-bottom:8px}
 .pane h3{font-size:clamp(19px,1.7vw,25px)}
 .pane .meta{margin-top:8px;font-size:14px;color:#AEB8BC;opacity:0;translate:0 8px;
   transition:opacity .45s var(--eo),translate .45s var(--eo)}
@@ -443,7 +444,7 @@ p{margin:0}
   margin-bottom:clamp(18px,2.2vw,28px);letter-spacing:.18em}
 .crumbs a:hover{color:var(--acc)}
 .crumbs b{color:var(--paper);font-weight:600}
-.crumbs span{color:var(--acc)}
+.crumbs span{color:var(--acc-on-dark)}
 .subhero h1{font-size:clamp(34px,4.8vw,74px);letter-spacing:-.018em;max-width:18ch}
 .subhero .lead{margin:22px 0 30px;font-size:clamp(16px,1.3vw,18.5px);color:#C7CFD2;max-width:48ch}
 .subhero .cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap}

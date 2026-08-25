@@ -24,6 +24,7 @@
   --acc:#D07C42;              /* swapped live by the gallery */
   --on-acc:#141210;
   --acc-dim:#8B471B;
+  --acc-on-dark:#D07C42;   /* accent as TEXT on a near-black band */
 
   --paper:#E4E1D6;
   --paper-2:#D6D2C4;
@@ -155,8 +156,8 @@ body::after{content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opa
 .strip .in{display:flex;align-items:center;justify-content:center;gap:clamp(10px,1.8vw,26px);
   flex-wrap:wrap;font-family:'Courier Prime',monospace;font-weight:700;font-size:13px;
   letter-spacing:.13em;text-transform:uppercase}
-.strip .x{color:var(--acc);font-size:16px;line-height:1}
-.strip b{color:var(--acc)}
+.strip .x{color:var(--acc-on-dark);font-size:16px;line-height:1}
+.strip b{color:var(--acc-on-dark)}
 
 /* ---------- 3. ABOUT: torn sheet, stapled photo ---------- */
 .about{padding:var(--sp-8) 0}
@@ -278,7 +279,7 @@ footer .big em{font-style:normal;background:var(--acc);color:var(--on-acc);paddi
   display:inline-block;transform:rotate(-1.6deg)}
 footer .cols{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:clamp(20px,3vw,44px)}
 footer .lead{margin:14px 0 0;color:#A9A79D;max-width:32ch;font-size:14px;line-height:1.7}
-footer h5{margin:0 0 14px;color:var(--acc)}
+footer h5{margin:0 0 14px;color:var(--acc-on-dark)}
 footer nav{display:grid;gap:0}
 footer nav a{display:block;padding-block:9px;font-size:14px;color:#CFCDC3;transition:color .15s}
 @media (hover:hover) and (pointer:fine){footer nav a:hover{color:var(--acc)}}
@@ -331,7 +332,7 @@ footer .bar{margin-top:clamp(28px,3.4vw,48px);padding-top:18px;
    ================================================================ */
 .brand img{height:26px;width:auto;display:block}
 footer .brand img{height:32px}
-.facc{color:var(--acc)}
+.facc{color:var(--acc-on-dark)}
 /* the kit's wrappers are <span>s, and a span is inline: no clip, no ratio */
 .xr{display:block}
 

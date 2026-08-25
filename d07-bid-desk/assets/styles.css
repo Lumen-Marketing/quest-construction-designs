@@ -21,6 +21,7 @@
   --acc:#D07C42;              /* swapped live by the gallery */
   --on-acc:#1C1208;
   --acc-dim:#9A4E1E;          /* accent as text on white */
+  --acc-on-dark:#D07C42;   /* accent as TEXT on a near-black band */
 
   --bg:#FFFFFF;
   --bg-2:#F5F4F0;
@@ -364,7 +365,7 @@ footer .bar{margin-top:clamp(34px,4.4vw,58px);padding-top:22px;border-top:1px so
 footer .brand img{height:34px}
 /* White nav, dark footer: only the nav copy of the light wordmark is darkened. */
 .nav .brand img{filter:invert(1) hue-rotate(180deg) saturate(1.5)}
-.flift{color:var(--acc)}
+.flift{color:var(--acc-on-dark)}
 
 /* ---- nav: a clean white dropdown, estimate CTA on the right ---- */
 .nav{position:sticky}

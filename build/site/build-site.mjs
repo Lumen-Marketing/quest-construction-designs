@@ -13,7 +13,9 @@ import { renderPage, contextFor } from '../build.mjs';
 import { loadContent } from '../lib/pages.mjs';
 import { outPath, ORIGIN } from '../lib/url.mjs';
 import { siteProfile, BUILT } from '../lib/profile.mjs';
-import { palette, AUTHORED_KEY, CHOSEN_KEY } from '../lib/palette.mjs';
+import {
+  palette, AUTHORED_KEY, CHOSEN_KEY, ORDER, CSS_PROP,
+} from '../lib/palette.mjs';
 import * as mod from './module.mjs';
 
 export const OUT = 'site';
@@ -31,24 +33,23 @@ const write = (rel, body) => {
 
 // ------------------------------------------------------------------ stylesheet
 // Direction 01's stylesheet is the source of truth for the design. Two things
-// happen on the way through: the three accent tokens become Burnt Orange, and
+// happen on the way through: the accent tokens become the chosen palette, and
 // the additions in build/css/site.css are spliced on. Every substitution is
 // asserted, so a rename upstream fails the build instead of silently shipping
 // the old colour.
-// Direction 01's stylesheet is the source of truth for the design. Two things
-// happen on the way through: the accent tokens become the chosen palette, and
-// the additions in build/css/site.css are spliced on.
 //
 // This used to be literal string replacement — three exact-match swaps plus a
 // regex for eight hardcoded washes that were never tokenised. The washes are
 // color-mix on the token now, so the only accent values left in the stylesheet
-// are the three declarations, and those are generated rather than matched.
+// are the declarations themselves, and the swap walks the palette's own list
+// rather than a second copy of it.
 function swapAccent(css, from, to) {
   let out = css;
-  for (const prop of ['acc', 'on-acc', 'acc-dim']) {
-    const re = new RegExp(`(--${prop}:)#[0-9A-Fa-f]{3,8}`, 'g');
-    if (!re.test(out)) throw new Error(`the stylesheet has no --${prop} to swap`);
-    out = out.replace(re, `$1${palette(to)[{ acc: 'acc', 'on-acc': 'onAcc', 'acc-dim': 'dim' }[prop]]}`);
+  for (const field of ORDER) {
+    const prop = CSS_PROP[field];
+    const re = new RegExp(`(${prop}:)#[0-9A-Fa-f]{3,8}`, 'g');
+    if (!re.test(out)) throw new Error(`the stylesheet has no ${prop} to swap`);
+    out = out.replace(re, `$1${palette(to)[field]}`);
   }
   // The authored comment says the accent is swapped live by the gallery. That
   // is true of a direction and false here: the standalone bakes one in.
