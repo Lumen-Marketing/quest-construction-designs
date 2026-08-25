@@ -45,7 +45,7 @@ for (const slug of SLUGS) {
       if (html.includes(b)) { say(`${f}: contains ${JSON.stringify(b)}`); fail++; }
     }
     if (/content="index,follow/.test(html)) indexable++;
-    if (!/<main id="main">/.test(html)) { say(`${f}: no main landmark`); fail++; }
+    if (!/<main id="main" tabindex="-1">/.test(html)) { say(`${f}: no main landmark`); fail++; }
     if ((html.match(/<h1[ >]/g) || []).length !== 1) { say(`${f}: not exactly one h1`); fail++; }
   }
 }

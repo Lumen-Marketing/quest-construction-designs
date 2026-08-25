@@ -36,7 +36,7 @@ for (const mod of mods) {
   test(`${d}: renders all thirty-one pages with one h1 and a real body`, () => {
     for (const key of allPagesFor()) {
       const html = renderPage({ mod, key });
-      const body = /<main id="main">([\s\S]*?)<\/main>/.exec(html)[1];
+      const body = /<main id="main"[^>]*>([\s\S]*?)<\/main>/.exec(html)[1];
       assert.ok(body.length > 1200, `${d} ${key}: body only ${body.length} chars`);
       assert.equal((body.match(/<h1[ >]/g) || []).length, 1, `${d} ${key}: not exactly one h1`);
     }
@@ -47,7 +47,7 @@ for (const mod of mods) {
     assert.match(html, /^<!doctype html>/);
     assert.match(html, /<html lang="en">/);
     assert.match(html, /<a class="skip-link" href="#main">/);
-    assert.match(html, /<main id="main">/);
+    assert.match(html, /<main id="main" tabindex="-1">/);
     assert.match(html, /<\/html>\s*$/);
   });
 

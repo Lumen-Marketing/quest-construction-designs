@@ -24,7 +24,7 @@ test('the manifest carries thirty-three pages, two more than a demo direction', 
 test('every page renders with one h1 and a real body', () => {
   for (const p of PAGES) {
     const html = render(p.key);
-    const body = /<main id="main">([\s\S]*?)<\/main>/.exec(html)[1];
+    const body = /<main id="main"[^>]*>([\s\S]*?)<\/main>/.exec(html)[1];
     assert.ok(body.length > 1200, `${p.key}: body only ${body.length} chars`);
     assert.equal((body.match(/<h1[ >]/g) || []).length, 1, `${p.key}: not exactly one h1`);
   }

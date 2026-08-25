@@ -69,7 +69,7 @@ for (const file of files) {
   for (const b of BANNED) if (html.includes(b)) where(`contains ${JSON.stringify(b)}`);
 
   // --- landmarks and headings
-  if (!html.includes('<main id="main">')) where('no main landmark');
+  if (!html.includes('<main id="main" tabindex="-1">')) where('no main landmark');
   if (!html.includes('<a class="skip-link" href="#main">')) where('no skip link');
   const h1s = (html.match(/<h1[ >]/g) || []).length;
   if (h1s !== 1) where(`${h1s} h1 elements, expected exactly 1`);

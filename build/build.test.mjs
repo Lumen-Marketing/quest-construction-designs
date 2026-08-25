@@ -12,7 +12,7 @@ test('a rendered page is a complete document with the landmarks', () => {
   assert.match(html, /^<!doctype html>/);
   assert.match(html, /<html lang="en">/);
   assert.match(html, /<a class="skip-link" href="#main">/);
-  assert.match(html, /<main id="main">/);
+  assert.match(html, /<main id="main" tabindex="-1">/);
   assert.match(html, /<\/html>\s*$/);
 });
 
@@ -33,7 +33,7 @@ test('every page kind renders through its own hook', () => {
   const seen = new Set();
   for (const key of allPagesFor()) {
     const html = renderPage({ mod: stub, key });
-    assert.match(html, /<main id="main">\s*\n?<h1>/, `${key} rendered no h1`);
+    assert.match(html, /<main id="main" tabindex="-1">\s*\n?<h1>/, `${key} rendered no h1`);
     seen.add(key);
   }
   assert.equal(seen.size, 31);

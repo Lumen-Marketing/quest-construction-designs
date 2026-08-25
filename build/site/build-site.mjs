@@ -112,7 +112,7 @@ ${head}
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 ${mod.nav(c)}
-<main id="main">
+<main id="main" tabindex="-1">
 <section class="gone">
   <div class="grid-bg" aria-hidden="true"></div>
   <div class="wrap">

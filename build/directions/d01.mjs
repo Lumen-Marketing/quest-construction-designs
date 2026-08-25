@@ -72,14 +72,16 @@ export function nav(c) {
   </button>
   <nav>
     <div class="drop">
-      <button type="button" aria-expanded="false">Services</button>
-      <div class="dropmenu dropmenu--svc">${col([
+      <button type="button" aria-expanded="false" aria-haspopup="true"
+        aria-controls="menu-services">Services</button>
+      <div class="dropmenu dropmenu--svc" id="menu-services">${col([
         ...(c.hubs ? [[c.url('services'), 'All Services']] : []),
         ...c.services.map((s) => [c.url(`services/${s.slug}`), s.name])])}</div>
     </div>
     <div class="drop">
-      <button type="button" aria-expanded="false">Areas Served</button>
-      <div class="dropmenu dropmenu--area">${col([
+      <button type="button" aria-expanded="false" aria-haspopup="true"
+        aria-controls="menu-areas">Areas Served</button>
+      <div class="dropmenu dropmenu--area" id="menu-areas">${col([
         ...(c.hubs ? [[c.url('service-areas'), 'All Areas Served']] : []),
         ...c.areas.areas.map((a) => [c.url(`service-areas/${a.slug}`), a.name])])}</div>
     </div>
@@ -95,7 +97,7 @@ export function nav(c) {
 
 export function footer(c) {
   const col = (title, items) => `<div>
-  <h5>${esc(title)}</h5>
+  <h2>${esc(title)}</h2>
   <ul>${items.map(([href, label]) =>
     `<li><a href="${href}">${esc(label)}</a></li>`).join('')}</ul>
 </div>`;
@@ -154,12 +156,32 @@ export function baseScript(c) {
     var o=n.classList.toggle('open'); t.setAttribute('aria-expanded',String(o));
     t.classList.toggle('on',o);
   });}
-  document.querySelectorAll('.drop>button').forEach(function(b){
+  var drops=[].slice.call(document.querySelectorAll('.drop'));
+  function shut(d){ if(!d.classList.contains('open'))return;
+    d.classList.remove('open'); var b=d.querySelector('button');
+    if(b) b.setAttribute('aria-expanded','false'); }
+  function shutAll(except){ drops.forEach(function(d){ if(d!==except) shut(d); }); }
+  drops.forEach(function(d){
+    var b=d.querySelector('button'); if(!b)return;
     b.addEventListener('click',function(e){
       e.preventDefault();
-      var d=b.parentNode, o=d.classList.toggle('open');
-      b.setAttribute('aria-expanded',String(o));
+      var o=!d.classList.contains('open');
+      shutAll(d); d.classList.toggle('open',o); b.setAttribute('aria-expanded',String(o));
     });
+  });
+  // A menu you can open but not dismiss is a trap on touch, and Escape is
+  // the only way out for a keyboard once focus is inside one.
+  document.addEventListener('keydown',function(e){
+    if(e.key!=='Escape')return;
+    var open=drops.filter(function(d){return d.classList.contains('open')});
+    if(!open.length)return;
+    open.forEach(function(d){ var b=d.querySelector('button'); shut(d); if(b&&d.contains(document.activeElement)) b.focus(); });
+  });
+  document.addEventListener('pointerdown',function(e){
+    if(!e.target.closest('.drop')) shutAll(null);
+  });
+  document.addEventListener('focusin',function(e){
+    if(!e.target.closest('.drop')) shutAll(null);
   });
 })();
 (function(){
@@ -211,7 +233,7 @@ export function home(c) {
       <span class="ic">${icon(s.slug)}</span>
       <h3>${esc(s.name)}</h3>
       <p>${esc(s.shortDesc)}</p>
-      <a class="go" href="${c.url(`services/${s.slug}`)}">View details <i>&#8599;</i></a>
+      <a class="go" href="${c.url(`services/${s.slug}`)}">View details <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
     </article>`).join('');
 
@@ -220,14 +242,15 @@ export function home(c) {
       <b>${esc(o.amount)}</b>
       <h3>${esc(o.title)}</h3>
       <p>${esc(o.body)}</p>
-      <button class="btn acc" type="button" data-copy="${esc(o.code)}">GET CODE</button>
+      <button class="btn acc" type="button" data-copy="${esc(o.code)}"
+        aria-live="polite">GET CODE</button>
     </div>`).join('');
 
   const work = c.pages.projects.items.map((p, i) => `
     <a class="pj ${'abc'[i]} rv" href="${c.url('projects')}">
       ${img(c, PROJECT_SHOTS[i % PROJECT_SHOTS.length], p.alt || p.title)}
       <span class="cap"><span><b>${esc(p.title)}</b><span>${esc(p.body)}</span></span>
-      <span class="go">&#8599;</span></span>
+      <span class="go" aria-hidden="true">&#8599;</span></span>
     </a>`).join('');
 
   return `
@@ -432,7 +455,7 @@ export function area(c) {
       <span class="ic">${icon(s.slug)}</span>
       <h3>${esc(s.name)}</h3>
       <p>${esc(s.shortDesc)}</p>
-      <a class="go" href="${c.url(`services/${s.slug}`)}">Learn more <i>&#8599;</i></a>
+      <a class="go" href="${c.url(`services/${s.slug}`)}">Learn more <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
     </article>`).join('');
 
@@ -649,9 +672,27 @@ ${closingCta(c, c.pages.home.ctaHeading, c.pages.home.ctaBody)}`;
 
 export function contact(c) {
   const p = c.pages.contact;
+  // A lead form that the browser cannot autofill loses submissions, and a
+  // placeholder repeating its own label tells the visitor nothing. Keyed by
+  // field name so the content file stays about words rather than attributes.
+  const HINT = {
+    name: { autocomplete: 'name', placeholder: 'First and last name' },
+    email: { autocomplete: 'email', inputmode: 'email', placeholder: 'you@example.com' },
+    phone: { autocomplete: 'tel', inputmode: 'tel', placeholder: 'Best number to reach you' },
+    message: { placeholder: 'What are you looking to build?…' },
+  };
+  const attrs = (f) => {
+    const h = HINT[f.name] || {};
+    return [
+      h.autocomplete ? ` autocomplete="${h.autocomplete}"` : '',
+      h.inputmode ? ` inputmode="${h.inputmode}"` : '',
+      ` placeholder="${esc(h.placeholder || f.label)}"`,
+    ].join('');
+  };
+
   const field = (f) => f.type === 'textarea'
-    ? `<label>${esc(f.label)}<textarea name="${f.name}" rows="5" placeholder="${esc(f.label)}"></textarea></label>`
-    : `<label>${esc(f.label)}<input name="${f.name}" type="${f.type}" placeholder="${esc(f.label)}"></label>`;
+    ? `<label>${esc(f.label)}<textarea name="${f.name}" rows="5"${attrs(f)}></textarea></label>`
+    : `<label>${esc(f.label)}<input name="${f.name}" type="${f.type}"${attrs(f)}></label>`;
 
   return `${pageHero(c, {
     h1: p.h1, lede: p.lede, crumb: 'Contact',
@@ -703,7 +744,7 @@ export function serviceIndex(c) {
       <span class="ic">${icon(s.slug)}</span>
       <h3>${esc(s.name)}</h3>
       <p>${esc(s.shortDesc)}</p>
-      <a class="go" href="${c.url(`services/${s.slug}`)}">View details <i>&#8599;</i></a>
+      <a class="go" href="${c.url(`services/${s.slug}`)}">View details <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
     </article>`).join('');
 
@@ -772,7 +813,7 @@ export function areaIndex(c) {
     <a class="sc citycard rv" href="${c.url(`service-areas/${a.slug}`)}">
       <h3>${esc(a.name)}</h3>
       <p>${esc(firstSentence(local.paras[0]))}</p>
-      <span class="go">Building in ${esc(a.city)} <i>&#8599;</i></span>
+      <span class="go">Building in ${esc(a.city)} <i aria-hidden="true">&#8599;</i></span>
     </a>`;
   }).join('');
 

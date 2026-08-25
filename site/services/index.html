@@ -530,12 +530,14 @@
   </button>
   <nav>
     <div class="drop">
-      <button type="button" aria-expanded="false">Services</button>
-      <div class="dropmenu dropmenu--svc"><a href="../services/index.html">All Services</a><a href="../services/residential-development/index.html">Residential Development</a><a href="../services/casita/index.html">Casita</a><a href="../services/adu/index.html">ADU</a><a href="../services/framing/index.html">Framing</a><a href="../services/concrete/index.html">Concrete</a><a href="../services/stucco/index.html">Stucco</a><a href="../services/dry-wall/index.html">Dry Wall</a><a href="../services/siding/index.html">Siding</a><a href="../services/roofing/index.html">Roofing</a><a href="../services/full-remodel-kitchen-bathroomcabinets-flooring-counter-tops/index.html">Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops)</a><a href="../services/custom-home-building/index.html">Custom Home Building</a><a href="../services/painting/index.html">Painting</a><a href="../services/deck-building-uses-trex-system/index.html">Deck Building (uses Trex System)</a><a href="../services/window-installation/index.html">Window Installation</a></div>
+      <button type="button" aria-expanded="false" aria-haspopup="true"
+        aria-controls="menu-services">Services</button>
+      <div class="dropmenu dropmenu--svc" id="menu-services"><a href="../services/index.html">All Services</a><a href="../services/residential-development/index.html">Residential Development</a><a href="../services/casita/index.html">Casita</a><a href="../services/adu/index.html">ADU</a><a href="../services/framing/index.html">Framing</a><a href="../services/concrete/index.html">Concrete</a><a href="../services/stucco/index.html">Stucco</a><a href="../services/dry-wall/index.html">Dry Wall</a><a href="../services/siding/index.html">Siding</a><a href="../services/roofing/index.html">Roofing</a><a href="../services/full-remodel-kitchen-bathroomcabinets-flooring-counter-tops/index.html">Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops)</a><a href="../services/custom-home-building/index.html">Custom Home Building</a><a href="../services/painting/index.html">Painting</a><a href="../services/deck-building-uses-trex-system/index.html">Deck Building (uses Trex System)</a><a href="../services/window-installation/index.html">Window Installation</a></div>
     </div>
     <div class="drop">
-      <button type="button" aria-expanded="false">Areas Served</button>
-      <div class="dropmenu dropmenu--area"><a href="../service-areas/index.html">All Areas Served</a><a href="../service-areas/mesa-az/index.html">Mesa, AZ</a><a href="../service-areas/tempe-az/index.html">Tempe, AZ</a><a href="../service-areas/queen-creek-az/index.html">Queen Creek, AZ</a><a href="../service-areas/scottsdale-az/index.html">Scottsdale, AZ</a><a href="../service-areas/gilbert-az/index.html">Gilbert, AZ</a><a href="../service-areas/chandler-az/index.html">Chandler, AZ</a><a href="../service-areas/paradise-valley-az/index.html">Paradise Valley, AZ</a><a href="../service-areas/phoenix-az/index.html">Phoenix, AZ</a><a href="../service-areas/goodyear-meadows-az/index.html">Goodyear Meadows, AZ</a><a href="../service-areas/camelback-east-village-az/index.html">Camelback East Village, AZ</a><a href="../service-areas/florence-az/index.html">Florence, AZ</a></div>
+      <button type="button" aria-expanded="false" aria-haspopup="true"
+        aria-controls="menu-areas">Areas Served</button>
+      <div class="dropmenu dropmenu--area" id="menu-areas"><a href="../service-areas/index.html">All Areas Served</a><a href="../service-areas/mesa-az/index.html">Mesa, AZ</a><a href="../service-areas/tempe-az/index.html">Tempe, AZ</a><a href="../service-areas/queen-creek-az/index.html">Queen Creek, AZ</a><a href="../service-areas/scottsdale-az/index.html">Scottsdale, AZ</a><a href="../service-areas/gilbert-az/index.html">Gilbert, AZ</a><a href="../service-areas/chandler-az/index.html">Chandler, AZ</a><a href="../service-areas/paradise-valley-az/index.html">Paradise Valley, AZ</a><a href="../service-areas/phoenix-az/index.html">Phoenix, AZ</a><a href="../service-areas/goodyear-meadows-az/index.html">Goodyear Meadows, AZ</a><a href="../service-areas/camelback-east-village-az/index.html">Camelback East Village, AZ</a><a href="../service-areas/florence-az/index.html">Florence, AZ</a></div>
     </div>
     <a href="../projects/index.html">Projects</a>
     <a href="../gallery/index.html">Gallery</a>
@@ -545,7 +547,7 @@
   <a class="btn acc navtel" href="tel:16023996455"><span class="pip"></span>(602) 399-6455</a>
 </div>
 </header>
-<main id="main">
+<main id="main" tabindex="-1">
 
 <section class="subhero">
   <div class="grid-bg" aria-hidden="true"></div>
@@ -606,98 +608,98 @@
       <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 20h18"/><path d="M5 20V9l7-5 7 5v11"/><path d="M9 20v-6h6v6"/></svg></span>
       <h3>Residential Development</h3>
       <p>Transforming your vision into a dream home with expert craftsmanship.</p>
-      <a class="go" href="../services/residential-development/index.html">View details <i>&#8599;</i></a>
+      <a class="go" href="../services/residential-development/index.html">View details <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">01</span>
     </article>
     <article class="svc rv">
       <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20h16"/><path d="M6 20v-8l6-4 6 4v8"/><path d="M10 20v-4h4v4"/><path d="M3 12l9-6 9 6"/></svg></span>
       <h3>Casita</h3>
       <p>Custom small homes expertly designed to complement any lifestyle.</p>
-      <a class="go" href="../services/casita/index.html">View details <i>&#8599;</i></a>
+      <a class="go" href="../services/casita/index.html">View details <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">02</span>
     </article>
     <article class="svc rv">
       <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 21h18"/><path d="M6 21V10h6v11"/><path d="M12 14h6v7"/><path d="M8 13h2"/><path d="M8 17h2"/></svg></span>
       <h3>ADU</h3>
       <p>Enhance space and add value with your dream detached unit.</p>
-      <a class="go" href="../services/adu/index.html">View details <i>&#8599;</i></a>
+      <a class="go" href="../services/adu/index.html">View details <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">03</span>
     </article>
     <article class="svc rv">
       <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 21V4h16v17"/><path d="M4 21h16"/><path d="M4 12h16"/><path d="M12 4v17"/><path d="M4 8h16"/><path d="M4 16h16"/></svg></span>
       <h3>Framing</h3>
       <p>Expertly shaping your structure's foundation with precision and skill.</p>
-      <a class="go" href="../services/framing/index.html">View details <i>&#8599;</i></a>
+      <a class="go" href="../services/framing/index.html">View details <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">04</span>
     </article>
     <article class="svc rv svc--acc">
       <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 16h18v5H3z"/><path d="M5 16l2-5h10l2 5"/><path d="M8 11V7"/><path d="M12 11V6"/><path d="M16 11V7"/></svg></span>
       <h3>Concrete</h3>
       <p>Durable, expertly crafted concrete solutions tailored to your project's needs.</p>
-      <a class="go" href="../services/concrete/index.html">View details <i>&#8599;</i></a>
+      <a class="go" href="../services/concrete/index.html">View details <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">05</span>
     </article>
     <article class="svc rv">
       <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h16v16H4z"/><path d="M7 8h.01"/><path d="M11 7h.01"/><path d="M15 9h.01"/><path d="M9 12h.01"/><path d="M13 13h.01"/><path d="M17 12h.01"/><path d="M7 16h.01"/><path d="M11 17h.01"/><path d="M15 16h.01"/></svg></span>
       <h3>Stucco</h3>
       <p>Enhance your home's exterior with durable, attractive stucco finish.</p>
-      <a class="go" href="../services/stucco/index.html">View details <i>&#8599;</i></a>
+      <a class="go" href="../services/stucco/index.html">View details <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">06</span>
     </article>
     <article class="svc rv">
       <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5h18v14H3z"/><path d="M3 12h18"/><path d="M12 5v7"/><path d="M8 12v7"/><path d="M17 12v7"/></svg></span>
       <h3>Dry Wall</h3>
       <p>Expertly finishes, seamless installations, perfect for any interior project.</p>
-      <a class="go" href="../services/dry-wall/index.html">View details <i>&#8599;</i></a>
+      <a class="go" href="../services/dry-wall/index.html">View details <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">07</span>
     </article>
     <article class="svc rv">
       <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5h18v3H3z"/><path d="M3 8h18v3H3z"/><path d="M3 11h18v3H3z"/><path d="M3 14h18v3H3z"/><path d="M3 17h18v2H3z"/></svg></span>
       <h3>Siding</h3>
       <p>Enhance curb appeal and protect your home with expert siding.</p>
-      <a class="go" href="../services/siding/index.html">View details <i>&#8599;</i></a>
+      <a class="go" href="../services/siding/index.html">View details <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">08</span>
     </article>
     <article class="svc rv">
       <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12 12 4l10 8"/><path d="M5 12v8h14v-8"/><path d="M9 20v-5h6v5"/></svg></span>
       <h3>Roofing</h3>
       <p>Protect your home with reliable, durable, and expert roofing solutions.</p>
-      <a class="go" href="../services/roofing/index.html">View details <i>&#8599;</i></a>
+      <a class="go" href="../services/roofing/index.html">View details <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">09</span>
     </article>
     <article class="svc rv">
       <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 3h16v18H4z"/><path d="M4 9h16"/><path d="M12 3v6"/><path d="M7 13h2"/><path d="M7 17h2"/><path d="M14 13h3v4h-3z"/></svg></span>
       <h3>Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops)</h3>
       <p>Transform your space with expert craftsmanship and modern design.</p>
-      <a class="go" href="../services/full-remodel-kitchen-bathroomcabinets-flooring-counter-tops/index.html">View details <i>&#8599;</i></a>
+      <a class="go" href="../services/full-remodel-kitchen-bathroomcabinets-flooring-counter-tops/index.html">View details <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">10</span>
     </article>
     <article class="svc rv">
       <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 11 12 3l9 8"/><path d="M6 11v9h12v-9"/><path d="M10 20v-5h4v5"/><path d="M17 6V3h2v5"/></svg></span>
       <h3>Custom Home Building</h3>
       <p>Crafting your dream home with precision, style, and reliability.</p>
-      <a class="go" href="../services/custom-home-building/index.html">View details <i>&#8599;</i></a>
+      <a class="go" href="../services/custom-home-building/index.html">View details <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">11</span>
     </article>
     <article class="svc rv">
       <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 3h11v6H5z"/><path d="M10 9v3"/><path d="M8 12h4v9H8z"/><path d="M16 4h3v4h-3z"/></svg></span>
       <h3>Painting</h3>
       <p>Transforming spaces with vibrant colors and exceptional precision.</p>
-      <a class="go" href="../services/painting/index.html">View details <i>&#8599;</i></a>
+      <a class="go" href="../services/painting/index.html">View details <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">12</span>
     </article>
     <article class="svc rv">
       <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 8h18"/><path d="M3 12h18"/><path d="M3 16h18"/><path d="M6 8v12"/><path d="M18 8v12"/><path d="M3 8l3-4h12l3 4"/></svg></span>
       <h3>Deck Building (uses Trex System)</h3>
       <p>Transform your outdoor spaces with our top-quality Trex decking.</p>
-      <a class="go" href="../services/deck-building-uses-trex-system/index.html">View details <i>&#8599;</i></a>
+      <a class="go" href="../services/deck-building-uses-trex-system/index.html">View details <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">13</span>
     </article>
     <article class="svc rv">
       <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 3h16v18H4z"/><path d="M12 3v18"/><path d="M4 12h16"/><path d="M2 21h20"/></svg></span>
       <h3>Window Installation</h3>
       <p>Enhance your home's energy efficiency with expert window installation.</p>
-      <a class="go" href="../services/window-installation/index.html">View details <i>&#8599;</i></a>
+      <a class="go" href="../services/window-installation/index.html">View details <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">14</span>
     </article></div>
   </div>
@@ -741,15 +743,15 @@
     <a class="btn acc" href="tel:16023996455"><span class="pip"></span>(602) 399-6455</a>
   </div>
   <div>
-  <h5>Company</h5>
+  <h2>Company</h2>
   <ul><li><a href="../about-us/index.html">About Us</a></li><li><a href="../projects/index.html">Project Showcase</a></li><li><a href="../gallery/index.html">Gallery</a></li><li><a href="../contact-us/index.html">Contact</a></li><li><a href="../sitemap/index.html">Sitemap</a></li></ul>
 </div>
   <div>
-  <h5>Services</h5>
+  <h2>Services</h2>
   <ul><li><a href="../services/index.html">All Services</a></li><li><a href="../services/residential-development/index.html">Residential Development</a></li><li><a href="../services/casita/index.html">Casita</a></li><li><a href="../services/adu/index.html">ADU</a></li><li><a href="../services/framing/index.html">Framing</a></li><li><a href="../services/concrete/index.html">Concrete</a></li><li><a href="../services/stucco/index.html">Stucco</a></li><li><a href="../services/dry-wall/index.html">Dry Wall</a></li><li><a href="../services/siding/index.html">Siding</a></li><li><a href="../services/roofing/index.html">Roofing</a></li><li><a href="../services/full-remodel-kitchen-bathroomcabinets-flooring-counter-tops/index.html">Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops)</a></li><li><a href="../services/custom-home-building/index.html">Custom Home Building</a></li><li><a href="../services/painting/index.html">Painting</a></li><li><a href="../services/deck-building-uses-trex-system/index.html">Deck Building (uses Trex System)</a></li><li><a href="../services/window-installation/index.html">Window Installation</a></li></ul>
 </div>
   <div>
-  <h5>Areas Served</h5>
+  <h2>Areas Served</h2>
   <ul><li><a href="../service-areas/index.html">All Areas Served</a></li><li><a href="../service-areas/mesa-az/index.html">Mesa, AZ</a></li><li><a href="../service-areas/tempe-az/index.html">Tempe, AZ</a></li><li><a href="../service-areas/queen-creek-az/index.html">Queen Creek, AZ</a></li><li><a href="../service-areas/scottsdale-az/index.html">Scottsdale, AZ</a></li><li><a href="../service-areas/gilbert-az/index.html">Gilbert, AZ</a></li><li><a href="../service-areas/chandler-az/index.html">Chandler, AZ</a></li><li><a href="../service-areas/paradise-valley-az/index.html">Paradise Valley, AZ</a></li><li><a href="../service-areas/phoenix-az/index.html">Phoenix, AZ</a></li><li><a href="../service-areas/goodyear-meadows-az/index.html">Goodyear Meadows, AZ</a></li><li><a href="../service-areas/camelback-east-village-az/index.html">Camelback East Village, AZ</a></li><li><a href="../service-areas/florence-az/index.html">Florence, AZ</a></li></ul>
 </div>
 </div>
@@ -765,12 +767,32 @@
     var o=n.classList.toggle('open'); t.setAttribute('aria-expanded',String(o));
     t.classList.toggle('on',o);
   });}
-  document.querySelectorAll('.drop>button').forEach(function(b){
+  var drops=[].slice.call(document.querySelectorAll('.drop'));
+  function shut(d){ if(!d.classList.contains('open'))return;
+    d.classList.remove('open'); var b=d.querySelector('button');
+    if(b) b.setAttribute('aria-expanded','false'); }
+  function shutAll(except){ drops.forEach(function(d){ if(d!==except) shut(d); }); }
+  drops.forEach(function(d){
+    var b=d.querySelector('button'); if(!b)return;
     b.addEventListener('click',function(e){
       e.preventDefault();
-      var d=b.parentNode, o=d.classList.toggle('open');
-      b.setAttribute('aria-expanded',String(o));
+      var o=!d.classList.contains('open');
+      shutAll(d); d.classList.toggle('open',o); b.setAttribute('aria-expanded',String(o));
     });
+  });
+  // A menu you can open but not dismiss is a trap on touch, and Escape is
+  // the only way out for a keyboard once focus is inside one.
+  document.addEventListener('keydown',function(e){
+    if(e.key!=='Escape')return;
+    var open=drops.filter(function(d){return d.classList.contains('open')});
+    if(!open.length)return;
+    open.forEach(function(d){ var b=d.querySelector('button'); shut(d); if(b&&d.contains(document.activeElement)) b.focus(); });
+  });
+  document.addEventListener('pointerdown',function(e){
+    if(!e.target.closest('.drop')) shutAll(null);
+  });
+  document.addEventListener('focusin',function(e){
+    if(!e.target.closest('.drop')) shutAll(null);
   });
 })();
 (function(){
