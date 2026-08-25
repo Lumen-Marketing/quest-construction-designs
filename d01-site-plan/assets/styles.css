@@ -85,10 +85,11 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 .btn.acc{background:var(--acc);color:var(--on-acc);box-shadow:0 12px 30px rgba(224,168,0,.4)}
 .btn.acc .pip{background:var(--ink);color:var(--acc)}
 .btn.ghost{background:transparent;color:var(--on-acc);box-shadow:none;
-  border:1.5px solid color-mix(in srgb,var(--on-acc) 30%,transparent)}
-@media (hover:hover) and (pointer:fine){.btn.ghost:hover{background:color-mix(in srgb,var(--on-acc) 10%,transparent);box-shadow:none}}
+  border:1.5px solid color-mix(in srgb,var(--on-acc) 68%,transparent)}
+/* Without this the dot is the same colour as the plane it sits on. */
+.btn.ghost .pip{background:var(--on-acc);color:var(--acc)}
+@media (hover:hover) and (pointer:fine){.btn.ghost:hover{background:color-mix(in srgb,var(--on-acc) 16%,transparent);box-shadow:none}}
 .btn.on-dark{background:var(--on-dark);color:var(--ink)}
-.btn.ghost.on-dark{background:transparent;color:var(--on-dark);border-color:rgba(243,239,230,.28)}
 
 /* pill label */
 .pill{display:inline-flex;align-items:center;gap:9px;background:rgba(255,198,41,.18);
