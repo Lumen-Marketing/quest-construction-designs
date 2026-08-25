@@ -14,3 +14,4 @@ shots/*.log
 
 # Vercel CLI build output, written into the deploy tree by `vercel deploy`
 site/.vercel/
+site/.env*

@@ -5,7 +5,9 @@
 // The ten demo directions stay where they are; this writes one tree that is
 // the whole product — pages at the origin root, its own assets, its own
 // robots and sitemap, and nothing pointing back at the chooser.
-import { writeFileSync, mkdirSync, rmSync, readFileSync, copyFileSync, existsSync } from 'node:fs';
+import {
+  writeFileSync, mkdirSync, rmSync, readFileSync, copyFileSync, existsSync, readdirSync,
+} from 'node:fs';
 import { dirname, join } from 'node:path';
 import { renderPage } from '../build.mjs';
 import { pageList, loadContent } from '../lib/pages.mjs';
@@ -385,7 +387,16 @@ Built ${BUILT}.
 
 // --------------------------------------------------------------------- build
 export function buildSite() {
-  rmSync(OUT, { recursive: true, force: true });
+  // Clear the generated tree, but leave anything hidden alone: `vercel link`
+  // keeps the project link in site/.vercel and its token in site/.env.local,
+  // and wiping those on every rebuild would silently unlink the deployment.
+  if (existsSync(OUT)) {
+    for (const e of readdirSync(OUT)) {
+      if (!e.startsWith('.')) rmSync(join(OUT, e), { recursive: true, force: true });
+    }
+  } else {
+    mkdirSync(OUT, { recursive: true });
+  }
 
   const htmls = [];
   const images = new Map();

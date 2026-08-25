@@ -21,6 +21,9 @@ const BANNED = [
 
 function walk(dir, out = []) {
   for (const e of readdirSync(dir, { withFileTypes: true })) {
+    // Hidden entries are not ours: site/.vercel holds the deployment link, and
+    // `vercel build` drops a second copy of the whole site inside it.
+    if (e.name.startsWith('.')) continue;
     const p = join(dir, e.name);
     if (e.isDirectory()) walk(p, out);
     else if (e.name.endsWith('.html')) out.push(p);
