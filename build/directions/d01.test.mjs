@@ -95,6 +95,25 @@ test('the long footer lists are marked for the two-up phone layout', () => {
   assert.equal((html.match(/<div class="col2">/g) || []).length, 2);
 });
 
+test('the floating badge is measured from the machine, not the hero middle', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  const machine = css.match(/\.machine\{[^}]*right:(-?[\d.]+)%[^}]*width:min\(([\d.]+)%,(\d+)px\)/);
+  assert.ok(machine, 'the machine no longer anchors right with a capped width');
+  const badge = css.match(/\.badge-float\{left:calc\(([\d.]+)% - ([\d.]+) \* min\(([\d.]+)%, ?(\d+)px\)\)/);
+  assert.ok(badge, 'the badge is not measured off the machine');
+
+  const [, mRight, mPct, mCap] = machine;
+  const [, bBase, bFactor, bPct, bCap] = badge;
+  // Both must read the same width, or they drift apart once the machine caps.
+  assert.equal(bPct, mPct, 'the badge reads a different width percentage than the machine');
+  assert.equal(bCap, mCap, 'the badge reads a different width cap than the machine');
+  // The badge's base is the machine's right edge: 100% plus its overhang.
+  assert.equal(Number(bBase), 100 - Number(mRight), 'the badge does not start at the machine edge');
+  // And it lands inside the machine rather than off either end of it.
+  const across = 1 - Number(bFactor);
+  assert.ok(across > 0.15 && across < 0.8, `the badge sits at ${across * 100}% across the machine`);
+});
+
 // ------------------------------------------------------------- the dropdowns
 // Both of these were reported from the live site: the menu vanished on the way
 // down to click an item, and the longest trade printed over the item beside it.

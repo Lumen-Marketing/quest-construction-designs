@@ -334,6 +334,24 @@ reach.
 the pages pointing at a name that no longer describes the file, and the gate
 will say so.
 
+### The floating badge
+
+The hero stacks three layers that have to compose: the accent panel at 57%,
+the cut-out machine at `right:-4%` and `width:min(62%,880px)`, and the dark
+badge card on top. Each was pinned to a different reference, and the badge's
+was `left:50%` of the hero — which is to say, nothing in the picture.
+
+It survives on luck up to about 1600px. Past the width where the machine hits
+its 880px cap, the machine's left edge travels right with the viewport while a
+50% badge travels at half the rate; they cross around 1630px. Above that the
+badge slides off the machine into empty cream — at 1900px it sat at -17%..7%
+of the machine, clipping the bucket and floating in space.
+
+It is measured off the machine now — `calc(104% - 0.55 * min(62%, 880px))`,
+the machine's own left edge plus 45% of its width — so it sits over the tracks
+at 45% across at every width from the 1080px reflow to 2560px. A test reads
+both rules and fails if they ever stop agreeing on that width and that cap.
+
 ## The phone
 
 Most of the traffic a general contractor gets arrives on a phone, so the layout

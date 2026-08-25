@@ -206,7 +206,17 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 .badge b{display:block;font-size:14px;font-weight:800;letter-spacing:-.02em;line-height:1.15}
 .badge span{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.11em;
   text-transform:uppercase;color:var(--on-dark-2)}
-.badge-float{left:50%;bottom:12%;z-index:7}
+/* The badge floats ON the machine, so it is measured from the machine's own
+   edge rather than from the hero's middle.
+   `left:50%` looked deliberate up to about 1600px and was luck. The machine is
+   `right:-4%` wide `min(62%,880px)`, so once it hits that 880px cap its left
+   edge travels right with the viewport while a 50% badge travels at half the
+   rate. They cross around 1630px, and above that the badge slides off the
+   machine into empty cream — at 1900px it sat at -17%..7% of the machine,
+   clipping the bucket and floating in space. This is the machine's left edge
+   (104% - its width) plus 45% of it, so the badge sits over the tracks at
+   every width from the 1080px reflow up. */
+.badge-float{left:calc(104% - 0.55 * min(62%, 880px));bottom:12%;z-index:7}
 
 @media(max-width:1080px){
   /* Let the machine FLOW after the copy rather than reserving padding for it —
