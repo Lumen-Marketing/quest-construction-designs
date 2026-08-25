@@ -362,56 +362,53 @@ site into `content/*.json`, and the phone number and founding year are real.
 
 ## Verifying changes
 
-`shots/click.mjs` drives a real click on the gallery's palette dots over CDP and screenshots the
-result — useful because the accent swap is the one thing a static screenshot cannot prove:
+Everything in `shots/` runs on one harness, `shots/cdp.mjs`. It owns launching
+Chrome, connecting, settling and teardown; each script is its probe and nothing
+else. `withPage(target, opts, fn)` takes either a path relative to `shots/` or
+an `http(s)` URL — the latter is the only way to exercise a page that addresses
+anything root-absolutely, such as the standalone site's 404.
 
 ```bash
-cd shots && node click.mjs palHivis ./out.png    # palOrange | palClay | palHivis
+node probe.mjs    ../site/index.html 1440          # broken images + what sticks out
+node page.mjs     ../site/index.html ./p.png 1440  # full-page shot, with a diagnosis
+node slices.mjs   ../site/index.html ./s 1440 1500 # long page, as viewport slices
+node sideways.mjs ../site/index.html 1440          # does it REALLY scroll sideways?
+node secscan.mjs  ../site/index.html 1440          # which block is causing it
+node inspect.mjs  ../site/index.html ".hero" 1440  # computed styles for one selector
+node gridcheck.mjs ../site/contact-us/index.html ".contact-form" 1440
+node boxes.mjs    ../site/index.html ".svc" 1440   # box metrics for the first few
+node dropcheck.mjs ../site/index.html 1440         # is the open nav drop hit-testable?
+node mob.mjs      ../site/index.html ./m.png       # true 390px phone render
+node httpshot.mjs http://localhost:8099/nope/ ./404.png
+node click.mjs    palHivis ./out.png               # palOrange | palClay | palHivis
 ```
 
-Three more CDP helpers, all taking a path relative to `shots/`:
+`probe.mjs` is the one to reach for first: it names every element sticking out
+past the viewport, which is far quicker than eyeballing a screenshot.
+`sideways.mjs` is the one that settles arguments — `documentElement.scrollWidth`
+over-reports, because `body{overflow-x:hidden}` propagates to the viewport and
+leaves `body`'s own used value visible, so scrolling and reading the offset back
+is the only reliable test. Judge sideways overflow by `scrollW` against `vw`,
+not by the `wide` list — several heroes bleed past the viewport on purpose
+inside `overflow:hidden`.
 
-```bash
-node page.mjs    ../d04-grid-north/index.html ./d4.png 1440       # full-page shot, scrolls first
-node probe.mjs   ../d04-grid-north/index.html 1440                # fast layout check, no screenshot
-node slices.mjs  ../d05-ground-break/index.html ./s5 1440 1500    # long page, as viewport slices
-node inspect.mjs ../d07-bid-desk/index.html ".deskbar" 1440       # computed styles for one selector
-```
+`slices.mjs` exists because a full-page shot of a 7,000px page can hang the
+renderer or blow past a tool timeout. Shoot slices, or shoot `contact-us`
+instead: it exercises the nav, the inner-page hero, a form and the footer in one
+screen. Chrome enforces a ~500px minimum window width, so `--window-size=390`
+will not give you a true phone viewport — that is what `mob.mjs` is for.
 
-`slices.mjs` exists because the generated pages are long — a full-page shot of a 7,000px page can
-hang the renderer or blow past a tool timeout. Shoot slices, or shoot `contact-us` instead: it
-exercises the nav, the inner-page hero, a form and the footer in one screen.
+**The harness was written twelve times before this.** 394 of the folder's 712
+lines were the same launch-connect-teardown block, and eleven of the twelve
+scripts hardcoded one machine's absolute path. Both lessons below now live in
+`cdp.mjs` and apply to every script at once — which is also why `probe.mjs` no
+longer reports below-the-fold lazy images as broken, a false positive the old
+version carried and this README used to document as a harness artefact.
 
-Four more, added while verifying the 310 pages:
+### Traps these scripts were bitten by
 
-```bash
-node sideways.mjs  ../d03-split-bay/index.html 1440       # does it REALLY scroll sideways?
-node secscan.mjs   ../d03-split-bay/index.html 1440       # which block is causing it
-node gridcheck.mjs ../d04-grid-north/contact-us/index.html ".contact-form" 1440
-node dropcheck.mjs ../d09-site-notice/index.html 1440     # open the nav drop, is it hit-testable?
-```
-
-`sideways.mjs` is the one that settles arguments: it scrolls the page right and reads the offset
-back, which is the only reliable test. `documentElement.scrollWidth` over-reports, because
-`body{overflow-x:hidden}` propagates to the viewport and leaves `body`'s own used value visible —
-so a "clipped" ancestor proves nothing. `secscan.mjs` then hides one top-level block at a time and
-names the one whose removal shrinks the page.
-
-`probe.mjs` flags lazy below-fold images as broken because it never scrolls them into view —
-that one **is** a harness artefact. `mob.mjs` no longer has the matching problem: it used to wait
-a fixed 2.5s and trust `img.complete`, which goes true well before the pixels exist, so photo
-boxes reached the screenshot blank and read as layout bugs. It now awaits `img.decode()` on every
-frame and walks the outer window down the whole surface to force a paint before capturing. Judge sideways overflow by `scrollW` against `vw`, not by
-the `wide` list — several heroes bleed past the viewport on purpose inside `overflow:hidden`.
-
-`probe.mjs` is the one to reach for first: it lists broken images and **names every element
-sticking out past the viewport**, which is far quicker than eyeballing a screenshot for a page
-that scrolls sideways.
-
-Note that Chrome enforces a ~500px minimum window width, so `--window-size=390` will not give you
-a true phone viewport — render the page inside a 390px-wide iframe instead.
-
-### Two traps these scripts were bitten by
+The first two are now handled inside `cdp.mjs`; the rest are CSS lessons that
+belong to the directions.
 
 - **Give every run a random port *and* its own `--user-data-dir`.** With a fixed port, a new
   launch silently attaches to a leftover Chrome from an earlier run and screenshots the *old*
