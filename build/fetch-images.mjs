@@ -1,3 +1,6 @@
+// ONE-SHOT, like build/extract.mjs — it reads .source/, which is gitignored,
+// so it cannot run on a fresh clone. It lifted the photography once; the result
+// is committed. See the note at the top of extract.mjs.
 // The five images the live site actually serves. Everything else in assets/
 // is the existing stock library. Run once; outputs are committed.
 //   node build/fetch-images.mjs

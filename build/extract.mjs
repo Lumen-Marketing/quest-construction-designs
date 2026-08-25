@@ -1,3 +1,15 @@
+// ONE-SHOT. This cannot run on a fresh clone.
+//
+// It reads the recovered site under .source/, which is gitignored — the archive
+// was a local artefact of the recovery, not something the repo carries. Its
+// output was committed long ago as content/*.json, and that is what every build
+// reads. Nothing calls this any more.
+//
+// It is kept as the record of where the site's words came from: if a figure or
+// a paragraph in content/*.json is ever questioned, this is the code that
+// lifted it, and extract.test.mjs still pins the parsing behaviour. Delete it
+// and git history holds it instead — that is a fine answer too. What is not
+// fine is leaving a reader to work out for themselves why it will not run.
 // One-shot: reads the recovered questconstruction.com archive and writes
 // content/*.json. Kept in the repo for provenance — rerunning it must be
 // idempotent. Retyping ~20,000 words by hand is the likeliest source of

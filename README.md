@@ -110,6 +110,9 @@ node --test "build/**/*.test.mjs" # the whole suite
 | Path | Responsibility |
 |---|---|
 | `content/*.json` | The site's words and figures — services, areas, pages, NAP, offers |
+| `build/lib/page-rules.mjs` | What makes a generated page valid — the one home for every rule |
+| `build/lib/profile.mjs` | The two products: the ten demo directions, and the standalone site |
+| `build/lib/palette.mjs` | The three accents, and contrast a test can assert |
 | `build/lib/` | URL resolution, the page manifest, `<head>` assembly, JSON-LD, images |
 | `build/directions/dNN.mjs` | One direction's markup — ten renderers plus `meta` and `script` |
 | `build/css/dNN.css` | That direction's multi-page furniture, spliced onto its stylesheet |
@@ -261,6 +264,12 @@ WebP and a 3:2 photo crops badly in a large summary card. 04, 05, 06 and 08 were
 reworked to lean on the jobsite half of that library — rebar, steel, welding, rough-in, earthworks —
 rather than the finished-interior half, which was reading soft for a general contractor. All were visually reviewed
 before use — one shot was discarded because a hard hat carried another firm's branding.
+
+**`build/extract.mjs`, `extract-css.mjs` and `fetch-images.mjs` are one-shot.**
+They read the recovered archive under `.source/`, which is gitignored, so they
+cannot run on a fresh clone. Their output was committed as `content/*.json` and
+the self-hosted images. They are kept as the record of where the site's words
+came from; each says so at the top.
 
 **Do not use `assets/plans.webp`.** It has the same problem: the subject's polo carries a visible
 "KRA" logo. It is unreferenced by every direction and should stay that way.

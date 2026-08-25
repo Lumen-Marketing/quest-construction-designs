@@ -1,3 +1,6 @@
+// ONE-SHOT, like build/extract.mjs — it reads .source/, which is gitignored,
+// so it cannot run on a fresh clone. It lifted the stylesheet once; the result
+// is committed. See the note at the top of extract.mjs.
 // Lifts the inline <style> out of a direction mockup into a shared stylesheet.
 // Thirty-one pages inlining ~20KB each is 600KB of duplication per direction.
 //   node build/extract-css.mjs direction-1-site-plan.html d01-site-plan
