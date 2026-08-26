@@ -18,8 +18,11 @@ export function loadContent() {
 }
 
 // Two service names are far too long for a 60-character title once the brand
-// suffix is added. Shortening them here beats clipping mid-parenthesis.
-const SHORT_NAME = {
+// suffix is added. Shortening them here beats clipping mid-parenthesis. The
+// footer reads the same map: those two labels are what force its trade list
+// into one very long column, and "Full Remodel" is honest anchor text for a
+// page whose h1 spells the rest out.
+export const SHORT_NAME = {
   'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops': 'Full Remodel',
   'deck-building-uses-trex-system': 'Deck Building',
 };

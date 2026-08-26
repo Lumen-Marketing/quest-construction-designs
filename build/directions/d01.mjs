@@ -4,9 +4,10 @@
 // radii, soft layered shadows.
 import { img, preloadImage } from '../lib/images.mjs';
 import { icon } from '../lib/icons.mjs';
+import { SHORT_NAME } from '../lib/pages.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 import {
-  shot, shots, cardShot, GALLERY, HERO, STORY, CONTACT, PROJECT_SHOTS,
+  shot, shots, cardShot, GALLERY, HERO, STORY, CONTACT, CLOSING, PROJECT_SHOTS,
   serviceShots, areaShots,
 } from '../lib/photos.mjs';
 
@@ -66,6 +67,27 @@ const svcCards = (c, cta) => c.services.map((s, i) => `
       <span class="n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
     </article>`).join('');
 
+// The closing plate. Every page ends on it, so it is built once — home,
+// service and area each carried their own byte-identical copy of this.
+// The photograph is half the plate, and the accent cuts a lean off its leading
+// corner: the same 46px the hero panel leans by, so the page opens and closes
+// on the same angle.
+const closingCta = (c, heading, body) => `
+<section class="cta">
+  <div class="bars" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap cta-in">
+    <div class="cta-copy">
+      <h2>${esc(heading)}</h2>
+      <p>${esc(body)}</p>
+      <div class="hero-acts">
+        ${arrowBtn(c.url('contact'), 'Get in touch')}
+        ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn ghost')}
+      </div>
+    </div>
+    <div class="cta-shot">${img(c, ...shot(CLOSING))}</div>
+  </div>
+</section>`;
+
 /** Layered dropdown nav — the mockup was anchor-only, so this is new furniture. */
 export function nav(c) {
   const col = (items) => items.map(([href, label]) =>
@@ -113,8 +135,14 @@ export function nav(c) {
 
 export function footer(c) {
   // `col2` marks the long lists — the fourteen trades and the eleven cities.
-  // They are the two that go two-up in the phone footer rather than running
-  // to a screen and a half of one link per row.
+  // They run two-up at every width, not just on the phone: fifteen rows of one
+  // link is half a screen of footer before the cities even start.
+  //
+  // Two trade names carry a parenthesis longer than the name itself, and in a
+  // half-width column they wrap to six lines each and undo the saving. The
+  // footer prints the short form for those two — the same map the <title> uses,
+  // so there is one place to change it and the page's h1 still spells it out.
+  const trade = (x) => SHORT_NAME[x.slug] || x.name;
   const col = (title, items, cls = '') => `<div${cls ? ` class="${cls}"` : ''}>
   <h2>${esc(title)}</h2>
   <ul>${items.map(([href, label]) =>
@@ -140,7 +168,7 @@ export function footer(c) {
   ])}
   ${col('Services', [
     ...(c.hubs ? [[c.url('services'), 'All Services']] : []),
-    ...c.services.map((s) => [c.url(`services/${s.slug}`), s.name])], 'col2')}
+    ...c.services.map((s) => [c.url(`services/${s.slug}`), trade(s)])], 'col2')}
   ${col('Areas Served', [
     ...(c.hubs ? [[c.url('service-areas'), 'All Areas Served']] : []),
     ...c.areas.areas.map((a) => [c.url(`service-areas/${a.slug}`), a.name])], 'col2')}
@@ -370,19 +398,7 @@ ${band(c, shots(
   </div>
 </section>
 
-<section class="cta">
-  <div class="bars" aria-hidden="true"><i></i><i></i><i></i></div>
-  <div class="wrap cta-in">
-    <div class="cta-copy">
-      <h2>${esc(h.ctaHeading)}</h2>
-      <p>${esc(h.ctaBody)}</p>
-      <div class="hero-acts">
-        ${arrowBtn(c.url('contact'), 'Get in touch')}
-        ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn ghost')}
-      </div>
-    </div>
-  </div>
-</section>`;
+${closingCta(c, h.ctaHeading, h.ctaBody)}`;
 }
 
 /** Service page — hero, tabs, intro, why-choose badges, process, FAQ, CTA. */
@@ -481,19 +497,7 @@ ${band(c, serviceShots(s.slug), '— On the job',
 </section>
 ${faq}
 
-<section class="cta">
-  <div class="bars" aria-hidden="true"><i></i><i></i><i></i></div>
-  <div class="wrap cta-in">
-    <div class="cta-copy">
-      <h2>${esc(s.ctaHeading)}</h2>
-      <p>${esc(s.ctaBody)}</p>
-      <div class="hero-acts">
-        ${arrowBtn(c.url('contact'), 'Get in touch')}
-        ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn ghost')}
-      </div>
-    </div>
-  </div>
-</section>`;
+${closingCta(c, s.ctaHeading, s.ctaBody)}`;
 }
 
 /** Service-area page. d01 renders authored local copy; see content/areas-local.json. */
@@ -503,7 +507,8 @@ export function area(c) {
   // Quest photographs jobs, not towns, so the band below is honest about being
   // work from across the service area rather than from this city in particular.
   const ai = c.areas.areas.findIndex((x) => x.slug === a.slug);
-  const fill = (s) => esc(String(s).replace(/\{\{city\}\}/g, a.city));
+  const raw = (s) => String(s).replace(/\{\{city\}\}/g, a.city);
+  const fill = (s) => esc(raw(s));
   const local = c.areasLocal[a.slug];
 
   const cards = svcCards(c, 'Learn more');
@@ -575,19 +580,7 @@ ${band(c, areaShots(ai), '— Recent work',
   </div>
 </section>
 
-<section class="cta">
-  <div class="bars" aria-hidden="true"><i></i><i></i><i></i></div>
-  <div class="wrap cta-in">
-    <div class="cta-copy">
-      <h2>${fill(t.ctaHeading)}</h2>
-      <p>${fill(t.ctaBody)}</p>
-      <div class="hero-acts">
-        ${arrowBtn(c.url('contact'), 'Get in touch')}
-        ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn ghost')}
-      </div>
-    </div>
-  </div>
-</section>`;
+${closingCta(c, raw(t.ctaHeading), raw(t.ctaBody))}`;
 }
 
 /** Shared inner-page hero for the pages that are not a service or an area.
@@ -612,21 +605,6 @@ function pageHero(c, { h1, lede, crumb }) {
   </div>
 </section>`;
 }
-
-const closingCta = (c, heading, body) => `
-<section class="cta">
-  <div class="bars" aria-hidden="true"><i></i><i></i><i></i></div>
-  <div class="wrap cta-in">
-    <div class="cta-copy">
-      <h2>${esc(heading)}</h2>
-      <p>${esc(body)}</p>
-      <div class="hero-acts">
-        ${arrowBtn(c.url('contact'), 'Get in touch')}
-        ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn ghost')}
-      </div>
-    </div>
-  </div>
-</section>`;
 
 export function about(c) {
   const a = c.pages.about;

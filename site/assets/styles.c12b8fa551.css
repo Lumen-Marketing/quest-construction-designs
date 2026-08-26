@@ -401,18 +401,52 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 .cta{position:relative;background:var(--dark);color:var(--on-dark);overflow:hidden;
   padding:var(--sp-2) 0}
 .cta-in{position:relative;z-index:3;background:var(--acc);color:var(--on-acc);border-radius:var(--r-lg);
-  overflow:hidden;display:grid;grid-template-columns:1fr;align-items:center;
+  overflow:hidden;display:grid;grid-template-columns:1.15fr .85fr;align-items:stretch;
   box-shadow:0 40px 90px rgba(0,0,0,.5)}
-.cta-copy{padding:var(--sp-4);position:relative;z-index:3}
+.cta-copy{padding:var(--sp-4);position:relative;z-index:3;align-self:center}
 .cta-copy h2{font-size:clamp(30px,4.2vw,58px);font-weight:900;color:var(--on-acc)}
 .cta-copy p{margin:20px 0 30px;color:rgba(20,19,16,.72);max-width:44ch}
+/* The closing plate ends the page on the work rather than on a flat rectangle.
+   The photograph fills its half edge to edge and the accent takes a slice back
+   off its leading corner — the same 46px lean the hero panel cuts, so the two
+   ends of the page are cut by the same knife. No scrim: fading a photograph
+   into burnt orange stains it, so the colour stops where the picture starts. */
+.cta-shot{position:relative;overflow:hidden;min-height:100%;
+  clip-path:polygon(46px 0,100% 0,100% 100%,0 100%);
+  /* .cta-in is a .wrap, so its inline padding is what insets the copy. The
+     photograph is half the plate rather than something sitting on it, so it
+     takes that padding back on its outer edge and runs to the plate's own
+     corner — where the plate's radius rounds it. */
+  margin-right:calc(var(--m) * -1)}
+.cta-shot img{display:block;width:100%;height:100%;object-fit:cover;
+  transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+@media (hover:hover) and (pointer:fine){.cta-in:hover .cta-shot img{transform:scale(1.05)}}
 .cta .bars{position:absolute;left:var(--m);bottom:18px;z-index:4}
 .cta .bars i{background:var(--acc)}
+/* Stacked, the lean would cut the top-left corner off the photograph for no
+   reason — there is nothing beside it to lean away from. */
+@media(max-width:820px){
+  .cta-in{grid-template-columns:1fr}
+  .cta-copy{order:2}
+  .cta-shot{order:1;clip-path:none;min-height:0;
+    margin-inline:calc(var(--m) * -1)}
+  .cta-shot img{aspect-ratio:16/7}}
 
 /* ---------- 09 FOOTER ---------- */
 footer{background:var(--dark);color:var(--on-dark-2);padding-top:clamp(50px,7vw,90px)}
-.fg{display:grid;grid-template-columns:1.7fr 1fr 1fr 1.2fr;gap:clamp(24px,4vw,56px);
+/* Company is five links; Services is fifteen and Areas twelve. Giving all
+   three the same track ran the footer to half a screen of one link per row, so
+   the two long ones get double the width and split it into two columns. */
+.fg{display:grid;grid-template-columns:1.3fr .75fr 1.6fr 1.5fr;gap:clamp(24px,4vw,56px);
   padding-bottom:var(--sp-3)}
+.fg ul{list-style:none;padding:0;margin:0}
+.fg .col2 ul{columns:2;column-gap:clamp(16px,1.8vw,26px)}
+/* A link that breaks across the column boundary reads as two links. */
+.fg .col2 li{break-inside:avoid}
+/* Two of the trades and two of the cities are too long for a half column and
+   wrap. Tightening the leading is what makes a wrapped link read as one link
+   sitting on two lines rather than as two links. */
+.fg .col2 a{padding:7px 0;line-height:1.35}
 .fg h2{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--mute);margin:0 0 18px;font-weight:700;line-height:1.4}
 .fg a{display:block;padding:9px 0;font-size:14.5px;color:var(--on-dark-2);transition:color .2s}
@@ -421,6 +455,8 @@ footer{background:var(--dark);color:var(--on-dark-2);padding-top:clamp(50px,7vw,
 .fbar{border-top:1px solid rgba(243,239,230,.1);padding:20px 0 30px;display:flex;flex-wrap:wrap;
   gap:12px 26px;justify-content:space-between;font-family:'JetBrains Mono',monospace;
   font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+/* Two across: the blurb and Company pair up, then the two long lists, each
+   still two-up inside its own half. */
 @media(max-width:900px){.fg{grid-template-columns:1fr 1fr}}
 @media(max-width:540px){.fg{grid-template-columns:1fr}}
 
@@ -920,12 +956,10 @@ h1,h2,h3,h4{overflow-wrap:break-word}
      millimetres is what says the trades carry on past the screen. */
   .svctabs{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 34px),transparent);
            mask-image:linear-gradient(90deg,#000 calc(100% - 34px),transparent)}
-  /* Two-up for the footer's trade and city lists: at one per row the
-     footer alone ran to some 1,500px of scrolling. The markers go with
-     them — at this width their indent is a sixth of the column. */
-  .fg ul{list-style:none;padding:0;margin:0}
-  .fg .col2 ul{display:grid;grid-template-columns:1fr 1fr;column-gap:18px}
-  .fg .col2 a{padding:10px 0;line-height:1.35}
+  /* The two-up rule is no longer a phone special case — the trade and city
+     lists run two columns at every width now. All this width still owes them
+     is a tighter gutter. */
+  .fg .col2 ul{column-gap:18px}
   /* The step numerals are the only thing on their row; full size they
      cost 90px of height each, four times over. */
   .step .n{width:54px;height:54px;border-radius:16px;font-size:18px;margin-bottom:16px}

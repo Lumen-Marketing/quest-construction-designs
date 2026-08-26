@@ -137,6 +137,8 @@ export const HERO = 'excavator.webp';
 export const STORY = 'quest/story.webp';
 /** The 16:10 shot in the contact page's help card. */
 export const CONTACT = 'quest/custom-home-gables.webp';
+/** The closing plate at the foot of every page. Landscape — it fills a wide cell. */
+export const CLOSING = 'quest/home-dusk.webp';
 
 /** The three project showcase cards, in the order content/pages.json lists them. */
 export const PROJECT_SHOTS = [
