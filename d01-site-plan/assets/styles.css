@@ -406,14 +406,111 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 .cta-trades a{transition:color .2s}
 @media (hover:hover) and (pointer:fine){.cta-trades a:hover{color:var(--acc-on-dark)}}
 
-.cta-bar{position:relative;z-index:2;background:var(--acc);color:var(--on-acc);
+/* ---- the accent bar ----
+   It was one flat rectangle of --acc laid on the plate, and it read as a
+   swatch rather than as a thing sitting on top of anything.
+
+   The obvious fix is a light-to-dark wash down the face, and it is the one
+   thing that cannot be done here: --on-acc is near-black on the gold and
+   orange palettes and WHITE on clay, so a wash that lifts the top for one
+   sinks the other below AA. Measured — clay falls from 5.26:1 to 4.17:1 at a
+   12% lift, and orange to 4.95:1 at a 10% darken.
+
+   So none of the depth is in the field. It is all at the edges, feathered in
+   pixels rather than percentages so the band the words actually sit on stays
+   exactly --acc at every bar height and on every palette:
+
+     - a cast shadow underneath, which is what says "lifted" and was the one
+       thing missing entirely
+     - a lit hairline along the top edge and a shaded one along the foot
+     - light rolling ten pixels off the top, shade rolling twelve up from the
+       bottom, both as inset shadows so the middle is untouched
+     - the engineering grid the rest of the page is drawn on, ghosted into the
+       surface, so the wide empty middle is a material and not a gap
+     - one raking beam, the inner-page banner's move, parked in that same
+       middle where nothing is read */
+.cta-bar{position:relative;z-index:2;isolation:isolate;
+  background:var(--acc);color:var(--on-acc);
   display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
-  gap:18px clamp(20px,3vw,40px);padding:18px var(--sp-1);
-  border-radius:var(--r-lg);margin:0 14px 14px}
-.cta-bar .mono{font-size:12px;font-weight:700;max-width:26ch;color:var(--on-acc)}
+  gap:18px clamp(20px,3vw,40px);padding:20px var(--sp-1);
+  border-radius:var(--r-lg);margin:0 14px 14px;
+  box-shadow:
+    /* the light, and the shade, at the two edges only */
+    inset 0 1px 0 color-mix(in srgb,#fff 34%,transparent),
+    inset 0 10px 14px -12px color-mix(in srgb,#fff 55%,transparent),
+    inset 0 -1px 0 color-mix(in srgb,var(--ink) 26%,transparent),
+    inset 0 -12px 15px -17px color-mix(in srgb,var(--ink) 52%,transparent),
+    /* and the two shadows it casts on the plate: one wide and soft for the
+       height it is held at, one tight and dark for where it meets */
+    0 22px 44px -16px rgba(0,0,0,.58),
+    0 3px 8px rgba(0,0,0,.26)}
+/* Both of these are drawn in --ink and never in --on-acc, and that is not a
+   style choice. Contrast is the distance between the ink and the field, so any
+   decoration has to move the field AWAY from the ink — and --on-acc is white
+   on clay, so tinting with it walks the field toward the type. Measured: the
+   grid and beam drawn in --on-acc cost clay 5.26:1 down to 3.60:1, and still
+   only reached 4.17:1 with the beam cut to a twentieth. Drawn in --ink, every
+   palette moves the right way at once, because the two light palettes have
+   ratios of 8.5:1 and 5.8:1 to spend and clay gains rather than pays.
+   It is also what the rest of the page already does: .grid-bg is ruled dark on
+   cream and only goes light in its .on-dark variant. The accent is a light
+   surface. The ruling on it is dark.
+
+   The grid, masked to the middle, so the empty span between the question and
+   the buttons is a material rather than a gap. */
+.cta-bar::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  border-radius:inherit;
+  background-image:linear-gradient(color-mix(in srgb,var(--ink) 8%,transparent) 1px,transparent 1px),
+    linear-gradient(90deg,color-mix(in srgb,var(--ink) 8%,transparent) 1px,transparent 1px);
+  background-size:46px 46px;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0 240px,#000 330px,
+    #000 calc(100% - 350px),transparent calc(100% - 265px));
+          mask-image:linear-gradient(90deg,transparent 0 240px,#000 330px,
+    #000 calc(100% - 350px),transparent calc(100% - 265px))}
+/* And in the middle, the hatch: the .bars motif — three skewed bars on a
+   rising opacity ramp — laid as a field rather than as three marks, which is
+   what a fifty-percent-wide gap wants. Crisp geometry rather than the soft
+   raking beam that was here first: at this size a gradient smear reads as a
+   printing fault, and hard stripes read as a machined surface. It is also the
+   only place in the direction this mark still appears — the CTA carried it
+   until the plate was rebuilt around the photograph, and nothing else does.
+
+   Skewed -18deg, which is the angle .bars is drawn at, so it lines up with
+   the leaning accent slab and the hero's clip-path rather than sitting at an
+   angle of its own. */
+.cta-bar::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  border-radius:inherit;
+  background:repeating-linear-gradient(108deg,
+    color-mix(in srgb,var(--ink) 11%,transparent) 0 13px,
+    transparent 13px 32px);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0 300px,#000 380px,
+    #000 calc(100% - 400px),transparent calc(100% - 330px));
+          mask-image:linear-gradient(90deg,transparent 0 300px,#000 380px,
+    #000 calc(100% - 400px),transparent calc(100% - 330px))}
+.cta-bar>*{position:relative;z-index:1}
+.cta-bar .mono{font-size:12px;font-weight:700;max-width:26ch;color:var(--on-acc);
+  text-wrap:balance}
 .cta-acts{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+/* Both pills sit ON the bar now rather than in it. The solid one throws a
+   real shadow onto the accent; the outlined one is engraved instead — a dark
+   hairline along its top edge and a lit one along its foot, which is what a
+   groove looks like under light coming from above. */
+.cta-bar .btn{box-shadow:0 14px 26px -8px rgba(0,0,0,.5),0 2px 5px rgba(0,0,0,.26)}
+@media (hover:hover) and (pointer:fine){
+  .cta-bar .btn:hover{box-shadow:0 20px 34px -8px rgba(0,0,0,.55),0 3px 7px rgba(0,0,0,.3)}}
+.cta-bar .btn.ghost{
+  box-shadow:inset 0 1px 0 color-mix(in srgb,var(--ink) 22%,transparent),
+    0 1px 0 color-mix(in srgb,#fff 26%,transparent)}
+@media (hover:hover) and (pointer:fine){
+  .cta-bar .btn.ghost:hover{box-shadow:inset 0 1px 0 color-mix(in srgb,var(--ink) 22%,transparent),
+    0 1px 0 color-mix(in srgb,#fff 26%,transparent)}}
 /* On the accent the default outline colour is the accent. */
 .cta-bar :focus-visible{outline:2px solid var(--on-acc);outline-offset:3px}
+@media(prefers-contrast:more){
+  /* Every one of these is a decoration over a field that is already at
+     ratio. Asked for more contrast, the field is what should be left. */
+  .cta-bar::before,.cta-bar::after{display:none}
+}
 
 @media(max-width:860px){
   .cta-head{grid-template-columns:1fr;align-items:start;
@@ -424,7 +521,17 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
     color-mix(in srgb,var(--dark) 62%,transparent) 100%)}
 }
 @media(max-width:620px){
-  .cta-bar{padding:16px 20px;margin:0 10px 10px;border-radius:var(--r)}
+  .cta-bar{padding:16px 20px;margin:0 10px 10px;border-radius:var(--r);
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb,#fff 34%,transparent),
+      inset 0 8px 11px -10px color-mix(in srgb,#fff 55%,transparent),
+      inset 0 -1px 0 color-mix(in srgb,var(--ink) 26%,transparent),
+      inset 0 -9px 11px -13px color-mix(in srgb,var(--ink) 52%,transparent),
+      0 14px 28px -12px rgba(0,0,0,.55),
+      0 2px 6px rgba(0,0,0,.24)}
+  /* At this width the buttons go full-bleed and the middle is gone, so the
+     hatch would fall behind them rather than beside them. */
+  .cta-bar::after{display:none}
   .cta-acts{width:100%}
   .cta-acts .btn{flex:1 1 auto;justify-content:center}
 }

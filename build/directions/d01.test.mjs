@@ -154,6 +154,46 @@ test('form fields are 16px, or iOS zooms the page in and does not zoom back', ()
   assert.ok(min >= 44, `contact fields are ${min}px tall, under the 44px touch floor`);
 });
 
+test('the accent bar is textured in ink and never in the ink it carries', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  // The whole trap in one test. --on-acc is near-black on the gold and orange
+  // palettes and WHITE on clay, so a decoration tinted with it moves the field
+  // TOWARD the type on clay and eats the contrast: measured, the grid and
+  // hatch drawn that way cost clay 5.26:1 down to 3.60:1. Drawn in --ink they
+  // move away from the type on all three at once. Anyone reaching for a white
+  // sheen here to make the bar glossier will pass a visual check on the live
+  // palette and fail one nobody looks at.
+  for (const layer of ['::before', '::after']) {
+    const m = new RegExp(`\\.cta-bar${layer}\\{[^}]*\\}`).exec(css);
+    assert.ok(m, `no .cta-bar${layer} rule`);
+    const rule = m[0];
+    assert.ok(!/var\(--on-acc\)/.test(rule),
+      `.cta-bar${layer} tints with --on-acc, which is white on the clay palette`);
+    // #fff appears legitimately inside mask-image, where it is a mask channel
+    // and not a colour. Only the paint is checked.
+    const paint = rule.split(/mask-image/)[0];
+    assert.ok(!/#fff|#ffffff|\bwhite\b/i.test(paint),
+      `.cta-bar${layer} paints with white, which the clay palette cannot afford`);
+    assert.match(paint, /var\(--ink\)/, `.cta-bar${layer} is not tinted with --ink`);
+    // And the masks hold their clearance in pixels. In percentages the words
+    // stay where the padding puts them while the texture marches in to meet
+    // them as the bar narrows — orange fell to 4.44:1 at 700px that way.
+    const mask = rule.slice(rule.indexOf('mask-image'));
+    assert.ok(/px/.test(mask),
+      `.cta-bar${layer} masks in percentages, which creep into the type as the bar narrows`);
+    // calc(100% - 350px) is fine and is the point: the 100% is only the anchor
+    // the right-hand clearance is measured back from, and the clearance itself
+    // is the px. A bare percentage stop is the thing that creeps.
+    assert.ok(!/\d+%/.test(mask.replace(/calc\([^)]*\)/g, '')),
+      `.cta-bar${layer} still has a bare percentage stop in its mask`);
+  }
+  // The lifted edge is what says the bar sits ON the plate rather than in it,
+  // and it is the one part of this that costs no contrast at all.
+  const bar = /\.cta-bar\{[^}]*\}/.exec(css)[0];
+  assert.match(bar, /box-shadow:[\s\S]*inset 0 1px 0/, 'the bar has no lit top edge');
+  assert.match(bar, /0 22px 44px -16px rgba\(0,0,0/, 'the bar casts no shadow on the plate');
+});
+
 test('the home page carries all fourteen service cards with icons', () => {
   const html = renderPage({ mod: d01, key: 'home' });
   for (const s of services) assert.ok(html.includes(`<h3>${esc(s.name)}</h3>`), `card ${s.slug}`);
