@@ -265,7 +265,9 @@ file **and** the three `data-acc` buttons in `index.html`.
 
 **Every photograph on the site is Quest's own.** The stock library is gone — deleted, not
 unreferenced — and `assets/quest/` holds the 49 that replaced it: 46 from two shoots Quest
-supplied, plus the three that were already here.
+supplied, plus the three that were already here. Two files survive it, `excavator.webp` and
+`loader.webp`, and neither is a photograph in the sense the rest are: they are alpha cut-outs,
+foreground furniture for two layouts built around having no edges. See below.
 
 | Shoot | Count | What is in it |
 |---|---|---|
@@ -312,10 +314,22 @@ The `FORBIDDEN` set in `build/lib/images.mjs` is empty now. It existed for `plan
 shot whose subject wore a rival contractor's logo; that file and the rest of the stock library
 have been deleted, so the guard has nothing to catch. Leave it in place for the next one.
 
-The alpha cut-outs are gone with the stock library, and with them the hero silhouettes in 01 and
-10. Both now carry a Quest photograph in a framed plate instead — 01's is `home-dusk`, straddling
-the accent plane's edge the way the cut-out machine did, with the ghost wordmark moved above it so
-it still reads.
+**The two cut-outs stay, and they are the only exception.** They are alpha silhouettes, not
+rectangles, and two layouts are built around that fact. Direction 01's hero has the machine
+straddling the accent plane's hard edge with no frame, and the ghost wordmark reading straight
+through the gaps in the boom. Direction 10's rig crosses the diagonal slash, which only reads
+because the machine has no edges of its own.
+
+Quest's library is phone photographs. Put one in either slot and the silhouette becomes a plate:
+the wordmark vanishes behind it, the diagonal stops crossing anything, and the composition is a
+different composition — a redesign, not a photo swap. **This was tried, and reverted.** The
+`CUTOUTS` comment in `build/lib/photos.mjs` is the long version, and a test pins the set at
+exactly those two files so a third cannot creep in quietly.
+
+They carry **equipment-manufacturer** badges (CAT on the excavator, Deere on the loader). That is
+a different thing from a rival contractor's mark and it is what a real plant photo looks like, but
+if Quest would rather not advertise a brand, `assets/cut/cutout.py` below mattes a cut-out from
+any machine photograph — drop the result in, repoint the constant, and nothing else changes.
 
 **No stock video — the reels are stills.** Directions 04, 05, 06 and 08 each carry a *reel*: three
 photographs cross-dissolving on an 18-second loop behind a play control and a counter. They are
@@ -507,11 +521,14 @@ every in-page anchor to an element that exists.
 Far fewer than there used to be. The body copy is now Quest's own, extracted from the recovered
 site into `content/*.json`, and the phone number and founding year are real.
 
-- ~~**Photography.**~~ **Done.** Every image on every page is Quest's own — 49 photographs in
-  `assets/quest/`, catalogued in `build/lib/photos.mjs`. The stock library has been deleted from
-  the tree, so a reference to it fails the build rather than shipping. What is still missing is
-  *interior* work: no drywall, stucco, paint or cabinetry photographs exist yet, so those four
-  service pages borrow the nearest honest stage and say so. Send interiors and they slot in.
+- ~~**Photography.**~~ **Done, bar the two cut-outs.** Every photograph on every page is Quest's
+  own — 49 of them in `assets/quest/`, catalogued in `build/lib/photos.mjs`. The stock library has
+  been deleted from the tree, so a reference to it fails the build rather than shipping. Two
+  things are outstanding. **The cut-outs are still stock**, because those two slots need alpha
+  silhouettes and Quest has none; a machine photograph of Quest's own, matted with
+  `assets/cut/cutout.py`, retires them. And there is no *interior* work: no drywall, stucco, paint
+  or cabinetry photographs exist yet, so those four service pages borrow the nearest honest stage
+  and say so.
 - **The contact form is not wired.** Submitting it prints a note asking the visitor to call. Point
   it at a real endpoint before launch.
 - **The per-city copy in `content/areas-local.json` is unverified.** See the SEO section above.

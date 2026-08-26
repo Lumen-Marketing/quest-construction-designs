@@ -327,11 +327,16 @@ test('the gallery is Quest photography and nothing else', async () => {
 test('every photograph on every page comes out of the library with its own alt', async () => {
   const { ALT } = await import('../lib/photos.mjs');
   const alts = new Set(Object.values(ALT));
+  const known = new Set(Object.keys(ALT).map((f) => `assets/${f}`));
+  known.add('assets/quest/logo.webp');          // the two logo lockups
   for (const key of ['home', 'about', 'projects', 'gallery', 'contact',
     'services/roofing', 'service-areas/mesa-az']) {
     const html = renderPage({ mod: d01, key });
     for (const m of html.match(/<img[^>]+>/g) || []) {
-      assert.match(m, /src="[^"]*assets\/quest\//, `${key} shows a non-library image: ${m}`);
+      // Card tiles point at the derived crop; everything else at the original.
+      const src = /src="([^"]*)"/.exec(m)[1].replace(/^(\.\.\/)+/, '')
+        .replace('assets/quest/card/', 'assets/quest/');
+      assert.ok(known.has(src), `${key} shows an image outside the catalogue: ${src}`);
       const alt = /alt="([^"]*)"/.exec(m)[1];
       if (!alt) continue;                        // the decorative logo lockups
       assert.ok(alts.has(alt) || alt === 'Quest Construction',

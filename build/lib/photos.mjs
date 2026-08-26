@@ -9,6 +9,9 @@
 // (drywall, stucco, paint, cabinetry), it borrows the closest honest one and
 // the alt text says what that picture really shows.
 //
+// Two files are not Quest's, and neither is a photograph in the sense the rest
+// are: they are alpha cut-outs. See CUTOUTS below for why they stay.
+//
 // Filenames live under assets/quest/. The alt text lives here and only here,
 // so the ten directions cannot drift apart on what a photograph depicts.
 
@@ -64,6 +67,10 @@ export const ALT = {
   'quest/roof-field.webp': 'A field of new architectural shingles across a finished roof',
   'quest/roof-desert.webp': 'A newly shingled hip roof with the Arizona mountains beyond',
 
+  // ---- the two alpha cut-outs; see CUTOUTS
+  'excavator.webp': 'A tracked excavator on a Quest Construction site',
+  'loader.webp': 'A wheel loader on a Quest Construction site',
+
   // ---- the three Quest already had
   'quest/hero.webp': 'Wall and roof framing across a Quest Construction home',
   'quest/story.webp': 'Framing and structural work on a Quest Construction project',
@@ -83,9 +90,11 @@ export const shots = (...files) => files.map(shot);
 /** Every photograph in the library, newest shoot last. */
 export const ALL = Object.keys(ALT);
 
-// The landscape frames. Anything dropped into a fixed wide slot — a hero, a
-// 4:3 story shot, a 16:10 card — has to come from here, or object-fit crops
-// the middle out of a portrait phone photograph and the subject goes with it.
+// The landscape frames. Anything dropped into a fixed wide slot — a 4:3 story
+// shot, a 16:10 card, a project card — has to come from here, or object-fit
+// crops the middle out of a portrait phone photograph and the subject goes
+// with it. The cut-outs are not on this list: they are sized by their own
+// alpha rather than cropped to a box.
 export const LANDSCAPE = [
   'quest/hero.webp',
   'quest/story.webp',
@@ -101,8 +110,29 @@ export const LANDSCAPE = [
   'quest/framing-roof.webp',
 ];
 
-/** The home hero. Landscape, and the one photograph worth a preload. */
-export const HERO = 'quest/home-dusk.webp';
+/**
+ * The two images in the tree that are not Quest's own — and the reason they
+ * are still here after everything else was replaced.
+ *
+ * They are alpha cut-outs, not rectangles, and two layouts are built around
+ * that fact. Direction 01's hero has the machine straddling the accent plane's
+ * hard edge with no frame, and the ghost wordmark reading straight through the
+ * gaps in the boom. Direction 10's rig crosses the diagonal slash, which only
+ * reads because the machine has no edges of its own.
+ *
+ * Quest's library is phone photographs. Put one in either slot and the
+ * silhouette becomes a plate: the wordmark disappears behind it, the diagonal
+ * stops crossing anything, and the composition is a different composition.
+ * That is a redesign, not a photo swap. It was tried, and reverted.
+ *
+ * They stay until Quest has cut-outs of its own. `assets/cut/cutout.py` mattes
+ * one from any machine photograph; drop the result in, repoint the constant,
+ * and nothing else changes. A test pins the set at exactly these two.
+ */
+export const CUTOUTS = ['excavator.webp', 'loader.webp'];
+
+/** Direction 01's hero. A cut-out, so it is not in LANDSCAPE and is never cropped. */
+export const HERO = 'excavator.webp';
 /** The 4:3 shot beside the story copy on the home and about pages. */
 export const STORY = 'quest/story.webp';
 /** The 16:10 shot in the contact page's help card. */

@@ -27,8 +27,10 @@ const btn = (href, label, cls = 'btn') => `<a class="${cls}" href="${href}">${es
 
 // Decorative cut-outs: no alt text on purpose, and hidden from the tree. Sized
 // from content/images.json so nothing shifts while they load.
-const RIG = (c) => img(c, 'quest/slab-lumber.webp', '', { decorative: true, cls: 'rig' });
-const PLANT = (c) => img(c, 'quest/framing-clouds.webp', '', { decorative: true });
+// Cut-outs, not photographs — see CUTOUTS in lib/photos.mjs. The rig crosses
+// the diagonal slash, which only reads because it has no edges of its own.
+const RIG = (c) => img(c, 'loader.webp', '', { decorative: true, cls: 'rig' });
+const PLANT = (c) => img(c, 'excavator.webp', '', { decorative: true });
 
 const SHOTS = SAMPLER;
 

@@ -25,12 +25,16 @@ test('every photograph in the library is present and measured', async () => {
   assert.ok(Object.keys(ALT).length >= 45, 'the library shrank unexpectedly');
 });
 
-test('nothing outside assets/quest/ and assets/og/ is shipped as photography', () => {
+test('the two cut-outs are the only images in the tree Quest did not shoot', async () => {
+  const { CUTOUTS, HERO } = await import('./photos.mjs');
   const sizes = JSON.parse(readFileSync('content/images.json', 'utf8'));
-  for (const f of Object.keys(sizes)) {
-    assert.ok(f.startsWith('quest/') || f.startsWith('og/'),
-      `${f} is not one of Quest's own photographs`);
-  }
+  const strays = Object.keys(sizes)
+    .filter((f) => !f.startsWith('quest/') && !f.startsWith('og/'));
+  // Exactly these two, and they are the documented ones. A third means stock
+  // crept back in — read the CUTOUTS comment in photos.mjs before widening it.
+  assert.deepEqual(strays.sort(), [...CUTOUTS].sort(),
+    `unexpected non-Quest photography: ${strays}`);
+  assert.ok(CUTOUTS.includes(HERO), 'the hero should be one of the cut-outs');
 });
 
 test('every social card is exactly 1200x630', () => {
