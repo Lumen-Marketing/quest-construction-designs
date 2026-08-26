@@ -310,6 +310,42 @@ test('every service card carries its own photograph, and no two share one', asyn
   }
 });
 
+test('no page shows the same photograph twice', async () => {
+  const photos = await import('../lib/photos.mjs');
+  // The gallery is the one exception and the obvious one: it prints the whole
+  // library, so the banner and the closing plate necessarily appear inside it.
+  const pages = [
+    ['home'], ['about'], ['projects'], ['contact'], ['sitemap'],
+    ...services.map((x) => [`services/${x.slug}`]),
+    ...areas.map((x) => [`service-areas/${x.slug}`]),
+  ];
+  for (const [key] of pages) {
+    const html = renderPage({ mod: d01, key });
+    const srcs = (html.match(/<img[^>]+>/g) || [])
+      .map((m) => /src="([^"]*)"/.exec(m)[1].replace(/^(\.\.\/)+/, ''))
+      // The two logo lockups are the masthead and the footer, deliberately the same.
+      .filter((f) => !f.endsWith('logo.webp'))
+      // A card crop and its original are the same photograph in two sizes.
+      .map((f) => f.replace('assets/quest/card/', 'assets/quest/'));
+    const seen = new Set();
+    for (const f of srcs) {
+      assert.ok(!seen.has(f), `${key} shows ${f} twice`);
+      seen.add(f);
+    }
+  }
+  // And the banner never takes a frame its own page's band is going to use.
+  for (const x of services) {
+    const banner = photos.bannerShot('service', x.slug)[0];
+    const band = photos.serviceShots(x.slug).map((p) => p[0]);
+    assert.ok(!band.includes(banner), `${x.slug} repeats ${banner}`);
+  }
+  areas.forEach((x, i) => {
+    const banner = photos.bannerShot('area', i)[0];
+    const band = photos.areaShots(i).map((p) => p[0]);
+    assert.ok(!band.includes(banner), `${x.slug} repeats ${banner}`);
+  });
+});
+
 test('the gallery is Quest photography and nothing else', async () => {
   const { GALLERY } = await import('../lib/photos.mjs');
   const html = renderPage({ mod: d01, key: 'gallery' });

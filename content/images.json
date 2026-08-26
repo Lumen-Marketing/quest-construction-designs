@@ -47,10 +47,6 @@
     900,
     600
   ],
-  "quest/card/custom-home-wide.webp": [
-    900,
-    600
-  ],
   "quest/card/deck-joists.webp": [
     900,
     600
@@ -80,6 +76,10 @@
     600
   ],
   "quest/card/home-trusses.webp": [
+    900,
+    600
+  ],
+  "quest/card/porch-dusk.webp": [
     900,
     600
   ],

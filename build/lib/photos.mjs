@@ -230,66 +230,27 @@ export const GALLERY = [
   'quest/spare.webp',
 ];
 
-// Four photographs per trade. Where Quest has no photograph of the trade
-// itself — drywall, stucco, paint, cabinetry, windows as a standalone job —
-// the nearest stage of the same work stands in and the alt text above still
-// describes the frame honestly rather than the trade it sits under.
-const SERVICE_SHOTS = {
-  'residential-development': [
-    'quest/framing-clouds.webp', 'quest/slab-lumber.webp',
-    'quest/custom-home-wide.webp', 'quest/home-dusk.webp'],
-  casita: [
-    'quest/framing-walls.webp', 'quest/slab-poured.webp',
-    'quest/framing-palms.webp', 'quest/framing-progress.webp'],
-  adu: [
-    'quest/framing-slab.webp', 'quest/sheathing-panel.webp',
-    'quest/framing-long-wall.webp', 'quest/framing-block.webp'],
-  framing: [
-    'quest/framing-clouds.webp', 'quest/framing-roof.webp',
-    'quest/framing-header.webp', 'quest/home-trusses.webp'],
-  concrete: [
-    'quest/slab-poured.webp', 'quest/slab-blockwall.webp',
-    'quest/slab-walls.webp', 'quest/slab-lumber.webp'],
-  stucco: [
-    'quest/custom-home-shell.webp', 'quest/custom-home-gables.webp',
-    'quest/home-side.webp', 'quest/framing-walls.webp'],
-  'dry-wall': [
-    'quest/spare.webp', 'quest/framing-inside.webp',
-    'quest/framing-openings.webp', 'quest/framing-hose.webp'],
-  siding: [
-    'quest/home-side.webp', 'quest/home-trusses.webp',
-    'quest/custom-home-shell.webp', 'quest/sheathing-panel.webp'],
-  roofing: [
-    'quest/roof-shingles.webp', 'quest/roof-ridge.webp',
-    'quest/roof-desert.webp', 'quest/roof-eave.webp'],
-  'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops': [
-    'quest/spare.webp', 'quest/framing-inside.webp',
-    'quest/framing-corner.webp', 'quest/slab-walls.webp'],
-  'custom-home-building': [
-    'quest/custom-home-wide.webp', 'quest/porch-dusk.webp',
-    'quest/home-dusk.webp', 'quest/custom-home-gables.webp'],
-  painting: [
-    'quest/spare.webp', 'quest/custom-home-gables.webp',
-    'quest/home-windows.webp', 'quest/gables-underlayment.webp'],
-  'deck-building-uses-trex-system': [
-    'quest/deck-joists.webp', 'quest/framing-lumber.webp',
-    'quest/slab-lumber.webp', 'quest/porch-dusk.webp'],
-  'window-installation': [
-    'quest/gable-window.webp', 'quest/home-windows.webp',
-    'quest/framing-openings.webp', 'quest/spare.webp'],
-};
-
-// One photograph per trade for the service card — the dark tile that repeats
-// fourteen times on the home page, on every area page and on the services hub.
-// All fourteen are different frames on purpose: three cards showing the same
-// interior reads as a company with three photographs, not fourteen jobs.
+// ---------------------------------------------------------------- assignment
 //
-// These live under assets/quest/card/ rather than pointing at the full-size
-// library. The card slot is a fixed 3:2 crop about 430px wide, and forty-two
-// tiles a page pulling 1500px originals is four megabytes to show one and a
-// half. The crop is pre-baked at 900x600 — 816KB for the whole set — and it is
-// taken a little above centre on the portrait frames, because the roof, the
-// gable and the header are the half of a phone photograph worth keeping.
+// Below this line is the question of which photograph goes where, and the one
+// rule that governs it: **no page shows the same photograph twice.**
+//
+// That rule is easy to state and impossible to hold by hand. A service page
+// carries a banner, a four-shot band and the closing plate. A city page carries
+// a banner, a three-shot band, fourteen trade tiles and the closing plate — 19
+// frames drawn from a library of 49 by four separate pieces of markup that know
+// nothing about each other. Picking them all by eye means re-checking 32 pages
+// every time one line changes, and the first pass got it wrong on 15 of them.
+//
+// So the fixed slots are declared first, each band is given a *pool* longer
+// than it needs, and the band takes the first entries the page has not already
+// used. Add a photograph, reorder a pool, change a banner — the bands move out
+// of the way on their own. A test walks every page and fails on a repeat.
+//
+// The gallery is the exception, and the obvious one: it shows the whole
+// library, so the banner and the closing plate necessarily appear inside it.
+
+/** One photograph per trade for the service card. All fourteen differ. */
 const CARD_SHOTS = {
   'residential-development': 'framing-clouds',
   casita: 'framing-walls',
@@ -301,31 +262,204 @@ const CARD_SHOTS = {
   siding: 'home-side',
   roofing: 'roof-shingles',
   'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops': 'framing-inside',
-  'custom-home-building': 'custom-home-wide',
+  'custom-home-building': 'porch-dusk',
   painting: 'custom-home-gables',
   'deck-building-uses-trex-system': 'deck-joists',
   'window-installation': 'gable-window',
 };
 
-/** [file, alt] for a service card's photograph — the card crop, not the original. */
+// The tile repeats fourteen times on the home page, on every city page and on
+// the services hub, in a fixed 3:2 slot about 430px wide. Forty-two tiles a page
+// pulling 1500px originals is four megabytes to show one and a half, so the crop
+// is pre-baked at 900x600 under assets/quest/card/ — 816KB for the whole set,
+// taken a little above centre on the portrait frames, because the roof, the
+// gable and the header are the half of a phone photograph worth keeping.
+const cardFile = (name) => `quest/card/${name}.webp`;
+
+/** [file, alt] for a service card — the crop's path with the original's alt. */
 export function cardShot(slug) {
   const name = CARD_SHOTS[slug];
   if (!name) throw new Error(`no card photograph mapped for service ${slug}`);
-  // The alt belongs to the photograph, not to the crop of it.
-  return [`quest/card/${name}.webp`, shot(`quest/${name}.webp`)[1]];
+  return [cardFile(name), shot(`quest/${name}.webp`)[1]];
 }
+
+/** Every card's underlying photograph, for the no-repeat bookkeeping below. */
+const CARD_ORIGINALS = Object.values(CARD_SHOTS).map((n) => `quest/${n}.webp`);
+
+// ------------------------------------------------------------------- banners
+//
+// The inner-page banner. Every page below the home page opens on the accent
+// plane, and the plane only covers 62% of the band — the rest was empty cream.
+// This is what goes in it: a plate on the right, cut on the same lean the plane
+// is cut on, so the two interlock instead of sitting side by side.
+//
+// The deck leans material-forward — lumber laid out, a sheathed panel, joists,
+// shingles — because the alternative for that slot was a machine, and there is
+// no machine to use. The seven cut-out candidates in assets/cut/ were checked:
+// six carry another contractor's name, a rental firm's branding or a bad matte,
+// and the seventh is already the home hero. Quest owns no plant photography.
+// Materials are what Quest photographs, so materials are what this shows.
+//
+// Landscape or texture-filling only: the slot is roughly 500x340, and a portrait
+// phone frame cropped to that loses its subject.
+//
+// A service page gets a frame chosen for its trade rather than a slot in a
+// rotation — a visitor reading about decks should not open on a roof. A city
+// page cannot be relevant to its city, so those rotate.
+const SERVICE_BANNER = {
+  'residential-development': 'quest/slab-lumber.webp',
+  casita: 'quest/framing-slab.webp',
+  adu: 'quest/sheathing-panel.webp',
+  framing: 'quest/framing-clouds.webp',
+  concrete: 'quest/slab-blockwall.webp',
+  stucco: 'quest/custom-home-gables.webp',
+  'dry-wall': 'quest/framing-roof.webp',
+  siding: 'quest/custom-home-wide.webp',
+  roofing: 'quest/roof-field.webp',
+  'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops': 'quest/story.webp',
+  'custom-home-building': 'quest/porch-dusk.webp',
+  painting: 'quest/hero.webp',
+  'deck-building-uses-trex-system': 'quest/deck-joists.webp',
+  'window-installation': 'quest/home-windows.webp',
+};
+
+// Eleven cities, eleven frames, none of them one of the fourteen trade tiles
+// that sit further down the same page.
+const AREA_BANNER = [
+  'quest/framing-roof.webp',
+  'quest/story.webp',
+  'quest/roof-field.webp',
+  'quest/slab-lumber.webp',
+  'quest/hero.webp',
+  'quest/roof-ridge.webp',
+  'quest/sheathing-panel.webp',
+  'quest/roof-desert.webp',
+  'quest/slab-blockwall.webp',
+  'quest/framing-lumber.webp',
+  'quest/roof-valley.webp',
+];
+
+const BANNER_PAGE = {
+  about: 'quest/hero.webp',
+  gallery: 'quest/roof-shingles.webp',
+  projects: 'quest/framing-clouds.webp',
+  contact: 'quest/slab-lumber.webp',
+  sitemap: 'quest/sheathing-panel.webp',
+  serviceIndex: 'quest/framing-clouds.webp',
+  areaIndex: 'quest/custom-home-wide.webp',
+};
+
+/**
+ * [file, alt] for an inner page's banner plate.
+ * @param kind 'service' | 'area' | one of the BANNER_PAGE keys
+ * @param key  the service slug, or the city's position in the areas list
+ */
+export function bannerShot(kind, key = 0) {
+  if (kind === 'service') {
+    const f = SERVICE_BANNER[key];
+    if (!f) throw new Error(`no banner photograph mapped for service ${key}`);
+    return shot(f);
+  }
+  if (kind === 'area') return shot(AREA_BANNER[key % AREA_BANNER.length]);
+  const f = BANNER_PAGE[kind];
+  if (!f) throw new Error(`no banner photograph mapped for ${kind}`);
+  return shot(f);
+}
+
+// --------------------------------------------------------------------- bands
+
+/** Everything a page of this kind already shows before its band is chosen. */
+function taken(kind, key) {
+  const base = [CLOSING];
+  switch (kind) {
+    case 'home':
+      return [...base, HERO, STORY, ...PROJECT_SHOTS, ...CARD_ORIGINALS];
+    case 'service':
+      return [...base, bannerShot('service', key)[0]];
+    case 'area':
+      return [...base, bannerShot('area', key)[0], ...CARD_ORIGINALS];
+    case 'serviceIndex':
+      return [...base, bannerShot('serviceIndex')[0], ...CARD_ORIGINALS];
+    case 'about':
+      return [...base, bannerShot('about')[0], STORY];
+    case 'projects':
+      return [...base, bannerShot('projects')[0], ...PROJECT_SHOTS];
+    default:
+      return [...base, bannerShot(kind)[0]];
+  }
+}
+
+/** The first `n` frames of `pool` this page has not already used. */
+function fill(pool, used, n, where) {
+  const out = pool.filter((f) => !used.includes(f)).slice(0, n);
+  if (out.length < n) throw new Error(`${where} needs ${n} photographs, its pool leaves ${out.length}`);
+  return out.map(shot);
+}
+
+// Five to seven photographs per trade for a band that shows four. The surplus
+// is what lets the band step aside when the banner, or the closing plate, has
+// already taken one of them.
+//
+// Where Quest has no photograph of the trade itself — drywall, stucco, paint,
+// cabinetry, windows as a standalone job — the nearest stage of the same work
+// stands in, and the alt text above still describes the frame honestly rather
+// than the trade it sits under.
+const SERVICE_POOL = {
+  'residential-development': [
+    'quest/framing-clouds.webp', 'quest/slab-lumber.webp', 'quest/custom-home-wide.webp',
+    'quest/home-dusk.webp', 'quest/framing-progress.webp', 'quest/framing-sky.webp'],
+  casita: [
+    'quest/framing-walls.webp', 'quest/slab-poured.webp', 'quest/framing-palms.webp',
+    'quest/framing-progress.webp', 'quest/framing-corner.webp'],
+  adu: [
+    'quest/framing-slab.webp', 'quest/sheathing-panel.webp', 'quest/framing-long-wall.webp',
+    'quest/framing-block.webp', 'quest/framing-wide.webp'],
+  framing: [
+    'quest/framing-clouds.webp', 'quest/framing-roof.webp', 'quest/framing-header.webp',
+    'quest/home-trusses.webp', 'quest/framing-sky.webp'],
+  concrete: [
+    'quest/slab-poured.webp', 'quest/slab-blockwall.webp', 'quest/slab-walls.webp',
+    'quest/slab-lumber.webp', 'quest/framing-shade.webp'],
+  stucco: [
+    'quest/custom-home-shell.webp', 'quest/custom-home-gables.webp', 'quest/home-side.webp',
+    'quest/framing-walls.webp', 'quest/gables-underlayment.webp'],
+  'dry-wall': [
+    'quest/spare.webp', 'quest/framing-inside.webp', 'quest/framing-openings.webp',
+    'quest/framing-hose.webp', 'quest/framing-corner.webp'],
+  siding: [
+    'quest/home-side.webp', 'quest/home-trusses.webp', 'quest/custom-home-shell.webp',
+    'quest/sheathing-panel.webp', 'quest/framing-walls.webp'],
+  roofing: [
+    'quest/roof-shingles.webp', 'quest/roof-ridge.webp', 'quest/roof-desert.webp',
+    'quest/roof-eave.webp', 'quest/roof-valley.webp'],
+  'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops': [
+    'quest/spare.webp', 'quest/framing-inside.webp', 'quest/framing-corner.webp',
+    'quest/slab-walls.webp', 'quest/framing-openings.webp'],
+  'custom-home-building': [
+    'quest/custom-home-wide.webp', 'quest/custom-home-gables.webp', 'quest/home-trusses.webp',
+    'quest/custom-home-shell.webp', 'quest/home-side.webp', 'quest/porch-dusk.webp',
+    'quest/home-dusk.webp'],
+  painting: [
+    'quest/spare.webp', 'quest/custom-home-gables.webp', 'quest/home-windows.webp',
+    'quest/gables-underlayment.webp', 'quest/custom-home-shell.webp'],
+  'deck-building-uses-trex-system': [
+    'quest/deck-joists.webp', 'quest/framing-lumber.webp', 'quest/slab-lumber.webp',
+    'quest/porch-dusk.webp', 'quest/framing-slab.webp'],
+  'window-installation': [
+    'quest/gable-window.webp', 'quest/home-windows.webp', 'quest/framing-openings.webp',
+    'quest/spare.webp', 'quest/gables-underlayment.webp'],
+};
 
 /** The photographs that belong on a service page, as [file, alt] pairs. */
 export function serviceShots(slug, n = 4) {
-  const files = SERVICE_SHOTS[slug];
-  if (!files) throw new Error(`no photographs mapped for service ${slug}`);
-  return files.slice(0, n).map(shot);
+  const pool = SERVICE_POOL[slug];
+  if (!pool) throw new Error(`no photographs mapped for service ${slug}`);
+  return fill(pool, taken('service', slug), n, `service ${slug}`);
 }
 
-// Quest photographs jobs, not cities, so an area page cannot show its own
-// town. Each city gets a stable slice of the library instead — stable so the
-// page does not reshuffle between builds, and offset per city so eleven pages
-// do not all open on the same photograph.
+// Quest photographs jobs, not towns, so a city page cannot show its own. Each
+// gets a stable slice of the library instead — stable so the page does not
+// reshuffle between builds, offset per city so eleven pages do not open alike.
 const AREA_DECK = [
   'quest/framing-clouds.webp', 'quest/slab-poured.webp', 'quest/custom-home-wide.webp',
   'quest/roof-shingles.webp', 'quest/framing-palms.webp', 'quest/home-dusk.webp',
@@ -334,12 +468,45 @@ const AREA_DECK = [
   'quest/framing-roof.webp', 'quest/custom-home-gables.webp', 'quest/framing-openings.webp',
   'quest/roof-ridge.webp', 'quest/framing-long-wall.webp', 'quest/story.webp',
   'quest/framing-progress.webp', 'quest/hero.webp', 'quest/spare.webp',
-  'quest/sheathing-panel.webp',
+  'quest/sheathing-panel.webp', 'quest/framing-header.webp', 'quest/roof-eave.webp',
+  'quest/framing-hose.webp', 'quest/slab-walls.webp', 'quest/framing-sky.webp',
+  'quest/roof-valley.webp', 'quest/framing-shade.webp', 'quest/framing-curve.webp',
+  'quest/sheathing-curve.webp', 'quest/roof-underlayment.webp', 'quest/framing-block.webp',
 ];
 
 /** The photographs that belong on the service-area page at index `i`. */
 export function areaShots(i, n = 3) {
-  const out = [];
-  for (let k = 0; k < n; k += 1) out.push(AREA_DECK[(i * n + k) % AREA_DECK.length]);
-  return out.map(shot);
+  const start = (i * 3) % AREA_DECK.length;
+  const pool = [...AREA_DECK.slice(start), ...AREA_DECK.slice(0, start)];
+  return fill(pool, taken('area', i), n, `area ${i}`);
+}
+
+// The bands on the pages that are neither a service nor a city. Each pool runs
+// long for the same reason the trades' do.
+const PAGE_POOL = {
+  home: [
+    'quest/slab-blockwall.webp', 'quest/framing-roof.webp', 'quest/sheathing-panel.webp',
+    'quest/home-windows.webp', 'quest/porch-dusk.webp', 'quest/framing-long-wall.webp',
+    'quest/roof-ridge.webp', 'quest/framing-header.webp', 'quest/slab-lumber.webp',
+    'quest/framing-sky.webp', 'quest/roof-eave.webp', 'quest/framing-palms.webp'],
+  about: [
+    'quest/framing-palms.webp', 'quest/roof-ridge.webp', 'quest/framing-hose.webp',
+    'quest/slab-walls.webp', 'quest/framing-sky.webp', 'quest/roof-valley.webp'],
+  projects: [
+    'quest/framing-long-wall.webp', 'quest/framing-header.webp', 'quest/roof-desert.webp',
+    'quest/framing-shade.webp', 'quest/roof-underlayment.webp', 'quest/slab-walls.webp',
+    'quest/framing-hose.webp', 'quest/framing-curve.webp'],
+  serviceIndex: [
+    'quest/framing-long-wall.webp', 'quest/roof-ridge.webp', 'quest/framing-header.webp',
+    'quest/slab-lumber.webp', 'quest/framing-sky.webp', 'quest/roof-eave.webp'],
+  areaIndex: [
+    'quest/framing-palms.webp', 'quest/roof-desert.webp', 'quest/porch-dusk.webp',
+    'quest/slab-lumber.webp', 'quest/roof-ridge.webp', 'quest/framing-sky.webp'],
+};
+
+/** The band on the home page, about, projects or either hub. */
+export function pageShots(kind, n) {
+  const pool = PAGE_POOL[kind];
+  if (!pool) throw new Error(`no band mapped for ${kind}`);
+  return fill(pool, taken(kind), n, kind);
 }

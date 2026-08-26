@@ -621,6 +621,24 @@ footer .brand img{height:38px}
 .subhero-panel{position:absolute;z-index:1;left:0;top:0;bottom:0;width:62%;
   background:linear-gradient(150deg,var(--acc) 0%,var(--acc-dim) 100%);
   clip-path:polygon(0 0,100% 0,calc(100% - 46px) 100%,0 100%)}
+/* The plate that fills the other 38%. The plane's right edge leans 46px to the
+   left on the way down; this leans by the same 46px, so the two edges are
+   parallel and a sliver of the engineering grid shows between them. It bleeds
+   off the right the way the plane bleeds off the left — no frame, no radius.
+   The copy is z-index 4 and this is 2, so the plane still overlaps it. */
+.subhero-shot{position:absolute;z-index:2;right:0;top:0;bottom:0;width:38%;
+  overflow:hidden;pointer-events:none;
+  clip-path:polygon(46px 0,100% 0,100% 100%,0 100%)}
+.subhero-shot img{display:block;width:100%;height:100%;object-fit:cover}
+/* Below the reflow the plane goes full width and there is no cream left to
+   fill — so the plate stops floating in it and becomes the band's floor, a
+   full-width strip under the copy. It is the last thing in the section, which
+   is why it is the last thing in the markup. */
+@media(max-width:1080px){
+  .subhero{padding-bottom:0}
+  .subhero-shot{position:static;width:auto;clip-path:none;margin-top:var(--sp-3)}
+  .subhero-shot img{height:auto;aspect-ratio:16/6}
+}
 .subhero .wrap{position:relative;z-index:4}
 .subhero-in{max-width:min(660px,56%)}
 .subhero h1{font-size:clamp(30px,4.4vw,58px);font-weight:900;color:var(--on-acc);

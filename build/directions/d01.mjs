@@ -7,7 +7,8 @@ import { icon } from '../lib/icons.mjs';
 import { SHORT_NAME } from '../lib/pages.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 import {
-  shot, shots, cardShot, GALLERY, HERO, STORY, CONTACT, CLOSING, PROJECT_SHOTS,
+  shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO, STORY, CONTACT,
+  CLOSING, PROJECT_SHOTS,
   serviceShots, areaShots,
 } from '../lib/photos.mjs';
 
@@ -34,6 +35,14 @@ const shead = (eyebrow, heading, lede) => `<div class="shead rv">
 
 const arrowBtn = (href, label, cls = 'btn') =>
   `<a class="${cls}" href="${href}"><span class="pip"></span>${esc(label)}</a>`;
+
+// The plate that fills the empty cream half of an inner-page banner. Its left
+// edge is cut on the same 46px lean as the accent plane beside it, so the two
+// interlock rather than sitting side by side, and it bleeds off the right edge
+// the way the plane bleeds off the left. No frame — this direction does not put
+// photographs in boxes.
+const bannerPlate = (c, pair) =>
+  `<div class="subhero-shot" aria-hidden="true">${img(c, ...pair)}</div>`;
 
 // A band of Quest's own jobsite photographs. Square tiles, because the library
 // is two phone shoots and runs both portrait and landscape — a fixed 3:2 crop
@@ -375,11 +384,7 @@ export function home(c) {
   </div>
 </section>
 
-${band(c, shots(
-  'quest/slab-blockwall.webp', 'quest/framing-clouds.webp', 'quest/framing-roof.webp',
-  'quest/sheathing-panel.webp', 'quest/roof-shingles.webp', 'quest/custom-home-gables.webp',
-  'quest/home-windows.webp', 'quest/porch-dusk.webp',
-), '— On site', 'Slab to <span>Shingle</span>, Photographed',
+${band(c, pageShots('home', 8), '— On site', 'Slab to <span>Shingle</span>, Photographed',
   'Every photograph on this site is from a Quest job. Nothing here is stock.', 'sec cream alt')}
 
 <section class="sec dark" id="offers">
@@ -464,6 +469,7 @@ export function service(c) {
       </div>
     </div>
   </div>
+  ${bannerPlate(c, bannerShot('service', s.slug))}
 </section>
 
 <nav class="svctabs" aria-label="All services"><div class="wrap">${tabs}</div></nav>
@@ -537,6 +543,7 @@ export function area(c) {
       </div>
     </div>
   </div>
+  ${bannerPlate(c, bannerShot('area', ai))}
 </section>
 
 <section class="sec cream">
@@ -586,7 +593,7 @@ ${closingCta(c, raw(t.ctaHeading), raw(t.ctaBody))}`;
 /** Shared inner-page hero for the pages that are not a service or an area.
     No eyebrow: the breadcrumb directly above already names the section, and
     printing "Contact / — Contact" two lines apart reads as a mistake. */
-function pageHero(c, { h1, lede, crumb }) {
+function pageHero(c, { h1, lede, crumb, banner }) {
   return `
 <section class="subhero">
   ${grid(false)}
@@ -603,13 +610,14 @@ function pageHero(c, { h1, lede, crumb }) {
       </div>
     </div>
   </div>
+  ${bannerPlate(c, banner)}
 </section>`;
 }
 
 export function about(c) {
   const a = c.pages.about;
   return `${pageHero(c, {
-    h1: a.h1, lede: a.lede, crumb: 'About Us',
+    h1: a.h1, lede: a.lede, crumb: 'About Us', banner: bannerShot('about'),
   })}
 
 <section class="sec cream">
@@ -625,9 +633,7 @@ export function about(c) {
   </div>
 </section>
 
-${band(c, shots(
-  'quest/story.webp', 'quest/framing-palms.webp', 'quest/roof-ridge.webp', 'quest/home-dusk.webp',
-), '— The work itself', 'What a Quest <span>Job</span> Looks Like',
+${band(c, pageShots('about', 4), '— The work itself', 'What a Quest <span>Job</span> Looks Like',
   'Framing, roof, finish. Photographs from our own sites.', 'sec cream alt')}
 
 <section class="sec dark">
@@ -647,7 +653,7 @@ ${closingCta(c, 'Build with a team that answers the phone',
 export function gallery(c) {
   const g = c.pages.gallery;
   return `${pageHero(c, {
-    h1: g.h1, lede: g.lede, crumb: 'Gallery',
+    h1: g.h1, lede: g.lede, crumb: 'Gallery', banner: bannerShot('gallery'),
   })}
 
 <section class="sec cream">
@@ -667,7 +673,7 @@ ${closingCta(c, c.pages.home.ctaHeading, c.pages.home.ctaBody)}`;
 export function projects(c) {
   const p = c.pages.projects;
   return `${pageHero(c, {
-    h1: p.h1, lede: p.lede, crumb: 'Project Showcase',
+    h1: p.h1, lede: p.lede, crumb: 'Project Showcase', banner: bannerShot('projects'),
   })}
 
 <section class="sec cream">
@@ -686,10 +692,7 @@ export function projects(c) {
   </div>
 </section>
 
-${band(c, shots(
-  'quest/slab-poured.webp', 'quest/framing-long-wall.webp', 'quest/framing-header.webp',
-  'quest/deck-joists.webp', 'quest/roof-desert.webp', 'quest/gable-window.webp',
-), '— More from the same jobs', 'Detail <span>Shots</span>',
+${band(c, pageShots('projects', 6), '— More from the same jobs', 'Detail <span>Shots</span>',
   'The stages that do not get a card of their own.', 'sec cream alt')}
 
 <section class="sec dark">
@@ -730,7 +733,7 @@ export function contact(c) {
     : `<label>${esc(f.label)}<input name="${f.name}" type="${f.type}"${attrs(f)}></label>`;
 
   return `${pageHero(c, {
-    h1: p.h1, lede: p.lede, crumb: 'Contact',
+    h1: p.h1, lede: p.lede, crumb: 'Contact', banner: bannerShot('contact'),
   })}
 
 <section class="sec cream">
@@ -780,7 +783,7 @@ export function serviceIndex(c) {
     h1: 'Construction Services in Arizona',
     lede: `${c.services.length} trades, one contractor, ${c.site.availability} on the phone. `
       + 'Everything below is self-managed by Quest — no brokered subcontractor chain.',
-    crumb: 'Services',
+    crumb: 'Services', banner: bannerShot('serviceIndex'),
   })}
 
 <section class="sec cream">
@@ -813,10 +816,7 @@ export function serviceIndex(c) {
   </div>
 </section>
 
-${band(c, shots(
-  'quest/framing-clouds.webp', 'quest/slab-poured.webp',
-  'quest/roof-shingles.webp', 'quest/home-windows.webp',
-), '— The trades in practice', 'Structure, <span>Shell</span>, Finish',
+${band(c, pageShots('serviceIndex', 4), '— The trades in practice', 'Structure, <span>Shell</span>, Finish',
   'Four stages of a Quest job, in that order.', 'sec cream alt')}
 
 <section class="sec dark">
@@ -855,7 +855,7 @@ export function areaIndex(c) {
     h1: 'Service Areas Across Arizona',
     lede: `Quest Construction builds in ${c.areas.areas.length} Arizona cities. Each one permits `
       + 'differently and each one has its own housing stock — the pages below say how.',
-    crumb: 'Service Areas',
+    crumb: 'Service Areas', banner: bannerShot('areaIndex'),
   })}
 
 <section class="sec cream">
@@ -867,10 +867,7 @@ export function areaIndex(c) {
   </div>
 </section>
 
-${band(c, shots(
-  'quest/framing-palms.webp', 'quest/custom-home-wide.webp',
-  'quest/roof-desert.webp', 'quest/porch-dusk.webp',
-), '— Across the valley', 'Arizona <span>Jobs</span>, Arizona Photographs',
+${band(c, pageShots('areaIndex', 4), '— Across the valley', 'Arizona <span>Jobs</span>, Arizona Photographs',
   'Palms on one job, open desert on the next — both ours.', 'sec cream alt')}
 
 <section class="sec dark">
@@ -896,6 +893,7 @@ export function sitemap(c) {
 
   return `${pageHero(c, {
     h1: c.pages.sitemap.h1, lede: c.pages.sitemap.lede, crumb: 'Sitemap',
+    banner: bannerShot('sitemap'),
   })}
 
 <section class="sec cream">

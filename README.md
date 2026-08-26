@@ -295,6 +295,31 @@ Because the library runs two orientations, the layouts pick per slot: the galler
 take the same bite, and the fixed wide slots — hero, story, contact, project cards — draw only
 from `LANDSCAPE`.
 
+**The banner plate.** Every page below the home page opens on the accent plane, and the plane
+only covers 62% of the band — the rest was empty cream. A photograph fills it now, cut on the same
+46px lean the plane is cut on so the two interlock, bleeding off the right edge the way the plane
+bleeds off the left. Below the 1080px reflow the plane goes full width and there is no cream left,
+so the plate becomes the band's floor instead: a full-width strip under the copy.
+
+The deck leans **material-forward** — lumber laid out, a sheathed panel, joists, shingles — because
+the alternative for that slot was a machine and there is no machine to use. All seven cut-out
+candidates in `assets/cut/` were checked: `deere-exc` carries "PEDRE CONTRACTORS LTD.",
+`cat-m315c` carries "Manfred Melser Baggerbetrieb", `kobelco` carries "KOBELCO SCHEID" plus a
+German site sign and a fence left in the matte, `yanmar` carries "HKL MIETPARK" rental branding,
+`cat-950gc` has a red railing left in the matte, `dozer-blade` is an agricultural tractor, and
+`excavator-side` is already the hero. Six of the seven put another firm's name on Quest's site.
+Quest owns no plant photography, so what the banners show is what Quest actually photographs.
+
+**One rule governs which photograph goes where: no page shows the same one twice.** It is easy to
+state and impossible to hold by hand — a city page carries a banner, a three-shot band, fourteen
+trade tiles and the closing plate, 19 frames drawn from 49 by four pieces of markup that know
+nothing about each other. Picking by eye means re-checking 32 pages every time one line moves, and
+the first pass got it wrong on fifteen of them. So `photos.mjs` declares the fixed slots first,
+gives every band a *pool* longer than it needs, and each band takes the first entries the page has
+not already used. A test walks every page and fails on a repeat. The gallery is the one exception,
+and the obvious one: it prints the whole library, so the banner and the closing plate necessarily
+appear inside it.
+
 **`assets/quest/card/` is the one derived set.** The service tile repeats fourteen times on the
 home page, on all eleven area pages and on the services hub, in a fixed 3:2 slot about 430px
 wide. Forty-two tiles pulling 1500px originals is four megabytes to show one and a half, so the
