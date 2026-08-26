@@ -44,6 +44,46 @@ const arrowBtn = (href, label, cls = 'btn') =>
 const bannerPlate = (c, pair) =>
   `<div class="subhero-shot" aria-hidden="true">${img(c, ...pair)}</div>`;
 
+// One word of the heading in accent. The reference sets a single word of its
+// headline in colour and lets the rest sit white; this finds that word in an
+// already-escaped heading and wraps it, and does nothing if it is not there —
+// so a heading that changes in the content file degrades to plain white rather
+// than to broken markup.
+const hl = (text, word) => {
+  const t = esc(text);
+  if (!word) return t;
+  const w = esc(word);
+  const i = t.indexOf(w);
+  return i < 0 ? t : `${t.slice(0, i)}<span class="hl">${w}</span>${t.slice(i + w.length)}`;
+};
+
+// The two layers behind the type: the light beam the photograph is cut by, and
+// the wordmark ghosted across the whole band. Both are the home hero's moves,
+// carried down to the pages that used to open on a flat orange plane.
+const bannerBack = (c) => `<div class="subhero-beam" aria-hidden="true"></div>
+  <div class="subhero-ghost" aria-hidden="true">${esc(c.site.name.split(' ')[0].toUpperCase())}</div>`;
+
+// The display band. One word of the page set as large as the line will carry,
+// the photographs pulled up over its foot so the type runs behind them, and the
+// sentence that would have been a lede justified edge to edge underneath as a
+// rule rather than a paragraph.
+//
+// The size is computed from the word's own length — `118vw / characters` —
+// rather than picked per band. A fixed clamp either wraps the long words or
+// wastes the line on the short ones; this fills the measure either way, and a
+// band whose word changes in a content file keeps filling it.
+const bigBand = (c, pairs, eyebrow, word, lede) => `
+<section class="sec dark bigband" style="--len:${word.length}">
+  ${grid(true)}
+  <div class="wrap">
+    <p class="mono eyebrow">${esc(eyebrow)}</p>
+    <h2 class="bigword">${esc(word)}</h2>
+    <div class="shotband n${pairs.length}">${pairs.map(([f, alt]) =>
+    `<figure class="rv">${img(c, f, alt)}</figure>`).join('')}</div>
+    <p class="justrow mono">${esc(lede)}</p>
+  </div>
+</section>`;
+
 // A band of Quest's own jobsite photographs. Square tiles, because the library
 // is two phone shoots and runs both portrait and landscape — a fixed 3:2 crop
 // takes the roof off half of them, and a square takes the same bite out of
@@ -76,24 +116,38 @@ const svcCards = (c, cta) => c.services.map((s, i) => `
       <span class="n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
     </article>`).join('');
 
-// The closing plate. Every page ends on it, so it is built once — home,
-// service and area each carried their own byte-identical copy of this.
-// The photograph is half the plate, and the accent cuts a lean off its leading
-// corner: the same 46px the hero panel leans by, so the page opens and closes
-// on the same angle.
+// The one line of copy on the site that is furniture rather than content: the
+// label on the accent bar. It lives here because it belongs to the component,
+// not to a page, and every page ends on the same one.
+const CTA_PROMPT = 'Got a project in need of a builder?';
+
+// The closing plate. Every page ends on it, so it is built once — home, service
+// and area each carried their own byte-identical copy of this.
+//
+// The photograph is the whole plate now rather than half of it, dropped behind
+// a scrim so the headline sits on the work instead of beside it, and the accent
+// runs as a bar across the foot carrying the ask and the two ways to act on it.
+// A visitor who has scrolled to the bottom of a page has one thing left to do,
+// and the bar is the width of the plate saying so.
 const closingCta = (c, heading, body) => `
 <section class="cta">
-  <div class="bars" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="wrap cta-in">
-    <div class="cta-copy">
-      <h2>${esc(heading)}</h2>
-      <p>${esc(body)}</p>
-      <div class="hero-acts">
+    <div class="cta-shot" aria-hidden="true">${img(c, ...shot(CLOSING))}</div>
+    <div class="cta-head">
+      <div class="cta-copy">
+        <h2>${esc(heading)}</h2>
+        <p>${esc(body)}</p>
+      </div>
+      <ul class="cta-trades mono">${c.services.slice(0, 4).map((x) =>
+    `<li><a href="${c.url(`services/${x.slug}`)}">${esc(SHORT_NAME[x.slug] || x.name)}</a></li>`).join('')}</ul>
+    </div>
+    <div class="cta-bar">
+      <p class="mono">${esc(CTA_PROMPT)}</p>
+      <div class="cta-acts">
         ${arrowBtn(c.url('contact'), 'Get in touch')}
         ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn ghost')}
       </div>
     </div>
-    <div class="cta-shot">${img(c, ...shot(CLOSING))}</div>
   </div>
 </section>`;
 
@@ -384,8 +438,8 @@ export function home(c) {
   </div>
 </section>
 
-${band(c, pageShots('home', 8), '— On site', 'Slab to <span>Shingle</span>, Photographed',
-  'Every photograph on this site is from a Quest job. Nothing here is stock.', 'sec cream alt')}
+${bigBand(c, pageShots('home', 8), '— On site', 'SLAB TO SHINGLE',
+  'Every photograph on this site is from a Quest job. Nothing here is stock.')}
 
 <section class="sec dark" id="offers">
   ${grid(true)}
@@ -449,8 +503,9 @@ export function service(c) {
 
   return `
 <section class="subhero">
-  ${grid(false)}
-  <div class="subhero-panel" aria-hidden="true"></div>
+  ${bannerPlate(c, bannerShot('service', s.slug))}
+  ${bannerBack(c)}
+  ${grid(true)}
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb">
       <a href="${c.url('home')}">Home</a> <span aria-hidden="true">/</span>
@@ -460,16 +515,15 @@ export function service(c) {
     <div class="subhero-in">
       <div>
         <span class="ic big">${icon(s.slug)}</span>
-        <h1>${esc(s.h1)}</h1>
+        <h1>${hl(s.h1, s.name)}</h1>
         <p class="lede">${esc(s.subheroTagline)}</p>
         <div class="hero-acts">
-          ${arrowBtn(c.url('contact'), 'Get in touch')}
+          ${arrowBtn(c.url('contact'), 'Get in touch', 'btn acc')}
           ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn ghost')}
         </div>
       </div>
     </div>
   </div>
-  ${bannerPlate(c, bannerShot('service', s.slug))}
 </section>
 
 <nav class="svctabs" aria-label="All services"><div class="wrap">${tabs}</div></nav>
@@ -524,8 +578,9 @@ export function area(c) {
 
   return `
 <section class="subhero">
-  ${grid(false)}
-  <div class="subhero-panel" aria-hidden="true"></div>
+  ${bannerPlate(c, bannerShot('area', ai))}
+  ${bannerBack(c)}
+  ${grid(true)}
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb">
       <a href="${c.url('home')}">Home</a> <span aria-hidden="true">/</span>
@@ -534,16 +589,15 @@ export function area(c) {
     </nav>
     <div class="subhero-in">
       <div>
-        <h1>${fill(t.h1)}</h1>
+        <h1>${hl(raw(t.h1), a.city)}</h1>
         <p class="lede">${fill(t.tagline)}</p>
         <div class="hero-acts">
-          ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn')}
+          ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn acc')}
           ${arrowBtn(c.url('contact'), 'Email us', 'btn ghost')}
         </div>
       </div>
     </div>
   </div>
-  ${bannerPlate(c, bannerShot('area', ai))}
 </section>
 
 <section class="sec cream">
@@ -593,11 +647,12 @@ ${closingCta(c, raw(t.ctaHeading), raw(t.ctaBody))}`;
 /** Shared inner-page hero for the pages that are not a service or an area.
     No eyebrow: the breadcrumb directly above already names the section, and
     printing "Contact / — Contact" two lines apart reads as a mistake. */
-function pageHero(c, { h1, lede, crumb, banner }) {
+function pageHero(c, { h1, lede, crumb, banner, accent }) {
   return `
 <section class="subhero">
-  ${grid(false)}
-  <div class="subhero-panel" aria-hidden="true"></div>
+  ${bannerPlate(c, banner)}
+  ${bannerBack(c)}
+  ${grid(true)}
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb">
       <a href="${c.url('home')}">Home</a> <span aria-hidden="true">/</span>
@@ -605,19 +660,18 @@ function pageHero(c, { h1, lede, crumb, banner }) {
     </nav>
     <div class="subhero-in">
       <div>
-        <h1>${esc(h1)}</h1>
+        <h1>${hl(h1, accent)}</h1>
         <p class="lede">${esc(lede)}</p>
       </div>
     </div>
   </div>
-  ${bannerPlate(c, banner)}
 </section>`;
 }
 
 export function about(c) {
   const a = c.pages.about;
   return `${pageHero(c, {
-    h1: a.h1, lede: a.lede, crumb: 'About Us', banner: bannerShot('about'),
+    h1: a.h1, lede: a.lede, crumb: 'About Us', banner: bannerShot('about'), accent: 'Quest Construction',
   })}
 
 <section class="sec cream">
@@ -633,8 +687,8 @@ export function about(c) {
   </div>
 </section>
 
-${band(c, pageShots('about', 4), '— The work itself', 'What a Quest <span>Job</span> Looks Like',
-  'Framing, roof, finish. Photographs from our own sites.', 'sec cream alt')}
+${bigBand(c, pageShots('about', 4), '— The work itself', 'FRAMING TO FINISH',
+  'Framing, roof, finish. Photographs from our own sites, on our own jobs.')}
 
 <section class="sec dark">
   ${grid(true)}
@@ -673,7 +727,7 @@ ${closingCta(c, c.pages.home.ctaHeading, c.pages.home.ctaBody)}`;
 export function projects(c) {
   const p = c.pages.projects;
   return `${pageHero(c, {
-    h1: p.h1, lede: p.lede, crumb: 'Project Showcase', banner: bannerShot('projects'),
+    h1: p.h1, lede: p.lede, crumb: 'Project Showcase', banner: bannerShot('projects'), accent: 'Showcase',
   })}
 
 <section class="sec cream">
@@ -692,8 +746,8 @@ export function projects(c) {
   </div>
 </section>
 
-${band(c, pageShots('projects', 6), '— More from the same jobs', 'Detail <span>Shots</span>',
-  'The stages that do not get a card of their own.', 'sec cream alt')}
+${bigBand(c, pageShots('projects', 6), '— More from the same jobs', 'DETAIL SHOTS',
+  'The stages of a build that do not get a card of their own.')}
 
 <section class="sec dark">
   ${grid(true)}
@@ -733,7 +787,7 @@ export function contact(c) {
     : `<label>${esc(f.label)}<input name="${f.name}" type="${f.type}"${attrs(f)}></label>`;
 
   return `${pageHero(c, {
-    h1: p.h1, lede: p.lede, crumb: 'Contact', banner: bannerShot('contact'),
+    h1: p.h1, lede: p.lede, crumb: 'Contact', banner: bannerShot('contact'), accent: 'us',
   })}
 
 <section class="sec cream">
@@ -783,7 +837,7 @@ export function serviceIndex(c) {
     h1: 'Construction Services in Arizona',
     lede: `${c.services.length} trades, one contractor, ${c.site.availability} on the phone. `
       + 'Everything below is self-managed by Quest — no brokered subcontractor chain.',
-    crumb: 'Services', banner: bannerShot('serviceIndex'),
+    crumb: 'Services', banner: bannerShot('serviceIndex'), accent: 'Services',
   })}
 
 <section class="sec cream">
@@ -855,7 +909,7 @@ export function areaIndex(c) {
     h1: 'Service Areas Across Arizona',
     lede: `Quest Construction builds in ${c.areas.areas.length} Arizona cities. Each one permits `
       + 'differently and each one has its own housing stock — the pages below say how.',
-    crumb: 'Service Areas', banner: bannerShot('areaIndex'),
+    crumb: 'Service Areas', banner: bannerShot('areaIndex'), accent: 'Areas',
   })}
 
 <section class="sec cream">
