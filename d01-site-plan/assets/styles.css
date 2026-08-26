@@ -644,11 +644,9 @@ footer .brand img{height:38px}
 /* ---- inner-page banner ----
    It used to be a flat orange plane with the photograph beside it. It is the
    photograph now: full bleed across the band, under a scrim that is heavy on
-   the left where the words are and thin on the right where the work is, with
-   the wordmark ghosted across the whole thing and a light beam cutting down
-   through it. Same three layers the home hero has — ground, ghost, foreground
-   — turned dark so an inner page reads as a chapter rather than a repeat of
-   the front door. */
+   the left where the words are and thin on the right where the work is, with a
+   light beam cutting down through it. Turned dark so an inner page reads as a
+   chapter rather than a repeat of the front door. */
 .subhero{position:relative;overflow:hidden;background:var(--dark);color:var(--on-dark);
   padding:var(--sp-4) 0 var(--sp-4);isolation:isolate}
 .subhero-shot{position:absolute;inset:0;z-index:0;pointer-events:none}
@@ -669,10 +667,6 @@ footer .brand img{height:38px}
   background:linear-gradient(90deg,transparent,
     color-mix(in srgb,var(--cream) 26%,transparent) 30%,
     color-mix(in srgb,var(--cream) 26%,transparent) 70%,transparent)}
-/* the wordmark, ghosted across the band behind the type */
-.subhero-ghost{position:absolute;z-index:1;left:-2%;top:50%;transform:translateY(-50%);
-  font-weight:900;font-size:clamp(120px,20vw,300px);letter-spacing:-.055em;line-height:.8;
-  color:rgba(243,239,230,.075);pointer-events:none;user-select:none;white-space:nowrap}
 .subhero .grid-bg{z-index:1}
 .subhero .wrap{position:relative;z-index:4}
 .subhero-in{max-width:min(660px,58%)}

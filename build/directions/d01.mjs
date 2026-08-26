@@ -57,11 +57,12 @@ const hl = (text, word) => {
   return i < 0 ? t : `${t.slice(0, i)}<span class="hl">${w}</span>${t.slice(i + w.length)}`;
 };
 
-// The two layers behind the type: the light beam the photograph is cut by, and
-// the wordmark ghosted across the whole band. Both are the home hero's moves,
-// carried down to the pages that used to open on a flat orange plane.
-const bannerBack = (c) => `<div class="subhero-beam" aria-hidden="true"></div>
-  <div class="subhero-ghost" aria-hidden="true">${esc(c.site.name.split(' ')[0].toUpperCase())}</div>`;
+// The layer behind the type: the light beam the photograph is read through.
+// The wordmark used to be ghosted across the band here too — it is the home
+// hero's move — but on a photographed ground it read as a smear rather than as
+// type, and it fought the heading for the same space. The hero keeps it; down
+// here the beam carries the band on its own.
+const bannerBack = () => '<div class="subhero-beam" aria-hidden="true"></div>';
 
 // The display band. One word of the page set as large as the line will carry,
 // the photographs pulled up over its foot so the type runs behind them, and the
@@ -504,7 +505,7 @@ export function service(c) {
   return `
 <section class="subhero">
   ${bannerPlate(c, bannerShot('service', s.slug))}
-  ${bannerBack(c)}
+  ${bannerBack()}
   ${grid(true)}
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb">
@@ -579,7 +580,7 @@ export function area(c) {
   return `
 <section class="subhero">
   ${bannerPlate(c, bannerShot('area', ai))}
-  ${bannerBack(c)}
+  ${bannerBack()}
   ${grid(true)}
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb">
@@ -651,7 +652,7 @@ function pageHero(c, { h1, lede, crumb, banner, accent }) {
   return `
 <section class="subhero">
   ${bannerPlate(c, banner)}
-  ${bannerBack(c)}
+  ${bannerBack()}
   ${grid(true)}
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb">
