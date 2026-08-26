@@ -293,6 +293,15 @@ Because the library runs two orientations, the layouts pick per slot: the galler
 take the same bite, and the fixed wide slots — hero, story, contact, project cards — draw only
 from `LANDSCAPE`.
 
+**`assets/quest/card/` is the one derived set.** The service tile repeats fourteen times on the
+home page, on all eleven area pages and on the services hub, in a fixed 3:2 slot about 430px
+wide. Forty-two tiles pulling 1500px originals is four megabytes to show one and a half, so the
+crop is pre-baked at 900×600 — 816KB for all fourteen — taken a little above centre on the
+portrait frames, because the roof, the gable and the header are the half of a phone photograph
+worth keeping. `cardShot()` returns the crop's path with the original's alt text: the sentence
+belongs to the photograph, not to a resizing of it. All fourteen are deliberately different
+frames; three tiles showing the same interior reads as a company with three photographs.
+
 **`build/extract.mjs`, `extract-css.mjs` and `fetch-images.mjs` are one-shot.**
 They read the recovered archive under `.source/`, which is gitignored, so they
 cannot run on a fresh clone. Their output was committed as `content/*.json` and

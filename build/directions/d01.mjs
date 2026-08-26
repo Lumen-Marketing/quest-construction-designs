@@ -6,7 +6,7 @@ import { img, preloadImage } from '../lib/images.mjs';
 import { icon } from '../lib/icons.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 import {
-  shot, shots, GALLERY, HERO, STORY, CONTACT, PROJECT_SHOTS,
+  shot, shots, cardShot, GALLERY, HERO, STORY, CONTACT, PROJECT_SHOTS,
   serviceShots, areaShots,
 } from '../lib/photos.mjs';
 
@@ -47,6 +47,24 @@ const band = (c, pairs, eyebrow, heading, lede = '', cls = 'sec cream') => `
       `<figure class="rv">${img(c, f, alt)}</figure>`).join('')}</div>
   </div>
 </section>`;
+
+// The service tile, and the one place it is built: the home page, every area
+// page and the services hub all print the same fourteen.
+//
+// The photograph is a plate laminated onto the top of the card, bleeding to
+// its edges rather than sitting in a box inside a box, and the icon chip
+// breaks its lower edge the way the phone badge breaks the hero photograph.
+// That overlap is the whole point — it is what turns two rectangles into a
+// stack, and it is what the empty half of the old card was waiting for.
+const svcCards = (c, cta) => c.services.map((s, i) => `
+    <article class="svc rv${i === 4 ? ' svc--acc' : ''}">
+      <span class="svcshot">${img(c, ...cardShot(s.slug))}</span>
+      <span class="ic">${icon(s.slug)}</span>
+      <h3>${esc(s.name)}</h3>
+      <p>${esc(s.shortDesc)}</p>
+      <a class="go" href="${c.url(`services/${s.slug}`)}">${esc(cta)} <i aria-hidden="true">&#8599;</i></a>
+      <span class="n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
+    </article>`).join('');
 
 /** Layered dropdown nav — the mockup was anchor-only, so this is new furniture. */
 export function nav(c) {
@@ -259,14 +277,7 @@ ${baseScript(c)}`; }
 export function home(c) {
   const h = c.pages.home;
 
-  const cards = c.services.map((s, i) => `
-    <article class="svc rv${i === 4 ? ' svc--acc' : ''}">
-      <span class="ic">${icon(s.slug)}</span>
-      <h3>${esc(s.name)}</h3>
-      <p>${esc(s.shortDesc)}</p>
-      <a class="go" href="${c.url(`services/${s.slug}`)}">View details <i aria-hidden="true">&#8599;</i></a>
-      <span class="n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
-    </article>`).join('');
+  const cards = svcCards(c, 'View details');
 
   const offers = c.site.offers.map((o) => `
     <div class="offer rv">
@@ -495,14 +506,7 @@ export function area(c) {
   const fill = (s) => esc(String(s).replace(/\{\{city\}\}/g, a.city));
   const local = c.areasLocal[a.slug];
 
-  const cards = c.services.map((s, i) => `
-    <article class="svc rv${i === 4 ? ' svc--acc' : ''}">
-      <span class="ic">${icon(s.slug)}</span>
-      <h3>${esc(s.name)}</h3>
-      <p>${esc(s.shortDesc)}</p>
-      <a class="go" href="${c.url(`services/${s.slug}`)}">Learn more <i aria-hidden="true">&#8599;</i></a>
-      <span class="n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
-    </article>`).join('');
+  const cards = svcCards(c, 'Learn more');
 
   const others = c.areas.areas.filter((x) => x.slug !== a.slug).map((x) =>
     `<a href="${c.url(`service-areas/${x.slug}`)}">${esc(x.name)}</a>`).join('');
@@ -792,14 +796,7 @@ const firstSentence = (s) => {
 };
 
 export function serviceIndex(c) {
-  const cards = c.services.map((s, i) => `
-    <article class="svc rv${i === 4 ? ' svc--acc' : ''}">
-      <span class="ic">${icon(s.slug)}</span>
-      <h3>${esc(s.name)}</h3>
-      <p>${esc(s.shortDesc)}</p>
-      <a class="go" href="${c.url(`services/${s.slug}`)}">View details <i aria-hidden="true">&#8599;</i></a>
-      <span class="n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
-    </article>`).join('');
+  const cards = svcCards(c, 'View details');
 
   return `${pageHero(c, {
     h1: 'Construction Services in Arizona',

@@ -279,10 +279,34 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
   min-height:clamp(320px,32vw,400px);overflow:hidden;
   transition:transform .38s cubic-bezier(.2,.8,.2,1),box-shadow .38s ease,background .38s ease}
 @media (hover:hover) and (pointer:fine){.svc:hover{transform:translateY(-10px);box-shadow:var(--sh-dark);background:var(--dark-3)}}
+/* The photograph plate. It cancels the card's padding on three sides so it
+   bleeds to the border and takes the card's own top radius — a photo inset
+   inside a padded card reads as a box in a box, which is the one thing this
+   direction never does. `--card` is the colour the scrim resolves to, so the
+   accent tile's plate fades into orange and the rest fade into ink. */
+.svc{--card:var(--dark-2)}
+.svc--acc{--card:var(--acc)}
+.svcshot{display:block;position:relative;overflow:hidden;
+  margin:calc(var(--sp-1) * -1) calc(var(--sp-1) * -1) 0;
+  border-radius:calc(var(--r-lg) - 1px) calc(var(--r-lg) - 1px) 0 0;
+  background:var(--dark-3)}
+.svcshot img{display:block;width:100%;height:100%;object-fit:cover;aspect-ratio:3/2;
+  transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+/* Two speeds on one gesture: the card lifts, the photograph settles into it. */
+@media (hover:hover) and (pointer:fine){.svc:hover .svcshot img{transform:scale(1.07)}}
+.svcshot::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,
+    color-mix(in srgb,var(--card) 22%,transparent) 0%,
+    transparent 34%,
+    color-mix(in srgb,var(--card) 82%,transparent) 100%)}
+/* The chip breaks the plate's lower edge — the same overlap the phone badge
+   makes on the hero photograph, and what turns two rectangles into a stack. */
 .svc .ic{width:56px;height:56px;border-radius:16px;background:var(--acc);display:grid;place-items:center;
-  margin-bottom:auto;box-shadow:0 12px 28px color-mix(in srgb,var(--acc) 28%,transparent)}
+  position:relative;z-index:2;margin:-28px 0 auto;
+  box-shadow:0 12px 28px color-mix(in srgb,var(--acc) 28%,transparent),
+    0 0 0 5px var(--card)}
 .svc .ic svg{width:26px;height:26px;stroke:var(--on-acc);fill:none;stroke-width:2.1}
-.svc h3{font-size:clamp(19px,2.1vw,26px);margin:26px 0 12px;font-weight:800}
+.svc h3{font-size:clamp(19px,2.1vw,26px);margin:22px 0 12px;font-weight:800}
 .svc p{margin:0 0 24px;font-size:14.5px;color:var(--on-dark-2)}
 .svc .go{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;
   font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:var(--acc-on-dark)}
@@ -295,7 +319,14 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 @media (hover:hover) and (pointer:fine){.svc--acc:hover{background:var(--acc)}}
 .svc--acc h3,.svc--acc .go{color:var(--on-acc)}
 .svc--acc p{color:rgba(20,19,16,.76)}
-.svc--acc .ic{background:var(--ink);box-shadow:0 12px 28px rgba(20,19,15,.3)}
+.svc--acc .ic{background:var(--ink);
+  box-shadow:0 12px 28px rgba(20,19,15,.3),0 0 0 5px var(--card)}
+/* The accent tile is the one card whose body is not ink, and fading a
+   photograph into burnt orange stains it. So this plate keeps a hard bottom
+   edge and lets the colour start where the picture stops — the same move the
+   hero makes with its accent plane. */
+.svc--acc .svcshot::after{background:linear-gradient(180deg,
+  color-mix(in srgb,var(--ink) 12%,transparent) 0%,transparent 38%)}
 .svc--acc .ic svg{stroke:var(--acc)}
 .svc--acc .n{color:rgba(20,19,16,.1)}
 @media(max-width:940px){.svcs{grid-template-columns:1fr 1fr}}
@@ -306,7 +337,10 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 @media(max-width:640px){
   .svcs{grid-template-columns:1fr}
   .svc{min-height:0;padding:26px 24px}
-  .svc .ic{width:48px;height:48px;border-radius:14px;margin-bottom:0}
+  /* One card per row is a wide plate; 3:2 would push the words off the fold. */
+  .svcshot{margin:-26px -24px 0}
+  .svcshot img{aspect-ratio:2/1}
+  .svc .ic{width:48px;height:48px;border-radius:14px;margin:-24px 0 0}
   .svc .ic svg{width:23px;height:23px}
   .svc h3{margin:18px 0 10px}
   .svc p{margin-bottom:18px}

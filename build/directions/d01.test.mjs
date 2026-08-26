@@ -285,6 +285,31 @@ test('the contact page renders the whole form and the real phone number', () => 
   assert.match(html, /aria-live="polite"/);
 });
 
+test('every service card carries its own photograph, and no two share one', async () => {
+  const { cardShot } = await import('../lib/photos.mjs');
+  const seen = new Set();
+  for (const s of services) {
+    const [file] = cardShot(s.slug);
+    assert.match(file, /^quest\/card\//, `${s.slug} points outside the card crops`);
+    assert.ok(!seen.has(file), `${s.slug} repeats a photograph already used: ${file}`);
+    seen.add(file);
+  }
+  assert.equal(seen.size, services.length);
+
+  // And all three pages that print the tile actually render them. The services
+  // hub only exists on the standalone site, so it needs that profile.
+  const { siteProfile } = await import('../lib/profile.mjs');
+  const pages = [['home'], ['service-areas/mesa-az'], ['services', siteProfile]];
+  for (const [key, profile] of pages) {
+    const html = renderPage({ mod: d01, key, ...(profile ? { profile } : {}) });
+    assert.equal((html.match(/class="svcshot"/g) || []).length, services.length,
+      `${key} is missing service card photographs`);
+    for (const s of services) {
+      assert.ok(html.includes(cardShot(s.slug)[0]), `${key} missing the ${s.slug} photograph`);
+    }
+  }
+});
+
 test('the gallery is Quest photography and nothing else', async () => {
   const { GALLERY } = await import('../lib/photos.mjs');
   const html = renderPage({ mod: d01, key: 'gallery' });

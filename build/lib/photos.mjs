@@ -247,6 +247,42 @@ const SERVICE_SHOTS = {
     'quest/framing-openings.webp', 'quest/spare.webp'],
 };
 
+// One photograph per trade for the service card — the dark tile that repeats
+// fourteen times on the home page, on every area page and on the services hub.
+// All fourteen are different frames on purpose: three cards showing the same
+// interior reads as a company with three photographs, not fourteen jobs.
+//
+// These live under assets/quest/card/ rather than pointing at the full-size
+// library. The card slot is a fixed 3:2 crop about 430px wide, and forty-two
+// tiles a page pulling 1500px originals is four megabytes to show one and a
+// half. The crop is pre-baked at 900x600 — 816KB for the whole set — and it is
+// taken a little above centre on the portrait frames, because the roof, the
+// gable and the header are the half of a phone photograph worth keeping.
+const CARD_SHOTS = {
+  'residential-development': 'framing-clouds',
+  casita: 'framing-walls',
+  adu: 'framing-slab',
+  framing: 'home-trusses',
+  concrete: 'slab-poured',
+  stucco: 'custom-home-shell',
+  'dry-wall': 'spare',
+  siding: 'home-side',
+  roofing: 'roof-shingles',
+  'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops': 'framing-inside',
+  'custom-home-building': 'custom-home-wide',
+  painting: 'custom-home-gables',
+  'deck-building-uses-trex-system': 'deck-joists',
+  'window-installation': 'gable-window',
+};
+
+/** [file, alt] for a service card's photograph — the card crop, not the original. */
+export function cardShot(slug) {
+  const name = CARD_SHOTS[slug];
+  if (!name) throw new Error(`no card photograph mapped for service ${slug}`);
+  // The alt belongs to the photograph, not to the crop of it.
+  return [`quest/card/${name}.webp`, shot(`quest/${name}.webp`)[1]];
+}
+
 /** The photographs that belong on a service page, as [file, alt] pairs. */
 export function serviceShots(slug, n = 4) {
   const files = SERVICE_SHOTS[slug];
