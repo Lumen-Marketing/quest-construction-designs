@@ -2,7 +2,7 @@
 // cream, a hard-edged accent plane, a frameless cut-out machine straddling the
 // boundary, and a floating badge card over the lot. Pill buttons, generous
 // radii, soft layered shadows.
-import { img, preloadImage } from '../lib/images.mjs';
+import { img, preloadImage, size } from '../lib/images.mjs';
 import { icon } from '../lib/icons.mjs';
 import { SHORT_NAME } from '../lib/pages.mjs';
 import { scriptMap } from '../lib/palette.mjs';
@@ -704,6 +704,60 @@ ${closingCta(c, 'Build with a team that answers the phone',
   `${c.site.positioning} — reachable ${c.site.availability}.`)}`;
 }
 
+// ---- justified rows -------------------------------------------------------
+// The gallery used to be a CSS `columns` masonry, and a masonry cannot end
+// flat: the browser pours the photographs down three columns and whichever
+// column draws the last tall frame overruns the other two. On this library —
+// thirty-seven portraits, eleven landscapes — that overrun measured about four
+// hundred pixels of empty cream under two of the columns.
+//
+// So the photographs are broken into rows instead, the way a picture editor
+// breaks them: every row is filled to the full measure, and within a row each
+// frame is given a flex-grow equal to its own aspect ratio. Widths then come
+// out proportional to the ratios, so every frame in the row resolves to the
+// same height, the row is flush left and flush right, and the last row is as
+// full as the first. Nothing is cropped and nothing is scaled by hand — the
+// browser does the arithmetic, at any width, from one number per photograph.
+//
+// Which photographs share a row is the only decision left, and it is made here
+// rather than by the browser because it needs to look at the whole sequence.
+// A row of k frames comes out (1 - (k-1) * gap) / sum-of-ratios tall as a
+// fraction of the measure, so the run is broken to keep that near TARGET —
+// exactly, by dynamic programming over the 49 frames, not greedily. Order is
+// preserved, which a masonry does not do either: the gallery reads slab,
+// framing, roof, dusk, in the order the jobs were built.
+const TARGET = 0.30;   // row height as a fraction of the measure — about 380px
+const GAPR = 0.014;    // the 18px gap, likewise — see .gal in the stylesheet
+const MINROW = 3;
+const MAXROW = 5;
+
+function justified(files) {
+  const r = files.map((f) => { const [w, h] = size(f); return w / h; });
+  const sum = [0];
+  r.forEach((x) => sum.push(sum[sum.length - 1] + x));
+  // The height a row of files[i..j) resolves to, as a fraction of the measure.
+  const height = (i, j) => (1 - (j - i - 1) * GAPR) / (sum[j] - sum[i]);
+
+  const cost = new Array(r.length + 1).fill(Infinity);
+  const from = new Array(r.length + 1).fill(-1);
+  cost[0] = 0;
+  for (let j = 1; j <= r.length; j++) {
+    for (let k = MINROW; k <= MAXROW; k++) {
+      const i = j - k;
+      if (i < 0 || cost[i] === Infinity) continue;
+      const d = height(i, j) - TARGET;
+      const c = cost[i] + d * d;
+      if (c < cost[j]) { cost[j] = c; from[j] = i; }
+    }
+  }
+  if (cost[r.length] === Infinity) {
+    throw new Error(`${files.length} photographs will not break into rows of ${MINROW}-${MAXROW}`);
+  }
+  const rows = [];
+  for (let j = r.length; j > 0;) { const i = from[j]; rows.unshift(files.slice(i, j)); j = i; }
+  return rows;
+}
+
 export function gallery(c) {
   const g = c.pages.gallery;
   return `${pageHero(c, {
@@ -716,8 +770,11 @@ export function gallery(c) {
     ${shead('— From Quest projects', 'Every Photograph Here Is <span>Ours</span>',
       'Two jobs, start to finish: a slab-up addition on a Phoenix-area lot, and a custom home '
       + 'from framing through the last course of shingles.')}
-    <div class="gal">${shots(...GALLERY).map(([f, alt]) =>
-      `<figure class="rv">${img(c, f, alt)}</figure>`).join('')}</div>
+    <div class="gal${GALLERY.length % 2 ? ' odd' : ''}">${justified(GALLERY).map((row) =>
+      `<div class="galrow rv">${shots(...row).map(([f, alt]) => {
+    const [w, h] = size(f);
+    return `<figure style="--ar:${(w / h).toFixed(4)}">${img(c, f, alt)}</figure>`;
+  }).join('')}</div>`).join('')}</div>
   </div>
 </section>
 

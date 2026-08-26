@@ -893,14 +893,36 @@ footer .brand img{height:38px}
    are portrait and some are landscape. A fixed 3:2 grid cropped the roof off
    the portrait ones and the sky off the rest, so the wall is columns instead:
    every photograph keeps its own shape and nothing is cut. */
-.gal{position:relative;z-index:3;columns:3;column-gap:clamp(12px,1.6vw,18px)}
-.gal figure{margin:0 0 clamp(12px,1.6vw,18px);break-inside:avoid;
+/* ---- the gallery: justified rows ----
+   Not a masonry. A masonry pours the frames down fixed columns and cannot end
+   flat — whichever column takes the last tall portrait overruns the others,
+   which on this library left four hundred pixels of empty cream under two of
+   the three columns.
+
+   Each row is a flex line filled to the full measure, and each frame carries
+   its own aspect ratio twice: as --ar on flex-grow, so widths come out
+   proportional to the ratios, and as aspect-ratio, so the heights that follow
+   from those widths are identical across the row. The row is therefore flush
+   on both edges and level along the bottom, at any width, with nothing
+   cropped and no height written down anywhere. Which frames share a row is
+   decided at build time — see justified() in the direction. */
+.gal{position:relative;z-index:3;display:grid;gap:clamp(12px,1.6vw,18px)}
+.galrow{display:flex;gap:clamp(12px,1.6vw,18px)}
+.galrow figure{margin:0;flex:var(--ar) 1 0;min-width:0;aspect-ratio:var(--ar);
   border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh);background:var(--dark-2)}
-.gal img{display:block;width:100%;height:auto;
+.gal img{display:block;width:100%;height:100%;object-fit:cover;
   transition:transform .8s cubic-bezier(.2,.8,.2,1)}
-@media (hover:hover) and (pointer:fine){.gal figure:hover img{transform:scale(1.06)}}
-@media(max-width:960px){.gal{columns:2}}
-@media(max-width:560px){.gal{columns:1}}
+@media (hover:hover) and (pointer:fine){.galrow figure:hover img{transform:scale(1.06)}}
+@media(max-width:760px){
+  /* Rows of four are 80px tall on a phone. The row structure is dissolved with
+     display:contents and the frames re-flow as a square two-up, which is the
+     one arrangement that also ends flat. An odd frame at the end takes the
+     whole width rather than leaving a hole beside it. */
+  .gal{grid-template-columns:1fr 1fr}
+  .galrow{display:contents}
+  .galrow figure{aspect-ratio:1}
+  .gal.odd .galrow:last-child figure:last-child{grid-column:span 2;aspect-ratio:2}
+}
 
 /* ---- the display band ----
    One word set as large as the line will carry, the photographs lifted over
