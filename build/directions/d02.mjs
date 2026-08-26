@@ -3,6 +3,7 @@
 // numbered discipline cards with photography bleeding in from the right, a
 // dark manifesto band, and an expanding slat filmstrip.
 import { img, preloadImage } from '../lib/images.mjs';
+import { ALT as SHOT_ALT, SAMPLER } from '../lib/photos.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 
 export const meta = {
@@ -29,27 +30,8 @@ const shead = (eyebrow, heading, lede) => `<div class="shead rv">
 const btn = (href, label, cls = 'btn') =>
   `<a class="${cls}" href="${href}"><span class="pip"></span>${esc(label)}</a>`;
 
-const SHOTS = ['rebar.webp', 'framing.webp', 'crew-slab.webp', 'site-steel.webp',
-  'mech.webp', 'facade.webp', 'roofline.webp', 'trade-weld.webp',
-  'trade-electric.webp', 'kitchen.webp', 'bath.webp', 'earthworks.webp',
-  'neighborhood.webp', 'home-dusk.webp'];
+const SHOTS = SAMPLER;
 
-const SHOT_ALT = {
-  'rebar.webp': 'Reinforcing steel placed before a pour',
-  'framing.webp': 'Timber framing going up on a residential build',
-  'crew-slab.webp': 'A crew working a freshly poured slab',
-  'site-steel.webp': 'Structural steel standing on site',
-  'mech.webp': 'Mechanical rough-in before the walls close',
-  'facade.webp': 'A rendered and painted exterior facade',
-  'roofline.webp': 'A finished roofline against a clear sky',
-  'trade-weld.webp': 'Welding structural steel on site',
-  'trade-electric.webp': 'Electrical rough-in on a remodel',
-  'kitchen.webp': 'A completed kitchen remodel',
-  'bath.webp': 'A completed bathroom remodel',
-  'earthworks.webp': 'Earthworks and grading on a site',
-  'neighborhood.webp': 'Completed homes on a residential street',
-  'home-dusk.webp': 'A finished home at dusk',
-};
 
 const shotFor = (i) => SHOTS[i % SHOTS.length];
 const altFor = (i) => SHOT_ALT[shotFor(i)];
@@ -543,7 +525,7 @@ export function contact(c) {
         <div><dt>Building since</dt><dd>${c.site.foundingYear}</dd></div>
         <div><dt>Areas served</dt><dd>${c.areas.areas.length} Arizona cities</dd></div>
       </dl>
-      <div class="sideshot">${img(c, 'quest/contact.webp', 'A Quest Construction project in Arizona')}</div>
+      <div class="sideshot">${img(c, 'quest/custom-home-gables.webp', 'A Quest Construction project in Arizona')}</div>
     </aside>
   </div>
 </section>

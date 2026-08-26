@@ -5,9 +5,10 @@ import { readFileSync } from 'node:fs';
 
 const SIZES = JSON.parse(readFileSync('content/images.json', 'utf8'));
 
-// Carries a visible third-party logo on the subject's clothing. Unreferenced,
-// and it must stay that way.
-const FORBIDDEN = new Set(['plans.webp']);
+// Photographs that must never ship. The last entry was stock with a visible
+// third-party logo on it; the stock library is gone now, so the set is empty
+// and the guard stands ready for the next one.
+const FORBIDDEN = new Set();
 
 export function size(file) {
   const s = SIZES[file];

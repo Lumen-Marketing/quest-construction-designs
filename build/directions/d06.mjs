@@ -3,6 +3,7 @@
 // cool neutral grounds so the clay accent reads as a mark rather than a wash,
 // and modest radii. One grotesque, Archivo, at four weights.
 import { img, preloadImage } from '../lib/images.mjs';
+import { ALT, SAMPLER } from '../lib/photos.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 
 export const meta = {
@@ -23,27 +24,8 @@ const btn = (href, label, cls = 'btn') => `<a class="${cls}" href="${href}">${es
 
 const ARROW = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h13M13 6l6 6-6 6"/></svg>`;
 
-const SHOTS = ['rebar.webp', 'framing.webp', 'crew-slab.webp', 'site-steel.webp',
-  'mech.webp', 'facade.webp', 'roofline.webp', 'trade-weld.webp',
-  'trade-electric.webp', 'kitchen.webp', 'bath.webp', 'earthworks.webp',
-  'neighborhood.webp', 'home-dusk.webp'];
+const SHOTS = SAMPLER;
 
-const ALT = {
-  'rebar.webp': 'Reinforcing steel placed before a pour',
-  'framing.webp': 'Timber framing going up on a residential build',
-  'crew-slab.webp': 'A crew working a freshly poured slab',
-  'site-steel.webp': 'Structural steel standing on site',
-  'mech.webp': 'Mechanical rough-in before the walls close',
-  'facade.webp': 'A rendered and painted exterior facade',
-  'roofline.webp': 'A finished roofline against a clear sky',
-  'trade-weld.webp': 'Welding structural steel on site',
-  'trade-electric.webp': 'Electrical rough-in on a remodel',
-  'kitchen.webp': 'A completed kitchen remodel',
-  'bath.webp': 'A completed bathroom remodel',
-  'earthworks.webp': 'Earthworks and grading on a site',
-  'neighborhood.webp': 'Completed homes on a residential street',
-  'home-dusk.webp': 'A finished home at dusk',
-};
 
 const QUEST = [
   ['quest/hero.webp', 'A Quest Construction home under construction'],
@@ -333,7 +315,7 @@ ${marquee(c)}
     </div>
     <div class="mosaic">
       <div class="blk tall rv">
-        <span class="ht tint">${img(c, 'rebar.webp', ALT['rebar.webp'])}</span>
+        <span class="ht tint">${img(c, 'quest/slab-poured.webp', ALT['quest/slab-poured.webp'])}</span>
         <div class="body">
           <span class="n">${esc(c.site.offers[0].amount)}</span>
           <h3>${esc(c.site.offers[0].title)}</h3>
@@ -379,7 +361,7 @@ ${marquee(c)}
         <figcaption><b>${esc(p.title)}</b><span>${esc(p.body)}</span></figcaption>
       </figure>`).join('')}
       <figure class="pc d rv">
-        <span class="ht tint">${img(c, 'neighborhood.webp', ALT['neighborhood.webp'])}</span>
+        <span class="ht tint">${img(c, 'quest/custom-home-wide.webp', ALT['quest/custom-home-wide.webp'])}</span>
         <figcaption><b>Finished streets</b><span>Completed homes across Arizona</span></figcaption>
       </figure>
     </div>
@@ -429,7 +411,7 @@ export function service(c) {
 <section class="about">
   <div class="wrap in flip">
     <div class="pic rv">
-      <span class="ht cut-r">${img(c, 'quest/spare.webp', `Completed ${s.name.toLowerCase()} work by Quest Construction`)}</span>
+      <span class="ht cut-r">${img(c, 'quest/spare.webp', ALT['quest/spare.webp'])}</span>
     </div>
     <div class="say rv">
       <h2>${esc(s.name)} by <em>${esc(c.site.name)}</em></h2>
@@ -479,7 +461,7 @@ export function area(c) {
 <section class="about">
   <div class="wrap in">
     <div class="pic rv">
-      <span class="ht cut-l">${img(c, 'neighborhood.webp', `Completed homes on a residential street near ${a.city}, Arizona`)}</span>
+      <span class="ht cut-l">${img(c, 'quest/custom-home-wide.webp', ALT['quest/custom-home-wide.webp'])}</span>
     </div>
     <div class="say rv">
       <h2>${fill(t.communityHeading)}</h2>
@@ -629,7 +611,7 @@ export function contact(c) {
         <li><span class="n">03</span><div><h3>Trades offered</h3><p>${c.services.length}</p></div></li>
         <li><span class="n">04</span><div><h3>Areas served</h3><p>${c.areas.areas.length} Arizona cities</p></div></li>
       </ol>
-      <figure class="cshot"><span class="ht cut-r">${img(c, 'quest/contact.webp', 'A Quest Construction project in Arizona')}</span></figure>
+      <figure class="cshot"><span class="ht cut-r">${img(c, 'quest/custom-home-gables.webp', 'A Quest Construction project in Arizona')}</span></figure>
     </div>
   </div>
 </section>

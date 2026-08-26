@@ -5,6 +5,10 @@
 import { img, preloadImage } from '../lib/images.mjs';
 import { icon } from '../lib/icons.mjs';
 import { scriptMap } from '../lib/palette.mjs';
+import {
+  shot, shots, GALLERY, HERO, STORY, CONTACT, PROJECT_SHOTS,
+  serviceShots, areaShots,
+} from '../lib/photos.mjs';
 
 export const meta = {
   slug: 'd01-site-plan',
@@ -13,7 +17,7 @@ export const meta = {
   fonts: `<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">`,
-  preload: (c) => (c.page.kind === 'home' ? preloadImage(c, 'excavator.webp') : ''),
+  preload: (c) => (c.page.kind === 'home' ? preloadImage(c, HERO) : ''),
 };
 
 export const esc = (s) => String(s)
@@ -30,33 +34,19 @@ const shead = (eyebrow, heading, lede) => `<div class="shead rv">
 const arrowBtn = (href, label, cls = 'btn') =>
   `<a class="${cls}" href="${href}"><span class="pip"></span>${esc(label)}</a>`;
 
-// The real site paired these three photographs with these three projects.
-// Keeping the pairing means the showcase shows the job it claims to.
-const PROJECT_SHOTS = ['quest/story.webp', 'quest/hero.webp', 'quest/spare.webp'];
-
-// The three photographs Quest actually published, and then the stock library.
-// They are kept in separate groups so the page can say which is which rather
-// than passing stock jobsite photography off as Quest's own work.
-const QUEST_SHOTS = [
-  ['quest/story.webp', 'Framing and structural work on a Quest Construction project'],
-  ['quest/hero.webp', 'A Quest Construction home under construction'],
-  ['quest/spare.webp', 'A finished interior with new windows on a Quest Construction project'],
-];
-
-const STOCK_SHOTS = [
-  ['framing.webp', 'Timber framing going up on a residential build'],
-  ['rebar.webp', 'Reinforcing steel placed and tied before a pour'],
-  ['crew-slab.webp', 'A crew working a freshly poured concrete slab'],
-  ['roofline.webp', 'A finished roofline against a clear sky'],
-  ['facade.webp', 'A rendered and painted exterior facade'],
-  ['kitchen.webp', 'A completed kitchen remodel'],
-  ['bath.webp', 'A completed bathroom remodel'],
-  ['mech.webp', 'Mechanical rough-in before the walls close up'],
-  ['trade-electric.webp', 'Electrical rough-in on a remodel'],
-  ['trade-weld.webp', 'Welding structural steel on site'],
-  ['home-dusk.webp', 'A finished home at dusk'],
-  ['neighborhood.webp', 'Completed homes on a residential street'],
-];
+// A band of Quest's own jobsite photographs. Square tiles, because the library
+// is two phone shoots and runs both portrait and landscape — a fixed 3:2 crop
+// takes the roof off half of them, and a square takes the same bite out of
+// either orientation.
+const band = (c, pairs, eyebrow, heading, lede = '', cls = 'sec cream') => `
+<section class="${cls}">
+  ${grid(cls.includes('dark'))}
+  <div class="wrap">
+    ${shead(eyebrow, heading, lede)}
+    <div class="shotband n${pairs.length}">${pairs.map(([f, alt]) =>
+      `<figure class="rv">${img(c, f, alt)}</figure>`).join('')}</div>
+  </div>
+</section>`;
 
 /** Layered dropdown nav — the mockup was anchor-only, so this is new furniture. */
 export function nav(c) {
@@ -289,7 +279,7 @@ export function home(c) {
 
   const work = c.pages.projects.items.map((p, i) => `
     <a class="pj ${'abc'[i]} rv" href="${c.url('projects')}">
-      ${img(c, PROJECT_SHOTS[i % PROJECT_SHOTS.length], p.alt || p.title)}
+      ${img(c, ...shot(PROJECT_SHOTS[i % PROJECT_SHOTS.length]))}
       <span class="cap"><span><b>${esc(p.title)}</b><span>${esc(p.body)}</span></span>
       <span class="go" aria-hidden="true">&#8599;</span></span>
     </a>`).join('');
@@ -315,7 +305,7 @@ export function home(c) {
       </div>
     </div>
   </div>
-  ${img(c, 'excavator.webp', 'A tracked excavator on a Quest Construction site', { cls: 'machine', eager: true })}
+  ${img(c, ...shot(HERO), { cls: 'machine', eager: true })}
   <div class="badge badge-float">
     <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h5l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v5a15 15 0 0 1-16-16z"/></svg></span>
     <span><b>${esc(c.site.phoneDisplay)}</b><span>${esc(c.site.availability)} &middot; family owned</span></span>
@@ -336,7 +326,7 @@ export function home(c) {
 <section class="sec cream">
   ${grid(false)}
   <div class="wrap split">
-    <div class="story-shot rv">${img(c, 'quest/story.webp', 'A Quest Construction project under way')}</div>
+    <div class="story-shot rv">${img(c, ...shot(STORY))}</div>
     <div class="rv">
       <p class="mono eyebrow">${esc(h.storyEyebrow)}</p>
       <h2>${esc(h.storyHeading)}</h2>
@@ -345,6 +335,13 @@ export function home(c) {
     </div>
   </div>
 </section>
+
+${band(c, shots(
+  'quest/slab-blockwall.webp', 'quest/framing-clouds.webp', 'quest/framing-roof.webp',
+  'quest/sheathing-panel.webp', 'quest/roof-shingles.webp', 'quest/custom-home-gables.webp',
+  'quest/home-windows.webp', 'quest/porch-dusk.webp',
+), '— On site', 'Slab to <span>Shingle</span>, Photographed',
+  'Every photograph on this site is from a Quest job. Nothing here is stock.', 'sec cream alt')}
 
 <section class="sec dark" id="offers">
   ${grid(true)}
@@ -458,6 +455,10 @@ export function service(c) {
   </div>
 </section>
 ${scope}
+${band(c, serviceShots(s.slug), '— On the job',
+  `<span>${esc(s.name)}</span> Work We Have Photographed`,
+  'Photographs from Quest jobs. Where a stage of this trade is not in the camera roll yet, '
+  + 'the nearest one is, and the caption says what it shows.', 'sec cream alt')}
 
 <section class="sec dark">
   ${grid(true)}
@@ -488,6 +489,9 @@ ${faq}
 export function area(c) {
   const a = c.item;
   const t = c.areas.template;
+  // Quest photographs jobs, not towns, so the band below is honest about being
+  // work from across the service area rather than from this city in particular.
+  const ai = c.areas.areas.findIndex((x) => x.slug === a.slug);
   const fill = (s) => esc(String(s).replace(/\{\{city\}\}/g, a.city));
   const local = c.areasLocal[a.slug];
 
@@ -553,6 +557,11 @@ export function area(c) {
     <div class="svcs">${cards}</div>
   </div>
 </section>
+
+${band(c, areaShots(ai), '— Recent work',
+  `Jobs Behind the <span>${esc(a.city)}</span> Crew`,
+  `The same crew that answers a ${esc(a.city)} call ran these. Photographs are from Quest jobs `
+  + 'across the service area, not staged, and not stock.', 'sec cream alt')}
 
 <section class="sec cream">
   ${grid(false)}
@@ -624,7 +633,7 @@ export function about(c) {
 <section class="sec cream">
   ${grid(false)}
   <div class="wrap split">
-    <div class="story-shot rv">${img(c, 'quest/story.webp', 'A Quest Construction project under way')}</div>
+    <div class="story-shot rv">${img(c, ...shot(STORY))}</div>
     <div class="rv">
       <p class="mono eyebrow">Our Story</p>
       <h2>${esc(a.storyHeading)}</h2>
@@ -633,6 +642,11 @@ export function about(c) {
     </div>
   </div>
 </section>
+
+${band(c, shots(
+  'quest/story.webp', 'quest/framing-palms.webp', 'quest/roof-ridge.webp', 'quest/home-dusk.webp',
+), '— The work itself', 'What a Quest <span>Job</span> Looks Like',
+  'Framing, roof, finish. Photographs from our own sites.', 'sec cream alt')}
 
 <section class="sec dark">
   ${grid(true)}
@@ -650,7 +664,6 @@ ${closingCta(c, 'Build with a team that answers the phone',
 
 export function gallery(c) {
   const g = c.pages.gallery;
-  const tile = ([f, alt]) => `<figure class="rv">${img(c, f, alt)}</figure>`;
   return `${pageHero(c, {
     h1: g.h1, lede: g.lede, crumb: 'Gallery',
   })}
@@ -658,18 +671,11 @@ export function gallery(c) {
 <section class="sec cream">
   ${grid(false)}
   <div class="wrap">
-    ${shead('— From Quest projects', 'Work <span>We</span> Have Photographed', '')}
-    <div class="gal">${QUEST_SHOTS.map(tile).join('')}</div>
-  </div>
-</section>
-
-<section class="sec cream alt">
-  ${grid(false)}
-  <div class="wrap">
-    ${shead('— Placeholder photography', 'The <span>Trades</span> We Run',
-      'Stock photography stands in below until Quest supplies jobsite photographs of its own.')}
-    <div class="gal">${STOCK_SHOTS.map(tile).join('')}</div>
-    <p class="mono note">Placeholder photography — to be replaced with Quest Construction jobsite photographs.</p>
+    ${shead('— From Quest projects', 'Every Photograph Here Is <span>Ours</span>',
+      'Two jobs, start to finish: a slab-up addition on a Phoenix-area lot, and a custom home '
+      + 'from framing through the last course of shingles.')}
+    <div class="gal">${shots(...GALLERY).map(([f, alt]) =>
+      `<figure class="rv">${img(c, f, alt)}</figure>`).join('')}</div>
   </div>
 </section>
 
@@ -687,7 +693,7 @@ export function projects(c) {
   <div class="wrap">
     <div class="pjs">${p.items.map((it, i) => `
       <article class="pjcard rv">
-        <div class="pjshot">${img(c, PROJECT_SHOTS[i % PROJECT_SHOTS.length], it.alt || it.title)}</div>
+        <div class="pjshot">${img(c, ...shot(PROJECT_SHOTS[i % PROJECT_SHOTS.length]))}</div>
         <div class="pjbody">
           <span class="n mono">${String(i + 1).padStart(2, '0')}</span>
           <h3>${esc(it.title)}</h3>
@@ -697,6 +703,12 @@ export function projects(c) {
     </div>
   </div>
 </section>
+
+${band(c, shots(
+  'quest/slab-poured.webp', 'quest/framing-long-wall.webp', 'quest/framing-header.webp',
+  'quest/deck-joists.webp', 'quest/roof-desert.webp', 'quest/gable-window.webp',
+), '— More from the same jobs', 'Detail <span>Shots</span>',
+  'The stages that do not get a card of their own.', 'sec cream alt')}
 
 <section class="sec dark">
   ${grid(true)}
@@ -753,7 +765,7 @@ export function contact(c) {
       <p class="mono eyebrow">Phone — ${esc(c.site.availability)}</p>
       <a class="phone" href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a>
       <p>${esc(c.site.footerBlurb)}</p>
-      <div class="help-shot">${img(c, 'quest/contact.webp', 'A Quest Construction project in Arizona')}</div>
+      <div class="help-shot">${img(c, ...shot(CONTACT))}</div>
     </aside>
   </div>
 </section>
@@ -826,6 +838,12 @@ export function serviceIndex(c) {
   </div>
 </section>
 
+${band(c, shots(
+  'quest/framing-clouds.webp', 'quest/slab-poured.webp',
+  'quest/roof-shingles.webp', 'quest/home-windows.webp',
+), '— The trades in practice', 'Structure, <span>Shell</span>, Finish',
+  'Four stages of a Quest job, in that order.', 'sec cream alt')}
+
 <section class="sec dark">
   ${grid(true)}
   <div class="wrap">
@@ -873,6 +891,12 @@ export function areaIndex(c) {
     <div class="scope scope--3">${cards}</div>
   </div>
 </section>
+
+${band(c, shots(
+  'quest/framing-palms.webp', 'quest/custom-home-wide.webp',
+  'quest/roof-desert.webp', 'quest/porch-dusk.webp',
+), '— Across the valley', 'Arizona <span>Jobs</span>, Arizona Photographs',
+  'Palms on one job, open desert on the next — both ours.', 'sec cream alt')}
 
 <section class="sec dark">
   ${grid(true)}

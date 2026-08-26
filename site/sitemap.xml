@@ -7,10 +7,18 @@
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/excavator.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/story.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-blockwall.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-roof.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/sheathing-panel.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-shingles.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-gables.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-windows.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/porch-dusk.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/hero.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/spare.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/services/residential-development/</loc>
@@ -18,6 +26,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-lumber.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/services/casita/</loc>
@@ -25,6 +37,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-walls.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-poured.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-palms.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-progress.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/services/adu/</loc>
@@ -32,6 +48,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-slab.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/sheathing-panel.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-long-wall.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-block.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/services/framing/</loc>
@@ -39,6 +59,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-roof.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-header.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-trusses.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/services/concrete/</loc>
@@ -46,6 +70,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-poured.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-blockwall.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-walls.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-lumber.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/services/stucco/</loc>
@@ -53,6 +81,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-shell.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-gables.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-side.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-walls.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/services/dry-wall/</loc>
@@ -60,6 +92,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/spare.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-inside.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-openings.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-hose.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/services/siding/</loc>
@@ -67,6 +103,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-side.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-trusses.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-shell.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/sheathing-panel.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/services/roofing/</loc>
@@ -74,6 +114,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-shingles.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-ridge.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-desert.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-eave.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/services/full-remodel-kitchen-bathroomcabinets-flooring-counter-tops/</loc>
@@ -81,6 +125,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/spare.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-inside.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-corner.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-walls.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/services/custom-home-building/</loc>
@@ -88,6 +136,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/porch-dusk.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-gables.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/services/painting/</loc>
@@ -95,6 +147,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/spare.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-gables.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-windows.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/gables-underlayment.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/services/deck-building-uses-trex-system/</loc>
@@ -102,6 +158,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/deck-joists.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-lumber.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-lumber.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/porch-dusk.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/services/window-installation/</loc>
@@ -109,6 +169,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/gable-window.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-windows.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-openings.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/spare.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/service-areas/mesa-az/</loc>
@@ -116,6 +180,9 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-poured.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/service-areas/tempe-az/</loc>
@@ -123,6 +190,9 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-shingles.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-palms.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/service-areas/queen-creek-az/</loc>
@@ -130,6 +200,9 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/deck-joists.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-walls.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/porch-dusk.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/service-areas/scottsdale-az/</loc>
@@ -137,6 +210,9 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-desert.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-lumber.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-windows.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/service-areas/gilbert-az/</loc>
@@ -144,6 +220,9 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-roof.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-gables.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-openings.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/service-areas/chandler-az/</loc>
@@ -151,6 +230,9 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-ridge.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-long-wall.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/story.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/service-areas/paradise-valley-az/</loc>
@@ -158,6 +240,9 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-progress.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/hero.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/spare.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/service-areas/phoenix-az/</loc>
@@ -165,6 +250,9 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/sheathing-panel.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-poured.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/service-areas/goodyear-meadows-az/</loc>
@@ -172,6 +260,9 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-shingles.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-palms.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/service-areas/camelback-east-village-az/</loc>
@@ -179,6 +270,9 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/deck-joists.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-walls.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/service-areas/florence-az/</loc>
@@ -186,6 +280,9 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/porch-dusk.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-desert.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-lumber.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/services/</loc>
@@ -193,6 +290,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-poured.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-shingles.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-windows.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/service-areas/</loc>
@@ -200,6 +301,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-palms.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-desert.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/porch-dusk.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/about-us/</loc>
@@ -208,6 +313,9 @@
     <priority>0.6</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/story.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-palms.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-ridge.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/gallery/</loc>
@@ -215,21 +323,55 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-blockwall.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-lumber.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-walls.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/sheathing-panel.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-poured.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-slab.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-walls.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-long-wall.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-palms.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-block.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-court.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-progress.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-wide.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-sky.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-sun.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-shade.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-ladder.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-lumber.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-hose.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-corner.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-openings.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-header.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-inside.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-roof.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-curve.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/sheathing-curve.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/deck-joists.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/story.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/hero.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-shell.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-gables.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-trusses.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-windows.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/gable-window.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/gables-underlayment.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-underlayment.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-deck.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-eave.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-shingles.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-ridge.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-valley.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-field.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-desert.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-side.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/porch-dusk.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/spare.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/framing.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/rebar.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/crew-slab.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/roofline.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/facade.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/kitchen.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/bath.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/mech.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/trade-electric.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/trade-weld.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/home-dusk.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/neighborhood.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/projects/</loc>
@@ -237,9 +379,15 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/story.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/hero.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/spare.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-blockwall.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/slab-poured.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-long-wall.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-header.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/deck-joists.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-desert.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/gable-window.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/contact-us/</loc>
@@ -247,7 +395,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/contact.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-gables.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://questconstruction.com/sitemap/</loc>

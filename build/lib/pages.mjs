@@ -24,19 +24,20 @@ const SHORT_NAME = {
   'deck-building-uses-trex-system': 'Deck Building',
 };
 
-// Shared photography, chosen per page kind. The home card is the real Quest
-// hero; the rest come from the existing library.
+// The social card, chosen per page kind. Every one of these is cropped from a
+// photograph Quest took on one of its own jobs — see build/lib/photos.mjs —
+// so a shared link shows the same work the page does.
 const OG = {
-  home: ['quest-hero.jpg', 'A Quest Construction project in Arizona'],
-  about: ['crew-slab.jpg', 'A Quest Construction crew finishing a concrete slab'],
-  gallery: ['framing.jpg', 'Timber framing on a Quest Construction project'],
-  projects: ['neighborhood.jpg', 'Completed homes on a Quest Construction project'],
-  contact: ['site-steel.jpg', 'Structural steel on a Quest Construction site'],
-  sitemap: ['cranes.jpg', 'Cranes over a Quest Construction site'],
-  service: ['rebar.jpg', 'Reinforcing steel placed on a Quest Construction job'],
-  area: ['trade-weld.jpg', 'Welding on a Quest Construction job in Arizona'],
-  serviceIndex: ['site-steel.jpg', 'Structural steel on a Quest Construction site'],
-  areaIndex: ['neighborhood.jpg', 'Completed homes on a Quest Construction project'],
+  home: ['quest-hero.jpg', 'Wall and roof framing across a Quest Construction home'],
+  about: ['framing.jpg', 'Framed walls under an Arizona sky on a Quest Construction build'],
+  gallery: ['custom-home.jpg', 'A Quest Construction custom home under construction'],
+  projects: ['dusk.jpg', 'A Quest Construction custom home at dusk'],
+  contact: ['lumber.jpg', 'Framing lumber laid out across a Quest Construction slab'],
+  sitemap: ['slab.jpg', 'A finished slab and block wall on a Quest Construction build'],
+  service: ['gables.jpg', 'Gables and windows on a Quest Construction custom home'],
+  area: ['deck.jpg', 'Deck framing and joists on a Quest Construction job in Arizona'],
+  serviceIndex: ['framing.jpg', 'Framed walls under an Arizona sky on a Quest Construction build'],
+  areaIndex: ['custom-home.jpg', 'A Quest Construction custom home under construction'],
 };
 
 const clip = (s, n) => {

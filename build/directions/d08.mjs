@@ -3,6 +3,7 @@
 // Charcoal and brass, Limelight for display and Jost for text — the palette
 // and the lettering of the era that built the skyscrapers.
 import { img, preloadImage } from '../lib/images.mjs';
+import { ALT, SAMPLER } from '../lib/photos.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 
 export const meta = {
@@ -28,27 +29,8 @@ const RULE = `<div class="drule short" aria-hidden="true"><i></i></div>`;
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X',
   'XI', 'XII', 'XIII', 'XIV'];
 
-const SHOTS = ['rebar.webp', 'framing.webp', 'crew-slab.webp', 'site-steel.webp',
-  'mech.webp', 'facade.webp', 'roofline.webp', 'trade-weld.webp',
-  'trade-electric.webp', 'kitchen.webp', 'bath.webp', 'earthworks.webp',
-  'neighborhood.webp', 'home-dusk.webp'];
+const SHOTS = SAMPLER;
 
-const ALT = {
-  'rebar.webp': 'Reinforcing steel placed before a pour',
-  'framing.webp': 'Timber framing going up on a residential build',
-  'crew-slab.webp': 'A crew working a freshly poured slab',
-  'site-steel.webp': 'Structural steel standing on site',
-  'mech.webp': 'Mechanical rough-in before the walls close',
-  'facade.webp': 'A rendered and painted exterior facade',
-  'roofline.webp': 'A finished roofline against a clear sky',
-  'trade-weld.webp': 'Welding structural steel on site',
-  'trade-electric.webp': 'Electrical rough-in on a remodel',
-  'kitchen.webp': 'A completed kitchen remodel',
-  'bath.webp': 'A completed bathroom remodel',
-  'earthworks.webp': 'Earthworks and grading on a site',
-  'neighborhood.webp': 'Completed homes on a residential street',
-  'home-dusk.webp': 'A finished home at dusk',
-};
 
 const QUEST = [
   ['quest/hero.webp', 'A Quest Construction home under construction'],
@@ -57,11 +39,11 @@ const QUEST = [
 ];
 
 const FRIEZE = [
-  ['earthworks.webp', 'Earthworks'],
-  ['rebar.webp', 'Concrete'],
-  ['framing.webp', 'Framing'],
-  ['trade-weld.webp', 'Steel'],
-  ['facade.webp', 'Finishes'],
+  ['quest/sheathing-panel.webp', 'Earthworks'],
+  ['quest/slab-poured.webp', 'Concrete'],
+  ['quest/framing-clouds.webp', 'Framing'],
+  ['quest/deck-joists.webp', 'Steel'],
+  ['quest/custom-home-gables.webp', 'Finishes'],
 ];
 
 export function nav(c) {
@@ -341,7 +323,7 @@ export function home(c) {
     <div class="arches">
       <div class="arch-card rv">
         <span class="rn"><i>I</i></span>
-        <span class="ph zig">${img(c, 'kitchen.webp', ALT['kitchen.webp'])}</span>
+        <span class="ph zig">${img(c, 'quest/spare.webp', ALT['quest/spare.webp'])}</span>
         <div class="bd">
           <h3>${esc(c.site.offers[0].title)}</h3>
           <p>${esc(c.site.offers[0].body)}</p>
@@ -363,7 +345,7 @@ export function home(c) {
       </div>
       <div class="arch-card rv">
         <span class="rn"><i>III</i></span>
-        <span class="ph zig">${img(c, 'neighborhood.webp', ALT['neighborhood.webp'])}</span>
+        <span class="ph zig">${img(c, 'quest/custom-home-wide.webp', ALT['quest/custom-home-wide.webp'])}</span>
         <div class="bd">
           <h3>Where We Build</h3>
           <p>From Phoenix out to Florence, the same crews and the same schedule discipline on every job.</p>
@@ -393,7 +375,7 @@ export function home(c) {
         <span class="cap"><b>${esc(p.title)}</b><span>${ROMAN[i]}</span></span>
       </a>`).join('')}
       <a class="tile rv" href="${c.url('gallery')}">
-        <span class="ph">${img(c, 'neighborhood.webp', ALT['neighborhood.webp'])}</span>
+        <span class="ph">${img(c, 'quest/custom-home-wide.webp', ALT['quest/custom-home-wide.webp'])}</span>
         <span class="cap"><b>The Gallery</b><span>IV</span></span>
       </a>
     </div>
@@ -447,7 +429,7 @@ export function service(c) {
     <div class="in">
       <div class="col l rv"><p>${esc(s.intro[0])}</p></div>
       <div class="frame rv">
-        <div class="arch">${img(c, 'quest/spare.webp', `Completed ${s.name.toLowerCase()} work by Quest Construction`)}</div>
+        <div class="arch">${img(c, 'quest/spare.webp', ALT['quest/spare.webp'])}</div>
         <span class="rc">${esc(s.name)}</span>
       </div>
       <div class="col r rv">${s.intro.slice(1).map((p) => `<p>${esc(p)}</p>`).join('')}</div>
@@ -502,7 +484,7 @@ export function area(c) {
     <div class="in">
       <div class="col l rv"><p>${fill(t.community)}</p></div>
       <div class="frame rv">
-        <div class="arch">${img(c, 'neighborhood.webp', `Completed homes on a residential street near ${a.city}, Arizona`)}</div>
+        <div class="arch">${img(c, 'quest/custom-home-wide.webp', ALT['quest/custom-home-wide.webp'])}</div>
         <span class="rc">${esc(a.name)}</span>
       </div>
       <div class="col r rv"><p>${fill(t.local)}</p><p>${fill(t.commitment)}</p></div>

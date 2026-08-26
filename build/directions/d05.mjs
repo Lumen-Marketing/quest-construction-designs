@@ -3,6 +3,7 @@
 // blob silhouettes cut with a notched corner so the softness stays structural.
 // Cards are chunky and hard-bordered; the process runs as concentric arcs.
 import { img, preloadImage } from '../lib/images.mjs';
+import { ALT, SAMPLER } from '../lib/photos.mjs';
 import { icon } from '../lib/icons.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 
@@ -25,27 +26,8 @@ const btn = (href, label, cls = 'btn') => `<a class="${cls}" href="${href}">${es
 const ARROW = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M5 12h13M13 6l6 6-6 6"/></svg>`;
 const TICK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M4 12.5 9.5 18 20 6.5"/></svg>`;
 
-const SHOTS = ['rebar.webp', 'framing.webp', 'crew-slab.webp', 'site-steel.webp',
-  'mech.webp', 'facade.webp', 'roofline.webp', 'trade-weld.webp',
-  'trade-electric.webp', 'kitchen.webp', 'bath.webp', 'earthworks.webp',
-  'neighborhood.webp', 'home-dusk.webp'];
+const SHOTS = SAMPLER;
 
-const ALT = {
-  'rebar.webp': 'Reinforcing steel placed before a pour',
-  'framing.webp': 'Timber framing going up on a residential build',
-  'crew-slab.webp': 'A crew working a freshly poured slab',
-  'site-steel.webp': 'Structural steel standing on site',
-  'mech.webp': 'Mechanical rough-in before the walls close',
-  'facade.webp': 'A rendered and painted exterior facade',
-  'roofline.webp': 'A finished roofline against a clear sky',
-  'trade-weld.webp': 'Welding structural steel on site',
-  'trade-electric.webp': 'Electrical rough-in on a remodel',
-  'kitchen.webp': 'A completed kitchen remodel',
-  'bath.webp': 'A completed bathroom remodel',
-  'earthworks.webp': 'Earthworks and grading on a site',
-  'neighborhood.webp': 'Completed homes on a residential street',
-  'home-dusk.webp': 'A finished home at dusk',
-};
 
 const QUEST = [
   ['quest/hero.webp', 'A Quest Construction home under construction'],
@@ -55,11 +37,11 @@ const QUEST = [
 
 // The yard band: five organic tiles, each captioned with a real trade.
 const PLANT = [
-  ['earthworks.webp', 'Earthworks', 'Grading and site prep'],
-  ['rebar.webp', 'Concrete', 'Slabs and foundations'],
-  ['framing.webp', 'Framing', 'Structure and roof'],
-  ['trade-weld.webp', 'Steel', 'Structural welding'],
-  ['trade-electric.webp', 'Rough-in', 'Before the walls close'],
+  ['quest/sheathing-panel.webp', 'Earthworks', 'Grading and site prep'],
+  ['quest/slab-poured.webp', 'Concrete', 'Slabs and foundations'],
+  ['quest/framing-clouds.webp', 'Framing', 'Structure and roof'],
+  ['quest/deck-joists.webp', 'Steel', 'Structural welding'],
+  ['quest/framing-inside.webp', 'Rough-in', 'Before the walls close'],
 ];
 
 export function nav(c) {
@@ -357,7 +339,7 @@ export function home(c) {
           ${img(c, QUEST[i % QUEST.length][0], p.alt || p.title)}</span>
         <h3>${esc(p.title)}</h3><p>${esc(p.body)}</p></a>`).join('')}
       <a class="wcard rv" href="${c.url('gallery')}">
-        <span class="ph"><span class="tag">04</span>${img(c, 'neighborhood.webp', ALT['neighborhood.webp'])}</span>
+        <span class="ph"><span class="tag">04</span>${img(c, 'quest/custom-home-wide.webp', ALT['quest/custom-home-wide.webp'])}</span>
         <h3>The gallery</h3><p>Every photograph we have from the yard and the finished work.</p></a>
     </div>
   </div>
@@ -410,7 +392,7 @@ export function service(c) {
     </div>
     <div class="pic rv">
       <span class="halo" aria-hidden="true"></span>
-      <div class="reel">${img(c, 'quest/spare.webp', `Completed ${s.name.toLowerCase()} work by Quest Construction`)}
+      <div class="reel">${img(c, 'quest/spare.webp', ALT['quest/spare.webp'])}
         <span class="tag">${esc(s.name)}</span>
       </div>
     </div>
@@ -461,7 +443,7 @@ export function area(c) {
   <div class="wrap in">
     <div class="pic rv">
       <span class="halo" aria-hidden="true"></span>
-      <div class="reel">${img(c, 'neighborhood.webp', `Completed homes on a residential street near ${a.city}, Arizona`)}
+      <div class="reel">${img(c, 'quest/custom-home-wide.webp', ALT['quest/custom-home-wide.webp'])}
         <span class="tag">${esc(a.name)}</span>
       </div>
     </div>
@@ -625,7 +607,7 @@ export function contact(c) {
         <li><span class="k">03</span><div><h3>Trades offered</h3><p>${c.services.length}</p></div></li>
         <li><span class="k">04</span><div><h3>Areas served</h3><p>${c.areas.areas.length} Arizona cities</p></div></li>
       </ul>
-      <figure class="shot">${img(c, 'quest/contact.webp', 'A Quest Construction project in Arizona')}</figure>
+      <figure class="shot">${img(c, 'quest/custom-home-gables.webp', 'A Quest Construction project in Arizona')}</figure>
     </div>
   </div>
 </section>

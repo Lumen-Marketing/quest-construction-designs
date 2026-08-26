@@ -16,10 +16,20 @@ test('every measured image actually exists on disk', () => {
   }
 });
 
-test('the five real Quest images are present and measured', () => {
-  for (const n of ['logo', 'hero', 'story', 'contact', 'spare']) {
-    const [w, h] = size(`quest/${n}.webp`);
-    assert.ok(w > 100 && h > 100, `quest/${n}.webp has implausible size ${w}x${h}`);
+test('every photograph in the library is present and measured', async () => {
+  const { ALT } = await import('./photos.mjs');
+  for (const f of Object.keys(ALT)) {
+    const [w, h] = size(f);
+    assert.ok(w > 100 && h > 100, `${f} has implausible size ${w}x${h}`);
+  }
+  assert.ok(Object.keys(ALT).length >= 45, 'the library shrank unexpectedly');
+});
+
+test('nothing outside assets/quest/ and assets/og/ is shipped as photography', () => {
+  const sizes = JSON.parse(readFileSync('content/images.json', 'utf8'));
+  for (const f of Object.keys(sizes)) {
+    assert.ok(f.startsWith('quest/') || f.startsWith('og/'),
+      `${f} is not one of Quest's own photographs`);
   }
 });
 
@@ -47,22 +57,21 @@ test('img marks the LCP hero eager with fetchpriority', () => {
 });
 
 test('img resolves depth correctly from a two-deep page', () => {
-  const html = img(ctx('services/adu'), 'framing.webp', 'Timber framing on site');
-  assert.match(html, /src="\.\.\/\.\.\/\.\.\/assets\/framing\.webp"/);
+  const html = img(ctx('services/adu'), 'quest/framing-clouds.webp', 'Framed walls on site');
+  assert.match(html, /src="\.\.\/\.\.\/\.\.\/assets\/quest\/framing-clouds\.webp"/);
 });
 
-test('img refuses the forbidden asset, unknown files and missing alt text', () => {
-  assert.throws(() => img(ctx('home'), 'plans.webp', 'anything'), /must never be referenced/);
+test('img refuses unknown files and missing alt text', () => {
   assert.throws(() => img(ctx('home'), 'nope.webp', 'anything'), /unknown image/);
-  assert.throws(() => img(ctx('home'), 'framing.webp', ''), /needs real alt text/);
+  assert.throws(() => img(ctx('home'), 'quest/framing-clouds.webp', ''), /needs real alt text/);
 });
 
 test('img can mark an image decorative, and insists it carry no alt text', () => {
-  const html = img(ctx('home'), 'rebar.webp', '', { decorative: true });
+  const html = img(ctx('home'), 'quest/slab-poured.webp', '', { decorative: true });
   assert.match(html, /alt="" aria-hidden="true"/);
-  assert.match(html, /width="1800"/);
+  assert.match(html, /width="1125"/);
   assert.throws(
-    () => img(ctx('home'), 'rebar.webp', 'Reinforcing steel', { decorative: true }),
+    () => img(ctx('home'), 'quest/slab-poured.webp', 'A slab', { decorative: true }),
     /must not carry alt text/,
   );
 });

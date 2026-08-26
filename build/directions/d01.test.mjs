@@ -285,13 +285,34 @@ test('the contact page renders the whole form and the real phone number', () => 
   assert.match(html, /aria-live="polite"/);
 });
 
-test('the gallery separates real Quest photography from stock placeholders', () => {
+test('the gallery is Quest photography and nothing else', async () => {
+  const { GALLERY } = await import('../lib/photos.mjs');
   const html = renderPage({ mod: d01, key: 'gallery' });
   const imgs = html.match(/<img[^>]+>/g) || [];
-  assert.ok(imgs.length >= 15, `gallery has only ${imgs.length} images`);
+  assert.ok(imgs.length >= GALLERY.length, `gallery has only ${imgs.length} images`);
   assert.match(html, /From Quest projects/);
-  assert.match(html, /Placeholder photography/);
-  assert.ok(!html.includes('plans.webp'));
+  // Nothing left to disclaim: the stock library is gone from the tree.
+  assert.doesNotMatch(html, /Placeholder photography/);
+  for (const f of GALLERY) assert.ok(html.includes(f), `gallery missing ${f}`);
+  for (const m of imgs) {
+    assert.match(m, /src="[^"]*assets\/(quest|og)\//, `gallery image outside the library: ${m}`);
+  }
+});
+
+test('every photograph on every page comes out of the library with its own alt', async () => {
+  const { ALT } = await import('../lib/photos.mjs');
+  const alts = new Set(Object.values(ALT));
+  for (const key of ['home', 'about', 'projects', 'gallery', 'contact',
+    'services/roofing', 'service-areas/mesa-az']) {
+    const html = renderPage({ mod: d01, key });
+    for (const m of html.match(/<img[^>]+>/g) || []) {
+      assert.match(m, /src="[^"]*assets\/quest\//, `${key} shows a non-library image: ${m}`);
+      const alt = /alt="([^"]*)"/.exec(m)[1];
+      if (!alt) continue;                        // the decorative logo lockups
+      assert.ok(alts.has(alt) || alt === 'Quest Construction',
+        `${key} has hand-written alt text: ${alt}`);
+    }
+  }
 });
 
 test('the projects page shows the three real projects with their real photographs', () => {
@@ -300,10 +321,10 @@ test('the projects page shows the three real projects with their real photograph
     assert.ok(html.includes(t), `projects missing ${t}`);
   }
   assert.equal((html.match(/class="pjcard rv"/g) || []).length, 3);
-  // The real site paired these photographs with these projects; keep the pairing.
-  assert.ok(html.includes('quest/story.webp'));
+  // Framing, home construction, concrete — one Quest photograph each, in order.
   assert.ok(html.includes('quest/hero.webp'));
-  assert.ok(html.includes('quest/spare.webp'));
+  assert.ok(html.includes('quest/custom-home-wide.webp'));
+  assert.ok(html.includes('quest/slab-blockwall.webp'));
 });
 
 test('the about page renders both real story paragraphs', () => {

@@ -3,6 +3,7 @@
 // the estimate. The most conversion-shaped of the ten: the deskbar that
 // straddles the hero on the homepage becomes the contact form itself.
 import { img, preloadImage } from '../lib/images.mjs';
+import { ALT, SAMPLER } from '../lib/photos.mjs';
 import { icon } from '../lib/icons.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 
@@ -25,27 +26,8 @@ const btn = (href, label, cls = 'btn') => `<a class="${cls}" href="${href}">${es
 const ARROW = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h13M13 6l6 6-6 6"/></svg>`;
 const TICK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M4 12.5 9.5 18 20 6.5"/></svg>`;
 
-const SHOTS = ['rebar.webp', 'framing.webp', 'crew-slab.webp', 'site-steel.webp',
-  'mech.webp', 'facade.webp', 'roofline.webp', 'trade-weld.webp',
-  'trade-electric.webp', 'kitchen.webp', 'bath.webp', 'earthworks.webp',
-  'neighborhood.webp', 'home-dusk.webp'];
+const SHOTS = SAMPLER;
 
-const ALT = {
-  'rebar.webp': 'Reinforcing steel placed before a pour',
-  'framing.webp': 'Timber framing going up on a residential build',
-  'crew-slab.webp': 'A crew working a freshly poured slab',
-  'site-steel.webp': 'Structural steel standing on site',
-  'mech.webp': 'Mechanical rough-in before the walls close',
-  'facade.webp': 'A rendered and painted exterior facade',
-  'roofline.webp': 'A finished roofline against a clear sky',
-  'trade-weld.webp': 'Welding structural steel on site',
-  'trade-electric.webp': 'Electrical rough-in on a remodel',
-  'kitchen.webp': 'A completed kitchen remodel',
-  'bath.webp': 'A completed bathroom remodel',
-  'earthworks.webp': 'Earthworks and grading on a site',
-  'neighborhood.webp': 'Completed homes on a residential street',
-  'home-dusk.webp': 'A finished home at dusk',
-};
 
 const QUEST = [
   ['quest/hero.webp', 'A Quest Construction home under construction'],
@@ -304,8 +286,8 @@ export function home(c) {
     <div class="grid3">
       ${c.site.offers.map((o, i) => `
       <div class="ocard rv">
-        <div class="ph">${img(c, i === 0 ? 'kitchen.webp' : 'bath.webp',
-          i === 0 ? ALT['kitchen.webp'] : ALT['bath.webp'])}
+        <div class="ph">${img(c, i === 0 ? 'quest/spare.webp' : 'quest/home-windows.webp',
+          i === 0 ? ALT['quest/spare.webp'] : ALT['quest/home-windows.webp'])}
           <span class="slot"><i></i>${esc(o.amount)} off</span></div>
         <div class="bd">
           <h3>${esc(o.title)}</h3>
@@ -315,7 +297,7 @@ export function home(c) {
         </div>
       </div>`).join('')}
       <div class="ocard rv">
-        <div class="ph">${img(c, 'neighborhood.webp', ALT['neighborhood.webp'])}
+        <div class="ph">${img(c, 'quest/custom-home-wide.webp', ALT['quest/custom-home-wide.webp'])}
           <span class="slot"><i></i>Where we work</span></div>
         <div class="bd">
           <h3>Across the valley</h3>
@@ -602,7 +584,7 @@ export function contact(c) {
         </ul>
         <div class="foot"><span>${esc(c.site.positioning)}</span></div>
       </div>
-      <figure class="cshot rv">${img(c, 'quest/contact.webp', 'A Quest Construction project in Arizona')}</figure>
+      <figure class="cshot rv">${img(c, 'quest/custom-home-gables.webp', 'A Quest Construction project in Arizona')}</figure>
     </div>
   </div>
 </section>

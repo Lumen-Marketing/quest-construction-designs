@@ -88,8 +88,8 @@ byte-identical to what it was.
 ### Before `site/` goes live
 
 Everything in "Before this goes live" below still applies — the domain, the unverified per-city
-copy, the unwired contact form and the stock photography. Two things are now done: the fonts are
-self-hosted, and the indexable direction has been chosen.
+copy and the unwired contact form. Three things are now done: the fonts are self-hosted, the
+indexable direction has been chosen, and the photography is Quest's own throughout.
 
 ## The build
 
@@ -263,14 +263,35 @@ file **and** the three `data-acc` buttons in `index.html`.
 
 ## Assets
 
-`assets/` holds 19 free Unsplash photos, self-hosted (never hotlinked) and **served as WebP** —
-they were 1800px JPEGs until the SEO pass re-encoded them at quality 80, which took the library
-from 8.1MB to 4.5MB (−45%) with no visible loss. The eight images used as social cards keep a
-JPEG twin at the correct 1200×630 in `assets/og/`, because Facebook's crawler is unreliable on
-WebP and a 3:2 photo crops badly in a large summary card. 04, 05, 06 and 08 were
-reworked to lean on the jobsite half of that library — rebar, steel, welding, rough-in, earthworks —
-rather than the finished-interior half, which was reading soft for a general contractor. All were visually reviewed
-before use — one shot was discarded because a hard hat carried another firm's branding.
+**Every photograph on the site is Quest's own.** The stock library is gone — deleted, not
+unreferenced — and `assets/quest/` holds the 49 that replaced it: 46 from two shoots Quest
+supplied, plus the three that were already here.
+
+| Shoot | Count | What is in it |
+|---|---|---|
+| The addition | 28 | A Phoenix-area lot from slab through framing: pour, block wall, sheathing, headers, openings, deck joists |
+| The custom home | 18 | A desert build from trusses through the last course of shingles: underlayment, eaves, gables, windows, two dusk exteriors |
+| Already here | 3 | `hero` (aerial framing), `story` (hillside framing with a crane), `spare` (a finished interior) |
+
+Sources were 1200×1600 and 1600×1200 phone frames; they ship at max 1500px, WebP quality 72,
+8.3MB for the set. Two were dropped on the way in — one phone screenshot and one near-duplicate.
+Seven of them keep a 1200×630 JPEG twin in `assets/og/` for the social cards, because Facebook's
+crawler is unreliable on WebP and a 4:3 photo crops badly in a large summary card.
+
+**`build/lib/photos.mjs` is the catalogue and the only place alt text lives.** It maps every file
+to a sentence describing *what is in the frame*, and the ten directions read from it rather than
+carrying their own tables, so they cannot drift apart on what a photograph depicts. It also holds
+the per-service and per-city selections, the gallery order, and the hero, story and contact slots.
+
+Quest has no photograph of drywall, stucco, paint or cabinetry yet, so those four service pages
+borrow the nearest honest stage of the same work — and the caption still describes the photograph,
+not the trade it sits under. The lede above each service band says so on the page. When Quest
+sends interiors, add them to `ALT` and repoint `SERVICE_SHOTS`; nothing else changes.
+
+Because the library runs two orientations, the layouts pick per slot: the gallery is a
+`columns` masonry so nothing is cropped, the in-page bands are square tiles so both orientations
+take the same bite, and the fixed wide slots — hero, story, contact, project cards — draw only
+from `LANDSCAPE`.
 
 **`build/extract.mjs`, `extract-css.mjs` and `fetch-images.mjs` are one-shot.**
 They read the recovered archive under `.source/`, which is gitignored, so they
@@ -278,13 +299,14 @@ cannot run on a fresh clone. Their output was committed as `content/*.json` and
 the self-hosted images. They are kept as the record of where the site's words
 came from; each says so at the top.
 
-**Do not use `assets/plans.webp`.** It has the same problem: the subject's polo carries a visible
-"KRA" logo. It is unreferenced by every direction and should stay that way.
+The `FORBIDDEN` set in `build/lib/images.mjs` is empty now. It existed for `plans.webp`, a stock
+shot whose subject wore a rival contractor's logo; that file and the rest of the stock library
+have been deleted, so the guard has nothing to catch. Leave it in place for the next one.
 
-The cut-outs do carry **equipment-manufacturer** badges (CAT on the excavator, Deere on the loader).
-That is a different thing from a rival contractor's mark and it is what a real plant photo looks
-like, but if Quest would rather not advertise a brand, both are replaceable — the matting script
-below turns any machine photo into a cut-out.
+The alpha cut-outs are gone with the stock library, and with them the hero silhouettes in 01 and
+10. Both now carry a Quest photograph in a framed plate instead — 01's is `home-dusk`, straddling
+the accent plane's edge the way the cut-out machine did, with the ghost wordmark moved above it so
+it still reads.
 
 **No stock video — the reels are stills.** Directions 04, 05, 06 and 08 each carry a *reel*: three
 photographs cross-dissolving on an 18-second loop behind a play control and a counter. They are
@@ -476,10 +498,11 @@ every in-page anchor to an element that exists.
 Far fewer than there used to be. The body copy is now Quest's own, extracted from the recovered
 site into `content/*.json`, and the phone number and founding year are real.
 
-- **Photography.** Only five images are genuinely Quest's (`assets/quest/`). Everything in the
-  galleries is stock standing in for real jobsite photographs, and every gallery says so on the
-  page. `assets/plans.webp` must never be referenced — it carries a visible third-party logo, and
-  the image helper throws if anything asks for it.
+- ~~**Photography.**~~ **Done.** Every image on every page is Quest's own — 49 photographs in
+  `assets/quest/`, catalogued in `build/lib/photos.mjs`. The stock library has been deleted from
+  the tree, so a reference to it fails the build rather than shipping. What is still missing is
+  *interior* work: no drywall, stucco, paint or cabinetry photographs exist yet, so those four
+  service pages borrow the nearest honest stage and say so. Send interiors and they slot in.
 - **The contact form is not wired.** Submitting it prints a note asking the visitor to call. Point
   it at a real endpoint before launch.
 - **The per-city copy in `content/areas-local.json` is unverified.** See the SEO section above.

@@ -8,6 +8,7 @@
 // offers inverted inside it, a numbered accordion as the lead magnet, and a
 // marquee wordmark closing the footer.
 import { img, preloadImage } from '../lib/images.mjs';
+import { ALT, SAMPLER } from '../lib/photos.mjs';
 import { icon } from '../lib/icons.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 
@@ -32,31 +33,8 @@ const PLAY = `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><p
 const btn = (href, label, cls = 'btn') =>
   `<a class="${cls}" href="${href}"><span>${esc(label)}</span><i>${ARROW}</i></a>`;
 
-const SHOTS = ['rebar.webp', 'framing.webp', 'crew-slab.webp', 'site-steel.webp',
-  'mech.webp', 'facade.webp', 'roofline.webp', 'trade-weld.webp',
-  'trade-electric.webp', 'kitchen.webp', 'bath.webp', 'earthworks.webp',
-  'neighborhood.webp', 'home-dusk.webp'];
+const SHOTS = SAMPLER;
 
-const ALT = {
-  'rebar.webp': 'Reinforcing steel placed before a pour',
-  'framing.webp': 'Timber framing going up on a residential build',
-  'crew-slab.webp': 'A crew working a freshly poured slab',
-  'site-steel.webp': 'Structural steel standing on site',
-  'mech.webp': 'Mechanical rough-in before the walls close',
-  'facade.webp': 'A rendered and painted exterior facade',
-  'roofline.webp': 'A finished roofline against a clear sky',
-  'trade-weld.webp': 'Welding structural steel on site',
-  'trade-electric.webp': 'Electrical rough-in on a remodel',
-  'kitchen.webp': 'A completed kitchen remodel',
-  'bath.webp': 'A completed bathroom remodel',
-  'earthworks.webp': 'Earthworks and grading on a site',
-  'neighborhood.webp': 'Completed homes on a residential street',
-  'home-dusk.webp': 'A finished home at dusk',
-  'cranes.webp': 'Cranes standing over a site',
-  'commercial.webp': 'A commercial building under construction',
-  'planning.webp': 'Planning a build before work starts',
-  'worker.webp': 'A tradesman on a Quest Construction job',
-};
 
 const QUEST = [
   ['quest/hero.webp', 'A Quest Construction home under construction'],
@@ -66,11 +44,11 @@ const QUEST = [
 
 /** The three tinted phase tiles — the reference's "what we build" row. */
 const PHASES = [
-  ['Planning', 'planning.webp', 'Consultation & Planning',
+  ['Planning', 'quest/slab-lumber.webp', 'Consultation & Planning',
     'We walk the job, understand what you are after, and put a schedule and a written price against it.'],
-  ['On site', 'crew-slab.webp', 'Groundwork & Structure',
+  ['On site', 'quest/slab-blockwall.webp', 'Groundwork & Structure',
     'Concrete, framing and structural steel, sequenced so no trade is waiting on the one before it.'],
-  ['Handover', 'kitchen.webp', 'Finishes & Walkthrough',
+  ['Handover', 'quest/spare.webp', 'Finishes & Walkthrough',
     'Paint, cabinetry, counters and glazing, closed out with a walkthrough before we call it done.'],
 ];
 
@@ -277,7 +255,7 @@ const subhero = (c, { h1, lede, crumb, trail, shot, shotAlt }) => `
 <section class="subhero">
   <div class="wrap">
     <div class="plate rv">
-      ${img(c, shot || 'site-steel.webp', shotAlt || ALT['site-steel.webp'], { eager: true })}
+      ${img(c, shot || 'quest/framing-header.webp', shotAlt || ALT['quest/framing-header.webp'], { eager: true })}
       <div class="pin">
         <nav class="crumbs" aria-label="Breadcrumb">
           <a href="${c.url('home')}">Home</a> <span aria-hidden="true">&#8250;</span>
@@ -392,7 +370,7 @@ export function home(c) {
           a: `You call ${c.site.phoneDisplay}. We are reachable ${c.site.availability} and a person answers.` },
       ])}
       <figure class="mshot">
-        ${img(c, 'mech.webp', ALT['mech.webp'])}
+        ${img(c, 'quest/framing-roof.webp', ALT['quest/framing-roof.webp'])}
         <figcaption><b>${esc(c.site.regionName)}</b><span>${c.areas.areas.length} cities on the round</span></figcaption>
       </figure>
     </div>
@@ -470,7 +448,7 @@ export function service(c) {
   return `${subhero(c, {
     h1: s.h1, lede: s.subheroTagline, crumb: s.name, trail: 'Services',
     shot: 'quest/spare.webp',
-    shotAlt: `Completed ${s.name.toLowerCase()} work by Quest Construction`,
+    shotAlt: ALT['quest/spare.webp'],
   })}
 
 <nav class="tabrail" aria-label="All services"><div class="wrap"><div class="trail">${tabs}</div></div></nav>
@@ -527,8 +505,8 @@ export function area(c) {
 
   return `${subhero(c, {
     h1: fill(t.h1), lede: fill(t.tagline), crumb: a.name, trail: 'Service Areas',
-    shot: 'neighborhood.webp',
-    shotAlt: `Completed homes on a residential street near ${a.city}, Arizona`,
+    shot: 'quest/custom-home-wide.webp',
+    shotAlt: ALT['quest/custom-home-wide.webp'],
   })}
 
 <section class="proof flat">
@@ -640,7 +618,7 @@ export function gallery(c) {
   const all = [...QUEST, ...SHOTS.map((f) => [f, ALT[f]])];
   return `${subhero(c, {
     h1: g.h1, lede: g.lede, crumb: 'Gallery',
-    shot: 'framing.webp', shotAlt: ALT['framing.webp'],
+    shot: 'quest/framing-clouds.webp', shotAlt: ALT['quest/framing-clouds.webp'],
   })}
 
 <section class="build">
@@ -695,7 +673,7 @@ export function contact(c) {
 
   return `${subhero(c, {
     h1: p.h1, lede: p.lede, crumb: 'Contact',
-    shot: 'quest/contact.webp', shotAlt: 'A Quest Construction project in Arizona',
+    shot: 'quest/custom-home-gables.webp', shotAlt: 'A Quest Construction project in Arizona',
   })}
 
 <section class="build">
@@ -737,7 +715,7 @@ export function sitemap(c) {
 
   return `${subhero(c, {
     h1: c.pages.sitemap.h1, lede: c.pages.sitemap.lede, crumb: 'Sitemap',
-    shot: 'site-steel.webp', shotAlt: ALT['site-steel.webp'],
+    shot: 'quest/framing-header.webp', shotAlt: ALT['quest/framing-header.webp'],
   })}
 
 <section class="build">

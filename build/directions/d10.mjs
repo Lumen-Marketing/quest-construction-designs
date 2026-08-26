@@ -3,6 +3,7 @@
 // slashes, and machinery breaks out across the cut edges. Graphite and steel,
 // one accent, cool high-contrast photography. Glossy and corporate, not 06.
 import { img, preloadImage } from '../lib/images.mjs';
+import { ALT, SAMPLER } from '../lib/photos.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 
 export const meta = {
@@ -26,30 +27,11 @@ const btn = (href, label, cls = 'btn') => `<a class="${cls}" href="${href}">${es
 
 // Decorative cut-outs: no alt text on purpose, and hidden from the tree. Sized
 // from content/images.json so nothing shifts while they load.
-const RIG = (c) => img(c, 'loader.webp', '', { decorative: true, cls: 'rig' });
-const PLANT = (c) => img(c, 'excavator.webp', '', { decorative: true });
+const RIG = (c) => img(c, 'quest/slab-lumber.webp', '', { decorative: true, cls: 'rig' });
+const PLANT = (c) => img(c, 'quest/framing-clouds.webp', '', { decorative: true });
 
-const SHOTS = ['rebar.webp', 'framing.webp', 'crew-slab.webp', 'site-steel.webp',
-  'mech.webp', 'facade.webp', 'roofline.webp', 'trade-weld.webp',
-  'trade-electric.webp', 'kitchen.webp', 'bath.webp', 'earthworks.webp',
-  'neighborhood.webp', 'home-dusk.webp'];
+const SHOTS = SAMPLER;
 
-const ALT = {
-  'rebar.webp': 'Reinforcing steel placed before a pour',
-  'framing.webp': 'Timber framing going up on a residential build',
-  'crew-slab.webp': 'A crew working a freshly poured slab',
-  'site-steel.webp': 'Structural steel standing on site',
-  'mech.webp': 'Mechanical rough-in before the walls close',
-  'facade.webp': 'A rendered and painted exterior facade',
-  'roofline.webp': 'A finished roofline against a clear sky',
-  'trade-weld.webp': 'Welding structural steel on site',
-  'trade-electric.webp': 'Electrical rough-in on a remodel',
-  'kitchen.webp': 'A completed kitchen remodel',
-  'bath.webp': 'A completed bathroom remodel',
-  'earthworks.webp': 'Earthworks and grading on a site',
-  'neighborhood.webp': 'Completed homes on a residential street',
-  'home-dusk.webp': 'A finished home at dusk',
-};
 
 const QUEST = [
   ['quest/hero.webp', 'A Quest Construction home under construction'],
@@ -239,7 +221,7 @@ const closing = (c, heading, body) => `
 const subhero = (c, { h1, lede, crumb, trail, shot, shotAlt }) => `
 <section class="subhero">
   <span class="hatch" aria-hidden="true"></span>
-  <div class="shot">${img(c, shot || 'site-steel.webp', shotAlt || ALT['site-steel.webp'])}</div>
+  <div class="shot">${img(c, shot || 'quest/framing-header.webp', shotAlt || ALT['quest/framing-header.webp'])}</div>
   <div class="wrap in">
     <nav class="crumbs tag" aria-label="Breadcrumb">
       <a href="${c.url('home')}">Home</a> <span aria-hidden="true">/</span>
@@ -359,7 +341,7 @@ export function home(c) {
         <div class="lab"><p class="tag">${String(i + 1).padStart(2, '0')}</p>
           <h3>${esc(p.title)}</h3><p class="meta">${esc(p.body)}</p></div>
         <a href="${c.url('projects')}" aria-label="${esc(p.title)}"></a></div>`).join('')}
-      <div class="pane">${img(c, 'neighborhood.webp', ALT['neighborhood.webp'])}
+      <div class="pane">${img(c, 'quest/custom-home-wide.webp', ALT['quest/custom-home-wide.webp'])}
         <div class="lab"><p class="tag">04</p>
           <h3>The gallery</h3><p class="meta">Every photograph we have from the yard and the finished work.</p></div>
         <a href="${c.url('gallery')}" aria-label="Gallery"></a></div>
@@ -402,7 +384,7 @@ export function service(c) {
 
   return `${subhero(c, {
     h1: s.h1, lede: s.subheroTagline, crumb: s.name, trail: 'Services',
-    shot: 'quest/spare.webp', shotAlt: `Completed ${s.name.toLowerCase()} work by Quest Construction`,
+    shot: 'quest/spare.webp', shotAlt: ALT['quest/spare.webp'],
   })}
 
 <nav class="svctabs" aria-label="All services"><div class="wrap">${tabs}</div></nav>
@@ -461,8 +443,8 @@ export function area(c) {
 
   return `${subhero(c, {
     h1: fill(t.h1), lede: fill(t.tagline), crumb: a.name, trail: 'Service Areas',
-    shot: 'neighborhood.webp',
-    shotAlt: `Completed homes on a residential street near ${a.city}, Arizona`,
+    shot: 'quest/custom-home-wide.webp',
+    shotAlt: ALT['quest/custom-home-wide.webp'],
   })}
 
 <section class="proof flat">
@@ -574,7 +556,7 @@ export function gallery(c) {
 
   return `${subhero(c, {
     h1: g.h1, lede: g.lede, crumb: 'Gallery',
-    shot: 'framing.webp', shotAlt: ALT['framing.webp'],
+    shot: 'quest/framing-clouds.webp', shotAlt: ALT['quest/framing-clouds.webp'],
   })}
 
 <section class="work">
@@ -629,7 +611,7 @@ export function contact(c) {
 
   return `${subhero(c, {
     h1: p.h1, lede: p.lede, crumb: 'Contact',
-    shot: 'quest/contact.webp', shotAlt: 'A Quest Construction project in Arizona',
+    shot: 'quest/custom-home-gables.webp', shotAlt: 'A Quest Construction project in Arizona',
   })}
 
 <section class="work">
@@ -669,7 +651,7 @@ export function sitemap(c) {
 
   return `${subhero(c, {
     h1: c.pages.sitemap.h1, lede: c.pages.sitemap.lede, crumb: 'Sitemap',
-    shot: 'site-steel.webp', shotAlt: ALT['site-steel.webp'],
+    shot: 'quest/framing-header.webp', shotAlt: ALT['quest/framing-header.webp'],
   })}
 
 <section class="work">

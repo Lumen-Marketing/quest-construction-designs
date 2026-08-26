@@ -3,6 +3,7 @@
 // hairline rules instead of boxes, no radius, no shadows. The accent is the
 // only colour on the page. Lists are index tables; the gallery is a photo wall.
 import { img, preloadImage } from '../lib/images.mjs';
+import { ALT, SAMPLER } from '../lib/photos.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 
 export const meta = {
@@ -21,27 +22,8 @@ const esc = (s) => String(s)
 
 const btn = (href, label, cls = 'btn') => `<a class="${cls}" href="${href}">${esc(label)}</a>`;
 
-const SHOTS = ['rebar.webp', 'framing.webp', 'crew-slab.webp', 'site-steel.webp',
-  'mech.webp', 'facade.webp', 'roofline.webp', 'trade-weld.webp',
-  'trade-electric.webp', 'kitchen.webp', 'bath.webp', 'earthworks.webp',
-  'neighborhood.webp', 'home-dusk.webp'];
+const SHOTS = SAMPLER;
 
-const ALT = {
-  'rebar.webp': 'Reinforcing steel placed before a pour',
-  'framing.webp': 'Timber framing going up on a residential build',
-  'crew-slab.webp': 'A crew working a freshly poured slab',
-  'site-steel.webp': 'Structural steel standing on site',
-  'mech.webp': 'Mechanical rough-in before the walls close',
-  'facade.webp': 'A rendered and painted exterior facade',
-  'roofline.webp': 'A finished roofline against a clear sky',
-  'trade-weld.webp': 'Welding structural steel on site',
-  'trade-electric.webp': 'Electrical rough-in on a remodel',
-  'kitchen.webp': 'A completed kitchen remodel',
-  'bath.webp': 'A completed bathroom remodel',
-  'earthworks.webp': 'Earthworks and grading on a site',
-  'neighborhood.webp': 'Completed homes on a residential street',
-  'home-dusk.webp': 'A finished home at dusk',
-};
 
 const QUEST = [
   ['quest/story.webp', 'Framing and structural work on a Quest Construction project'],
@@ -220,9 +202,9 @@ export function home(c) {
   const wallShots = [
     ['quest/hero.webp', 'A Quest Construction project in Arizona', 'w1'],
     ['quest/story.webp', 'A Quest Construction project under way', 'w2'],
-    ['rebar.webp', ALT['rebar.webp'], 'w3'],
-    ['framing.webp', ALT['framing.webp'], 'w4'],
-    ['crew-slab.webp', ALT['crew-slab.webp'], 'w5'],
+    ['quest/slab-poured.webp', ALT['quest/slab-poured.webp'], 'w3'],
+    ['quest/framing-clouds.webp', ALT['quest/framing-clouds.webp'], 'w4'],
+    ['quest/slab-blockwall.webp', ALT['quest/slab-blockwall.webp'], 'w5'],
   ];
 
   return `
@@ -553,7 +535,7 @@ export function contact(c) {
             <tr><td>Areas served</td><td class="r">${c.areas.areas.length}</td></tr>
           </tbody>
         </table>
-        <figure class="shot">${img(c, 'quest/contact.webp', 'A Quest Construction project in Arizona')}</figure>
+        <figure class="shot">${img(c, 'quest/custom-home-gables.webp', 'A Quest Construction project in Arizona')}</figure>
       </div>
     </div>
   </div>

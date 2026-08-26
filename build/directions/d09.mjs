@@ -3,6 +3,7 @@
 // torn paper, strips of tape, typewriter captions, and photographs blown out
 // on a bad photocopier. Loud, but the body copy always lands on clean paper.
 import { img, preloadImage } from '../lib/images.mjs';
+import { ALT, SAMPLER } from '../lib/photos.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 
 export const meta = {
@@ -22,27 +23,8 @@ const esc = (s) => String(s)
 const btn = (href, label, cls = 'btn') => `<a class="${cls}" href="${href}">${esc(label)}</a>`;
 const STAPLES = `<span class="staple s1"></span><span class="staple s2"></span>`;
 
-const SHOTS = ['rebar.webp', 'framing.webp', 'crew-slab.webp', 'site-steel.webp',
-  'mech.webp', 'facade.webp', 'roofline.webp', 'trade-weld.webp',
-  'trade-electric.webp', 'kitchen.webp', 'bath.webp', 'earthworks.webp',
-  'neighborhood.webp', 'home-dusk.webp'];
+const SHOTS = SAMPLER;
 
-const ALT = {
-  'rebar.webp': 'Reinforcing steel placed before a pour',
-  'framing.webp': 'Timber framing going up on a residential build',
-  'crew-slab.webp': 'A crew working a freshly poured slab',
-  'site-steel.webp': 'Structural steel standing on site',
-  'mech.webp': 'Mechanical rough-in before the walls close',
-  'facade.webp': 'A rendered and painted exterior facade',
-  'roofline.webp': 'A finished roofline against a clear sky',
-  'trade-weld.webp': 'Welding structural steel on site',
-  'trade-electric.webp': 'Electrical rough-in on a remodel',
-  'kitchen.webp': 'A completed kitchen remodel',
-  'bath.webp': 'A completed bathroom remodel',
-  'earthworks.webp': 'Earthworks and grading on a site',
-  'neighborhood.webp': 'Completed homes on a residential street',
-  'home-dusk.webp': 'A finished home at dusk',
-};
 
 const QUEST = [
   ['quest/hero.webp', 'A Quest Construction home under construction'],
@@ -325,8 +307,8 @@ ${strip(c)}
       ${c.site.offers.map((o, i) => `
       <div class="flyer${i === 1 ? ' pop' : ''} rv">
         ${STAPLES}
-        <span class="xr">${img(c, i === 0 ? 'kitchen.webp' : 'bath.webp',
-          i === 0 ? ALT['kitchen.webp'] : ALT['bath.webp'])}</span>
+        <span class="xr">${img(c, i === 0 ? 'quest/spare.webp' : 'quest/home-windows.webp',
+          i === 0 ? ALT['quest/spare.webp'] : ALT['quest/home-windows.webp'])}</span>
         <span class="n">${esc(o.amount)}</span>
         <h3>${esc(o.title)}</h3>
         <p>${esc(o.body)}</p>
@@ -337,7 +319,7 @@ ${strip(c)}
       </div>`).join('')}
       <div class="flyer rv">
         ${STAPLES}
-        <span class="xr">${img(c, 'neighborhood.webp', ALT['neighborhood.webp'])}</span>
+        <span class="xr">${img(c, 'quest/custom-home-wide.webp', ALT['quest/custom-home-wide.webp'])}</span>
         <span class="n">${c.areas.areas.length}</span>
         <h3>Where We Work</h3>
         <p>From Phoenix out to Florence, the same crews and the same schedule discipline on every job.</p>
@@ -369,7 +351,7 @@ ${strip(c)}
       </a>`).join('')}
       <a class="frame" href="${c.url('gallery')}">
         <span class="no">04</span>
-        <span class="xr">${img(c, 'neighborhood.webp', ALT['neighborhood.webp'])}</span>
+        <span class="xr">${img(c, 'quest/custom-home-wide.webp', ALT['quest/custom-home-wide.webp'])}</span>
         <span class="cap">The gallery<i>Every photograph</i></span>
       </a>
     </div></div>
@@ -430,7 +412,7 @@ ${strip(c, s.name)}
   <div class="wrap in">
     <div class="pic rv">
       ${STAPLES}
-      <span class="xr">${img(c, 'quest/spare.webp', `Completed ${s.name.toLowerCase()} work by Quest Construction`)}</span>
+      <span class="xr">${img(c, 'quest/spare.webp', ALT['quest/spare.webp'])}</span>
       <span class="note"><b>${esc(s.name)}</b><span>By ${esc(c.site.name)}</span></span>
     </div>
     <div class="sheet rv">
@@ -485,7 +467,7 @@ ${strip(c, a.name)}
   <div class="wrap in">
     <div class="pic rv">
       ${STAPLES}
-      <span class="xr">${img(c, 'neighborhood.webp', `Completed homes on a residential street near ${a.city}, Arizona`)}</span>
+      <span class="xr">${img(c, 'quest/custom-home-wide.webp', ALT['quest/custom-home-wide.webp'])}</span>
       <span class="note"><b>${esc(a.city)}</b><span>${esc(c.site.regionName)}</span></span>
     </div>
     <div class="sheet rv">

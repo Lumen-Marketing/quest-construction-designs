@@ -3,6 +3,7 @@
 // whole surfaces only. Services are an index of oversized rows; the process is
 // a ruled timeline; the gallery is a chamfered bento.
 import { img, preloadImage } from '../lib/images.mjs';
+import { ALT, SAMPLER } from '../lib/photos.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 
 export const meta = {
@@ -28,27 +29,8 @@ const shead = (eye, heading, lede) => `<div class="shead rv">
 
 const btn = (href, label, cls = 'btn') => `<a class="${cls}" href="${href}">${esc(label)}</a>`;
 
-const SHOTS = ['rebar.webp', 'framing.webp', 'crew-slab.webp', 'site-steel.webp',
-  'mech.webp', 'facade.webp', 'roofline.webp', 'trade-weld.webp',
-  'trade-electric.webp', 'kitchen.webp', 'bath.webp', 'earthworks.webp',
-  'neighborhood.webp', 'home-dusk.webp'];
+const SHOTS = SAMPLER;
 
-const ALT = {
-  'rebar.webp': 'Reinforcing steel placed before a pour',
-  'framing.webp': 'Timber framing going up on a residential build',
-  'crew-slab.webp': 'A crew working a freshly poured slab',
-  'site-steel.webp': 'Structural steel standing on site',
-  'mech.webp': 'Mechanical rough-in before the walls close',
-  'facade.webp': 'A rendered and painted exterior facade',
-  'roofline.webp': 'A finished roofline against a clear sky',
-  'trade-weld.webp': 'Welding structural steel on site',
-  'trade-electric.webp': 'Electrical rough-in on a remodel',
-  'kitchen.webp': 'A completed kitchen remodel',
-  'bath.webp': 'A completed bathroom remodel',
-  'earthworks.webp': 'Earthworks and grading on a site',
-  'neighborhood.webp': 'Completed homes on a residential street',
-  'home-dusk.webp': 'A finished home at dusk',
-};
 
 const QUEST = [
   ['quest/story.webp', 'Framing and structural work on a Quest Construction project'],
@@ -184,7 +166,7 @@ export function script(c) {
 
 /** Oversized index rows — 03's way of listing anything. */
 const rowList = (c, items) => `
-<div class="peek" aria-hidden="true">${img(c, 'rebar.webp', '', { decorative: true })}</div>
+<div class="peek" aria-hidden="true">${img(c, 'quest/slab-poured.webp', '', { decorative: true })}</div>
 <div class="rows">${items.map((s, i) => `
   <a class="row rv" href="${c.url(`services/${s.slug}`)}"
      data-shot="${c.asset(SHOTS[i % SHOTS.length])}" data-alt="${esc(ALT[SHOTS[i % SHOTS.length]])}">
@@ -195,7 +177,7 @@ const rowList = (c, items) => `
 
 const closingCta = (c, heading, body) => `
 <section class="cta">
-  <div class="cta-bg" aria-hidden="true">${img(c, 'site-steel.webp', 'Structural steel on site')}</div>
+  <div class="cta-bg" aria-hidden="true">${img(c, 'quest/framing-header.webp', ALT['quest/framing-header.webp'])}</div>
   <div class="wrap">
     <h2>${esc(heading)}</h2>
     <div class="side"><p>${esc(body)}</p>
@@ -546,7 +528,7 @@ export function contact(c) {
         <div class="blk"><span class="k mono">Areas</span><p>${c.areas.areas.length} Arizona cities</p></div>
         <div class="blk"><span class="k mono">Services</span><p>${c.services.length} trades</p></div>
       </div>
-      <div class="vid rv">${img(c, 'quest/contact.webp', 'A Quest Construction project in Arizona')}</div>
+      <div class="vid rv">${img(c, 'quest/custom-home-gables.webp', 'A Quest Construction project in Arizona')}</div>
     </aside>
   </div>
 </section>

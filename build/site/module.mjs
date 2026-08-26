@@ -7,13 +7,14 @@
 // frame, the fonts are first-party, and the two section landing pages exist.
 import * as d01 from '../directions/d01.mjs';
 import { preloadImage } from '../lib/images.mjs';
+import { HERO } from '../lib/photos.mjs';
 
 export const meta = {
   slug: '',                 // '' means the origin root, not a subfolder
   name: 'Quest Construction',
   indexable: true,
   fonts: '',                // self-hosted; the @font-face rules are in the CSS
-  preload: (c) => (c.page.kind === 'home' ? preloadImage(c, 'excavator.webp') : ''),
+  preload: (c) => (c.page.kind === 'home' ? preloadImage(c, HERO) : ''),
   extraMeta: (c) => `<link rel="preload" as="font" type="font/woff2" \
 href="${c.local('assets/fonts/archivo-latin-var.woff2')}" crossorigin>
 <link rel="preload" as="font" type="font/woff2" \

@@ -1,65 +1,13 @@
 {
-  "bath.webp": [
-    1800,
-    1200
-  ],
-  "commercial.webp": [
-    1800,
-    1200
-  ],
-  "cranes.webp": [
-    1800,
-    1013
-  ],
-  "crew-slab.webp": [
-    1800,
-    1200
-  ],
-  "earthworks.webp": [
-    1800,
-    1349
-  ],
-  "excavator.webp": [
-    1385,
-    871
-  ],
-  "facade.webp": [
-    1800,
-    1200
-  ],
-  "framing.webp": [
-    1800,
-    1200
-  ],
-  "home-dusk.webp": [
-    1800,
-    1200
-  ],
-  "kitchen.webp": [
-    1800,
-    2700
-  ],
-  "loader.webp": [
-    1361,
-    1087
-  ],
-  "mech.webp": [
-    1800,
-    1430
-  ],
-  "neighborhood.webp": [
-    1800,
-    1200
-  ],
-  "og/cranes.jpg": [
+  "og/custom-home.jpg": [
     1200,
     630
   ],
-  "og/crew-slab.jpg": [
+  "og/deck.jpg": [
     1200,
     630
   ],
-  "og/excavator.jpg": [
+  "og/dusk.jpg": [
     1200,
     630
   ],
@@ -67,7 +15,11 @@
     1200,
     630
   ],
-  "og/neighborhood.jpg": [
+  "og/gables.jpg": [
+    1200,
+    630
+  ],
+  "og/lumber.jpg": [
     1200,
     630
   ],
@@ -75,37 +27,201 @@
     1200,
     630
   ],
-  "og/rebar.jpg": [
+  "og/slab.jpg": [
     1200,
     630
   ],
-  "og/site-steel.jpg": [
-    1200,
-    630
+  "quest/custom-home-gables.webp": [
+    1500,
+    1125
   ],
-  "og/trade-weld.jpg": [
-    1200,
-    630
+  "quest/custom-home-shell.webp": [
+    1125,
+    1500
   ],
-  "planning.webp": [
-    1800,
-    1201
+  "quest/custom-home-wide.webp": [
+    1500,
+    1125
   ],
-  "plans.webp": [
-    1800,
-    1013
+  "quest/deck-joists.webp": [
+    1500,
+    1125
   ],
-  "quest/contact.webp": [
-    1800,
-    1193
+  "quest/framing-block.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-clouds.webp": [
+    1500,
+    1125
+  ],
+  "quest/framing-corner.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-court.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-curve.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-header.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-hose.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-inside.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-ladder.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-long-wall.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-lumber.webp": [
+    1124,
+    1500
+  ],
+  "quest/framing-openings.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-palms.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-progress.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-roof.webp": [
+    1500,
+    1125
+  ],
+  "quest/framing-shade.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-sky.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-slab.webp": [
+    1500,
+    1125
+  ],
+  "quest/framing-sun.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-walls.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-wide.webp": [
+    1125,
+    1500
+  ],
+  "quest/gable-window.webp": [
+    1125,
+    1500
+  ],
+  "quest/gables-underlayment.webp": [
+    1125,
+    1500
   ],
   "quest/hero.webp": [
     1800,
     1013
   ],
+  "quest/home-dusk.webp": [
+    1500,
+    1125
+  ],
+  "quest/home-side.webp": [
+    1125,
+    1500
+  ],
+  "quest/home-trusses.webp": [
+    1125,
+    1500
+  ],
+  "quest/home-windows.webp": [
+    1125,
+    1500
+  ],
   "quest/logo.webp": [
     1261,
     285
+  ],
+  "quest/porch-dusk.webp": [
+    1124,
+    1500
+  ],
+  "quest/roof-deck.webp": [
+    1125,
+    1500
+  ],
+  "quest/roof-desert.webp": [
+    1125,
+    1500
+  ],
+  "quest/roof-eave.webp": [
+    1125,
+    1500
+  ],
+  "quest/roof-field.webp": [
+    1125,
+    1500
+  ],
+  "quest/roof-ridge.webp": [
+    1125,
+    1500
+  ],
+  "quest/roof-shingles.webp": [
+    1125,
+    1500
+  ],
+  "quest/roof-underlayment.webp": [
+    1125,
+    1500
+  ],
+  "quest/roof-valley.webp": [
+    1125,
+    1500
+  ],
+  "quest/sheathing-curve.webp": [
+    1125,
+    1500
+  ],
+  "quest/sheathing-panel.webp": [
+    1500,
+    1125
+  ],
+  "quest/slab-blockwall.webp": [
+    1500,
+    1125
+  ],
+  "quest/slab-lumber.webp": [
+    1500,
+    1125
+  ],
+  "quest/slab-poured.webp": [
+    1125,
+    1500
+  ],
+  "quest/slab-walls.webp": [
+    1125,
+    1500
   ],
   "quest/spare.webp": [
     1800,
@@ -114,29 +230,5 @@
   "quest/story.webp": [
     1800,
     1350
-  ],
-  "rebar.webp": [
-    1800,
-    1311
-  ],
-  "roofline.webp": [
-    1800,
-    2700
-  ],
-  "site-steel.webp": [
-    1800,
-    1192
-  ],
-  "trade-electric.webp": [
-    1800,
-    1202
-  ],
-  "trade-weld.webp": [
-    1800,
-    1200
-  ],
-  "worker.webp": [
-    291,
-    316
   ]
 }
