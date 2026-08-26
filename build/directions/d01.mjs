@@ -825,12 +825,6 @@ export function contact(c) {
 // the two URLs a visitor types by truncating, and the two pages an answer
 // engine wants when it is asked what a contractor does and where.
 
-/** First sentence of a paragraph, for a card blurb. */
-const firstSentence = (s) => {
-  const m = /^[\s\S]*?[.!?](?=\s|$)/.exec(String(s).trim());
-  return (m ? m[0] : String(s)).trim();
-};
-
 export function serviceIndex(c) {
   const cards = svcCards(c, 'View details');
 
@@ -896,14 +890,38 @@ ${closingCta(c, c.pages.home.ctaHeading, c.pages.home.ctaBody)}`;
 }
 
 export function areaIndex(c) {
-  const cards = c.areas.areas.map((a) => {
+  // A register, not a card grid. Eleven cities on cards is eleven boxes of the
+  // same shape holding one clipped sentence each — the reader scans none of it
+  // and learns nothing without clicking. As rows they read as an index, which
+  // is what this direction is named after, and the disclosure pays for itself:
+  // closed, it is a scannable list of where Quest builds; open, it is the whole
+  // first paragraph and the four things that actually differ about permitting
+  // and housing stock in that city.
+  //
+  // <details> rather than script: it is a button to a screen reader, it
+  // announces its own expanded state, it works from the keyboard, and it is
+  // already the FAQ pattern on the service pages. The link out sits in the
+  // panel but is in the document whether the row is open or shut, so every
+  // city stays one crawlable href from the hub.
+  const rows = c.areas.areas.map((a, i) => {
     const local = c.areasLocal[a.slug];
     return `
-    <a class="sc citycard rv" href="${c.url(`service-areas/${a.slug}`)}">
-      <h3>${esc(a.name)}</h3>
-      <p>${esc(firstSentence(local.paras[0]))}</p>
-      <span class="go">Building in ${esc(a.city)} <i aria-hidden="true">&#8599;</i></span>
-    </a>`;
+    <details class="reg rv"${i === 0 ? ' open' : ''}>
+      <summary>
+        <span class="reg-n mono">${String(i + 1).padStart(2, '0')}</span>
+        <span class="reg-name">${esc(a.name)}</span>
+        <span class="reg-mark" aria-hidden="true"></span>
+      </summary>
+      <div class="reg-panel">
+        <p>${esc(local.paras[0])}</p>
+        <div class="reg-side">
+          <ul class="reg-notes mono">${local.notes.slice(0, 4).map((n) =>
+    `<li>${esc(n)}</li>`).join('')}</ul>
+          <a class="go" href="${c.url(`service-areas/${a.slug}`)}">Building in ${esc(a.city)}
+            <i aria-hidden="true">&#8599;</i></a>
+        </div>
+      </div>
+    </details>`;
   }).join('');
 
   return `${pageHero(c, {
@@ -918,7 +936,7 @@ export function areaIndex(c) {
   <div class="wrap">
     ${shead('— Eleven cities', 'Where <span>Quest</span> Builds',
       'One crew, one licence, one phone number across the East Valley, Phoenix and Pinal County.')}
-    <div class="scope scope--3">${cards}</div>
+    <div class="register">${rows}</div>
   </div>
 </section>
 

@@ -741,6 +741,68 @@ footer .brand img{height:38px}
 .quality p{margin:0;font-size:14.5px;color:rgba(20,19,16,.78);max-width:76ch}
 @media(max-width:780px){.scope{grid-template-columns:1fr}}
 
+/* ---- the city register ----
+   Eleven rows, hairline ruled, numbered like a drawing index. Closed it is a
+   list you can scan in one pass; open it is the paragraph and the four things
+   that actually differ about building in that city.
+
+   Native <details>: a button to a screen reader, announcing its own expanded
+   state, keyboard-operable, no script. The marker is drawn rather than typed,
+   and it changes shape as well as colour — the open state does not depend on
+   anyone seeing the accent. */
+.register{position:relative;z-index:3;border-top:1px solid rgba(21,20,15,.16)}
+.reg{border-bottom:1px solid rgba(21,20,15,.16)}
+.reg summary{list-style:none;cursor:pointer;display:grid;
+  grid-template-columns:auto 1fr auto;align-items:center;
+  gap:clamp(14px,2.4vw,34px);padding:clamp(15px,1.7vw,22px) 0;min-height:64px}
+.reg summary::-webkit-details-marker{display:none}
+.reg summary:focus-visible{outline:2px solid var(--acc);outline-offset:4px;border-radius:6px}
+/* Tabular figures, or the column of numerals wanders as it counts past nine. */
+.reg-n{color:var(--mute-lt);font-variant-numeric:tabular-nums;font-size:11px;
+  transition:color .22s ease}
+.reg-name{font-size:clamp(21px,2.9vw,40px);font-weight:900;letter-spacing:-.035em;
+  line-height:1.05;transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+.reg[open] .reg-n{color:var(--acc-dim)}
+@media (hover:hover) and (pointer:fine){
+  .reg summary:hover .reg-n{color:var(--acc-dim)}
+  .reg summary:hover .reg-name{transform:translateX(7px)}
+}
+/* the marker: a plus that loses its upright to become a minus */
+.reg-mark{width:34px;height:34px;border-radius:50%;flex:0 0 auto;position:relative;
+  border:1.5px solid rgba(21,20,15,.22);transition:border-color .22s ease,background .22s ease}
+.reg-mark::before,.reg-mark::after{content:"";position:absolute;inset:50% 9px;
+  height:1.5px;background:var(--ink);transform:translateY(-50%);
+  transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+.reg-mark::after{transform:translateY(-50%) rotate(90deg)}
+.reg[open] .reg-mark{background:var(--acc);border-color:var(--acc)}
+.reg[open] .reg-mark::after{transform:translateY(-50%) rotate(90deg) scaleX(0)}
+@media (hover:hover) and (pointer:fine){
+  .reg summary:hover .reg-mark{border-color:var(--acc)}}
+
+.reg-panel{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);
+  gap:clamp(20px,3vw,52px);padding:0 0 clamp(22px,2.6vw,34px);
+  padding-left:calc(11px + clamp(14px,2.4vw,34px))}
+.reg-panel p{margin:0;color:var(--ink-2);max-width:68ch;
+  font-size:clamp(14.5px,1.4vw,16px)}
+.reg-notes{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:9px;
+  color:var(--mute-lt);font-size:10.5px}
+.reg-notes li{padding-left:16px;position:relative}
+.reg-notes li::before{content:"";position:absolute;left:0;top:.5em;
+  width:6px;height:6px;background:var(--acc)}
+.reg .go{display:inline-flex;align-items:center;gap:9px;min-height:24px;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;font-weight:700;color:var(--acc-dim)}
+.reg .go i{font-style:normal;transition:transform .28s ease}
+@media (hover:hover) and (pointer:fine){.reg .go:hover i{transform:translate(4px,-4px)}}
+/* A panel that appears instantly reads as a page jump rather than as a drawer. */
+@keyframes regopen{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.reg[open] .reg-panel{animation:regopen .26s cubic-bezier(.2,.8,.2,1) both}
+@media(prefers-reduced-motion:reduce){.reg[open] .reg-panel{animation:none}}
+@media(max-width:820px){
+  .reg-panel{grid-template-columns:1fr;padding-left:0}
+  .reg-name{font-size:clamp(19px,5vw,26px)}
+}
+
 /* ---- FAQ accordion ---- */
 .faqlist{position:relative;z-index:3;display:grid;gap:12px;max-width:940px}
 .faqlist details{background:#fff;border-radius:var(--r);padding:20px 24px;box-shadow:var(--sh)}
