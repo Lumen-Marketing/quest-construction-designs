@@ -670,11 +670,62 @@
   });
 })();
 (function(){
+  // Constraint validation, driven by the attributes already on the controls.
+  // The form carries novalidate because the browser's own bubbles show one at
+  // a time, vanish on the next click, and are not reliably announced — but
+  // novalidate only suppresses that UI. checkValidity() and the validity
+  // object still work, so the rules stay in the markup where they belong and
+  // only the presentation of them is ours.
   document.querySelectorAll('.contact-form').forEach(function(f){
+    var flds=[].slice.call(f.querySelectorAll('.fld'));
+    var note=f.querySelector('.form-note');
+    function ctl(fl){ return fl.querySelector('input,textarea'); }
+    // "Invalid input" tells a visitor that they are wrong and not what to do
+    // about it. Every message here names the cause and the fix.
+    function why(i){
+      var v=i.validity;
+      if(v.valueMissing) return i.getAttribute('data-missing')||'This one is required.';
+      if(v.typeMismatch&&i.type==='email')
+        return 'That address is missing its @ or its domain \u2014 check it and try again.';
+      return i.validationMessage;
+    }
+    function mark(fl,show){
+      var i=ctl(fl); if(!i) return true;
+      var ok=i.checkValidity(), bad=!ok&&show, e=fl.querySelector('.fld-err');
+      fl.classList.toggle('bad',bad);
+      i.setAttribute('aria-invalid',bad?'true':'false');
+      if(e) e.textContent=bad?why(i):'';
+      return ok;
+    }
+    flds.forEach(function(fl){
+      var i=ctl(fl); if(!i) return;
+      // On blur, never on keystroke: an email address is invalid for every
+      // character of it except the last, and saying so as it is typed is
+      // nagging rather than helping.
+      i.addEventListener('blur',function(){ mark(fl,true); });
+      // Once a field IS showing an error it clears the moment it is fixed.
+      i.addEventListener('input',function(){ if(fl.classList.contains('bad')) mark(fl,true); });
+    });
     f.addEventListener('submit',function(e){
       e.preventDefault();
-      var n=f.querySelector('.form-note');
-      if(n) n.textContent='This form is not connected yet \u2014 please call (602) 399-6455 and we will pick up.';
+      var bad=flds.filter(function(fl){ return !mark(fl,true); });
+      if(!note) return;
+      if(bad.length){
+        // A count, and the caret moved to the first one — with four fields
+        // that field is on screen by the time this sentence is read, so a
+        // list of anchors would be longer than the form.
+        note.className='form-note mono bad';
+        note.textContent=bad.length===1
+          ? 'One field still needs attention.'
+          : bad.length+' fields still need attention.';
+        var i=ctl(bad[0]); if(i) i.focus();
+        return;
+      }
+      // Nothing is wired to a mailbox yet, so the honest thing is to say so
+      // and hand over a route that does work rather than show a green tick.
+      note.className='form-note mono';
+      note.innerHTML='This form is not connected yet &#8212; please call '
+        +'<a href="tel:16023996455">(602) 399-6455</a> and we will pick up.';
     });
   });
 })();

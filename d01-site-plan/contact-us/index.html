@@ -285,16 +285,62 @@
   <div class="grid-bg" aria-hidden="true"></div>
   <div class="wrap contact-grid">
     <form class="contact-form rv" novalidate>
-      <h2>Get in touch!</h2>
-      <label>Name<input name="name" type="text" autocomplete="name" placeholder="First and last name"></label><label>Email<input name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com"></label><label>Phone<input name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="Best number to reach you"></label><label>Leave us a message<textarea name="message" rows="5" placeholder="What are you looking to build?…"></textarea></label>
-      <button class="btn acc" type="submit"><span class="pip"></span>Submit</button>
+      <div class="cf-head">
+        <h2>Get in touch!</h2>
+        <p>Tell us what you are building and where. Every enquiry reaches a person here, not a queue.</p>
+      </div>
+      <div class="cf-fields">
+      <div class="fld">
+        <label for="cf-name">
+          <span class="fld-name">Name</span>
+          <span class="fld-flag mono">Required</span>
+        </label>
+        <input id="cf-name" name="name" required data-missing="We need a name to know who we are calling back." autocomplete="name" placeholder="First and last name" aria-describedby="cf-name-err" type="text">
+        
+        <p class="fld-err mono" id="cf-name-err" aria-live="polite"></p>
+      </div><div class="cf-pair">
+      <div class="fld">
+        <label for="cf-email">
+          <span class="fld-name">Email</span>
+          <span class="fld-flag mono">Required</span>
+        </label>
+        <input id="cf-email" name="email" required data-missing="An email address, so there is a way to reach you in writing." autocomplete="email" inputmode="email" placeholder="you@example.com" aria-describedby="cf-email-help cf-email-err" type="email">
+        <p class="fld-help" id="cf-email-help">Where we reply if we cannot reach you by phone.</p>
+        <p class="fld-err mono" id="cf-email-err" aria-live="polite"></p>
+      </div>
+      <div class="fld">
+        <label for="cf-phone">
+          <span class="fld-name">Phone</span>
+          <span class="fld-flag mono">Optional</span>
+        </label>
+        <input id="cf-phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="Best number to reach you" aria-describedby="cf-phone-help cf-phone-err" type="tel">
+        <p class="fld-help" id="cf-phone-help">Optional, but it is the fastest way for us to answer you.</p>
+        <p class="fld-err mono" id="cf-phone-err" aria-live="polite"></p>
+      </div></div>
+      <div class="fld">
+        <label for="cf-message">
+          <span class="fld-name">Leave us a message</span>
+          <span class="fld-flag mono">Required</span>
+        </label>
+        <textarea id="cf-message" name="message" required data-missing="A sentence about the project is enough to get started." placeholder="What are you looking to build?…" aria-describedby="cf-message-help cf-message-err" rows="5"></textarea>
+        <p class="fld-help" id="cf-message-help">Rough scope, the city, and roughly when — that is enough to quote from.</p>
+        <p class="fld-err mono" id="cf-message-err" aria-live="polite"></p>
+      </div></div>
+      <div class="cf-foot">
+        <button class="btn acc" type="submit"><span class="pip"></span>Send enquiry</button>
+        <p class="cf-alt mono">Rather talk? <a href="tel:16023996455">(602) 399-6455</a>,
+          24/7</p>
+      </div>
       <p class="form-note mono" role="status" aria-live="polite"></p>
     </form>
     <aside class="help-card rv">
-      <h2>We're here to help</h2>
-      <p class="mono eyebrow">Phone — 24/7</p>
-      <a class="phone" href="tel:16023996455">(602) 399-6455</a>
-      <p>Expert craftsmanship for construction, remodeling, and home improvement projects across Arizona.</p>
+      <div class="help-top">
+        <h2>We're here to help</h2>
+        <p class="mono eyebrow">Phone — 24/7</p>
+        <a class="phone" href="tel:16023996455">(602) 399-6455</a>
+        <p>Expert craftsmanship for construction, remodeling, and home improvement projects across Arizona.</p>
+        <ul class="help-facts mono"><li>Family-owned, Arizona-based since 2005</li><li>14 trades under one contractor</li><li>11 cities across the Valley</li></ul>
+      </div>
       <div class="help-shot"><img src="../../assets/quest/custom-home-gables.webp" alt="Gables, windows and wall sheathing on a Quest Construction custom home" width="1500" height="1125" loading="lazy" decoding="async"></div>
     </aside>
   </div>
@@ -425,11 +471,62 @@
   });
 })();
 (function(){
+  // Constraint validation, driven by the attributes already on the controls.
+  // The form carries novalidate because the browser's own bubbles show one at
+  // a time, vanish on the next click, and are not reliably announced — but
+  // novalidate only suppresses that UI. checkValidity() and the validity
+  // object still work, so the rules stay in the markup where they belong and
+  // only the presentation of them is ours.
   document.querySelectorAll('.contact-form').forEach(function(f){
+    var flds=[].slice.call(f.querySelectorAll('.fld'));
+    var note=f.querySelector('.form-note');
+    function ctl(fl){ return fl.querySelector('input,textarea'); }
+    // "Invalid input" tells a visitor that they are wrong and not what to do
+    // about it. Every message here names the cause and the fix.
+    function why(i){
+      var v=i.validity;
+      if(v.valueMissing) return i.getAttribute('data-missing')||'This one is required.';
+      if(v.typeMismatch&&i.type==='email')
+        return 'That address is missing its @ or its domain \u2014 check it and try again.';
+      return i.validationMessage;
+    }
+    function mark(fl,show){
+      var i=ctl(fl); if(!i) return true;
+      var ok=i.checkValidity(), bad=!ok&&show, e=fl.querySelector('.fld-err');
+      fl.classList.toggle('bad',bad);
+      i.setAttribute('aria-invalid',bad?'true':'false');
+      if(e) e.textContent=bad?why(i):'';
+      return ok;
+    }
+    flds.forEach(function(fl){
+      var i=ctl(fl); if(!i) return;
+      // On blur, never on keystroke: an email address is invalid for every
+      // character of it except the last, and saying so as it is typed is
+      // nagging rather than helping.
+      i.addEventListener('blur',function(){ mark(fl,true); });
+      // Once a field IS showing an error it clears the moment it is fixed.
+      i.addEventListener('input',function(){ if(fl.classList.contains('bad')) mark(fl,true); });
+    });
     f.addEventListener('submit',function(e){
       e.preventDefault();
-      var n=f.querySelector('.form-note');
-      if(n) n.textContent='This form is not connected yet \u2014 please call (602) 399-6455 and we will pick up.';
+      var bad=flds.filter(function(fl){ return !mark(fl,true); });
+      if(!note) return;
+      if(bad.length){
+        // A count, and the caret moved to the first one — with four fields
+        // that field is on screen by the time this sentence is read, so a
+        // list of anchors would be longer than the form.
+        note.className='form-note mono bad';
+        note.textContent=bad.length===1
+          ? 'One field still needs attention.'
+          : bad.length+' fields still need attention.';
+        var i=ctl(bad[0]); if(i) i.focus();
+        return;
+      }
+      // Nothing is wired to a mailbox yet, so the honest thing is to say so
+      // and hand over a route that does work rather than show a green tick.
+      note.className='form-note mono';
+      note.innerHTML='This form is not connected yet &#8212; please call '
+        +'<a href="tel:16023996455">(602) 399-6455</a> and we will pick up.';
     });
   });
 })();

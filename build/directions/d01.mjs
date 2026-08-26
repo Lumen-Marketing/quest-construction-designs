@@ -336,11 +336,62 @@ export function baseScript(c) {
   });
 })();
 (function(){
+  // Constraint validation, driven by the attributes already on the controls.
+  // The form carries novalidate because the browser's own bubbles show one at
+  // a time, vanish on the next click, and are not reliably announced — but
+  // novalidate only suppresses that UI. checkValidity() and the validity
+  // object still work, so the rules stay in the markup where they belong and
+  // only the presentation of them is ours.
   document.querySelectorAll('.contact-form').forEach(function(f){
+    var flds=[].slice.call(f.querySelectorAll('.fld'));
+    var note=f.querySelector('.form-note');
+    function ctl(fl){ return fl.querySelector('input,textarea'); }
+    // "Invalid input" tells a visitor that they are wrong and not what to do
+    // about it. Every message here names the cause and the fix.
+    function why(i){
+      var v=i.validity;
+      if(v.valueMissing) return i.getAttribute('data-missing')||'This one is required.';
+      if(v.typeMismatch&&i.type==='email')
+        return 'That address is missing its @ or its domain \\u2014 check it and try again.';
+      return i.validationMessage;
+    }
+    function mark(fl,show){
+      var i=ctl(fl); if(!i) return true;
+      var ok=i.checkValidity(), bad=!ok&&show, e=fl.querySelector('.fld-err');
+      fl.classList.toggle('bad',bad);
+      i.setAttribute('aria-invalid',bad?'true':'false');
+      if(e) e.textContent=bad?why(i):'';
+      return ok;
+    }
+    flds.forEach(function(fl){
+      var i=ctl(fl); if(!i) return;
+      // On blur, never on keystroke: an email address is invalid for every
+      // character of it except the last, and saying so as it is typed is
+      // nagging rather than helping.
+      i.addEventListener('blur',function(){ mark(fl,true); });
+      // Once a field IS showing an error it clears the moment it is fixed.
+      i.addEventListener('input',function(){ if(fl.classList.contains('bad')) mark(fl,true); });
+    });
     f.addEventListener('submit',function(e){
       e.preventDefault();
-      var n=f.querySelector('.form-note');
-      if(n) n.textContent='This form is not connected yet \\u2014 please call ${c.site.phoneDisplay} and we will pick up.';
+      var bad=flds.filter(function(fl){ return !mark(fl,true); });
+      if(!note) return;
+      if(bad.length){
+        // A count, and the caret moved to the first one — with four fields
+        // that field is on screen by the time this sentence is read, so a
+        // list of anchors would be longer than the form.
+        note.className='form-note mono bad';
+        note.textContent=bad.length===1
+          ? 'One field still needs attention.'
+          : bad.length+' fields still need attention.';
+        var i=ctl(bad[0]); if(i) i.focus();
+        return;
+      }
+      // Nothing is wired to a mailbox yet, so the honest thing is to say so
+      // and hand over a route that does work rather than show a green tick.
+      note.className='form-note mono';
+      note.innerHTML='This form is not connected yet &#8212; please call '
+        +'<a href="${c.site.phoneHref}">${c.site.phoneDisplay}</a> and we will pick up.';
     });
   });
 })();
@@ -830,18 +881,57 @@ export function contact(c) {
     phone: { autocomplete: 'tel', inputmode: 'tel', placeholder: 'Best number to reach you' },
     message: { placeholder: 'What are you looking to build?…' },
   };
-  const attrs = (f) => {
+
+  // Every field is the same six parts: a name, a required/optional flag, the
+  // control, the standing hint under it, and an empty line waiting for an
+  // error. The flag is a word rather than a red asterisk — an asterisk is a
+  // convention you have to already know, and a colour is not information to a
+  // visitor who cannot see it. The hint and the error are both wired into
+  // aria-describedby, so a screen reader reads the field, then what it wants,
+  // then what is wrong with it, in that order.
+  const field = (f) => {
     const h = HINT[f.name] || {};
-    return [
-      h.autocomplete ? ` autocomplete="${h.autocomplete}"` : '',
-      h.inputmode ? ` inputmode="${h.inputmode}"` : '',
-      ` placeholder="${esc(h.placeholder || f.label)}"`,
-    ].join('');
+    const id = `cf-${f.name}`;
+    const help = f.help ? `${id}-help` : '';
+    const desc = [help, `${id}-err`].filter(Boolean).join(' ');
+    const shared = `id="${id}" name="${f.name}"${f.required ? ' required' : ''}`
+      + `${f.missing ? ` data-missing="${esc(f.missing)}"` : ''}`
+      + `${h.autocomplete ? ` autocomplete="${h.autocomplete}"` : ''}`
+      + `${h.inputmode ? ` inputmode="${h.inputmode}"` : ''}`
+      + ` placeholder="${esc(h.placeholder || f.label)}" aria-describedby="${desc}"`;
+    const control = f.type === 'textarea'
+      ? `<textarea ${shared} rows="5"></textarea>`
+      : `<input ${shared} type="${f.type}">`;
+    return `
+      <div class="fld">
+        <label for="${id}">
+          <span class="fld-name">${esc(f.label)}</span>
+          <span class="fld-flag mono">${f.required ? 'Required' : 'Optional'}</span>
+        </label>
+        ${control}
+        ${f.help ? `<p class="fld-help" id="${help}">${esc(f.help)}</p>` : ''}
+        <p class="fld-err mono" id="${id}-err" aria-live="polite"></p>
+      </div>`;
   };
 
-  const field = (f) => f.type === 'textarea'
-    ? `<label>${esc(f.label)}<textarea name="${f.name}" rows="5"${attrs(f)}></textarea></label>`
-    : `<label>${esc(f.label)}<input name="${f.name}" type="${f.type}"${attrs(f)}></label>`;
+  // Email and phone are one question asked twice — how to reach you — so they
+  // share a row rather than stacking as two more full-width slabs.
+  const byName = Object.fromEntries(p.fields.map((f) => [f.name, f]));
+  const paired = ['email', 'phone'].every((n) => byName[n]);
+  const body = paired
+    ? [field(byName.name), `<div class="cf-pair">${field(byName.email)}${field(byName.phone)}</div>`,
+      field(byName.message)].join('')
+    : p.fields.map(field).join('');
+
+  // Three facts, all of them already stated elsewhere on the site and all of
+  // them derived rather than typed here. They exist to give the card something
+  // to say while a visitor decides whether to call: an aside that is a phone
+  // number and one photograph is a caption, not a column.
+  const facts = [
+    `Family-owned, Arizona-based since ${c.site.foundingYear}`,
+    `${c.services.length} trades under one contractor`,
+    `${c.areas.areas.length} cities across the Valley`,
+  ];
 
   return `${pageHero(c, {
     h1: p.h1, lede: p.lede, crumb: 'Contact', banner: bannerShot('contact'), accent: 'us',
@@ -851,16 +941,26 @@ export function contact(c) {
   ${grid(false)}
   <div class="wrap contact-grid">
     <form class="contact-form rv" novalidate>
-      <h2>${esc(p.formHeading)}</h2>
-      ${p.fields.map(field).join('')}
-      <button class="btn acc" type="submit"><span class="pip"></span>Submit</button>
+      <div class="cf-head">
+        <h2>${esc(p.formHeading)}</h2>
+        <p>${esc(p.formLede)}</p>
+      </div>
+      <div class="cf-fields">${body}</div>
+      <div class="cf-foot">
+        <button class="btn acc" type="submit"><span class="pip"></span>${esc(p.submitLabel)}</button>
+        <p class="cf-alt mono">Rather talk? <a href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a>,
+          ${esc(c.site.availability)}</p>
+      </div>
       <p class="form-note mono" role="status" aria-live="polite"></p>
     </form>
     <aside class="help-card rv">
-      <h2>${esc(p.helpHeading)}</h2>
-      <p class="mono eyebrow">Phone — ${esc(c.site.availability)}</p>
-      <a class="phone" href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a>
-      <p>${esc(c.site.footerBlurb)}</p>
+      <div class="help-top">
+        <h2>${esc(p.helpHeading)}</h2>
+        <p class="mono eyebrow">Phone — ${esc(c.site.availability)}</p>
+        <a class="phone" href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a>
+        <p>${esc(c.site.footerBlurb)}</p>
+        <ul class="help-facts mono">${facts.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>
+      </div>
       <div class="help-shot">${img(c, ...shot(CONTACT))}</div>
     </aside>
   </div>

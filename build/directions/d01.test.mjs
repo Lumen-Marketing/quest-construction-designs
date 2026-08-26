@@ -11,6 +11,7 @@ const esc = (s) => String(s)
 
 const services = JSON.parse(readFileSync('content/services.json', 'utf8'));
 const areas = JSON.parse(readFileSync('content/areas.json', 'utf8')).areas;
+const site = JSON.parse(readFileSync('content/site.json', 'utf8'));
 
 test('direction 01 is the one indexable direction', () => {
   assert.equal(d01.meta.slug, 'd01-site-plan');
@@ -143,10 +144,14 @@ test('dropdown labels wrap rather than printing over the next column', () => {
 
 test('form fields are 16px, or iOS zooms the page in and does not zoom back', () => {
   const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
-  const field = css.match(/\.contact-form input,\.contact-form textarea\{[^}]*\}/);
+  const field = css.match(/\.fld input,\.fld textarea\{[^}]*\}/);
   assert.ok(field, 'no rule for the contact fields');
   const size = Number(field[0].match(/font-size:([\d.]+)px/)[1]);
   assert.ok(size >= 16, `contact fields are ${size}px, under the 16px iOS floor`);
+  // And the same rule carries the touch floor: a 48px control is the target
+  // size, not the 38px a bare font-size and padding would have produced.
+  const min = Number(field[0].match(/min-height:([\d.]+)px/)[1]);
+  assert.ok(min >= 44, `contact fields are ${min}px tall, under the 44px touch floor`);
 });
 
 test('the home page carries all fourteen service cards with icons', () => {
@@ -279,10 +284,80 @@ test('the contact page renders the whole form and the real phone number', () => 
   for (const n of ['name', 'email', 'phone', 'message']) {
     assert.ok(html.includes(`name="${n}"`), `contact form missing field ${n}`);
   }
-  assert.match(html, /<textarea name="message"/);
+  assert.match(html, /<textarea id="cf-message" name="message"/);
   assert.match(html, /<button class="btn acc" type="submit">/);
   assert.ok(html.includes('href="tel:16023996455"'));
   assert.match(html, /aria-live="polite"/);
+});
+
+test('every contact field is labelled, flagged, and wired to its own error line', () => {
+  const html = renderPage({ mod: d01, key: 'contact' });
+  const fields = html.match(/<div class="fld">[\s\S]*?<\/div>/g) || [];
+  assert.equal(fields.length, 4, `expected four fields, found ${fields.length}`);
+  for (const f of fields) {
+    const id = /id="(cf-[a-z]+)"/.exec(f);
+    assert.ok(id, `a field renders no control id: ${f.slice(0, 80)}`);
+    // A label the control is actually associated with — not a bare <span>,
+    // and not a placeholder standing in for one.
+    assert.ok(f.includes(`<label for="${id[1]}">`), `${id[1]} has no label bound to it`);
+    // Required or Optional, in words. A red asterisk is a convention the
+    // visitor has to already know, and a colour is not information at all to
+    // a visitor who cannot see it.
+    assert.match(f, /class="fld-flag mono">(Required|Optional)</, `${id[1]} carries no flag`);
+    // Every field has somewhere for its error to go, and says so.
+    assert.ok(f.includes(`id="${id[1]}-err"`), `${id[1]} has no error line`);
+    const desc = /aria-describedby="([^"]*)"/.exec(f);
+    assert.ok(desc, `${id[1]} describes itself by nothing`);
+    assert.ok(desc[1].split(' ').includes(`${id[1]}-err`),
+      `${id[1]} does not point at its own error line`);
+    for (const ref of desc[1].split(' ')) {
+      assert.ok(f.includes(`id="${ref}"`), `${id[1]} points at a missing ${ref}`);
+    }
+  }
+  // Three of the four will not submit empty, and each says why in its own
+  // words rather than leaving the browser to say "Please fill out this field".
+  const required = fields.filter((f) => / required/.test(f));
+  assert.equal(required.length, 3, 'expected name, email and message to be required');
+  for (const f of required) {
+    assert.match(f, /data-missing="[^"]{20,}"/, 'a required field carries no message of its own');
+  }
+  // The typed fields keep their types, so the phone keypad comes up for the
+  // phone and the browser can autofill all three.
+  assert.match(html, /id="cf-email"[^>]* type="email"/);
+  assert.match(html, /id="cf-phone"[^>]* type="tel"/);
+  for (const a of ['autocomplete="name"', 'autocomplete="email"', 'autocomplete="tel"']) {
+    assert.ok(html.includes(a), `contact form missing ${a}`);
+  }
+});
+
+test('the contact form validates in the page, and says where to go when it cannot', () => {
+  const html = renderPage({ mod: d01, key: 'contact' });
+  // novalidate suppresses the browser's own bubbles, so the page has to do
+  // the work itself — the attribute without the script is a form that
+  // accepts an empty submission in silence.
+  assert.match(html, /<form class="contact-form rv" novalidate>/);
+  assert.match(html, /checkValidity\(\)/, 'no constraint validation in the page');
+  assert.match(html, /addEventListener\('blur'/, 'nothing validates when a field is left');
+  assert.match(html, /aria-invalid/, 'invalid fields are never marked as such');
+  assert.match(html, /still needs? attention/, 'a failed submit reports nothing');
+  assert.match(html, /\.focus\(\)/, 'a failed submit does not move to the first bad field');
+  // The dead end has an exit: the form is not wired to a mailbox, and the
+  // notice that says so hands over the number instead.
+  assert.match(html, /not connected yet[\s\S]{0,120}tel:16023996455/);
+});
+
+test('the contact aside claims nothing the content file does not already say', () => {
+  const html = renderPage({ mod: d01, key: 'contact' });
+  const facts = (html.match(/<ul class="help-facts mono">([\s\S]*?)<\/ul>/) || [])[1];
+  assert.ok(facts, 'the aside renders no facts');
+  // Each one is derived from data, so none of them can drift from the site:
+  // the founding year, the number of trades, the number of cities.
+  assert.ok(facts.includes(site.foundingYear), 'the founding year is not the real one');
+  assert.ok(facts.includes(String(services.length)), 'the trade count is not the real one');
+  assert.ok(facts.includes(String(areas.length)), 'the city count is not the real one');
+  // Nothing about licensing, bonding or insurance: Quest has not said it
+  // anywhere in the content, and a contractor's licence is not ours to claim.
+  assert.doesNotMatch(facts, /licen[sc]|insur|bonded/i);
 });
 
 test('every service card carries its own photograph, and no two share one', async () => {

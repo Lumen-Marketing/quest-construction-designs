@@ -28,6 +28,11 @@
   --ink-2:#4A4740;
   --mute:#8C877C;           /* dark grounds only */
   --mute-lt:#6E6A5E;        /* the same role on cream or white, at 5:1 */
+  /* The one semantic colour outside the brand: a field that will not submit.
+     Rust rather than a signal red so it belongs beside the accent, and dark
+     enough to clear 7:1 on white and 6.8:1 on cream, because an error message
+     is the text a visitor most needs to be able to read. */
+  --bad:#A3261C;
   --on-dark:#F3EFE6;
   --on-dark-2:#A8A399;
 
@@ -953,37 +958,111 @@ footer .brand img{height:38px}
   .pjcard:nth-child(even) .pjshot{order:0}
 }
 
-.contact-grid{position:relative;z-index:3;display:grid;grid-template-columns:1.25fr .75fr;
-  gap:clamp(20px,3vw,34px);align-items:start}
+/* ---------- the contact plates ----------
+   Two columns that used to be align-items:start, which let the form run some
+   two hundred pixels past the foot of the aside and left a hole in the cream
+   beside it. They stretch now, and the photograph at the foot of the aside is
+   the flexible part: whatever height the form comes out, the picture takes up
+   the difference. Nothing is measured, and nothing has to be kept in step by
+   hand when a field is added. */
+.contact-grid{position:relative;z-index:3;display:grid;grid-template-columns:1.3fr .8fr;
+  gap:clamp(20px,3vw,34px);align-items:stretch}
 .contact-form{background:#fff;border-radius:var(--r-lg);padding:var(--sp-2);
-  box-shadow:var(--sh-lg);display:grid;gap:15px}
-.contact-form h2{font-size:clamp(24px,3vw,36px);font-weight:900;margin-bottom:6px}
-.contact-form label{display:grid;gap:7px;font-size:12px;font-weight:700;
-  letter-spacing:.04em;text-transform:uppercase;color:var(--mute-lt)}
-/* 16px, not 15px. Safari on iOS zooms the whole page in when a field under
-   16px takes focus, and it does not zoom back out — the visitor is left on a
-   form that scrolls sideways, halfway through typing. */
-.contact-form input,.contact-form textarea{font:inherit;font-size:16px;padding:14px 16px;
-  border:1px solid rgba(21,20,15,.16);border-radius:var(--r);background:var(--cream);
-  color:var(--ink);width:100%}
-.contact-form input:focus,.contact-form textarea:focus{outline:2px solid var(--acc);
-  outline-offset:1px;border-color:transparent}
-.contact-form textarea{resize:vertical}
-.contact-form .btn{justify-self:start;margin-top:6px}
-.form-note{color:var(--acc-dim);min-height:1.4em;letter-spacing:.08em;text-transform:none}
+  box-shadow:var(--sh-lg);display:grid;gap:clamp(20px,2.4vw,30px);align-content:start}
+.cf-head h2{font-size:clamp(24px,3vw,36px);font-weight:900;margin:0 0 10px}
+.cf-head p{margin:0;color:var(--ink-2);font-size:15px;max-width:46ch}
+.cf-fields{display:grid;gap:18px}
+/* Email and phone are one question asked twice. */
+.cf-pair{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+
+/* ---- one field ----
+   The label row is a name on the left and a Required/Optional word on the
+   right, both in the drawing-label register the rest of the direction uses for
+   annotation. A word rather than a red asterisk: an asterisk is a convention
+   the visitor has to already know, and a colour carries nothing to a visitor
+   who cannot see it. */
+.fld{display:grid;gap:7px;min-width:0;align-content:start}
+.fld label{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.fld-name{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--ink-2)}
+.fld-flag{font-size:10.5px;letter-spacing:.13em;color:var(--mute-lt);flex:0 0 auto}
+/* The controls used to be 16px-radius cream slabs on a white plate, which is
+   the shape and the fill of a button — the form read as a stack of five things
+   to press. Squarer, inset by a hairline and a top shadow, they read as
+   something to type into instead, and the one pill on the plate is the one
+   thing that submits it.
+   16px type, not 15px. Safari on iOS zooms the whole page in when a field
+   under 16px takes focus, and it does not zoom back out — the visitor is left
+   on a form that scrolls sideways, halfway through typing. */
+.fld input,.fld textarea{font:inherit;font-size:16px;padding:13px 15px;width:100%;
+  border:1px solid rgba(21,20,15,.18);border-radius:9px;background:var(--cream);
+  color:var(--ink);min-height:48px;
+  box-shadow:inset 0 1px 2px rgba(21,20,15,.05);
+  transition:border-color .18s ease,background .18s ease,box-shadow .18s ease}
+.fld textarea{resize:vertical;min-height:132px;line-height:1.55}
+.fld input::placeholder,.fld textarea::placeholder{color:var(--mute-lt);opacity:1}
+.fld input:hover,.fld textarea:hover{border-color:rgba(21,20,15,.32)}
+.fld input:focus,.fld textarea:focus{outline:2px solid var(--acc);outline-offset:1px;
+  border-color:transparent;background:#fff;box-shadow:none}
+/* Standing help, not a placeholder: a placeholder is gone by the time the
+   visitor is typing, which is exactly when the hint is wanted. */
+.fld-help{margin:0;font-size:12.5px;line-height:1.5;color:var(--mute-lt)}
+.fld-err{margin:0;color:var(--bad);font-size:12px;font-weight:500;letter-spacing:.01em;
+  text-transform:none;line-height:1.55}
+.fld-err:empty{display:none}
+/* The failed state is a border weight, a wash, and a word — three signals, so
+   it survives being unable to see the colour. */
+.fld.bad input,.fld.bad textarea{border-color:var(--bad);border-width:1.5px;
+  background:color-mix(in srgb,var(--bad) 5%,#fff)}
+.fld.bad .fld-name{color:var(--bad)}
+.fld.bad .fld-err::before{content:"! ";font-weight:700}
+
+.cf-foot{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
+.cf-foot .btn{flex:0 0 auto}
+/* The form is one of two ways to reach a contractor and the slower one. The
+   other sits right beside the button rather than only in the aside. */
+.cf-alt{color:var(--mute-lt);text-transform:none;letter-spacing:.02em;font-size:12px}
+.cf-alt a{color:var(--acc-dim);font-weight:700;text-decoration:underline;
+  text-underline-offset:3px;display:inline-flex;align-items:center;min-height:24px}
+.form-note{margin:0;color:var(--acc-dim);letter-spacing:.02em;text-transform:none;
+  font-size:12.5px;font-weight:500;line-height:1.6}
+.form-note:empty{display:none}
+.form-note.bad{color:var(--bad)}
+.form-note a{color:inherit;font-weight:700;text-decoration:underline;
+  text-underline-offset:3px}
+
+/* ---- the aside ---- */
 .help-card{background:var(--dark);color:var(--on-dark);border-radius:var(--r-lg);
-  padding:var(--sp-2);box-shadow:var(--sh-lg);overflow:hidden}
+  padding:var(--sp-2);box-shadow:var(--sh-lg);overflow:hidden;
+  display:flex;flex-direction:column;gap:26px}
 .help-card h2{font-size:clamp(21px,2.4vw,28px);font-weight:900;margin-bottom:18px}
 .help-card .eyebrow{color:var(--acc-on-dark);margin-bottom:8px}
 .help-card .phone{display:block;font-size:clamp(26px,3.2vw,38px);font-weight:900;
   letter-spacing:-.04em;color:var(--acc);margin-bottom:18px}
 .help-card p{color:var(--on-dark-2);font-size:14.5px;margin:0}
-.help-shot{margin-top:26px;border-radius:var(--r);overflow:hidden}
-/* height:auto is load-bearing. Every <img> carries intrinsic width/height
-   attributes, which are presentational hints; with width:100% and no CSS
-   height, both dimensions are set and aspect-ratio is ignored entirely. */
-.help-shot img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
-@media(max-width:880px){.contact-grid{grid-template-columns:1fr}}
+/* Three facts, all of them already stated elsewhere on the site. They are here
+   so the card has something to say while a visitor decides whether to call. */
+.help-facts{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:10px;
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-dark-2)}
+.help-facts li{padding-left:16px;position:relative;line-height:1.5}
+.help-facts li::before{content:"";position:absolute;left:0;top:.45em;
+  width:6px;height:6px;background:var(--acc)}
+/* The flexible part. The form decides the height of the row; the photograph
+   takes whatever is left, which is what keeps the two plates level. */
+.help-shot{flex:1 1 auto;min-height:200px;border-radius:var(--r);overflow:hidden}
+.help-shot img{width:100%;height:100%;object-fit:cover}
+
+@media(max-width:880px){
+  .contact-grid{grid-template-columns:1fr}
+  /* Nothing left to match heights with, so the picture goes back to its own
+     shape rather than stretching to fill a column that is no longer there. */
+  .help-shot{min-height:0}
+  .help-shot img{height:auto;aspect-ratio:16/10}
+}
+@media(max-width:520px){
+  .cf-pair{grid-template-columns:1fr}
+  .cf-foot .btn{width:100%;justify-content:center}
+}
 
 .smap{position:relative;z-index:3;display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(26px,4vw,54px)}

@@ -53,25 +53,37 @@
       {
         "name": "name",
         "label": "Name",
-        "type": "text"
+        "type": "text",
+        "required": true,
+        "missing": "We need a name to know who we are calling back."
       },
       {
         "name": "email",
         "label": "Email",
-        "type": "email"
+        "type": "email",
+        "required": true,
+        "help": "Where we reply if we cannot reach you by phone.",
+        "missing": "An email address, so there is a way to reach you in writing."
       },
       {
         "name": "phone",
         "label": "Phone",
-        "type": "tel"
+        "type": "tel",
+        "required": false,
+        "help": "Optional, but it is the fastest way for us to answer you."
       },
       {
         "name": "message",
         "label": "Leave us a message",
-        "type": "textarea"
+        "type": "textarea",
+        "required": true,
+        "help": "Rough scope, the city, and roughly when — that is enough to quote from.",
+        "missing": "A sentence about the project is enough to get started."
       }
     ],
-    "helpHeading": "We're here to help"
+    "helpHeading": "We're here to help",
+    "formLede": "Tell us what you are building and where. Every enquiry reaches a person here, not a queue.",
+    "submitLabel": "Send enquiry"
   },
   "sitemap": {
     "h1": "Sitemap",
