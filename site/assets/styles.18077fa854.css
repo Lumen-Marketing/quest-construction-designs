@@ -704,14 +704,11 @@ footer .brand img{height:38px}
 .subhero .wrap{position:relative;z-index:4}
 .subhero-in{max-width:min(660px,58%)}
 .subhero h1{font-size:clamp(30px,4.4vw,58px);font-weight:900;color:var(--on-dark);
-  letter-spacing:-.03em;margin-top:18px;text-shadow:0 2px 30px rgba(0,0,0,.45)}
+  letter-spacing:-.03em;margin-top:22px;text-shadow:0 2px 30px rgba(0,0,0,.45)}
 /* the one word in accent — the reference's move, and the only colour up here */
 .subhero h1 .hl{color:var(--acc-on-dark)}
 .subhero .lede{margin:20px 0 28px;font-size:clamp(14.5px,1.4vw,17px);max-width:42ch;
   color:var(--on-dark-2)}
-.subhero .ic.big{width:64px;height:64px;border-radius:18px;background:var(--acc);
-  display:grid;place-items:center;box-shadow:0 14px 34px color-mix(in srgb,var(--acc) 34%,transparent)}
-.subhero .ic.big svg{width:30px;height:30px;stroke:var(--on-acc);fill:none;stroke-width:2}
 /* .btn.ghost is drawn for an accent ground, where "on-acc" is near-black. Here
    the ground is the photograph, so it borrows the dark-ground ink instead. */
 .subhero .btn.ghost{color:var(--on-dark);

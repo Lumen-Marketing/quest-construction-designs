@@ -515,7 +515,6 @@ export function service(c) {
     </nav>
     <div class="subhero-in">
       <div>
-        <span class="ic big">${icon(s.slug)}</span>
         <h1>${hl(s.h1, s.name)}</h1>
         <p class="lede">${esc(s.subheroTagline)}</p>
         <div class="hero-acts">
