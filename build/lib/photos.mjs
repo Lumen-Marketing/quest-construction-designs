@@ -28,7 +28,7 @@ export const ALT = {
   // The alt text describes the material, because that is what the picture is
   // for. None of them claims to be a Quest job, and none is captioned as one.
   'mat/kit.webp': 'A hard hat, hi-vis vest, work gloves, saw, hammer, pliers, tape measure and screwdriver laid out together',
-  'mat/hats.webp': 'Rows of hard hats racked on shelves in every colour',
+  'mat/blocks.webp': 'Concrete masonry blocks stacked in courses, their hollow cores in deep shadow',
   'mat/board.webp': 'The face of an oriented strand board, its chips pressed flat in every direction',
   'mat/gear.webp': 'A hard hat, safety glasses and work gloves laid out on a timber bench',
 
@@ -176,7 +176,7 @@ export const HERO = 'mat/kit.webp';
  * and no single subject to fight the headline. See .hero-panel for the overlay
  * that holds it down, and the contrast it has to leave behind.
  */
-export const HERO_GROUND = 'mat/hats.webp';
+export const HERO_GROUND = 'mat/blocks.webp';
 
 /** The band across the head of each offer voucher, in the order they are listed. */
 export const OFFER_SHOTS = ['mat/board.webp', 'mat/gear.webp'];

@@ -3,6 +3,24 @@
   "rule": "CC0 only. Public-domain dedication: commercial use permitted, no attribution required, no share-alike. Anything added here must carry the same, and build/lib/images.test.mjs enforces that every non-Quest image in the tree is listed in this file.",
   "images": [
     {
+      "file": "mat/blocks.webp",
+      "alt": "Concrete masonry blocks stacked in courses, their hollow cores in deep shadow",
+      "width": 1800,
+      "height": 1200,
+      "bytes": 164640,
+      "license": "cc0",
+      "license_version": null,
+      "commercial_use": true,
+      "attribution_required": false,
+      "title": "Close-Up of Stacked Concrete Blocks in Sunlight",
+      "creator": "Pecid2180",
+      "source": "wikimedia",
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Close-Up_of_Stacked_Concrete_Blocks_in_Sunlight.jpg",
+      "landing_page": "https://commons.wikimedia.org/w/index.php?curid=185420836",
+      "found_via": "openverse api, license=cc0",
+      "processing": "Lightened and crushed on the way in (ffmpeg eq brightness=0.34 contrast=0.36) so the accent plane can sit over it as a tint rather than a lid. Chosen for the one property that survives a tint: big repeating shapes. Fine detail flattens first, which is why framing studs and small hats read as noise here and block courses do not. Monochrome by luck and kept that way — it takes the accent cleanly instead of muddying with it the way a red brick texture did."
+    },
+    {
       "file": "mat/board.webp",
       "alt": "The face of an oriented strand board, its chips pressed flat in every direction",
       "width": 1200,
@@ -57,16 +75,6 @@
         "width": 1500,
         "height": 976,
         "bytes": 172762
-      },
-      {
-        "file": "mat/hats.webp",
-        "supplied_as": "Untitled design (20).png",
-        "alt": "Rows of hard hats racked on shelves in every colour",
-        "used_for": "the ground under the whole hero, tinted by the accent plane on one side of the lean",
-        "note": "Lightened hard and its contrast crushed on the way in (ffmpeg eq brightness=0.36 contrast=0.40 saturation=1.22). That is what lets the accent plane be a TINT at about three quarters rather than a lid: the picture gave up its brightness range so the orange could give up its opacity, and a contrast ratio is computed from luminance alone so the colour it kept costs nothing. Untouched under the same tint, dark type landed on a dark shelf line at 1.27:1. Every line on the plane is measured on all three palettes by shots/herotext.mjs, at 1440 and 390.",
-        "width": 1800,
-        "height": 1012,
-        "bytes": 99318
       }
     ]
   }
