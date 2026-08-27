@@ -1,0 +1,98 @@
+{
+  "why": "Quest asked for construction materials on the front page and has no photography of its own of them — Quest photographs jobs, not stock. These are the only photographs on the site Quest did not take.",
+  "rule": "CC0 only. Public-domain dedication: commercial use permitted, no attribution required, no share-alike. Anything added here must carry the same, and build/lib/images.test.mjs enforces that every non-Quest image in the tree is listed in this file.",
+  "images": [
+    {
+      "file": "mat/tools.webp",
+      "alt": "A mason’s hammer, chisel, work gloves, boots and cut brick laid out on timber",
+      "width": 960,
+      "height": 720,
+      "bytes": 84758,
+      "license": "cc0",
+      "license_version": "1.0",
+      "commercial_use": true,
+      "attribution_required": false,
+      "title": "Construction Tools",
+      "creator": "The World is a Stage",
+      "source": "stocksnap",
+      "source_url": "https://cdn.stocksnap.io/img-thumbs/960w/EJZBX7UMTV.jpg",
+      "landing_page": "https://stocksnap.io/photo/construction-tools-EJZBX7UMTV",
+      "found_via": "openverse api, license=cc0"
+    },
+    {
+      "file": "mat/block.webp",
+      "alt": "Concrete masonry blocks stacked in courses, their aggregate faces exposed",
+      "width": 1200,
+      "height": 900,
+      "bytes": 350078,
+      "license": "cc0",
+      "license_version": "1.0",
+      "commercial_use": true,
+      "attribution_required": false,
+      "title": "Stacked concrete blocks with rough, textured surfaces arranged tightly. The uniform pattern and muted tones convey a sense of industrial simplicity.",
+      "creator": "appealdahal",
+      "source": "wordpress",
+      "source_url": "https://pd.w.org/2026/05/236a1292e1c1d2a3.85863464-2048x1536.jpg",
+      "landing_page": "https://wordpress.org/photos/photo/236a1292e1/",
+      "found_via": "openverse api, license=cc0"
+    },
+    {
+      "file": "mat/board.webp",
+      "alt": "The face of an oriented strand board, its chips pressed flat in every direction",
+      "width": 1200,
+      "height": 800,
+      "bytes": 239430,
+      "license": "cc0",
+      "license_version": "1.0",
+      "commercial_use": true,
+      "attribution_required": false,
+      "title": "Close-up view of an oriented strand board (OSB) surface, showing the textured and irregular arrangement of wood chips bonded together.",
+      "creator": "Nilo Velez",
+      "source": "wordpress",
+      "source_url": "https://pd.w.org/2025/01/227678505973ce788.72202401-2048x1365.jpg",
+      "landing_page": "https://wordpress.org/photos/photo/2276785059/",
+      "found_via": "openverse api, license=cc0"
+    },
+    {
+      "file": "mat/gear.webp",
+      "alt": "A hard hat, safety glasses and work gloves laid out on a timber bench",
+      "width": 1200,
+      "height": 900,
+      "bytes": 97494,
+      "license": "cc0",
+      "license_version": "1.0",
+      "commercial_use": true,
+      "attribution_required": false,
+      "title": "Construction Tools",
+      "creator": "The World is a Stage",
+      "source": "stocksnap",
+      "source_url": "https://cdn.stocksnap.io/img-thumbs/960w/ZEYJ3YBEGP.jpg",
+      "landing_page": "https://stocksnap.io/photo/construction-tools-ZEYJ3YBEGP",
+      "found_via": "openverse api, license=cc0"
+    },
+    {
+      "file": "mat/brick.webp",
+      "alt": "Clay bricks stacked in tight courses inside a drying chamber",
+      "width": 900,
+      "height": 1200,
+      "bytes": 154466,
+      "license": "cc0",
+      "license_version": "1.0",
+      "commercial_use": true,
+      "attribution_required": false,
+      "title": "Clay bricks stacked inside a drying chamber. Photo taken in Perumanna, Kozhikode, Kerala, showing a step before the firing process in traditional kilns.",
+      "creator": "Bigul Malayi",
+      "source": "wordpress",
+      "source_url": "https://pd.w.org/2025/10/30069039f93e61f51.56455201-1536x2048.jpeg",
+      "landing_page": "https://wordpress.org/photos/photo/30069039f9/",
+      "found_via": "openverse api, license=cc0"
+    }
+  ],
+  "rejected": [
+    {
+      "file": "mat/tile.webp (not adopted)",
+      "why": "Terracotta roof tiles with KERALA TILES and JOHN'S TILE WORKS cast into their faces. Another firm's name on Quest's front page, which is the same rule that ruled out six of the seven machine cut-outs in assets/cut/.",
+      "landing_page": "https://wordpress.org/photos/photo/30968f0c0c/"
+    }
+  ]
+}

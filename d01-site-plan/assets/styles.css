@@ -896,47 +896,62 @@ footer .brand img{height:38px}
 @media(max-width:880px){.split{grid-template-columns:1fr}}
 
 /* ---- offers band ---- */
-/* ---- the offer cards ----
-   They were --dark-2 on --dark with a hairline border: the same value as the
-   band behind them, no shadow, and nothing to say which was in front. Two
-   rectangles drawn on a page rather than two cards lying on one.
+/* ---- the offer vouchers ----
+   They were two --dark-2 rectangles on --dark with a hairline border: the same
+   value as the band behind them, no shadow, nothing saying which was in front.
+   The first fix lit them, and the light was the wrong answer — a glow is a
+   thing done TO a flat component rather than a component that has a shape.
 
-   Same elevation the pills and the accent bar carry — lit hairline along the
-   top, shaded one along the foot, a short contact shadow and a wide ambient
-   one — plus the thing the card is actually about. The number is the whole
-   point of an offer card and it was a flat orange shape, so it is lit now: a
-   soft accent bloom behind it and a glow off the glyphs themselves. Both live
-   in the top corner where the number is, and both are masked away from the
-   body copy below, because --on-dark-2 on --dark-2 has 7:1 to spend and a
-   wash under it would spend it. */
+   So the component changed instead. An offer is a voucher: an amount, its
+   terms, and a code you take away. This one is built like one — a band of the
+   material across the head, a torn edge under it with a notch punched out of
+   each side, and the offer on the stub below. The depth is the shape and the
+   elevation now, which is why nothing has to glow. */
 .offers{position:relative;z-index:3;display:grid;grid-template-columns:1fr 1fr;
   gap:clamp(16px,2.2vw,28px)}
-.offer{position:relative;isolation:isolate;background:var(--dark-2);
-  border:1px solid rgba(243,239,230,.09);
-  border-radius:var(--r-lg);padding:var(--sp-1);overflow:hidden;
+/* No overflow:hidden. The notches are drawn outside the card's own box, and
+   clipping them turns the torn edge back into a straight one. */
+.offer{position:relative;background:var(--dark-2);
+  border:1px solid rgba(243,239,230,.09);border-radius:var(--r-lg);
+  display:grid;grid-template-rows:auto 0 1fr;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08),
     inset 0 -1px 0 rgba(0,0,0,.4),
     0 2px 6px rgba(0,0,0,.36),
     0 24px 48px -14px rgba(0,0,0,.55);
   transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease}
-/* The bloom. A circle bled off the top-left corner so the light has a
-   direction — the same one everything else on the page is lit from. */
-.offer::before{content:"";position:absolute;z-index:0;left:-34%;top:-62%;
-  width:52%;aspect-ratio:1;pointer-events:none;
-  background:radial-gradient(circle at 50% 50%,
-    color-mix(in srgb,var(--acc) 22%,transparent) 0%,
-    color-mix(in srgb,var(--acc) 10%,transparent) 45%,transparent 72%)}
-.offer>*{position:relative;z-index:1}
+.offer-shot{height:clamp(118px,14vw,164px);overflow:hidden;
+  border-radius:calc(var(--r-lg) - 1px) calc(var(--r-lg) - 1px) 0 0;
+  background:var(--dark-3)}
+.offer-shot img{width:100%;height:100%;object-fit:cover;
+  transition:transform 1.1s cubic-bezier(.2,.8,.2,1)}
+@media (hover:hover) and (pointer:fine){.offer:hover .offer-shot img{transform:scale(1.05)}}
+
+/* The tear. Two circles of the band's own colour bitten out of the sides, and
+   a dashed rule running between them — a zero-height row, so the seam sits on
+   the boundary rather than taking space from either side of it. */
+.offer-seam{position:relative}
+.offer-seam::before,.offer-seam::after{content:"";position:absolute;top:-12px;
+  width:24px;height:24px;border-radius:50%;background:var(--dark)}
+.offer-seam::before{left:-13px}
+.offer-seam::after{right:-13px}
+/* Punched holes rather than a dashed rule. The dashes were --on-dark at a
+   quarter strength and lay along the bottom row of the photograph, where a
+   pale line on a pale board is no line at all. These are holes in the band's
+   own colour bitten straight through the seam — which is what a perforation
+   actually is, and it reads the same whatever photograph is above it. */
+.offer-seam i{position:absolute;left:14px;right:14px;top:-3px;height:6px;display:block;
+  background:radial-gradient(circle at 3px 3px,var(--dark) 2.6px,transparent 3px);
+  background-size:15px 6px}
+
+.offer-body{padding:var(--sp-1)}
 .offer b{display:block;font-size:clamp(44px,6vw,86px);font-weight:900;letter-spacing:-.05em;
-  line-height:1;color:var(--acc);
-  text-shadow:0 8px 34px color-mix(in srgb,var(--acc) 42%,transparent)}
-.offer h3{font-size:clamp(19px,2.1vw,26px);margin:18px 0 12px;font-weight:800}
+  line-height:1;color:var(--acc)}
+.offer h3{font-size:clamp(19px,2.1vw,26px);margin:14px 0 12px;font-weight:800}
 .offer p{margin:0 0 24px;font-size:14.5px;color:var(--on-dark-2);max-width:46ch}
 /* focus-within as well as hover: the card is not the control — the button
-   inside it is — so a keyboard tabbing to that button should see the card
+   inside it is — so a keyboard tabbing to that button should see the voucher
    come forward the same way a pointer does. */
-@media (hover:hover) and (pointer:fine){
-  .offer:hover{transform:translateY(-4px)}}
+@media (hover:hover) and (pointer:fine){.offer:hover{transform:translateY(-4px)}}
 .offer:hover,.offer:focus-within{
   box-shadow:inset 0 1px 0 rgba(255,255,255,.11),
     inset 0 -1px 0 rgba(0,0,0,.4),
@@ -944,7 +959,8 @@ footer .brand img{height:38px}
     0 34px 64px -16px rgba(0,0,0,.62)}
 .offer:focus-within{transform:translateY(-4px)}
 @media(prefers-reduced-motion:reduce){
-  .offer,.offer:hover,.offer:focus-within{transform:none}}
+  .offer,.offer:hover,.offer:focus-within{transform:none}
+  .offer:hover .offer-shot img{transform:none}}
 @media(max-width:780px){.offers{grid-template-columns:1fr}}
 
 /* ---- inner-page banner ----

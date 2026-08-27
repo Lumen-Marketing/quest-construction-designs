@@ -123,7 +123,11 @@ test('the hero is three material plates and no machinery', () => {
   const figs = html.match(/<figure class="mat m\d">[\s\S]*?<\/figure>/g) || [];
   assert.equal(figs.length, 3, `expected three plates, found ${figs.length}`);
   for (const f of figs) {
-    assert.match(f, /src="[^"]*assets\/quest\//, 'a plate points outside Quest\'s own library');
+    // assets/mat, not assets/quest: Quest photographs jobs, so a plate drawn
+    // from its own library was always a jobsite with the material somewhere in
+    // it rather than a picture of the material. The licence trail for these
+    // lives in content/outsourced.json and images.test.mjs enforces it.
+    assert.match(f, /src="[^"]*assets\/mat\//, 'a plate is not one of the outsourced materials');
     assert.match(f, /<figcaption class="mono">[A-Z][a-z]+<\/figcaption>/, 'a plate carries no label');
   }
   // The lead plate is the LCP image, so it is the eager one and the preloaded

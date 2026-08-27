@@ -17,6 +17,22 @@
 
 /** file -> alt. The single source of truth for what each photograph shows. */
 export const ALT = {
+  // ---- the four outsourced materials ----
+  // The only photographs on the site Quest did not take. Quest photographs
+  // jobs, not stock, and asked for materials on the front page; there is no
+  // Quest picture of a pallet of block. Every one is CC0 — public domain,
+  // commercial use, no attribution — and content/outsourced.json carries the
+  // licence, the source and the landing page for each. images.test.mjs fails
+  // if anything in the tree that is not Quest's is missing from that file.
+  //
+  // The alt text describes the material, because that is what the picture is
+  // for. None of them claims to be a Quest job, and none is captioned as one.
+  'mat/tools.webp': 'A mason\u2019s hammer, chisel, work gloves, boots and cut brick laid out on timber',
+  'mat/brick.webp': 'Clay bricks stacked in tight courses inside a drying chamber',
+  'mat/block.webp': 'Concrete masonry blocks stacked in courses, their aggregate faces exposed',
+  'mat/board.webp': 'The face of an oriented strand board, its chips pressed flat in every direction',
+  'mat/gear.webp': 'A hard hat, safety glasses and work gloves laid out on a timber bench',
+
   // ---- the addition: slab, framing, sheathing
   'quest/slab-poured.webp': 'A freshly poured and floated concrete slab on a Quest Construction build',
   'quest/slab-blockwall.webp': 'A finished slab and block wall at the start of a Quest Construction build',
@@ -148,18 +164,23 @@ export const CUTOUTS = ['excavator.webp', 'loader.webp'];
  * in assets/cut/ carry another contractor's name, a rental firm's branding or a
  * bad matte. Materials are what Quest photographs.
  *
- * One trade each — timber, roofing, panel — and the caption on each is the
- * material in the frame rather than the trade it belongs to. All three are
- * chosen for filling their frame with the stuff: a shot of a jobsite with
- * lumber somewhere in it is not a photograph of lumber, and at plate size the
- * difference is the whole point. The orientations are load-bearing too — the
- * portrait one is the middle plate, and swapping it for a landscape crops the
- * material out of its own picture.
+ * The first pass at this used Quest's own photographs and it was wrong: Quest
+ * photographs jobs, so every frame was a jobsite with the material somewhere
+ * in it, and a jobsite with lumber in it is not a photograph of lumber. At
+ * plate size that is the whole difference. These are outsourced instead — the
+ * only four photographs on the site Quest did not take — and each one is the
+ * material filling its own frame. See ALT above for the licence trail.
+ *
+ * The orientations are load-bearing: the portrait one is the middle plate, and
+ * swapping it for a landscape crops the material out of its own picture.
  */
+/** The band across the head of each offer voucher, in the order they are listed. */
+export const OFFER_SHOTS = ['mat/board.webp', 'mat/gear.webp'];
+
 export const HERO_STACK = [
-  ['quest/slab-lumber.webp', 'Lumber'],      // landscape
-  ['quest/roof-ridge.webp', 'Shingle'],      // portrait
-  ['quest/sheathing-panel.webp', 'Sheathing'], // landscape
+  ['mat/tools.webp', 'Tools'],   // landscape
+  ['mat/brick.webp', 'Brick'],   // portrait
+  ['mat/block.webp', 'Block'],   // landscape
 ];
 /** The lead plate: the LCP image, and the only one that is preloaded. */
 export const HERO = HERO_STACK[0][0];
@@ -403,6 +424,9 @@ function taken(kind, key) {
   const base = [CLOSING];
   switch (kind) {
     case 'home':
+      // The hero's three are outsourced and in no pool, so the band cannot
+      // collide with them — but listing them costs nothing and keeps the
+      // no-repeat test honest if one ever moves into the library.
       return [...base, ...HERO_STACK.map(([f]) => f), STORY,
         ...PROJECT_SHOTS, ...CARD_ORIGINALS];
     case 'service':

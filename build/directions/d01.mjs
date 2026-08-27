@@ -7,7 +7,8 @@ import { icon } from '../lib/icons.mjs';
 import { SHORT_NAME } from '../lib/pages.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 import {
-  shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO_STACK, STORY, CONTACT,
+  shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO_STACK, OFFER_SHOTS,
+  STORY, CONTACT,
   CLOSING, PROJECT_SHOTS,
   serviceShots, areaShots,
 } from '../lib/photos.mjs';
@@ -436,13 +437,23 @@ export function home(c) {
 
   const cards = svcCards(c, 'View details');
 
-  const offers = c.site.offers.map((o) => `
+  // The offers are vouchers now rather than two dark rectangles with a glow
+  // behind the number. A voucher is what they actually are — an amount, terms,
+  // and a code you take away — so the component says so: a material band
+  // across the head, a torn edge under it with the notches punched out of both
+  // sides, and the code on the stub below. The depth is in the shape, which is
+  // why the glow could go.
+  const offers = c.site.offers.map((o, i) => `
     <div class="offer rv">
-      <b>${esc(o.amount)}</b>
-      <h3>${esc(o.title)}</h3>
-      <p>${esc(o.body)}</p>
-      <button class="btn acc" type="button" data-copy="${esc(o.code)}"
-        aria-live="polite">GET CODE</button>
+      <div class="offer-shot">${img(c, ...shot(OFFER_SHOTS[i % OFFER_SHOTS.length]))}</div>
+      <div class="offer-seam" aria-hidden="true"><i></i></div>
+      <div class="offer-body">
+        <b>${esc(o.amount)}</b>
+        <h3>${esc(o.title)}</h3>
+        <p>${esc(o.body)}</p>
+        <button class="btn acc" type="button" data-copy="${esc(o.code)}"
+          aria-live="polite">GET CODE</button>
+      </div>
     </div>`).join('');
 
   const work = c.pages.projects.items.map((p, i) => `
