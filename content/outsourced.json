@@ -3,24 +3,6 @@
   "rule": "CC0 only. Public-domain dedication: commercial use permitted, no attribution required, no share-alike. Anything added here must carry the same, and build/lib/images.test.mjs enforces that every non-Quest image in the tree is listed in this file.",
   "images": [
     {
-      "file": "mat/barrow.webp",
-      "alt": "A galvanised builder's wheelbarrow loaded with sand, a spade leaning against it",
-      "width": 1300,
-      "height": 1034,
-      "bytes": 110228,
-      "license": "cc0",
-      "license_version": null,
-      "commercial_use": true,
-      "attribution_required": false,
-      "title": "File:Spade and wheelbarrow next to Myrstigen trail.jpg",
-      "creator": "<a href=\"//commons.wikimedia.org/wiki/User:W.carter\" title=\"User:W.carter\">W.carter</a>",
-      "source": "wikimedia",
-      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Spade_and_wheelbarrow_next_to_Myrstigen_trail.jpg/1920px-Spade_and_wheelbarrow_next_to_Myrstigen_trail.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-      "landing_page": "https://commons.wikimedia.org/wiki/File%3ASpade%20and%20wheelbarrow%20next%20to%20Myrstigen%20trail.jpg",
-      "found_via": "wikimedia commons api, LicenseShortName=CC0",
-      "processing": "background removed with assets/cut/cutout.py (rembg isnet-general-use), then four regions masked by hand — a stick standing behind the handle and three offcuts of ground sheeting the matte kept — and re-trimmed. Ships as webp with an alpha channel."
-    },
-    {
       "file": "mat/board.webp",
       "alt": "The face of an oriented strand board, its chips pressed flat in every direction",
       "width": 1200,
@@ -61,5 +43,31 @@
       "why": "Terracotta roof tiles with KERALA TILES and JOHN'S TILE WORKS cast into their faces. Another firm's name on Quest's front page, which is the same rule that ruled out six of the seven machine cut-outs in assets/cut/.",
       "landing_page": "https://wordpress.org/photos/photo/30968f0c0c/"
     }
-  ]
+  ],
+  "supplied": {
+    "why": "Files Quest supplied directly (dropped into Downloads and named by file, not by source). They are used as given.",
+    "rights": "NOT VERIFIED HERE. These did not come through the CC0 search the images list above went through, and they carry no licence metadata of their own — both look like commercial stock. If they came from a paid stock licence that covers commercial use, nothing more is needed. If they did not, they need replacing before this is a problem: the site is a trading contractor’s, so \"found on the internet\" is not a licence. Raised with Quest; using them is Quest’s call and the rights are Quest’s to hold.",
+    "images": [
+      {
+        "file": "mat/kit.webp",
+        "supplied_as": "Untitled design (19).png",
+        "alt": "A hard hat, hi-vis vest, work gloves, saw, hammer, pliers, tape measure and screwdriver laid out together",
+        "used_for": "the hero's frameless foreground object",
+        "note": "Arrived already matted — 2000x2000 with a real alpha channel, 70% of it transparent — so it needed only trimming to its subject and re-encoding. No background removal was done here.",
+        "width": 1500,
+        "height": 976,
+        "bytes": 172762
+      },
+      {
+        "file": "mat/hats.webp",
+        "supplied_as": "Untitled design (20).png",
+        "alt": "Rows of hard hats racked on shelves in every colour",
+        "used_for": "the photograph under the hero's accent plane",
+        "note": "Sits under an accent wash at 88-95%, so it reads as texture rather than as a picture. The wash strength is set by contrast, not by taste — see shots/herotext.mjs.",
+        "width": 1800,
+        "height": 1012,
+        "bytes": 124082
+      }
+    ]
+  }
 }

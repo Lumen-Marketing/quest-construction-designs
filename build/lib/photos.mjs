@@ -27,7 +27,8 @@ export const ALT = {
   //
   // The alt text describes the material, because that is what the picture is
   // for. None of them claims to be a Quest job, and none is captioned as one.
-  'mat/barrow.webp': 'A galvanised builder\u2019s wheelbarrow loaded with sand, a spade leaning against it',
+  'mat/kit.webp': 'A hard hat, hi-vis vest, work gloves, saw, hammer, pliers, tape measure and screwdriver laid out together',
+  'mat/hats.webp': 'Rows of hard hats racked on shelves in every colour',
   'mat/board.webp': 'The face of an oriented strand board, its chips pressed flat in every direction',
   'mat/gear.webp': 'A hard hat, safety glasses and work gloves laid out on a timber bench',
 
@@ -166,7 +167,16 @@ export const CUTOUTS = ['excavator.webp', 'loader.webp'];
  * CC0 from Wikimedia Commons, matted with assets/cut/cutout.py, provenance and
  * the hand-masking in content/outsourced.json.
  */
-export const HERO = 'mat/barrow.webp';
+export const HERO = 'mat/kit.webp';
+
+/**
+ * The photograph under the hero's accent plane. It is not seen so much as felt:
+ * the plane keeps its colour and the picture reads through it as texture, which
+ * is why what goes here has to be something with a strong repeating structure
+ * and no single subject to fight the headline. See .hero-panel for the overlay
+ * that holds it down, and the contrast it has to leave behind.
+ */
+export const HERO_GROUND = 'mat/hats.webp';
 
 /** The band across the head of each offer voucher, in the order they are listed. */
 export const OFFER_SHOTS = ['mat/board.webp', 'mat/gear.webp'];

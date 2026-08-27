@@ -206,10 +206,23 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
    No frames: the machine is an alpha PNG, not a photo in a box. */
 .hero{position:relative;overflow:hidden;padding:var(--sp-4) 0 var(--sp-5);
   min-height:clamp(540px,64vw,760px);display:flex;align-items:center}
-/* the background plane — hard right edge, slightly angled like the reference */
+/* the background plane — hard right edge, slightly angled like the reference
+   There is a photograph under it now, and the plane is what holds it down: the
+   accent sits over the picture at strength, so the hats read as texture rather
+   than as a picture competing with the headline. The wash is not decoration —
+   the headline is --on-acc, which is near-black on two palettes and WHITE on
+   clay, so the field it lands on has to stay close to flat --acc whatever the
+   photograph does underneath. Measured; see the note on --acc-dim below. */
 .hero-panel{position:absolute;z-index:1;left:0;top:0;bottom:0;width:57%;
-  background:linear-gradient(150deg,var(--acc) 0%,var(--acc-dim) 100%);
+  overflow:hidden;background:var(--acc);
   clip-path:polygon(0 0,100% 0,calc(100% - 46px) 100%,0 100%)}
+.hero-panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:center 40%}
+.hero-panel::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(150deg,
+    color-mix(in srgb,var(--acc) 93%,transparent) 0%,
+    color-mix(in srgb,var(--acc) 95%,transparent) 55%,
+    color-mix(in srgb,var(--acc) 88%,var(--ink)) 100%)}
 .hero .wm{right:-8%;top:-6%;width:min(760px,64vw)}
 /* oversized ghost wordmark sitting BEHIND the machine */
 .hero-ghost{position:absolute;z-index:2;right:-2%;top:50%;transform:translateY(-52%);
@@ -230,15 +243,24 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 
    The drop-shadow is a filter rather than a box-shadow: box-shadow follows the
    element's rectangle, and this element's rectangle is mostly transparent. */
-.machine{position:absolute;z-index:5;right:-4%;bottom:3%;width:min(62%,880px);
+/* right:1%, not the machine's -4%. A machine could run off the edge and read
+   as a crop; this object's right-hand end is a hard hat, and a hard hat sliced
+   in half by the viewport reads as a mistake. It sits inside now, and
+   .badge-float is measured from 99% to match. */
+.machine{position:absolute;z-index:5;right:1%;bottom:4%;width:min(60%,860px);
   height:auto;pointer-events:none;
   filter:drop-shadow(-26px 34px 42px rgba(20,19,15,.34));
   animation:settle 1.1s cubic-bezier(.2,.8,.2,1) both}
 @keyframes settle{from{opacity:0;transform:translate(38px,22px) scale(.97)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.machine{animation:none}}
 /* square bullet marker, straight off the reference */
+/* Full-strength ink, not 84%. Fading type is the cheapest way to make it look
+   secondary and the most expensive way to pay for it: on the clay palette the
+   ink is white, so 84% of it over the plane measured 3.62:1. The hierarchy
+   here is already carried by size — 16px against a 66px headline — and size
+   costs nothing. */
 .hero-copy .lede{margin:22px 0 30px;font-size:clamp(14.5px,1.35vw,16.5px);
-  color:color-mix(in srgb,var(--on-acc) 84%,transparent);max-width:34ch;display:flex;gap:14px}
+  color:var(--on-acc);max-width:34ch;display:flex;gap:14px}
 .hero-copy .lede::before{content:"";width:11px;height:11px;background:var(--on-acc);
   flex:0 0 auto;margin-top:.45em}
 /* The hero plane is a gradient that runs from --acc down to --acc-dim, and
@@ -268,8 +290,13 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 .hero-trust div b{display:block;font-size:clamp(20px,2.2vw,28px);font-weight:900;
   letter-spacing:-.04em;line-height:1;color:var(--on-acc)}
 .hero-trust div b i{font-style:normal;opacity:.55}
+/* Likewise, and worse: these were --on-acc at 68%, which failed on every
+   palette and had done since the hero was drawn — 3.49:1 on orange and 3.33:1
+   on clay even before there was a photograph under the plane. A 10px mono
+   uppercase label under a 28px 900-weight figure does not need to be faded to
+   read as the label. */
 .hero-trust div span{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;
-  text-transform:uppercase;color:color-mix(in srgb,var(--on-acc) 68%,transparent);display:block;margin-top:7px}
+  text-transform:uppercase;color:var(--on-acc);display:block;margin-top:7px}
 
 /* floating badge card — the topmost layer */
 .badge{
@@ -291,7 +318,7 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
    floating in space. This is the object's left edge (104% - its width) plus
    45% of it, so the badge sits over the barrow at every width from the 1080px
    reflow up. */
-.badge-float{left:calc(104% - 0.55 * min(62%, 880px));bottom:12%;z-index:7}
+.badge-float{left:calc(99% - 0.55 * min(60%, 860px));bottom:12%;z-index:7}
 
 @media(max-width:1080px){
   /* Let the object FLOW after the copy rather than reserving padding for it —

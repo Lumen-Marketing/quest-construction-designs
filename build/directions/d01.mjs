@@ -7,7 +7,7 @@ import { icon } from '../lib/icons.mjs';
 import { SHORT_NAME } from '../lib/pages.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 import {
-  shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO, OFFER_SHOTS,
+  shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO, HERO_GROUND, OFFER_SHOTS,
   STORY, CONTACT,
   CLOSING, PROJECT_SHOTS,
   serviceShots, areaShots,
@@ -452,7 +452,7 @@ export function home(c) {
   return `
 <section class="hero">
   ${grid(false)}
-  <div class="hero-panel" aria-hidden="true"></div>
+  <div class="hero-panel" aria-hidden="true">${img(c, HERO_GROUND, '', { decorative: true })}</div>
   <div class="hero-ghost" aria-hidden="true">QUEST</div>
   <div class="wrap">
     <div class="hero-copy">

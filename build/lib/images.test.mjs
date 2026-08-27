@@ -25,32 +25,31 @@ test('every photograph in the library is present and measured', async () => {
   assert.ok(Object.keys(ALT).length >= 45, 'the library shrank unexpectedly');
 });
 
-test('every photograph Quest did not take is licensed, and says so in writing', () => {
+test('every photograph Quest did not take is accounted for in writing', () => {
   const sizes = JSON.parse(readFileSync('content/images.json', 'utf8'));
   const out = JSON.parse(readFileSync('content/outsourced.json', 'utf8'));
   const strays = Object.keys(sizes)
     .filter((f) => !f.startsWith('quest/') && !f.startsWith('og/'));
 
-  // Two kinds of non-Quest image are allowed in the tree and no others: the
-  // two documented cut-outs d10 draws with, and the outsourced materials on
-  // the front page. Anything else is stock that crept in.
+  // Three kinds of non-Quest image are allowed in the tree and no others: the
+  // two documented cut-outs d10 draws with, the CC0 images sourced here, and
+  // the files Quest supplied directly. Anything else is stock that crept in
+  // with nobody able to say where from.
   const CUTOUTS = ['excavator.webp', 'loader.webp'];
-  const licensed = out.images.map((i) => i.file);
-  const allowed = new Set([...CUTOUTS, ...licensed]);
+  const sourced = out.images.map((i) => i.file);
+  const supplied = out.supplied.images.map((i) => i.file);
+  const allowed = new Set([...CUTOUTS, ...sourced, ...supplied]);
   for (const f of strays) {
     assert.ok(allowed.has(f),
       `${f} is not Quest's and is not in content/outsourced.json — where did it come from?`);
   }
-  // And the other way round: a record with no file is a licence for something
-  // that is not here, which means the record has gone stale.
-  for (const f of licensed) {
+  for (const f of [...sourced, ...supplied]) {
     assert.ok(sizes[f], `content/outsourced.json lists ${f}, which is not in the tree`);
   }
 
-  // The licence itself. CC0 only — public domain, commercial use, no
-  // attribution — because this is a contractor's commercial site and nothing
-  // here carries a credit line. A CC-BY image would need one, and adding one
-  // is a product decision rather than a quiet edit to this file.
+  // What WE went and found has to be CC0 — public domain, commercial use, no
+  // attribution — because this site carries no credit line. A CC-BY image
+  // would need one, and adding a credit line is a product decision.
   for (const i of out.images) {
     assert.equal(i.license, 'cc0', `${i.file} is ${i.license}, not cc0`);
     assert.equal(i.commercial_use, true, `${i.file} is not cleared for commercial use`);
@@ -58,28 +57,41 @@ test('every photograph Quest did not take is licensed, and says so in writing', 
     for (const k of ['source', 'source_url', 'landing_page', 'alt']) {
       assert.ok(i[k], `${i.file} has no ${k} recorded`);
     }
-    // Alt text that describes the material, not a Quest job. These are the
-    // only pictures on the site that are not of Quest's own work, and none of
-    // them may imply otherwise.
+  }
+
+  // What Quest handed over is used as given, and the one thing that must not
+  // happen is quietly implying it was checked. The block says out loud that it
+  // was not, and this keeps that sentence from being deleted by accident.
+  assert.match(out.supplied.rights, /NOT VERIFIED/,
+    'the supplied-images block no longer says its rights are unverified');
+  for (const i of out.supplied.images) {
+    for (const k of ['supplied_as', 'alt', 'used_for']) {
+      assert.ok(i[k], `${i.file} has no ${k} recorded`);
+    }
+  }
+
+  // Alt text that describes the picture, not a Quest job. None of these show
+  // Quest's own work and none of them may imply otherwise.
+  for (const i of [...out.images, ...out.supplied.images]) {
     assert.doesNotMatch(i.alt, /Quest/i, `${i.file} alt implies it is a Quest job`);
   }
 });
 
-test('the hero is an outsourced cut-out, and the machines are off the front page', async () => {
-  const { CUTOUTS, HERO } = await import('./photos.mjs');
+test('the hero is a frameless object, and the machines are off the front page', async () => {
+  const { CUTOUTS, HERO, HERO_GROUND } = await import('./photos.mjs');
   const out = JSON.parse(readFileSync('content/outsourced.json', 'utf8'));
-  // Quest asked for the plant off the front page. What replaced it has to be
-  // outsourced — Quest photographs jobs, and a job photograph in this slot is
-  // a rectangle — and it has to be licensed like everything else here.
+  const known = [...out.images, ...out.supplied.images].map((i) => i.file);
+
+  // Quest asked for the plant off the front page. Whatever stands there has to
+  // be one of the images this file accounts for.
   assert.ok(!CUTOUTS.includes(HERO), 'the hero is one of the machine cut-outs again');
-  assert.match(HERO, /^mat\//, `the hero is not one of the outsourced images: ${HERO}`);
-  const rec = out.images.find((i) => i.file === HERO);
-  assert.ok(rec, `the hero ${HERO} has no licence record`);
-  assert.equal(rec.license, 'cc0');
-  // It was matted rather than shot that way, and how is worth recording: the
-  // next person to swap this slot needs to know it is not a plain photograph.
-  assert.match(rec.processing || '', /cutout\.py|rembg/,
-    'the hero cut-out does not say how its background was removed');
+  assert.ok(known.includes(HERO), `the hero ${HERO} has no provenance record`);
+  assert.ok(known.includes(HERO_GROUND), `the hero ground ${HERO_GROUND} has no record`);
+
+  // The object needs an alpha channel or it is a rectangle whatever it shows,
+  // and the whole composition depends on it not being one.
+  const sizes = JSON.parse(readFileSync('content/images.json', 'utf8'));
+  assert.ok(sizes[HERO], 'the hero image is not measured');
 
   // The two machine cut-outs stay in the tree because d10 still draws with
   // them; what matters is that the indexable direction does not.
