@@ -154,6 +154,32 @@ test('form fields are 16px, or iOS zooms the page in and does not zoom back', ()
   assert.ok(min >= 44, `contact fields are ${min}px tall, under the 44px touch floor`);
 });
 
+test('the pills are lit, and the lift is scoped to the hero that asked for it', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  const base = /\.btn\{[^}]*\}/.exec(css)[0];
+  // One wide soft shadow is a button drawn on a page. It takes an edge and a
+  // contact shadow to make it a button lying on one.
+  assert.match(base, /inset 0 1px 0 rgba\(255,255,255/, 'the pill has no lit top edge');
+  assert.match(base, /inset 0 -1px 0 rgba\(0,0,0/, 'the pill has no shaded foot');
+  assert.match(base, /0 2px 5px/, 'the pill has no contact shadow, only an ambient one');
+  // Pressed, the shadow has to come down with it, or the light says the pill
+  // is still held up while the shape says it has been pushed in.
+  assert.match(css, /\.btn:active\{box-shadow:/, 'the press state does not touch the shadow');
+
+  // The trap. pageHero renders the inner-page banner's buttons into the same
+  // .hero-acts row the home hero uses, but there the outlined pill's ink is
+  // --on-dark over a photograph rather than --on-acc over the accent plane.
+  // Scoping the accent fill to .hero-acts put cream on orange at 1.89:1.
+  assert.ok(!/\.hero-acts\s+\.btn\.ghost\{[^}]*background/.test(css),
+    'the hero fill is scoped to .hero-acts, which the inner-page banner also uses');
+  assert.match(css, /\.hero \.btn\.ghost\{background:var\(--acc\)\}/,
+    'the home hero outlined pill has lost its accent fill');
+  // And the banner's own override still names the dark-ground ink, which is
+  // the half of the pair that makes the scoping matter.
+  assert.match(css, /\.subhero \.btn\.ghost\{color:var\(--on-dark\)/,
+    'the banner pill no longer states its own ink');
+});
+
 test('the accent bar is textured in ink and never in the ink it carries', () => {
   const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
   // The whole trap in one test. --on-acc is near-black on the gold and orange

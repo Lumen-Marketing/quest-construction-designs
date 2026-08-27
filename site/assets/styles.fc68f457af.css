@@ -118,26 +118,98 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 .bars i:nth-child(1){opacity:.3}.bars i:nth-child(2){opacity:.55}.bars i:nth-child(3){opacity:.8}
 .bars.lg i{width:20px;height:52px}
 
-/* buttons — pill, soft, layered */
+/* buttons — pill, soft, layered
+   Every pill carries the same four-part elevation the accent bar does, and for
+   the same reason: one wide soft shadow is a button drawn on a page, and it
+   takes an edge to make it a button lying on one.
+
+     inset 0 1px 0    a hairline of light along the top, where a raised edge
+                      would catch it
+     inset 0 -1px 0   and one of shade along the foot, where it would not
+     0 2px 5px        the contact shadow — short and dark, the one that says
+                      how far off the page it is
+     0 10px 26px      and the ambient one it already had
+
+   The two hairlines are one pixel at the very top and bottom of a 46px pill.
+   No glyph is within fifteen pixels of either, so none of this is spent out
+   of a contrast budget — which matters because .btn.acc is the same trap the
+   accent bar was: --on-acc is near-black on gold and orange and WHITE on
+   clay, so anything that lightens the field is a gift to two palettes and a
+   tax on the third. shots/btncheck.mjs measures the field behind every label
+   on every palette rather than trusting that reasoning. */
 .btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:15px 26px;
   font-size:13.5px;font-weight:700;letter-spacing:.01em;cursor:pointer;border:0;
-  background:var(--ink);color:var(--cream);box-shadow:0 10px 26px rgba(20,19,15,.22);
+  background:var(--ink);color:var(--cream);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.15),
+    inset 0 -1px 0 rgba(0,0,0,.28),
+    0 2px 5px rgba(20,19,15,.20),
+    0 10px 26px rgba(20,19,15,.22);
   transition:transform .24s cubic-bezier(.2,.8,.2,1),box-shadow .24s ease,background .22s ease}
-@media (hover:hover) and (pointer:fine){.btn:hover{transform:translateY(-3px);box-shadow:0 18px 38px rgba(20,19,15,.3)}}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{transform:translateY(-3px);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.18),
+      inset 0 -1px 0 rgba(0,0,0,.28),
+      0 3px 7px rgba(20,19,15,.22),
+      0 18px 38px rgba(20,19,15,.3)}}
+/* Pressed, the shadow has to come down with it. A pill that shrinks and keeps
+   its full shadow reads as a picture of a button being pressed rather than as
+   one being pressed — the light says it is still held up while the shape says
+   it has been pushed in. */
+.btn:active{box-shadow:inset 0 1px 0 rgba(255,255,255,.10),
+  inset 0 -1px 0 rgba(0,0,0,.28),
+  0 1px 2px rgba(20,19,15,.24),
+  0 3px 8px rgba(20,19,15,.18)}
 .btn .pip{width:26px;height:26px;border-radius:50%;background:var(--acc);color:var(--on-acc);
-  display:grid;place-items:center;font-size:12px;transition:transform .3s ease}
+  display:grid;place-items:center;font-size:12px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 1px 3px rgba(0,0,0,.34);
+  transition:transform .3s ease}
 /* The call button carries a handset for the phone header, where the digits
    fold away and a bare dot would say nothing. Wide, the digits are there. */
 .btn .pip svg{display:none}
 @media (hover:hover) and (pointer:fine){.btn:hover .pip{transform:rotate(45deg)}}
-.btn.acc{background:var(--acc);color:var(--on-acc);box-shadow:0 12px 30px color-mix(in srgb,var(--acc) 40%,transparent)}
+/* The accent pill throws an accent-tinted shadow rather than a grey one —
+   a coloured object bounces its own colour onto what is under it — but it
+   still needs the neutral contact shadow under that, or it glows without
+   ever touching down. */
+.btn.acc{background:var(--acc);color:var(--on-acc);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),
+    inset 0 -1px 0 color-mix(in srgb,var(--ink) 22%,transparent),
+    0 2px 5px rgba(20,19,15,.22),
+    0 12px 30px color-mix(in srgb,var(--acc) 40%,transparent)}
+@media (hover:hover) and (pointer:fine){
+  .btn.acc:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.26),
+    inset 0 -1px 0 color-mix(in srgb,var(--ink) 22%,transparent),
+    0 3px 7px rgba(20,19,15,.24),
+    0 20px 42px color-mix(in srgb,var(--acc) 48%,transparent)}}
+.btn.acc:active{box-shadow:inset 0 1px 0 rgba(255,255,255,.14),
+  inset 0 -1px 0 color-mix(in srgb,var(--ink) 22%,transparent),
+  0 1px 2px rgba(20,19,15,.24),
+  0 4px 10px color-mix(in srgb,var(--acc) 34%,transparent)}
 .btn.acc .pip{background:var(--ink);color:var(--acc)}
-.btn.ghost{background:transparent;color:var(--on-acc);box-shadow:none;
-  border:1.5px solid color-mix(in srgb,var(--on-acc) 68%,transparent)}
+/* The outlined pill is the one that cannot be lifted — it has no body to
+   throw a shadow. So it is cut in instead: a dark hairline along its top edge
+   and a lit one along its foot is what a groove looks like under light coming
+   from above, which is the same light the solid pills are lit by. This used
+   to be scoped to the accent bar; it belongs to the variant. */
+.btn.ghost{background:transparent;color:var(--on-acc);
+  border:1.5px solid color-mix(in srgb,var(--on-acc) 68%,transparent);
+  box-shadow:inset 0 1px 0 color-mix(in srgb,var(--ink) 20%,transparent),
+    0 1px 0 color-mix(in srgb,#fff 22%,transparent)}
 /* Without this the dot is the same colour as the plane it sits on. */
 .btn.ghost .pip{background:var(--on-acc);color:var(--acc)}
 @media (hover:hover) and (pointer:fine){.btn.ghost:hover{background:color-mix(in srgb,var(--on-acc) 16%,transparent);box-shadow:none}}
-.btn.on-dark{background:var(--on-dark);color:var(--ink)}
+/* Cream on a dark ground: the shadow it casts has to be black rather than
+   the ink-tinted one the dark pills use, or it disappears into the band. */
+.btn.on-dark{background:var(--on-dark);color:var(--ink);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5),
+    inset 0 -1px 0 rgba(0,0,0,.16),
+    0 2px 6px rgba(0,0,0,.34),
+    0 12px 30px rgba(0,0,0,.4)}
+@media (hover:hover) and (pointer:fine){
+  .btn.on-dark:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.5),
+    inset 0 -1px 0 rgba(0,0,0,.16),
+    0 3px 8px rgba(0,0,0,.36),
+    0 20px 42px rgba(0,0,0,.46)}}
 
 /* pill label */
 .pill{display:inline-flex;align-items:center;gap:9px;background:color-mix(in srgb,var(--acc) 18%,transparent);
@@ -192,6 +264,27 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
   color:color-mix(in srgb,var(--on-acc) 84%,transparent);max-width:34ch;display:flex;gap:14px}
 .hero-copy .lede::before{content:"";width:11px;height:11px;background:var(--on-acc);
   flex:0 0 auto;margin-top:.45em}
+/* The hero plane is a gradient that runs from --acc down to --acc-dim, and
+   --acc-dim is a TEXT token — palette.mjs calls it "accent as text on light".
+   Used as a surface it is far darker than the accent, and the outlined pill
+   sits two thirds of the way down it: --on-acc on that field measured 4.30:1,
+   under AA, and it has been that way since the hero was drawn.
+
+   Filling the pill with the accent at full strength puts it back on the field
+   the ink was chosen for — 5.83:1 orange, 8.52:1 gold, 5.26:1 clay — and it
+   is the right answer visually as well as arithmetically: a raised surface
+   catches more light than the plane it stands on, so a pill that is brighter
+   than its surroundings is what being lifted looks like. The border stays, so
+   it still reads as the quieter of the two.
+
+   The deeper faults on this plane are left alone deliberately: the gradient
+   ending on a text token at 3.54:1, and the stat labels under it at 68% alpha
+   failing on pure accent too. Both are hero composition rather than buttons. */
+/* .hero, not .hero-acts: the inner-page banner reuses the same .hero-acts row,
+   and there the outlined pill's ink is --on-dark over a photograph. Filling it
+   with the accent put cream on orange at 1.89:1. */
+.hero .btn.ghost{background:var(--acc)}
+
 .hero-acts{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
 .hero-trust{display:flex;flex-wrap:wrap;gap:14px 28px;margin-top:clamp(26px,3.4vw,42px);
   padding-top:24px;border-top:1px solid color-mix(in srgb,var(--on-acc) 26%,transparent)}
@@ -528,15 +621,19 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
    real shadow onto the accent; the outlined one is engraved instead — a dark
    hairline along its top edge and a lit one along its foot, which is what a
    groove looks like under light coming from above. */
-.cta-bar .btn{box-shadow:0 14px 26px -8px rgba(0,0,0,.5),0 2px 5px rgba(0,0,0,.26)}
+/* On the accent, the solid pill's cast shadow is black rather than the
+   ink-tinted one it uses on cream: the ground is a saturated colour and a
+   grey shadow on it reads as dirt. The outlined pill needs nothing here any
+   more — being engraved is part of the variant now. */
+.cta-bar .btn{box-shadow:inset 0 1px 0 rgba(255,255,255,.15),
+  inset 0 -1px 0 rgba(0,0,0,.28),
+  0 2px 5px rgba(0,0,0,.26),
+  0 14px 26px -8px rgba(0,0,0,.5)}
 @media (hover:hover) and (pointer:fine){
-  .cta-bar .btn:hover{box-shadow:0 20px 34px -8px rgba(0,0,0,.55),0 3px 7px rgba(0,0,0,.3)}}
-.cta-bar .btn.ghost{
-  box-shadow:inset 0 1px 0 color-mix(in srgb,var(--ink) 22%,transparent),
-    0 1px 0 color-mix(in srgb,#fff 26%,transparent)}
-@media (hover:hover) and (pointer:fine){
-  .cta-bar .btn.ghost:hover{box-shadow:inset 0 1px 0 color-mix(in srgb,var(--ink) 22%,transparent),
-    0 1px 0 color-mix(in srgb,#fff 26%,transparent)}}
+  .cta-bar .btn:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.18),
+    inset 0 -1px 0 rgba(0,0,0,.28),
+    0 3px 7px rgba(0,0,0,.3),
+    0 20px 34px -8px rgba(0,0,0,.55)}}
 /* On the accent the default outline colour is the accent. */
 .cta-bar :focus-visible{outline:2px solid var(--on-acc);outline-offset:3px}
 @media(prefers-contrast:more){
