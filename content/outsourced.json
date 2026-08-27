@@ -62,11 +62,11 @@
         "file": "mat/hats.webp",
         "supplied_as": "Untitled design (20).png",
         "alt": "Rows of hard hats racked on shelves in every colour",
-        "used_for": "the hero's ground, behind the cut-out object on the light half",
-        "note": "Lightened and warmed on the way in (ffmpeg eq brightness=0.14 contrast=0.86 saturation=1.10) so it sits under a cream veil the way the reference did. It is NOT under the headline, and that was settled by measurement rather than taste: the copy fills nearly the whole accent plane, and a wash weak enough to see this through is a wash that puts dark type on a dark blue helmet at 1.27:1, while a wash strong enough for the type buries the picture. The light half of the hero carries no type, so that is where it goes.",
+        "used_for": "the ground under the whole hero, tinted by the accent plane on one side of the lean",
+        "note": "Lightened hard and its contrast crushed on the way in (ffmpeg eq brightness=0.36 contrast=0.40 saturation=1.22). That is what lets the accent plane be a TINT at about three quarters rather than a lid: the picture gave up its brightness range so the orange could give up its opacity, and a contrast ratio is computed from luminance alone so the colour it kept costs nothing. Untouched under the same tint, dark type landed on a dark shelf line at 1.27:1. Every line on the plane is measured on all three palettes by shots/herotext.mjs, at 1440 and 390.",
         "width": 1800,
         "height": 1012,
-        "bytes": 144580
+        "bytes": 99318
       }
     ]
   }
