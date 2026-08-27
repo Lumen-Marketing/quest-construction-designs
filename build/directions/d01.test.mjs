@@ -96,23 +96,48 @@ test('the long footer lists are marked for the two-up phone layout', () => {
   assert.equal((html.match(/<div class="col2">/g) || []).length, 2);
 });
 
-test('the floating badge is measured from the machine, not the hero middle', () => {
+test('the floating badge is measured from the plate stack, not the hero middle', () => {
   const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
-  const machine = css.match(/\.machine\{[^}]*right:(-?[\d.]+)%[^}]*width:min\(([\d.]+)%,(\d+)px\)/);
-  assert.ok(machine, 'the machine no longer anchors right with a capped width');
+  // The machine is gone — Quest asked for the plant off the front page — and
+  // the material stack inherited its slot. The arithmetic below is the reason
+  // this test exists and it did not care which of the two occupies it.
+  const stack = css.match(/\.matstack\{[^}]*right:(-?[\d.]+)%[^}]*width:min\(([\d.]+)%,(\d+)px\)/);
+  assert.ok(stack, 'the stack no longer anchors right with a capped width');
   const badge = css.match(/\.badge-float\{left:calc\(([\d.]+)% - ([\d.]+) \* min\(([\d.]+)%, ?(\d+)px\)\)/);
-  assert.ok(badge, 'the badge is not measured off the machine');
+  assert.ok(badge, 'the badge is not measured off the stack');
 
-  const [, mRight, mPct, mCap] = machine;
+  const [, mRight, mPct, mCap] = stack;
   const [, bBase, bFactor, bPct, bCap] = badge;
-  // Both must read the same width, or they drift apart once the machine caps.
-  assert.equal(bPct, mPct, 'the badge reads a different width percentage than the machine');
-  assert.equal(bCap, mCap, 'the badge reads a different width cap than the machine');
-  // The badge's base is the machine's right edge: 100% plus its overhang.
-  assert.equal(Number(bBase), 100 - Number(mRight), 'the badge does not start at the machine edge');
-  // And it lands inside the machine rather than off either end of it.
+  // Both must read the same width, or they drift apart once the stack caps.
+  assert.equal(bPct, mPct, 'the badge reads a different width percentage than the stack');
+  assert.equal(bCap, mCap, 'the badge reads a different width cap than the stack');
+  // The badge's base is the stack's right edge: 100% less its inset.
+  assert.equal(Number(bBase), 100 - Number(mRight), 'the badge does not start at the stack edge');
+  // And it lands inside the stack rather than off either end of it.
   const across = 1 - Number(bFactor);
-  assert.ok(across > 0.15 && across < 0.8, `the badge sits at ${across * 100}% across the machine`);
+  assert.ok(across > 0.15 && across < 0.8, `the badge sits at ${across * 100}% across the stack`);
+});
+
+test('the hero is three material plates and no machinery', () => {
+  const html = renderPage({ mod: d01, key: 'home' });
+  const figs = html.match(/<figure class="mat m\d">[\s\S]*?<\/figure>/g) || [];
+  assert.equal(figs.length, 3, `expected three plates, found ${figs.length}`);
+  for (const f of figs) {
+    assert.match(f, /src="[^"]*assets\/quest\//, 'a plate points outside Quest\'s own library');
+    assert.match(f, /<figcaption class="mono">[A-Z][a-z]+<\/figcaption>/, 'a plate carries no label');
+  }
+  // The lead plate is the LCP image, so it is the eager one and the preloaded
+  // one, and the other two must not compete with it for the first bytes.
+  assert.match(figs[0], /loading="eager" fetchpriority="high"/, 'the lead plate is not eager');
+  for (const f of figs.slice(1)) assert.match(f, /loading="lazy"/, 'a trailing plate is eager');
+  assert.equal((html.match(/rel="preload"[^>]*as="image"/g) || []).length, 1);
+
+  // The label is a solid chip rather than text over a photograph: measured,
+  // a gradient scrim gave 3.16:1 on the lumber plate, whose foreground is
+  // concrete in full sun.
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  const cap = /\.mat figcaption\{[^}]*\}/.exec(css)[0];
+  assert.match(cap, /background:var\(--dark\)/, 'the plate label is not on a solid chip');
 });
 
 // ------------------------------------------------------------- the dropdowns

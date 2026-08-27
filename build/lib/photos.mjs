@@ -131,8 +131,38 @@ export const LANDSCAPE = [
  */
 export const CUTOUTS = ['excavator.webp', 'loader.webp'];
 
-/** Direction 01's hero. A cut-out, so it is not in LANDSCAPE and is never cropped. */
-export const HERO = 'excavator.webp';
+/**
+ * Direction 01's hero.
+ *
+ * It was the cut-out excavator, and Quest asked for the plant to come off the
+ * front page. That is not a swap: the cut-out was the whole reason the hero
+ * worked the way it did — no frame, so the machine straddled the accent plane's
+ * hard edge, and gaps in the boom for the ghost wordmark to read through. A
+ * rectangle dropped into that slot has edges and covers the wordmark.
+ *
+ * So the slot changes shape instead. Three plates of the materials Quest
+ * builds with, fanned and overlapping, which is a stronger read of depth than
+ * one flat object ever was — occlusion, three sizes, three shadow depths — and
+ * it is the same move the banner deck already makes for the same reason. There
+ * is no plant photography to fall back on anyway: the seven cut-out candidates
+ * in assets/cut/ carry another contractor's name, a rental firm's branding or a
+ * bad matte. Materials are what Quest photographs.
+ *
+ * One trade each — timber, roofing, panel — and the caption on each is the
+ * material in the frame rather than the trade it belongs to. All three are
+ * chosen for filling their frame with the stuff: a shot of a jobsite with
+ * lumber somewhere in it is not a photograph of lumber, and at plate size the
+ * difference is the whole point. The orientations are load-bearing too — the
+ * portrait one is the middle plate, and swapping it for a landscape crops the
+ * material out of its own picture.
+ */
+export const HERO_STACK = [
+  ['quest/slab-lumber.webp', 'Lumber'],      // landscape
+  ['quest/roof-ridge.webp', 'Shingle'],      // portrait
+  ['quest/sheathing-panel.webp', 'Sheathing'], // landscape
+];
+/** The lead plate: the LCP image, and the only one that is preloaded. */
+export const HERO = HERO_STACK[0][0];
 /** The 4:3 shot beside the story copy on the home and about pages. */
 export const STORY = 'quest/story.webp';
 /** The 16:10 shot in the contact page's help card. */
@@ -373,7 +403,8 @@ function taken(kind, key) {
   const base = [CLOSING];
   switch (kind) {
     case 'home':
-      return [...base, HERO, STORY, ...PROJECT_SHOTS, ...CARD_ORIGINALS];
+      return [...base, ...HERO_STACK.map(([f]) => f), STORY,
+        ...PROJECT_SHOTS, ...CARD_ORIGINALS];
     case 'service':
       return [...base, bannerShot('service', key)[0]];
     case 'area':
@@ -484,11 +515,17 @@ export function areaShots(i, n = 3) {
 // The bands on the pages that are neither a service nor a city. Each pool runs
 // long for the same reason the trades' do.
 const PAGE_POOL = {
+  // Four longer than the band needs. The hero takes three photographs off the
+  // top of this pool now rather than one cut-out that was in no pool at all,
+  // and a pool sized exactly to the band leaves the build throwing the moment
+  // anything upstream claims one of them.
   home: [
     'quest/slab-blockwall.webp', 'quest/framing-roof.webp', 'quest/sheathing-panel.webp',
     'quest/home-windows.webp', 'quest/porch-dusk.webp', 'quest/framing-long-wall.webp',
     'quest/roof-ridge.webp', 'quest/framing-header.webp', 'quest/slab-lumber.webp',
-    'quest/framing-sky.webp', 'quest/roof-eave.webp', 'quest/framing-palms.webp'],
+    'quest/framing-sky.webp', 'quest/roof-eave.webp', 'quest/framing-palms.webp',
+    'quest/framing-openings.webp', 'quest/roof-deck.webp', 'quest/framing-corner.webp',
+    'quest/slab-walls.webp'],
   about: [
     'quest/framing-palms.webp', 'quest/roof-ridge.webp', 'quest/framing-hose.webp',
     'quest/slab-walls.webp', 'quest/framing-sky.webp', 'quest/roof-valley.webp'],

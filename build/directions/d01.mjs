@@ -1,13 +1,13 @@
 // Direction 01 — Site Plan. Layered and editorial: a faint engineering grid on
-// cream, a hard-edged accent plane, a frameless cut-out machine straddling the
-// boundary, and a floating badge card over the lot. Pill buttons, generous
-// radii, soft layered shadows.
+// cream, a hard-edged accent plane, a fanned stack of material plates
+// straddling the boundary, and a floating badge card over the lot. Pill
+// buttons, generous radii, soft layered shadows.
 import { img, preloadImage, size } from '../lib/images.mjs';
 import { icon } from '../lib/icons.mjs';
 import { SHORT_NAME } from '../lib/pages.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 import {
-  shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO, STORY, CONTACT,
+  shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO_STACK, STORY, CONTACT,
   CLOSING, PROJECT_SHOTS,
   serviceShots, areaShots,
 } from '../lib/photos.mjs';
@@ -19,7 +19,7 @@ export const meta = {
   fonts: `<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">`,
-  preload: (c) => (c.page.kind === 'home' ? preloadImage(c, HERO) : ''),
+  preload: (c) => (c.page.kind === 'home' ? preloadImage(c, HERO_STACK[0][0]) : ''),
 };
 
 export const esc = (s) => String(s)
@@ -417,6 +417,20 @@ ${baseScript(c)}`; }
 
 // ---------------------------------------------------------------- page bodies
 
+// The hero's foreground. Three plates of what Quest builds with, fanned so
+// they overlap: occlusion is the strongest depth cue there is, and three of
+// them at three sizes with three shadow depths reads as a stack of real things
+// rather than as a picture of one. The lead plate is the LCP image and is the
+// only one loaded eagerly; the other two are lazy and arrive behind it.
+const matStack = (c) => `
+  <div class="matstack">
+    ${HERO_STACK.map(([f, label], i) => `
+    <figure class="mat m${i + 1}">
+      ${img(c, ...shot(f), i === 0 ? { eager: true } : {})}
+      <figcaption class="mono">${esc(label)}</figcaption>
+    </figure>`).join('')}
+  </div>`;
+
 export function home(c) {
   const h = c.pages.home;
 
@@ -459,7 +473,7 @@ export function home(c) {
       </div>
     </div>
   </div>
-  ${img(c, ...shot(HERO), { cls: 'machine', eager: true })}
+  ${matStack(c)}
   <div class="badge badge-float">
     <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h5l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v5a15 15 0 0 1-16-16z"/></svg></span>
     <span><b>${esc(c.site.phoneDisplay)}</b><span>${esc(c.site.availability)} &middot; family owned</span></span>

@@ -34,7 +34,17 @@ test('the two cut-outs are the only images in the tree Quest did not shoot', asy
   // crept back in — read the CUTOUTS comment in photos.mjs before widening it.
   assert.deepEqual(strays.sort(), [...CUTOUTS].sort(),
     `unexpected non-Quest photography: ${strays}`);
-  assert.ok(CUTOUTS.includes(HERO), 'the hero should be one of the cut-outs');
+  // And the hero is no longer one of them. Quest asked for the plant to come
+  // off the front page, so the lead image is a photograph Quest took — which
+  // is the whole library's rule, and the hero was the one exception to it.
+  assert.ok(!CUTOUTS.includes(HERO), 'the hero is a cut-out again');
+  assert.match(HERO, /^quest\//, `the hero is not Quest's own photograph: ${HERO}`);
+  // The two cut-outs stay in the tree because d10 still draws with them; what
+  // matters is that the indexable direction does not.
+  const d01 = readFileSync('d01-site-plan/index.html', 'utf8');
+  for (const c of CUTOUTS) {
+    assert.ok(!d01.includes(c), `the home page still references the cut-out ${c}`);
+  }
 });
 
 test('every social card is exactly 1200x630', () => {
