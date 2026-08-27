@@ -55,6 +55,34 @@
     1200,
     630
   ],
+  "quest/aerial-crane.webp": [
+    1200,
+    675
+  ],
+  "quest/aerial-reroof.webp": [
+    1800,
+    1012
+  ],
+  "quest/aerial-tearoff.webp": [
+    1500,
+    844
+  ],
+  "quest/card/aerial-crane.webp": [
+    900,
+    600
+  ],
+  "quest/card/aerial-reroof.webp": [
+    900,
+    600
+  ],
+  "quest/card/casita-shell.webp": [
+    900,
+    600
+  ],
+  "quest/card/casita-sunset.webp": [
+    900,
+    600
+  ],
   "quest/card/custom-home-gables.webp": [
     900,
     600
@@ -63,35 +91,11 @@
     900,
     600
   ],
-  "quest/card/deck-joists.webp": [
+  "quest/card/deck-finished.webp": [
     900,
     600
   ],
-  "quest/card/framing-clouds.webp": [
-    900,
-    600
-  ],
-  "quest/card/framing-inside.webp": [
-    900,
-    600
-  ],
-  "quest/card/framing-slab.webp": [
-    900,
-    600
-  ],
-  "quest/card/framing-walls.webp": [
-    900,
-    600
-  ],
-  "quest/card/gable-window.webp": [
-    900,
-    600
-  ],
-  "quest/card/home-side.webp": [
-    900,
-    600
-  ],
-  "quest/card/home-trusses.webp": [
+  "quest/card/framing-turret.webp": [
     900,
     600
   ],
@@ -99,7 +103,11 @@
     900,
     600
   ],
-  "quest/card/roof-shingles.webp": [
+  "quest/card/remodel-studs.webp": [
+    900,
+    600
+  ],
+  "quest/card/siding-lap.webp": [
     900,
     600
   ],
@@ -110,6 +118,22 @@
   "quest/card/spare.webp": [
     900,
     600
+  ],
+  "quest/card/window-stucco.webp": [
+    900,
+    600
+  ],
+  "quest/casita-shell.webp": [
+    1125,
+    1500
+  ],
+  "quest/casita-stucco.webp": [
+    1500,
+    1125
+  ],
+  "quest/casita-sunset.webp": [
+    768,
+    1024
   ],
   "quest/custom-home-gables.webp": [
     1500,
@@ -123,13 +147,29 @@
     1500,
     1125
   ],
+  "quest/deck-finished.webp": [
+    900,
+    1200
+  ],
   "quest/deck-joists.webp": [
     1500,
     1125
   ],
+  "quest/footings-excavator.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-addition.webp": [
+    768,
+    1024
+  ],
   "quest/framing-block.webp": [
     1125,
     1500
+  ],
+  "quest/framing-braced.webp": [
+    768,
+    1024
   ],
   "quest/framing-clouds.webp": [
     1500,
@@ -143,9 +183,21 @@
     1125,
     1500
   ],
+  "quest/framing-cricket.webp": [
+    1125,
+    1500
+  ],
   "quest/framing-curve.webp": [
     1125,
     1500
+  ],
+  "quest/framing-desert-lot.webp": [
+    1500,
+    1125
+  ],
+  "quest/framing-garage.webp": [
+    1500,
+    1125
   ],
   "quest/framing-header.webp": [
     1125,
@@ -179,6 +231,10 @@
     1125,
     1500
   ],
+  "quest/framing-patio.webp": [
+    768,
+    1024
+  ],
   "quest/framing-progress.webp": [
     1125,
     1500
@@ -200,6 +256,10 @@
     1125
   ],
   "quest/framing-sun.webp": [
+    1125,
+    1500
+  ],
+  "quest/framing-turret.webp": [
     1125,
     1500
   ],
@@ -247,6 +307,10 @@
     1124,
     1500
   ],
+  "quest/remodel-studs.webp": [
+    1125,
+    1500
+  ],
   "quest/roof-deck.webp": [
     1125,
     1500
@@ -279,11 +343,19 @@
     1125,
     1500
   ],
+  "quest/roof-windows.webp": [
+    1500,
+    1125
+  ],
   "quest/sheathing-curve.webp": [
     1125,
     1500
   ],
   "quest/sheathing-panel.webp": [
+    1500,
+    1125
+  ],
+  "quest/siding-lap.webp": [
     1500,
     1125
   ],
@@ -310,5 +382,37 @@
   "quest/story.webp": [
     1800,
     1350
+  ],
+  "quest/window-demo.webp": [
+    900,
+    1200
+  ],
+  "quest/window-fitted.webp": [
+    1125,
+    1500
+  ],
+  "quest/window-flashed.webp": [
+    900,
+    1200
+  ],
+  "quest/window-interior.webp": [
+    1500,
+    1125
+  ],
+  "quest/window-opening.webp": [
+    1125,
+    1500
+  ],
+  "quest/window-reflection.webp": [
+    1125,
+    1500
+  ],
+  "quest/window-scaffold.webp": [
+    1500,
+    1125
+  ],
+  "quest/window-stucco.webp": [
+    900,
+    1200
   ]
 }

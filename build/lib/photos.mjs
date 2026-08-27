@@ -1,13 +1,18 @@
 // The photograph library. Every image on every page comes from here.
 //
-// Quest supplied two shoots: an addition in progress on a Phoenix-area lot
-// (slab, framing, sheathing, deck joists) and a finished custom home in the
-// desert (roof, gables, windows, dusk exteriors). There is no stock
-// photography left in the tree, so nothing on the site shows work Quest did
-// not do — which also means the alt text below has to describe what is
-// actually in the frame and no more. If a trade has no photograph of its own
-// (drywall, stucco, paint, cabinetry), it borrows the closest honest one and
-// the alt text says what that picture really shows.
+// Quest has supplied three shoots. The first two were single jobs caught
+// mid-structure: an addition on a Phoenix-area lot (slab, framing, sheathing,
+// deck joists) and a custom home in the desert (roof, gables, windows, dusk
+// exteriors). The third is a spread across many jobs, and it is the one that
+// closed the holes — a finished composite deck, an interior taken back to the
+// studs, siding, a window job start to finish, a casita at three stages, and
+// the first aerials Quest has ever handed over.
+//
+// There is no stock photography left in the tree, so nothing on the site shows
+// work Quest did not do — which also means the alt text below has to describe
+// what is actually in the frame and no more. Where a trade still has no
+// photograph of its own (drywall, paint, cabinetry) it borrows the closest
+// honest one and the alt text says what that picture really shows.
 //
 // Two files are not Quest's, and neither is a photograph in the sense the rest
 // are: they are alpha cut-outs. See CUTOUTS below for why they stay.
@@ -82,6 +87,38 @@ export const ALT = {
   'quest/roof-field.webp': 'A field of new architectural shingles across a finished roof',
   'quest/roof-desert.webp': 'A newly shingled hip roof with the Arizona mountains beyond',
 
+  // ---- the third shoot: whole jobs rather than one stage of one job
+  // Quest's first two shoots were an addition and a custom home, both caught
+  // mid-structure. This one covers the trades the library could not show at
+  // all — a finished deck, an interior stripped back to the studs, siding,
+  // windows going in — plus the first aerials Quest has ever had.
+  'quest/aerial-reroof.webp': 'A roofing crew stripping and re-covering a house roof, seen from above with the underlayment down',
+  'quest/aerial-tearoff.webp': 'A whole house roof mid-replacement from above, shingle bundles staged across the deck',
+  'quest/aerial-crane.webp': 'A crane setting roof trusses on a large timber-framed building, seen from above',
+  'quest/deck-finished.webp': 'A finished composite deck running the length of a house under a covered patio',
+  'quest/remodel-studs.webp': 'A house interior taken back to the studs, with new partition framing and ductwork in',
+  'quest/siding-lap.webp': 'New lap siding and a new window on a house wall under exposed rafter tails',
+  'quest/casita-stucco.webp': 'A finished casita with stucco walls, a tile roof and windows set, with roof tile stacked alongside',
+  'quest/casita-shell.webp': 'The sheathed shell of a casita with its roof on and openings cut',
+  'quest/casita-sunset.webp': 'A sheathed casita on its slab at sunset',
+  'quest/framing-turret.webp': 'A curved turret framed in timber with its rafters radiating from the centre',
+  'quest/framing-cricket.webp': 'A carpenter framing a roof cricket on a sheathed roof deck',
+  'quest/framing-desert-lot.webp': 'Sheathed exterior walls standing across the footprint of a house on an open desert lot',
+  'quest/framing-garage.webp': 'A sheathed garage addition beside an existing house in the late afternoon',
+  'quest/framing-patio.webp': 'An addition framed on a new slab where it meets an existing tiled patio',
+  'quest/framing-braced.webp': 'A braced sheathed wall and its opening standing on a freshly poured slab',
+  'quest/framing-addition.webp': 'An addition framed and insulated against the wall of an existing house',
+  'quest/footings-excavator.webp': 'A compact excavator cutting footings alongside an existing house',
+  'quest/window-stucco.webp': 'A new window set and flashed into a stucco wall',
+  'quest/window-flashed.webp': 'A new window flashed into a stucco wall with the sealing tape still exposed',
+  'quest/window-reflection.webp': 'A new window fitted into its opening, the sky reflected in the upper light',
+  'quest/window-opening.webp': 'An opening cut through a stucco wall for a new window, the finished room visible inside',
+  'quest/window-scaffold.webp': 'Two new windows going into an upper storey from a scaffold',
+  'quest/window-demo.webp': 'A wall opened up and the old window taken out, ready for a wider one',
+  'quest/window-fitted.webp': 'A new window fitted into a widened opening with fresh siding below it',
+  'quest/window-interior.webp': 'A stripped room with two new windows fitted, waiting on trim and paint',
+  'quest/roof-windows.webp': 'A newly shingled roof with the tools still out and new windows going in behind it',
+
   // ---- the two alpha cut-outs; see CUTOUTS
   'excavator.webp': 'A tracked excavator on a Quest Construction site',
   'loader.webp': 'A wheel loader on a Quest Construction site',
@@ -123,6 +160,16 @@ export const LANDSCAPE = [
   'quest/slab-blockwall.webp',
   'quest/sheathing-panel.webp',
   'quest/framing-roof.webp',
+  'quest/aerial-reroof.webp',
+  'quest/aerial-tearoff.webp',
+  'quest/aerial-crane.webp',
+  'quest/casita-stucco.webp',
+  'quest/siding-lap.webp',
+  'quest/framing-desert-lot.webp',
+  'quest/framing-garage.webp',
+  'quest/window-scaffold.webp',
+  'quest/window-interior.webp',
+  'quest/roof-windows.webp',
 ];
 
 /**
@@ -227,11 +274,14 @@ export const TRADES = [
 // camera roll: ground and slab, framing going up, sheathing and openings, the
 // roof, then the finished exteriors.
 export const GALLERY = [
+  'quest/footings-excavator.webp',
   'quest/slab-blockwall.webp',
   'quest/slab-lumber.webp',
   'quest/slab-walls.webp',
   'quest/sheathing-panel.webp',
   'quest/slab-poured.webp',
+  'quest/framing-braced.webp',
+  'quest/framing-patio.webp',
   'quest/framing-slab.webp',
   'quest/framing-walls.webp',
   'quest/framing-long-wall.webp',
@@ -240,6 +290,9 @@ export const GALLERY = [
   'quest/framing-court.webp',
   'quest/framing-progress.webp',
   'quest/framing-wide.webp',
+  'quest/framing-desert-lot.webp',
+  'quest/framing-addition.webp',
+  'quest/framing-garage.webp',
   'quest/framing-clouds.webp',
   'quest/framing-sky.webp',
   'quest/framing-sun.webp',
@@ -252,15 +305,22 @@ export const GALLERY = [
   'quest/framing-header.webp',
   'quest/framing-inside.webp',
   'quest/framing-roof.webp',
+  'quest/framing-turret.webp',
   'quest/framing-curve.webp',
   'quest/sheathing-curve.webp',
+  'quest/aerial-crane.webp',
+  'quest/casita-shell.webp',
+  'quest/casita-sunset.webp',
+  'quest/casita-stucco.webp',
   'quest/deck-joists.webp',
+  'quest/deck-finished.webp',
   'quest/story.webp',
   'quest/hero.webp',
   'quest/custom-home-wide.webp',
   'quest/custom-home-shell.webp',
   'quest/custom-home-gables.webp',
   'quest/home-trusses.webp',
+  'quest/framing-cricket.webp',
   'quest/home-windows.webp',
   'quest/gable-window.webp',
   'quest/gables-underlayment.webp',
@@ -272,6 +332,19 @@ export const GALLERY = [
   'quest/roof-valley.webp',
   'quest/roof-field.webp',
   'quest/roof-desert.webp',
+  'quest/aerial-reroof.webp',
+  'quest/aerial-tearoff.webp',
+  'quest/roof-windows.webp',
+  'quest/window-demo.webp',
+  'quest/window-opening.webp',
+  'quest/window-interior.webp',
+  'quest/window-flashed.webp',
+  'quest/window-reflection.webp',
+  'quest/window-stucco.webp',
+  'quest/window-scaffold.webp',
+  'quest/window-fitted.webp',
+  'quest/remodel-studs.webp',
+  'quest/siding-lap.webp',
   'quest/home-side.webp',
   'quest/porch-dusk.webp',
   'quest/home-dusk.webp',
@@ -298,22 +371,31 @@ export const GALLERY = [
 // The gallery is the exception, and the obvious one: it shows the whole
 // library, so the banner and the closing plate necessarily appear inside it.
 
-/** One photograph per trade for the service card. All fourteen differ. */
+/**
+ * One photograph per trade for the service card. All fourteen differ.
+ *
+ * Nine of these were stand-ins until the third shoot arrived: the deck card
+ * showed joists on grade because there was no photograph of a finished deck,
+ * the remodel card showed bare framing, the window card showed a gable window
+ * on a new build rather than a window being installed, and the siding and
+ * casita cards showed whole houses that happened to have siding or happened to
+ * be small. Every one of those now shows the trade the card is named after.
+ */
 const CARD_SHOTS = {
-  'residential-development': 'framing-clouds',
-  casita: 'framing-walls',
-  adu: 'framing-slab',
-  framing: 'home-trusses',
+  'residential-development': 'aerial-crane',
+  casita: 'casita-shell',
+  adu: 'casita-sunset',
+  framing: 'framing-turret',
   concrete: 'slab-poured',
   stucco: 'custom-home-shell',
   'dry-wall': 'spare',
-  siding: 'home-side',
-  roofing: 'roof-shingles',
-  'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops': 'framing-inside',
+  siding: 'siding-lap',
+  roofing: 'aerial-reroof',
+  'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops': 'remodel-studs',
   'custom-home-building': 'porch-dusk',
   painting: 'custom-home-gables',
-  'deck-building-uses-trex-system': 'deck-joists',
-  'window-installation': 'gable-window',
+  'deck-building-uses-trex-system': 'deck-finished',
+  'window-installation': 'window-stucco',
 };
 
 // The tile repeats fourteen times on the home page, on every city page and on
@@ -355,20 +437,23 @@ const CARD_ORIGINALS = Object.values(CARD_SHOTS).map((n) => `quest/${n}.webp`);
 // rotation — a visitor reading about decks should not open on a roof. A city
 // page cannot be relevant to its city, so those rotate.
 const SERVICE_BANNER = {
-  'residential-development': 'quest/slab-lumber.webp',
-  casita: 'quest/framing-slab.webp',
-  adu: 'quest/sheathing-panel.webp',
+  'residential-development': 'quest/aerial-crane.webp',
+  casita: 'quest/casita-stucco.webp',
+  adu: 'quest/framing-desert-lot.webp',
   framing: 'quest/framing-clouds.webp',
   concrete: 'quest/slab-blockwall.webp',
   stucco: 'quest/custom-home-gables.webp',
   'dry-wall': 'quest/framing-roof.webp',
-  siding: 'quest/custom-home-wide.webp',
-  roofing: 'quest/roof-field.webp',
-  'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops': 'quest/story.webp',
+  siding: 'quest/siding-lap.webp',
+  roofing: 'quest/aerial-reroof.webp',
+  'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops': 'quest/window-interior.webp',
   'custom-home-building': 'quest/porch-dusk.webp',
   painting: 'quest/hero.webp',
+  // The best deck photograph is the finished one and it is a portrait frame,
+  // which this slot cannot take — so it opens on the joists going down and the
+  // band below leads on the finished deck instead.
   'deck-building-uses-trex-system': 'quest/deck-joists.webp',
-  'window-installation': 'quest/home-windows.webp',
+  'window-installation': 'quest/window-scaffold.webp',
 };
 
 // Eleven cities, eleven frames, none of them one of the fourteen trade tiles
@@ -376,15 +461,15 @@ const SERVICE_BANNER = {
 const AREA_BANNER = [
   'quest/framing-roof.webp',
   'quest/story.webp',
-  'quest/roof-field.webp',
+  'quest/aerial-tearoff.webp',
   'quest/slab-lumber.webp',
   'quest/hero.webp',
-  'quest/roof-ridge.webp',
+  'quest/framing-garage.webp',
   'quest/sheathing-panel.webp',
   'quest/roof-desert.webp',
-  'quest/slab-blockwall.webp',
+  'quest/casita-stucco.webp',
   'quest/framing-lumber.webp',
-  'quest/roof-valley.webp',
+  'quest/roof-windows.webp',
 ];
 
 const BANNER_PAGE = {
@@ -454,48 +539,59 @@ function fill(pool, used, n, where) {
 // than the trade it sits under.
 const SERVICE_POOL = {
   'residential-development': [
+    'quest/aerial-tearoff.webp', 'quest/framing-desert-lot.webp', 'quest/framing-garage.webp',
     'quest/framing-clouds.webp', 'quest/slab-lumber.webp', 'quest/custom-home-wide.webp',
     'quest/home-dusk.webp', 'quest/framing-progress.webp', 'quest/framing-sky.webp'],
   casita: [
+    'quest/casita-shell.webp', 'quest/casita-sunset.webp', 'quest/framing-addition.webp',
     'quest/framing-walls.webp', 'quest/slab-poured.webp', 'quest/framing-palms.webp',
     'quest/framing-progress.webp', 'quest/framing-corner.webp'],
   adu: [
+    'quest/casita-stucco.webp', 'quest/casita-shell.webp', 'quest/casita-sunset.webp',
     'quest/framing-slab.webp', 'quest/sheathing-panel.webp', 'quest/framing-long-wall.webp',
     'quest/framing-block.webp', 'quest/framing-wide.webp'],
   framing: [
-    'quest/framing-clouds.webp', 'quest/framing-roof.webp', 'quest/framing-header.webp',
+    'quest/framing-turret.webp', 'quest/framing-cricket.webp', 'quest/aerial-crane.webp',
+    'quest/framing-desert-lot.webp', 'quest/framing-roof.webp', 'quest/framing-header.webp',
     'quest/home-trusses.webp', 'quest/framing-sky.webp'],
   concrete: [
-    'quest/slab-poured.webp', 'quest/slab-blockwall.webp', 'quest/slab-walls.webp',
+    'quest/slab-poured.webp', 'quest/footings-excavator.webp', 'quest/framing-patio.webp',
+    'quest/framing-braced.webp', 'quest/slab-walls.webp',
     'quest/slab-lumber.webp', 'quest/framing-shade.webp'],
   stucco: [
-    'quest/custom-home-shell.webp', 'quest/custom-home-gables.webp', 'quest/home-side.webp',
-    'quest/framing-walls.webp', 'quest/gables-underlayment.webp'],
+    'quest/casita-stucco.webp', 'quest/custom-home-shell.webp', 'quest/window-flashed.webp',
+    'quest/home-side.webp', 'quest/framing-walls.webp', 'quest/gables-underlayment.webp'],
   'dry-wall': [
     'quest/spare.webp', 'quest/framing-inside.webp', 'quest/framing-openings.webp',
     'quest/framing-hose.webp', 'quest/framing-corner.webp'],
   siding: [
-    'quest/home-side.webp', 'quest/home-trusses.webp', 'quest/custom-home-shell.webp',
+    'quest/window-fitted.webp', 'quest/framing-garage.webp', 'quest/home-side.webp',
+    'quest/home-trusses.webp', 'quest/custom-home-shell.webp',
     'quest/sheathing-panel.webp', 'quest/framing-walls.webp'],
   roofing: [
+    'quest/aerial-tearoff.webp', 'quest/roof-windows.webp', 'quest/framing-cricket.webp',
     'quest/roof-shingles.webp', 'quest/roof-ridge.webp', 'quest/roof-desert.webp',
     'quest/roof-eave.webp', 'quest/roof-valley.webp'],
   'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops': [
-    'quest/spare.webp', 'quest/framing-inside.webp', 'quest/framing-corner.webp',
+    'quest/remodel-studs.webp', 'quest/window-opening.webp', 'quest/spare.webp',
+    'quest/framing-addition.webp', 'quest/framing-inside.webp', 'quest/framing-corner.webp',
     'quest/slab-walls.webp', 'quest/framing-openings.webp'],
   'custom-home-building': [
     'quest/custom-home-wide.webp', 'quest/custom-home-gables.webp', 'quest/home-trusses.webp',
     'quest/custom-home-shell.webp', 'quest/home-side.webp', 'quest/porch-dusk.webp',
     'quest/home-dusk.webp'],
   painting: [
-    'quest/spare.webp', 'quest/custom-home-gables.webp', 'quest/home-windows.webp',
-    'quest/gables-underlayment.webp', 'quest/custom-home-shell.webp'],
+    'quest/spare.webp', 'quest/window-interior.webp', 'quest/casita-stucco.webp',
+    'quest/home-windows.webp', 'quest/gables-underlayment.webp', 'quest/custom-home-shell.webp'],
   'deck-building-uses-trex-system': [
-    'quest/deck-joists.webp', 'quest/framing-lumber.webp', 'quest/slab-lumber.webp',
+    'quest/deck-finished.webp', 'quest/framing-lumber.webp', 'quest/slab-lumber.webp',
     'quest/porch-dusk.webp', 'quest/framing-slab.webp'],
+  // The one trade with a start-to-finish sequence of its own: the wall opened
+  // up, the unit flashed in, the sky in the glass, the finished opening.
   'window-installation': [
-    'quest/gable-window.webp', 'quest/home-windows.webp', 'quest/framing-openings.webp',
-    'quest/spare.webp', 'quest/gables-underlayment.webp'],
+    'quest/window-demo.webp', 'quest/window-flashed.webp', 'quest/window-reflection.webp',
+    'quest/window-fitted.webp', 'quest/window-opening.webp', 'quest/window-interior.webp',
+    'quest/gable-window.webp', 'quest/home-windows.webp', 'quest/framing-openings.webp'],
 };
 
 /** The photographs that belong on a service page, as [file, alt] pairs. */
@@ -520,6 +616,10 @@ const AREA_DECK = [
   'quest/framing-hose.webp', 'quest/slab-walls.webp', 'quest/framing-sky.webp',
   'quest/roof-valley.webp', 'quest/framing-shade.webp', 'quest/framing-curve.webp',
   'quest/sheathing-curve.webp', 'quest/roof-underlayment.webp', 'quest/framing-block.webp',
+  'quest/deck-finished.webp', 'quest/remodel-studs.webp', 'quest/window-stucco.webp',
+  'quest/casita-shell.webp', 'quest/siding-lap.webp', 'quest/framing-turret.webp',
+  'quest/aerial-reroof.webp', 'quest/framing-cricket.webp', 'quest/window-fitted.webp',
+  'quest/casita-sunset.webp', 'quest/framing-desert-lot.webp', 'quest/window-reflection.webp',
 ];
 
 /** The photographs that belong on the service-area page at index `i`. */
@@ -537,6 +637,7 @@ const PAGE_POOL = {
   // and a pool sized exactly to the band leaves the build throwing the moment
   // anything upstream claims one of them.
   home: [
+    'quest/aerial-tearoff.webp', 'quest/deck-finished.webp', 'quest/framing-turret.webp',
     'quest/slab-blockwall.webp', 'quest/framing-roof.webp', 'quest/sheathing-panel.webp',
     'quest/home-windows.webp', 'quest/porch-dusk.webp', 'quest/framing-long-wall.webp',
     'quest/roof-ridge.webp', 'quest/framing-header.webp', 'quest/slab-lumber.webp',
@@ -544,17 +645,21 @@ const PAGE_POOL = {
     'quest/framing-openings.webp', 'quest/roof-deck.webp', 'quest/framing-corner.webp',
     'quest/slab-walls.webp'],
   about: [
-    'quest/framing-palms.webp', 'quest/roof-ridge.webp', 'quest/framing-hose.webp',
+    'quest/framing-cricket.webp', 'quest/casita-stucco.webp', 'quest/framing-palms.webp',
+    'quest/roof-ridge.webp', 'quest/framing-hose.webp',
     'quest/slab-walls.webp', 'quest/framing-sky.webp', 'quest/roof-valley.webp'],
   projects: [
+    'quest/aerial-crane.webp', 'quest/deck-finished.webp', 'quest/remodel-studs.webp',
     'quest/framing-long-wall.webp', 'quest/framing-header.webp', 'quest/roof-desert.webp',
     'quest/framing-shade.webp', 'quest/roof-underlayment.webp', 'quest/slab-walls.webp',
     'quest/framing-hose.webp', 'quest/framing-curve.webp'],
   serviceIndex: [
-    'quest/framing-long-wall.webp', 'quest/roof-ridge.webp', 'quest/framing-header.webp',
+    'quest/aerial-tearoff.webp', 'quest/window-scaffold.webp', 'quest/framing-long-wall.webp',
+    'quest/roof-ridge.webp', 'quest/framing-header.webp',
     'quest/slab-lumber.webp', 'quest/framing-sky.webp', 'quest/roof-eave.webp'],
   areaIndex: [
-    'quest/framing-palms.webp', 'quest/roof-desert.webp', 'quest/porch-dusk.webp',
+    'quest/framing-desert-lot.webp', 'quest/casita-sunset.webp', 'quest/framing-palms.webp',
+    'quest/roof-desert.webp', 'quest/porch-dusk.webp',
     'quest/slab-lumber.webp', 'quest/roof-ridge.webp', 'quest/framing-sky.webp'],
 };
 
