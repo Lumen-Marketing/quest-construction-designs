@@ -389,10 +389,15 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
      object sits and no type does. */
   .hero-panel{width:100%;clip-path:polygon(0 0,100% 0,100% calc(100% - 34px),0 100%);
     background:linear-gradient(180deg,
-      color-mix(in srgb,var(--acc) 72%,transparent) 0%,
-      color-mix(in srgb,var(--acc) 72%,transparent) 62%,
-      color-mix(in srgb,var(--acc) 58%,transparent) 78%,
-      color-mix(in srgb,var(--acc) 42%,transparent) 100%)}
+      /* Inverted, because the picture leads at this width now. The tint used
+         to ease off over the lower half — that was where the object sat. The
+         copy sits there instead, so the easing is at the TOP where the object
+         is and the words get the full strength. Left the other way round it
+         measured 1.01x its requirement. */
+      color-mix(in srgb,var(--acc) 42%,transparent) 0%,
+      color-mix(in srgb,var(--acc) 48%,transparent) 24%,
+      color-mix(in srgb,var(--acc) 66%,transparent) 40%,
+      color-mix(in srgb,var(--acc) 68%,transparent) 100%)}
   .hero-ground::after{background:linear-gradient(180deg,
     color-mix(in srgb,var(--cream) 40%,transparent) 0%,
     color-mix(in srgb,var(--cream) 34%,transparent) 100%)}
@@ -403,8 +408,15 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
      bottom pulled its foot below .hero, which is overflow:hidden. It is a
      cut-out, so its edges ARE the picture and there is nothing to lose off
      them. .wrap's own inline padding gives it the side margins. */
-  .machine{position:relative;z-index:5;right:auto;bottom:auto;
-    width:min(100%,440px);margin:clamp(18px,4vw,30px) auto 0;display:block}
+  /* The picture leads at this width. .wrap becomes the column and the object
+     takes order:-1 rather than being moved in the markup, because the source
+     order is what a wide screen needs — copy, then object, then figures — and
+     a screen reader gets that order either way.
+     It is already the eager, preloaded image, so putting it first costs
+     nothing: it is what the browser was fetching first regardless. */
+  .hero .wrap{display:flex;flex-direction:column}
+  .machine{position:relative;z-index:5;right:auto;bottom:auto;order:-1;
+    width:min(100%,440px);margin:0 auto clamp(20px,4.5vw,32px);display:block}
   .hero-trust{max-width:none;margin-top:clamp(18px,4vw,28px)}
   .hero-ghost{top:auto;bottom:2%;transform:none;right:-6%;color:rgba(20,19,16,.09)}
   .badge-float{display:none}
