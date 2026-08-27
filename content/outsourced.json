@@ -63,10 +63,10 @@
         "supplied_as": "Untitled design (20).png",
         "alt": "Rows of hard hats racked on shelves in every colour",
         "used_for": "the photograph under the hero's accent plane",
-        "note": "Sits under an accent wash at 88-95%, so it reads as texture rather than as a picture. The wash strength is set by contrast, not by taste — see shots/herotext.mjs.",
+        "note": "Re-encoded with its luminance flattened hard and its chroma pushed up (ffmpeg eq contrast=0.22 brightness=-0.04 saturation=1.75). That is a contrast decision, not a look: a contrast RATIO is computed from luminance alone, so squeezing the picture luminance range from 0.66 to 0.23 while keeping its colour lets the hats read by hue through a far lighter wash than they could by brightness. The brightness trim lands the mean between the three palettes accents so no one of them pays for it. Scaled 1.75 in CSS as well, because a heavy wash flattens fine detail first and small hats read as noise. See shots/herotext.mjs.",
         "width": 1800,
         "height": 1012,
-        "bytes": 124082
+        "bytes": 86334
       }
     ]
   }

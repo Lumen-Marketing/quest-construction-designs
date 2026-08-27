@@ -267,15 +267,15 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
   background:
     /* 1. the column the copy occupies, at full strength */
     linear-gradient(96deg,
-      color-mix(in srgb,var(--acc) 95%,transparent) 0%,
-      color-mix(in srgb,var(--acc) 94%,transparent) 56%,
-      color-mix(in srgb,var(--acc) 56%,transparent) 82%,
-      color-mix(in srgb,var(--acc) 30%,transparent) 100%),
+      color-mix(in srgb,var(--acc) 80%,transparent) 0%,
+      color-mix(in srgb,var(--acc) 77%,transparent) 56%,
+      color-mix(in srgb,var(--acc) 34%,transparent) 82%,
+      color-mix(in srgb,var(--acc) 14%,transparent) 100%),
     /* 2. the plane's own colour over the whole picture, light enough to see
           through */
     linear-gradient(0deg,
-      color-mix(in srgb,var(--acc) 62%,transparent) 0%,
-      color-mix(in srgb,var(--acc) 62%,transparent) 100%),
+      color-mix(in srgb,var(--acc) 34%,transparent) 0%,
+      color-mix(in srgb,var(--acc) 34%,transparent) 100%),
     /* 3. and the lean the plane always had, as shade rather than as a second
           colour — it ends on a darkened accent, never on --acc-dim, which is
           a text token and was measuring 4.34:1 under the figures */
