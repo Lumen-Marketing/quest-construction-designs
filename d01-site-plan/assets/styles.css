@@ -244,7 +244,15 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
    x591..1450 it sat entirely behind the cut-out object. It rendered nothing.
    The same element was taken out of the inner-page banners on request; this
    one was still in the markup, costing a node and a repaint to draw air. */
-.hero .wrap{position:relative;z-index:4;width:100%}
+/* Deliberately NOT positioned. .machine is absolute and lives inside this
+   wrap now, so a position:relative here would make the wrap its containing
+   block — and the wrap's height is the copy's height, so bottom:4% would
+   measure off a box that changes with how the headline wraps. Measured: the
+   object's top swung from 60px to 124px below the hero between 1440 and 1120.
+   The stacking it needed moves onto its children instead, and .machine
+   resolves against .hero the way it always did. */
+.hero .wrap{width:100%}
+.hero-copy,.hero-trust{position:relative;z-index:4}
 .hero-copy{max-width:min(520px,46%)}
 /* Every other section on the site opens on one of these and the hero did not,
    so it started cold on a 62px headline with no rung below it.
@@ -323,18 +331,19 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
    above the fold and a stagger in front of it is a stagger in front of the
    LCP. The rungs either side of it wait, not it. */
 @keyframes heroin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.hero-copy>*{animation:heroin .55s cubic-bezier(.2,.8,.2,1) both}
+.hero-copy>*,.hero-trust{animation:heroin .55s cubic-bezier(.2,.8,.2,1) both}
 .hero-copy .eyebrow{animation-delay:.04s}
 .hero-copy h1{animation-delay:0s}
 .hero-copy .lede{animation-delay:.14s}
 .hero-acts{animation-delay:.22s}
 .hero-trust{animation-delay:.30s}
-@media(prefers-reduced-motion:reduce){.hero-copy>*{animation:none}}
+@media(prefers-reduced-motion:reduce){.hero-copy>*,.hero-trust{animation:none}}
 /* Four figures with nothing between them read as one run-on line. A hairline
    between each turns them into four things, which is what they are, and the
    rule above now runs the width of the row rather than stopping wherever the
    last label happened to end. */
-.hero-trust{display:flex;flex-wrap:wrap;gap:14px 0;margin-top:clamp(26px,3.4vw,42px);
+.hero-trust{max-width:min(520px,46%);
+  display:flex;flex-wrap:wrap;gap:14px 0;margin-top:clamp(26px,3.4vw,42px);
   padding-top:24px;border-top:1px solid color-mix(in srgb,var(--ink) 26%,transparent)}
 .hero-trust div{padding-right:clamp(16px,2vw,26px);margin-right:clamp(16px,2vw,26px);
   border-right:1px solid color-mix(in srgb,var(--ink) 18%,transparent)}
@@ -374,7 +383,7 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 @media(max-width:1080px){
   /* Let the object FLOW after the copy rather than reserving padding for it —
      absolute positioning kept colliding with the figures row as it reflowed. */
-  .hero{min-height:0;padding-bottom:0;display:block}
+  .hero{min-height:0;padding:clamp(26px,6vw,42px) 0 clamp(22px,5vw,34px);display:block}
   /* Full width here. It stays a tint, just a stronger one down through the
      copy and the figures, easing off over the lower half where the cut-out
      object sits and no type does. */
@@ -388,13 +397,15 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
     color-mix(in srgb,var(--cream) 40%,transparent) 0%,
     color-mix(in srgb,var(--cream) 34%,transparent) 100%)}
   .hero-copy{max-width:none}
-  /* Not 100%, and not a negative bottom. Full width put the object's own
-     silhouette hard against both edges — the gloves went off one side and the
-     hard hat off the other — and the -8px pulled its foot below .hero, which
-     is overflow:hidden, so the calipers were cut off square. It is a cut-out:
-     its edges ARE the picture, and there is nothing to lose off them. */
+  /* In flow between the buttons and the figures. Not 100% and not a negative
+     margin: full width put the object's own silhouette hard against both edges
+     — the gloves off one side, the hard hat off the other — and a negative
+     bottom pulled its foot below .hero, which is overflow:hidden. It is a
+     cut-out, so its edges ARE the picture and there is nothing to lose off
+     them. .wrap's own inline padding gives it the side margins. */
   .machine{position:relative;z-index:5;right:auto;bottom:auto;
-    width:min(86%,470px);margin:26px auto 0;display:block}
+    width:min(100%,440px);margin:clamp(18px,4vw,30px) auto 0;display:block}
+  .hero-trust{max-width:none;margin-top:clamp(18px,4vw,28px)}
   .hero-ghost{top:auto;bottom:2%;transform:none;right:-6%;color:rgba(20,19,16,.09)}
   .badge-float{display:none}
   /* Four figures, four columns. Three orphaned the fourth on a row of its

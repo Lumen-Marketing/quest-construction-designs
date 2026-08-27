@@ -477,15 +477,15 @@ export function home(c) {
         ${arrowBtn(c.url('contact'), 'Get in touch')}
         ${arrowBtn(c.site.phoneHref, 'Call us', 'btn ghost')}
       </div>
-      <div class="hero-trust">
-        <div><b>${c.site.foundingYear}</b><span>Building since</span></div>
-        <div><b>${c.services.length}</b><span>Services</span></div>
-        <div><b>${c.areas.areas.length}</b><span>Arizona cities</span></div>
-        <div><b>${esc(c.site.availability)}</b><span>Reach us</span></div>
-      </div>
+    </div>
+    ${img(c, ...shot(HERO), { cls: 'machine', eager: true })}
+    <div class="hero-trust">
+      <div><b>${c.site.foundingYear}</b><span>Building since</span></div>
+      <div><b>${c.services.length}</b><span>Services</span></div>
+      <div><b>${c.areas.areas.length}</b><span>Arizona cities</span></div>
+      <div><b>${esc(c.site.availability)}</b><span>Reach us</span></div>
     </div>
   </div>
-  ${img(c, ...shot(HERO), { cls: 'machine', eager: true })}
   <div class="badge badge-float">
     <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h5l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v5a15 15 0 0 1-16-16z"/></svg></span>
     <span><b>${esc(c.site.phoneDisplay)}</b><span>${esc(c.site.availability)} &middot; family owned</span></span>
