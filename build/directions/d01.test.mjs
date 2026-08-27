@@ -96,6 +96,31 @@ test('the long footer lists are marked for the two-up phone layout', () => {
   assert.equal((html.match(/<div class="col2">/g) || []).length, 2);
 });
 
+test('the phone drawer survives its own scroll lock', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+
+  // The drawer locks the document scroll so the page behind the sheet cannot
+  // move. `overflow:hidden` on the document also stops `position:sticky` from
+  // sticking: the header dropped back to its static position at the top of the
+  // DOCUMENT, and the sheet — absolutely positioned against the header's
+  // bottom edge — went with it. Opening the menu 2,400px down opened it 2,400px
+  // above the viewport, and since the close button lives in the header there
+  // was no way back out of it.
+  //
+  // Anything that locks the scroll has to stop leaning on sticky. This pins
+  // the pair rather than the offsets: lock the document, fix the header.
+  const lock = /html\.nav-open[^{]*\{[^}]*overflow:\s*hidden/.test(css);
+  if (!lock) return;
+  assert.match(css, /html\.nav-open\s+\.nav\{[^}]*position:fixed/,
+    'the drawer locks the document scroll while the header is still sticky');
+
+  // And a fixed header is out of the flow, so the page rides up by its full
+  // height — border included — the instant the menu opens. That shift is
+  // hidden behind the sheet but shows on the way back out.
+  assert.match(css, /html\.nav-open\s+body\{[^}]*padding-top:/,
+    'the header leaves the flow while open and nothing replaces the space');
+});
+
 test('the floating badge is anchored to the hero corner, clear of the copy', () => {
   const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
   const badge = /\.badge-float\{[^}]*\}/.exec(css);

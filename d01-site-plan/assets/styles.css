@@ -955,8 +955,20 @@ footer .brand img{height:38px}
   .nav .wrap{gap:0}
   .brand{margin-right:auto;min-width:0}
   .brand img,.nav .brand img{height:30px}
-  /* The sheet takes the scroll; the page behind it must not also move. */
+  /* The sheet takes the scroll; the page behind it must not also move.
+     Locking it is also what broke it. `overflow:hidden` on the document stops
+     `position:sticky` from sticking, so the header snapped back to its static
+     position at the top of the DOCUMENT — and the sheet, which hangs off the
+     header's bottom edge, went with it. Open the menu anywhere below the fold
+     and it opened that far above the viewport; what you saw was whatever you
+     were scrolled to, with no way back because the close button had left too.
+     So while the drawer is open the header is fixed rather than sticky, which
+     needs no scrollport to resolve against. Taking it out of the flow would
+     let the page ride up by the header's own height, so the padding puts that
+     back — the border is part of the height it vacated. */
   html.nav-open,html.nav-open body{overflow:hidden}
+  html.nav-open .nav{position:fixed;top:0;left:0;right:0}
+  html.nav-open body{padding-top:calc(var(--navh) + 1px)}
 }
 @media(max-width:940px) and (prefers-reduced-motion:reduce){
   .nav nav.open{animation:none}
