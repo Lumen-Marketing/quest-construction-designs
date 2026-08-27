@@ -7,10 +7,6 @@
     1361,
     1087
   ],
-  "mat/blocks.webp": [
-    1800,
-    1200
-  ],
   "mat/board.webp": [
     1200,
     800
@@ -18,10 +14,6 @@
   "mat/gear.webp": [
     1200,
     900
-  ],
-  "mat/kit.webp": [
-    1500,
-    976
   ],
   "og/custom-home.jpg": [
     1200,
@@ -172,8 +164,8 @@
     1024
   ],
   "quest/framing-clouds.webp": [
-    1500,
-    1125
+    1600,
+    1200
   ],
   "quest/framing-corner.webp": [
     1125,

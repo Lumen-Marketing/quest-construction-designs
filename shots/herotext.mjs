@@ -19,8 +19,13 @@ const PALETTES = {
 };
 // Everything on the plane that carries ink. The buttons bring their own
 // backgrounds and are covered by btncheck.mjs.
-const SEL = '.hero-copy .eyebrow, .hero-copy h1, .hero-copy .lede, '
-  + '.hero-trust b, .hero-trust span';
+// .h1-name and .hl set their own colour inside the h1, so measuring the h1
+// alone measured neither: the harness reads the colour off the element it is
+// measuring, and the parent's is not what those two are painted in. The hero
+// carries one word of the headline in the accent now, on a photograph rather
+// than on a flat band, which is exactly the case that needs watching.
+const SEL = '.hero-copy .eyebrow, .hero-copy h1, .hero-copy .h1-name, '
+  + '.hero-copy h1 .hl, .hero-copy .lede, .hero-trust b, .hero-trust span';
 
 const lin = (c) => (c <= 10.0164 ? c / 3294.6 : ((c / 255 + 0.055) / 1.055) ** 2.4);
 const lum = (r, g, b) => 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);

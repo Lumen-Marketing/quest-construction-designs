@@ -128,11 +128,9 @@ test('the floating badge is anchored to the hero corner, clear of the copy', () 
 
   // It used to float ON the hero object and was measured off that object's own
   // right edge and width, so it would not slide away once the object hit its
-  // width cap — at 1900px a left:50% badge sat off the end of it entirely.
-  // It is anchored to the hero's own corner now, which needs none of that
-  // arithmetic, and the arithmetic must not be left behind half-wired: a
-  // left:calc() reading a width the badge no longer tracks is the same bug in
-  // a quieter form.
+  // width cap. There is no object any more, and the arithmetic must not be
+  // left behind half-wired: a left:calc() reading a width nothing tracks is
+  // the same bug in a quieter form.
   assert.match(badge[0], /right:[\d.]+%/, 'the badge is not anchored from the right');
   assert.match(badge[0], /bottom:[\d.]+%/, 'the badge is not anchored from the bottom');
   assert.match(badge[0], /left:auto/, 'the badge still carries a left offset as well');
@@ -143,34 +141,55 @@ test('the floating badge is anchored to the hero corner, clear of the copy', () 
   // twice. This pins that reasoning rather than the exact offsets.
   assert.doesNotMatch(badge[0], /top:/, 'the badge has moved under the masthead phone button');
 
-  // And it stays above the object it no longer sits on.
+  // And it stays above every layer the hero stacks under it — the frame, the
+  // scrim, the beam, the grid and the copy.
   const z = Number(/z-index:(\d+)/.exec(badge[0])[1]);
-  const objZ = Number(/\.machine\{[^}]*z-index:(\d+)/.exec(css)[1]);
-  assert.ok(z > objZ, `the badge is at z-index ${z}, under the object at ${objZ}`);
+  for (const sel of ['.hero-shot', '.hero-beam', '.hero-copy,.hero-trust']) {
+    const rule = new RegExp(`\\${sel.replace(/,/g, ',\\.').replace(/^\./, '\\.')}\\{[^}]*z-index:(\\d+)`)
+      .exec(css);
+    if (!rule) continue;
+    assert.ok(z > Number(rule[1]),
+      `the badge is at z-index ${z}, under ${sel} at ${rule[1]}`);
+  }
 });
 
-test('the hero is one frameless object, and it is not a machine', () => {
+test('the hero is one full-bleed photograph, read off a scrim', () => {
   const html = renderPage({ mod: d01, key: 'home' });
-  // One image in the slot, not a set of plates. The composition depends on it
-  // having no frame: it straddles the accent plane's hard edge, and the ghost
-  // wordmark reads through the gaps in it. A rectangle hides the wordmark and
-  // turns that edge into a join between two boxes.
-  const objs = html.match(/<img[^>]*class="machine"[^>]*>/g) || [];
-  assert.equal(objs.length, 1, `expected one hero object, found ${objs.length}`);
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+
+  // The hero used to be a frameless cut-out standing on an accent plane. It is
+  // the banner construction now — the frame edge to edge, a directional scrim
+  // over it, the type read off the dark — which is what every other page on
+  // the site already opened on. One frame in the slot, not a stack of plates.
+  const objs = html.match(/<div class="hero-shot">\s*<img[^>]*>/g) || [];
+  assert.equal(objs.length, 1, `expected one hero frame, found ${objs.length}`);
   assert.equal((html.match(/class="mat m\d"/g) || []).length, 0, 'the plate stack is back');
+  assert.equal((html.match(/class="machine"/g) || []).length, 0, 'the cut-out object is back');
+
   // It is the LCP image: eager, prioritised, and the one thing preloaded.
   assert.match(objs[0], /loading="eager" fetchpriority="high"/);
   assert.equal((html.match(/rel="preload"[^>]*as="image"/g) || []).length, 1);
-  // Alpha, or it is a rectangle whatever it is a picture of.
-  assert.match(objs[0], /src="[^"]*\.webp"/);
-  assert.match(objs[0], /alt="[^"]{20,}"/, 'the hero object carries no real alt text');
+  // Real alt, not decorative. The banners' plates are aria-hidden because the
+  // page's own H1 names what they show; "From Concept to Creation" does not.
+  assert.match(objs[0], /alt="[^"]{20,}"/, 'the hero frame carries no real alt text');
 
-  // The shadow has to be a filter. box-shadow follows the element's rectangle,
-  // and this element's rectangle is mostly transparent.
-  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
-  const rule = /\.machine\{[^}]*\}/.exec(css)[0];
-  assert.match(rule, /filter:drop-shadow/, 'the hero object casts a rectangular shadow');
-  assert.doesNotMatch(rule, /box-shadow/);
+  // The type is legible because of the scrim, so the scrim is the load-bearing
+  // part: a frame with no scrim over it is white text on a photograph.
+  assert.match(css, /\.hero-shot::after\{[^}]*linear-gradient\([^)]*var\(--dark\)/,
+    'the hero frame has no scrim over it');
+  // And the copy column has to sit inside the heavy end of it. The scrim runs
+  // 96deg — left to right — so the column cannot be wider than the dark half.
+  const copy = /\.hero-copy\{max-width:min\((\d+)px,(\d+)%\)/.exec(css);
+  assert.ok(copy, 'the hero copy column has no width cap');
+  assert.ok(Number(copy[2]) <= 55,
+    `the copy column runs to ${copy[2]}% and the scrim lets go before that`);
+
+  // The old hero drew its ghost pill filled with the accent, because it stood
+  // on an orange plane. This ground is a photograph on near-black — the same
+  // ground the banner's ghost was drawn for — and filling it with the accent
+  // put cream on orange at 1.89:1.
+  assert.doesNotMatch(css, /\.hero \.btn\.ghost\{background:var\(--acc\)\}/,
+    'the hero ghost button is still filled for the accent plane it no longer stands on');
 });
 
 test('the accent bar is textured in ink and never in the ink it carries', () => {

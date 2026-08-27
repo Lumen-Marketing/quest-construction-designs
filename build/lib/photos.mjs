@@ -22,18 +22,17 @@
 
 /** file -> alt. The single source of truth for what each photograph shows. */
 export const ALT = {
-  // ---- the four outsourced materials ----
-  // The only photographs on the site Quest did not take. Quest photographs
-  // jobs, not stock, and asked for materials on the front page; there is no
-  // Quest picture of a pallet of block. Every one is CC0 — public domain,
+  // ---- the two outsourced materials ----
+  // The only photographs on the site Quest did not take, and the last two: the
+  // hero was rebuilt on Quest's own photography, which took the cut-out object
+  // and the block ground with it. What is left is the pair of vouchers, and
+  // those are material studies rather than jobs. Both are CC0 — public domain,
   // commercial use, no attribution — and content/outsourced.json carries the
   // licence, the source and the landing page for each. images.test.mjs fails
   // if anything in the tree that is not Quest's is missing from that file.
   //
   // The alt text describes the material, because that is what the picture is
   // for. None of them claims to be a Quest job, and none is captioned as one.
-  'mat/kit.webp': 'A hard hat, hi-vis vest, work gloves, saw, hammer, pliers, tape measure and screwdriver laid out together',
-  'mat/blocks.webp': 'Concrete masonry blocks stacked in courses, their hollow cores in deep shadow',
   'mat/board.webp': 'The face of an oriented strand board, its chips pressed flat in every direction',
   'mat/gear.webp': 'A hard hat, safety glasses and work gloves laid out on a timber bench',
 
@@ -194,36 +193,35 @@ export const LANDSCAPE = [
 export const CUTOUTS = ['excavator.webp', 'loader.webp'];
 
 /**
- * Direction 01's hero. A cut-out, so it is not in LANDSCAPE and is never cropped.
+ * Direction 01's hero. A full-bleed photograph now, on the same construction
+ * as the inner-page banners: the frame runs edge to edge, a directional scrim
+ * holds the copy side down, and the type is read off the dark rather than off
+ * a colour plane.
  *
- * This slot has now been through every wrong answer. It was the excavator, and
+ * The slot has been through every other answer. It was a machine cut-out, and
  * Quest asked for the plant off the front page. It became three of Quest's own
- * photographs, and those were jobsites with a material somewhere in them
- * rather than pictures of materials. It became three outsourced material
- * photographs, and those were three boxes — which is the one thing the slot
- * cannot hold, because the whole composition depends on there being no frame:
- * the object straddles the accent plane's hard edge, and the ghost wordmark
- * reads straight through the gaps in it. Put a rectangle there and the
- * wordmark disappears behind it and the edge stops being straddled.
+ * photographs in plates, and those were boxes. It became one frameless object
+ * on an accent plane over a block ground, and that worked — but it was the one
+ * composition on the site that had nothing to do with the rest of it, and it
+ * was carrying an outsourced image whose rights were never verified.
  *
- * So it is one object with no background again, and not a machine: a builder's
- * wheelbarrow, loaded, with a spade against it. Galvanised grey on burnt
- * orange, and enough holes in it — between the legs, under the tray, through
- * the handles — for the wordmark to show.
+ * Landscape, wide, and something with weather in it: the band is far wider
+ * than anything in the library is shot, so what goes here has to survive a
+ * severe crop and still read as a Quest jobsite. Six candidates were put
+ * through the band itself rather than judged as pictures — a desert lot, the
+ * crane aerial, a garage at golden hour, the tear-off aerial, a custom home —
+ * and this is the one that keeps its subject at 2:1: the framing and the palms
+ * stay legible on the open side while the sky carries the scrim on the copy
+ * side. It is nowhere else on the home page.
  *
- * CC0 from Wikimedia Commons, matted with assets/cut/cutout.py, provenance and
- * the hand-masking in content/outsourced.json.
+ * It was the banner on the services hub and on projects, and it is far too
+ * good to be spending itself there; both have their own frames now.
  */
-export const HERO = 'mat/kit.webp';
+export const HERO = 'quest/framing-clouds.webp';
 
-/**
- * The photograph under the hero's accent plane. It is not seen so much as felt:
- * the plane keeps its colour and the picture reads through it as texture, which
- * is why what goes here has to be something with a strong repeating structure
- * and no single subject to fight the headline. See .hero-panel for the overlay
- * that holds it down, and the contrast it has to leave behind.
- */
-export const HERO_GROUND = 'mat/blocks.webp';
+/* HERO_GROUND used to live here: the photograph the accent plane was a tint
+   over. There is no plane any more — the hero IS the photograph — so the
+   ground has nowhere to be under. */
 
 /** The band across the head of each offer voucher, in the order they are listed. */
 export const OFFER_SHOTS = ['mat/board.webp', 'mat/gear.webp'];
@@ -475,10 +473,10 @@ const AREA_BANNER = [
 const BANNER_PAGE = {
   about: 'quest/hero.webp',
   gallery: 'quest/roof-shingles.webp',
-  projects: 'quest/framing-clouds.webp',
+  projects: 'quest/framing-desert-lot.webp',
   contact: 'quest/slab-lumber.webp',
   sitemap: 'quest/sheathing-panel.webp',
-  serviceIndex: 'quest/framing-clouds.webp',
+  serviceIndex: 'quest/framing-garage.webp',
   areaIndex: 'quest/custom-home-wide.webp',
 };
 

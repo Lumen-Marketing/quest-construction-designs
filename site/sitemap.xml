@@ -7,8 +7,7 @@
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/mat/blocks.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/mat/kit.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
@@ -513,7 +512,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-garage.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/aerial-tearoff.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/window-scaffold.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-long-wall.webp</image:loc></image:image>
@@ -649,7 +648,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-desert-lot.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/hero.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/slab-blockwall.webp</image:loc></image:image>

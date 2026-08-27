@@ -37,13 +37,12 @@ test('every photograph Quest did not take is accounted for in writing', () => {
   // with nobody able to say where from.
   const CUTOUTS = ['excavator.webp', 'loader.webp'];
   const sourced = out.images.map((i) => i.file);
-  const supplied = out.supplied.images.map((i) => i.file);
-  const allowed = new Set([...CUTOUTS, ...sourced, ...supplied]);
+  const allowed = new Set([...CUTOUTS, ...sourced]);
   for (const f of strays) {
     assert.ok(allowed.has(f),
       `${f} is not Quest's and is not in content/outsourced.json — where did it come from?`);
   }
-  for (const f of [...sourced, ...supplied]) {
+  for (const f of sourced) {
     assert.ok(sizes[f], `content/outsourced.json lists ${f}, which is not in the tree`);
   }
 
@@ -59,37 +58,49 @@ test('every photograph Quest did not take is accounted for in writing', () => {
     }
   }
 
-  // What Quest handed over is used as given, and the one thing that must not
-  // happen is quietly implying it was checked. The block says out loud that it
-  // was not, and this keeps that sentence from being deleted by accident.
-  assert.match(out.supplied.rights, /NOT VERIFIED/,
-    'the supplied-images block no longer says its rights are unverified');
-  for (const i of out.supplied.images) {
-    for (const k of ['supplied_as', 'alt', 'used_for']) {
-      assert.ok(i[k], `${i.file} has no ${k} recorded`);
+  // The retired list is the inverse: files that must stay OUT. Quest supplied
+  // mat/kit.webp as a Downloads file with no licence metadata, it looked like
+  // commercial stock, and its rights were never verified — it was the one
+  // open commercial risk in the tree. Rebuilding the hero on Quest's own
+  // photography removed the need for it, so it was deleted rather than left
+  // lying around unreferenced. Putting it back would reopen the question.
+  assert.ok(Array.isArray(out.retired?.images) && out.retired.images.length,
+    'the retired-images record is gone');
+  assert.match(out.retired.rule, /NOT VERIFIED/,
+    'the retired block no longer says why mat/kit.webp must stay out');
+  for (const i of out.retired.images) {
+    assert.ok(!sizes[i.file], `${i.file} was retired and is back in the tree`);
+    assert.ok(!existsSync(`assets/${i.file}`), `${i.file} was retired and is back on disk`);
+    for (const k of ['alt', 'was_used_for', 'rights']) {
+      assert.ok(i[k], `retired ${i.file} has no ${k} recorded`);
     }
   }
 
   // Alt text that describes the picture, not a Quest job. None of these show
   // Quest's own work and none of them may imply otherwise.
-  for (const i of [...out.images, ...out.supplied.images]) {
+  for (const i of [...out.images, ...out.retired.images]) {
     assert.doesNotMatch(i.alt, /Quest/i, `${i.file} alt implies it is a Quest job`);
   }
 });
 
-test('the hero is a frameless object, and the machines are off the front page', async () => {
-  const { CUTOUTS, HERO, HERO_GROUND } = await import('./photos.mjs');
-  const out = JSON.parse(readFileSync('content/outsourced.json', 'utf8'));
-  const known = [...out.images, ...out.supplied.images].map((i) => i.file);
+test('the front page is Quest photography, and the machines are off it', async () => {
+  const { CUTOUTS, HERO, ALT, LANDSCAPE } = await import('./photos.mjs');
 
-  // Quest asked for the plant off the front page. Whatever stands there has to
-  // be one of the images this file accounts for.
+  // The hero has been an outsourced cut-out, an outsourced material study and
+  // an outsourced texture at various points, always because Quest had no
+  // photograph that fitted the composition. The composition changed instead:
+  // it is a full-bleed frame now, which is the one shape Quest's library is
+  // full of. So the front page shows Quest's own work, and the standard is the
+  // path, not a promise — 'quest/' or it did not come from Quest.
   assert.ok(!CUTOUTS.includes(HERO), 'the hero is one of the machine cut-outs again');
-  assert.ok(known.includes(HERO), `the hero ${HERO} has no provenance record`);
-  assert.ok(known.includes(HERO_GROUND), `the hero ground ${HERO_GROUND} has no record`);
+  assert.match(HERO, /^quest\//, `the hero ${HERO} is not one of Quest's own photographs`);
+  assert.ok(ALT[HERO], 'the hero photograph has no alt text in the library');
 
-  // The object needs an alpha channel or it is a rectangle whatever it shows,
-  // and the whole composition depends on it not being one.
+  // It runs edge to edge across a band far wider than anything in the library
+  // is shot, so it has to be one of the frames cleared for a wide slot — a
+  // portrait phone frame loses its subject to the crop.
+  assert.ok(LANDSCAPE.includes(HERO), `the hero ${HERO} is not a landscape frame`);
+
   const sizes = JSON.parse(readFileSync('content/images.json', 'utf8'));
   assert.ok(sizes[HERO], 'the hero image is not measured');
 

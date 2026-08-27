@@ -1,25 +1,7 @@
 {
-  "why": "Quest asked for construction materials on the front page and has no photography of its own of them — Quest photographs jobs, not stock. These are the only photographs on the site Quest did not take.",
+  "why": "Quest asked for construction materials on the front page and has no photography of its own of them — Quest photographs jobs, not stock. These are the only photographs on the site Quest did not take. There were four; the hero was rebuilt on Quest's own photography and took two of them with it.",
   "rule": "CC0 only. Public-domain dedication: commercial use permitted, no attribution required, no share-alike. Anything added here must carry the same, and build/lib/images.test.mjs enforces that every non-Quest image in the tree is listed in this file.",
   "images": [
-    {
-      "file": "mat/blocks.webp",
-      "alt": "Concrete masonry blocks stacked in courses, their hollow cores in deep shadow",
-      "width": 1800,
-      "height": 1200,
-      "bytes": 164640,
-      "license": "cc0",
-      "license_version": null,
-      "commercial_use": true,
-      "attribution_required": false,
-      "title": "Close-Up of Stacked Concrete Blocks in Sunlight",
-      "creator": "Pecid2180",
-      "source": "wikimedia",
-      "source_url": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Close-Up_of_Stacked_Concrete_Blocks_in_Sunlight.jpg",
-      "landing_page": "https://commons.wikimedia.org/w/index.php?curid=185420836",
-      "found_via": "openverse api, license=cc0",
-      "processing": "Lightened and crushed on the way in (ffmpeg eq brightness=0.34 contrast=0.36) so the accent plane can sit over it as a tint rather than a lid. Chosen for the one property that survives a tint: big repeating shapes. Fine detail flattens first, which is why framing studs and small hats read as noise here and block courses do not. Monochrome by luck and kept that way — it takes the accent cleanly instead of muddying with it the way a red brick texture did."
-    },
     {
       "file": "mat/board.webp",
       "alt": "The face of an oriented strand board, its chips pressed flat in every direction",
@@ -62,19 +44,23 @@
       "landing_page": "https://wordpress.org/photos/photo/30968f0c0c/"
     }
   ],
-  "supplied": {
-    "why": "Files Quest supplied directly (dropped into Downloads and named by file, not by source). They are used as given.",
-    "rights": "NOT VERIFIED HERE. These did not come through the CC0 search the images list above went through, and they carry no licence metadata of their own — both look like commercial stock. If they came from a paid stock licence that covers commercial use, nothing more is needed. If they did not, they need replacing before this is a problem: the site is a trading contractor’s, so \"found on the internet\" is not a licence. Raised with Quest; using them is Quest’s call and the rights are Quest’s to hold.",
+  "retired": {
+    "why": "Removed from the tree, not merely unreferenced. Both existed only to build the old home hero — a frameless cut-out object standing on an accent plane, with a block texture as the plane's ground. That hero is gone: the front page is a full-bleed photograph of a Quest jobsite now, on the same construction as every other page's banner. Nothing else ever used either file.",
+    "rule": "These files must stay out of assets/. mat/kit.webp in particular: its rights were NOT VERIFIED and never became verified. It was supplied by Quest as a Downloads file with no licence metadata and it looks like commercial stock. It is no longer a live question, and reinstating it would make it one again. images.test.mjs fails if either reappears.",
     "images": [
       {
         "file": "mat/kit.webp",
         "supplied_as": "Untitled design (19).png",
         "alt": "A hard hat, hi-vis vest, work gloves, saw, hammer, pliers, tape measure and screwdriver laid out together",
-        "used_for": "the hero's frameless foreground object",
-        "note": "Arrived already matted — 2000x2000 with a real alpha channel, 70% of it transparent — so it needed only trimming to its subject and re-encoding. No background removal was done here.",
-        "width": 1500,
-        "height": 976,
-        "bytes": 172762
+        "was_used_for": "the hero's frameless foreground object",
+        "rights": "NOT VERIFIED — and now moot: removed rather than resolved."
+      },
+      {
+        "file": "mat/blocks.webp",
+        "alt": "Concrete masonry blocks stacked in courses, their hollow cores in deep shadow",
+        "was_used_for": "the ground under the old hero's accent plane",
+        "rights": "cc0, wikimedia — fine to have used, simply no longer needed.",
+        "landing_page": "https://commons.wikimedia.org/w/index.php?curid=185420836"
       }
     ]
   }

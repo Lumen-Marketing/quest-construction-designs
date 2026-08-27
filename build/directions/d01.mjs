@@ -7,7 +7,7 @@ import { icon } from '../lib/icons.mjs';
 import { SHORT_NAME } from '../lib/pages.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 import {
-  shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO, HERO_GROUND, OFFER_SHOTS,
+  shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO, OFFER_SHOTS,
   STORY, CONTACT,
   CLOSING, PROJECT_SHOTS,
   serviceShots, areaShots,
@@ -64,6 +64,11 @@ const hl = (text, word) => {
 // type, and it fought the heading for the same space. The hero keeps it; down
 // here the beam carries the band on its own.
 const bannerBack = () => '<div class="subhero-beam" aria-hidden="true"></div>';
+// The home hero is built on the banner's construction, so it takes the banner's
+// beam as well — the same skewed band of daylight the photograph is read
+// through. Its own class, because the hero is twice the height and the beam
+// falls off the copy's edge rather than through the middle of the band.
+const heroBeam = () => '<div class="hero-beam" aria-hidden="true"></div>';
 
 // The display band. One word of the page set as large as the line will carry,
 // the photographs pulled up over its foot so the type runs behind them, and the
@@ -428,8 +433,16 @@ ${baseScript(c)}`; }
 // instead of none. A heading with no colon falls through unchanged.
 const heroTitle = (t) => {
   const i = String(t).indexOf(':');
-  if (i < 0) return esc(t);
-  return `<span class="h1-name">${esc(t.slice(0, i + 1))}</span>${esc(t.slice(i + 1).trim())}`;
+  const name = i < 0 ? '' : `<span class="h1-name">${esc(t.slice(0, i + 1))}</span>`;
+  const rest = (i < 0 ? String(t) : t.slice(i + 1)).trim();
+  // One word of the line in accent, which is the banners' move and now the
+  // hero's — the last word, because it is the one the sentence lands on and
+  // because deriving it means a headline edited in the content file keeps its
+  // accent instead of losing it to a hardcoded string that no longer matches.
+  const j = rest.lastIndexOf(' ');
+  const lit = j < 0 ? `<span class="hl">${esc(rest)}</span>`
+    : `${esc(rest.slice(0, j + 1))}<span class="hl">${esc(rest.slice(j + 1))}</span>`;
+  return `${name}${lit}`;
 };
 
 export function home(c) {
@@ -465,9 +478,9 @@ export function home(c) {
 
   return `
 <section class="hero">
-  ${grid(false)}
-  <div class="hero-ground" aria-hidden="true">${img(c, HERO_GROUND, '', { decorative: true })}</div>
-  <div class="hero-panel" aria-hidden="true"></div>
+  ${grid(true)}
+  <div class="hero-shot">${img(c, ...shot(HERO), { eager: true })}</div>
+  ${heroBeam()}
   <div class="wrap">
     <div class="hero-copy">
       <p class="mono eyebrow">&mdash; ${esc(h.heroEyebrow)}</p>
@@ -478,7 +491,6 @@ export function home(c) {
         ${arrowBtn(c.site.phoneHref, 'Call us', 'btn ghost')}
       </div>
     </div>
-    ${img(c, ...shot(HERO), { cls: 'machine', eager: true })}
     <div class="hero-trust">
       <div><b>${c.site.foundingYear}</b><span>Building since</span></div>
       <div><b>${c.services.length}</b><span>Services</span></div>
