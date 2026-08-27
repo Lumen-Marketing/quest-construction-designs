@@ -27,9 +27,7 @@ export const ALT = {
   //
   // The alt text describes the material, because that is what the picture is
   // for. None of them claims to be a Quest job, and none is captioned as one.
-  'mat/tools.webp': 'A mason\u2019s hammer, chisel, work gloves, boots and cut brick laid out on timber',
-  'mat/brick.webp': 'Clay bricks stacked in tight courses inside a drying chamber',
-  'mat/block.webp': 'Concrete masonry blocks stacked in courses, their aggregate faces exposed',
+  'mat/barrow.webp': 'A galvanised builder\u2019s wheelbarrow loaded with sand, a spade leaning against it',
   'mat/board.webp': 'The face of an oriented strand board, its chips pressed flat in every direction',
   'mat/gear.webp': 'A hard hat, safety glasses and work gloves laid out on a timber bench',
 
@@ -148,42 +146,31 @@ export const LANDSCAPE = [
 export const CUTOUTS = ['excavator.webp', 'loader.webp'];
 
 /**
- * Direction 01's hero.
+ * Direction 01's hero. A cut-out, so it is not in LANDSCAPE and is never cropped.
  *
- * It was the cut-out excavator, and Quest asked for the plant to come off the
- * front page. That is not a swap: the cut-out was the whole reason the hero
- * worked the way it did — no frame, so the machine straddled the accent plane's
- * hard edge, and gaps in the boom for the ghost wordmark to read through. A
- * rectangle dropped into that slot has edges and covers the wordmark.
+ * This slot has now been through every wrong answer. It was the excavator, and
+ * Quest asked for the plant off the front page. It became three of Quest's own
+ * photographs, and those were jobsites with a material somewhere in them
+ * rather than pictures of materials. It became three outsourced material
+ * photographs, and those were three boxes — which is the one thing the slot
+ * cannot hold, because the whole composition depends on there being no frame:
+ * the object straddles the accent plane's hard edge, and the ghost wordmark
+ * reads straight through the gaps in it. Put a rectangle there and the
+ * wordmark disappears behind it and the edge stops being straddled.
  *
- * So the slot changes shape instead. Three plates of the materials Quest
- * builds with, fanned and overlapping, which is a stronger read of depth than
- * one flat object ever was — occlusion, three sizes, three shadow depths — and
- * it is the same move the banner deck already makes for the same reason. There
- * is no plant photography to fall back on anyway: the seven cut-out candidates
- * in assets/cut/ carry another contractor's name, a rental firm's branding or a
- * bad matte. Materials are what Quest photographs.
+ * So it is one object with no background again, and not a machine: a builder's
+ * wheelbarrow, loaded, with a spade against it. Galvanised grey on burnt
+ * orange, and enough holes in it — between the legs, under the tray, through
+ * the handles — for the wordmark to show.
  *
- * The first pass at this used Quest's own photographs and it was wrong: Quest
- * photographs jobs, so every frame was a jobsite with the material somewhere
- * in it, and a jobsite with lumber in it is not a photograph of lumber. At
- * plate size that is the whole difference. These are outsourced instead — the
- * only four photographs on the site Quest did not take — and each one is the
- * material filling its own frame. See ALT above for the licence trail.
- *
- * The orientations are load-bearing: the portrait one is the middle plate, and
- * swapping it for a landscape crops the material out of its own picture.
+ * CC0 from Wikimedia Commons, matted with assets/cut/cutout.py, provenance and
+ * the hand-masking in content/outsourced.json.
  */
+export const HERO = 'mat/barrow.webp';
+
 /** The band across the head of each offer voucher, in the order they are listed. */
 export const OFFER_SHOTS = ['mat/board.webp', 'mat/gear.webp'];
 
-export const HERO_STACK = [
-  ['mat/tools.webp', 'Tools'],   // landscape
-  ['mat/brick.webp', 'Brick'],   // portrait
-  ['mat/block.webp', 'Block'],   // landscape
-];
-/** The lead plate: the LCP image, and the only one that is preloaded. */
-export const HERO = HERO_STACK[0][0];
 /** The 4:3 shot beside the story copy on the home and about pages. */
 export const STORY = 'quest/story.webp';
 /** The 16:10 shot in the contact page's help card. */
@@ -424,11 +411,7 @@ function taken(kind, key) {
   const base = [CLOSING];
   switch (kind) {
     case 'home':
-      // The hero's three are outsourced and in no pool, so the band cannot
-      // collide with them — but listing them costs nothing and keeps the
-      // no-repeat test honest if one ever moves into the library.
-      return [...base, ...HERO_STACK.map(([f]) => f), STORY,
-        ...PROJECT_SHOTS, ...CARD_ORIGINALS];
+      return [...base, HERO, STORY, ...PROJECT_SHOTS, ...CARD_ORIGINALS];
     case 'service':
       return [...base, bannerShot('service', key)[0]];
     case 'area':

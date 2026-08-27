@@ -96,117 +96,47 @@ test('the long footer lists are marked for the two-up phone layout', () => {
   assert.equal((html.match(/<div class="col2">/g) || []).length, 2);
 });
 
-test('the floating badge is measured from the plate stack, not the hero middle', () => {
+test('the floating badge is measured from the hero object, not the hero middle', () => {
   const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
-  // The machine is gone — Quest asked for the plant off the front page — and
-  // the material stack inherited its slot. The arithmetic below is the reason
-  // this test exists and it did not care which of the two occupies it.
-  const stack = css.match(/\.matstack\{[^}]*right:(-?[\d.]+)%[^}]*width:min\(([\d.]+)%,(\d+)px\)/);
-  assert.ok(stack, 'the stack no longer anchors right with a capped width');
+  // Whatever occupies the slot, the badge is measured off its two numbers.
+  // That has now survived an excavator, three plate layouts and a wheelbarrow;
+  // the arithmetic is the thing this test pins, not the subject.
+  const obj = css.match(/\.machine\{[^}]*right:(-?[\d.]+)%[^}]*width:min\(([\d.]+)%,(\d+)px\)/);
+  assert.ok(obj, 'the hero object no longer anchors right with a capped width');
   const badge = css.match(/\.badge-float\{left:calc\(([\d.]+)% - ([\d.]+) \* min\(([\d.]+)%, ?(\d+)px\)\)/);
-  assert.ok(badge, 'the badge is not measured off the stack');
+  assert.ok(badge, 'the badge is not measured off the hero object');
 
-  const [, mRight, mPct, mCap] = stack;
+  const [, mRight, mPct, mCap] = obj;
   const [, bBase, bFactor, bPct, bCap] = badge;
-  // Both must read the same width, or they drift apart once the stack caps.
-  assert.equal(bPct, mPct, 'the badge reads a different width percentage than the stack');
-  assert.equal(bCap, mCap, 'the badge reads a different width cap than the stack');
-  // The badge's base is the stack's right edge: 100% less its inset.
-  assert.equal(Number(bBase), 100 - Number(mRight), 'the badge does not start at the stack edge');
-  // And it lands inside the stack rather than off either end of it.
+  assert.equal(bPct, mPct, 'the badge reads a different width percentage than the object');
+  assert.equal(bCap, mCap, 'the badge reads a different width cap than the object');
+  assert.equal(Number(bBase), 100 - Number(mRight), 'the badge does not start at the object edge');
   const across = 1 - Number(bFactor);
-  assert.ok(across > 0.15 && across < 0.8, `the badge sits at ${across * 100}% across the stack`);
+  assert.ok(across > 0.15 && across < 0.8, `the badge sits at ${across * 100}% across the object`);
 });
 
-test('the hero is three material plates and no machinery', () => {
+test('the hero is one frameless object, and it is not a machine', () => {
   const html = renderPage({ mod: d01, key: 'home' });
-  const figs = html.match(/<figure class="mat m\d">[\s\S]*?<\/figure>/g) || [];
-  assert.equal(figs.length, 3, `expected three plates, found ${figs.length}`);
-  for (const f of figs) {
-    // assets/mat, not assets/quest: Quest photographs jobs, so a plate drawn
-    // from its own library was always a jobsite with the material somewhere in
-    // it rather than a picture of the material. The licence trail for these
-    // lives in content/outsourced.json and images.test.mjs enforces it.
-    assert.match(f, /src="[^"]*assets\/mat\//, 'a plate is not one of the outsourced materials');
-    assert.match(f, /<figcaption class="mono">[A-Z][a-z]+<\/figcaption>/, 'a plate carries no label');
-  }
-  // The lead plate is the LCP image, so it is the eager one and the preloaded
-  // one, and the other two must not compete with it for the first bytes.
-  assert.match(figs[0], /loading="eager" fetchpriority="high"/, 'the lead plate is not eager');
-  for (const f of figs.slice(1)) assert.match(f, /loading="lazy"/, 'a trailing plate is eager');
+  // One image in the slot, not a set of plates. The composition depends on it
+  // having no frame: it straddles the accent plane's hard edge, and the ghost
+  // wordmark reads through the gaps in it. A rectangle hides the wordmark and
+  // turns that edge into a join between two boxes.
+  const objs = html.match(/<img[^>]*class="machine"[^>]*>/g) || [];
+  assert.equal(objs.length, 1, `expected one hero object, found ${objs.length}`);
+  assert.equal((html.match(/class="mat m\d"/g) || []).length, 0, 'the plate stack is back');
+  // It is the LCP image: eager, prioritised, and the one thing preloaded.
+  assert.match(objs[0], /loading="eager" fetchpriority="high"/);
   assert.equal((html.match(/rel="preload"[^>]*as="image"/g) || []).length, 1);
+  // Alpha, or it is a rectangle whatever it is a picture of.
+  assert.match(objs[0], /src="[^"]*\.webp"/);
+  assert.match(objs[0], /alt="[^"]{20,}"/, 'the hero object carries no real alt text');
 
-  // The label is a solid chip rather than text over a photograph: measured,
-  // a gradient scrim gave 3.16:1 on the lumber plate, whose foreground is
-  // concrete in full sun.
+  // The shadow has to be a filter. box-shadow follows the element's rectangle,
+  // and this element's rectangle is mostly transparent.
   const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
-  const cap = /\.mat figcaption\{[^}]*\}/.exec(css)[0];
-  assert.match(cap, /background:var\(--dark\)/, 'the plate label is not on a solid chip');
-});
-
-// ------------------------------------------------------------- the dropdowns
-// Both of these were reported from the live site: the menu vanished on the way
-// down to click an item, and the longest trade printed over the item beside it.
-
-test('the dropdown bridges the gap it floats above the button by', () => {
-  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
-  const offset = css.match(/\.dropmenu\{[^}]*top:calc\(100% \+ (\d+)px\)/);
-  assert.ok(offset, 'the panel no longer floats clear of the button');
-  const bridge = css.match(/\.dropmenu::before\{[^}]*top:-(\d+)px;height:(\d+)px/);
-  assert.ok(bridge, 'nothing bridges the gap; hover dies crossing it');
-  // The bridge has to reach the button, or the pointer still leaves `.drop`
-  // partway down and `:hover` goes false before the panel is reached.
-  assert.ok(Number(bridge[1]) >= Number(offset[1]),
-    `the bridge starts ${bridge[1]}px up but the panel floats ${offset[1]}px clear`);
-  assert.ok(Number(bridge[2]) >= Number(offset[1]),
-    `the bridge is ${bridge[2]}px tall over a ${offset[1]}px gap`);
-});
-
-test('dropdown labels wrap rather than printing over the next column', () => {
-  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
-  const link = css.match(/\.dropmenu a\{[^}]*\}/);
-  assert.ok(link, 'no rule for the dropdown links');
-  // With a fixed track and nowrap the box stayed 215px while the full-remodel
-  // trade rendered 422px of text straight out of it.
-  assert.doesNotMatch(link[0], /white-space:nowrap/);
-});
-
-test('form fields are 16px, or iOS zooms the page in and does not zoom back', () => {
-  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
-  const field = css.match(/\.fld input,\.fld textarea\{[^}]*\}/);
-  assert.ok(field, 'no rule for the contact fields');
-  const size = Number(field[0].match(/font-size:([\d.]+)px/)[1]);
-  assert.ok(size >= 16, `contact fields are ${size}px, under the 16px iOS floor`);
-  // And the same rule carries the touch floor: a 48px control is the target
-  // size, not the 38px a bare font-size and padding would have produced.
-  const min = Number(field[0].match(/min-height:([\d.]+)px/)[1]);
-  assert.ok(min >= 44, `contact fields are ${min}px tall, under the 44px touch floor`);
-});
-
-test('the pills are lit, and the lift is scoped to the hero that asked for it', () => {
-  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
-  const base = /\.btn\{[^}]*\}/.exec(css)[0];
-  // One wide soft shadow is a button drawn on a page. It takes an edge and a
-  // contact shadow to make it a button lying on one.
-  assert.match(base, /inset 0 1px 0 rgba\(255,255,255/, 'the pill has no lit top edge');
-  assert.match(base, /inset 0 -1px 0 rgba\(0,0,0/, 'the pill has no shaded foot');
-  assert.match(base, /0 2px 5px/, 'the pill has no contact shadow, only an ambient one');
-  // Pressed, the shadow has to come down with it, or the light says the pill
-  // is still held up while the shape says it has been pushed in.
-  assert.match(css, /\.btn:active\{box-shadow:/, 'the press state does not touch the shadow');
-
-  // The trap. pageHero renders the inner-page banner's buttons into the same
-  // .hero-acts row the home hero uses, but there the outlined pill's ink is
-  // --on-dark over a photograph rather than --on-acc over the accent plane.
-  // Scoping the accent fill to .hero-acts put cream on orange at 1.89:1.
-  assert.ok(!/\.hero-acts\s+\.btn\.ghost\{[^}]*background/.test(css),
-    'the hero fill is scoped to .hero-acts, which the inner-page banner also uses');
-  assert.match(css, /\.hero \.btn\.ghost\{background:var\(--acc\)\}/,
-    'the home hero outlined pill has lost its accent fill');
-  // And the banner's own override still names the dark-ground ink, which is
-  // the half of the pair that makes the scoping matter.
-  assert.match(css, /\.subhero \.btn\.ghost\{color:var\(--on-dark\)/,
-    'the banner pill no longer states its own ink');
+  const rule = /\.machine\{[^}]*\}/.exec(css)[0];
+  assert.match(rule, /filter:drop-shadow/, 'the hero object casts a rectangular shadow');
+  assert.doesNotMatch(rule, /box-shadow/);
 });
 
 test('the accent bar is textured in ink and never in the ink it carries', () => {

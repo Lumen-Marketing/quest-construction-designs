@@ -65,21 +65,27 @@ test('every photograph Quest did not take is licensed, and says so in writing', 
   }
 });
 
-test('the hero is outsourced material, and the cut-outs are off the front page', async () => {
-  const { CUTOUTS, HERO, HERO_STACK } = await import('./photos.mjs');
-  // Quest asked for the plant off the front page, and then for materials
-  // rather than jobsites — Quest photographs jobs, so its own library had no
-  // picture of a material filling the frame.
-  assert.ok(!CUTOUTS.includes(HERO), 'the hero is a cut-out again');
-  assert.equal(HERO_STACK.length, 3);
-  for (const [f] of HERO_STACK) {
-    assert.match(f, /^mat\//, `${f} is not one of the outsourced materials`);
-  }
-  // The two cut-outs stay in the tree because d10 still draws with them; what
-  // matters is that the indexable direction does not.
+test('the hero is an outsourced cut-out, and the machines are off the front page', async () => {
+  const { CUTOUTS, HERO } = await import('./photos.mjs');
+  const out = JSON.parse(readFileSync('content/outsourced.json', 'utf8'));
+  // Quest asked for the plant off the front page. What replaced it has to be
+  // outsourced — Quest photographs jobs, and a job photograph in this slot is
+  // a rectangle — and it has to be licensed like everything else here.
+  assert.ok(!CUTOUTS.includes(HERO), 'the hero is one of the machine cut-outs again');
+  assert.match(HERO, /^mat\//, `the hero is not one of the outsourced images: ${HERO}`);
+  const rec = out.images.find((i) => i.file === HERO);
+  assert.ok(rec, `the hero ${HERO} has no licence record`);
+  assert.equal(rec.license, 'cc0');
+  // It was matted rather than shot that way, and how is worth recording: the
+  // next person to swap this slot needs to know it is not a plain photograph.
+  assert.match(rec.processing || '', /cutout\.py|rembg/,
+    'the hero cut-out does not say how its background was removed');
+
+  // The two machine cut-outs stay in the tree because d10 still draws with
+  // them; what matters is that the indexable direction does not.
   const d01 = readFileSync('d01-site-plan/index.html', 'utf8');
   for (const c of CUTOUTS) {
-    assert.ok(!d01.includes(c), `the home page still references the cut-out ${c}`);
+    assert.ok(!d01.includes(c), `the home page still references the machine cut-out ${c}`);
   }
 });
 
