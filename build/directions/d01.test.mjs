@@ -121,6 +121,49 @@ test('the phone drawer survives its own scroll lock', () => {
     'the header leaves the flow while open and nothing replaces the space');
 });
 
+test('the hero object is lit rather than pasted, and clears the copy at every width', () => {
+  const html = renderPage({ mod: d01, key: 'home' });
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+
+  // Quest asked for the materials back after the hero was rebuilt, and they are
+  // back on the new construction rather than the old one. On the accent plane
+  // the object and its ground were one flat thing on another flat thing, both
+  // the same distance from the eye — there was nothing behind it to be behind
+  // it, so no amount of shadow made it read as forward. That is what "flat"
+  // meant, and it is a property of the stack, not of the shadow.
+  //
+  // So the stack is what this pins. Four planes: the photograph, the scrim,
+  // the pool of light, the object.
+  const kit = html.match(/<img[^>]*class="hero-kit"[^>]*>/g) || [];
+  assert.equal(kit.length, 1, `expected one hero object, found ${kit.length}`);
+  assert.ok(html.includes('class="hero-glow"'), 'the object has no light to stand in');
+  assert.match(css, /\.hero-shot::before\{[^}]*radial-gradient/,
+    'the frame has no vignette, so the corners do not go back');
+
+  // The shadows have to be drop-shadow filters. This element's rectangle is
+  // 70% transparent, so a box-shadow draws a box around thin air.
+  const rule = /\.hero-kit\{[^}]*\}/.exec(css);
+  assert.ok(rule, 'no rule for the hero object');
+  assert.doesNotMatch(rule[0], /box-shadow/, 'the object casts a rectangular shadow');
+  const drops = (rule[0].match(/drop-shadow\(/g) || []).length;
+  assert.ok(drops >= 3,
+    `the object casts ${drops} shadow(s); it needs contact, cast and a warm rim`);
+  // And the warm one is the light wrapping the edge — without it the cut-out
+  // reads as a hole punched in the picture rather than an object in front of it.
+  assert.match(rule[0], /drop-shadow\([^)]*var\(--acc\)/,
+    'nothing lights the object from the side the pool is on');
+
+  // It must not stand on the words. The copy column is capped as a percentage
+  // AND in pixels, and so is the object, so the two only clear each other if
+  // the numbers are chosen together — at 54% the gloves, which are the
+  // brightest thing in the frame, sat under "REACH US" between 1080 and 1300
+  // and took it to 3.09:1 against a 4.5 bar while passing at 1440.
+  const copyPct = Number(/\.hero-copy\{max-width:min\(\d+px,(\d+)%\)/.exec(css)[1]);
+  const kitPct = Number(/\.hero-kit\{[^}]*width:min\((\d+)%/.exec(rule[0])[1]);
+  assert.ok(copyPct + kitPct <= 96,
+    `the copy runs to ${copyPct}% and the object is ${kitPct}% wide, which collide`);
+});
+
 test('the floating badge is anchored to the hero corner, clear of the copy', () => {
   const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
   const badge = /\.badge-float\{[^}]*\}/.exec(css);
@@ -164,7 +207,8 @@ test('the hero is one full-bleed photograph, read off a scrim', () => {
   const objs = html.match(/<div class="hero-shot">\s*<img[^>]*>/g) || [];
   assert.equal(objs.length, 1, `expected one hero frame, found ${objs.length}`);
   assert.equal((html.match(/class="mat m\d"/g) || []).length, 0, 'the plate stack is back');
-  assert.equal((html.match(/class="machine"/g) || []).length, 0, 'the cut-out object is back');
+  assert.equal((html.match(/class="machine"/g) || []).length, 0,
+    'the old accent-plane object is back under its old class');
 
   // It is the LCP image: eager, prioritised, and the one thing preloaded.
   assert.match(objs[0], /loading="eager" fetchpriority="high"/);

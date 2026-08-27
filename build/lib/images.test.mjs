@@ -37,12 +37,13 @@ test('every photograph Quest did not take is accounted for in writing', () => {
   // with nobody able to say where from.
   const CUTOUTS = ['excavator.webp', 'loader.webp'];
   const sourced = out.images.map((i) => i.file);
-  const allowed = new Set([...CUTOUTS, ...sourced]);
+  const supplied = out.supplied.images.map((i) => i.file);
+  const allowed = new Set([...CUTOUTS, ...sourced, ...supplied]);
   for (const f of strays) {
     assert.ok(allowed.has(f),
       `${f} is not Quest's and is not in content/outsourced.json — where did it come from?`);
   }
-  for (const f of sourced) {
+  for (const f of [...sourced, ...supplied]) {
     assert.ok(sizes[f], `content/outsourced.json lists ${f}, which is not in the tree`);
   }
 
@@ -58,16 +59,23 @@ test('every photograph Quest did not take is accounted for in writing', () => {
     }
   }
 
-  // The retired list is the inverse: files that must stay OUT. Quest supplied
-  // mat/kit.webp as a Downloads file with no licence metadata, it looked like
-  // commercial stock, and its rights were never verified — it was the one
-  // open commercial risk in the tree. Rebuilding the hero on Quest's own
-  // photography removed the need for it, so it was deleted rather than left
-  // lying around unreferenced. Putting it back would reopen the question.
+  // What Quest handed over is used as given, and the one thing that must not
+  // happen is quietly implying it was checked. mat/kit.webp has no licence
+  // metadata and looks like commercial stock; it was removed with the old hero
+  // and Quest asked for it back, which is Quest's call to make — but it comes
+  // back with the warning attached, not laundered by the round trip. This
+  // keeps that sentence from being deleted by accident.
+  assert.match(out.supplied.rights, /NOT VERIFIED/,
+    'the supplied-images block no longer says its rights are unverified');
+  for (const i of out.supplied.images) {
+    for (const k of ['supplied_as', 'alt', 'used_for']) {
+      assert.ok(i[k], `${i.file} has no ${k} recorded`);
+    }
+  }
+
+  // The retired list is the inverse: files that must stay OUT of the tree.
   assert.ok(Array.isArray(out.retired?.images) && out.retired.images.length,
     'the retired-images record is gone');
-  assert.match(out.retired.rule, /NOT VERIFIED/,
-    'the retired block no longer says why mat/kit.webp must stay out');
   for (const i of out.retired.images) {
     assert.ok(!sizes[i.file], `${i.file} was retired and is back in the tree`);
     assert.ok(!existsSync(`assets/${i.file}`), `${i.file} was retired and is back on disk`);
@@ -78,7 +86,7 @@ test('every photograph Quest did not take is accounted for in writing', () => {
 
   // Alt text that describes the picture, not a Quest job. None of these show
   // Quest's own work and none of them may imply otherwise.
-  for (const i of [...out.images, ...out.retired.images]) {
+  for (const i of [...out.images, ...out.supplied.images, ...out.retired.images]) {
     assert.doesNotMatch(i.alt, /Quest/i, `${i.file} alt implies it is a Quest job`);
   }
 });

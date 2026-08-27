@@ -22,7 +22,7 @@
 
 /** file -> alt. The single source of truth for what each photograph shows. */
 export const ALT = {
-  // ---- the two outsourced materials ----
+  // ---- the three outsourced materials ----
   // The only photographs on the site Quest did not take, and the last two: the
   // hero was rebuilt on Quest's own photography, which took the cut-out object
   // and the block ground with it. What is left is the pair of vouchers, and
@@ -33,6 +33,7 @@ export const ALT = {
   //
   // The alt text describes the material, because that is what the picture is
   // for. None of them claims to be a Quest job, and none is captioned as one.
+  'mat/kit.webp': 'A hard hat, hi-vis vest, work gloves, saw, hammer, pliers, tape measure and screwdriver laid out together',
   'mat/board.webp': 'The face of an oriented strand board, its chips pressed flat in every direction',
   'mat/gear.webp': 'A hard hat, safety glasses and work gloves laid out on a timber bench',
 
@@ -222,6 +223,26 @@ export const HERO = 'quest/framing-clouds.webp';
 /* HERO_GROUND used to live here: the photograph the accent plane was a tint
    over. There is no plane any more — the hero IS the photograph — so the
    ground has nowhere to be under. */
+
+/**
+ * The object standing in front of the hero photograph. Quest asked for the
+ * materials back after the hero was rebuilt, and they are back on the new
+ * construction rather than the old one: a frameless cut-out on a dark
+ * photographic ground instead of on a flat colour plane.
+ *
+ * That swap is the whole reason it can have depth now. On the orange plane the
+ * object and its ground were the same distance from the eye — one flat colour
+ * behind one flat object — and the only separation available was a drop
+ * shadow, which is why it read flat however the shadow was tuned. Here there
+ * is a photograph receding behind it, a scrim between them, and a pool of warm
+ * light it stands in, so the layers are actually at different depths and the
+ * shadow has something to fall across. See .hero-kit for the stack.
+ *
+ * Rights: NOT VERIFIED. See content/outsourced.json — Quest supplied this file
+ * directly and it carries no licence metadata. Raised more than once; Quest
+ * has asked for it, and holding the rights is Quest's call.
+ */
+export const HERO_OBJECT = 'mat/kit.webp';
 
 /** The band across the head of each offer voucher, in the order they are listed. */
 export const OFFER_SHOTS = ['mat/board.webp', 'mat/gear.webp'];

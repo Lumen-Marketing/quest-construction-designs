@@ -231,25 +231,35 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
    reads as a second image butted onto the first. */
 .hero-shot::after{content:"";position:absolute;inset:0;
   background:linear-gradient(96deg,var(--dark) 0%,
-    color-mix(in srgb,var(--dark) 96%,transparent) 34%,
-    color-mix(in srgb,var(--dark) 66%,transparent) 62%,
-    color-mix(in srgb,var(--dark) 78%,transparent) 100%)}
-/* And a second pass down the vertical, because the figures sit low in the band
-   where the frame is at its brightest. */
+    color-mix(in srgb,var(--dark) 96%,transparent) 46%,
+    color-mix(in srgb,var(--dark) 56%,transparent) 68%,
+    color-mix(in srgb,var(--dark) 70%,transparent) 100%)}
+/* A second pass down the vertical, because the figures sit low in the band
+   where the frame is at its brightest — and a vignette, because an evenly lit
+   rectangle reads as a backdrop no matter what stands in front of it. The
+   bright centre is put where the object is, not in the middle of the band, so
+   the light in the picture and the light on the object agree. */
 .hero-shot::before{content:"";position:absolute;inset:0;z-index:1;
-  background:linear-gradient(180deg,transparent 40%,
-    color-mix(in srgb,var(--dark) 34%,transparent) 100%)}
-/* the light beam — the banner's, moved off the copy's edge rather than the
-   middle of the band, so it falls in the gap between the type and the frame */
-.hero-beam{position:absolute;z-index:2;top:-10%;bottom:-10%;left:47%;width:17%;
-  pointer-events:none;transform:skewX(-5deg);
-  background:linear-gradient(90deg,transparent,
-    color-mix(in srgb,var(--cream) 20%,transparent) 30%,
-    color-mix(in srgb,var(--cream) 20%,transparent) 70%,transparent)}
+  background:
+    radial-gradient(122% 96% at 64% 44%,transparent 34%,
+      color-mix(in srgb,var(--dark) 30%,transparent) 72%,
+      color-mix(in srgb,var(--dark) 52%,transparent) 100%),
+    linear-gradient(180deg,transparent 40%,
+      color-mix(in srgb,var(--dark) 34%,transparent) 100%)}
+/* The banner's light beam was here and is not any more. It is a skewed band of
+   cream at 20%, which on a band with no object in it is atmosphere — but this
+   band has an object, so the only place left for the beam was the narrow gap
+   between the copy column and the object, and a skewed element does not stay
+   in a narrow gap: the -5deg throws its top and bottom ±31px either way. At
+   1200 that put it across "REACH US" at 3.48:1 against a 4.5 bar, and it
+   passed at 1440 and 1120, which is how a width-dependent overlap looks.
+   Nothing was lost by removing it. The depth here comes from the vignette, the
+   pool the object stands in and the three shadows it casts — the beam was
+   sitting behind the object doing almost none of it. */
 .hero .grid-bg{z-index:1}
 .hero .wrap{width:100%}
 .hero-copy,.hero-trust{position:relative;z-index:4}
-.hero-copy{max-width:min(560px,50%)}
+.hero-copy{max-width:min(520px,44%)}
 /* --on-dark, not --acc-on-dark, and this is the third time this line has taught
    the same lesson. The accent's dark-band ink is what every other dark section
    sets a small mono label in — but those sit on a flat band, and this one sits
@@ -277,6 +287,56 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 .hero-copy .lede::before{content:"";width:11px;height:11px;background:var(--acc);
   flex:0 0 auto;margin-top:.45em}
 
+/* ---- the foreground object, and where its depth actually comes from ----
+   Quest asked for the materials back after the hero was rebuilt. They are back
+   on the new construction rather than the old one, and that is the whole
+   reason the object can have depth this time.
+
+   On the accent plane it was one flat object on one flat colour, both the same
+   distance from the eye. There was nothing behind it to be behind it, so the
+   only separation available was a drop shadow — and a drop shadow with no
+   depth behind it is a sticker with a shadow drawn on. It read flat however
+   hard the shadow was tuned, which is what Quest kept saying.
+
+   Here there are four planes: the photograph receding, the scrim between, a
+   pool of light, and the object in front of all of it. Depth is the stack, not
+   the shadow.
+
+   1. THE LIGHT IT STANDS IN. On a dark ground a dark shadow is invisible —
+      shadow is not what separates things here, light is. A warm pool sits
+      behind the object so it is lit rather than pasted, and the scrim is
+      pushed back where the pool falls so the photograph reads through it.
+      Off-centre and low, because a pool centred on the object is a halo. */
+.hero-glow{position:absolute;z-index:3;right:-6%;bottom:-16%;
+  width:min(48%,720px);aspect-ratio:1;pointer-events:none;
+  background:radial-gradient(circle at 50% 50%,
+    color-mix(in srgb,var(--acc) 42%,transparent) 0%,
+    color-mix(in srgb,var(--acc) 24%,transparent) 30%,
+    color-mix(in srgb,var(--acc) 9%,transparent) 52%,transparent 74%);
+  filter:blur(18px)}
+/* 2. THE OBJECT, and three shadows rather than one. None of them can be a
+      box-shadow: this element's rectangle is 70% transparent, so a box-shadow
+      draws a rectangle around thin air. drop-shadow follows the alpha.
+        - a tight, near-black one right off the silhouette, which is contact
+        - a long, soft one down and to the left, which is the cast shadow, and
+          it is thrown AWAY from the pool so the two agree about where the
+          light is
+        - a warm one back the other way, which is the pool spilling around the
+          object's edge. That third one is what stops the cut-out reading as a
+          hole punched in the picture: light wraps, and an edge with no light
+          on it is an edge that was pasted. */
+.hero-kit{position:absolute;z-index:5;right:1%;bottom:5%;width:min(48%,760px);
+  height:auto;pointer-events:none;
+  filter:
+    drop-shadow(0 2px 4px rgba(0,0,0,.6))
+    drop-shadow(-30px 40px 48px rgba(0,0,0,.55))
+    drop-shadow(16px -12px 30px color-mix(in srgb,var(--acc) 40%,transparent));
+  animation:settle 1.1s cubic-bezier(.2,.8,.2,1) both}
+/* It arrives from behind and settles forward — the same easing the copy uses,
+   started later, so the layers land in depth order rather than together. */
+@keyframes settle{from{opacity:0;transform:translate(34px,20px) scale(.97)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.hero-kit{animation:none}}
+
 .hero-acts{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
 /* The object settles in on load and everything below the fold reveals on
    scroll; the copy was the one thing that simply appeared. It arrives in the
@@ -296,7 +356,7 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
    between each turns them into four things, which is what they are, and the
    rule above now runs the width of the row rather than stopping wherever the
    last label happened to end. */
-.hero-trust{max-width:min(560px,50%);
+.hero-trust{max-width:min(520px,44%);
   display:flex;flex-wrap:wrap;gap:14px 0;margin-top:clamp(26px,3.4vw,42px);
   padding-top:24px;border-top:1px solid color-mix(in srgb,var(--on-dark) 26%,transparent)}
 .hero-trust div{padding-right:clamp(16px,2vw,26px);margin-right:clamp(16px,2vw,26px);
@@ -349,11 +409,28 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
     color-mix(in srgb,var(--dark) 93%,transparent) 55%,
     color-mix(in srgb,var(--dark) 93%,transparent) 100%)}
   .hero-shot::before{display:none}
-  /* Narrow, the beam falls behind the words instead of beside them. */
-  .hero-beam{display:none}
   .hero-copy,.hero-trust{max-width:none}
   .hero-trust{margin-top:clamp(18px,4vw,28px)}
   .badge-float{display:none}
+  /* The object leads at this width, which is what Quest asked for when it was
+     last in flow: the picture at the top, the words under it. order:-1 rather
+     than a second position in the markup, because the source order — copy,
+     object, figures — is what a wide screen needs and a screen reader gets
+     that order either way. */
+  .hero .wrap{display:flex;flex-direction:column}
+  .hero-kit{position:relative;right:auto;bottom:auto;order:-1;display:block;
+    width:min(100%,430px);margin:0 auto clamp(18px,4vw,30px);
+    /* The long cast shadow was measured for an object half the width of a
+       desktop band. At 430px it is most of the screen, and a 30px throw off it
+       lands outside .hero — which is overflow:hidden, so it came off square.
+       Shorter throw, same three layers, same light direction. */
+    filter:
+      drop-shadow(0 2px 3px rgba(0,0,0,.6))
+      drop-shadow(-12px 16px 24px rgba(0,0,0,.55))
+      drop-shadow(8px -6px 18px color-mix(in srgb,var(--acc) 40%,transparent))}
+  /* and the pool follows it to the top of the band */
+  .hero-glow{right:auto;left:50%;translate:-50% 0;bottom:auto;top:-6%;
+    width:min(120%,560px)}
   /* Four figures, four columns. Three orphaned the fourth on a row of its
      own, and the copy no longer shares the band with an object, so there is
      more room per figure here, not less. */

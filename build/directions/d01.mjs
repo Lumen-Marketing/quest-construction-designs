@@ -7,7 +7,7 @@ import { icon } from '../lib/icons.mjs';
 import { SHORT_NAME } from '../lib/pages.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 import {
-  shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO, OFFER_SHOTS,
+  shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO, HERO_OBJECT, OFFER_SHOTS,
   STORY, CONTACT,
   CLOSING, PROJECT_SHOTS,
   serviceShots, areaShots,
@@ -64,11 +64,6 @@ const hl = (text, word) => {
 // type, and it fought the heading for the same space. The hero keeps it; down
 // here the beam carries the band on its own.
 const bannerBack = () => '<div class="subhero-beam" aria-hidden="true"></div>';
-// The home hero is built on the banner's construction, so it takes the banner's
-// beam as well — the same skewed band of daylight the photograph is read
-// through. Its own class, because the hero is twice the height and the beam
-// falls off the copy's edge rather than through the middle of the band.
-const heroBeam = () => '<div class="hero-beam" aria-hidden="true"></div>';
 
 // The display band. One word of the page set as large as the line will carry,
 // the photographs pulled up over its foot so the type runs behind them, and the
@@ -480,7 +475,6 @@ export function home(c) {
 <section class="hero">
   ${grid(true)}
   <div class="hero-shot">${img(c, ...shot(HERO), { eager: true })}</div>
-  ${heroBeam()}
   <div class="wrap">
     <div class="hero-copy">
       <p class="mono eyebrow">&mdash; ${esc(h.heroEyebrow)}</p>
@@ -491,6 +485,8 @@ export function home(c) {
         ${arrowBtn(c.site.phoneHref, 'Call us', 'btn ghost')}
       </div>
     </div>
+    <div class="hero-glow" aria-hidden="true"></div>
+    ${img(c, ...shot(HERO_OBJECT), { cls: 'hero-kit' })}
     <div class="hero-trust">
       <div><b>${c.site.foundingYear}</b><span>Building since</span></div>
       <div><b>${c.services.length}</b><span>Services</span></div>

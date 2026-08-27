@@ -1,5 +1,5 @@
 {
-  "why": "Quest asked for construction materials on the front page and has no photography of its own of them — Quest photographs jobs, not stock. These are the only photographs on the site Quest did not take. There were four; the hero was rebuilt on Quest's own photography and took two of them with it.",
+  "why": "Quest asked for construction materials on the front page and has no photography of its own of them — Quest photographs jobs, not stock. These are the only photographs on the site Quest did not take.",
   "rule": "CC0 only. Public-domain dedication: commercial use permitted, no attribution required, no share-alike. Anything added here must carry the same, and build/lib/images.test.mjs enforces that every non-Quest image in the tree is listed in this file.",
   "images": [
     {
@@ -45,22 +45,31 @@
     }
   ],
   "retired": {
-    "why": "Removed from the tree, not merely unreferenced. Both existed only to build the old home hero — a frameless cut-out object standing on an accent plane, with a block texture as the plane's ground. That hero is gone: the front page is a full-bleed photograph of a Quest jobsite now, on the same construction as every other page's banner. Nothing else ever used either file.",
-    "rule": "These files must stay out of assets/. mat/kit.webp in particular: its rights were NOT VERIFIED and never became verified. It was supplied by Quest as a Downloads file with no licence metadata and it looks like commercial stock. It is no longer a live question, and reinstating it would make it one again. images.test.mjs fails if either reappears.",
+    "why": "Removed from the tree, not merely unreferenced. It existed only to be the ground under the old hero's accent plane, and that plane is gone: the front page is a full-bleed photograph of a Quest jobsite now, on the same construction as every other page's banner. Nothing else ever used it.",
+    "rule": "This file must stay out of assets/. It is CC0 and there was never anything wrong with it — there is simply nothing left for it to be the ground of. images.test.mjs fails if it reappears.",
     "images": [
-      {
-        "file": "mat/kit.webp",
-        "supplied_as": "Untitled design (19).png",
-        "alt": "A hard hat, hi-vis vest, work gloves, saw, hammer, pliers, tape measure and screwdriver laid out together",
-        "was_used_for": "the hero's frameless foreground object",
-        "rights": "NOT VERIFIED — and now moot: removed rather than resolved."
-      },
       {
         "file": "mat/blocks.webp",
         "alt": "Concrete masonry blocks stacked in courses, their hollow cores in deep shadow",
         "was_used_for": "the ground under the old hero's accent plane",
         "rights": "cc0, wikimedia — fine to have used, simply no longer needed.",
         "landing_page": "https://commons.wikimedia.org/w/index.php?curid=185420836"
+      }
+    ]
+  },
+  "supplied": {
+    "why": "Files Quest supplied directly (dropped into Downloads and named by file, not by source). They are used as given.",
+    "rights": "NOT VERIFIED HERE. This did not come through the CC0 search the images list above went through, and it carries no licence metadata of its own — it looks like commercial stock. If it came from a paid stock licence that covers commercial use, nothing more is needed. If it did not, it needs replacing before this is a problem: the site is a trading contractor’s, so \"found on the internet\" is not a licence. Raised with Quest three times, including once when it was removed from the tree entirely and once when Quest asked for it back. Using it is Quest’s call and the rights are Quest’s to hold.",
+    "images": [
+      {
+        "file": "mat/kit.webp",
+        "supplied_as": "Untitled design (19).png",
+        "alt": "A hard hat, hi-vis vest, work gloves, saw, hammer, pliers, tape measure and screwdriver laid out together",
+        "used_for": "the hero's frameless foreground object, standing in front of the hero photograph rather than on the accent plane it was first drawn for",
+        "note": "Arrived already matted — 2000x2000 with a real alpha channel, 70% of it transparent — so it needed only trimming to its subject and re-encoding. No background removal was done here.",
+        "width": 1500,
+        "height": 976,
+        "bytes": 172762
       }
     ]
   }
