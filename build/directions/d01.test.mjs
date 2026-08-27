@@ -96,23 +96,32 @@ test('the long footer lists are marked for the two-up phone layout', () => {
   assert.equal((html.match(/<div class="col2">/g) || []).length, 2);
 });
 
-test('the floating badge is measured from the hero object, not the hero middle', () => {
+test('the floating badge is anchored to the hero corner, clear of the copy', () => {
   const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
-  // Whatever occupies the slot, the badge is measured off its two numbers.
-  // That has now survived an excavator, three plate layouts and a wheelbarrow;
-  // the arithmetic is the thing this test pins, not the subject.
-  const obj = css.match(/\.machine\{[^}]*right:(-?[\d.]+)%[^}]*width:min\(([\d.]+)%,(\d+)px\)/);
-  assert.ok(obj, 'the hero object no longer anchors right with a capped width');
-  const badge = css.match(/\.badge-float\{left:calc\(([\d.]+)% - ([\d.]+) \* min\(([\d.]+)%, ?(\d+)px\)\)/);
-  assert.ok(badge, 'the badge is not measured off the hero object');
+  const badge = /\.badge-float\{[^}]*\}/.exec(css);
+  assert.ok(badge, 'no rule for the floating badge');
 
-  const [, mRight, mPct, mCap] = obj;
-  const [, bBase, bFactor, bPct, bCap] = badge;
-  assert.equal(bPct, mPct, 'the badge reads a different width percentage than the object');
-  assert.equal(bCap, mCap, 'the badge reads a different width cap than the object');
-  assert.equal(Number(bBase), 100 - Number(mRight), 'the badge does not start at the object edge');
-  const across = 1 - Number(bFactor);
-  assert.ok(across > 0.15 && across < 0.8, `the badge sits at ${across * 100}% across the object`);
+  // It used to float ON the hero object and was measured off that object's own
+  // right edge and width, so it would not slide away once the object hit its
+  // width cap — at 1900px a left:50% badge sat off the end of it entirely.
+  // It is anchored to the hero's own corner now, which needs none of that
+  // arithmetic, and the arithmetic must not be left behind half-wired: a
+  // left:calc() reading a width the badge no longer tracks is the same bug in
+  // a quieter form.
+  assert.match(badge[0], /right:[\d.]+%/, 'the badge is not anchored from the right');
+  assert.match(badge[0], /bottom:[\d.]+%/, 'the badge is not anchored from the bottom');
+  assert.match(badge[0], /left:auto/, 'the badge still carries a left offset as well');
+  assert.doesNotMatch(badge[0], /calc\(/, 'the badge still measures itself off something');
+
+  // Bottom right, not top right: the masthead already carries a phone button in
+  // the top-right corner and a second one under it reads as the same control
+  // twice. This pins that reasoning rather than the exact offsets.
+  assert.doesNotMatch(badge[0], /top:/, 'the badge has moved under the masthead phone button');
+
+  // And it stays above the object it no longer sits on.
+  const z = Number(/z-index:(\d+)/.exec(badge[0])[1]);
+  const objZ = Number(/\.machine\{[^}]*z-index:(\d+)/.exec(css)[1]);
+  assert.ok(z > objZ, `the badge is at z-index ${z}, under the object at ${objZ}`);
 });
 
 test('the hero is one frameless object, and it is not a machine', () => {

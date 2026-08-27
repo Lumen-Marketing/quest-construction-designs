@@ -323,17 +323,16 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 .badge b{display:block;font-size:14px;font-weight:800;letter-spacing:-.02em;line-height:1.15}
 .badge span{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.11em;
   text-transform:uppercase;color:var(--on-dark-2)}
-/* The badge floats ON the object, so it is measured from the object's own edge
-   rather than from the hero's middle.
-   `left:50%` looked deliberate up to about 1600px and was luck. The object is
-   `right:-4%` wide `min(62%,880px)`, so once it hits that 880px cap its left
-   edge travels right with the viewport while a 50% badge travels at half the
-   rate. They cross around 1630px, and above that the badge slides off into
-   empty cream — at 1900px it sat at -17%..7% of it, clipping the subject and
-   floating in space. This is the object's left edge (104% - its width) plus
-   45% of it, so the badge sits over the barrow at every width from the 1080px
-   reflow up. */
-.badge-float{left:calc(99% - 0.55 * min(60%, 860px));bottom:12%;z-index:7}
+/* The badge used to float ON the object and was measured off its two numbers
+   so it would not slide away as the object capped its width. It is off the
+   object now — it sat over the saw and the tape measure, which is a lot of
+   picture to cover with a card — and anchored to the hero's own bottom-right
+   corner instead, which needs no arithmetic at all.
+   Bottom right rather than top right: the masthead already carries a phone
+   button in the top-right corner, and stacking a second one under it reads as
+   the same control twice. Down here it anchors the corner opposite the
+   headline instead. */
+.badge-float{right:3%;bottom:6%;left:auto;z-index:7}
 
 @media(max-width:1080px){
   /* Let the object FLOW after the copy rather than reserving padding for it —
