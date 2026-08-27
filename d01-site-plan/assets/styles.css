@@ -388,8 +388,13 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
     color-mix(in srgb,var(--cream) 40%,transparent) 0%,
     color-mix(in srgb,var(--cream) 34%,transparent) 100%)}
   .hero-copy{max-width:none}
+  /* Not 100%, and not a negative bottom. Full width put the object's own
+     silhouette hard against both edges — the gloves went off one side and the
+     hard hat off the other — and the -8px pulled its foot below .hero, which
+     is overflow:hidden, so the calipers were cut off square. It is a cut-out:
+     its edges ARE the picture, and there is nothing to lose off them. */
   .machine{position:relative;z-index:5;right:auto;bottom:auto;
-    width:min(100%,560px);margin:22px auto -8px;display:block}
+    width:min(86%,470px);margin:26px auto 0;display:block}
   .hero-ghost{top:auto;bottom:2%;transform:none;right:-6%;color:rgba(20,19,16,.09)}
   .badge-float{display:none}
   /* Four figures, four columns. Three orphaned the fourth on a row of its
@@ -406,8 +411,12 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
   .hero-trust{grid-template-columns:1fr 1fr;gap:18px 20px}
   .hero-trust div:nth-child(2n){border-right:0;padding-right:0;margin-right:0}}
 @media(max-width:620px){
-  .badge-float{display:none}
-  .machine{width:104%;right:-14%}}
+  .badge-float{display:none}}
+/* The phone-width bleed that used to live here — width:104% and right:-14% —
+   was drawn for the cut-out excavator, which was a machine leaving frame and
+   read as one. The object in that slot now is a laid-out kit whose gloves and
+   hard hat are its own outer edges: run it past the viewport and they come off
+   square. It keeps the same inset as every other width. */
 
 /* ---------- 03 MARQUEE STRIP ---------- */
 .strip{background:var(--dark);color:var(--on-dark-2);padding:18px 0;overflow:hidden}
