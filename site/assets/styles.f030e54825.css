@@ -239,49 +239,37 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
    No frames: the machine is an alpha PNG, not a photo in a box. */
 .hero{position:relative;overflow:hidden;padding:var(--sp-4) 0 var(--sp-5);
   min-height:clamp(540px,64vw,760px);display:flex;align-items:center}
-/* the background plane — hard right edge, slightly angled like the reference
-   There is a photograph under it now, and the plane is what holds it down: the
-   accent sits over the picture at strength, so the hats read as texture rather
-   than as a picture competing with the headline. The wash is not decoration —
-   the headline is --on-acc, which is near-black on two palettes and WHITE on
-   clay, so the field it lands on has to stay close to flat --acc whatever the
-   photograph does underneath. Measured; see the note on --acc-dim below. */
+/* ---- the hero's ground ----
+   The hard hats live here, not under the headline. That was tried three ways
+   and the arithmetic does not allow it: the copy fills nearly the whole accent
+   plane, so a wash weak enough to see a photograph through is a wash that puts
+   a headline on a photograph — dark type over a dark blue helmet measured
+   1.27:1 — and a wash strong enough for the headline buries the picture. There
+   is no single strength that does both, and a scrim shaped around the copy
+   only leaves a sliver of plane to see anything in.
+
+   The other half of the hero has no type on it at all. So the picture goes
+   there, at nearly its own colour, and the plane goes back to being a plane.
+   It sits at z-index 0 under everything, and the plane's clip-path is what
+   decides how much of it shows. */
+.hero-ground{position:absolute;inset:0;z-index:0;overflow:hidden;background:var(--cream)}
+.hero-ground img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:center 45%}
+/* A cream veil, so the hats sit behind the cut-out object rather than
+   competing with it, and the side still reads as the light half of the hero.
+   Heavier at the left seam, where the accent plane's edge meets it, so the two
+   halves meet on a soft join instead of a hard one. */
+.hero-ground::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(96deg,
+    color-mix(in srgb,var(--cream) 88%,transparent) 0%,
+    color-mix(in srgb,var(--cream) 62%,transparent) 42%,
+    color-mix(in srgb,var(--cream) 52%,transparent) 100%)}
+
+/* the background plane — hard right edge, slightly angled like the reference */
 .hero-panel{position:absolute;z-index:1;left:0;top:0;bottom:0;width:57%;
-  overflow:hidden;background:var(--acc);
+  background:linear-gradient(150deg,var(--acc) 0%,
+    color-mix(in srgb,var(--acc) 88%,var(--ink)) 100%);
   clip-path:polygon(0 0,100% 0,calc(100% - 46px) 100%,0 100%)}
-/* Scaled up, and that is a legibility decision rather than a crop. A wash
-   heavy enough to carry a headline flattens fine detail first, so a wall of
-   small hats reads as noise long before it reads as hats. Fewer and bigger
-   shapes survive the same wash — the texture gets more legible without the
-   wash getting any weaker. */
-.hero-panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:center 42%;transform:scale(1.75);transform-origin:38% 45%}
-/* Three layers, and only the first of them is about the words.
-   The wash used to be flat at 93-95% everywhere, which is what it takes to
-   carry the headline — and the headline only covers the left of the plane, so
-   the rest of the picture was being held down for no reason. Now the strength
-   sits where the type sits and falls away from it, so the hats come up through
-   the top, the right and the foot of the plane while the field the words land
-   on stays exactly as flat as it was. */
-.hero-panel::after{content:"";position:absolute;inset:0;
-  background:
-    /* 1. the column the copy occupies, at full strength */
-    linear-gradient(96deg,
-      color-mix(in srgb,var(--acc) 80%,transparent) 0%,
-      color-mix(in srgb,var(--acc) 77%,transparent) 56%,
-      color-mix(in srgb,var(--acc) 34%,transparent) 82%,
-      color-mix(in srgb,var(--acc) 14%,transparent) 100%),
-    /* 2. the plane's own colour over the whole picture, light enough to see
-          through */
-    linear-gradient(0deg,
-      color-mix(in srgb,var(--acc) 34%,transparent) 0%,
-      color-mix(in srgb,var(--acc) 34%,transparent) 100%),
-    /* 3. and the lean the plane always had, as shade rather than as a second
-          colour — it ends on a darkened accent, never on --acc-dim, which is
-          a text token and was measuring 4.34:1 under the figures */
-    linear-gradient(150deg,
-      transparent 40%,
-      color-mix(in srgb,var(--ink) 16%,transparent) 100%)}
 .hero .wm{right:-8%;top:-6%;width:min(760px,64vw)}
 /* oversized ghost wordmark sitting BEHIND the machine */
 .hero-ghost{position:absolute;z-index:2;right:-2%;top:50%;transform:translateY(-52%);
@@ -383,7 +371,24 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
   /* Let the object FLOW after the copy rather than reserving padding for it —
      absolute positioning kept colliding with the figures row as it reflowed. */
   .hero{min-height:0;padding-bottom:0;display:block}
-  .hero-panel{width:100%;clip-path:polygon(0 0,100% 0,100% calc(100% - 34px),0 100%)}
+  /* Full width here, so the plane would cover the ground and the hats with it.
+     It fades instead: solid accent down through the copy, then away to almost
+     nothing over the lower half, which at this width is where the cut-out
+     object sits and where there is no type at all. Same trade as the desktop
+     plane, made with a vertical gradient because at this width the copy is
+     above the object rather than beside it. */
+  .hero-panel{width:100%;clip-path:polygon(0 0,100% 0,100% calc(100% - 34px),0 100%);
+    background:linear-gradient(180deg,
+      var(--acc) 0%,
+      var(--acc) 62%,
+      color-mix(in srgb,var(--acc) 88%,transparent) 70%,
+      color-mix(in srgb,var(--acc) 26%,transparent) 83%,
+      color-mix(in srgb,var(--acc) 16%,transparent) 100%)}
+  /* and the veil over the picture lightens too, or the hats arrive at this
+     width paler than they are on the desktop plane */
+  .hero-ground::after{background:linear-gradient(180deg,
+    color-mix(in srgb,var(--cream) 70%,transparent) 0%,
+    color-mix(in srgb,var(--cream) 46%,transparent) 100%)}
   .hero-copy{max-width:none}
   .machine{position:relative;z-index:5;right:auto;bottom:auto;
     width:min(100%,560px);margin:22px auto -8px;display:block}

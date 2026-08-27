@@ -452,7 +452,8 @@ export function home(c) {
   return `
 <section class="hero">
   ${grid(false)}
-  <div class="hero-panel" aria-hidden="true">${img(c, HERO_GROUND, '', { decorative: true })}</div>
+  <div class="hero-ground" aria-hidden="true">${img(c, HERO_GROUND, '', { decorative: true })}</div>
+  <div class="hero-panel" aria-hidden="true"></div>
   <div class="hero-ghost" aria-hidden="true">QUEST</div>
   <div class="wrap">
     <div class="hero-copy">

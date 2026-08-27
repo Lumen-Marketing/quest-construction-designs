@@ -62,11 +62,11 @@
         "file": "mat/hats.webp",
         "supplied_as": "Untitled design (20).png",
         "alt": "Rows of hard hats racked on shelves in every colour",
-        "used_for": "the photograph under the hero's accent plane",
-        "note": "Re-encoded with its luminance flattened hard and its chroma pushed up (ffmpeg eq contrast=0.22 brightness=-0.04 saturation=1.75). That is a contrast decision, not a look: a contrast RATIO is computed from luminance alone, so squeezing the picture luminance range from 0.66 to 0.23 while keeping its colour lets the hats read by hue through a far lighter wash than they could by brightness. The brightness trim lands the mean between the three palettes accents so no one of them pays for it. Scaled 1.75 in CSS as well, because a heavy wash flattens fine detail first and small hats read as noise. See shots/herotext.mjs.",
+        "used_for": "the hero's ground, behind the cut-out object on the light half",
+        "note": "Lightened and warmed on the way in (ffmpeg eq brightness=0.14 contrast=0.86 saturation=1.10) so it sits under a cream veil the way the reference did. It is NOT under the headline, and that was settled by measurement rather than taste: the copy fills nearly the whole accent plane, and a wash weak enough to see this through is a wash that puts dark type on a dark blue helmet at 1.27:1, while a wash strong enough for the type buries the picture. The light half of the hero carries no type, so that is where it goes.",
         "width": 1800,
         "height": 1012,
-        "bytes": 86334
+        "bytes": 144580
       }
     ]
   }
