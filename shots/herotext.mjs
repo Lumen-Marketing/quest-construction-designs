@@ -19,7 +19,8 @@ const PALETTES = {
 };
 // Everything on the plane that carries ink. The buttons bring their own
 // backgrounds and are covered by btncheck.mjs.
-const SEL = '.hero-copy h1, .hero-copy .lede, .hero-trust b, .hero-trust span';
+const SEL = '.hero-copy .eyebrow, .hero-copy h1, .hero-copy .lede, '
+  + '.hero-trust b, .hero-trust span';
 
 const lin = (c) => (c <= 10.0164 ? c / 3294.6 : ((c / 255 + 0.055) / 1.055) ** 2.4);
 const lum = (r, g, b) => 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
@@ -62,7 +63,11 @@ await withPage('../site/index.html', { width, height: 1000 }, async (page) => {
     })()`));
 
     await page.evaluate(`document.querySelectorAll(${JSON.stringify(SEL)})
-      .forEach(e => { e.style.color = 'transparent'; })`);
+      .forEach(e => { e.style.color = 'transparent';
+        // Descendants that set their own colour survive a colour set on the
+        // parent, and then get measured against themselves at 1:1. Blank the
+        // subtree, not the element.
+        e.querySelectorAll('*').forEach(k => { k.style.color = 'transparent'; }); })`);
     await new Promise((r) => setTimeout(r, 350));
     fs.writeFileSync('./herotext.png', await page.screenshot());
     await page.evaluate(`document.querySelectorAll(${JSON.stringify(SEL)})

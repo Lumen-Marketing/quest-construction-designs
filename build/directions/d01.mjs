@@ -418,6 +418,20 @@ ${baseScript(c)}`; }
 
 // ---------------------------------------------------------------- page bodies
 
+// The headline is the company name and the promise in one string, and it has
+// to stay one string: it is the H1, and "Quest Construction: From Concept to
+// Creation" is what the page is about as far as a search engine is concerned.
+// Typographically it is two things, though, and setting it as one was giving
+// four lines of 65px at a single weight with the colon dangling off the end of
+// the second one. Split at the colon, the name takes a smaller line and the
+// promise gets the display size — same string, same reading order, two tiers
+// instead of none. A heading with no colon falls through unchanged.
+const heroTitle = (t) => {
+  const i = String(t).indexOf(':');
+  if (i < 0) return esc(t);
+  return `<span class="h1-name">${esc(t.slice(0, i + 1))}</span>${esc(t.slice(i + 1).trim())}`;
+};
+
 export function home(c) {
   const h = c.pages.home;
 
@@ -454,10 +468,10 @@ export function home(c) {
   ${grid(false)}
   <div class="hero-ground" aria-hidden="true">${img(c, HERO_GROUND, '', { decorative: true })}</div>
   <div class="hero-panel" aria-hidden="true"></div>
-  <div class="hero-ghost" aria-hidden="true">QUEST</div>
   <div class="wrap">
     <div class="hero-copy">
-      <h1>${esc(h.heroTitle)}</h1>
+      <p class="mono eyebrow">&mdash; ${esc(h.heroEyebrow)}</p>
+      <h1>${heroTitle(h.heroTitle)}</h1>
       <p class="lede">${esc(h.heroBody)}</p>
       <div class="hero-acts">
         ${arrowBtn(c.url('contact'), 'Get in touch')}
