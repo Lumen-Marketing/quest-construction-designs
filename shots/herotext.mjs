@@ -43,9 +43,18 @@ await withPage('../site/index.html', { width, height: 1000 }, async (page) => {
       const out = [...document.querySelectorAll(${JSON.stringify(SEL)})].map((e) => {
         const rg = document.createRange(); rg.selectNodeContents(e);
         const r = rg.getBoundingClientRect();
+        const cs = getComputedStyle(e);
+        const px = parseFloat(cs.fontSize);
+        const wt = Number(cs.fontWeight) || 400;
+        // WCAG's own definition of large text: 24px, or 18.66px when bold.
+        // Large text clears at 3:1; everything else needs 4.5:1. Holding the
+        // 66px headline to the small-text bar is stricter than the standard
+        // and buys the wash strength that hides the photograph.
+        const large = px >= 24 || (px >= 18.66 && wt >= 700);
         return { tag: e.tagName + (e.className ? '.' + e.className.split(' ')[0] : ''),
           text: e.textContent.trim().slice(0, 18),
-          colour: getComputedStyle(e).color.match(/[0-9.]+/g).slice(0, 3).map(Number),
+          px: Math.round(px), wt, need: large ? 3 : 4.5,
+          colour: cs.color.match(/[0-9.]+/g).slice(0, 3).map(Number),
           x: Math.round(r.left) - 2, y: Math.round(r.top) - 2,
           w: Math.round(r.width) + 4, h: Math.round(r.height) + 4 };
       }).filter((b) => b.w > 6 && b.h > 6);
@@ -69,19 +78,27 @@ await withPage('../site/index.html', { width, height: 1000 }, async (page) => {
         const r = ratio(tgt, lum(raw[i], raw[i + 1], raw[i + 2]));
         if (r < worst) worst = r;
       }
-      rows.push({ pal, tag: b.tag, text: b.text, worst });
+      rows.push({ pal, tag: b.tag, text: b.text, worst, need: b.need, px: b.px });
     }
   }
 });
 fs.rmSync('./herotext.png', { force: true });
 
-let floor = Infinity;
-for (const r of rows.sort((a, b) => a.worst - b.worst)) {
-  floor = Math.min(floor, r.worst);
-  console.log(`${r.worst >= 4.5 ? 'AA  ' : 'FAIL'} ${r.worst.toFixed(2).padStart(6)}:1  `
-    + `${r.pal.padEnd(7)} ${r.tag.padEnd(16)} ${r.text}`);
+// Each line against its OWN threshold. Holding the 66px headline to the
+// small-text bar is stricter than WCAG asks and the difference is paid for in
+// wash strength — which is exactly what was hiding the photograph.
+let bad = 0;
+let tight = Infinity;
+for (const r of rows.sort((a, b) => (a.worst / a.need) - (b.worst / b.need))) {
+  const ok = r.worst >= r.need;
+  if (!ok) bad++;
+  tight = Math.min(tight, r.worst / r.need);
+  console.log(`${ok ? 'AA  ' : 'FAIL'} ${r.worst.toFixed(2).padStart(6)}:1 `
+    + `(needs ${r.need}, ${String(r.px).padStart(2)}px)  ${r.pal.padEnd(7)} `
+    + `${r.tag.padEnd(16)} ${r.text}`);
 }
-console.log(floor >= 4.5
-  ? `\nPASS — every line on the plane clears 4.5:1 on every palette (worst ${floor.toFixed(2)}:1).`
-  : `\nFAIL — ${floor.toFixed(2)}:1 is under the 4.5:1 floor.`);
-process.exit(floor >= 4.5 ? 0 : 1);
+console.log(bad === 0
+  ? `\nPASS — every line clears its own threshold on every palette; the tightest `
+    + `sits at ${tight.toFixed(2)}x what it needs.`
+  : `\nFAIL — ${bad} line(s) under threshold.`);
+process.exit(bad === 0 ? 0 : 1);
