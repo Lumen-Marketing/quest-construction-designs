@@ -153,15 +153,32 @@ test('the hero object is lit rather than pasted, and clears the copy at every wi
   assert.match(rule[0], /drop-shadow\([^)]*var\(--acc\)/,
     'nothing lights the object from the side the pool is on');
 
-  // It must not stand on the words. The copy column is capped as a percentage
-  // AND in pixels, and so is the object, so the two only clear each other if
-  // the numbers are chosen together — at 54% the gloves, which are the
-  // brightest thing in the frame, sat under "REACH US" between 1080 and 1300
-  // and took it to 3.09:1 against a 4.5 bar while passing at 1440.
-  const copyPct = Number(/\.hero-copy\{max-width:min\(\d+px,(\d+)%\)/.exec(css)[1]);
-  const kitPct = Number(/\.hero-kit\{[^}]*width:min\((\d+)%/.exec(rule[0])[1]);
-  assert.ok(copyPct + kitPct <= 96,
-    `the copy runs to ${copyPct}% and the object is ${kitPct}% wide, which collide`);
+  // It must not stand on the words, and that cannot be arranged by picking an
+  // offset that looks right. The copy column is capped BOTH in pixels and as a
+  // percentage, so which cap is winning changes with the width — and the
+  // percentage is of .wrap's content box, which stops growing at --maxw and
+  // starts insetting instead. A hand-picked offset was wrong twice for exactly
+  // those two reasons: the gloves sat under "REACH US" at 3.09:1 between 1080
+  // and 1300 while passing at 1440, and then the object crossed the copy again
+  // above 1400 where the wrap's inset appears.
+  //
+  // So the offset is DERIVED from the copy's own cap, and this is the test that
+  // they cannot drift apart: change the column's width without changing the
+  // offset built on it and the numbers stop matching here.
+  const cap = /\.hero-copy\{max-width:min\((\d+)px,(\d+)%\)\}/.exec(css);
+  assert.ok(cap, 'the hero copy column has no width cap to derive an offset from');
+  const [, capPx, capPct] = cap;
+  const kitLeft = /--kit-left:calc\(([\s\S]*?)\)\}/.exec(css);
+  assert.ok(kitLeft, 'the object is not positioned off the copy column');
+  assert.ok(kitLeft[1].includes(`${capPx}px`),
+    `the copy caps at ${capPx}px and the object's offset does not use that number`);
+  assert.ok(kitLeft[1].includes(`0.${capPct}`),
+    `the copy caps at ${capPct}% and the object's offset does not use that number`);
+  // and the percentage has to be taken off the wrap, not off the band
+  assert.match(css, /--wrap-w:min\(100%,var\(--maxw\)\)/,
+    'the offset does not account for the wrap being capped and centred');
+  assert.match(rule[0], /left:var\(--kit-left\)/,
+    'the object does not use the derived offset');
 });
 
 test('the floating badge is anchored to the hero corner, clear of the copy', () => {
