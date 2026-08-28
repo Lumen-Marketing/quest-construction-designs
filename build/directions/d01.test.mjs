@@ -36,7 +36,7 @@ test('the navbar carries the real phone number as a tel link', () => {
 
 test('the footer states the real founding year and no invented figures', () => {
   const html = renderPage({ mod: d01, key: 'home' });
-  assert.ok(html.includes('Since 2005'));
+  assert.ok(html.includes('Since 2018'));
   assert.doesNotMatch(html, /est\.\s*2010|340\+|\b96%|4\.9\b|87 reviews/);
 });
 
@@ -366,7 +366,7 @@ test('the home page shows the three real projects', () => {
 
 test('the hero states only facts drawn from the real content', () => {
   const html = renderPage({ mod: d01, key: 'home' });
-  assert.match(html, /<b>2005<\/b><span>Building since<\/span>/);
+  assert.match(html, /<b>2018<\/b><span>Building since<\/span>/);
   assert.match(html, /<b>14<\/b><span>Services<\/span>/);
   assert.match(html, /<b>11<\/b><span>Arizona cities<\/span>/);
 });

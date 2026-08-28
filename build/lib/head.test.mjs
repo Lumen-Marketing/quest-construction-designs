@@ -60,7 +60,7 @@ test('the business node carries the real NAP and no address or rating', () => {
   const g = graphFor({ page: find('home'), res: resolver('d01-site-plan', 'home'), content });
   const biz = g['@graph'].find((n) => String(n['@type']).includes('GeneralContractor'));
   assert.equal(biz.telephone, '+1-602-399-6455');
-  assert.equal(biz.foundingDate, '2005');
+  assert.equal(biz.foundingDate, '2018');
   assert.equal(biz.address, undefined);
   assert.equal(biz.aggregateRating, undefined);
   assert.equal(biz.areaServed.length, 11);

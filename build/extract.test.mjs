@@ -68,7 +68,7 @@ test('site.json carries the real NAP and no placeholder data', () => {
   assert.equal(s.phoneDisplay, '(602) 399-6455');
   assert.equal(s.phoneHref, 'tel:16023996455');
   assert.equal(s.phoneE164, '+1-602-399-6455');
-  assert.equal(s.foundingYear, '2005');
+  assert.equal(s.foundingYear, '2018');
   assert.equal(s.offers.length, 2);
   for (const banned of ['555-0100', 'ROC #', 'Buchanan', '4.9', 'aggregateRating']) {
     assert.ok(!raw.includes(banned), `site.json must not contain ${banned}`);
@@ -80,6 +80,8 @@ test('extracts the six standalone pages with their real copy', () => {
   assert.deepEqual(Object.keys(p).sort(),
     ['about', 'contact', 'gallery', 'home', 'projects', 'sitemap']);
   assert.match(p.home.heroTitle, /From Concept to Creation/);
+  // The archive says 2005. content/pages.json says 2018 — Quest corrected the year
+  // after the recovery, so this pins the parser against the source, not the site.
   assert.match(p.about.story[0], /since 2005/);
   assert.equal(p.projects.items.length, 3);
   assert.ok(p.projects.items.every((i) => i.title && i.body));
