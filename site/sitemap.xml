@@ -7,9 +7,8 @@
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/aerial-crane.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/mat/kit.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -228,7 +227,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-roof.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -242,9 +241,9 @@
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/custom-home-gables.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/deck-finished.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/window-stucco.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/roof-shingles.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-palms.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
   </url>
   <url>
@@ -254,7 +253,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/story.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -280,7 +279,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/aerial-tearoff.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -306,7 +305,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/slab-lumber.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -332,7 +331,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/hero.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -358,7 +357,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-garage.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -384,7 +383,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/sheathing-panel.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -410,7 +409,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/roof-desert.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -436,7 +435,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/casita-stucco.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -462,7 +461,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-lumber.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -488,7 +487,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/roof-windows.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -514,7 +513,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-roof.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -540,7 +539,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/story.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -566,7 +565,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/aerial-tearoff.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -592,7 +591,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/slab-lumber.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -608,7 +607,7 @@
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/window-stucco.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-desert-lot.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/window-reflection.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
   </url>
   <url>
@@ -618,7 +617,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/hero.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -632,9 +631,9 @@
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/custom-home-gables.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/deck-finished.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/window-stucco.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/roof-shingles.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-palms.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
   </url>
   <url>
@@ -644,7 +643,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-garage.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -670,7 +669,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/sheathing-panel.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -696,7 +695,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/roof-desert.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -722,7 +721,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/casita-stucco.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -748,7 +747,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-lumber.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -774,7 +773,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/roof-windows.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -800,7 +799,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-roof.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -826,7 +825,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/story.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -852,7 +851,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/aerial-tearoff.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -878,7 +877,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/slab-lumber.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -904,7 +903,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/hero.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -930,7 +929,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-garage.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -956,7 +955,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/sheathing-panel.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -982,7 +981,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/roof-desert.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -998,7 +997,7 @@
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/window-stucco.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-desert-lot.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/window-reflection.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
   </url>
   <url>
@@ -1008,7 +1007,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/casita-stucco.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -1022,9 +1021,9 @@
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/custom-home-gables.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/deck-finished.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/window-stucco.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/roof-shingles.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-palms.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
   </url>
   <url>
@@ -1034,7 +1033,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-lumber.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -1060,7 +1059,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/roof-windows.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -1086,7 +1085,7 @@
     <priority>0.8</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-roof.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>
@@ -1112,9 +1111,9 @@
     <priority>0.6</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-roof.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/roof-shingles.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-palms.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
   </url>
   <url>
@@ -1282,7 +1281,7 @@
     <image:image><image:loc>https://questconstruction.com/assets/quest/slab-lumber.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-desert-lot.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/window-reflection.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
   </url>
   <url>
@@ -1292,9 +1291,9 @@
     <priority>0.6</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/hero.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/roof-shingles.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-palms.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
   </url>
   <url>
@@ -1462,7 +1461,7 @@
     <image:image><image:loc>https://questconstruction.com/assets/quest/roof-desert.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-desert-lot.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/window-reflection.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
   </url>
   <url>
@@ -1472,9 +1471,9 @@
     <priority>0.6</priority>
     <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/casita-stucco.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/custom-home-wide.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/roof-shingles.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-palms.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
   </url>
   <url>
@@ -1524,7 +1523,7 @@
     <image:image><image:loc>https://questconstruction.com/assets/quest/window-scaffold.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/framing-long-wall.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/roof-ridge.webp</image:loc></image:image>
-    <image:image><image:loc>https://questconstruction.com/assets/quest/card/aerial-crane.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-clouds.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-shell.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/casita-sunset.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/card/framing-turret.webp</image:loc></image:image>

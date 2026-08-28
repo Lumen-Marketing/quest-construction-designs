@@ -10,6 +10,11 @@ const SIZES = JSON.parse(readFileSync('content/images.json', 'utf8'));
 // and the guard stands ready for the next one.
 const FORBIDDEN = new Set();
 
+/** Whether a file has intrinsic dimensions recorded, i.e. whether it exists in
+ *  the tree as far as the build is concerned. Lets a caller offer a fallback
+ *  instead of throwing. */
+export const known = (file) => Boolean(SIZES[file]);
+
 export function size(file) {
   const s = SIZES[file];
   if (!s) throw new Error(`unknown image: ${file} (run node build/measure-images.mjs)`);

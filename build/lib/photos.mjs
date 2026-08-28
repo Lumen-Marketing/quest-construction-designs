@@ -20,6 +20,8 @@
 // Filenames live under assets/quest/. The alt text lives here and only here,
 // so the ten directions cannot drift apart on what a photograph depicts.
 
+import { known } from './images.mjs';
+
 /** file -> alt. The single source of truth for what each photograph shows. */
 export const ALT = {
   // ---- the three outsourced materials ----
@@ -218,31 +220,18 @@ export const CUTOUTS = ['excavator.webp', 'loader.webp'];
  * It was the banner on the services hub and on projects, and it is far too
  * good to be spending itself there; both have their own frames now.
  */
-export const HERO = 'quest/framing-clouds.webp';
+export const HERO = 'quest/aerial-crane.webp';
 
 /* HERO_GROUND used to live here: the photograph the accent plane was a tint
    over. There is no plane any more — the hero IS the photograph — so the
    ground has nowhere to be under. */
 
-/**
- * The object standing in front of the hero photograph. Quest asked for the
- * materials back after the hero was rebuilt, and they are back on the new
- * construction rather than the old one: a frameless cut-out on a dark
- * photographic ground instead of on a flat colour plane.
- *
- * That swap is the whole reason it can have depth now. On the orange plane the
- * object and its ground were the same distance from the eye — one flat colour
- * behind one flat object — and the only separation available was a drop
- * shadow, which is why it read flat however the shadow was tuned. Here there
- * is a photograph receding behind it, a scrim between them, and a pool of warm
- * light it stands in, so the layers are actually at different depths and the
- * shadow has something to fall across. See .hero-kit for the stack.
- *
- * Rights: NOT VERIFIED. See content/outsourced.json — Quest supplied this file
- * directly and it carries no licence metadata. Raised more than once; Quest
- * has asked for it, and holding the rights is Quest's call.
- */
-export const HERO_OBJECT = 'mat/kit.webp';
+/* HERO_OBJECT used to live here: the materials cut-out that stood in front
+   of the hero photograph. Quest asked for it out, and it was the one image
+   on the site with no licence metadata behind it — see content/outsourced.json,
+   where it is recorded as supplied by Quest with rights NOT VERIFIED. The
+   hero is the photograph now, with nothing in front of it. */
+
 
 /** The band across the head of each offer voucher, in the order they are listed. */
 export const OFFER_SHOTS = ['mat/board.webp', 'mat/gear.webp'];
@@ -402,7 +391,10 @@ export const GALLERY = [
  * be small. Every one of those now shows the trade the card is named after.
  */
 const CARD_SHOTS = {
-  'residential-development': 'aerial-crane',
+  // The aerial went to the hero, where it is the whole photograph. Framed
+  // walls going up under an Arizona sky is what this trade looks like anyway,
+  // and it is the picture the hero vacated.
+  'residential-development': 'framing-clouds',
   casita: 'casita-shell',
   adu: 'casita-sunset',
   framing: 'framing-turret',
@@ -424,7 +416,14 @@ const CARD_SHOTS = {
 // is pre-baked at 900x600 under assets/quest/card/ — 816KB for the whole set,
 // taken a little above centre on the portrait frames, because the roof, the
 // gable and the header are the half of a phone photograph worth keeping.
-const cardFile = (name) => `quest/card/${name}.webp`;
+// A card normally has a 900x600 crop cut for it. Where one has not been cut,
+// the full-size original stands in — the card is object-fit:cover either way,
+// so the only cost is a few more kilobytes. Better than forcing a trade onto
+// the wrong photograph because the right one has no crop.
+const cardFile = (name) => {
+  const crop = `quest/card/${name}.webp`;
+  return known(crop) ? crop : `quest/${name}.webp`;
+};
 
 /** [file, alt] for a service card — the crop's path with the original's alt. */
 export function cardShot(slug) {

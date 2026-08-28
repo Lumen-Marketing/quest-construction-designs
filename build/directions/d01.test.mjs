@@ -198,64 +198,41 @@ test('the voucher stub has a ground, and none of it lands on the amount', () => 
     'the amount glows in its own colour, which lowers its own contrast');
 });
 
-test('the hero object is lit rather than pasted, and clears the copy at every width', () => {
+test('the hero is the photograph, with nothing standing in front of it', () => {
   const html = renderPage({ mod: d01, key: 'home' });
   const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
 
-  // Quest asked for the materials back after the hero was rebuilt, and they are
-  // back on the new construction rather than the old one. On the accent plane
-  // the object and its ground were one flat thing on another flat thing, both
-  // the same distance from the eye — there was nothing behind it to be behind
-  // it, so no amount of shadow made it read as forward. That is what "flat"
-  // meant, and it is a property of the stack, not of the shadow.
-  //
-  // So the stack is what this pins. Four planes: the photograph, the scrim,
-  // the pool of light, the object.
-  const kit = html.match(/<img[^>]*class="hero-kit"[^>]*>/g) || [];
-  assert.equal(kit.length, 1, `expected one hero object, found ${kit.length}`);
-  assert.ok(html.includes('class="hero-glow"'), 'the object has no light to stand in');
+  // Quest asked the materials cut-out out of the hero. It was also the one
+  // image in the tree with no licence metadata behind it, so this is a rights
+  // improvement as well as a design one — see content/outsourced.json.
+  assert.doesNotMatch(html, /class="hero-kit"/, 'the hero object is back');
+  assert.doesNotMatch(html, /mat\/kit\.webp/, 'the materials cut-out is back');
+
+  // Everything that existed only to make that object read as forward has to go
+  // with it. A pool of warm light with nothing standing in it is an orange
+  // blob on a photograph, and an offset derived from a column for an element
+  // that no longer exists is arithmetic nobody can explain later.
+  for (const dead of [/class="hero-glow"/, /\.hero-kit\{/, /--kit-left:/, /@keyframes settle/]) {
+    assert.doesNotMatch(css, dead, `${dead} outlived the object it was for`);
+    assert.doesNotMatch(html, dead, `${dead} outlived the object it was for`);
+  }
+
+  // What remains is the photograph and the scrim that keeps type legible on it.
+  assert.match(html, /class="hero-shot"/, 'the hero has no photograph');
   assert.match(css, /\.hero-shot::before\{[^}]*radial-gradient/,
     'the frame has no vignette, so the corners do not go back');
+  assert.match(css, /\.hero-shot::after\{[^}]*linear-gradient/,
+    'the frame has no scrim, so the copy sits on bare photograph');
+});
 
-  // The shadows have to be drop-shadow filters. This element's rectangle is
-  // 70% transparent, so a box-shadow draws a box around thin air.
-  const rule = /\.hero-kit\{[^}]*\}/.exec(css);
-  assert.ok(rule, 'no rule for the hero object');
-  assert.doesNotMatch(rule[0], /box-shadow/, 'the object casts a rectangular shadow');
-  const drops = (rule[0].match(/drop-shadow\(/g) || []).length;
-  assert.ok(drops >= 3,
-    `the object casts ${drops} shadow(s); it needs contact, cast and a warm rim`);
-  // And the warm one is the light wrapping the edge — without it the cut-out
-  // reads as a hole punched in the picture rather than an object in front of it.
-  assert.match(rule[0], /drop-shadow\([^)]*var\(--acc\)/,
-    'nothing lights the object from the side the pool is on');
-
-  // It must not stand on the words, and that cannot be arranged by picking an
-  // offset that looks right. The copy column is capped BOTH in pixels and as a
-  // percentage, so which cap is winning changes with the width — and the
-  // percentage is of .wrap's content box, which stops growing at --maxw and
-  // starts insetting instead. A hand-picked offset was wrong twice for exactly
-  // those two reasons: the gloves sat under "REACH US" at 3.09:1 between 1080
-  // and 1300 while passing at 1440, and then the object crossed the copy again
-  // above 1400 where the wrap's inset appears.
-  //
-  // So the offset is DERIVED from the copy's own cap, and this is the test that
-  // they cannot drift apart: change the column's width without changing the
-  // offset built on it and the numbers stop matching here.
-  const cap = /\.hero-copy\{max-width:min\((\d+)px,(\d+)%\)\}/.exec(css);
-  assert.ok(cap, 'the hero copy column has no width cap to derive an offset from');
-  const [, capPx, capPct] = cap;
-  const kitLeft = /--kit-left:calc\(([\s\S]*?)\)\}/.exec(css);
-  assert.ok(kitLeft, 'the object is not positioned off the copy column');
-  assert.ok(kitLeft[1].includes(`${capPx}px`),
-    `the copy caps at ${capPx}px and the object's offset does not use that number`);
-  assert.ok(kitLeft[1].includes(`0.${capPct}`),
-    `the copy caps at ${capPct}% and the object's offset does not use that number`);
-  // and the percentage has to be taken off the wrap, not off the band
-  assert.match(css, /--wrap-w:min\(100%,var\(--maxw\)\)/,
-    'the offset does not account for the wrap being capped and centred');
-  assert.match(rule[0], /left:var\(--kit-left\)/,
-    'the object does not use the derived offset');
+test('the hero photograph is the aerial, eager and preloaded', () => {
+  const html = renderPage({ mod: d01, key: 'home' });
+  // It is the LCP element. Lazy or unpreloaded costs real Core Web Vitals.
+  const hero = /<div class="hero-shot">(<img[^>]*>)/.exec(html);
+  assert.ok(hero, 'no hero photograph');
+  assert.match(hero[1], /aerial-crane\.webp/, 'the hero is not the aerial');
+  assert.doesNotMatch(hero[1], /loading="lazy"/, 'the LCP image is lazy');
+  assert.match(hero[1], /width="\d+" height="\d+"/, 'the hero has no intrinsic size');
 });
 
 test('the floating badge is anchored to the hero corner, clear of the copy', () => {
@@ -619,7 +596,10 @@ test('every service card carries its own photograph, and no two share one', asyn
   const seen = new Set();
   for (const s of services) {
     const [file] = cardShot(s.slug);
-    assert.match(file, /^quest\/card\//, `${s.slug} points outside the card crops`);
+    // A 900x600 crop where one has been cut, the full-size original where one
+    // has not. What matters is that the file exists and that no two trades
+    // show the same photograph, not which of the two forms it takes.
+    assert.match(file, /^quest\/(card\/)?[a-z-]+\.webp$/, `${s.slug} has an odd card path`);
     assert.ok(!seen.has(file), `${s.slug} repeats a photograph already used: ${file}`);
     seen.add(file);
   }

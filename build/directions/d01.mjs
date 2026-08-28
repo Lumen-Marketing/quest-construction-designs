@@ -7,7 +7,7 @@ import { icon } from '../lib/icons.mjs';
 import { SHORT_NAME } from '../lib/pages.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 import {
-  shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO, HERO_OBJECT, OFFER_SHOTS,
+  shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO, OFFER_SHOTS,
   STORY, CONTACT,
   CLOSING, PROJECT_SHOTS,
   serviceShots, areaShots,
@@ -499,8 +499,6 @@ export function home(c) {
         ${arrowBtn(c.site.phoneHref, 'Call us', 'btn ghost')}
       </div>
     </div>
-    <div class="hero-glow" aria-hidden="true"></div>
-    ${img(c, ...shot(HERO_OBJECT), { cls: 'hero-kit' })}
     <div class="hero-trust">
       <div><b>${c.site.foundingYear}</b><span>Building since</span></div>
       <div><b>${c.services.length}</b><span>Services</span></div>
