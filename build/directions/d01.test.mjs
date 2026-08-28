@@ -481,10 +481,19 @@ test('every area page carries authored local copy, unique per city', () => {
   }
 });
 
-test('the local copy carries its unverified warning for Quest to review', () => {
+test('the local copy carries its warning, and points at the verification record', () => {
   const local = JSON.parse(readFileSync('content/areas-local.json', 'utf8'));
   assert.match(local._README, /UNVERIFIED/);
   assert.match(local._README, /review this file before launch/);
+  // Naming a permitting authority is the one claim on these pages a homeowner
+  // could act on and find wrong, so the file has to say when it was last
+  // checked and where the sources are.
+  assert.match(local._README, /VERIFIED \d{4}-\d{2}-\d{2}/);
+  assert.match(local._README, /docs\/service-area-verification\.md/);
+  const record = readFileSync('docs/service-area-verification.md', 'utf8');
+  for (const a of areas) {
+    assert.ok(record.includes(a.city), `${a.city} has no line in the verification record`);
+  }
 });
 
 test('area pages resolve the city token everywhere and name their own city', () => {
