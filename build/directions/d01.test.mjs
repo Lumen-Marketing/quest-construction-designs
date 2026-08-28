@@ -387,12 +387,20 @@ test('the home page carries both real offers with their codes', () => {
   assert.ok(html.includes('data-copy="REFER100"'));
 });
 
-test('the home page shows the three real projects', () => {
+test('the home page teases three projects, each with a layout slot', () => {
   const html = renderPage({ mod: d01, key: 'home' });
-  assert.ok(html.includes('Residential Framing'));
-  assert.ok(html.includes('Home Construction'));
-  assert.ok(html.includes('Concrete Work'));
-  assert.equal((html.match(/class="pj /g) || []).length, 3);
+  const items = JSON.parse(readFileSync('content/pages.json', 'utf8')).projects.items;
+  const slots = [...html.matchAll(/class="pj ([a-z]*) rv"/g)].map((m) => m[1]);
+  // Three, not all of them: the home grid is a teaser and the fourth card has
+  // no photograph that is not already spent on this page. The projects page
+  // below is where every item has to appear.
+  assert.deepEqual(slots, ['a', 'b', 'c']);
+  for (const it of items.slice(0, 3)) {
+    assert.ok(html.includes(it.title), `${it.title} is on the home page`);
+  }
+  // The letter classes drive the grid spans. One short and a tile renders
+  // class="pj undefined", which is how a fourth card first came out.
+  assert.doesNotMatch(html, /class="pj undefined/);
 });
 
 test('the hero states only facts drawn from the real content', () => {
@@ -672,16 +680,16 @@ test('every photograph on every page comes out of the library with its own alt',
   }
 });
 
-test('the projects page shows the three real projects with their real photographs', () => {
+test('the projects page shows every showcase project with its own photograph', () => {
   const html = renderPage({ mod: d01, key: 'projects' });
-  for (const t of ['Residential Framing', 'Home Construction', 'Concrete Work']) {
-    assert.ok(html.includes(t), `projects missing ${t}`);
-  }
-  assert.equal((html.match(/class="pjcard rv"/g) || []).length, 3);
-  // Framing, home construction, concrete — one Quest photograph each, in order.
-  assert.ok(html.includes('quest/hero.webp'));
-  assert.ok(html.includes('quest/custom-home-wide.webp'));
-  assert.ok(html.includes('quest/slab-blockwall.webp'));
+  const items = JSON.parse(readFileSync('content/pages.json', 'utf8')).projects.items;
+  for (const it of items) assert.ok(html.includes(it.title), `projects missing ${it.title}`);
+  assert.equal((html.match(/class="pjcard rv"/g) || []).length, items.length);
+  // One Quest photograph each, in order, and no two cards sharing one.
+  const shots = ['quest/hero.webp', 'quest/custom-home-wide.webp',
+    'quest/slab-blockwall.webp', 'quest/deck-finished.webp'];
+  assert.equal(shots.length, items.length, 'a project was added without a photograph');
+  for (const f of shots) assert.ok(html.includes(f), `projects missing ${f}`);
 });
 
 test('the about page renders both real story paragraphs', () => {

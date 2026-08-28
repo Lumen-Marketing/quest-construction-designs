@@ -630,6 +630,10 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 .pj.c{grid-column:span 2}
 .pj.d{grid-column:span 3}
 .pj.e{grid-column:span 3}
+/* Five tiles fill the six columns exactly: 4+2, then 2 beside the tall one,
+   then 3+3. Four do not — the last would sit three columns short of its row
+   with a hole beside it — so at four it takes the whole width instead. */
+.work.four .pj.d{grid-column:span 6}
 @media(max-width:900px){
   .work{grid-template-columns:repeat(2,1fr)}
   .pj.a{grid-column:span 2;grid-row:span 2}

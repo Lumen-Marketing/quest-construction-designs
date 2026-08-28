@@ -356,7 +356,7 @@ ${marquee(c)}
     ${head('Selected work', esc(c.pages.projects.h1), c.pages.projects.lede)}
     <div class="collage">
       ${c.pages.projects.items.map((p, i) => `
-      <figure class="pc ${'abc'[i]} rv">
+      <figure class="pc ${'abc'[i] || ''} rv">
         <span class="ht">${img(c, QUEST[i % QUEST.length][0], p.alt || p.title)}</span>
         <figcaption><b>${esc(p.title)}</b><span>${esc(p.body)}</span></figcaption>
       </figure>`).join('')}

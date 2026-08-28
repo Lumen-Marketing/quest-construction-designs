@@ -56,6 +56,10 @@ const clip = (s, n) => {
  *   the ten demo directions are held to a thirty-one page contract, and only
  *   the standalone site carries the hubs.
  */
+/** "a, b and c" — an English list, for a meta description read by a person. */
+const listOf = (xs) => (xs.length < 2 ? (xs[0] || '')
+  : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`).toLowerCase();
+
 export function pageList(opts = {}) {
   const { site, services, areas, pages } = loadContent();
   const brand = ' | Quest Construction';
@@ -102,8 +106,9 @@ export function pageList(opts = {}) {
     clip('Photography from Quest Construction jobsites across Arizona: framing, concrete, ' +
       'exteriors and finished homes.', 155));
   push('projects', 'projects', `Project Showcase${brand}`,
-    clip(`${pages.projects.lede} See framing, home construction and concrete work by ` +
-      'Quest Construction.', 155));
+    // The showcase items themselves, so adding one to content/pages.json puts
+    // it in the description too rather than leaving the list quietly stale.
+    clip(`${pages.projects.lede} See ${listOf(pages.projects.items.map((i) => i.title))}.`, 155));
   push('contact', 'contact', `Contact Us${brand}`,
     clip(`Talk to Quest Construction about your project. Call ${site.phoneDisplay}, ` +
       `${site.availability}, or send us a message.`, 155));

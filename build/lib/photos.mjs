@@ -259,6 +259,7 @@ export const PROJECT_SHOTS = [
   'quest/hero.webp',            // Residential Framing
   'quest/custom-home-wide.webp',// Home Construction
   'quest/slab-blockwall.webp',  // Concrete Work
+  'quest/deck-finished.webp',   // Pergolas
 ];
 
 /** A fourteen-shot sampler across both shoots — one per trade card, marquee,

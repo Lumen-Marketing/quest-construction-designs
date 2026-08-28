@@ -472,8 +472,14 @@ export function home(c) {
       </div>
     </div>`).join('');
 
-  const work = c.pages.projects.items.map((p, i) => `
-    <a class="pj ${'abc'[i]} rv" href="${c.url('projects')}">
+  // A teaser, not the full showcase: the projects page carries every item.
+  // It stops at three because Quest has no pergola photograph — the only
+  // overhead post-and-beam shot in the library is the finished deck, which the
+  // trade card above already spends, and the same picture twice on one page is
+  // worse than one card fewer. Raise this the day a pergola photograph lands;
+  // the stylesheet already lays out four and five tiles.
+  const work = c.pages.projects.items.slice(0, 3).map((p, i) => `
+    <a class="pj ${'abcde'[i] || ''} rv" href="${c.url('projects')}">
       ${img(c, ...shot(PROJECT_SHOTS[i % PROJECT_SHOTS.length]))}
       <span class="cap"><span><b>${esc(p.title)}</b><span>${esc(p.body)}</span></span>
       <span class="go" aria-hidden="true">&#8599;</span></span>
@@ -547,7 +553,7 @@ ${bigBand(c, pageShots('home', 8), '— On site', 'SLAB TO SHINGLE',
   ${grid(false)}
   <div class="wrap">
     ${shead('— Selected work', `${esc(c.pages.projects.h1)}`, c.pages.projects.lede)}
-    <div class="work">${work}</div>
+    <div class="work${work.match(/class="pj /g).length === 4 ? ' four' : ''}">${work}</div>
   </div>
 </section>
 
