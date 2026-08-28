@@ -236,10 +236,19 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
   min-height:clamp(540px,64vw,760px);display:flex;align-items:center;
   background:var(--dark);color:var(--on-dark);isolation:isolate}
 .hero-shot{position:absolute;inset:0;z-index:0;pointer-events:none}
-/* The aerial is a landscape frame with the building sitting low of centre.
-   40% was chosen for the sky-heavy portrait shot that used to be here and cuts
-   the subject off; 50% keeps the whole structure in the band. */
-.hero-shot img{width:100%;height:100%;object-fit:cover;object-position:center 50%;
+/* The aerial is a 16:9 frame in a band that is close to square on a narrow
+   window, so it is the SIDES that get cropped, not the top. Centred, the crop
+   ran off the right-hand end of the frame and left the building jammed against
+   the left edge with bare ground beside it.
+   Lowering the horizontal value slides the crop window left, which pushes the
+   subject right — the opposite of what the number looks like it does. 30%
+   lands the building in the right-hand half of the band, which is also where
+   the scrim has already let go, so it sits in the lit part rather than under
+   the type. Above about 1200px there is barely any horizontal crop left to
+   take, so this is a narrow-window fix and a no-op on a wide one.
+   The vertical stays at 50%: the structure sits low of centre in the frame and
+   the 40% inherited from the old portrait hero cut its base off. */
+.hero-shot img{width:100%;height:100%;object-fit:cover;object-position:30% 50%;
   filter:saturate(.85) contrast(1.04)}
 /* The scrim. The copy column runs to 46% of the width, so the dark holds to
    about there and then lets go — the picture is legible on the right of the
