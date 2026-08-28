@@ -4,7 +4,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { renderPage, contextFor } from '../build.mjs';
-import { pageList, pageCount, loadContent } from '../lib/pages.mjs';
+import { pageList, pageCount, loadContent, loadServiceAreas } from '../lib/pages.mjs';
 import { demoProfile, siteProfile, BUILT } from '../lib/profile.mjs';
 import { resolver, ORIGIN } from '../lib/url.mjs';
 import { MAIN_TAG, documentFindings } from '../lib/page-rules.mjs';
@@ -12,12 +12,16 @@ import { buildCss } from './build-site.mjs';
 import { fingerprint, stylesheetName } from '../lib/site-css.mjs';
 import * as mod from './module.mjs';
 
+// Same escaping the renderers apply, so authored copy can be matched in output.
+const esc = (x) => String(x)
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
 const PAGES = siteProfile.pages();
 const render = (key) => renderPage({ mod, key, profile: siteProfile });
 
 test('the manifest carries the two hub pages a demo direction does not', () => {
-  assert.equal(PAGES.length, pageCount({ hubs: true }));
-  assert.equal(PAGES.length, pageCount() + 2);
+  assert.equal(PAGES.length, pageCount({ hubs: true, cityServices: true }));
   assert.equal(pageList().length, pageCount());
   assert.ok(PAGES.some((p) => p.key === 'services'));
   assert.ok(PAGES.some((p) => p.key === 'service-areas'));
@@ -61,7 +65,7 @@ test('the section landing pages index what they claim to', () => {
   for (const slug of ['adu', 'concrete', 'roofing', 'window-installation']) {
     assert.ok(services.includes(`services/${slug}/index.html`), `services hub is missing ${slug}`);
   }
-  for (const slug of ['mesa-az', 'florence-az', 'phoenix-az']) {
+  for (const slug of ['mesa-az', 'sun-city-az', 'phoenix-az']) {
     assert.ok(areas.includes(`service-areas/${slug}/index.html`), `areas hub is missing ${slug}`);
   }
   // Each hub says in the graph what it lists, which is the point of the page.
@@ -142,7 +146,7 @@ test('the two profiles differ in exactly four ways, all of them named', () => {
   assert.equal(demoProfile.hubs, false);
   assert.equal(siteProfile.hubs, true);
   assert.equal(demoProfile.pages().length, pageCount());
-  assert.equal(siteProfile.pages().length, pageCount({ hubs: true }));
+  assert.equal(siteProfile.pages().length, pageCount({ hubs: true, cityServices: true }));
   assert.deepEqual(demoProfile.schemaOpts(), { rich: false, built: null });
   assert.deepEqual(siteProfile.schemaOpts(), { rich: true, built: BUILT });
   // The fourth: only the standalone is served behind an immutable cache, so
@@ -211,4 +215,58 @@ test('the stylesheet keeps its folder, because the font urls are relative to it'
   // stylesheet — so the name may move but the folder may not.
   assert.match(siteProfile.stylesheet(), /^assets\//);
   assert.match(buildCss(), /url\(fonts\/archivo-latin-var\.woff2\)/);
+});
+
+// ---------------------------------------------------------------- trade × city
+
+test('a trade-by-city page leads with copy written for that pairing', () => {
+  const cross = loadServiceAreas();
+  const list = pageList({ hubs: true, cityServices: true })
+    .filter((p) => p.kind === 'serviceArea');
+  assert.ok(list.length > 0, 'no trade-by-city pages in the manifest');
+
+  for (const p of list) {
+    const html = render(p.key);
+    const { copy, area, service: svc } = p.item;
+    // The pairing copy has to be on the page. If it is not, the page is the
+    // trade page with a place name dropped in, which is the doorway pattern
+    // these exist to avoid.
+    assert.ok(html.includes(esc(copy.lede)), `${p.key} is missing its lede`);
+    for (const para of copy.paras) {
+      assert.ok(html.includes(esc(para)), `${p.key} is missing a paragraph`);
+    }
+    assert.ok(html.includes(`${svc.name} in ${area.city}`)
+      || html.includes(`in <span class="hl">${area.city}</span>`), `${p.key} h1`);
+    // Both parents reachable, so the page is not an orphan.
+    assert.ok(html.includes(`services/${svc.slug}/index.html`), `${p.key} -> trade page`);
+    assert.ok(html.includes(`service-areas/${area.slug}/index.html`), `${p.key} -> city page`);
+  }
+
+  // No two pairings share a lede — that would mean copy was duplicated rather
+  // than written.
+  const ledes = list.map((p) => p.item.copy.lede);
+  assert.equal(new Set(ledes).size, ledes.length, 'two pairings share a lede');
+  void cross;
+});
+
+test('every trade-by-city page is titled, described and unique', () => {
+  const list = pageList({ hubs: true, cityServices: true })
+    .filter((p) => p.kind === 'serviceArea');
+  const titles = new Set();
+  for (const p of list) {
+    assert.ok(p.title.length <= 60, `${p.key} title is ${p.title.length} chars`);
+    assert.ok(p.description.length <= 155, `${p.key} description is ${p.description.length}`);
+    assert.ok(!titles.has(p.title), `${p.key} repeats a title`);
+    titles.add(p.title);
+  }
+});
+
+test('the demo directions neither build nor link the trade-by-city pages', () => {
+  // They are noindex, so 340 extra pages would be build time for nothing — but
+  // a link to a page that was never written is a 404 in ten directions.
+  assert.equal(demoProfile.cityServices, false);
+  assert.equal(demoProfile.pages().filter((p) => p.kind === 'serviceArea').length, 0);
+  const demo = renderPage({ mod, key: 'service-areas/mesa-az' });
+  assert.doesNotMatch(demo, /services\/roofing\/mesa-az/,
+    'a demo direction links a page it does not build');
 });

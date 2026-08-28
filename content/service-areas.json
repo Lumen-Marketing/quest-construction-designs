@@ -1,0 +1,413 @@
+{
+  "_README": "Per-city copy for the service-area landing pages: /services/<trade>/<city>/. Each entry is the INTERSECTION of one trade and one city — what changes about that trade in that place — not the trade description repeated with a name swapped in, which would make these doorway pages. Jurisdiction claims match docs/service-area-verification.md, verified 2026-08-29. Build practice is UNVERIFIED: Quest must review and cut anything that does not match how it actually works. Only the standalone site renders these; the ten demo directions do not carry them.",
+  "roofing": {
+    "phoenix-az": {
+      "lede": "Phoenix spans a century of roofs, so the first question is never what it costs — it is what is actually up there.",
+      "paras": [
+        "The centre of the city still has genuine low-slope roofs on pre-war and post-war houses, often built up in layers over decades and now carrying a foam coating that someone applied in the nineties. Out at the edges the same city is concrete tile over an underlayment laid in the 2000s. Those are different jobs with different failure modes, and quoting one as if it were the other is how a homeowner ends up with a surprise.",
+        "The recurring misunderstanding here is tile. Concrete tile lasts far longer than the felt beneath it, so a roof that looks sound from the street can be sitting on underlayment at the end of its life. We lift and stack the tile, replace what is underneath, and re-lay the same tile — a fraction of the cost of a tear-off, and the reason we always ask to look before pricing."
+      ],
+      "notes": [
+        "City of Phoenix permit",
+        "Low-slope centre, tile at the edges",
+        "Tile relay over new underlayment"
+      ]
+    },
+    "mesa-az": {
+      "lede": "Most of Mesa's roofs sit on post-war ranch and 1970s and 1980s block, and that vintage sets the work.",
+      "paras": [
+        "Homes of that era were built with shallow pitches and long simple runs, which is good news — the tear-off is straightforward and there are few penetrations to detail around. What they do carry is decades of patch repairs around swamp coolers and later air-conditioning penetrations, and those patched areas are where a roof usually starts letting go rather than in the open field.",
+        "A City of Mesa reroof is its own permit, and we file it before anything comes off. Starting a tear-off against a permit that has not cleared is how a job ends up open to the sky waiting on paperwork — and in monsoon season that is not a theoretical risk."
+      ],
+      "notes": [
+        "City of Mesa reroof permit",
+        "Post-war and 1970s block stock",
+        "Failures start at old penetrations"
+      ]
+    },
+    "chandler-az": {
+      "lede": "Chandler's housing runs from the historic centre out to 2000s development, and its roofs divide on the same line.",
+      "paras": [
+        "The bulk of the city is 1990s and 2000s concrete tile, and that stock has now reached the point where the underlayment beneath it is due even though the tile itself has decades left. A tile relay — lift, stack, replace the underlayment, re-lay — is the right answer far more often than a full replacement, and it is what we quote unless the tile is genuinely spent.",
+        "Nearer the historic centre the stock is older and lower-pitched, with more shingle and more previous repair. We scope those individually rather than assuming a Chandler address implies a particular roof, because the two halves of the city need different answers."
+      ],
+      "notes": [
+        "City of Chandler permit",
+        "1990s–2000s tile at underlayment age",
+        "Older, lower-pitched near the centre"
+      ]
+    },
+    "glendale-az": {
+      "lede": "Glendale splits sharply: shingle and low-slope around the older core, concrete tile out west.",
+      "paras": [
+        "Around downtown and the historic districts the roofs are older and the constraints are tighter — a project inside a historic district is a different application, and what a roof is allowed to look like is a live question rather than a free choice. We settle material and colour with the city before ordering anything.",
+        "West of the 101 the stock is 1990s and 2000s tile on regular suburban lots, and the job there is almost always underlayment rather than tile. Mature ash and citrus over the older neighbourhoods also means leaf litter in valleys, which shortens the life of a roof in specific places rather than evenly."
+      ],
+      "notes": [
+        "City of Glendale permit",
+        "Historic district material review",
+        "Leaf litter in valleys on older lots"
+      ]
+    },
+    "scottsdale-az": {
+      "lede": "Scottsdale reviews what a roof looks like, not just whether it keeps water out.",
+      "paras": [
+        "Design review here is genuinely enforced, and roof colour, profile and material are all part of it. We settle those on paper and get them approved before a pallet is ordered, because a roof delivered in a colour the city will not accept is an expensive mistake that is nobody's fault but the contractor's.",
+        "The stock itself is wide — high-end concrete and clay tile across much of the city, and low-slope foam on the contemporary desert houses where a parapet hides the roof entirely. Those flat roofs need a different specification and a different inspection rhythm from tile, and they are unforgiving about ponding where a drain has been added as an afterthought."
+      ],
+      "notes": [
+        "City of Scottsdale design review",
+        "Colour and profile approved before ordering",
+        "Foam low-slope on contemporary houses"
+      ]
+    },
+    "gilbert-az": {
+      "lede": "Gilbert is largely 1990s and 2000s master-planned, which means most of the town hit its first roof cycle at once.",
+      "paras": [
+        "Concrete tile was standard across that build-out, and concrete tile outlives the felt beneath it by decades. What is failing across Gilbert now is underlayment, not tile — so the honest job is a relay: lift and stack the existing tile, strip and replace the underlayment, re-lay the tile with new fixings and replace only what broke in handling.",
+        "That distinction matters commercially. A homeowner told they need a new roof, when what they need is new underlayment under a perfectly good one, is being oversold. We quote the relay where the tile supports it and say plainly when it does not."
+      ],
+      "notes": [
+        "Town of Gilbert permit",
+        "Underlayment failing, tile sound",
+        "Relay rather than replace"
+      ]
+    },
+    "tempe-az": {
+      "lede": "Tempe is built out and tightly packed, so a reroof here is as much a logistics problem as a roofing one.",
+      "paras": [
+        "Lots are small and neighbours are close. A tear-off generates noise, dust and a skip that has to go somewhere, and on many Tempe streets there is no somewhere. We plan the skip position, the loading window and the debris containment before the first tile moves, and we tell neighbours what is coming rather than letting them find out at seven in the morning.",
+        "The stock is mixed and mostly older than the outer valley — shallow pitches, previous repairs, and student-let properties where maintenance has been deferred for years. We expect to find more under a Tempe roof than under a suburban one, and we price the investigation honestly rather than discovering it halfway through."
+      ],
+      "notes": [
+        "City of Tempe permit",
+        "Tight lots, planned skip and access",
+        "Deferred maintenance common"
+      ]
+    },
+    "peoria-az": {
+      "lede": "Peoria runs a long way north to south, and its roofs get newer the further up you go.",
+      "paras": [
+        "South Peoria is post-war and 1970s stock — shallower pitches, more shingle, more accumulated repair around penetrations. North of the 101 it is 1990s and 2000s tile in master-planned tracts, where the tile is fine and the underlayment is due.",
+        "The northern subdivisions add an HOA architectural committee on top of the city permit, and roof colour is exactly the sort of thing they rule on. We submit to both at the same time, because getting a city permit for a roof the HOA will reject wastes everybody's month."
+      ],
+      "notes": [
+        "City of Peoria permit",
+        "HOA colour approval north of the 101",
+        "Older shingle south, tile north"
+      ]
+    },
+    "surprise-az": {
+      "lede": "Almost every roof in Surprise went on after 1998, which makes the work unusually predictable.",
+      "paras": [
+        "That means concrete tile over felt, laid within a few years of each other across whole neighbourhoods — and reaching the end of the underlayment's life at the same time. Streets here often see several relays in a season, and there is a real advantage in doing neighbouring houses together while the crew, the skip and the tile stacks are already on the street.",
+        "The age-restricted communities inside the city run their own architectural committees and their own contractor access hours. A seven-to-four window changes how many days a roof takes, and we build that into the programme rather than discovering it on day one."
+      ],
+      "notes": [
+        "City of Surprise permit",
+        "Whole streets at underlayment age",
+        "Age-restricted access hours"
+      ]
+    },
+    "avondale-az": {
+      "lede": "Avondale is mostly late-1990s and 2000s tile, with an older core that needs a different conversation.",
+      "paras": [
+        "In the production tracts the tile is sound and the underlayment is the job. Lots are tight and side yards narrow, so the tile stacks and the skip have to be placed carefully — we would rather run a smaller machine and take an extra half day than take a fence down.",
+        "In the older core around historic Avondale the roofs are lower and more patched, often over block walls, and there is more variation house to house. Those we scope individually before quoting."
+      ],
+      "notes": [
+        "City of Avondale permit",
+        "Tile relay in the production tracts",
+        "Narrow side-yard access"
+      ]
+    },
+    "goodyear-az": {
+      "lede": "Goodyear's roofs are young, so most of what we do here is not replacement.",
+      "paras": [
+        "Palm Valley, Estrella and the newer tracts are recent enough that the original tile and underlayment have life left. What brings us out is usually damage rather than age — wind lifting tile on an exposed elevation, a failed detail around a later solar installation, or a leak traced to a penetration cut after the roof went on.",
+        "Solar is worth naming. A great many Goodyear roofs have panels added years after the tile, and where the mounts were cut in badly they leak at the fixing rather than at the tile. Working around an array adds a day and a coordination call with the solar company, and we plan for both rather than pretending it is a normal roof."
+      ],
+      "notes": [
+        "City of Goodyear permit",
+        "Damage and detailing over age",
+        "Solar array mounts and coordination"
+      ]
+    },
+    "buckeye-az": {
+      "lede": "Buckeye has the newest roofs in the valley and the most exposed lots to put them on.",
+      "paras": [
+        "Verrado, Sundance, Festival Ranch and the tracts around them are recent, so full replacement is rare. What is common is wind. The lots are open, there is little mature landscaping to break the weather, and the west-facing elevations take it directly — so lifted and slipped tile along ridges and rakes is the recurring call, along with the flashing details that go with it.",
+        "Buckeye is also geographically enormous. A roof on the far side of the city is a genuine drive for a crew and every delivery, so we bring materials in fewer larger loads and stage them on site rather than running back and forth."
+      ],
+      "notes": [
+        "City of Buckeye permit",
+        "Wind lift on exposed elevations",
+        "Materials staged, not shuttled"
+      ]
+    },
+    "queen-creek-az": {
+      "lede": "Queen Creek's lots are larger than the inner valley, and its roofs are mostly young.",
+      "paras": [
+        "The town is primarily in Maricopa County but has extended into Pinal on its eastern and southern edges since the Ironwood Crossing annexation, so we confirm which side a property sits on before filing. The building permit itself is the town's either way.",
+        "The housing is largely 2000s and later tile, so underlayment is only now becoming the conversation on the earliest of it. More common are the outbuildings — shops, detached garages, ramadas and casitas on larger lots, which often carry metal or low-slope roofs that need a different specification from the house they sit behind."
+      ],
+      "notes": [
+        "Town of Queen Creek permit",
+        "Maricopa and Pinal edges",
+        "Outbuildings with metal or low-slope roofs"
+      ]
+    },
+    "maricopa-az": {
+      "lede": "The City of Maricopa is in Pinal County, and almost every roof in it went on after 2000.",
+      "paras": [
+        "That means concrete tile in master-planned tracts — Rancho El Dorado, Province, Homestead — of an age where the tile is sound and the earliest underlayment is starting to come due. Relays rather than replacements, in other words, and whole streets reaching that point together.",
+        "It is far enough south of the valley that a crew is committed to the day once it arrives. We schedule Maricopa work in full days rather than half, and we stage everything on site, because a forgotten roll of underlayment is an hour each way."
+      ],
+      "notes": [
+        "City of Maricopa permit, Pinal County",
+        "Post-2000 tile reaching underlayment age",
+        "Scheduled in full days"
+      ]
+    },
+    "apache-junction-az": {
+      "lede": "Apache Junction has two roofing markets on the same streets, and they are not the same trade.",
+      "paras": [
+        "Alongside conventional stick-built houses there is a large body of manufactured and mobile housing, park models and additions built onto them over decades. Roofing a manufactured home is a different discipline — different structure, different loading, different attachment, and often a roof-over rather than a tear-off. We are straight about what can and cannot sensibly be done to one rather than quoting it like a stick-built house.",
+        "The city issues the permit, and most of the city sits in Pinal County rather than Maricopa. Lots on the eastern edge rise towards the Superstitions with rock, slope and long unpaved approaches, which changes what a delivery truck can reach — we walk the access before quoting it."
+      ],
+      "notes": [
+        "City of Apache Junction permit",
+        "Manufactured homes are a different trade",
+        "Access walked before quoting"
+      ]
+    },
+    "el-mirage-az": {
+      "lede": "El Mirage divides between a small older core and the 2000s ring around it.",
+      "paras": [
+        "In the core the roofs are older, lower and often over block, with more previous repair and more shingle. In the newer ring it is standard 2000s tile where underlayment is the coming job.",
+        "Lots in the older sections are compact and the streets narrow, so we keep the skip and the tile stacks inside the property line where we can. Blocking a street in a neighbourhood that tight makes the job everybody's problem, and it is avoidable with an hour of planning."
+      ],
+      "notes": [
+        "City of El Mirage permit",
+        "Older core, 2000s ring",
+        "Skip and stacks kept off the street"
+      ]
+    },
+    "fountain-hills-az": {
+      "lede": "Roofing in Fountain Hills is a hillside access problem before it is a roofing problem.",
+      "paras": [
+        "Steep narrow streets, tight turnarounds and long driveways limit what can physically reach a house. A tear-off produces a great deal of debris that has to come down a grade, and a tile delivery has to get up one. We size the equipment and the loads to the driveway rather than the roof, and we walk it before we price it.",
+        "The houses themselves are largely custom and semi-custom from the 1990s and 2000s, stepped against the McDowells with complex roof geometry — more valleys, more hips, more transitions than a tract house. That is where the detailing work is, and where a cheap reroof shows itself within a season."
+      ],
+      "notes": [
+        "Town of Fountain Hills permit",
+        "Grade limits deliveries and debris",
+        "Complex roof geometry, more detailing"
+      ]
+    },
+    "litchfield-park-az": {
+      "lede": "Litchfield Park's mature canopy is the thing that decides when its roofs need work.",
+      "paras": [
+        "Full-grown trees over a roof do two things: they drop litter into valleys where it holds moisture, and they shade parts of a roof unevenly. The result is that a Litchfield Park roof usually fails in specific places rather than all over — one bad elevation, one clogged valley — so a full replacement is often the wrong answer and a targeted repair is the right one.",
+        "The city runs design review and cares about the streetscape, so material and colour are settled with them rather than chosen off a board. On the older fabric around the Wigwam that matters more than it does in a newer suburb."
+      ],
+      "notes": [
+        "City of Litchfield Park permit",
+        "Design review on material and colour",
+        "Uneven wear under mature canopy"
+      ]
+    },
+    "tolleson-az": {
+      "lede": "Tolleson's housing is older and modest, and its roofs carry a lot of history.",
+      "paras": [
+        "Small single-storey homes, block and frame, with decades of accumulated alterations — and a fair amount of roof work done at some point without a permit. We open things up and establish what is actually there before quoting, because a roof that has been patched over three times does not price like a clean tear-off.",
+        "The residential streets sit close to substantial distribution property, and the arterials around them carry heavy traffic at shift changes. We time material drops around that, because a delivery truck that cannot turn in is a wasted morning."
+      ],
+      "notes": [
+        "City of Tolleson permit",
+        "Layered previous repairs",
+        "Deliveries timed around industrial traffic"
+      ]
+    },
+    "youngtown-az": {
+      "lede": "Youngtown was built as a retirement community in the 1950s, and its roofs are all of a type.",
+      "paras": [
+        "Compact single-storey houses with shallow pitches and low-slope sections, many now carrying coatings applied over older built-up roofing. Those coated low-slope roofs need a different specification from tile — they are unforgiving about ponding, and a coating applied over a substrate that was already failing buys a few years and hides the problem.",
+        "The lots are small and the roofs simple, which keeps the work quick and the cost sensible. It also means there is nowhere to put a skip except the front, so we plan the placement and keep the site clear at the end of each day."
+      ],
+      "notes": [
+        "Town of Youngtown permit",
+        "1950s low-slope and shallow pitch",
+        "Coatings over failing substrate"
+      ]
+    },
+    "wickenburg-az": {
+      "lede": "Wickenburg is ranch country, and roofing here includes buildings that are not houses.",
+      "paras": [
+        "Barns, shops and outbuildings on acreage carry metal roofing far more often than tile, and metal is its own trade — panel selection, fastener pattern, thermal movement and flashing at every transition. We specify it as metal rather than treating it as a cheap alternative to a shingle roof.",
+        "In the historic downtown there is genuine old masonry and adobe, where a roof has to work with a wall that needs to breathe. An impermeable detail against an adobe parapet traps moisture in the wall, and that shows up years later as failed plaster rather than as a leak."
+      ],
+      "notes": [
+        "Town of Wickenburg permit",
+        "Metal roofing on outbuildings",
+        "Breathable details on historic walls"
+      ]
+    },
+    "carefree-az": {
+      "lede": "In Carefree what a roof looks like is regulated, and the town means it.",
+      "paras": [
+        "Height, colour and how a building reads against the desert are all live questions, and roofs are part of that. Low-profile tile and concealed low-slope behind parapets are the norm rather than anything that announces itself, and dark-sky expectations rule out the reflective and the bright. We get the specification approved before ordering.",
+        "The houses are high-end custom on boulder lots, which makes access awkward and the finish standard unforgiving. Long clean runs and exposed detailing mean every fixing line is visible, so the setting-out matters more here than on a tract roof."
+      ],
+      "notes": [
+        "Town of Carefree permit",
+        "Colour and profile reviewed",
+        "Boulder-lot access, visible detailing"
+      ]
+    },
+    "cave-creek-az": {
+      "lede": "Cave Creek roofs sit on large rural lots, and the drive is part of the job.",
+      "paras": [
+        "Long private approaches, desert ground and rock close to the surface all limit what a loaded truck can do. We stage materials once and work from the stack rather than shuttling, and we protect the desert we drive over rather than making a new track across it.",
+        "The houses are largely custom with substantial roof areas and real wind exposure on open ground. Ridge and rake detailing takes the weather here in a way it does not in a sheltered subdivision, and that is where we spend the extra time."
+      ],
+      "notes": [
+        "Town of Cave Creek permit",
+        "Long approaches, staged materials",
+        "Wind exposure at ridges and rakes"
+      ]
+    },
+    "paradise-valley-az": {
+      "lede": "Paradise Valley governs building on its own terms, and roofs are no exception.",
+      "paras": [
+        "The town reviews height, and on a large single-storey house the roof is what determines it. Material, profile and colour are all part of what will actually be permitted, so a Paradise Valley roof starts with the town rather than with a sample board. We settle it on paper first.",
+        "The houses are large custom builds, often with complex low-slope and tile combinations, deep overhangs and concealed drainage. Those hidden gutters and internal drains are where the expensive failures happen — not on the open field of the roof — and they are what we inspect first."
+      ],
+      "notes": [
+        "Town of Paradise Valley permit",
+        "Roof drives the height review",
+        "Concealed drainage is the failure point"
+      ]
+    },
+    "guadalupe-az": {
+      "lede": "Guadalupe is dense and tightly built, and roofing here is close-quarters work.",
+      "paras": [
+        "Small lots, single storey, block and frame with decades of self-built additions layered on — and those additions are usually where a roof leaks, at the junction between what was original and what was added later. We establish what is actually there before quoting rather than after.",
+        "The streets are narrow and parking is tight. We keep the working footprint inside the property line, run smaller equipment, and close the site up at the end of each day rather than leaving materials out overnight."
+      ],
+      "notes": [
+        "Town of Guadalupe permit",
+        "Leaks at original-to-addition junctions",
+        "Contained site on narrow streets"
+      ]
+    },
+    "laveen-az": {
+      "lede": "Laveen is mostly 2000s tract housing, and its roofs are reaching their first real service point.",
+      "paras": [
+        "Concrete tile over felt, laid across large subdivisions within a few years of each other, now old enough that the underlayment is the coming job while the tile itself is fine. A relay is usually the right answer here, and we say so.",
+        "Work inside the Phoenix city limits permits through the city. Laveen's southern edge runs against the Gila River Indian Community, which is sovereign ground with its own building safety and its own adopted codes — a property the far side of that line is not a Phoenix permit at all, and we establish which side a parcel sits on first."
+      ],
+      "notes": [
+        "City of Phoenix permit",
+        "2000s tile at underlayment age",
+        "Tribal jurisdiction to the south"
+      ]
+    },
+    "sun-city-az": {
+      "lede": "Sun City's roofs are unlike anything else in the valley, and most valley roofers price them wrong.",
+      "paras": [
+        "The original 1960s and 1970s housing is compact, single-storey and largely low-slope — built-up roofing, later foam and coatings, on shallow decks with carports attached. These are not tile roofs and they do not behave like tile roofs. They fail by ponding, by coating breakdown and at parapet and scupper details, and they need a specification written for low slope rather than a pitched-roof product applied optimistically.",
+        "There are two permits here, not one. Sun City is unincorporated, so the building permit is a Maricopa County submittal — and the Sun City Fire District issues its own permit and inspections for fire and life safety alongside it. Missing the second one stops a job."
+      ],
+      "notes": [
+        "Maricopa County permit",
+        "Separate Sun City Fire District permit",
+        "Low-slope built-up and coated roofs"
+      ]
+    },
+    "sun-city-west-az": {
+      "lede": "Sun City West is a generation newer than Sun City, and its roofs are a different problem.",
+      "paras": [
+        "Development began in 1978, so the stock here is larger, on larger lots, with pitched tile roofs rather than the low-slope build-ups of original Sun City. The two communities are constantly confused and they do not need the same work — here the job is usually underlayment beneath sound tile.",
+        "Like Sun City it is unincorporated, so the permit is a Maricopa County submittal rather than a city one. As an age-restricted community it also sets expectations on access, noise and working hours, and we plan the programme around them."
+      ],
+      "notes": [
+        "Maricopa County permit",
+        "Pitched tile, not low-slope",
+        "Community access and hours"
+      ]
+    },
+    "san-tan-valley-az": {
+      "lede": "San Tan Valley's roofs are young; its permitting is the part that needs attention.",
+      "paras": [
+        "The town incorporated on 1 July 2026 and permitting is mid-handover. Until the changeover completes it is two steps — a zoning clearance from the Town, then the building permit from Pinal County with that clearance attached. We confirm which path is live at the time of the job rather than assuming, because it is genuinely moving.",
+        "The housing itself is overwhelmingly 2000s and later tile in master-planned tracts, so full replacement is rare. Exposure is the issue: open lots with little mature landscaping mean wind gets at ridges and rakes, and that is where the repair calls come from."
+      ],
+      "notes": [
+        "Town clearance, Pinal County permit",
+        "2000s tile, rarely replaced",
+        "Wind at ridges on open lots"
+      ]
+    },
+    "anthem-az": {
+      "lede": "Anthem sits high enough that its roofs take weather the valley floor does not.",
+      "paras": [
+        "Colder nights, more wind and real monsoon activity mean flashing, ridge detail and fixing schedules need specifying for this elevation rather than for central Phoenix. A detail that is adequate in Chandler is not automatically adequate here, and the difference shows up in a bad season.",
+        "Anthem is unincorporated, so the building permit is a Maricopa County submittal. Both the Country Club side and Parkside run active architectural committees, and roof colour is exactly what they rule on — we submit to the committee and the county together rather than in sequence."
+      ],
+      "notes": [
+        "Maricopa County permit",
+        "HOA colour approval both sides",
+        "Detailing specified for elevation"
+      ]
+    },
+    "deer-valley-az": {
+      "lede": "Deer Valley's housing is 1980s to 2000s, which puts most of it at its first roof replacement.",
+      "paras": [
+        "Homes of that age reach a point where the roof covering, the water heater and the electrical panel all come due within a few years of each other. Planning those together is cheaper than doing them separately, and a roof is the one that decides the sequence — nobody wants a new panel installed under a roof about to be torn off.",
+        "Work here permits through the City of Phoenix. Parts of the village sit under the Deer Valley Airport Overlay, a named district in the city's zoning ordinance rather than an informal noise zone, and it carries requirements of its own worth knowing before drawings are started."
+      ],
+      "notes": [
+        "City of Phoenix permit",
+        "First replacement cycle",
+        "Deer Valley Airport Overlay district"
+      ]
+    },
+    "north-phoenix-az": {
+      "lede": "North Phoenix is a colloquial name covering a wide range of roofs and two different permit paths.",
+      "paras": [
+        "The housing spans 1970s block through current build. A 1970s roof here means shallow pitch, previous repair and probably a swamp cooler penetration someone patched around; a 2005 roof means tile with underlayment coming due. We scope rather than assume, because the same phrase covers both.",
+        "Most of what people mean by North Phoenix sits inside the city and permits through Phoenix, but the northern fringe runs out into unincorporated Maricopa County where the permit is a county submittal instead. The two processes and timelines are not the same, so we confirm the parcel before quoting."
+      ],
+      "notes": [
+        "City of Phoenix, or county at the fringe",
+        "1970s block through current build",
+        "Scoped, not assumed"
+      ]
+    },
+    "south-phoenix-az": {
+      "lede": "South Phoenix has some of the oldest roofs in the city and a jurisdiction line that matters.",
+      "paras": [
+        "Pre-war and post-war houses on large irregular lots, some originally agricultural, alongside recent infill. The older properties often carry additions built over decades without paperwork, and the roof junctions between original and addition are where the water gets in. We establish what is there and what is legally there before designing anything on top of it.",
+        "The parts inside the city limits permit through Phoenix. South and west the ground becomes the Gila River Indian Community — sovereign, with its own building safety and its own adopted code editions. That boundary decides who issues the permit and which code the roof is built to, so it is the first thing we check."
+      ],
+      "notes": [
+        "City of Phoenix inside city limits",
+        "Tribal jurisdiction south and west",
+        "Leaks at unpermitted addition junctions"
+      ]
+    },
+    "ahwatukee-az": {
+      "lede": "Ahwatukee was built out through the 1980s and 1990s, and its roofs are all arriving together.",
+      "paras": [
+        "Tile over felt across most of the village, laid in a concentrated period, and now well into the range where underlayment is the job rather than the tile. Whole streets reach that point in the same few years, and there is a real saving in doing neighbouring houses while the crew and the skip are already there.",
+        "Most of the village sits inside an HOA that reviews roof colour and material, and that approval is as much a gate as the city permit. Work permits through the City of Phoenix — Ahwatukee is a Phoenix urban village, not a separate town, whatever it feels like from the far side of South Mountain."
+      ],
+      "notes": [
+        "City of Phoenix permit",
+        "HOA colour and material review",
+        "Whole streets at underlayment age"
+      ]
+    }
+  }
+}

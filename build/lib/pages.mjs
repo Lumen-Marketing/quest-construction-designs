@@ -14,6 +14,8 @@ export function loadContent() {
     // Authored per-city copy. Only the indexable direction renders it; see the
     // _README key in the file for why it exists and what still needs checking.
     areasLocal: json('areas-local.json'),
+    // Authored trade-by-city copy, keyed trade then city. Same caveats.
+    serviceAreas: loadServiceAreas(),
   };
 }
 
@@ -41,6 +43,7 @@ const OG = {
   area: ['deck.jpg', 'Deck framing and joists on a Quest Construction job in Arizona'],
   serviceIndex: ['framing.jpg', 'Framed walls under an Arizona sky on a Quest Construction build'],
   areaIndex: ['custom-home.jpg', 'A Quest Construction custom home under construction'],
+  serviceArea: ['gables.jpg', 'Gables and windows on a Quest Construction custom home'],
 };
 
 const clip = (s, n) => {
@@ -60,9 +63,21 @@ const clip = (s, n) => {
  *  five standalone pages, and the two hubs when they are switched on. Tests
  *  assert against this rather than a literal, so adding a city to
  *  content/areas.json does not mean editing a number in nine files. */
+/** The trade-by-city copy. Separate from content/areas-local.json because it is
+ *  a different axis: that file is about a place, this is about a place and a
+ *  trade together. */
+export function loadServiceAreas() {
+  const { _README, ...trades } = JSON.parse(readFileSync('content/service-areas.json', 'utf8'));
+  return trades;
+}
+
 export function pageCount(opts = {}) {
   const { services, areas } = loadContent();
-  return 1 + services.length + areas.areas.length + 5 + (opts.hubs ? 2 : 0);
+  const cross = opts.cityServices
+    ? Object.values(loadServiceAreas())
+      .reduce((n, byCity) => n + Object.keys(byCity).length, 0)
+    : 0;
+  return 1 + services.length + areas.areas.length + 5 + (opts.hubs ? 2 : 0) + cross;
 }
 
 /** "a, b and c" — an English list, for a meta description read by a person. */
@@ -98,6 +113,29 @@ export function pageList(opts = {}) {
       clip(`Construction, remodeling and exterior work in ${a.name} from Quest Construction. ` +
         `Family-owned, ${site.availability}. Call ${site.phoneDisplay}.`, 155),
       a);
+  }
+
+  // One trade crossed with one city: /services/roofing/mesa-az/. Only the
+  // trades listed in content/service-areas.json get them, and only for the
+  // cities that file actually has copy for — a combination with nothing
+  // specific to say about it would be the trade page with a name swapped in,
+  // which is the doorway pattern these are meant to avoid.
+  if (opts.cityServices) {
+    const cross = loadServiceAreas();
+    for (const s of services) {
+      const byCity = cross[s.slug];
+      if (!byCity) continue;
+      for (const a of areas.areas) {
+        const copy = byCity[a.slug];
+        if (!copy) continue;
+        const short = SHORT_NAME[s.slug] || s.name;
+        push(`services/${s.slug}/${a.slug}`, 'serviceArea',
+          clip(`${short} in ${a.city}, AZ`, budget) + brand,
+          clip(`${copy.lede} Quest Construction, ${site.availability}, ` +
+            `${site.phoneDisplay}.`, 155),
+          { service: s, area: a, copy });
+      }
+    }
   }
 
   if (opts.hubs) {

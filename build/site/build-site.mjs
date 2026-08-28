@@ -238,11 +238,26 @@ const webmanifest = () => `${JSON.stringify({
   ],
 }, null, 2)}\n`;
 
+// Pages that were published and then retired. An indexed URL that starts
+// returning 404 loses whatever authority it had and strands anyone holding the
+// link, so each one points at its nearest live equivalent instead. 301, because
+// these are not coming back.
+//   camelback-east-village  a Phoenix urban village, never a city of its own
+//   florence                dropped when the service area was set to the
+//                           Phoenix metro; Pinal County, ~50 miles out
+export const REDIRECTS = [
+  ['/service-areas/camelback-east-village-az/', '/service-areas/phoenix-az/'],
+  ['/service-areas/florence-az/', '/service-areas/'],
+];
+
 // The filenames are stable rather than hashed, so the photography and fonts get
 // a long cache and the HTML gets none.
 const vercelJson = () => `${JSON.stringify({
   $schema: 'https://openapi.vercel.sh/vercel.json',
   trailingSlash: true,
+  redirects: REDIRECTS.map(([source, destination]) => ({
+    source, destination, permanent: true,
+  })),
   headers: [
     {
       source: '/assets/(.*)',
@@ -263,6 +278,11 @@ const vercelJson = () => `${JSON.stringify({
 
 // The same rules for Netlify and Cloudflare Pages, so the tree deploys as it
 // stands on any of the three without a config swap.
+// Netlify and Cloudflare Pages read _redirects; Vercel reads vercel.json.
+// Both are generated from the same list so swapping host cannot silently
+// drop them.
+const redirectsFile = () => `${REDIRECTS.map(([f, t]) => `${f} ${t} 301`).join('\n')}\n`;
+
 const headersFile = () => `/assets/*
   Cache-Control: public,max-age=31536000,immutable
 
@@ -304,7 +324,7 @@ headers, so Vercel, Netlify and Cloudflare Pages all work with no further config
 ## Before it goes live
 
 - **Wire the contact form.** It currently prints a note asking the visitor to call.
-- **Check the per-city copy.** The thirty-six service-area pages name a permitting authority
+- **Check the per-city copy.** The thirty-four service-area pages name a permitting authority
   for each city; those claims need Quest's sign-off, particularly Florence (Pinal County
   rather than Maricopa), Camelback East Village (permitted through Phoenix) and Paradise
   Valley (its own town).
@@ -366,6 +386,7 @@ export function buildSite() {
   write('site.webmanifest', webmanifest());
   write('vercel.json', vercelJson());
   write('_headers', headersFile());
+  write('_redirects', redirectsFile());
   write('README.md', readme());
 
   return { pages: PAGES.length, assets };

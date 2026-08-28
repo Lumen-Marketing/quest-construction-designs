@@ -1,7 +1,7 @@
 # Quest Construction
 
 > Quest Construction LLC is a family-owned general contractor working across
-> 36 cities in Arizona. Founded 2018.
+> 34 cities in Arizona. Founded 2018.
 > 14 trades, all self-managed rather than brokered out.
 > Reachable 24/7 on (602) 399-6455.
 
@@ -69,14 +69,12 @@ rather than co-ordinating several.
 - [North Phoenix, AZ](https://questconstruction.com/service-areas/north-phoenix-az/)
 - [South Phoenix, AZ](https://questconstruction.com/service-areas/south-phoenix-az/)
 - [Ahwatukee, AZ](https://questconstruction.com/service-areas/ahwatukee-az/)
-- [Camelback East Village, AZ](https://questconstruction.com/service-areas/camelback-east-village-az/)
-- [Florence, AZ](https://questconstruction.com/service-areas/florence-az/)
 
 ## Key pages
 
 - [Home](https://questconstruction.com/): what Quest does and who it is
 - [All services](https://questconstruction.com/services/): the 14 trades in one index
-- [All service areas](https://questconstruction.com/service-areas/): the 36 cities in one index
+- [All service areas](https://questconstruction.com/service-areas/): the 34 cities in one index
 - [About](https://questconstruction.com/about-us/): the firm's history and how it works
 - [Projects](https://questconstruction.com/projects/): completed work
 - [Gallery](https://questconstruction.com/gallery/): jobsite photography

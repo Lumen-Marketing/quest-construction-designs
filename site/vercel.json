@@ -1,6 +1,18 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/service-areas/camelback-east-village-az/",
+      "destination": "/service-areas/phoenix-az/",
+      "permanent": true
+    },
+    {
+      "source": "/service-areas/florence-az/",
+      "destination": "/service-areas/",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",

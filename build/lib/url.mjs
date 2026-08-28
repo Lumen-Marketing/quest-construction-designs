@@ -18,13 +18,21 @@ const FIXED = {
 // they live outside PAGE_KEYS and only the standalone build asks for them.
 export const HUB_KEYS = ['services', 'service-areas'];
 
+// Trade-by-city landing pages, /services/<trade>/<city>/. Standalone only, for
+// the same reason as the hubs, and driven off content/service-areas.json so a
+// key exists exactly where authored copy does.
+const cross = JSON.parse(readFileSync('content/service-areas.json', 'utf8'));
+export const CITY_SERVICE_KEYS = Object.entries(cross)
+  .filter(([trade]) => trade !== '_README')
+  .flatMap(([trade, byCity]) => Object.keys(byCity).map((city) => `services/${trade}/${city}`));
+
 export const PAGE_KEYS = [
   ...Object.keys(FIXED),
   ...services.map((s) => `services/${s.slug}`),
   ...areas.map((a) => `service-areas/${a.slug}`),
 ];
 
-const KEYS = new Set([...PAGE_KEYS, ...HUB_KEYS]);
+const KEYS = new Set([...PAGE_KEYS, ...HUB_KEYS, ...CITY_SERVICE_KEYS]);
 
 const dirFor = (key) => {
   if (!KEYS.has(key)) throw new Error(`unknown page key: ${key}`);

@@ -79,6 +79,12 @@ function breadcrumbs(page, res) {
   } else if (page.kind === 'area') {
     trail.push({ name: 'Service Areas', key: res.hubKey('service-areas') });
     trail.push({ name: page.item.name, key: page.key });
+  } else if (page.kind === 'serviceArea') {
+    // Four deep, and it has to match the crumbs the page actually shows:
+    // Home / Services / the trade / the city.
+    trail.push({ name: 'Services', key: res.hubKey('services') });
+    trail.push({ name: page.item.service.name, key: `services/${page.item.service.slug}` });
+    trail.push({ name: page.item.area.city, key: page.key });
   } else if (page.kind !== 'home') {
     trail.push({
       name: CRUMB[page.kind] || page.title.split('|')[0].trim(),
@@ -108,7 +114,8 @@ const PAGE_TYPE = {
  *   business node and stamps a dateModified; the demo directions do neither.
  */
 export function graphFor({ page, res, content }, opts = {}) {
-  const areasServed = page.kind === 'area' ? [page.item.city] : null;
+  const areasServed = page.kind === 'area' ? [page.item.city]
+    : (page.kind === 'serviceArea' ? [page.item.area.city] : null);
   const crumbs = breadcrumbs(page, res);
 
   const graph = [
@@ -178,6 +185,21 @@ export function graphFor({ page, res, content }, opts = {}) {
           areaServed: city(page.item.city),
         })),
       },
+    });
+  }
+
+  // One trade, one city: the Service node names both rather than listing every
+  // city the way the trade page does. That is the whole claim of the page.
+  if (page.kind === 'serviceArea') {
+    const { service: svc, area: a } = page.item;
+    graph.push({
+      '@type': 'Service',
+      '@id': `${res.canonical}#service`,
+      name: `${svc.name} in ${a.city}, AZ`,
+      serviceType: svc.name,
+      description: page.item.copy.lede,
+      provider: { '@id': `${ORIGIN}/#business` },
+      areaServed: city(a.city),
     });
   }
 

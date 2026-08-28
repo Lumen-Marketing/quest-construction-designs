@@ -656,6 +656,8 @@ ${band(c, serviceShots(s.slug), '— On the job',
 </section>
 ${faq}
 
+${tradeCities(c, s)}
+
 ${closingCta(c, s.ctaHeading, s.ctaBody)}`;
 }
 
@@ -732,6 +734,8 @@ ${band(c, areaShots(ai), '— Recent work',
   `The same crew that answers a ${esc(a.city)} call ran these. Photographs are from Quest jobs `
   + 'across the service area, not staged, and not stock.', 'sec cream alt')}
 
+${cityTrades(c, a)}
+
 <section class="sec cream">
   ${grid(false)}
   <div class="wrap">
@@ -741,6 +745,47 @@ ${band(c, areaShots(ai), '— Recent work',
 </section>
 
 ${closingCta(c, raw(t.ctaHeading), raw(t.ctaBody))}`;
+}
+
+/** The cities this trade has a page written for. Same contract as cityTrades:
+ *  nothing renders until the copy exists. */
+function tradeCities(c, s) {
+  if (!c.cityServices) return '';
+  const byCity = c.serviceAreas?.[s.slug];
+  if (!byCity) return '';
+  const cities = c.areas.areas.filter((a) => byCity[a.slug]);
+  if (!cities.length) return '';
+  const short = SHORT_NAME[s.slug] || s.name;
+  return `
+<section class="sec cream alt">
+  ${grid(false)}
+  <div class="wrap">
+    ${shead('&mdash; By city', `<span>${esc(short)}</span> Where You Are`,
+      `What changes about ${esc(short.toLowerCase())} city by city, written for each one.`)}
+    <div class="arealinks trades rv">${cities.map((a) =>
+      `<a href="${c.url(`services/${s.slug}/${a.slug}`)}">${esc(short)} in ${esc(a.city)}</a>`).join('')}</div>
+  </div>
+</section>`;
+}
+
+/** The trades that have a page written for this city. Empty until a trade is
+ *  authored for it in content/service-areas.json, so the section disappears
+ *  rather than rendering an empty heading. */
+function cityTrades(c, a) {
+  // The demo directions do not build these pages, so they must not link them.
+  if (!c.cityServices) return '';
+  const trades = c.services.filter((s) => c.serviceAreas?.[s.slug]?.[a.slug]);
+  if (!trades.length) return '';
+  return `
+<section class="sec cream alt">
+  ${grid(false)}
+  <div class="wrap">
+    ${shead(`— In ${esc(a.city)}`, `What We Do in <span>${esc(a.city)}</span>`,
+      `Written for ${esc(a.city)} specifically rather than for Arizona in general.`)}
+    <div class="arealinks trades rv">${trades.map((s) =>
+      `<a href="${c.url(`services/${s.slug}/${a.slug}`)}">${esc(SHORT_NAME[s.slug] || s.name)} in ${esc(a.city)}</a>`).join('')}</div>
+  </div>
+</section>`;
 }
 
 /** Shared inner-page hero for the pages that are not a service or an area.
@@ -1091,6 +1136,99 @@ ${band(c, pageShots('serviceIndex', 4), '— The trades in practice', 'Structure
 </section>
 
 ${closingCta(c, c.pages.home.ctaHeading, c.pages.home.ctaBody)}`;
+}
+
+/** One trade in one city. Deliberately not a copy of the trade page with a
+ *  place name dropped in — that is the doorway pattern. The city-and-trade
+ *  copy leads, the shared trade material is a short list rather than the whole
+ *  page, and both parent pages are one click away for anyone who wants them. */
+export function serviceArea(c) {
+  const { service: s, area: a, copy } = c.item;
+  const ai = c.areas.areas.findIndex((x) => x.slug === a.slug);
+  const short = SHORT_NAME[s.slug] || s.name;
+
+  // The same trade in the other cities. This is the row a visitor who landed on
+  // the wrong city needs, and the link graph that stops these pages being
+  // orphans reachable only from a sitemap.
+  const elsewhere = c.areas.areas
+    .filter((x) => x.slug !== a.slug && c.serviceAreas[s.slug]?.[x.slug])
+    .map((x) => `<a href="${c.url(`services/${s.slug}/${x.slug}`)}">${esc(x.city)}</a>`)
+    .join('');
+
+  return `
+<section class="subhero">
+  ${bannerPlate(c, bannerShot('area', ai))}
+  ${bannerBack()}
+  ${grid(true)}
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="${c.url('home')}">Home</a> <span aria-hidden="true">/</span>
+      <a href="${c.hub('services')}">Services</a> <span aria-hidden="true">/</span>
+      <a href="${c.url(`services/${s.slug}`)}">${esc(short)}</a> <span aria-hidden="true">/</span>
+      <b>${esc(a.city)}</b>
+    </nav>
+    <div class="subhero-in">
+      <div>
+        <h1>${hl(`${short} in ${a.city}, AZ`, a.city)}</h1>
+        <p class="lede">${esc(copy.lede)}</p>
+        <div class="hero-acts">
+          ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn acc telnum')}
+          ${arrowBtn(c.url('contact'), 'Email us', 'btn ghost')}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap split">
+    <div class="rv">
+      <p class="mono eyebrow">&mdash; ${esc(short)} in ${esc(a.name)}</p>
+      <h2>What is different about <span>${esc(a.city)}</span></h2>
+      ${copy.paras.map((p) => `<p>${esc(p)}</p>`).join('')}
+      ${arrowBtn(c.url('contact'), `Talk to us about ${esc(short.toLowerCase())} in ${esc(a.city)}`)}
+    </div>
+    <div class="localnotes rv">
+      <h3>What that means on site</h3>
+      <ul>${copy.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
+      <div class="localcall">
+        <b class="telnum">${esc(c.site.phoneDisplay)}</b>
+        <span>${esc(c.site.availability)} &middot; ${esc(a.name)}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec dark">
+  ${grid(true)}
+  <div class="wrap">
+    ${shead(`&mdash; ${esc(short)}`, `How We Run <span>${esc(short)}</span> Work`,
+      `The same approach everywhere we build. The full ${esc(short.toLowerCase())} page has the `
+      + 'detail; this is the short version.')}
+    <div class="svcpts rv">${s.whyChoose.map((w) => `<p>${esc(w)}</p>`).join('')}</div>
+    <div class="arealinks light rv">
+      <a href="${c.url(`services/${s.slug}`)}">All about ${esc(short.toLowerCase())}</a>
+      <a href="${c.url(`service-areas/${a.slug}`)}">Everything we do in ${esc(a.city)}</a>
+    </div>
+  </div>
+</section>
+
+${band(c, areaShots(ai), '&mdash; Recent work',
+  `Jobs Behind the <span>${esc(a.city)}</span> Crew`,
+  `The same crew that answers a ${esc(a.city)} call ran these. Photographs are from Quest jobs `
+  + 'across the service area, not staged, and not stock.', 'sec cream alt')}
+
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap">
+    ${shead('&mdash; Elsewhere', `<span>${esc(short)}</span> in Other Cities`, '')}
+    <div class="arealinks trades rv">${elsewhere}</div>
+  </div>
+</section>
+
+${closingCta(c, `${short} in ${a.city}, done properly`,
+  `Tell us what you need doing and we will come and look at it. ${c.site.availability}.`)}`;
 }
 
 export function areaIndex(c) {

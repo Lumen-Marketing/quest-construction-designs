@@ -26,7 +26,7 @@ href="${c.local('assets/fonts/jetbrains-mono-latin-var.woff2')}" crossorigin>
 
 export const { nav, footer } = d01;
 export const {
-  home, service, area, serviceIndex, areaIndex,
+  home, service, area, serviceIndex, areaIndex, serviceArea,
   about, gallery, projects, contact, sitemap,
 } = d01;
 

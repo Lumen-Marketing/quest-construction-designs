@@ -32,10 +32,11 @@ export function contextFor({ mod, key, profile = demoProfile, absolute = false }
   return {
     page, res,
     url: res.url, asset: res.asset, local: res.local, root: res.root,
-    hub: res.hub, hubs: profile.hubs,
+    hub: res.hub, hubs: profile.hubs, cityServices: profile.cityServices,
     site: content.site, services: content.services,
     areas: content.areas, pages: content.pages,
     areasLocal: content.areasLocal,
+    serviceAreas: content.serviceAreas,
     item: page.item,
   };
 }

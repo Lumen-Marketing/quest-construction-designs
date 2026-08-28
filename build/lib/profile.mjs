@@ -21,7 +21,7 @@ import { stylesheetName } from './site-css.mjs';
  */
 export const BUILT = '2026-08-22';
 
-function makeProfile({ name, hubs, richSchema, built, fingerprintCss }) {
+function makeProfile({ name, hubs, cityServices, richSchema, built, fingerprintCss }) {
   // pageList re-reads the content files, so the manifest is built once.
   let manifest = null;
 
@@ -30,9 +30,12 @@ function makeProfile({ name, hubs, richSchema, built, fingerprintCss }) {
     /** Whether the two section landing pages exist in this product. */
     hubs,
 
+    /** Whether the trade-by-city landing pages exist in this product. */
+    cityServices,
+
     /** The page manifest this product renders. */
     pages() {
-      if (!manifest) manifest = pageList({ hubs });
+      if (!manifest) manifest = pageList({ hubs, cityServices });
       return manifest;
     },
 
@@ -71,13 +74,17 @@ function makeProfile({ name, hubs, richSchema, built, fingerprintCss }) {
  * reach an index.
  */
 export const demoProfile = makeProfile({
-  name: 'demo', hubs: false, richSchema: false, built: null, fingerprintCss: false,
+  name: 'demo', hubs: false, cityServices: false, richSchema: false, built: null,
+  fingerprintCss: false,
 });
 
 /**
- * The standalone site: thirty-three pages including the two hubs, the fuller
- * business node, and a last-modified stamp.
+ * The standalone site: the two hubs, the trade-by-city landing pages, the
+ * fuller business node, and a last-modified stamp. The ten demo directions
+ * carry none of them — they are noindex, and 340 extra pages that never reach
+ * an index is a lot of build for nothing.
  */
 export const siteProfile = makeProfile({
-  name: 'site', hubs: true, richSchema: true, built: BUILT, fingerprintCss: true,
+  name: 'site', hubs: true, cityServices: true, richSchema: true, built: BUILT,
+  fingerprintCss: true,
 });

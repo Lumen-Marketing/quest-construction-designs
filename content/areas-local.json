@@ -1,5 +1,5 @@
 {
-  "_README": "VERIFIED 2026-08-29 for jurisdiction, UNVERIFIED for build practice. Written to give each service-area page genuinely distinct content instead of thirty-six copies of one paragraph, which is Google's textbook definition of a doorway page. Every permitting authority named here was checked against the issuing body's own website or ordinance on 2026-08-29 — docs/service-area-verification.md records the source behind each one and the eight claims that check corrected. What is still unverified is how Quest actually works, so Quest must review this file before launch and cut anything that does not match its own practice. San Tan Valley's permitting changes during 2027 and its page has a shelf life. Only d01-site-plan renders this; the other nine directions are noindex and use the ported template.",
+  "_README": "VERIFIED 2026-08-29 for jurisdiction, UNVERIFIED for build practice. Written to give each service-area page genuinely distinct content instead of thirty-four copies of one paragraph, which is Google's textbook definition of a doorway page. Every permitting authority named here was checked against the issuing body's own website or ordinance on 2026-08-29 — docs/service-area-verification.md records the source behind each one and the eight claims that check corrected. What is still unverified is how Quest actually works, so Quest must review this file before launch and cut anything that does not match its own practice. San Tan Valley's permitting changes during 2027 and its page has a shelf life. Only d01-site-plan renders this; the other nine directions are noindex and use the ported template.",
   "mesa-az": {
     "paras": [
       "Mesa runs its own Development Services department, so a permit here is a City of Mesa submittal rather than a county one. We build the review window into the programme up front, because starting demolition against a permit that has not cleared is how a remodel loses three weeks it never gets back.",
@@ -102,32 +102,6 @@
       "Hillside and setback provisions",
       "Large custom homes",
       "Access and staging on narrow roads"
-    ]
-  },
-  "camelback-east-village-az": {
-    "paras": [
-      "Camelback East Village is one of the City of Phoenix's urban villages rather than a separate municipality, so work here permits through Phoenix. It covers some of the most sought-after residential ground in the valley, and expectations for finish and for site conduct are correspondingly high.",
-      "The housing is heavily midcentury: long, low ranch homes on generous lots, many with mature citrus and established landscaping worth protecting. Several pockets still run flood irrigation, which affects grading, hardscape and where we can reasonably put a footing.",
-      "A lot of our work here is a whole-home reconfiguration rather than a single room: opening a closed midcentury plan while keeping the proportions and the roofline that make the house worth buying in the first place. That is a design conversation as much as a construction one."
-    ],
-    "notes": [
-      "Permits through City of Phoenix",
-      "Midcentury ranch homes",
-      "Mature citrus and flood irrigation",
-      "Whole-home reconfiguration"
-    ]
-  },
-  "florence-az": {
-    "paras": [
-      "Florence sits in Pinal County rather than Maricopa, which means a different permitting jurisdiction from the rest of our service area. That is worth knowing before a project starts, because the review process and the timeline are not the same as a Mesa or Chandler submittal.",
-      "The town has genuine historic fabric near its centre, including territorial-era and adobe construction that behaves nothing like modern framing. Work on those buildings needs materials that let the wall breathe, and we will say plainly when a proposed finish would trap moisture and do long-term harm.",
-      "Outside the centre, parcels are rural and generously sized, frequently on well and septic with long approaches. Distance is a real factor in scheduling and delivery, so we plan fewer, fuller trips rather than pretending a Florence site is as easy to service as one twenty minutes from our yard."
-    ],
-    "notes": [
-      "Pinal County jurisdiction",
-      "Territorial-era and adobe fabric",
-      "Breathable finishes on historic walls",
-      "Rural parcels and long approaches"
     ]
   },
   "glendale-az": {

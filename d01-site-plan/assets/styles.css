@@ -1364,6 +1364,14 @@ footer .brand img{height:38px}
 .localcall span{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--on-dark-2);display:block;margin-top:7px}
 
+/* The short version of a trade, on a trade-by-city page. Not the whole service
+   page repeated — a few lines and a link to it. */
+.svcpts{position:relative;z-index:3;display:grid;gap:14px;max-width:74ch;margin-bottom:26px}
+.svcpts p{margin:0;color:var(--on-dark-2);font-size:clamp(14.5px,1.4vw,16.5px);
+  padding-left:20px;position:relative}
+.svcpts p::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:2px;
+  background:var(--acc)}
+
 /* ---- nearby-areas link cloud ---- */
 .arealinks{position:relative;z-index:3;display:flex;flex-wrap:wrap;gap:10px}
 .arealinks a{padding:12px 20px;border-radius:999px;background:#fff;box-shadow:var(--sh);
