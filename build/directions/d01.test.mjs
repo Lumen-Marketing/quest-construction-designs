@@ -75,11 +75,42 @@ test('the header height is one token, and the anchor offset is derived from it',
 test('the call button survives the phone breakpoint, and carries a glyph there', () => {
   const html = renderPage({ mod: d01, key: 'home' });
   assert.match(html, /class="btn acc navtel"[\s\S]*?aria-label="Call \(602\) 399-6455"/);
-  assert.match(html, /class="navtel-num">\(602\) 399-6455</);
+  assert.match(html, /class="navtel-num telnum">\(602\) 399-6455</);
   const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
   // It used to be display:none'd at exactly the width where tapping a number
   // is the easiest thing a visitor can do.
   assert.doesNotMatch(css, /\.navtel\{display:none\}/);
+});
+
+test('every rendered phone number is set in the mono face, and none is tracked tight', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  // The typeface lives in one rule rather than smeared across six layout
+  // selectors, so there is one place to change it again.
+  assert.match(css, /\.telnum\{font-family:'JetBrains Mono'/);
+  assert.match(css, /font-variant-numeric:tabular-nums/);
+
+  // Wherever the number renders as digits a visitor reads and dials, it carries
+  // the class. Prose links keep the body face on purpose — a mono run inside a
+  // sentence is worse, not better — so only standalone renders are checked.
+  for (const key of ['home', 'contact', 'service-areas/mesa-az']) {
+    const html = renderPage({ mod: d01, key });
+    const tags = html.match(/<(?:a|b|span)[^>]*>\(602\) 399-6455</g) || [];
+    assert.ok(tags.length > 0, `${key} shows the number at least once`);
+    for (const tag of tags) {
+      assert.match(tag, /class="[^"]*\btelnum\b/,
+        `${key}: a standalone number without .telnum — ${tag}`);
+    }
+  }
+
+  // Negative tracking on a phone number is the bug this fixes: it closes up
+  // 3/9/6/8 exactly where they need to stay apart. It must not creep back.
+  for (const rule of [/\.help-card \.phone\{[^}]*\}/, /\.localcall b\{[^}]*\}/,
+    /\.badge b\{[^}]*\}/, /\.navcall>a\{[^}]*\}/]) {
+    const m = rule.exec(css);
+    assert.ok(m, `${rule} still matches a rule`);
+    assert.doesNotMatch(m[0], /letter-spacing:-/,
+      `the digits must not be tracked tight — ${m[0]}`);
+  }
 });
 
 test('the drawer ends with the number, and the wide nav does not repeat it', () => {

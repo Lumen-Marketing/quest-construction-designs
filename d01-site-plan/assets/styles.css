@@ -57,6 +57,23 @@ img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.035em;line-height:1.03;margin:0}
 .mono{font-family:'JetBrains Mono',ui-monospace,Consolas,monospace;text-transform:uppercase;letter-spacing:.13em;font-size:11px;line-height:1.4}
+/* The phone number is the conversion action on a contractor site, and it is
+   the one string on the page a visitor has to read digit by digit and carry to
+   a keypad. It was set like a headline — Archivo 900 at -.04em — which is the
+   wrong job for it: negative tracking closes up 3/9/6/8 exactly where they need
+   to stay apart, and Archivo's proportional figures let a 1 sit narrower than
+   the digits either side of it, so the number reads as a shape rather than as
+   ten separate characters.
+   JetBrains Mono is already self-hosted for the eyebrows, so this costs no new
+   bytes and no new request. Its figures are one width apiece and drawn to be
+   told apart at small sizes, which is the whole point here. Positive tracking
+   replaces the negative; `tnum` pins the advance so the digits stack in a
+   column wherever two numbers sit above one another. Sizes drop ~15% at each
+   call site to hold the same footprint, because a mono digit is wider than an
+   Archivo one — the number ends up occupying MORE width than it did, not less. */
+.telnum{font-family:'JetBrains Mono',ui-monospace,Consolas,monospace;
+  font-variant-numeric:tabular-nums;font-feature-settings:'tnum' 1;
+  letter-spacing:.005em;font-weight:700;font-size:.96em}
 .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--m)}
 .acc{color:var(--acc-dim)}
 
@@ -406,7 +423,10 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 }
 .badge .ic{width:34px;height:34px;border-radius:9px;background:var(--acc);display:grid;place-items:center;flex:0 0 auto}
 .badge .ic svg{width:17px;height:17px;stroke:var(--on-acc);fill:none;stroke-width:2.4}
-.badge b{display:block;font-size:14px;font-weight:800;letter-spacing:-.02em;line-height:1.15}
+/* The button's own 13.5px label size is set for words; the digits need a
+   touch less to sit in the same pill. */
+.btn.telnum,.navtel-num{font-size:12.5px}
+.badge b{display:block;font-size:13px;line-height:1.15}
 .badge span{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.11em;
   text-transform:uppercase;color:var(--on-dark-2)}
 /* The badge used to float ON the object and was measured off its two numbers
@@ -986,8 +1006,7 @@ footer .brand img{height:38px}
     border-top:1px solid rgba(21,20,15,.1)}
   .navcall .mono{display:block;color:var(--mute-lt);margin-bottom:8px}
   .navcall>a{display:inline-flex;align-items:center;min-height:44px;
-    font-size:clamp(26px,7vw,32px);font-weight:900;letter-spacing:-.04em;
-    color:var(--acc-dim)}
+    font-size:clamp(22px,5.8vw,27px);color:var(--acc-dim)}
   .navtoggle{margin-left:0}
   .nav .wrap{gap:0}
   .brand{margin-right:auto;min-width:0}
@@ -1337,8 +1356,7 @@ footer .brand img{height:38px}
 .localnotes li::before{content:"";position:absolute;left:0;top:.5em;width:9px;height:9px;
   background:var(--acc)}
 .localcall{border-top:1px solid rgba(243,239,230,.14);padding-top:20px}
-.localcall b{display:block;font-size:clamp(21px,2.4vw,28px);font-weight:900;
-  letter-spacing:-.03em;color:var(--acc)}
+.localcall b{display:block;font-size:clamp(18px,2.1vw,25px);color:var(--acc)}
 .localcall span{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--on-dark-2);display:block;margin-top:7px}
 
@@ -1549,8 +1567,8 @@ footer .brand img{height:38px}
   display:flex;flex-direction:column;gap:26px}
 .help-card h2{font-size:clamp(21px,2.4vw,28px);font-weight:900;margin-bottom:18px}
 .help-card .eyebrow{color:var(--acc-on-dark);margin-bottom:8px}
-.help-card .phone{display:block;font-size:clamp(26px,3.2vw,38px);font-weight:900;
-  letter-spacing:-.04em;color:var(--acc);margin-bottom:18px}
+.help-card .phone{display:block;font-size:clamp(22px,2.6vw,32px);
+  color:var(--acc);margin-bottom:18px}
 .help-card p{color:var(--on-dark-2);font-size:14.5px;margin:0}
 /* Three facts, all of them already stated elsewhere on the site. They are here
    so the card has something to say while a visitor decides whether to call. */

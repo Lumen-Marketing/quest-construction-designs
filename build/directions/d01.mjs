@@ -147,7 +147,7 @@ const closingCta = (c, heading, body) => `
       <p class="mono">${esc(CTA_PROMPT)}</p>
       <div class="cta-acts">
         ${arrowBtn(c.url('contact'), 'Get in touch')}
-        ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn ghost')}
+        ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn ghost telnum')}
       </div>
     </div>
   </div>
@@ -186,14 +186,14 @@ export function nav(c) {
     <a href="${c.url('contact')}">Contact</a>
     <div class="navcall">
       <span class="mono">Call us &mdash; ${esc(c.site.availability)}</span>
-      <a href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a>
+      <a class="telnum" href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a>
     </div>
   </nav>
   <a class="btn acc navtel" href="${c.site.phoneHref}"
     aria-label="Call ${esc(c.site.phoneDisplay)}"><span class="pip"><svg viewBox="0 0 24 24"
     aria-hidden="true" focusable="false"><path
     d="M4 5h5l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v5a15 15 0 0 1-16-16z"/></svg></span><span
-    class="navtel-num">${esc(c.site.phoneDisplay)}</span></a>
+    class="navtel-num telnum">${esc(c.site.phoneDisplay)}</span></a>
 </div>
 </header>`;
 }
@@ -222,7 +222,7 @@ export function footer(c) {
     </a>
     <p>${esc(c.site.footerBlurb)}</p>
     <p class="mono">${esc(c.site.positioning)}</p>
-    ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn acc')}
+    ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn acc telnum')}
   </div>
   ${col('Company', [
     [c.url('about'), 'About Us'],
@@ -392,7 +392,7 @@ export function baseScript(c) {
       // and hand over a route that does work rather than show a green tick.
       note.className='form-note mono';
       note.innerHTML='This form is not connected yet &#8212; please call '
-        +'<a href="${c.site.phoneHref}">${c.site.phoneDisplay}</a> and we will pick up.';
+        +'<a class="telnum" href="${c.site.phoneHref}">${c.site.phoneDisplay}</a> and we will pick up.';
     });
   });
 })();
@@ -504,7 +504,7 @@ export function home(c) {
   </div>
   <div class="badge badge-float">
     <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h5l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v5a15 15 0 0 1-16-16z"/></svg></span>
-    <span><b>${esc(c.site.phoneDisplay)}</b><span>${esc(c.site.availability)} &middot; family owned</span></span>
+    <span><b class="telnum">${esc(c.site.phoneDisplay)}</b><span>${esc(c.site.availability)} &middot; family owned</span></span>
   </div>
 </section>
 
@@ -612,7 +612,7 @@ export function service(c) {
         <p class="lede">${esc(s.subheroTagline)}</p>
         <div class="hero-acts">
           ${arrowBtn(c.url('contact'), 'Get in touch', 'btn acc')}
-          ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn ghost')}
+          ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn ghost telnum')}
         </div>
       </div>
     </div>
@@ -685,7 +685,7 @@ export function area(c) {
         <h1>${hl(raw(t.h1), a.city)}</h1>
         <p class="lede">${fill(t.tagline)}</p>
         <div class="hero-acts">
-          ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn acc')}
+          ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn acc telnum')}
           ${arrowBtn(c.url('contact'), 'Email us', 'btn ghost')}
         </div>
       </div>
@@ -706,7 +706,7 @@ export function area(c) {
       <h3>What that means on site</h3>
       <ul>${local.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
       <div class="localcall">
-        <b>${esc(c.site.phoneDisplay)}</b>
+        <b class="telnum">${esc(c.site.phoneDisplay)}</b>
         <span>${esc(c.site.availability)} &middot; ${esc(a.name)}</span>
       </div>
     </div>
@@ -990,7 +990,7 @@ export function contact(c) {
       <div class="cf-fields">${body}</div>
       <div class="cf-foot">
         <button class="btn acc" type="submit"><span class="pip"></span>${esc(p.submitLabel)}</button>
-        <p class="cf-alt mono">Rather talk? <a href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a>,
+        <p class="cf-alt mono">Rather talk? <a class="telnum" href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a>,
           ${esc(c.site.availability)}</p>
       </div>
       <p class="form-note mono" role="status" aria-live="polite"></p>
@@ -999,7 +999,7 @@ export function contact(c) {
       <div class="help-top">
         <h2>${esc(p.helpHeading)}</h2>
         <p class="mono eyebrow">Phone — ${esc(c.site.availability)}</p>
-        <a class="phone" href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a>
+        <a class="phone telnum" href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a>
         <p>${esc(c.site.footerBlurb)}</p>
         <ul class="help-facts mono">${facts.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>
       </div>
@@ -1044,7 +1044,7 @@ export function serviceIndex(c) {
         single team carries the job from first conversation through final walkthrough.</p>
       <p>Every service runs the same four-stage process, and every one is available across the
         ${c.areas.areas.length} Arizona cities we serve. Call
-        <a class="acc" href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a> to talk one
+        <a class="acc telnum" href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a> to talk one
         through, or start with the trade you already know you need.</p>
     </div>
     <div class="wcs">
