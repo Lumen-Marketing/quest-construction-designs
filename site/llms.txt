@@ -1,7 +1,7 @@
 # Quest Construction
 
 > Quest Construction LLC is a family-owned general contractor working across
-> 11 cities in Arizona. Founded 2018.
+> 36 cities in Arizona. Founded 2018.
 > 14 trades, all self-managed rather than brokered out.
 > Reachable 24/7 on (602) 399-6455.
 
@@ -35,15 +35,40 @@ rather than co-ordinating several.
 
 ## Service areas
 
+- [Phoenix, AZ](https://questconstruction.com/service-areas/phoenix-az/)
 - [Mesa, AZ](https://questconstruction.com/service-areas/mesa-az/)
-- [Tempe, AZ](https://questconstruction.com/service-areas/tempe-az/)
-- [Queen Creek, AZ](https://questconstruction.com/service-areas/queen-creek-az/)
+- [Chandler, AZ](https://questconstruction.com/service-areas/chandler-az/)
+- [Glendale, AZ](https://questconstruction.com/service-areas/glendale-az/)
 - [Scottsdale, AZ](https://questconstruction.com/service-areas/scottsdale-az/)
 - [Gilbert, AZ](https://questconstruction.com/service-areas/gilbert-az/)
-- [Chandler, AZ](https://questconstruction.com/service-areas/chandler-az/)
+- [Tempe, AZ](https://questconstruction.com/service-areas/tempe-az/)
+- [Peoria, AZ](https://questconstruction.com/service-areas/peoria-az/)
+- [Surprise, AZ](https://questconstruction.com/service-areas/surprise-az/)
+- [Avondale, AZ](https://questconstruction.com/service-areas/avondale-az/)
+- [Goodyear, AZ](https://questconstruction.com/service-areas/goodyear-az/)
+- [Buckeye, AZ](https://questconstruction.com/service-areas/buckeye-az/)
+- [Queen Creek, AZ](https://questconstruction.com/service-areas/queen-creek-az/)
+- [Maricopa, AZ](https://questconstruction.com/service-areas/maricopa-az/)
+- [Apache Junction, AZ](https://questconstruction.com/service-areas/apache-junction-az/)
+- [El Mirage, AZ](https://questconstruction.com/service-areas/el-mirage-az/)
+- [Fountain Hills, AZ](https://questconstruction.com/service-areas/fountain-hills-az/)
+- [Litchfield Park, AZ](https://questconstruction.com/service-areas/litchfield-park-az/)
+- [Tolleson, AZ](https://questconstruction.com/service-areas/tolleson-az/)
+- [Youngtown, AZ](https://questconstruction.com/service-areas/youngtown-az/)
+- [Wickenburg, AZ](https://questconstruction.com/service-areas/wickenburg-az/)
+- [Carefree, AZ](https://questconstruction.com/service-areas/carefree-az/)
+- [Cave Creek, AZ](https://questconstruction.com/service-areas/cave-creek-az/)
 - [Paradise Valley, AZ](https://questconstruction.com/service-areas/paradise-valley-az/)
-- [Phoenix, AZ](https://questconstruction.com/service-areas/phoenix-az/)
-- [Goodyear Meadows, AZ](https://questconstruction.com/service-areas/goodyear-meadows-az/)
+- [Guadalupe, AZ](https://questconstruction.com/service-areas/guadalupe-az/)
+- [Laveen, AZ](https://questconstruction.com/service-areas/laveen-az/)
+- [Sun City, AZ](https://questconstruction.com/service-areas/sun-city-az/)
+- [Sun City West, AZ](https://questconstruction.com/service-areas/sun-city-west-az/)
+- [San Tan Valley, AZ](https://questconstruction.com/service-areas/san-tan-valley-az/)
+- [Anthem, AZ](https://questconstruction.com/service-areas/anthem-az/)
+- [Deer Valley, AZ](https://questconstruction.com/service-areas/deer-valley-az/)
+- [North Phoenix, AZ](https://questconstruction.com/service-areas/north-phoenix-az/)
+- [South Phoenix, AZ](https://questconstruction.com/service-areas/south-phoenix-az/)
+- [Ahwatukee, AZ](https://questconstruction.com/service-areas/ahwatukee-az/)
 - [Camelback East Village, AZ](https://questconstruction.com/service-areas/camelback-east-village-az/)
 - [Florence, AZ](https://questconstruction.com/service-areas/florence-az/)
 
@@ -51,7 +76,7 @@ rather than co-ordinating several.
 
 - [Home](https://questconstruction.com/): what Quest does and who it is
 - [All services](https://questconstruction.com/services/): the 14 trades in one index
-- [All service areas](https://questconstruction.com/service-areas/): the 11 cities in one index
+- [All service areas](https://questconstruction.com/service-areas/): the 36 cities in one index
 - [About](https://questconstruction.com/about-us/): the firm's history and how it works
 - [Projects](https://questconstruction.com/projects/): completed work
 - [Gallery](https://questconstruction.com/gallery/): jobsite photography

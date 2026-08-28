@@ -4,7 +4,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { renderPage, contextFor } from '../build.mjs';
-import { pageList } from '../lib/pages.mjs';
+import { pageList, pageCount, loadContent } from '../lib/pages.mjs';
 import { demoProfile, siteProfile, BUILT } from '../lib/profile.mjs';
 import { resolver, ORIGIN } from '../lib/url.mjs';
 import { MAIN_TAG, documentFindings } from '../lib/page-rules.mjs';
@@ -15,9 +15,10 @@ import * as mod from './module.mjs';
 const PAGES = siteProfile.pages();
 const render = (key) => renderPage({ mod, key, profile: siteProfile });
 
-test('the manifest carries thirty-three pages, two more than a demo direction', () => {
-  assert.equal(PAGES.length, 33);
-  assert.equal(pageList().length, 31);
+test('the manifest carries the two hub pages a demo direction does not', () => {
+  assert.equal(PAGES.length, pageCount({ hubs: true }));
+  assert.equal(PAGES.length, pageCount() + 2);
+  assert.equal(pageList().length, pageCount());
   assert.ok(PAGES.some((p) => p.key === 'services'));
   assert.ok(PAGES.some((p) => p.key === 'service-areas'));
 });
@@ -68,7 +69,7 @@ test('the section landing pages index what they claim to', () => {
     /<script type="application\/ld\+json">\n([\s\S]*?)\n<\/script>/.exec(html)[1],
   )['@graph'].find((n) => n['@type'] === 'ItemList');
   assert.equal(list(services).numberOfItems, 14);
-  assert.equal(list(areas).numberOfItems, 11);
+  assert.equal(list(areas).numberOfItems, loadContent().areas.areas.length);
 });
 
 test('breadcrumbs point at the hubs here and at the sitemap in a demo direction', () => {
@@ -140,8 +141,8 @@ test('the stylesheet comes out Burnt Orange with no ochre left in it', () => {
 test('the two profiles differ in exactly four ways, all of them named', () => {
   assert.equal(demoProfile.hubs, false);
   assert.equal(siteProfile.hubs, true);
-  assert.equal(demoProfile.pages().length, 31);
-  assert.equal(siteProfile.pages().length, 33);
+  assert.equal(demoProfile.pages().length, pageCount());
+  assert.equal(siteProfile.pages().length, pageCount({ hubs: true }));
   assert.deepEqual(demoProfile.schemaOpts(), { rich: false, built: null });
   assert.deepEqual(siteProfile.schemaOpts(), { rich: true, built: BUILT });
   // The fourth: only the standalone is served behind an immutable cache, so

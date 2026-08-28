@@ -3,7 +3,7 @@
 The live site. Static HTML, no build step, no runtime dependency: point a host
 at this directory and it serves.
 
-- **33 pages** — home, 14 services, 11 service areas,
+- **58 pages** — home, 14 services, 36 service areas,
   two section landing pages, about, gallery, projects, contact and sitemap — plus a 404.
 - **Design**: "Site Plan" in Burnt Orange (`#D07C42`).
 - **Fonts**: Archivo and JetBrains Mono, self-hosted variable woff2. No third-party requests.
@@ -25,7 +25,7 @@ headers, so Vercel, Netlify and Cloudflare Pages all work with no further config
 ## Before it goes live
 
 - **Wire the contact form.** It currently prints a note asking the visitor to call.
-- **Check the per-city copy.** The eleven service-area pages name a permitting authority
+- **Check the per-city copy.** The thirty-six service-area pages name a permitting authority
   for each city; those claims need Quest's sign-off, particularly Florence (Pinal County
   rather than Maricopa), Camelback East Village (permitted through Phoenix) and Paradise
   Valley (its own town).

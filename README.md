@@ -1,7 +1,7 @@
 # Quest Construction — Design Directions
 
 Ten design directions for **Quest Construction** (general contracting). Each one is a complete
-**thirty-one page site** — home, fourteen services, eleven service areas, about, gallery, projects,
+**fifty-six page site** — home, fourteen services, thirty-six service areas, about, gallery, projects,
 contact and sitemap — so 310 pages in total. Nothing here is wired to a live site; the contact form
 is not connected.
 
@@ -33,7 +33,7 @@ flip its flag, and the rest can come down.
 deployable site — the deliverable, as opposed to the demo directions, which are the pitch.
 
 ```bash
-node build/site/build-site.mjs      # write site/ — 33 pages, 404, assets, robots, sitemap
+node build/site/build-site.mjs      # write site/ — 58 pages, 404, assets, robots, sitemap
 node build/site/verify-site.mjs     # the gate: links, heads, schema, sitemap, accent, fonts
 ```
 
@@ -57,7 +57,7 @@ now, so there is nothing left to match. Editing the design still means editing `
 **The two section landing pages are new.** `/services/` and `/service-areas/` are the URLs a
 visitor reaches by truncating, and the two pages an answer engine wants when it is asked what a
 contractor does and where. They are opt-in — `pageList({ hubs: true })` — because the ten demo
-directions are held to a thirty-one page contract. The service and area breadcrumbs point at them
+directions are held to a fifty-six page contract. The service and area breadcrumbs point at them
 where they exist and fall back to the sitemap page where they do not, so `d01`'s demo output is
 byte-identical to what it was.
 
@@ -94,7 +94,7 @@ indexable direction has been chosen, and the photography is Quest's own througho
 ## The build
 
 The pages are **generated**, not hand-written. Content lives as data in `content/*.json`; a
-zero-dependency Node generator walks ten direction modules over the thirty-one page manifest and
+zero-dependency Node generator walks ten direction modules over the fifty-six page manifest and
 writes static HTML. The generated HTML is committed — the generator is a dev tool, never a runtime
 dependency, and the folders can be served as they stand.
 
@@ -122,7 +122,7 @@ node --test "build/**/*.test.mjs" # the whole suite
 | `site/` | The standalone deployable site, committed |
 
 `build/directions/all.test.mjs` is the contract: it discovers every direction module on disk and
-holds all of them to the same guarantees — thirty-one pages, one `h1` each, alt text and intrinsic
+holds all of them to the same guarantees — fifty-six pages, one `h1` each, alt text and intrinsic
 dimensions on every image, navigation reaching every service and area from depth two, and no
 placeholder identity data anywhere. A new direction cannot ship without meeting it.
 
@@ -485,11 +485,11 @@ breakpoint, and that the form fields never drop back under 16px.
 Every direction is a *fully optimised* page, not a mockup with a title tag. Whichever one Quest
 picks ships search-ready rather than needing an SEO pass afterwards.
 
-**One indexable site, thirty-one targeted pages.** The mockups each chased a different head term
+**One indexable site, fifty-six targeted pages.** The mockups each chased a different head term
 so ten homepages would not compete. That is no longer how the cannibalisation is handled: only
-`d01-site-plan` is indexable, and inside it each of the thirty-one pages targets its own query —
+`d01-site-plan` is indexable, and inside it each of the fifty-six pages targets its own query —
 one per trade, one per city, plus the six standalone pages. Titles and descriptions are composed in
-`build/lib/pages.mjs`, and a test enforces that all thirty-one are unique, ≤60 and ≤155 characters.
+`build/lib/pages.mjs`, and a test enforces that all of them are unique, ≤60 and ≤155 characters.
 
 **What every page carries:**
 
@@ -498,7 +498,7 @@ one per trade, one per city, plus the six standalone pages. Titles and descripti
   `max-image-preview:large`.
 - Open Graph + Twitter `summary_large_image` cards, pointing at a purpose-cut **1200×630** JPEG.
 - A JSON-LD `@graph`: `GeneralContractor` + `HomeAndConstructionBusiness` (real telephone,
-  founding year, `areaServed` for all eleven cities, `knowsAbout` the fourteen trades), `WebSite`,
+  founding year, `areaServed` for all thirty-six cities, `knowsAbout` the fourteen trades), `WebSite`,
   `WebPage` — `ContactPage` on contact — and a `BreadcrumbList`. Service pages add a `Service`
   node; the concrete page alone adds an `FAQPage`, because it is the only one with real FAQs.
   Area pages narrow `areaServed` to their own city.
@@ -559,7 +559,7 @@ site into `content/*.json`, and the phone number and founding year are real.
 - **The per-city copy in `content/areas-local.json` is unverified.** See the SEO section above.
 - **No invented figures anywhere.** Project counts, years-in-business, percentages and review
   numbers were all removed; every figure on every page is derived from the content files —
-  fourteen trades, eleven cities, founded 2005, reachable 24/7. A test in `all.test.mjs` fails the
+  fourteen trades, thirty-six cities, founded 2018, reachable 24/7. A test in `all.test.mjs` fails the
   build if the old placeholders reappear.
 
 ## Verifying changes

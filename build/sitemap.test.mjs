@@ -2,10 +2,11 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { buildSitemap } from './sitemap.mjs';
+import { pageCount } from './lib/pages.mjs';
 
 test('the sitemap lists exactly the thirty-one indexable pages', () => {
   const xml = buildSitemap();
-  assert.equal((xml.match(/<url>/g) || []).length, 31);
+  assert.equal((xml.match(/<url>/g) || []).length, pageCount());
   assert.ok(xml.includes('https://questconstruction.com/d01-site-plan/'));
 });
 

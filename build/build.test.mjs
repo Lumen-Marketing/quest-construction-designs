@@ -3,9 +3,10 @@ import assert from 'node:assert/strict';
 import { renderPage, allPagesFor } from './build.mjs';
 import { HTML_TAG, SKIP_LINK, MAIN_TAG } from './lib/page-rules.mjs';
 import * as stub from './directions/_stub.mjs';
+import { pageCount } from './lib/pages.mjs';
 
 test('a direction renders all thirty-one pages', () => {
-  assert.equal(allPagesFor().length, 31);
+  assert.equal(allPagesFor().length, pageCount());
 });
 
 test('a rendered page is a complete document with the landmarks', () => {
@@ -36,7 +37,7 @@ test('every page kind renders through its own hook', () => {
 <h1>`), `${key} rendered no h1`);
     seen.add(key);
   }
-  assert.equal(seen.size, 31);
+  assert.equal(seen.size, pageCount());
 });
 
 test('no rendered page contains an unresolved template token or a dead anchor', () => {

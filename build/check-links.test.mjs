@@ -1,13 +1,14 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { checkDir } from './check-links.mjs';
+import { pageCount } from './lib/pages.mjs';
 
 const fmt = (rows) => rows.map((b) => `  ${b.file} -> ${b.href}`).join('\n');
 
 test('direction 01 has no broken internal links or missing images', () => {
   const r = checkDir('d01-site-plan');
   assert.equal(r.broken.length, 0, 'broken:\n' + fmt(r.broken));
-  assert.equal(r.checked, 31);
+  assert.equal(r.checked, pageCount());
 });
 
 test('direction 01 has no dead same-page anchors', () => {

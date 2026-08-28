@@ -63,7 +63,7 @@ test('the business node carries the real NAP and no address or rating', () => {
   assert.equal(biz.foundingDate, '2018');
   assert.equal(biz.address, undefined);
   assert.equal(biz.aggregateRating, undefined);
-  assert.equal(biz.areaServed.length, 11);
+  assert.equal(biz.areaServed.length, content.areas.areas.length);
 });
 
 test('a service page emits a Service node and a breadcrumb trail', () => {

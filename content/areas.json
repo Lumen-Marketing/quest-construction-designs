@@ -22,19 +22,24 @@
   },
   "areas": [
     {
+      "slug": "phoenix-az",
+      "name": "Phoenix, AZ",
+      "city": "Phoenix"
+    },
+    {
       "slug": "mesa-az",
       "name": "Mesa, AZ",
       "city": "Mesa"
     },
     {
-      "slug": "tempe-az",
-      "name": "Tempe, AZ",
-      "city": "Tempe"
+      "slug": "chandler-az",
+      "name": "Chandler, AZ",
+      "city": "Chandler"
     },
     {
-      "slug": "queen-creek-az",
-      "name": "Queen Creek, AZ",
-      "city": "Queen Creek"
+      "slug": "glendale-az",
+      "name": "Glendale, AZ",
+      "city": "Glendale"
     },
     {
       "slug": "scottsdale-az",
@@ -47,9 +52,89 @@
       "city": "Gilbert"
     },
     {
-      "slug": "chandler-az",
-      "name": "Chandler, AZ",
-      "city": "Chandler"
+      "slug": "tempe-az",
+      "name": "Tempe, AZ",
+      "city": "Tempe"
+    },
+    {
+      "slug": "peoria-az",
+      "name": "Peoria, AZ",
+      "city": "Peoria"
+    },
+    {
+      "slug": "surprise-az",
+      "name": "Surprise, AZ",
+      "city": "Surprise"
+    },
+    {
+      "slug": "avondale-az",
+      "name": "Avondale, AZ",
+      "city": "Avondale"
+    },
+    {
+      "slug": "goodyear-az",
+      "name": "Goodyear, AZ",
+      "city": "Goodyear"
+    },
+    {
+      "slug": "buckeye-az",
+      "name": "Buckeye, AZ",
+      "city": "Buckeye"
+    },
+    {
+      "slug": "queen-creek-az",
+      "name": "Queen Creek, AZ",
+      "city": "Queen Creek"
+    },
+    {
+      "slug": "maricopa-az",
+      "name": "Maricopa, AZ",
+      "city": "Maricopa"
+    },
+    {
+      "slug": "apache-junction-az",
+      "name": "Apache Junction, AZ",
+      "city": "Apache Junction"
+    },
+    {
+      "slug": "el-mirage-az",
+      "name": "El Mirage, AZ",
+      "city": "El Mirage"
+    },
+    {
+      "slug": "fountain-hills-az",
+      "name": "Fountain Hills, AZ",
+      "city": "Fountain Hills"
+    },
+    {
+      "slug": "litchfield-park-az",
+      "name": "Litchfield Park, AZ",
+      "city": "Litchfield Park"
+    },
+    {
+      "slug": "tolleson-az",
+      "name": "Tolleson, AZ",
+      "city": "Tolleson"
+    },
+    {
+      "slug": "youngtown-az",
+      "name": "Youngtown, AZ",
+      "city": "Youngtown"
+    },
+    {
+      "slug": "wickenburg-az",
+      "name": "Wickenburg, AZ",
+      "city": "Wickenburg"
+    },
+    {
+      "slug": "carefree-az",
+      "name": "Carefree, AZ",
+      "city": "Carefree"
+    },
+    {
+      "slug": "cave-creek-az",
+      "name": "Cave Creek, AZ",
+      "city": "Cave Creek"
     },
     {
       "slug": "paradise-valley-az",
@@ -57,14 +142,54 @@
       "city": "Paradise Valley"
     },
     {
-      "slug": "phoenix-az",
-      "name": "Phoenix, AZ",
-      "city": "Phoenix"
+      "slug": "guadalupe-az",
+      "name": "Guadalupe, AZ",
+      "city": "Guadalupe"
     },
     {
-      "slug": "goodyear-meadows-az",
-      "name": "Goodyear Meadows, AZ",
-      "city": "Goodyear Meadows"
+      "slug": "laveen-az",
+      "name": "Laveen, AZ",
+      "city": "Laveen"
+    },
+    {
+      "slug": "sun-city-az",
+      "name": "Sun City, AZ",
+      "city": "Sun City"
+    },
+    {
+      "slug": "sun-city-west-az",
+      "name": "Sun City West, AZ",
+      "city": "Sun City West"
+    },
+    {
+      "slug": "san-tan-valley-az",
+      "name": "San Tan Valley, AZ",
+      "city": "San Tan Valley"
+    },
+    {
+      "slug": "anthem-az",
+      "name": "Anthem, AZ",
+      "city": "Anthem"
+    },
+    {
+      "slug": "deer-valley-az",
+      "name": "Deer Valley, AZ",
+      "city": "Deer Valley"
+    },
+    {
+      "slug": "north-phoenix-az",
+      "name": "North Phoenix, AZ",
+      "city": "North Phoenix"
+    },
+    {
+      "slug": "south-phoenix-az",
+      "name": "South Phoenix, AZ",
+      "city": "South Phoenix"
+    },
+    {
+      "slug": "ahwatukee-az",
+      "name": "Ahwatukee, AZ",
+      "city": "Ahwatukee"
     },
     {
       "slug": "camelback-east-village-az",

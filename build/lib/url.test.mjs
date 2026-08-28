@@ -1,9 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { ORIGIN, PAGE_KEYS, outPath, resolver } from './url.mjs';
+import { pageCount } from './pages.mjs';
 
 test('there are thirty-one page keys', () => {
-  assert.equal(PAGE_KEYS.length, 31);
+  assert.equal(PAGE_KEYS.length, pageCount());
 });
 
 test('outPath maps a page key to its file inside the direction folder', () => {
@@ -83,5 +84,5 @@ test('every page key round-trips through outPath without collision', () => {
     assert.ok(!seen.has(p), `two keys map to ${p}`);
     seen.add(p);
   }
-  assert.equal(seen.size, 31);
+  assert.equal(seen.size, pageCount());
 });

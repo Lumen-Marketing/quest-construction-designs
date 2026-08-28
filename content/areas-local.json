@@ -1,6 +1,5 @@
 {
-  "_README": "UNVERIFIED — written to give each service-area page genuinely distinct content instead of eleven copies of one paragraph, which is Google's textbook definition of a doorway page. Claims are kept to build practice and to jurisdiction facts believed correct at time of writing (2026-08-18). Quest must review this file before launch: confirm the permitting authority named for each city, and cut anything that does not match how Quest actually works. Only d01-site-plan renders this; the other nine directions are noindex and use the ported template.",
-
+  "_README": "UNVERIFIED — written to give each service-area page genuinely distinct content instead of thirty-six copies of one paragraph, which is Google's textbook definition of a doorway page. Claims are kept to build practice and to jurisdiction facts believed correct at time of writing (2026-08-18). Quest must review this file before launch: confirm the permitting authority named for each city, and cut anything that does not match how Quest actually works. Only d01-site-plan renders this; the other nine directions are noindex and use the ported template.",
   "mesa-az": {
     "paras": [
       "Mesa runs its own Development Services department, so a permit here is a City of Mesa submittal rather than a county one. We build the review window into the programme up front, because starting demolition against a permit that has not cleared is how a remodel loses three weeks it never gets back.",
@@ -14,7 +13,6 @@
       "HOA review in east Mesa"
     ]
   },
-
   "tempe-az": {
     "paras": [
       "Tempe is landlocked and effectively built out, so almost everything we do here is infill, remodel or addition rather than new ground. Lots are small and neighbours are close, which makes staging, dust control and working hours part of the plan rather than an afterthought.",
@@ -28,7 +26,6 @@
       "Alley access where available"
     ]
   },
-
   "queen-creek-az": {
     "paras": [
       "Queen Creek has grown quickly, and that shows in what we are asked to build. Lots are generally larger than the inner valley, and a good share of our work involves shops, casitas, extended garages and outdoor living space that simply would not fit on a Tempe or Scottsdale lot.",
@@ -42,7 +39,6 @@
       "Recent stock, builder coverage"
     ]
   },
-
   "scottsdale-az": {
     "paras": [
       "Scottsdale expects a higher standard of documentation than most valley cities, and its design review is genuinely enforced. We plan for that: elevations, materials and colours get settled and submitted before anyone orders anything, because a rejected finish schedule is far cheaper on paper than on a wall.",
@@ -56,7 +52,6 @@
       "West-elevation sun exposure"
     ]
   },
-
   "gilbert-az": {
     "paras": [
       "Gilbert is largely master-planned, and a great deal of its housing went up through the 1990s and 2000s. That stock is now hitting its first real renewal cycle, which is why so much of our work here is tile roof underlayment, mechanical replacement and original kitchens that have simply reached the end of their service life.",
@@ -70,7 +65,6 @@
       "Repeating builder details"
     ]
   },
-
   "chandler-az": {
     "paras": [
       "Chandler spans a wide range of vintages, from established neighbourhoods near the historic centre to newer development further south. We scope each accordingly rather than assuming a Chandler address implies a particular construction type.",
@@ -84,7 +78,6 @@
       "Sound structure, dated finishes"
     ]
   },
-
   "phoenix-az": {
     "paras": [
       "Phoenix covers the widest range of housing in the state, from 1920s bungalows near the centre to homes finished last year. We do not carry one approach across all of it. A century-old lath-and-plaster wall and a 2015 truss roof are different problems that happen to share a city.",
@@ -98,7 +91,6 @@
       "Block construction and panel capacity"
     ]
   },
-
   "paradise-valley-az": {
     "paras": [
       "Paradise Valley is a town rather than part of Phoenix, and it governs building on its own terms. Setbacks, height and hillside provisions are taken seriously here, and any serious project starts with what the town will actually permit rather than with a floor plan.",
@@ -112,7 +104,6 @@
       "Access and staging on narrow roads"
     ]
   },
-
   "camelback-east-village-az": {
     "paras": [
       "Camelback East Village is one of the City of Phoenix's urban villages rather than a separate municipality, so work here permits through Phoenix. It covers some of the most sought-after residential ground in the valley, and expectations for finish and for site conduct are correspondingly high.",
@@ -126,21 +117,6 @@
       "Whole-home reconfiguration"
     ]
   },
-
-  "goodyear-meadows-az": {
-    "paras": [
-      "Goodyear sits on the west side of the valley, and the housing here is newer than most of the East Valley. A large share of what we do is finishing what a production builder left undone: outdoor living space, extended patios, garage conversions, casitas and the storage a family discovers it needs two years after moving in.",
-      "Parts of the West Valley have soils that move with moisture, so foundations, flatwork and drainage deserve more attention here than a homeowner might expect on a newer house. We would rather specify properly at the outset than return to a cracked patio in two summers.",
-      "Summer heat governs the schedule more here than almost anywhere else we work. Concrete pours, roofing and exterior coatings get planned around the temperature rather than fought against it, which sometimes means an early start and sometimes means waiting a fortnight."
-    ],
-    "notes": [
-      "Newer production-built stock",
-      "Outdoor living and casitas",
-      "Soil movement and drainage",
-      "Heat-driven scheduling"
-    ]
-  },
-
   "florence-az": {
     "paras": [
       "Florence sits in Pinal County rather than Maricopa, which means a different permitting jurisdiction from the rest of our service area. That is worth knowing before a project starts, because the review process and the timeline are not the same as a Mesa or Chandler submittal.",
@@ -152,6 +128,344 @@
       "Territorial-era and adobe fabric",
       "Breathable finishes on historic walls",
       "Rural parcels and long approaches"
+    ]
+  },
+  "glendale-az": {
+    "paras": [
+      "Glendale runs its own building safety division, so a permit here is a City of Glendale submittal. The city has its own historic district rules around the downtown core, and a project inside one of them is a different application from the same job three streets away.",
+      "The housing splits sharply by age. Around downtown and Catlin Court there is genuine pre-war and post-war fabric — narrow lots, raised foundations in places, and original wiring behind lath. West of the 101 the stock is 1990s and 2000s production, slab-on-grade and truss-framed, where the work is usually extending or reconfiguring rather than repairing.",
+      "The older neighbourhoods still run flood irrigation, and a mature ash or citrus over the work area changes how we stage a build. We plan the pour and the delivery around the irrigation turn rather than finding out the hard way that the yard is under four inches of water on the morning of the pour."
+    ],
+    "notes": [
+      "City of Glendale permitting",
+      "Historic district rules downtown",
+      "Pre-war fabric and 2000s production side by side",
+      "Flood irrigation on older lots"
+    ]
+  },
+  "peoria-az": {
+    "paras": [
+      "Peoria permits through its own development and engineering department, and the city runs long north to south — which matters more here than in most valley cities, because the two ends are different building problems.",
+      "South Peoria is the older half: post-war and 1970s stock on established streets, block construction, and the electrical and mechanical upgrades that come with opening those walls. North of the 101 the ground is master-planned and recent, and the work is what a production builder did not include — extended patios, casitas, garage conversions and outdoor kitchens.",
+      "The northern subdivisions bring HOA architectural review on top of the city permit. We submit both in parallel rather than sequentially, because discovering an HOA committee after the city has already approved is how a schedule loses a month."
+    ],
+    "notes": [
+      "City of Peoria permitting",
+      "Older south, master-planned north",
+      "HOA review above the 101",
+      "Production-builder finishing work"
+    ]
+  },
+  "surprise-az": {
+    "paras": [
+      "Surprise permits through its own development services department. Nearly all of the city as a homeowner knows it was built after 1998, so the fabric is consistent in a way older valley cities are not: slab-on-grade, engineered truss roofs, stucco over frame.",
+      "That consistency shapes the work. There is very little structural repair and a great deal of addition — extending a footprint, enclosing a patio, adding a casita on a lot that was platted with room for one. Matching stucco texture and roof tile on a twenty-year-old elevation is the recurring craft problem rather than opening up a wall and finding surprises.",
+      "Sun City Grand and the other age-restricted communities inside the city carry their own architectural committees and their own rules on working hours and contractor access. We read those before quoting, because a schedule that ignores a seven-to-four access window is not a schedule."
+    ],
+    "notes": [
+      "City of Surprise permitting",
+      "Almost entirely post-1998 stock",
+      "Additions rather than repairs",
+      "Age-restricted community access rules"
+    ]
+  },
+  "avondale-az": {
+    "paras": [
+      "Avondale permits through its own development services department. The city sits between the older west valley and the newer growth beyond it, and its housing reflects that — a small older core around historic Avondale and a much larger body of late-1990s and 2000s subdivisions.",
+      "In the newer subdivisions the common job is finishing what the builder left: patio extensions, shade structures, garage conversions and the storage a family works out it needs two years in. In the older core the work is closer to repair — roof replacement, stucco patching over block, and bringing branch circuits up to current code once a wall is open.",
+      "Lot sizes in the production tracts are tight and side yards are narrow. We size the equipment to the access rather than the job, which sometimes means a smaller machine and an extra day instead of taking down a fence."
+    ],
+    "notes": [
+      "City of Avondale permitting",
+      "Small older core, large 2000s tracts",
+      "Patio and garage conversions",
+      "Narrow side-yard access"
+    ]
+  },
+  "goodyear-az": {
+    "paras": [
+      "Goodyear permits through its own development services department, and it is one of the fastest-growing cities in the valley — which means most of what we work on here is younger than twenty-five years old.",
+      "Palm Valley, Estrella and the newer tracts are production-built: slab-on-grade, truss roofs, stucco over frame, and platted with enough lot for the outdoor living that did not come with the house. A large share of our work in Goodyear is exactly that — extended patios, ramadas, casitas and outdoor kitchens on homes that are otherwise sound.",
+      "The ground on the south and west edges of the city carries expansive soil in places, and drainage across a flat lot needs planning before a slab goes in rather than after the first monsoon. We set finished floor and fall against the existing grade at design stage."
+    ],
+    "notes": [
+      "City of Goodyear permitting",
+      "Newer production-built stock",
+      "Outdoor living and casitas",
+      "Soil movement and lot drainage"
+    ]
+  },
+  "buckeye-az": {
+    "paras": [
+      "Buckeye permits through its own development services department, and it has been among the fastest-growing cities in the country for several years running. The practical effect is that the housing stock here is the newest we work on anywhere in the valley.",
+      "Verrado, Sundance, Festival Ranch and the tracts around them are recent production work. Structural problems are rare; what people call us for is what the builder did not include. Shade is the first thing — the lots are open and west-facing exposure here is punishing, so ramadas, extended patios and pergolas make up a large share of the work.",
+      "Buckeye is geographically enormous and a job on the far side of the city is a real drive for a crew and for every delivery. We plan material drops in fewer, larger loads and stage them on site rather than running the road four times a day."
+    ],
+    "notes": [
+      "City of Buckeye permitting",
+      "The newest stock in the valley",
+      "Shade structures and ramadas",
+      "Long distances inside one city"
+    ]
+  },
+  "maricopa-az": {
+    "paras": [
+      "The City of Maricopa is in Pinal County, not Maricopa County — a distinction that catches people out and matters here, because it means a different jurisdiction from most of the valley. The city runs its own development services department and a permit is a City of Maricopa submittal.",
+      "Almost the whole city was built after 2000. Rancho El Dorado, Province, Homestead and the tracts around them are master-planned and consistent — slab-on-grade, truss framed, stucco over frame. The work is addition and outdoor living rather than structural repair.",
+      "Maricopa sits far enough south of the valley that a crew is committed to the day once it arrives. We schedule in blocks here rather than half-days, and we stage materials on site so a forgotten item does not cost an hour each way."
+    ],
+    "notes": [
+      "Pinal County, not Maricopa County",
+      "City of Maricopa permitting",
+      "Almost entirely post-2000 stock",
+      "Scheduled in full days, not half"
+    ]
+  },
+  "apache-junction-az": {
+    "paras": [
+      "Apache Junction runs its own development services department. The city straddles the Maricopa and Pinal county line, and which side a parcel sits on changes the utility and county-level paperwork even though the building permit is the city's.",
+      "The housing here is different from the rest of the east valley. Alongside conventional stick-built homes there is a large body of manufactured and mobile housing, park models and additions built onto them over decades. Working on those is its own discipline — the structure, the tie-downs and the permitting are not the same as a stick-built addition, and we are straight about what can and cannot be done to one.",
+      "The ground rises towards the Superstitions and lots on the eastern edge come with rock, slope and long unpaved approaches. That changes excavation cost and it changes what a concrete truck can reach, so we walk the access before we quote it."
+    ],
+    "notes": [
+      "City of Apache Junction permitting",
+      "Maricopa and Pinal county line",
+      "Manufactured and site-built side by side",
+      "Rock, slope and unpaved approaches"
+    ]
+  },
+  "el-mirage-az": {
+    "paras": [
+      "El Mirage runs its own building department, and it is a small enough city that a project here is dealt with directly rather than lost in a queue. A permit is a City of El Mirage submittal.",
+      "The city has an older original core on small lots and a much newer ring of 2000s subdivisions around it. The two need different work: the core is repair and upgrade — roofing, stucco over block, electrical brought up to code — while the newer tracts are addition and outdoor living.",
+      "Lots in the older sections are compact and the streets are narrow. We keep a skip and a material stage inside the property line where we can, because blocking a street in a neighbourhood this tight makes the job everybody's problem."
+    ],
+    "notes": [
+      "City of El Mirage permitting",
+      "Small older core, 2000s ring",
+      "Roofing and stucco over block",
+      "Tight lots and narrow streets"
+    ]
+  },
+  "fountain-hills-az": {
+    "paras": [
+      "Fountain Hills is a town with its own government and its own building department, and it takes hillside building seriously. Slope, height, cut and fill, and the protected washes running through the town all shape what will actually be permitted, so a project here starts with what the town will approve rather than with a floor plan.",
+      "The housing is largely custom and semi-custom on hillside lots, much of it from the 1990s and 2000s, built against the McDowells with retaining structures and stepped foundations. Remodelling one means understanding how the original engineer solved the slope before changing anything that carries load.",
+      "Access is the other constant. Steep and narrow streets, tight turnarounds and long driveways limit what can reach a site. We size deliveries and equipment to the driveway, not the job, and we plan concrete around what a truck can safely do on a grade."
+    ],
+    "notes": [
+      "Town of Fountain Hills permitting",
+      "Hillside and wash provisions",
+      "Custom homes on stepped foundations",
+      "Steep access and tight turnarounds"
+    ]
+  },
+  "litchfield-park-az": {
+    "paras": [
+      "Litchfield Park is its own city with its own permitting, and it is small — a few square miles with a mature character the city actively protects. Design review here is real, and matching the existing streetscape matters more than it does in a newer suburb.",
+      "The housing is older than most of the west valley, with genuine mid-century fabric around the Wigwam and established lots under full-grown trees. That means real trees to protect, roots near footings, and finishes that have weathered for decades and have to be matched rather than approximated.",
+      "Mature canopy also changes the roof conversation. Shade and leaf litter shorten the life of a roof covering in specific spots rather than evenly, so a reroof here often means dealing with one bad elevation rather than replacing everything at once."
+    ],
+    "notes": [
+      "City of Litchfield Park permitting",
+      "Design review and streetscape matching",
+      "Mid-century fabric, mature canopy",
+      "Roots near footings, uneven roof wear"
+    ]
+  },
+  "tolleson-az": {
+    "paras": [
+      "Tolleson runs its own building department and a permit here is a City of Tolleson submittal. It is a compact city, and the residential ground sits close to substantial industrial and distribution property, which shapes both the housing and the way we work in it.",
+      "The residential stock is largely older and modest — small lots, single storey, block and frame construction with decades of accumulated alterations. A good deal of what we do is putting right work done without a permit years ago, which means opening things up before quoting rather than after.",
+      "Heavy traffic on the arterials near the industrial parks makes delivery timing worth planning. We schedule material drops outside the shift changes at the distribution centres, because a truck that cannot turn in is a wasted morning."
+    ],
+    "notes": [
+      "City of Tolleson permitting",
+      "Older modest single-storey stock",
+      "Correcting unpermitted alterations",
+      "Delivery timed around industrial traffic"
+    ]
+  },
+  "youngtown-az": {
+    "paras": [
+      "Youngtown is a town with its own permitting, and it is one of the smallest municipalities in the valley — small enough that most of the housing came out of a single era and shares a single set of problems.",
+      "It began as a retirement community in the 1950s, and the original stock reflects that: compact single-storey homes on small lots, slab-on-grade, low-slope and shallow-pitch roofs, and modest original service capacity. Adding air conditioning load, a kitchen circuit or an outdoor kitchen usually means looking hard at the panel first.",
+      "Small lots mean a small working envelope. Additions here are more often a reconfiguration inside the existing footprint than an extension beyond it, and we say so early rather than designing something the setbacks will not allow."
+    ],
+    "notes": [
+      "Town of Youngtown permitting",
+      "1950s retirement-era stock",
+      "Panel and service capacity limits",
+      "Reconfiguration over extension"
+    ]
+  },
+  "wickenburg-az": {
+    "paras": [
+      "Wickenburg is a town with its own building department, sitting at the north-west edge of the valley where the metro genuinely ends. It is far enough out that we plan a project here as a committed run rather than as a job a crew drops into between others.",
+      "The building fabric is unlike the metro. There is a historic downtown with genuine old masonry and adobe, and beyond it ranch property on acreage — outbuildings, barns, shops and homes on well and septic rather than city services. Work on a historic wall needs breathable finishes rather than a modern impermeable coating, which is a mistake that shows up years later as failed plaster.",
+      "On acreage the utilities are the project as often as the building is. Septic capacity, well output and the run of power to an outbuilding all have to be established before a design is worth drawing."
+    ],
+    "notes": [
+      "Town of Wickenburg permitting",
+      "Historic masonry and adobe downtown",
+      "Ranch acreage on well and septic",
+      "Breathable finishes on historic walls"
+    ]
+  },
+  "carefree-az": {
+    "paras": [
+      "Carefree is a town with its own government and its own building rules, and they are protective of how the place looks. Height, colour, lighting and how a building sits against the desert are all live questions here, and a design that ignores them does not get built.",
+      "The housing is high-end custom on desert lots, much of it organised around the boulder outcrops the town is known for. That drives real construction consequences: excavation into rock, foundations stepped around immovable stone, and site walls that have to look like they were always there.",
+      "Dark-sky expectations shape the exterior lighting on every project, and the finish standard is unforgiving — long clean stucco runs and exposed steel where every joint is visible. We plan those elevations before starting rather than resolving them on site."
+    ],
+    "notes": [
+      "Town of Carefree permitting",
+      "Height, colour and lighting review",
+      "Rock excavation and boulder lots",
+      "Dark-sky exterior lighting"
+    ]
+  },
+  "cave-creek-az": {
+    "paras": [
+      "Cave Creek is a town with its own permitting, and building here is closer to rural work than suburban work despite being inside the metro. Lots are large, the desert is protected, and what is allowed to be cleared is limited.",
+      "Many properties run on septic and some on private wells rather than town services. That changes a remodel: adding bedrooms or a casita can push a septic system past its designed capacity, and that has to be resolved on paper before anything is dug.",
+      "The ground is rock close to the surface across much of the town, and washes cross a lot of parcels. Excavation costs more and takes longer than the same trench in the valley floor, and building near a wash brings drainage requirements that shape where a structure can actually sit."
+    ],
+    "notes": [
+      "Town of Cave Creek permitting",
+      "Septic capacity and private wells",
+      "Rock close to the surface",
+      "Washes and desert clearing limits"
+    ]
+  },
+  "guadalupe-az": {
+    "paras": [
+      "Guadalupe is a town of roughly one square mile with its own government and its own permitting, bordered on all sides by Tempe and Phoenix. It is a distinct community with a long Yaqui and Mexican history, and building here means working in a place where neighbours know each other and a jobsite is visible to everyone.",
+      "The housing is dense and modest by valley standards — small lots, single storey, a mix of block and frame with decades of self-built additions layered on. A good deal of the work is establishing what is actually there and what was added without paperwork before anything can be designed on top of it.",
+      "The streets are narrow and parking is tight. We keep the working footprint inside the property line, run smaller equipment than we would on an open lot, and keep the site closed up at the end of each day rather than leaving materials out."
+    ],
+    "notes": [
+      "Town of Guadalupe permitting",
+      "Dense small-lot single-storey stock",
+      "Layered self-built additions",
+      "Narrow streets, contained site"
+    ]
+  },
+  "laveen-az": {
+    "paras": [
+      "Laveen is part of the City of Phoenix rather than a separate municipality, so work here permits through Phoenix. It is one of the Phoenix urban villages, and it has changed faster in the last twenty years than almost anywhere else in the city.",
+      "It was farmland, and much of it still carries that inheritance: flood irrigation rights, deep agricultural soils, and large flat parcels that have been subdivided into 2000s tracts. Those soils matter — agricultural ground holds water differently from desert caliche, and a slab or a footing needs to be designed for what is actually under it.",
+      "Where irrigation is still running, it dictates the schedule. We plan pours and excavation around the irrigation turn, and we make sure a new patio or addition does not block the flow a neighbouring property has a right to."
+    ],
+    "notes": [
+      "Permits through City of Phoenix",
+      "Former farmland, 2000s tracts",
+      "Agricultural soils under new slabs",
+      "Flood irrigation rights and timing"
+    ]
+  },
+  "sun-city-az": {
+    "paras": [
+      "Sun City is unincorporated Maricopa County rather than a city, so a permit here is a county submittal rather than a municipal one. That is a different process from the cities around it, and it is the first thing we establish on a Sun City project.",
+      "The community was built from 1960 onward as age-restricted housing, and the stock is remarkably consistent: compact single-storey homes, slab-on-grade, block construction, low-slope and built-up roofs, and carports as often as garages. Those low-slope roofs are the recurring job — they need a different covering and a different detail from the tile and shingle roofs elsewhere in the valley, and they are unforgiving about ponding.",
+      "The recreation centres and the community rules set expectations about noise, working hours and contractor conduct. We work to them, and we keep a site tidy at the end of every day, because in a neighbourhood this settled an untidy job is remembered."
+    ],
+    "notes": [
+      "Maricopa County permitting",
+      "1960s age-restricted stock",
+      "Low-slope built-up roofs",
+      "Community hours and conduct rules"
+    ]
+  },
+  "sun-city-west-az": {
+    "paras": [
+      "Sun City West is unincorporated Maricopa County, so building permits are county submittals rather than city ones. It is a separate community from Sun City with its own recreation governance, and the two are often confused.",
+      "Development began here in 1978, so the stock is a generation newer than original Sun City: larger homes on larger lots, more garages than carports, and pitched tile roofs in place of the older low-slope build-ups. The work skews towards updating rather than repairing — kitchens, bathrooms, flooring and enclosing or extending a patio.",
+      "As an age-restricted community it carries expectations about access, noise and hours that we plan into the programme rather than discovering. Dust control matters more here than most places, and we set up containment on interior work as a matter of course."
+    ],
+    "notes": [
+      "Maricopa County permitting",
+      "1978 onward, larger than Sun City",
+      "Pitched tile roofs",
+      "Dust containment on interior work"
+    ]
+  },
+  "san-tan-valley-az": {
+    "paras": [
+      "San Tan Valley spent decades as one of the largest unincorporated communities in Arizona and became a town in 2026. That transition is recent enough that we confirm the current review path on every project rather than assuming, because work here has historically been a Pinal County submittal.",
+      "The housing is overwhelmingly 2000s and later production — slab-on-grade, truss framed, stucco over frame, laid out in large master-planned tracts. Structural failure is rare; the demand is for what the builder did not include, and on lots this exposed that means shade first: extended patios, ramadas and pergolas, then casitas and outdoor kitchens.",
+      "It sits directly against Queen Creek, which we have worked in for years, so the ground conditions and the trades are familiar. Growth has outrun the road network in places, and we plan deliveries around the routes that actually carry a loaded truck."
+    ],
+    "notes": [
+      "Recently incorporated, Pinal County",
+      "2000s production-built tracts",
+      "Shade structures and casitas",
+      "Adjacent to our Queen Creek work"
+    ]
+  },
+  "anthem-az": {
+    "paras": [
+      "Anthem is unincorporated Maricopa County rather than a city, so a permit here is a county submittal. It sits north of the valley on the way to Flagstaff, high enough that the weather is genuinely different from Phoenix.",
+      "The community was master-planned from 1999 onward and the housing is consistent 2000s production, split between the gated Country Club side and Parkside. Both carry active architectural committees, and their approval is as much a gate on the programme as the county permit is — we submit to both at the outset.",
+      "The elevation shows up in the building. Anthem gets colder nights and more wind than the valley floor, and it sees real weather in the monsoon. Roof detailing, flashing and exterior finishes need to be specified for that rather than for central Phoenix."
+    ],
+    "notes": [
+      "Maricopa County permitting",
+      "HOA architectural review on both sides",
+      "Master-planned 1999 onward",
+      "Higher elevation, harder weather"
+    ]
+  },
+  "deer-valley-az": {
+    "paras": [
+      "Deer Valley is one of the City of Phoenix urban villages, not a separate municipality, so work here permits through Phoenix. It covers a large area of north Phoenix either side of the I-17.",
+      "Most of the housing dates from the 1980s through the 2000s — slab-on-grade, frame and stucco, tile roofs, on regular suburban lots. Homes of that age are now at the point where the original roof covering, the water heater and the electrical panel all come due within a few years of each other, and it is usually cheaper to plan that together than to do it three times.",
+      "Parts of the village sit under the Deer Valley Airport flight paths, and there is an established noise overlay across that ground. It does not stop a project, but it does affect what is required of an addition, and it is worth knowing before drawings are started."
+    ],
+    "notes": [
+      "Permits through City of Phoenix",
+      "1980s to 2000s suburban stock",
+      "Roof, panel and plant due together",
+      "Airport noise overlay in places"
+    ]
+  },
+  "north-phoenix-az": {
+    "paras": [
+      "North Phoenix is a broad area rather than a single jurisdiction — it spans several City of Phoenix urban villages, and all of it permits through Phoenix. We name the village on the paperwork, because that is what the city works from.",
+      "The housing spans a wide range. There is 1970s and 1980s block and frame on established streets, large 1990s and 2000s tracts, and newer building continuing at the northern edge. A remodel on a 1970s house here means planning for the wiring and the ductwork behind the walls; the same job on a 2005 house rarely does.",
+      "The ground rises and roughens towards the north, and lots at the edge bring rock and slope that change what excavation costs. We establish that on a site walk before quoting rather than pricing it as flat ground and correcting later."
+    ],
+    "notes": [
+      "Permits through City of Phoenix",
+      "Several urban villages, one process",
+      "1970s block through current build",
+      "Rock and slope at the northern edge"
+    ]
+  },
+  "south-phoenix-az": {
+    "paras": [
+      "South Phoenix is part of the City of Phoenix and permits through it. It spans several urban villages under the north face of South Mountain, and it is some of the oldest continuously occupied residential ground in the city.",
+      "The fabric is genuinely mixed. There are pre-war and post-war homes on large irregular lots, some of it originally agricultural, alongside recent infill. Older properties often carry additions built over decades without paperwork, so we establish what is actually there and what is legally there before designing anything on top of it.",
+      "Flood irrigation still runs on parts of this ground and the mature landscaping that comes with it is worth protecting. We plan around the irrigation turn, and we protect established trees rather than treating them as an obstacle — a fifty-year-old shade tree is not something a project should cost a homeowner."
+    ],
+    "notes": [
+      "Permits through City of Phoenix",
+      "Pre-war fabric and recent infill",
+      "Unpermitted additions to establish",
+      "Flood irrigation and mature trees"
+    ]
+  },
+  "ahwatukee-az": {
+    "paras": [
+      "Ahwatukee is part of the City of Phoenix and permits through it, despite sitting on the far side of South Mountain from the rest of the city and feeling like its own town. It is the Ahwatukee Foothills urban village on the city's paperwork.",
+      "The housing is mostly 1980s through early 2000s, with a large share inside HOAs that run architectural review. Homes of that vintage are at the age where roof coverings, original windows and mechanical plant are all reaching the end of their service life, and owners are choosing between patching and doing it properly.",
+      "The foothill lots against South Mountain bring slope, rock and preserved desert into the equation, and the access roads through the village are limited by the mountain. We check what can physically reach a site before committing to a delivery schedule."
+    ],
+    "notes": [
+      "Permits through City of Phoenix",
+      "1980s to early 2000s stock",
+      "HOA architectural review",
+      "Foothill slope and limited access"
     ]
   }
 }

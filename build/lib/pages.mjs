@@ -56,6 +56,15 @@ const clip = (s, n) => {
  *   the ten demo directions are held to a thirty-one page contract, and only
  *   the standalone site carries the hubs.
  */
+/** How many pages a build should produce: home, every trade, every city, the
+ *  five standalone pages, and the two hubs when they are switched on. Tests
+ *  assert against this rather than a literal, so adding a city to
+ *  content/areas.json does not mean editing a number in nine files. */
+export function pageCount(opts = {}) {
+  const { services, areas } = loadContent();
+  return 1 + services.length + areas.areas.length + 5 + (opts.hubs ? 2 : 0);
+}
+
 /** "a, b and c" — an English list, for a meta description read by a person. */
 const listOf = (xs) => (xs.length < 2 ? (xs[0] || '')
   : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`).toLowerCase();

@@ -407,7 +407,7 @@ test('the hero states only facts drawn from the real content', () => {
   const html = renderPage({ mod: d01, key: 'home' });
   assert.match(html, /<b>2018<\/b><span>Building since<\/span>/);
   assert.match(html, /<b>14<\/b><span>Services<\/span>/);
-  assert.match(html, /<b>11<\/b><span>Arizona cities<\/span>/);
+  assert.match(html, new RegExp(`<b>${areas.length}</b><span>Arizona cities</span>`));
 });
 
 test('the LCP hero image is eager and preloaded, and only on the home page', () => {
@@ -495,10 +495,10 @@ test('area pages resolve the city token everywhere and name their own city', () 
   }
 });
 
-test('each area page links the other ten areas', () => {
+test('each area page links every other area and never itself', () => {
   const html = renderPage({ mod: d01, key: 'service-areas/mesa-az' });
   const cloud = /<div class="arealinks rv">([\s\S]*?)<\/div>/.exec(html)[1];
-  assert.equal((cloud.match(/<a /g) || []).length, 10);
+  assert.equal((cloud.match(/<a /g) || []).length, areas.length - 1);
   assert.ok(!cloud.includes('mesa-az'), 'an area links to itself in the nearby cloud');
 });
 
