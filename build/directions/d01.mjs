@@ -445,17 +445,25 @@ export function home(c) {
 
   const cards = svcCards(c, 'View details');
 
-  // The offers are vouchers now rather than two dark rectangles with a glow
-  // behind the number. A voucher is what they actually are — an amount, terms,
-  // and a code you take away — so the component says so: a material band
-  // across the head, a torn edge under it with the notches punched out of both
-  // sides, and the code on the stub below. The depth is in the shape, which is
-  // why the glow could go.
+  // The offers are vouchers rather than two dark rectangles with a glow behind
+  // the number. A voucher is what they actually are — an amount, terms, and a
+  // code you take away — so the component says so: a material band across the
+  // head, a torn edge under it with the notches punched out of both sides, and
+  // the code on the stub below.
+  //
+  // All of that was above the seam. Below it was flat colour with three things
+  // sitting on top, which is the half Quest was looking at when they said it
+  // was flat — the stub had no material of its own at all. It has a ground
+  // now, and the amount is printed twice: once at reading size and once
+  // enormous behind it, running off the edge. Two copies of one number at two
+  // scales is the cheapest depth there is, because the eye reads the pair as
+  // near and far rather than as a repeat. See .offer-body.
   const offers = c.site.offers.map((o, i) => `
     <div class="offer rv">
       <div class="offer-shot">${img(c, ...shot(OFFER_SHOTS[i % OFFER_SHOTS.length]))}</div>
       <div class="offer-seam" aria-hidden="true"><i></i></div>
       <div class="offer-body">
+        <span class="offer-ghost" aria-hidden="true">${esc(o.amount)}</span>
         <b>${esc(o.amount)}</b>
         <h3>${esc(o.title)}</h3>
         <p>${esc(o.body)}</p>

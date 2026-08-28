@@ -121,6 +121,52 @@ test('the phone drawer survives its own scroll lock', () => {
     'the header leaves the flow while open and nothing replaces the space');
 });
 
+test('the voucher stub has a ground, and none of it lands on the amount', () => {
+  const html = renderPage({ mod: d01, key: 'home' });
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+
+  // Above the seam the voucher has a photograph, a torn edge and holes punched
+  // through it. Below it was flat colour with four things sitting on top, and
+  // that is the half Quest called flat. Three layers go under the content now.
+  const before = /\.offer-body::before\{[^}]*\}/.exec(css);
+  const after = /\.offer-body::after\{[^}]*\}/.exec(css);
+  assert.ok(before, 'the stub has no light on it');
+  assert.ok(after, 'the stub has no material on it');
+  assert.equal((html.match(/class="offer-ghost"/g) || []).length,
+    2, 'the amount is not printed behind itself');
+  // It is the amount again, so a screen reader must not read it twice.
+  assert.match(html, /<span class="offer-ghost" aria-hidden="true">/);
+
+  // And now the constraint that shapes all three. The amount is set in --acc —
+  // the RAW accent, not --acc-on-dark — and on the clay palette the raw accent
+  // is a dark terracotta. On the bare card, before any of this existed, it
+  // measured 3.21:1 against a 3:1 bar. That seven percent is the entire budget
+  // for lighting this surface, and lifting the field toward a dark numeral's
+  // own hue spends it: a four percent white wash across the head alone took it
+  // to 2.88.
+  //
+  // So the head is in shadow and the light comes from beyond the right edge.
+  // Both halves are load-bearing and either one alone is a regression.
+  assert.match(css, /\.offer b\{[^}]*color:var\(--acc\)/,
+    'the amount no longer uses the raw accent, so this reasoning needs rechecking');
+  assert.match(before[0], /linear-gradient\(180deg,rgba\(0,0,0,\.\d+\) 0%/,
+    'nothing shadows the head of the stub, where the amount sits');
+  const bloom = /radial-gradient\(([^)]*)at (\d+)% (\d+)%,\s*color-mix\(in srgb,var\(--acc\)/
+    .exec(before[0]);
+  assert.ok(bloom, 'the accent light on the stub is gone or has moved');
+  assert.ok(Number(bloom[2]) > 100,
+    `the light is thrown from ${bloom[2]}% — it has to come from beyond the right edge, `
+    + 'or its core lands on the amount');
+
+  // The numeral's own shadow is black for the same reason. A glow in its own
+  // hue lifts the field immediately around it toward its colour, which is a
+  // contrast ratio running backwards.
+  const amount = /\.offer b\{[^}]*\}/.exec(css)[0];
+  assert.match(amount, /text-shadow:[^;]*rgba\(0,0,0/, 'the amount casts no shadow');
+  assert.doesNotMatch(amount, /text-shadow:[^;}]*var\(--acc\)/,
+    'the amount glows in its own colour, which lowers its own contrast');
+});
+
 test('the hero object is lit rather than pasted, and clears the copy at every width', () => {
   const html = renderPage({ mod: d01, key: 'home' });
   const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');

@@ -1073,9 +1073,73 @@ footer .brand img{height:38px}
   background:radial-gradient(circle at 3px 3px,var(--dark) 2.6px,transparent 3px);
   background-size:15px 6px}
 
-.offer-body{padding:var(--sp-1)}
+/* ---- the stub, which is the half that was flat ----
+   Above the seam the voucher has a photograph, a torn edge and holes punched
+   through it. Below the seam it was --dark-2 with an amount, a heading, a
+   paragraph and a button sitting on it, and nothing else — no light, no
+   material, no depth. Three layers go under the content now, all of them
+   behind z-index 2 so nothing lands on the type. */
+.offer-body{position:relative;padding:var(--sp-1);
+  border-radius:0 0 calc(var(--r-lg) - 1px) calc(var(--r-lg) - 1px);
+  overflow:hidden}
+/* 1. THE LIGHT, and it comes from the RIGHT, which is a contrast decision
+      before it is a compositional one.
+      The amount is set in --acc — the raw accent, not --acc-on-dark — and on
+      the clay palette the raw accent is a dark terracotta. Measured on the
+      flat card, before any of this existed, it sat at 3.21:1 against a 3:1
+      bar: a seven percent margin. Every way of lighting a surface that puts
+      light where the amount is spends that margin, because lifting the field
+      toward a dark numeral's own hue is a ratio going the wrong way. A four
+      percent white highlight across the head was enough on its own to take it
+      to 2.88.
+      So the light is thrown from beyond the right edge, where the only thing
+      it falls on is the ghost numeral, and the head of the card is pooled in
+      shadow instead — which BUYS margin on the amount rather than spending it,
+      and gives the stub a light direction at the same time. Measured after:
+      3.44:1 on clay, 4.7 on orange. */
+.offer-body::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(66% 112% at 118% 56%,
+      color-mix(in srgb,var(--acc) 18%,transparent) 0%,
+      color-mix(in srgb,var(--acc) 6%,transparent) 38%,transparent 68%),
+    linear-gradient(180deg,rgba(0,0,0,.36) 0%,rgba(0,0,0,.1) 34%,
+      transparent 52%,rgba(0,0,0,.18) 100%)}
+/* 2. THE MATERIAL. The same raking hatch the CTA bar carries, at a fifth of
+      its strength and a tighter pitch — enough that the surface has a weave
+      under the light and not enough to read as a pattern. Masked off toward
+      the foot so it never competes with the paragraph. */
+.offer-body::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:repeating-linear-gradient(108deg,
+    rgba(243,239,230,.03) 0 1px,transparent 1px 8px);
+  /* Masked AWAY from the head, not toward it. The hatch is white at three
+     percent, which is a lift, and the amount is the one line on this card that
+     cannot afford one. It reads on the lit half, which is where a raking
+     texture would show anyway. */
+  -webkit-mask-image:radial-gradient(96% 108% at 104% 62%,#000 0 34%,transparent 82%);
+          mask-image:radial-gradient(96% 108% at 104% 62%,#000 0 34%,transparent 82%)}
+.offer-body>*{position:relative;z-index:2}
+/* 3. THE AMOUNT, PRINTED TWICE. Once at reading size and once enormous behind
+      it, bleeding off the right edge — the eye reads two copies of one number
+      at two scales as near and far rather than as a repeat, which is depth for
+      the price of one span. It is aria-hidden: the number is already in the
+      DOM once and a screen reader does not need it twice.
+      Held to the head of the card and faded out downward, because the only
+      thing it may sit behind is the amount itself, which is 86px and needs
+      3:1 — never the 14.5px paragraph, which needs 4.5. */
+.offer-ghost{position:absolute;z-index:1;top:-.19em;right:-.24em;
+  font-size:clamp(112px,15vw,220px);font-weight:900;letter-spacing:-.06em;
+  line-height:.78;white-space:nowrap;pointer-events:none;user-select:none;
+  color:rgba(243,239,230,.042);
+  -webkit-mask-image:linear-gradient(174deg,#000 0 34%,transparent 74%);
+          mask-image:linear-gradient(174deg,#000 0 34%,transparent 74%)}
 .offer b{display:block;font-size:clamp(44px,6vw,86px);font-weight:900;letter-spacing:-.05em;
-  line-height:1;color:var(--acc)}
+  line-height:1;color:var(--acc);
+  /* Pure black, no accent glow. A glow in the numeral's own hue lifts the
+     field immediately around it toward the numeral's colour, which is a
+     contrast ratio going the wrong way; black under it darkens the field and
+     the ratio improves. It is a shadow the numeral casts on the stub, which is
+     also what it looks like. */
+  text-shadow:0 2px 0 rgba(0,0,0,.5),0 16px 34px rgba(0,0,0,.55)}
 .offer h3{font-size:clamp(19px,2.1vw,26px);margin:14px 0 12px;font-weight:800}
 .offer p{margin:0 0 24px;font-size:14.5px;color:var(--on-dark-2);max-width:46ch}
 /* focus-within as well as hover: the card is not the control — the button
