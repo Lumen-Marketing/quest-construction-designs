@@ -688,7 +688,7 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
   display:grid;place-items:center;font-weight:900;font-size:20px;letter-spacing:-.04em;
   margin-bottom:24px;box-shadow:var(--sh);transition:background .3s ease,transform .3s ease}
 @media (hover:hover) and (pointer:fine){.step:hover .n{background:var(--acc);transform:translateY(-5px)}}
-.step h4{font-size:clamp(17px,1.8vw,22px);margin-bottom:11px;font-weight:800}
+.step h3{font-size:clamp(17px,1.8vw,22px);margin-bottom:11px;font-weight:800}
 .step p{margin:0;font-size:14.5px;color:var(--ink-2)}
 @media(max-width:900px){.steps{grid-template-columns:1fr 1fr}.steps::before{display:none}}
 @media(max-width:540px){.steps{grid-template-columns:1fr}}
@@ -1641,7 +1641,7 @@ footer .brand img{height:38px}
 
 .smap{position:relative;z-index:3;display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(26px,4vw,54px)}
-.smap h3{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;
+.smap h2{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--mute-lt);margin-bottom:18px;font-weight:700}
 .smap ul{list-style:none;padding:0;margin:0;display:grid;gap:2px}
 .smap a{display:block;padding:10px 0;font-size:15px;font-weight:600;
@@ -1724,7 +1724,7 @@ h1,h2,h3,h4{overflow-wrap:break-word}
   /* 9.5–10px mono is legible on a desktop at arm's length and not on a
      phone. Nothing here is display type; it is all labelling. */
   .mono,.pill,.figs .f span,.hero-trust div span,.badge span,.svc .go,
-  .fg h2,.smap h3,.crumbs,.eyebrow,.localcall span,.citycard .go,
+  .fg h2,.smap h2,.crumbs,.eyebrow,.localcall span,.citycard .go,
   .fbar,.note{font-size:11.5px}
   .strip span{font-size:12px}
   /* The band under the hero scrolls its own text past at 36s; on a narrow

@@ -436,15 +436,36 @@ test('every service page renders its unique intro, why-choose bullets and proces
   }
 });
 
-test('only the concrete page renders an FAQ block and a scope list', () => {
+test('every trade renders its FAQ block, and only concrete has a scope list', () => {
+  for (const s of services) {
+    const html = renderPage({ mod: d01, key: `services/${s.slug}` });
+    assert.ok(s.faqs && s.faqs.length >= 5, `${s.slug} has fewer than five FAQs`);
+    assert.match(html, /class="faqlist"/, `${s.slug} renders no FAQ block`);
+    assert.equal((html.match(/<details class="rv">/g) || []).length, s.faqs.length,
+      `${s.slug} renders the wrong number of FAQs`);
+    for (const f of s.faqs) {
+      assert.ok(html.includes(esc(f.q)), `${s.slug} is missing a question`);
+    }
+  }
+  // The scope list is concrete's alone — it came from the recovered site and
+  // no other trade has one written.
   const concrete = renderPage({ mod: d01, key: 'services/concrete' });
-  assert.match(concrete, /class="faqlist"/);
-  assert.equal((concrete.match(/<details class="rv">/g) || []).length, 6);
   assert.match(concrete, /class="scope"/);
   assert.match(concrete, /Quality Assurance/);
-  const roofing = renderPage({ mod: d01, key: 'services/roofing' });
-  assert.doesNotMatch(roofing, /class="faqlist"/);
-  assert.doesNotMatch(roofing, /class="scope"/);
+  assert.doesNotMatch(renderPage({ mod: d01, key: 'services/roofing' }), /class="scope"/);
+});
+
+test('no two trades ask the same question, and none is left unanswered', () => {
+  const seen = new Map();
+  for (const s of services) {
+    for (const f of s.faqs) {
+      assert.ok(f.q.trim().endsWith('?'), `${s.slug}: "${f.q}" is not a question`);
+      assert.ok(f.a.trim().length > 80, `${s.slug}: "${f.q}" has a thin answer`);
+      const prior = seen.get(f.q);
+      assert.ok(!prior, `${s.slug} repeats ${prior}'s question: ${f.q}`);
+      seen.set(f.q, s.slug);
+    }
+  }
 });
 
 test('the service tab rail marks the current service and links the rest', () => {

@@ -38,7 +38,29 @@
       }
     ],
     "ctaHeading": "Transform Your Space with Expert Residential Development",
-    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
+    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service.",
+    "faqs": [
+      {
+        "q": "Do you work on more than one house at a time?",
+        "a": "Yes. Residential development for us means multiple units or a small subdivision run as one programme rather than as separate jobs — shared site work, shared utilities, and a sequence that keeps trades moving between plots instead of standing idle. It is a different discipline from building one custom home well, and it is priced and scheduled differently."
+      },
+      {
+        "q": "Can you help with land before I own it?",
+        "a": "We can walk a parcel with you and give an honest read on what would be involved in building on it: access, utilities, grade, drainage and what the zoning appears to allow. That is not a substitute for a survey, a title report or a civil engineer, and we will say plainly when a question needs one of those rather than an opinion from a builder."
+      },
+      {
+        "q": "What holds up a residential development most often?",
+        "a": "Entitlement and utilities, not construction. Getting a parcel zoned and platted for what you intend, and getting power, water and sewer to it, routinely takes longer than putting the buildings up. A programme that treats those as a formality is a programme that will slip, so ours does not."
+      },
+      {
+        "q": "Do you handle the site work as well as the buildings?",
+        "a": "Yes — grading, drainage, footings and slabs are all self-managed rather than handed to a separate contractor who is not answerable to the build schedule. On a multi-unit site that coordination is most of the value, because a slab poured to the wrong level is not something you fix later."
+      },
+      {
+        "q": "Which cities do you develop in?",
+        "a": "We work across the Phoenix metro and Maricopa County, plus parts of Pinal. Jurisdiction matters more on development than on a single remodel, because entitlement processes differ substantially between a large city department, a small town and a county office. We tell you what that means for your specific parcel before you commit to it."
+      }
+    ]
   },
   {
     "slug": "casita",
@@ -79,7 +101,29 @@
       }
     ],
     "ctaHeading": "Transform Your Space with Expert Casita",
-    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
+    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service.",
+    "faqs": [
+      {
+        "q": "What counts as a casita rather than an ADU?",
+        "a": "A casita is generally a guest suite — bedroom, bathroom, often a living space — without the full kitchen that makes a unit independently habitable. That distinction is what usually separates it from an accessory dwelling unit for permitting purposes, and it affects whether the space can be rented. Definitions vary between Arizona jurisdictions, so we confirm how your specific city treats it before design."
+      },
+      {
+        "q": "Can a casita be attached to the main house?",
+        "a": "Yes. Attached casitas are common in Arizona, typically sharing a wall with the house but with their own external entrance and no internal connection, or with a lockable connecting door. Attached is often simpler on utilities and cheaper on foundations; detached gives guests genuine separation. Which is right depends on your lot, your setbacks and what the space is for."
+      },
+      {
+        "q": "Will a casita affect my property taxes?",
+        "a": "Adding permitted living space generally affects assessed value, and the Assessor rather than the contractor determines that. We are not tax advisers and will not guess at figures for you, but we will make sure the work is properly permitted, because unpermitted square footage causes far more expensive problems at resale than a tax adjustment does."
+      },
+      {
+        "q": "What setbacks apply to a detached casita?",
+        "a": "Setbacks are set by zoning and vary by city, by zone within a city, and sometimes by lot. Corner lots, easements and washes all complicate it further. This is the single most common reason a casita design has to change, which is why we establish the buildable envelope before drawing a floor plan rather than after."
+      },
+      {
+        "q": "Can I put a kitchen in my casita?",
+        "a": "Often yes, but adding a full kitchen typically reclassifies the building as an accessory dwelling unit rather than a guest casita, with different permitting and different rules on renting it. If a kitchen matters to you, it is better to design and permit it as an ADU from the outset than to add one later and discover the classification changed."
+      }
+    ]
   },
   {
     "slug": "adu",
@@ -120,7 +164,29 @@
       }
     ],
     "ctaHeading": "Transform Your Space with Expert ADU",
-    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
+    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service.",
+    "faqs": [
+      {
+        "q": "Can I build an ADU on my property in Arizona?",
+        "a": "In most of the cities we serve, yes. Arizona House Bill 2720 was signed in May 2024 and took effect on 1 January 2025. It requires municipalities with 75,000 or more residents to allow at least one attached and one detached accessory dwelling unit on single-family residential lots. Phoenix, Mesa, Chandler, Glendale, Scottsdale, Gilbert, Tempe, Peoria, Surprise, Avondale, Goodyear, Buckeye, Queen Creek, Maricopa and San Tan Valley all clear that threshold. Smaller towns are not covered by the mandate and set their own rules, so we check the local ordinance before designing anything."
+      },
+      {
+        "q": "What is the difference between an ADU and a casita?",
+        "a": "In Arizona the words are used loosely and often interchangeably. The practical distinction is that an ADU is a complete independent dwelling with its own kitchen, bathroom and entrance, and can normally be rented. A casita is often a guest suite without a full kitchen, which usually places it in a different permitting category. Which one you are actually building changes the permit, the utility connections and what you may legally do with it, so it is worth settling at the first conversation rather than at inspection."
+      },
+      {
+        "q": "Does an ADU have to match my house?",
+        "a": "Under HB 2720 a city cannot impose development standards on an ADU that are more restrictive than those already applying to single-family homes in that zone, and height limits must match those for the main structure. Design and material matching requirements vary by jurisdiction, and an HOA can still enforce its own architectural review separately from the city. We submit both together rather than in sequence."
+      },
+      {
+        "q": "Do I need a separate utility connection for an ADU?",
+        "a": "It depends on the design and the jurisdiction. Some ADUs run off the existing house services, others need their own meter, and on a property using septic rather than sewer the added bedrooms can push the system beyond its designed capacity. That last one is the constraint people find latest and dislike most, so we establish the septic and service position before drawings are worth paying for."
+      },
+      {
+        "q": "How long does an ADU take to build?",
+        "a": "The build itself is the predictable part; the review is not. Plan review timelines differ substantially between a large city department and a small town or county office, and an HOA committee adds its own cycle on top. We give you a programme with the review window built into it rather than a construction duration that assumes paperwork takes no time."
+      }
+    ]
   },
   {
     "slug": "framing",
@@ -161,7 +227,29 @@
       }
     ],
     "ctaHeading": "Transform Your Space with Expert Framing",
-    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
+    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service.",
+    "faqs": [
+      {
+        "q": "How long does framing take on a typical house?",
+        "a": "It depends on size, complexity and how many trades are waiting behind us, but framing is usually one of the faster visible stages — which is exactly why it is a bad place to rush. Every subsequent trade sets out from the frame, so an out-of-square wall or a mislocated opening multiplies into problems for drywall, cabinets and windows."
+      },
+      {
+        "q": "Do you use engineered lumber or dimensional timber?",
+        "a": "Both, according to what the structure needs and what the engineer specifies. Engineered products are common for long spans, headers and floor systems where dimensional timber would need to be impractically large. We build to the stamped structural drawings rather than substituting materials to save a few dollars, because the inspector checks against those drawings."
+      },
+      {
+        "q": "Does Arizona's climate affect framing?",
+        "a": "It does. Low humidity means timber can dry and shrink faster than in wetter climates, so material that has sat unprotected on a site in summer does not behave the same as material stored properly. Termite protection is also a genuine consideration here rather than a formality, and monsoon exposure means an open frame needs to be weathered in on a sensible schedule rather than left standing for months."
+      },
+      {
+        "q": "Can you frame an addition onto an existing house?",
+        "a": "Yes, and it is a large share of what we do. The work is different from new build: the existing structure has settled, walls are rarely plumb or square by modern standards, and the junction between old and new is where problems show up years later. We survey the existing conditions before designing the connection rather than assuming the original drawings are accurate."
+      },
+      {
+        "q": "Do I need a permit for framing work?",
+        "a": "Structural work needs a permit essentially everywhere we build, and which body issues it depends on where you are — the city in an incorporated area, the county in an unincorporated one such as Sun City, Sun City West or Anthem. We file it before work starts, because framing built against a permit that has not cleared may have to come down."
+      }
+    ]
   },
   {
     "slug": "concrete",
@@ -288,7 +376,29 @@
       }
     ],
     "ctaHeading": "Transform Your Space with Expert Stucco",
-    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
+    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service.",
+    "faqs": [
+      {
+        "q": "Why does my stucco keep cracking?",
+        "a": "Fine hairline cracking is normal in stucco and is not usually a structural problem — it comes from ordinary movement and from the material curing. Cracks that are wide, that step diagonally from a window or door corner, or that keep reopening after repair are a different matter and usually point to movement in the structure or the substrate underneath. We work out which you have before selling you a recoat that will crack again."
+      },
+      {
+        "q": "Can you match my existing stucco texture?",
+        "a": "Usually, and it is genuinely a skill rather than a product choice. Matching a texture that has weathered for twenty or forty years is a different job from matching it new — the finish has faded, the aggregate has worn, and a perfect fresh match will read as a patch. We test on a sample area and get you to look at it before committing to the elevation."
+      },
+      {
+        "q": "What is the difference between traditional and one-coat stucco?",
+        "a": "Traditional three-coat stucco is applied in scratch, brown and finish coats over lath, and is the more robust system. One-coat systems are applied in fewer passes over foam board and go on faster and cheaper. Both are used across Arizona. Which is appropriate depends on the substrate, the exposure and what is already on the building — we do not have a single house answer."
+      },
+      {
+        "q": "How often does stucco need repainting?",
+        "a": "It varies with exposure, colour and the coating used. West and south elevations in Arizona take far more ultraviolet than north-facing walls, so a house rarely wears evenly and often needs one elevation attended to well before the rest. Elastomeric coatings hold up better against that exposure than standard paint and bridge fine cracking, at higher cost."
+      },
+      {
+        "q": "Can stucco go over block?",
+        "a": "Yes, and stucco over masonry block is extremely common in older Phoenix-area housing. It is a different preparation from stucco over frame and lath — the block has to be sound and properly prepared, and a coating applied over a wall that is holding moisture will fail regardless of how well it goes on."
+      }
+    ]
   },
   {
     "slug": "dry-wall",
@@ -329,7 +439,29 @@
       }
     ],
     "ctaHeading": "Transform Your Space with Expert Dry Wall",
-    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
+    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service.",
+    "faqs": [
+      {
+        "q": "What drywall texture is standard in Arizona?",
+        "a": "Knockdown is the most common finish across Phoenix-area housing, with orange peel also widespread and smooth level-five finishes more usual on higher-end and contemporary work. Matching an existing texture on a repair or an addition is harder than applying a new one, because the original was hand-applied and no two applicators produce identical results. We sample and get it approved before doing a whole room."
+      },
+      {
+        "q": "Can you repair drywall without replacing the whole wall?",
+        "a": "Almost always. Patching, taping and re-texturing a damaged area is normal work, and the visible challenge is blending the texture and the paint rather than the repair itself. Where a wall has water damage the honest answer is different — we find and fix the source first, because patching over an active leak just hides it until it is worse."
+      },
+      {
+        "q": "What are drywall finish levels?",
+        "a": "They are an industry scale describing how much finishing work a surface receives, from level zero up to level five. Most Arizona residential work is finished to level four and then textured; level five is a fully skimmed smooth surface, used where flat paint and raking light would show every imperfection. Specifying the level matters because a smooth wall finished to level four will disappoint."
+      },
+      {
+        "q": "How long does drywall take to dry between coats?",
+        "a": "Arizona's dry air speeds compound drying considerably compared with wetter climates, which helps the schedule but is not an excuse to rush — compound that skins over on the surface while still wet underneath will crack or shrink back later. We work to the material's requirements rather than to the weather's flattery."
+      },
+      {
+        "q": "Do you handle the painting after drywall?",
+        "a": "Yes. Drywall and painting are separate trades but they are coupled — the finish level, the texture and the primer all determine how the paint reads. Running both means nobody gets to blame the other for the result, which is worth more than it sounds."
+      }
+    ]
   },
   {
     "slug": "siding",
@@ -370,7 +502,29 @@
       }
     ],
     "ctaHeading": "Transform Your Space with Expert Siding",
-    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
+    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service.",
+    "faqs": [
+      {
+        "q": "Is siding common in Arizona?",
+        "a": "Less common than stucco, which dominates Phoenix-area housing, but it is used — as an accent on gables and elevations, on contemporary designs, and on homes where an owner wants a look stucco cannot give. Because it is less common here, it is worth using someone who installs it regularly rather than someone treating it as an occasional job."
+      },
+      {
+        "q": "What siding material holds up best in Arizona heat?",
+        "a": "Fibre cement is the usual choice for this climate: it is dimensionally stable, does not feed termites and holds a coating well against ultraviolet. Vinyl is less suited to the sustained heat and direct sun on west-facing elevations here. Wood is used where the look justifies the maintenance, and it does need real maintenance in this climate."
+      },
+      {
+        "q": "Can siding go over existing stucco?",
+        "a": "Sometimes, but it depends entirely on what is behind the stucco and whether the wall assembly can take the additional fixing and the change in how it manages moisture. This is a question to answer by opening a section up and looking, not by quoting from the kerb."
+      },
+      {
+        "q": "How is siding fixed for expansion in the heat?",
+        "a": "Every siding system has manufacturer requirements for gaps, fastener placement and joint treatment that exist specifically so the material can move with temperature. Arizona's daily swing makes those requirements matter more here, not less. Siding fixed tight because it looked neater on the day is siding that buckles in its first summer."
+      },
+      {
+        "q": "Do you replace siding and stucco together?",
+        "a": "Frequently, because many Arizona homes use both — stucco on the main elevations with siding as an accent. Running them as one job means the junction between the two systems is detailed by one team rather than being the seam where two contractors each assume the other handled it."
+      }
+    ]
   },
   {
     "slug": "roofing",
@@ -411,7 +565,29 @@
       }
     ],
     "ctaHeading": "Transform Your Space with Expert Roofing",
-    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
+    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service.",
+    "faqs": [
+      {
+        "q": "Do I need a new roof or just new underlayment?",
+        "a": "On a tile roof, usually the second. Concrete tile routinely outlasts the felt underlayment beneath it by decades, so a roof that looks sound from the street can be sitting on underlayment at the end of its service life. The proper job is a relay: lift and stack the tile, strip and replace the underlayment, re-lay the same tile and replace only what broke in handling. It costs a fraction of a full replacement, and anyone quoting you a whole new roof without lifting a tile to look has not established which you need."
+      },
+      {
+        "q": "How long does a roof last in Arizona?",
+        "a": "It depends far more on the component than on the roof as a whole. Concrete tile itself can last decades beyond the underlayment under it. Low-slope foam and coated systems need periodic recoating rather than replacement. Asphalt shingle takes the ultraviolet exposure here harder than in milder climates. We tell you which component is actually at the end of its life rather than pricing everything at once."
+      },
+      {
+        "q": "Do I need a permit to replace a roof?",
+        "a": "In most jurisdictions we work in, yes — a reroof is its own permit. Which body issues it depends on where you are: the city in an incorporated area, Maricopa County in unincorporated Sun City, Sun City West or Anthem, and Pinal County for parts of the south-east. Sun City also requires a separate Sun City Fire District permit for fire and life safety alongside the county's. We file before anything comes off the roof."
+      },
+      {
+        "q": "Can you work around my solar panels?",
+        "a": "Yes, and it is increasingly common. Panels added years after the roof went on are frequently the source of a leak, because the mounts were cut into a roof that was never detailed for them. Working around an array means removal and reinstatement coordinated with the solar company, which adds time and needs planning rather than being discovered mid-job."
+      },
+      {
+        "q": "What does monsoon season mean for a reroof?",
+        "a": "It means a roof should not be opened up further than can be made weathertight the same day. We sequence tear-off in sections rather than stripping an entire roof and hoping, and we watch the forecast rather than the calendar. A contractor who leaves your roof open overnight in August is taking a risk with your house, not theirs."
+      }
+    ]
   },
   {
     "slug": "full-remodel-kitchen-bathroomcabinets-flooring-counter-tops",
@@ -452,7 +628,29 @@
       }
     ],
     "ctaHeading": "Transform Your Space with Expert Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops)",
-    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
+    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service.",
+    "faqs": [
+      {
+        "q": "Can I live in the house during a remodel?",
+        "a": "Often yes, and many clients do, but it depends on scope. A single bathroom is manageable; a kitchen removes your cooking and washing for the duration; whole-house work with the power or water off in stages is genuinely hard to live around. We are honest about which one yours is at the quoting stage rather than letting you discover it in week three."
+      },
+      {
+        "q": "Do I need a permit to remodel a kitchen or bathroom?",
+        "a": "If the work moves plumbing, changes electrical circuits, or alters anything structural such as removing a wall, then yes in essentially every jurisdiction we build in. Purely cosmetic replacement often does not. The distinction matters at resale — unpermitted work that should have been permitted is a problem that surfaces at the worst possible moment."
+      },
+      {
+        "q": "What usually causes a remodel to run over?",
+        "a": "Two things above all others: what is found once walls are open, and long-lead materials. Older Arizona housing routinely hides original wiring, undersized panels and previous alterations done without paperwork. We build a contingency into the programme for it and tell you what we find as we find it rather than at the end."
+      },
+      {
+        "q": "Can you remove a wall to open up a kitchen?",
+        "a": "Usually, but whether the wall is load-bearing changes the job from a demolition into a structural one requiring engineering, a permit and a beam. We establish which it is before pricing. A contractor who tells you a wall can come out without having looked at what is above it is guessing with your house."
+      },
+      {
+        "q": "Do you supply cabinets and countertops or do I?",
+        "a": "Either. We can supply and fit throughout, or fit what you have sourced yourself. What matters more than who buys them is that the template and the fit are coordinated with the plumbing and electrical rough-in — countertops templated before the cabinets are set is the classic sequence error, and it is expensive."
+      }
+    ]
   },
   {
     "slug": "custom-home-building",
@@ -493,7 +691,29 @@
       }
     ],
     "ctaHeading": "Transform Your Space with Expert Custom Home Building",
-    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
+    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service.",
+    "faqs": [
+      {
+        "q": "Where does building a custom home actually start?",
+        "a": "With the lot, not the floor plan. Zoning, setbacks, grade, drainage, utility availability and — outside city limits — well and septic capacity all constrain what can be built before a single room is designed. Designing first and testing the lot afterwards is how people end up paying twice for drawings."
+      },
+      {
+        "q": "How long does a custom home take?",
+        "a": "Considerably longer than the construction alone, because design, engineering and plan review all precede it and none of them is instant. Review timelines differ substantially between a large city department, a small town office and a county one. We give you a programme that includes those windows rather than a build duration that quietly assumes they take no time."
+      },
+      {
+        "q": "Do you build on hillside or rural lots?",
+        "a": "Yes. Hillside work in places like Fountain Hills, Cave Creek and Paradise Valley brings its own provisions on cut and fill, height and drainage, and access frequently limits what equipment and deliveries can physically reach a site. Rural lots bring well and septic questions that have to be settled before a design is worth drawing."
+      },
+      {
+        "q": "Can I make changes once building has started?",
+        "a": "Yes, and most people do. What we ask is that changes are agreed in writing with their cost and schedule effect stated before the work happens, not after. Verbal changes on a busy site are how disputes start, and they are entirely avoidable."
+      },
+      {
+        "q": "Do you manage the trades yourself?",
+        "a": "Yes — the trades are self-managed rather than handed to a separate project manager who is not answerable for the result. On a custom home the coordination between trades is where the quality actually lives, and it is not something to subcontract away."
+      }
+    ]
   },
   {
     "slug": "painting",
@@ -534,7 +754,29 @@
       }
     ],
     "ctaHeading": "Transform Your Space with Expert Painting",
-    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
+    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service.",
+    "faqs": [
+      {
+        "q": "How often should an Arizona house be repainted?",
+        "a": "Less often than people fear and less evenly than they expect. Ultraviolet exposure here is severe, but a house rarely wears uniformly — west and south elevations degrade considerably faster than north-facing ones, so a single elevation often needs attention well before the rest of the house does. We will tell you when that is the case rather than quoting the whole building."
+      },
+      {
+        "q": "What paint holds up best in this climate?",
+        "a": "For exterior masonry and stucco, elastomeric coatings perform well here: they resist ultraviolet, and they bridge the fine hairline cracking that stucco naturally develops. They cost more than standard exterior paint and they are not right for every substrate. Interior work is a different conversation entirely, driven by sheen, washability and the finish level of the wall behind it."
+      },
+      {
+        "q": "Do you prepare the surface or just paint?",
+        "a": "Preparation is most of the job and most of what separates a paint job that lasts from one that does not. Washing, sound repair of cracks, priming bare or repaired areas and proper masking all happen before a finish coat goes anywhere. A quote that is notably cheaper than others is usually cheaper here, and it shows within two summers."
+      },
+      {
+        "q": "Can you match an existing colour?",
+        "a": "Usually. A colour that has been on a wall in Arizona sun for years is no longer the colour it started as, so matching the original formula gives you a patch that is visibly newer. We match to the wall as it is now, and we test on the actual elevation before committing."
+      },
+      {
+        "q": "When is the best time of year to paint outside in Arizona?",
+        "a": "Spring and autumn are kindest. Mid-summer surface temperatures on a west wall can be high enough that coatings flash off faster than they should, which affects adhesion and finish. Work through summer is entirely possible by following the sun around the building and starting early, and that is how we schedule it."
+      }
+    ]
   },
   {
     "slug": "deck-building-uses-trex-system",
@@ -575,7 +817,29 @@
       }
     ],
     "ctaHeading": "Transform Your Space with Expert Deck Building (uses Trex System)",
-    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
+    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service.",
+    "faqs": [
+      {
+        "q": "Does composite decking get too hot in Arizona?",
+        "a": "Any decking gets hot in direct Arizona sun, composite included, and lighter colours run cooler than dark ones. It is a real consideration here and worth designing around rather than ignoring — shade over the deck, colour choice, and where the deck sits relative to afternoon sun all make more practical difference than the material brand does."
+      },
+      {
+        "q": "Why composite rather than wood?",
+        "a": "In this climate composite avoids the splitting, cupping and annual maintenance that timber demands under sustained ultraviolet and very low humidity, and it does not feed termites. Timber remains a legitimate choice where the look justifies the upkeep, and we will build either — but we will be straight about what maintaining a timber deck here actually involves."
+      },
+      {
+        "q": "Do I need a permit for a deck?",
+        "a": "It depends on height, size and whether it is attached to the house, and the thresholds vary by jurisdiction. Attached and raised structures generally require one. We check the local rule rather than applying a rule of thumb, because the answer genuinely differs between a city, a small town and an unincorporated county area."
+      },
+      {
+        "q": "How is a composite deck built for heat movement?",
+        "a": "Composite expands and contracts with temperature more than people expect, and every manufacturer publishes gapping and fastening requirements that exist for exactly that reason. Arizona's daily temperature swing makes following them essential rather than optional. A deck laid tight because it looked neater on installation day is a deck that buckles."
+      },
+      {
+        "q": "Can you build a shade structure over the deck?",
+        "a": "Yes, and in this climate it is frequently what makes a deck actually usable. Pergolas, ramadas and patio covers are work we do routinely, and designing the deck and its shade together produces a better result than adding cover to a deck that was never planned for it."
+      }
+    ]
   },
   {
     "slug": "window-installation",
@@ -616,6 +880,28 @@
       }
     ],
     "ctaHeading": "Transform Your Space with Expert Window Installation",
-    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service."
+    "ctaBody": "Contact Quest Construction today to elevate your property with expert craftsmanship and dependable service.",
+    "faqs": [
+      {
+        "q": "What should I look for in windows for Arizona?",
+        "a": "Two numbers matter more than the marketing. Solar heat gain coefficient measures how much of the sun's heat gets through — lower is better here, and it matters more in this climate than almost anywhere. U-factor measures heat transfer. Low-emissivity coatings on the glass are effectively standard for Arizona west and south elevations, and it is reasonable to specify differently for different sides of the same house."
+      },
+      {
+        "q": "What is the difference between retrofit and full-frame replacement?",
+        "a": "Retrofit fits a new window into the existing frame, which is faster, cheaper and less disruptive. Full-frame removes everything back to the opening, which costs more but is the only honest option when the existing frame or the surrounding structure has deteriorated. Retrofitting into a compromised opening hides a problem rather than solving it, and we will say so."
+      },
+      {
+        "q": "Will new windows lower my cooling bill?",
+        "a": "They generally help, and on a house with old single-glazed windows and west-facing exposure the difference can be substantial. We will not put a percentage on it, because the honest answer depends on your insulation, your air conditioning system, your shading and how you use the house. Anyone quoting you a guaranteed saving is quoting a sales figure, not an engineering one."
+      },
+      {
+        "q": "How is the stucco repaired around new windows?",
+        "a": "That is the part of a window job that shows, and it is where cheap installations fail. Cutting a window out of a stucco wall means the flashing, the weather barrier and then the stucco patch all have to be reinstated correctly and the texture matched to a wall that has weathered for years. We do that work ourselves rather than leaving it to whoever comes next."
+      },
+      {
+        "q": "Do window replacements need a permit?",
+        "a": "Like-for-like replacement often does not, but changing the size of an opening does, because it is structural. The threshold varies by jurisdiction. We check before starting rather than assuming, since the cost of getting that wrong lands on the homeowner at resale."
+      }
+    ]
   }
 ]

@@ -96,7 +96,7 @@ export function pageList(opts = {}) {
   };
 
   push('home', 'home',
-    `Construction & Remodeling in Arizona${brand}`,
+    `Arizona Construction & Remodeling${brand}`,
     clip(`${pages.home.heroBody} Serving Arizona homeowners since ${site.foundingYear}.`, 155));
 
   for (const s of services) {

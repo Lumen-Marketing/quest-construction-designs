@@ -575,7 +575,7 @@ export function service(c) {
 
   const steps = s.process.map((p) => `
     <div class="step rv"><div class="n">${p.n}</div>
-      <h4>${esc(p.title)}</h4><p>${esc(p.body)}</p></div>`).join('');
+      <h3>${esc(p.title)}</h3><p>${esc(p.body)}</p></div>`).join('');
 
   const scope = s.scope && s.scope.length ? `
 <section class="sec cream">
@@ -934,6 +934,8 @@ export function projects(c) {
 <section class="sec cream">
   ${grid(false)}
   <div class="wrap">
+    ${shead('&mdash; Selected work', 'Projects We Have <span>Built</span>',
+      'Each one photographed on our own jobs, not staged and not stock.')}
     <div class="pjs">${p.items.map((it, i) => `
       <article class="pjcard rv">
         <div class="pjshot">${img(c, ...shot(PROJECT_SHOTS[i % PROJECT_SHOTS.length]))}</div>
@@ -1301,7 +1303,7 @@ ${closingCta(c, 'Tell us where the job is',
 
 export function sitemap(c) {
   const col = (title, items) => `<div class="rv">
-  <h3>${esc(title)}</h3>
+  <h2>${esc(title)}</h2>
   <ul>${items.map(([href, label]) =>
     `<li><a href="${href}">${esc(label)}</a></li>`).join('')}</ul>
 </div>`;

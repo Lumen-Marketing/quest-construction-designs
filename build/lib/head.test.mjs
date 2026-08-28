@@ -76,17 +76,26 @@ test('a service page emits a Service node and a breadcrumb trail', () => {
   assert.equal(crumbs.itemListElement[2].name, 'Roofing');
 });
 
-test('only the concrete page emits FAQPage, with six entries', () => {
+test('every trade page emits FAQPage, and nothing else does', () => {
   const withFaq = pages.filter((p) => {
     const g = graphFor({ page: p, res: resolver('d01-site-plan', p.key), content });
     return g['@graph'].some((n) => n['@type'] === 'FAQPage');
   });
-  assert.deepEqual(withFaq.map((p) => p.key), ['services/concrete']);
-  const g = graphFor({
-    page: find('services/concrete'),
-    res: resolver('d01-site-plan', 'services/concrete'), content,
-  });
-  assert.equal(g['@graph'].find((n) => n['@type'] === 'FAQPage').mainEntity.length, 6);
+  assert.deepEqual(withFaq.map((p) => p.key).sort(),
+    content.services.map((s) => `services/${s.slug}`).sort());
+
+  // Every question and answer has to reach the graph, or the rich result is
+  // built from a subset of what the page actually says.
+  for (const p of withFaq) {
+    const g = graphFor({ page: p, res: resolver('d01-site-plan', p.key), content });
+    const faq = g['@graph'].find((n) => n['@type'] === 'FAQPage');
+    assert.equal(faq.mainEntity.length, p.item.faqs.length, `${p.key} FAQ count`);
+    for (const e of faq.mainEntity) {
+      assert.equal(e['@type'], 'Question');
+      assert.equal(e.acceptedAnswer['@type'], 'Answer');
+      assert.ok(e.acceptedAnswer.text.length > 80, `${p.key}: thin answer in graph`);
+    }
+  }
 });
 
 test('an area page scopes areaServed to its own city', () => {
