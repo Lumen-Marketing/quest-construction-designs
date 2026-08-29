@@ -580,6 +580,7 @@ node inspect.mjs  ../site/index.html ".hero" 1440  # computed styles for one sel
 node gridcheck.mjs ../site/contact-us/index.html ".contact-form" 1440
 node boxes.mjs    ../site/index.html ".svc" 1440   # box metrics for the first few
 node dropcheck.mjs ../site/index.html 1440         # is the open nav drop hit-testable?
+node fold.mjs     ../site/index.html 1900 857     # does .strip clear the fold at that window?
 node acctext.mjs  ../d06-red-iron/index.html clay  # accent text, and what it sits on
 node groundtruth.mjs ../d06-red-iron/index.html ".blk.tall .n" clay
 node mob.mjs      ../site/index.html ./m.png       # true 390px phone render

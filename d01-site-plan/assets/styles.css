@@ -49,6 +49,11 @@
      numbers that had already drifted apart — 82, 83 in a comment, 96 in the
      scroll-margin — so the drawer sat a few pixels wrong at every width. */
   --navh:82px;
+  /* The trade strip's height, for the same reason: the hero is sized to stop
+     short of it so the strip is on screen when the page lands, and that sum
+     needs a number it cannot drift from. The strip sets its own height from
+     this rather than falling out of padding plus a line box. */
+  --striph:56px;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--cream);color:var(--ink);
@@ -232,8 +237,29 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
    is the proportion — this band is twice the height and carries an eyebrow, a
    two-tier headline, a lede, two buttons and four figures, so the scrim has to
    hold a whole column down rather than two lines. */
-.hero{position:relative;overflow:hidden;padding:var(--sp-4) 0 var(--sp-5);
-  min-height:clamp(540px,64vw,760px);display:flex;align-items:center;
+/* The height is the fold, expressed rather than guessed. The hero used to be
+   clamp(540px,64vw,760px), which on a wide window resolved to a flat 760px —
+   add the 83px header and the 56px strip and the trade names landed just past
+   the bottom edge of a laptop, so the first thing a visitor saw was a band
+   that gave no sign anything moved below it.
+   So the middle term is now the room actually left: the viewport, less the
+   header, less its 1px rule, less the strip. 760px stays as the cap so a tall
+   window does not stretch the band, and the floor keeps it from collapsing on
+   a short one. svh, not vh, because on a phone vh is the URL-bar-hidden height
+   and would put the strip under the browser's own furniture on landing.
+   The vertical padding takes the same treatment. --sp-4 and --sp-5 are
+   clamp(36px,5vw,74px) and clamp(50px,6vw,86px) — they scale with WIDTH, so a
+   wide-but-short window was holding 160px of padding it had no room for. The
+   vh terms are the same 5 and 6 read against the other axis, so this is the
+   existing scale applied to the axis that is actually short, not a pair of
+   numbers picked to clear a particular laptop. They only bind where the window
+   is short: on anything tall enough the content fits inside min-height and the
+   flex centring places it, so the padding never enters the sum. */
+.hero{position:relative;overflow:hidden;
+  padding:min(var(--sp-4),5vh) 0 min(var(--sp-5),6vh);
+  min-height:clamp(520px,calc(100vh - var(--navh) - 1px - var(--striph)),760px);
+  min-height:clamp(520px,calc(100svh - var(--navh) - 1px - var(--striph)),760px);
+  display:flex;align-items:center;
   background:var(--dark);color:var(--on-dark);isolation:isolate}
 .hero-shot{position:absolute;inset:0;z-index:0;pointer-events:none}
 /* The subject is a horizontal strip of building across the middle of a 16:9
@@ -426,7 +452,8 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
    both edges at every width. */
 
 /* ---------- 03 MARQUEE STRIP ---------- */
-.strip{background:var(--dark);color:var(--on-dark-2);padding:18px 0;overflow:hidden}
+.strip{background:var(--dark);color:var(--on-dark-2);overflow:hidden;
+  height:var(--striph);display:grid;align-content:center}
 .strip-in{display:flex;align-items:center;width:max-content;animation:slide 36s linear infinite}
 @keyframes slide{to{transform:translateX(-50%)}}
 .strip .strip-i,.strip .d{font-family:'JetBrains Mono',monospace;font-size:12px;

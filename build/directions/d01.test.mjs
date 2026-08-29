@@ -789,3 +789,20 @@ test('the sliding strip stops moving under a pointer or a keyboard', () => {
   assert.match(css, /\.strip:hover \.strip-in,\.strip:focus-within \.strip-in\{animation-play-state:paused\}/);
   assert.match(css, /\.strip-i:focus-visible\{outline:/);
 });
+
+// The hero used to resolve to a flat 760px on any wide window, which put the
+// trade strip just past the bottom edge of a laptop. Its height is the fold
+// now — viewport less header less strip — so this pins that it is still a
+// derivation and not a number someone typed.
+test('the hero is sized to leave the trade strip above the fold', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  const hero = css.split('.hero{')[1].split('}')[0];
+  assert.match(hero, /min-height:clamp\([^)]*calc\(100svh - var\(--navh\) - 1px - var\(--striph\)\)/,
+    'hero height no longer derives from the header and strip');
+  assert.doesNotMatch(hero, /min-height:clamp\(540px,64vw,760px\)/, 'the flat 760px hero is back');
+  // The strip must own its height for that sum to mean anything — if it goes
+  // back to falling out of padding plus a line box, --striph is a guess again.
+  const strip = css.split('.strip{')[1].split('}')[0];
+  assert.match(strip, /height:var\(--striph\)/);
+  assert.match(css, /--striph:\d+px/);
+});
