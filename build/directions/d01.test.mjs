@@ -245,36 +245,38 @@ test('the hero photograph is the aerial, eager and preloaded', () => {
   assert.match(hero[1], /width="\d+" height="\d+"/, 'the hero has no intrinsic size');
 });
 
-test('the floating badge is anchored to the hero corner, clear of the copy', () => {
+test('the phone badge sits level with the figures, not at an offset of its own', () => {
+  const html = renderPage({ mod: d01, key: 'home' });
   const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+
+  // It was absolutely positioned at bottom:6%, then 13% — numbers picked to
+  // look right at one viewport, tracking nothing. Quest asked for it level
+  // with the founding year, and the only way that stays true at every width is
+  // for the two to share a row.
+  assert.match(html, /<div class="hero-foot">[\s\S]*?class="hero-trust"[\s\S]*?class="badge badge-float"[\s\S]*?<\/div>\s*<\/div>/,
+    'the badge and the figures are not in the same row');
+
+  const foot = /\.hero-foot\{[^}]*\}/.exec(css);
+  assert.ok(foot, 'no rule for the hero foot row');
+  assert.match(foot[0], /display:flex/, 'the row is not a flex row');
+  assert.match(foot[0], /align-items:center/, 'the two are not centred against each other');
+
   const badge = /\.badge-float\{[^}]*\}/.exec(css);
-  assert.ok(badge, 'no rule for the floating badge');
-
-  // It used to float ON the hero object and was measured off that object's own
-  // right edge and width, so it would not slide away once the object hit its
-  // width cap. There is no object any more, and the arithmetic must not be
-  // left behind half-wired: a left:calc() reading a width nothing tracks is
-  // the same bug in a quieter form.
-  assert.match(badge[0], /right:[\d.]+%/, 'the badge is not anchored from the right');
-  assert.match(badge[0], /bottom:[\d.]+%/, 'the badge is not anchored from the bottom');
-  assert.match(badge[0], /left:auto/, 'the badge still carries a left offset as well');
-  assert.doesNotMatch(badge[0], /calc\(/, 'the badge still measures itself off something');
-
-  // Bottom right, not top right: the masthead already carries a phone button in
-  // the top-right corner and a second one under it reads as the same control
-  // twice. This pins that reasoning rather than the exact offsets.
-  assert.doesNotMatch(badge[0], /top:/, 'the badge has moved under the masthead phone button');
-
-  // And it stays above every layer the hero stacks under it — the frame, the
-  // scrim, the beam, the grid and the copy.
-  const z = Number(/z-index:(\d+)/.exec(badge[0])[1]);
-  for (const sel of ['.hero-shot', '.hero-beam', '.hero-copy,.hero-trust']) {
-    const rule = new RegExp(`\\${sel.replace(/,/g, ',\\.').replace(/^\./, '\\.')}\\{[^}]*z-index:(\\d+)`)
-      .exec(css);
-    if (!rule) continue;
-    assert.ok(z > Number(rule[1]),
-      `the badge is at z-index ${z}, under ${sel} at ${rule[1]}`);
+  assert.ok(badge, 'no rule for the badge');
+  // No offsets left behind. A stale bottom:% on an in-flow element does
+  // nothing, which is worse than doing something wrong — it reads as intent.
+  for (const dead of [/bottom:/, /right:/, /left:/, /top:/, /position:absolute/]) {
+    assert.doesNotMatch(badge[0], dead, `the badge still carries ${dead}`);
   }
+  // The gap above the row belongs to the row. On the figures alone, centring
+  // measures their margin box and the badge rides high of the numbers.
+  assert.doesNotMatch(/\.hero-trust\{[^}]*\}/.exec(css)[0], /margin-top:/,
+    'the figures carry the row gap, so the badge cannot centre against them');
+  assert.match(foot[0], /margin-top:/, 'the row has no gap above it');
+
+  // Still above every layer the hero stacks under it.
+  const z = Number(/z-index:(\d+)/.exec(badge[0])[1]);
+  assert.ok(z >= 4, `the badge sits at z-index ${z}, under the hero's own layers`);
 });
 
 test('the hero is one full-bleed photograph, read off a scrim', () => {
