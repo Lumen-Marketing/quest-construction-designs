@@ -10,8 +10,12 @@ import { readdirSync, readFileSync, existsSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { checkDir, walk } from './check-links.mjs';
 import { documentFindings, isIndexable } from './lib/page-rules.mjs';
+import { pageCount } from './lib/pages.mjs';
 
-const BUILT_PAGES = 31;
+// Derived, never typed. This was a hardcoded 31 and went stale the moment the
+// area list grew from eleven cities to thirty-four — the gate then failed on
+// every direction for a page count that was correct.
+const BUILT_PAGES = pageCount();
 const EXPECTED_DIRECTIONS = 10;
 
 const folders = readdirSync('.', { withFileTypes: true })

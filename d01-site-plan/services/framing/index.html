@@ -1075,12 +1075,6 @@
   });
 })();
 (function(){
-  var el=document.getElementById('strip'); if(!el) return;
-  var items=["Residential Development","Casita","ADU","Framing","Concrete","Stucco","Dry Wall","Siding","Roofing","Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops)","Custom Home Building","Painting","Deck Building (uses Trex System)","Window Installation"];
-  var half=items.map(function(t){return '<span>'+t+'</span><span class="d">&#9670;</span>'}).join('');
-  el.innerHTML=half+half;
-})();
-(function(){
   var els=document.querySelectorAll('.rv');
   if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
   var io=new IntersectionObserver(function(es){es.forEach(function(en){

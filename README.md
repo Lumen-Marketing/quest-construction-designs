@@ -2,7 +2,7 @@
 
 Ten design directions for **Quest Construction** (general contracting). Each one is a complete
 **fifty-four page site** — home, fourteen services, thirty-four service areas, about, gallery, projects,
-contact and sitemap — so 310 pages in total. Nothing here is wired to a live site; the contact form
+contact and sitemap — so 540 pages in total. Nothing here is wired to a live site; the contact form
 is not connected.
 
 **Open `index.html`** — that is the chooser. Each card is a live, scaled iframe of the real
@@ -99,7 +99,7 @@ writes static HTML. The generated HTML is committed — the generator is a dev t
 dependency, and the folders can be served as they stand.
 
 ```bash
-node build/build.mjs              # all ten directions, 310 pages
+node build/build.mjs              # all ten directions, 540 pages
 node build/build.mjs d05          # just one
 node build/apply-css.mjs d05      # re-splice build/css/d05.css onto that direction's stylesheet
 node build/check-links.mjs d05-ground-break
@@ -392,7 +392,7 @@ only this one file is regenerated on every build.
 
 Which product hashes is a profile question, like everything else that separates
 the two — `profile.stylesheet()`. The ten demo directions do not: nothing serves
-them with a long cache to justify it, and hashing would rewrite all 310 pages
+them with a long cache to justify it, and hashing would rewrite all 540 pages
 every time anyone touched a colour.
 
 `verify-site.mjs` holds the two invariants that a page cannot show on its own:

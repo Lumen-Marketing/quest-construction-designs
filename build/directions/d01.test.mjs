@@ -753,3 +753,39 @@ test('every rendered image carries alt text and intrinsic dimensions', () => {
     }
   }
 });
+
+// The strip was decoration for a long time: aria-hidden, injected by a script
+// on load, fourteen trade names in spans no crawler and no keyboard could
+// reach. It is navigation now, and these pin the three things that makes true.
+test('the trade strip is rendered server-side, not injected by script', () => {
+  const html = renderPage({ mod: d01, key: 'home' });
+  assert.doesNotMatch(html, /getElementById\('strip'\)/, 'strip is still built in JS');
+  const strip = html.split('<nav class="strip"')[1].split('</nav>')[0];
+  for (const s of services) {
+    assert.ok(strip.includes(esc(s.name)), `strip missing trade ${s.slug}`);
+  }
+});
+
+test('every trade in the strip links to that trade page', () => {
+  const html = renderPage({ mod: d01, key: 'home' });
+  const strip = html.split('<nav class="strip"')[1].split('</nav>')[0];
+  for (const s of services) {
+    assert.ok(strip.includes(`href="services/${s.slug}/index.html"`),
+      `strip does not link ${s.slug}`);
+  }
+  // Two halves make the loop seamless, so every link appears twice. Exactly
+  // one of each pair is reachable — the duplicate is hidden and untabbable.
+  const links = strip.match(/<a class="strip-i"[^>]*>/g) || [];
+  assert.equal(links.length, services.length * 2);
+  const dup = links.filter((a) => a.includes('tabindex="-1"'));
+  assert.equal(dup.length, services.length, 'duplicate half is reachable twice');
+  for (const a of dup) assert.match(a, /aria-hidden="true"/);
+  assert.ok(!links.some((a) => !a.includes('tabindex="-1"') && a.includes('aria-hidden')),
+    'the real half is hidden from screen readers');
+});
+
+test('the sliding strip stops moving under a pointer or a keyboard', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  assert.match(css, /\.strip:hover \.strip-in,\.strip:focus-within \.strip-in\{animation-play-state:paused\}/);
+  assert.match(css, /\.strip-i:focus-visible\{outline:/);
+});

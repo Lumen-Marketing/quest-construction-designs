@@ -123,6 +123,29 @@ const svcCards = (c, cta) => c.services.map((s, i) => `
 // not to a page, and every page ends on the same one.
 const CTA_PROMPT = 'Got a project in need of a builder?';
 
+// The trade marquee. It used to be written by a script on load, which meant the
+// fourteen trade names were invisible to a crawler and unreachable without JS —
+// so it is rendered here instead, and every name is the link to its own page.
+//
+// The loop needs two identical halves for the -50% translate to be seamless.
+// Only the first is real: every element of the second is aria-hidden and out of
+// the tab order, so a keyboard or screen reader meets each trade once, not
+// twice, and focus never lands on a copy sitting outside the visible frame.
+// They are flattened into one flex row rather than wrapped per half, because a
+// wrapper would need display:contents to keep the two widths equal and that is
+// a layout trick to solve a problem it introduced.
+const stripHalf = (c, dup) => {
+  const hide = dup ? ' tabindex="-1" aria-hidden="true"' : '';
+  return c.services.map((s) =>
+    `<a class="strip-i" href="${c.url(`services/${s.slug}`)}"${hide}>${esc(s.name)}</a>`
+    + '<span class="d" aria-hidden="true">&#9670;</span>').join('');
+};
+
+const strip = (c) => `
+<nav class="strip" aria-label="Our services">
+  <div class="strip-in">${stripHalf(c, false)}${stripHalf(c, true)}</div>
+</nav>`;
+
 // The closing plate. Every page ends on it, so it is built once — home, service
 // and area each carried their own byte-identical copy of this.
 //
@@ -259,7 +282,7 @@ export function accentScript() {
 </script>`;
 }
 
-/** Nav toggle, offer-code copy, static-form notice, marquee, scroll reveals. */
+/** Nav toggle, offer-code copy, static-form notice, scroll reveals. */
 export function baseScript(c) {
   return `<script>
 (function(){
@@ -397,12 +420,6 @@ export function baseScript(c) {
   });
 })();
 (function(){
-  var el=document.getElementById('strip'); if(!el) return;
-  var items=${JSON.stringify(c.services.map((s) => s.name))};
-  var half=items.map(function(t){return '<span>'+t+'</span><span class="d">&#9670;</span>'}).join('');
-  el.innerHTML=half+half;
-})();
-(function(){
   var els=document.querySelectorAll('.rv');
   if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
   var io=new IntersectionObserver(function(es){es.forEach(function(en){
@@ -514,7 +531,7 @@ export function home(c) {
   </div>
 </section>
 
-<section class="strip" aria-hidden="true"><div class="strip-in" id="strip"></div></section>
+${strip(c)}
 
 <section class="sec dark" id="services">
   ${grid(true)}
