@@ -130,6 +130,15 @@ placeholder identity data anywhere. A new direction cannot ship without meeting 
 `content/areas-local.json`; 02–10 render the ported template from `content/areas.json` with the
 `{{city}}` token filled. They are `noindex`, so the thin-content exposure never reaches the index.
 
+**The cities are grouped by valley.** `content/areas.json` carries a `regions` list — Central,
+East, West, North and South Valley — beside the flat thirty-four. `d01`'s Areas Served menu prints
+one headed block per region rather than thirty-four names in one undivided run, and inside a block
+the city stands alone ("Mesa", not "Mesa, AZ") because the heading has already said where it is.
+A few cities are in two regions on purpose: Tempe is East Valley to a customer in Mesa and Central
+Valley to one in Phoenix, and being found twice costs less than being missed once. Every city sits
+in at least one region — `d01.test.mjs` still asserts the nav reaches all thirty-four, so one
+falling out of the regions list fails the build rather than quietly disappearing from the menu.
+
 ## Design languages
 
 The first pass made all three brutalist. That was wrong for 01 and 02 — brutalism is deliberately

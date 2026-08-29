@@ -180,6 +180,24 @@ const closingCta = (c, heading, body) => `
 export function nav(c) {
   const col = (items) => items.map(([href, label]) =>
     `<a href="${href}">${esc(label)}</a>`).join('');
+
+  // Thirty-four cities in one undivided run of two columns is a wall: no
+  // ordering a visitor can predict, so finding a city means reading all of it.
+  // content/areas.json groups them by valley instead, and the panel prints one
+  // headed block per region. Inside a block the city stands alone — "Mesa",
+  // not "Mesa, AZ" — because the heading has already said where we are.
+  //
+  // A few cities sit in two regions. Tempe is East Valley to a customer in
+  // Mesa and Central Valley to one in Phoenix, so it is printed under both:
+  // the menu is a way in, and being found twice costs less than being missed
+  // once. Every city belongs to at least one region, and d01.test.mjs fails
+  // the build if one falls out of the nav.
+  const byslug = new Map(c.areas.areas.map((a) => [a.slug, a]));
+  const areaGroups = () => (c.areas.regions || []).map((r) => `<div class="dropgrp">
+        <p class="dropgrp-h mono">${esc(r.name)}</p>
+        ${r.cities.map((slug) => byslug.get(slug)).filter(Boolean).map((a) =>
+    `<a href="${c.url(`service-areas/${a.slug}`)}">${esc(a.city)}</a>`).join('')}
+      </div>`).join('');
   return `<header class="nav">
 <div class="wrap">
   <a class="brand" href="${c.url('home')}" aria-label="${esc(c.site.name)} home">
@@ -199,9 +217,10 @@ export function nav(c) {
     <div class="drop">
       <button type="button" aria-expanded="false" aria-haspopup="true"
         aria-controls="menu-areas">Areas Served</button>
-      <div class="dropmenu dropmenu--area" id="menu-areas">${col([
-        ...(c.hubs ? [[c.url('service-areas'), 'All Areas Served']] : []),
-        ...c.areas.areas.map((a) => [c.url(`service-areas/${a.slug}`), a.name])])}</div>
+      <div class="dropmenu dropmenu--area" id="menu-areas">${c.hubs
+    ? `<a class="dropall" href="${c.url('service-areas')}">All Areas Served</a>` : ''}
+        <div class="dropgrps">${areaGroups()}</div>
+      </div>
     </div>
     <a href="${c.url('projects')}">Projects</a>
     <a href="${c.url('gallery')}">Gallery</a>

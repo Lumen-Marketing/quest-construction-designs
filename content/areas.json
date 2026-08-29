@@ -20,6 +20,70 @@
     "ctaHeading": "Transform Your Space with Expert Construction",
     "ctaBody": "Contact Quest Construction now for reliable 24/7 service in {{city}}, AZ. Schedule today!"
   },
+  "regions": [
+    {
+      "name": "Central Valley",
+      "cities": [
+        "phoenix-az",
+        "scottsdale-az",
+        "paradise-valley-az",
+        "tempe-az"
+      ]
+    },
+    {
+      "name": "East Valley",
+      "cities": [
+        "mesa-az",
+        "chandler-az",
+        "gilbert-az",
+        "tempe-az",
+        "queen-creek-az",
+        "apache-junction-az",
+        "san-tan-valley-az"
+      ]
+    },
+    {
+      "name": "West Valley",
+      "cities": [
+        "glendale-az",
+        "peoria-az",
+        "surprise-az",
+        "goodyear-az",
+        "avondale-az",
+        "buckeye-az",
+        "litchfield-park-az",
+        "el-mirage-az",
+        "tolleson-az",
+        "youngtown-az",
+        "sun-city-az",
+        "sun-city-west-az",
+        "wickenburg-az"
+      ]
+    },
+    {
+      "name": "North Valley",
+      "cities": [
+        "north-phoenix-az",
+        "deer-valley-az",
+        "anthem-az",
+        "cave-creek-az",
+        "carefree-az",
+        "fountain-hills-az"
+      ]
+    },
+    {
+      "name": "South Valley",
+      "cities": [
+        "south-phoenix-az",
+        "laveen-az",
+        "ahwatukee-az",
+        "guadalupe-az",
+        "chandler-az",
+        "queen-creek-az",
+        "maricopa-az"
+      ]
+    }
+  ],
   "areas": [
     {
       "slug": "phoenix-az",

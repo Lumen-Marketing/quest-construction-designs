@@ -890,17 +890,36 @@ footer .brand img{height:38px}
    215px and the text ran straight out of it, printing over the item in the
    next column. */
 .dropmenu--svc{grid-template-columns:repeat(2,minmax(240px,1fr));gap:2px 14px}
-.dropmenu--area{grid-template-columns:repeat(2,minmax(200px,1fr));gap:2px 14px}
+/* The areas panel is a grouped menu rather than a run of links: one headed
+   block per valley, and the blocks are packed by CSS multicol. A three-track
+   grid would set every row to its tallest block, and the West Valley's
+   thirteen cities would leave a hole under the Central Valley's four.
+   Multicol keeps document order, balances the height and breaks between
+   blocks rather than through one. */
+.dropmenu--area{grid-template-columns:1fr;gap:8px;width:min(600px,calc(100vw - 34px))}
+.dropgrps{columns:3;column-gap:12px}
+.dropgrp{break-inside:avoid;margin:0 0 12px}
+.dropgrp-h{margin:0 0 3px;padding:0 13px;color:var(--mute-lt)}
 /* The panel is centred on its button, so its width is what decides whether it
    clears the left edge. Between the burger breakpoint and 1080px the Services
    button sits close enough to the brand that a 532px panel hangs off-screen;
    the tracks give up the width instead, and the two longest trades wrap. */
 @media(max-width:1080px){
   .dropmenu--svc{grid-template-columns:repeat(2,minmax(200px,1fr))}
-  .dropmenu--area{grid-template-columns:repeat(2,minmax(175px,1fr))}
 }
+/* The areas panel keeps its three columns all the way down to the burger
+   breakpoint. It is centred on a button that sits mid-nav rather than beside
+   the brand, so 600px still clears both edges at 940px — and folding to two
+   columns instead made the panel 940px tall, which runs off the bottom of a
+   laptop screen and takes the last cities with it. */
 .dropmenu a{padding:10px 13px;border-radius:11px;font-size:14px;line-height:1.35;
   color:var(--ink-2);transition:background .2s,color .2s}
+/* After `.dropmenu a`, not before it: same specificity, so the later rule is
+   the one that lands. The grouped rows are tighter than a flat menu's because
+   the heading above them is already doing the separating. */
+.dropgrp a{display:block;padding:5px 13px}
+.dropall{font-weight:600;color:var(--ink);border-bottom:1px solid rgba(21,20,15,.08);
+  border-radius:11px 11px 0 0}
 @media (hover:hover) and (pointer:fine){
   .dropmenu a:hover{background:rgba(21,20,15,.06);color:var(--ink)}
 }
@@ -958,6 +977,11 @@ footer .brand img{height:38px}
   .drop.open .dropmenu{display:grid;grid-template-columns:1fr}
   .dropmenu a{display:flex;align-items:center;min-height:44px;white-space:normal;
     padding:4px 14px;border-left:2px solid rgba(21,20,15,.1);border-radius:0;font-size:15px}
+  .dropmenu--area{width:auto}
+  .dropgrps{columns:1}
+  .dropgrp{margin:0}
+  .dropgrp-h{margin:14px 0 4px;padding:0}
+  .dropall{border-left:2px solid rgba(21,20,15,.1)}
   /* The header's call button is the conversion action on a contractor site and
      it was the one thing display:none'd at exactly the width where tapping a
      number is easiest. It keeps its place; only the digits fold away. */
