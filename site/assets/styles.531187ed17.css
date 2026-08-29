@@ -932,7 +932,10 @@ footer .brand img{height:38px}
 .dropmenu--area{grid-template-columns:1fr;gap:8px;width:min(600px,calc(100vw - 34px))}
 .dropgrps{columns:3;column-gap:12px}
 .dropgrp{break-inside:avoid;margin:0 0 12px}
-.dropgrp-h{margin:0 0 3px;padding:0 13px;color:var(--mute-lt)}
+/* Bold and inked: at 11px mono the region name was reading as a caption on
+   the city under it rather than as the heading over the block. Both families
+   are variable, so 700 costs no extra file. */
+.dropgrp-h{margin:0 0 3px;padding:0 13px;color:var(--ink);font-weight:700}
 /* The panel is centred on its button, so its width is what decides whether it
    clears the left edge. Between the burger breakpoint and 1080px the Services
    button sits close enough to the brand that a 532px panel hangs off-screen;
