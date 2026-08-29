@@ -33,7 +33,7 @@ flip its flag, and the rest can come down.
 deployable site — the deliverable, as opposed to the demo directions, which are the pitch.
 
 ```bash
-node build/site/build-site.mjs      # write site/ — 90 pages, 404, assets, robots, sitemap
+node build/site/build-site.mjs      # write site/ — 138 pages, 404, assets, robots, sitemap
 node build/site/verify-site.mjs     # the gate: links, heads, schema, sitemap, accent, fonts
 ```
 
@@ -44,7 +44,7 @@ What is different from `d01-site-plan/` sitting in a subfolder:
 | URLs | `/d01-site-plan/services/adu/` | `/services/adu/` |
 | Accent | swapped live off the URL and the chooser | Burnt Orange baked into the stylesheet |
 | Fonts | Google Fonts, render-blocking third party | two self-hosted variable woff2, 75KB total |
-| Pages | 31 | 33 — plus `/services/` and `/service-areas/` |
+| Pages | 54 | 138 — plus `/services/`, `/service-areas/` and the trade-by-city pages |
 | Assets | shared repo-root `assets/` | its own `assets/`, only what is referenced |
 | Root files | shares the chooser's | own `robots.txt`, `sitemap.xml`, `llms.txt`, `404.html`, manifest, host config |
 
@@ -504,11 +504,24 @@ breakpoint, and that the form fields never drop back under 16px.
 Every direction is a *fully optimised* page, not a mockup with a title tag. Whichever one Quest
 picks ships search-ready rather than needing an SEO pass afterwards.
 
-**One indexable site, ninety targeted pages.** The mockups each chased a different head term
+**One indexable site, 138 targeted pages.** The mockups each chased a different head term
 so ten homepages would not compete. That is no longer how the cannibalisation is handled: only
-`d01-site-plan` is indexable, and inside it each page targets its own query —
-one per trade, one per city, plus the six standalone pages. Titles and descriptions are composed in
-`build/lib/pages.mjs`, and a test enforces that all of them are unique, ≤60 and ≤155 characters.
+`d01-site-plan` is indexable, and inside it each page targets its own query — one per trade, one
+per city, one for each trade-and-city pairing that has been written, plus the six standalone pages.
+Titles and descriptions are composed in `build/lib/pages.mjs`, and a test enforces that all of them
+are unique, ≤60 and ≤155 characters.
+
+**The trade-by-city pages are written, not generated.** `/services/roofing/mesa-az/` is the query
+a homeowner actually types, and fourteen trades across thirty-four cities is 476 of them — which is
+also 476 chances to publish the trade page with a name swapped in, the doorway pattern Google
+built its guidelines around. So the manifest emits a pairing **only where `content/service-areas.json`
+has copy for it**, and a test asserts every one of those pages carries its own lede and paragraphs
+and that no two share a lede. Five trades are written so far — roofing across all thirty-four
+cities, and concrete, stucco, ADUs and full remodels across the twelve with the most search behind
+them — for **82 pairings**. Each one is the intersection: what changes about that trade in that
+place. Concrete in Glendale is booked around the flood-irrigation turn; concrete in Queen Creek is
+specified for a loaded truck on a hundred-and-fifty-foot drive. Adding a trade is adding a block of
+copy to that file; the pages, the links from both parents, the sitemap and the schema follow.
 
 **What every page carries:**
 

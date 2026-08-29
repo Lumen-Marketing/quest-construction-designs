@@ -1,5 +1,5 @@
 {
-  "_README": "Per-city copy for the service-area landing pages: /services/<trade>/<city>/. Each entry is the INTERSECTION of one trade and one city — what changes about that trade in that place — not the trade description repeated with a name swapped in, which would make these doorway pages. Jurisdiction claims match docs/service-area-verification.md, verified 2026-08-29. Build practice is UNVERIFIED: Quest must review and cut anything that does not match how it actually works. Only the standalone site renders these; the ten demo directions do not carry them.",
+  "_README": "Per-city copy for the service-area landing pages: /services/<trade>/<city>/. Each entry is the INTERSECTION of one trade and one city — what changes about that trade in that place — not the trade description repeated with a name swapped in, which would make these doorway pages. Jurisdiction claims match docs/service-area-verification.md, verified 2026-08-29. Build practice is UNVERIFIED: Quest must review and cut anything that does not match how it actually works. Five trades are written: roofing across all thirty-four cities, and concrete, stucco, ADU and full remodel across the twelve largest markets — eighty-two pairings. A trade with no entry here simply has no city pages, which is the point. Only the standalone site renders these; the ten demo directions do not carry them.",
   "roofing": {
     "phoenix-az": {
       "lede": "Phoenix spans a century of roofs, so the first question is never what it costs — it is what is actually up there.",
@@ -407,6 +407,590 @@
         "City of Phoenix permit",
         "HOA colour and material review",
         "Whole streets at underlayment age"
+      ]
+    }
+  },
+  "concrete": {
+    "phoenix-az": {
+      "lede": "Phoenix concrete is mostly replacement, and what comes out tells you what has to go back in.",
+      "paras": [
+        "Older Phoenix drives and patios were poured thin, often without reinforcement, and decades of ground movement and tree roots show up as lifted panels and cracks that run corner to corner. We take out enough to see what the sub-base is doing rather than pouring over the problem, because a slab is only ever as flat as the ground under it stays.",
+        "In the historic districts the drive and the walk are street-facing, so the finish carries as much weight as the strength. We match panel layout and joint pattern to what is already there instead of imposing a modern broom finish on a 1920s frontage, and where the work runs out toward the street we settle what the city wants before anything is saw-cut."
+      ],
+      "notes": [
+        "Thin, unreinforced older slabs",
+        "Sub-base read before the surface",
+        "Street-facing work in historic districts"
+      ]
+    },
+    "mesa-az": {
+      "lede": "Mesa's post-war lots came with narrow drives and thin patios, and most of our work here widens them.",
+      "paras": [
+        "A ranch-era drive was poured for one car and no truck: four inches of unreinforced concrete on whatever was under it in 1958. Widening one means matching the height of the old panel, tying the two together properly and reinforcing the new pour, or the seam parts company in the first hot summer and you have two slabs instead of one.",
+        "Mesa runs its own Development Services, so where the work touches the structure or the street it is a City of Mesa submittal rather than a county one and the review window goes into the programme up front. Colour and texture will never match a fifty-year-old slab exactly. We say that at the quote rather than promising an invisible join."
+      ],
+      "notes": [
+        "Widening ranch-era drives",
+        "City of Mesa submittal",
+        "Honest about matching an old pour"
+      ]
+    },
+    "chandler-az": {
+      "lede": "Chandler asks for more patio than it asks for repair, and the two jobs start in different places.",
+      "paras": [
+        "Most of what we pour in Chandler extends something that already works: a patio pushed out to cover a west-facing door, a pad for an outdoor kitchen, a walk tying a side gate to a new one. On sound 1990s and 2000s slabs the existing pour is a good datum, so the work is layout, fall and joint placement rather than demolition.",
+        "Where a slab has cracked we look for the reason before quoting a replacement. A crack running out of a re-entrant corner is a control-joint problem rather than a failure, and grinding, sealing and cutting the joint that should have been there is often the honest answer. If the sub-base has moved we say so, because the same slab poured back on the same ground does the same thing again."
+      ],
+      "notes": [
+        "Extensions on sound slabs",
+        "Cracks read before they are quoted",
+        "Joints cut where they belong"
+      ]
+    },
+    "gilbert-az": {
+      "lede": "Gilbert's slabs are the same age as its roofs, and the builder details repeat street to street.",
+      "paras": [
+        "A 1990s or 2000s Gilbert subdivision was poured by one builder to one detail, so the cracking on one elevation is usually the cracking on the next. That works in a homeowner's favour: we can generally say what a drive or a patio needs without exploratory demolition, because we have cut the same slab on the same street before.",
+        "Anything visible from the street goes past the community's architectural committee, and colour, finish and banding all count as visible. We work from what is approved for that community and put it in alongside the Town of Gilbert paperwork rather than pouring first and finding the palette afterwards."
+      ],
+      "notes": [
+        "One builder, one detail, one fix",
+        "Finish approved by the committee",
+        "Town of Gilbert paperwork"
+      ]
+    },
+    "glendale-az": {
+      "lede": "Glendale's older lots still flood-irrigate, and that decides when a slab can be poured at all.",
+      "paras": [
+        "A yard that takes four inches of water on an irrigation turn is not a yard to pour into on a whim. We book the pour against the turn, protect the sub-base and set the fall so the finished slab sheds toward where the water is meant to go rather than damming it against the house.",
+        "Mature ash and citrus over an old drive means roots under it, and roots are why so many Glendale panels have lifted. Cutting one out and pouring it back without dealing with what raised it buys about two years. Beyond the 101 the ground is newer, the slabs are sound, and the work is extension rather than repair."
+      ],
+      "notes": [
+        "Poured around the irrigation turn",
+        "Root lift on older panels",
+        "Extension work west of the 101"
+      ]
+    },
+    "scottsdale-az": {
+      "lede": "In Scottsdale a slab is a drainage decision before it is a concrete one.",
+      "paras": [
+        "Hillside and desert-adjacent lots move water in a particular direction, and every impermeable surface added to one changes where it goes. Falls, kerbs and any retention are set against the existing grade at design stage rather than discovered in the first storm, and on a hillside lot the disturbed area is planned rather than assumed.",
+        "Scottsdale reviews what a thing looks like, not only whether it works. Finish, colour and joint layout are settled and submitted before anyone books a truck, because a rejected finish is a great deal cheaper on paper than it is on nine hundred square feet of cured concrete."
+      ],
+      "notes": [
+        "Falls and retention set at design",
+        "Disturbed area planned on hillside lots",
+        "Finish approved before the pour"
+      ]
+    },
+    "tempe-az": {
+      "lede": "In Tempe the concrete is the straightforward part and getting it to the back of the lot is not.",
+      "paras": [
+        "Lots here are small, neighbours are close and a mixer often cannot reach the pour. Where an alley gives us access we use it; where it does not, the pump, the barrow route and the protection that goes with them are planned before the truck is booked, because a pour that stalls halfway is a cold joint somebody lives with permanently.",
+        "Much of the older stock has been worked on more than once, so what sits under an existing patio is genuinely unknown until it is out: old footings, a filled-in cooler pad, occasionally the slab of an addition nobody permitted. That gets allowed for at the quote rather than found with a saw already in the ground."
+      ],
+      "notes": [
+        "Alley access where it exists",
+        "Pump and barrow planned, not improvised",
+        "Unknown ground under old patios"
+      ]
+    },
+    "peoria-az": {
+      "lede": "Peoria's concrete work changes at the 101: replacement to the south of it, addition to the north.",
+      "paras": [
+        "South Peoria's drives and walks are post-war and 1970s, poured thin and now carrying tree roots and settlement, so the work there starts with what the sub-base is doing. North of the 101 the slabs are recent and sound, and the job is what the production builder left out — a patio extension, an RV pad, a walk down to a casita.",
+        "The northern subdivisions bring an architectural committee on top of the City of Peoria permit, and a poured surface visible from the street is theirs to approve. We submit both in parallel rather than one after the other, because finding the committee once the city has already signed off is how a schedule loses a month."
+      ],
+      "notes": [
+        "Replacement south, extension north",
+        "City of Peoria permitting",
+        "Committee and city submitted in parallel"
+      ]
+    },
+    "surprise-az": {
+      "lede": "Almost every slab in Surprise went down after 1998, so the work is addition rather than repair.",
+      "paras": [
+        "A twenty-year-old production slab is usually sound, which makes the work predictable: extend the patio, pour the pad for a casita, run the side walk the builder never platted. The craft problem is the join — matching level, colour and joint pattern to a slab that has been curing and fading in the sun for two decades.",
+        "Inside Sun City Grand and the other age-restricted communities the working hours and contractor access are set by the community rather than by us. A pour is not a job that can start at ten and stop at four without consequence, so the pour day is planned around those windows before it is quoted."
+      ],
+      "notes": [
+        "Post-1998 slabs, sound to build on",
+        "Matching a twenty-year-old pour",
+        "Pour day planned to access hours"
+      ]
+    },
+    "goodyear-az": {
+      "lede": "Goodyear's ground moves in places, and a slab that ignores that cracks on schedule.",
+      "paras": [
+        "Expansive soil on the south and west edges of the city swells and shrinks with moisture, and a patio or a casita pad poured onto it without thought cracks along a predictable line. We set finished floor and fall against the existing grade at design stage, keep water moving away from the slab edge, and reinforce for the ground that is actually there.",
+        "Most of what we pour here is outdoor living on production homes that are otherwise sound: extended patios, ramada footings, kitchen pads. All of it lands against an existing slab, so the join, the level and the way the two shed water matter more than the concrete itself."
+      ],
+      "notes": [
+        "Expansive soil at the city edges",
+        "Fall set before the pour",
+        "Ramada and outdoor-kitchen pads"
+      ]
+    },
+    "queen-creek-az": {
+      "lede": "Queen Creek's lots are big enough that the concrete is often a drive's length from the house.",
+      "paras": [
+        "Shops, extended garages and RV pads are a large share of what we pour here, and on a lot this size the access drive is a structure rather than an apron. Thickness, reinforcement and sub-base have to carry a loaded truck rather than a saloon car, so it is specified for what will genuinely drive on it.",
+        "Parcels toward the edges of town can still be on well and septic, and a leach field is not something to find with a saw. Services are located and the pour set around them before we quote, because a hundred and fifty feet of trench or a relocated line is a line item and not a rounding error."
+      ],
+      "notes": [
+        "Drives specified for loaded trucks",
+        "Septic and well located first",
+        "Shop and RV pads on larger lots"
+      ]
+    },
+    "buckeye-az": {
+      "lede": "Buckeye's slabs are the newest we work on, and nearly all of them are being extended for shade.",
+      "paras": [
+        "Verrado, Sundance and the Festival Ranch tracts were platted open, and a west-facing patio out here is unusable for a third of the year. Most of our concrete is the footing and pad under something that casts a shadow — a ramada, a pergola, an extended cover — so it is set out for the structure going on top of it rather than poured and drilled into afterwards.",
+        "The city is geographically enormous and a pour on the far side of it is a real drive for every truck. We book the concrete in fewer, larger loads, stage what can be staged on site, and set the day around the delivery window instead of running the road four times."
+      ],
+      "notes": [
+        "Footings set out for the structure",
+        "Shade first, surface second",
+        "Fewer, larger deliveries"
+      ]
+    }
+  },
+  "stucco": {
+    "phoenix-az": {
+      "lede": "Phoenix stucco runs from original render on 1920s walls to 2010s three-coat over frame.",
+      "paras": [
+        "Those are not the same material and they do not want the same repair. Render on a masonry or lath wall breathes and moves differently from a modern three-coat over board, and patching one with the other traps moisture and opens along the join inside a season. We work out what is actually on the wall before quoting what goes back onto it.",
+        "Street-facing elevations in the historic districts carry real value in their texture and detail, and a sprayed finish flattened over a hand-floated one is the quickest way to lose it. Texture is matched by sample on the wall itself rather than from a chart, and what should be kept is kept."
+      ],
+      "notes": [
+        "Original render and modern three-coat",
+        "Matched by sample on the wall",
+        "Street-facing detail in historic districts"
+      ]
+    },
+    "mesa-az": {
+      "lede": "Matching a Mesa wall that has weathered forty years is a different job from finishing it new.",
+      "paras": [
+        "Stucco over block moves and weathers differently from stucco over frame, and most of Mesa's post-war and 1970s stock is the former. Four decades of sun has taken the colour down and rounded the texture, so a patch mixed to the original recipe still reads as a patch. We float sample areas and let the owner see them on the wall before an elevation is committed.",
+        "Cracking over block is usually telling you about a lintel or a joint rather than about the render, so we look at what is behind it before anything is recoated. Where the repair reaches the structure it becomes a City of Mesa submittal, and that gets settled before scaffold goes up rather than after."
+      ],
+      "notes": [
+        "Stucco over block, not frame",
+        "Samples floated on the wall",
+        "Cracks read as a wall problem"
+      ]
+    },
+    "chandler-az": {
+      "lede": "Most Chandler elevations we are called to need preparation and a recoat, not replacement.",
+      "paras": [
+        "The stucco on a 1990s or 2000s Chandler house is usually sound underneath a faded, chalked surface. Where that is what we find we say so: wash it, repair the cracks properly, prime what needs priming and recoat. Quoting a full re-stucco on a wall that does not need one is easy money, and we would rather keep the customer.",
+        "The cracks that do matter are the ones repeating in the same place — over a window head, out of a re-entrant corner, along a control joint that was never cut. Those are treated as a detail problem before anything is coated, because a fresh finish over an unresolved crack cracks again on the same line inside a year."
+      ],
+      "notes": [
+        "Recoat where a recoat will do",
+        "Repeating cracks treated as details",
+        "Preparation is most of the job"
+      ]
+    },
+    "gilbert-az": {
+      "lede": "In Gilbert the colour is largely decided for you, which makes stucco a matching exercise.",
+      "paras": [
+        "Elevations in a Gilbert community were built to an approved palette, so the question is rarely which colour but which of the approved ones this house already is. Twenty years of sun means the swatch on file and the wall in front of you are no longer the same thing. We match to the wall and take that to the committee rather than the other way round.",
+        "Production three-coat over frame fails in predictable places on this stock: at the corners of openings, where foam trim meets the field, and along the line of a party wall on an attached elevation. Because the builder detail repeats down the street, we usually know what we are looking at before the scaffold is up."
+      ],
+      "notes": [
+        "Approved palette, faded wall",
+        "Matched to the wall, not the swatch",
+        "Predictable cracking at openings"
+      ]
+    },
+    "glendale-az": {
+      "lede": "Glendale has pre-war render downtown and 2000s stucco west of the 101, and they want different hands.",
+      "paras": [
+        "Around the older core there is genuine pre-war and post-war fabric, some of it on raised foundations, and a project inside one of the historic districts is a different application from the same job three streets away. Original render is usually worth repairing rather than covering, and what a street-facing elevation ends up looking like is part of that conversation.",
+        "Flood irrigation on the older lots matters to stucco more than people expect. Standing water at the base of a wall wicks up and takes the finish off from the bottom, so grade and splash at the base are dealt with as part of the repair rather than coated over to fail again on the next turn."
+      ],
+      "notes": [
+        "Historic district rules downtown",
+        "Repair before recoat on old render",
+        "Wicking at the base on irrigated lots"
+      ]
+    },
+    "scottsdale-az": {
+      "lede": "Scottsdale approves the colour and the finish before the wall is allowed either.",
+      "paras": [
+        "Design review here is genuinely enforced, so material, texture and colour are settled and submitted before a crew is booked. On the contemporary houses the parapet and reveal detailing is as much of the job as the field is, and a reveal out by a quarter of an inch stays visible from the street for the life of the building.",
+        "West-facing elevations on desert-adjacent lots take punishing exposure, and a dark colour on a hot wall moves. Finish and colour are specified against that exposure rather than chosen from a showroom sample under fluorescent light, and we say when a selection will not hold up where it is going."
+      ],
+      "notes": [
+        "Colour and finish approved first",
+        "Parapet and reveal detailing",
+        "West elevations specified for exposure"
+      ]
+    },
+    "tempe-az": {
+      "lede": "On a Tempe lot the neighbour's car is eight feet from the wall being sprayed.",
+      "paras": [
+        "Masking, overspray and dust control are part of the plan here rather than an afterthought, because the lots are small and everything is close to everything. Working hours are agreed, what is next door is protected and the street stays passable — worth doing on its own merits, and also the difference between a job that finishes and one that collects complaints.",
+        "Much of the stock around the university has spent years as rental, and the walls carry patching from a run of earlier owners: three colours under the current one, a hand-floated repair next to a troweled flat one. We open enough to see how many layers are on the wall before quoting, because that is what decides between a recoat and a strip."
+      ],
+      "notes": [
+        "Overspray and dust planned for",
+        "Layered patching under the top coat",
+        "Working hours agreed with neighbours"
+      ]
+    },
+    "peoria-az": {
+      "lede": "Peoria's stucco is over block in the south of the city and over frame in the north.",
+      "paras": [
+        "That difference decides the repair. Render on 1970s block moves with the masonry and fails around lintels and joints; three-coat over frame on a newer elevation fails at the corners of openings and where trim meets the field. The wall tells us which conversation we are having well before a price does.",
+        "North of the 101 the community architectural committee has a view on colour, and the elevation has faded away from whatever is on file with them. We match to the wall, take that to the committee alongside the City of Peoria paperwork, and get both moving at once rather than in sequence."
+      ],
+      "notes": [
+        "Block in the south, frame in the north",
+        "Failure points differ by build",
+        "Colour matched, then approved"
+      ]
+    },
+    "surprise-az": {
+      "lede": "In Surprise the stucco question is how to make new work disappear into a twenty-year-old wall.",
+      "paras": [
+        "Nearly everything here went up after 1998 to a consistent recipe — three-coat over frame in one of a handful of textures — and that consistency is an advantage on an addition, because the recipe is knowable. What cannot be reproduced from a chart is two decades of sun, so samples are floated on the actual elevation and agreed before the field goes on.",
+        "Where an addition ties into an existing wall we plan the break at a natural line: a corner, a reveal, a change of plane. A join stopped in the middle of a flat elevation will find the light eventually, whatever it looked like on the day it was floated."
+      ],
+      "notes": [
+        "Consistent post-1998 three-coat",
+        "Samples floated on the real wall",
+        "Joins planned at natural breaks"
+      ]
+    },
+    "goodyear-az": {
+      "lede": "In Goodyear a stucco crack is often the ground talking rather than the render failing.",
+      "paras": [
+        "Expansive soil in parts of the city moves a slab enough to telegraph into the wall above it, and that shows as diagonal cracking out of the corners of openings rather than as random crazing across a field. Recoating over it hides the symptom until the next wet season, so we look at the shape of the crack before deciding whether this is a stucco job at all.",
+        "The rest is younger production work where the render is sound and the elevation has simply gone chalky in the sun. That is preparation, proper crack repair and a recoat — and where a wall needs only that, we say so instead of quoting the larger job."
+      ],
+      "notes": [
+        "Diagonal cracks read as movement",
+        "Recoat where the render is sound",
+        "Younger production elevations"
+      ]
+    },
+    "queen-creek-az": {
+      "lede": "Queen Creek stucco is usually about making a new shop or casita look like it came with the house.",
+      "paras": [
+        "On lots this size an outbuilding is a building in its own right, and it either matches the house or announces itself permanently. We take texture and colour off the existing elevation, float samples against it, and finish the new structure to the house rather than to a spec sheet.",
+        "Much of this housing is new enough that the original builder may still carry some of it. Where a crack or a delamination looks like original workmanship we say so plainly rather than quietly repairing something somebody else owes."
+      ],
+      "notes": [
+        "Outbuildings finished to the house",
+        "Texture taken off the existing wall",
+        "Builder coverage sorted honestly"
+      ]
+    },
+    "buckeye-az": {
+      "lede": "Buckeye's elevations are new, open, and facing the sun with nothing standing in the way.",
+      "paras": [
+        "With no mature trees and few neighbouring rooflines to break the light, a west or south wall out here takes as much exposure as anything we work on. Colour choice is a durability decision as much as a taste one, and we will say when a dark selection is going to fade unevenly on the elevation it is going onto.",
+        "The stock is recent enough that failures are detailing rather than age: where render meets a window flange, where a patio cover or ramada has been fixed back into the wall, where an earlier trade cut in and patched it flat. Those are repaired as details rather than buried under a fresh field coat."
+      ],
+      "notes": [
+        "Exposure decides the colour",
+        "Detail failures, not age",
+        "Patches around later fixings"
+      ]
+    }
+  },
+  "adu": {
+    "phoenix-az": {
+      "lede": "A Phoenix ADU is decided by the lot a long time before it is decided by the plan.",
+      "paras": [
+        "Setbacks, where the existing house sits on the plot and where the services already run tend to fix where a second dwelling can go before anyone picks a layout. We survey and confirm what is allowed on that particular parcel before drawings start, because a design drawn to the wrong envelope is time nobody gets back.",
+        "On the older central lots the utilities are as old as the house. Panel capacity, the condition of the sewer line and the route it takes are what decide whether a build is straightforward or expensive, and they are worth establishing at the outset rather than once a trench is already open."
+      ],
+      "notes": [
+        "Envelope confirmed before drawings",
+        "Panel and sewer checked early",
+        "Older lots, older services"
+      ]
+    },
+    "mesa-az": {
+      "lede": "Mesa's post-war lots are deep, and most of them have room behind the house for a second dwelling.",
+      "paras": [
+        "A ranch lot with a long back yard is close to ideal: room to set the building well away from the house, a side gate wide enough to get materials through, and services already run to the back for a cooler or a shed. We check that access before anything else, because a build a machine cannot reach is a build done by hand.",
+        "The paperwork goes to City of Mesa Development Services, and out in the east Mesa subdivisions there is an HOA architectural review sitting on top of it. Both go in together. Matching a new elevation to stucco that has weathered forty years is the part that takes craft rather than paperwork."
+      ],
+      "notes": [
+        "Deep lots, room behind the house",
+        "Access checked before design",
+        "City and HOA submitted together"
+      ]
+    },
+    "chandler-az": {
+      "lede": "Most Chandler ADU conversations start with a family member rather than with a rental.",
+      "paras": [
+        "Ageing parents, an adult child, a home office that has outgrown a bedroom — that is what is being built here, and it changes the brief. A unit a family will actually live in wants a proper kitchen, level access and a bathroom that still works in fifteen years, not the smallest thing that meets a definition.",
+        "Chandler lots from the 1990s and 2000s were platted with the yard at the back and the services down one side, so the practical question is how far the new building sits from the existing sewer and panel. Those runs are priced at the start, because they move the number more than the finishes do."
+      ],
+      "notes": [
+        "Built for family, not for turnover",
+        "Level access and a real kitchen",
+        "Service runs priced at the start"
+      ]
+    },
+    "gilbert-az": {
+      "lede": "In Gilbert an ADU has to satisfy the town and the community, and they ask different questions.",
+      "paras": [
+        "The town looks at the envelope, the services and the structure. The architectural committee looks at what the neighbours will see: roof pitch, tile, colour, and how a new elevation sits against the approved palette. We work both at once and design to the palette from the outset rather than redrawing after a rejection.",
+        "Because these subdivisions were built by one builder to a controlled set of elevations, a well-matched casita reads as though it came with the house. That is the standard worth aiming at here, with the tile, the fascia line and the stucco texture all taken off the existing building."
+      ],
+      "notes": [
+        "Town envelope, committee appearance",
+        "Designed to the approved palette",
+        "Matched tile, fascia and texture"
+      ]
+    },
+    "glendale-az": {
+      "lede": "Glendale's older lots have the space for an ADU and the complications of an old yard with it.",
+      "paras": [
+        "Mature trees, flood irrigation and a raised original foundation all bear on where a second dwelling can sit and how its floor level is set. We survey grade and the irrigation route first, because a building placed across the way water moves through a yard causes a problem every time the turn comes round.",
+        "Inside a historic district what can be seen from the street is part of the application even when the new building is at the back. West of the 101 the lots are 1990s and 2000s production and the questions are the ordinary ones: setbacks, coverage, and where the services already run."
+      ],
+      "notes": [
+        "Grade and irrigation surveyed first",
+        "Historic districts see the street",
+        "Ordinary envelope questions west of the 101"
+      ]
+    },
+    "scottsdale-az": {
+      "lede": "Scottsdale wants to see what an ADU will look like as well as where it is going to sit.",
+      "paras": [
+        "Documentation is the job here. Elevations, materials and colours are settled and submitted before anything is ordered, and on a hillside lot the drainage, the limits on what ground may be disturbed and how the building steps with the slope belong to the same conversation. That work happens on paper, which is where it is cheap.",
+        "Central and south Scottsdale's older ranch lots are generous and often take a casita comfortably. Further north the committees are stricter and the palette is controlled, so the design becomes a matching exercise against the existing house rather than an opportunity to do something different."
+      ],
+      "notes": [
+        "Documented design review",
+        "Hillside grade and drainage",
+        "Matching palette further north"
+      ]
+    },
+    "tempe-az": {
+      "lede": "Tempe is built out, so an ADU here is usually a conversion, an alley plot, or nothing.",
+      "paras": [
+        "Lots are small and the setbacks eat into them quickly, which is why so many of these projects are conversions rather than new buildings — a garage brought up to a habitable standard, or a compact unit where an alley already provides the access. Which of those a lot actually supports is worth settling before anything is drawn.",
+        "Converting an older structure means finding what earlier owners did to it: circuits added without permit, a slab never poured to carry a wall, insulation that was never there at all. We open enough to know before quoting, because the discovery is the part that moves the price."
+      ],
+      "notes": [
+        "Conversion more often than new build",
+        "Alley access where it exists",
+        "Earlier unpermitted work found first"
+      ]
+    },
+    "peoria-az": {
+      "lede": "Peoria's ADU work sits north of the 101, where the lots were platted with room to spare.",
+      "paras": [
+        "The northern subdivisions were laid out with side yards and rear space the production builder never used, and a casita is the obvious thing to put there. The architectural committee will have a view, so roof, tile and colour are matched to the house and taken to them alongside the City of Peoria submittal.",
+        "South of the 101 the lots are older and tighter and the answer is more often a conversion or an addition than a separate building. Either way the deciding factors are the same: setbacks, the capacity of the panel, and how far the sewer is from where a new bathroom wants to be."
+      ],
+      "notes": [
+        "Room to build north of the 101",
+        "Committee and city in parallel",
+        "Conversion more likely in the south"
+      ]
+    },
+    "surprise-az": {
+      "lede": "Plenty of Surprise lots were platted with room for a casita that was never actually built.",
+      "paras": [
+        "That is a good place to start from: the space is there, the ground is flat, the services are modern and the existing structure is sound. The work becomes siting it well — far enough from the house to feel separate, close enough that the sewer and power runs stay sensible — and finishing it so it does not read as an afterthought.",
+        "In the age-restricted communities the rules on occupancy of a second dwelling, on contractor access and on working hours are set by the community. We read them before quoting, because they shape both what can be built and how long it takes to build it."
+      ],
+      "notes": [
+        "Lots platted with the room",
+        "Siting balanced against service runs",
+        "Community rules read before quoting"
+      ]
+    },
+    "goodyear-az": {
+      "lede": "Goodyear casitas are common enough that the lots were often laid out expecting one.",
+      "paras": [
+        "Palm Valley, Estrella and the newer tracts have the space and the services, so the technical questions here are ground and drainage rather than structure. Expansive soil in parts of the city means the pad is designed for the ground it is actually on, and finished floor and fall are set against existing grade before anything is poured.",
+        "Matching matters as much as building does. Tile profile, fascia line, stucco texture and colour all come off the existing house, because a casita that is nearly right is more noticeable than one that is obviously new."
+      ],
+      "notes": [
+        "Space and services already there",
+        "Pad designed for the ground",
+        "Finished to the existing house"
+      ]
+    },
+    "queen-creek-az": {
+      "lede": "On a Queen Creek acre an ADU is easy to place, and the services are the hard part.",
+      "paras": [
+        "Where a parcel is on well and septic, a second dwelling is a question about the system before it is a question about the building: what the existing field was sized for, where it sits, and what a second bathroom does to it. We establish that early, because the answer occasionally changes the project.",
+        "On the larger lots the run from house to casita can be a hundred and fifty feet or more of trench for water, waste and power. That is a real line item, surveyed and priced before we quote rather than after, along with the access a machine needs to get back there at all."
+      ],
+      "notes": [
+        "Septic capacity established first",
+        "Long service runs priced, not assumed",
+        "Access for machinery planned"
+      ]
+    },
+    "buckeye-az": {
+      "lede": "Buckeye lots have the room for a casita and none of the shade to put it in.",
+      "paras": [
+        "Orientation does more work here than almost anywhere else in the valley. A second dwelling with its glazing facing west is expensive to cool for the life of the building, so we site and orient it for the sun first and the view second, and the covered space between the two buildings is designed rather than left over.",
+        "The tracts are recent, the ground is generally straightforward and the services are modern, which keeps the build itself predictable. What is not predictable is the drive: the city is enormous, so deliveries are consolidated and staged on site instead of run in daily."
+      ],
+      "notes": [
+        "Sited and oriented for the sun",
+        "Modern services, predictable build",
+        "Deliveries consolidated and staged"
+      ]
+    }
+  },
+  "full-remodel-kitchen-bathroomcabinets-flooring-counter-tops": {
+    "phoenix-az": {
+      "lede": "A Phoenix remodel starts with the age of the house, because that decides what is behind the wall.",
+      "paras": [
+        "A 1920s bungalow has lath and plaster, original framing and a panel that was never meant to carry a modern kitchen. A 2005 house has drywall, trusses and capacity to spare. Demolition, dust control and the electrical scope are different in each, and pretending otherwise is how a fixed price turns into a run of variations.",
+        "In the historic districts the inside of the house is generally the owner's business while the street-facing exterior is not, so we are clear from the start about which parts of a project attract that scrutiny and which do not. Where original interior detail is worth keeping, we plan to keep it rather than clearing it because clearing is quicker."
+      ],
+      "notes": [
+        "Age decides what is behind the wall",
+        "Panel capacity priced up front",
+        "Original detail kept where it matters"
+      ]
+    },
+    "mesa-az": {
+      "lede": "In a Mesa block house, which walls can come out is the first question a remodel has to answer.",
+      "paras": [
+        "Painted masonry is not a stud wall to be opened with a sledgehammer and a header off the shelf. On post-war and 1970s Mesa stock we establish what is structural, what is infill and what a real opening will take before a layout is promised, because a kitchen drawn without that is a picture rather than a plan.",
+        "Original branch circuits in that stock usually need bringing up to current code once the walls are open, and that is a City of Mesa submittal with a review window inside it. It goes into the programme at the start rather than being discovered halfway through demolition."
+      ],
+      "notes": [
+        "Block walls established before layout",
+        "Circuits brought up when walls open",
+        "City of Mesa review in the programme"
+      ]
+    },
+    "chandler-az": {
+      "lede": "Chandler remodels usually start from a sound house whose finishes have simply dated.",
+      "paras": [
+        "That is a favourable starting point and it changes the conversation. With the structure and the services in reasonable order, the work is about layout, storage and light rather than repair — which is where the budget should be going in any case.",
+        "Most of these houses are lived in throughout the job. We stage the work so a family keeps a working kitchen or bathroom for as long as it possibly can, seal the working area properly, and keep the run from the front door to the skip off the carpet. None of that is glamorous and all of it is what people remember."
+      ],
+      "notes": [
+        "Sound structure, dated finishes",
+        "Layout, storage and light",
+        "Staged around a family living in it"
+      ]
+    },
+    "gilbert-az": {
+      "lede": "Gilbert's original kitchens went in with the houses, and a town's worth reached the end together.",
+      "paras": [
+        "A 1990s or 2000s builder kitchen was specified to a price: particleboard boxes, a laminate top and a soffit dropped over the wall cabinets to save on door heights. Taking that soffit out is usually the single change that transforms the room, and because the detail repeats down the street we generally know what is inside it before it comes down.",
+        "Interior work is between the homeowner and the town rather than the architectural committee, whose interest begins at the elevation. That is worth knowing at the outset: an interior remodel can move at the pace of the permit instead of the pace of a monthly meeting."
+      ],
+      "notes": [
+        "Builder kitchens at end of life",
+        "Soffits out, ceiling height recovered",
+        "No committee on interior work"
+      ]
+    },
+    "glendale-az": {
+      "lede": "Glendale remodels split by age: wiring behind lath downtown, drywall and trusses out west.",
+      "paras": [
+        "Around the older core, opening a wall means finding out how many times the house has been rewired and how much of the original is still live. Some of that stock sits on raised floors as well, which changes plumbing runs entirely. We survey enough to price honestly rather than quoting the visible work and discovering the rest with the walls open.",
+        "Newer Glendale, out beyond the 101, is production-built and predictable, and the work there is reconfiguration: taking out the wall between kitchen and family room, turning an oversized garden bath into a shower and storage somebody will actually use."
+      ],
+      "notes": [
+        "Original wiring behind lath downtown",
+        "Raised floors change plumbing runs",
+        "Reconfiguration in the newer west"
+      ]
+    },
+    "scottsdale-az": {
+      "lede": "A Scottsdale remodel lives or dies on the finish schedule being settled before anything is ordered.",
+      "paras": [
+        "Long lead times on cabinetry, stone and tile mean the decisions have to be made early and then held. We settle the schedule, order against it and sequence the trades to it, because a change of mind at week six is a change to the programme rather than to a line item.",
+        "The older ranch stock in central and south Scottsdale takes reconfiguration well — the wall between kitchen and living space is rarely load-bearing on those plans, and opening it transforms a house without extending it. Which walls are structural gets confirmed before the drawing rather than after it."
+      ],
+      "notes": [
+        "Finish schedule settled and held",
+        "Long lead times sequenced",
+        "Ranch plans open up well"
+      ]
+    },
+    "tempe-az": {
+      "lede": "In Tempe you routinely find a bathroom that was redone three times before you got there.",
+      "paras": [
+        "A great deal of the stock here has been rental for years and carries layered work from earlier owners, some of it done without permit. Opening it up means finding what was buried: circuits added without inspection, waste that was never vented properly, a floor built up three times to bury the last problem. We price that discovery honestly instead of pretending a wall will open clean.",
+        "Lots are small and neighbours are close, so dust control, the skip position and working hours are part of the plan rather than an afterthought. On an infill street there is nowhere to put a mess, which means the site has to be tidy at the end of every day rather than at the end of the job."
+      ],
+      "notes": [
+        "Layered work from earlier owners",
+        "Discovery priced, not assumed away",
+        "Nowhere to put a mess on an infill lot"
+      ]
+    },
+    "peoria-az": {
+      "lede": "Peoria's remodels get simpler the further north you go, and the reason is usually the wiring.",
+      "paras": [
+        "South Peoria's post-war and 1970s stock brings the electrical and mechanical upgrades that come with opening those walls: original branch circuits, a panel sized for a different era, ducting routed for a swamp cooler. That work is real and it belongs in the price at the beginning rather than in a variation later.",
+        "North of the 101 the houses are recent and sound, and the work is finishing what the production builder did not: an island that was never plumbed, a laundry that needs to work harder, a bathroom reconfigured out of the standard plan. It is a City of Peoria submittal at either end of the city."
+      ],
+      "notes": [
+        "Electrical upgrades in the older south",
+        "Finishing production plans in the north",
+        "City of Peoria submittal either end"
+      ]
+    },
+    "surprise-az": {
+      "lede": "Much of the remodelling in Surprise is a bathroom being made to work for the next twenty years.",
+      "paras": [
+        "In the age-restricted communities the brief is often level access, a walk-in shower, better light, and blocking in the walls for rails that may not be wanted yet. That is detail work rather than structural work, and it wants doing properly the first time, because doing it again later is disruptive in a way it is not now.",
+        "Contractor access and working hours are set by the community, and a remodel is a daily presence rather than a single delivery. The trade sequence is planned around those windows before the job is quoted, because a schedule that ignores a seven-to-four access rule is not a schedule."
+      ],
+      "notes": [
+        "Level access and blocking done once",
+        "Detail work rather than structure",
+        "Trade sequence built to access hours"
+      ]
+    },
+    "goodyear-az": {
+      "lede": "Goodyear houses are young, so a remodel here is nearly always an upgrade rather than a repair.",
+      "paras": [
+        "The structure and the services are modern, which means the work is what the builder did not include: a better kitchen than the standard package, a bathroom reconfigured out of the plan, flooring replaced across the whole ground floor instead of room by room.",
+        "Where a house sits on the expansive ground that runs along parts of the city's southern and western edge, movement shows up inside as sticking doors and a cracked tile line. That is worth understanding before new tile goes down, because a floor laid over a moving slab will do the same thing again on the same line."
+      ],
+      "notes": [
+        "Upgrade rather than repair",
+        "Whole-floor rather than room by room",
+        "Movement understood before new tile"
+      ]
+    },
+    "queen-creek-az": {
+      "lede": "Queen Creek remodels are mostly recent houses being made to fit the family that grew into them.",
+      "paras": [
+        "The stock is young and generally sound, so the work is space rather than repair: opening a kitchen into a family room, turning a fifth bedroom into a proper office, adding a second laundry. Much of it is recent enough to remain under some form of builder coverage, and we say plainly where something belongs to the original builder rather than to us.",
+        "Deliveries are the practical constraint out here. Cabinetry, stone and appliances arrive down a longer road than they do in the inner valley, so the programme is built around fewer, larger deliveries and somewhere on site to store them safely until they are wanted."
+      ],
+      "notes": [
+        "Space rather than repair",
+        "Builder coverage sorted honestly",
+        "Programme built around deliveries"
+      ]
+    },
+    "buckeye-az": {
+      "lede": "Buckeye's houses are the newest we remodel, and the brief is usually light and heat.",
+      "paras": [
+        "On open tracts with punishing western exposure, a remodel here has as much to do with glazing, shading and how a room takes the afternoon as it does with cabinetry. We look at which elevation a room sits on before specifying finishes and glass, because a handsome west-facing kitchen nobody can stand in at five o'clock is a failure whatever it cost.",
+        "Structurally these houses are straightforward: recent production framing, modern services, few surprises behind the drywall. The programme risk is distance instead. The city is enormous, so trades and deliveries are consolidated rather than shuttled, and the sequence is planned to keep the site working between them."
+      ],
+      "notes": [
+        "Glazing and shade in the brief",
+        "Few surprises behind new drywall",
+        "Trades consolidated over long distances"
       ]
     }
   }

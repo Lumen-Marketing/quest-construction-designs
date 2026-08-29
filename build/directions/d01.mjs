@@ -23,7 +23,11 @@ export const meta = {
   preload: (c) => (c.page.kind === 'home' ? preloadImage(c, HERO) : ''),
 };
 
-export const esc = (s) => String(s)
+export /** A trade name inside a sentence: lowercase, unless the name is an acronym.
+ *  ADU is the one that matters — "all about adu" reads as a typo. */
+const inSentence = (n) => (n === n.toUpperCase() ? n : n.toLowerCase());
+
+const esc = (s) => String(s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;')
   .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -648,7 +652,7 @@ export function service(c) {
   ${grid(false)}
   <div class="wrap">
     ${shead('— FAQs', `${esc(s.name)} Services <span>FAQ</span>`,
-      `Addressing your ${s.name.toLowerCase()} questions and concerns.`)}
+      `Addressing your ${inSentence(s.name)} questions and concerns.`)}
     <div class="faqlist">${s.faqs.map((f) => `
       <details class="rv"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}
     </div>
@@ -815,7 +819,7 @@ function tradeCities(c, s) {
   ${grid(false)}
   <div class="wrap">
     ${shead('&mdash; By city', `<span>${esc(short)}</span> Where You Are`,
-      `What changes about ${esc(short.toLowerCase())} city by city, written for each one.`)}
+      `What changes about ${esc(inSentence(short))} city by city, written for each one.`)}
     <div class="arealinks trades rv">${cities.map((a) =>
       `<a href="${c.url(`services/${s.slug}/${a.slug}`)}">${esc(short)} in ${esc(a.city)}</a>`).join('')}</div>
   </div>
@@ -1243,7 +1247,7 @@ export function serviceArea(c) {
       <p class="mono eyebrow">&mdash; ${esc(short)} in ${esc(a.name)}</p>
       <h2>What is different about <span>${esc(a.city)}</span></h2>
       ${copy.paras.map((p) => `<p>${esc(p)}</p>`).join('')}
-      ${arrowBtn(c.url('contact'), `Talk to us about ${esc(short.toLowerCase())} in ${esc(a.city)}`)}
+      ${arrowBtn(c.url('contact'), `Talk to us about ${esc(inSentence(short))} in ${esc(a.city)}`)}
     </div>
     <div class="localnotes rv">
       <h3>What that means on site</h3>
@@ -1260,11 +1264,11 @@ export function serviceArea(c) {
   ${grid(true)}
   <div class="wrap">
     ${shead(`&mdash; ${esc(short)}`, `How We Run <span>${esc(short)}</span> Work`,
-      `The same approach everywhere we build. The full ${esc(short.toLowerCase())} page has the `
+      `The same approach everywhere we build. The full ${esc(inSentence(short))} page has the `
       + 'detail; this is the short version.')}
     <div class="svcpts rv">${s.whyChoose.map((w) => `<p>${esc(w)}</p>`).join('')}</div>
     <div class="arealinks light rv">
-      <a href="${c.url(`services/${s.slug}`)}">All about ${esc(short.toLowerCase())}</a>
+      <a href="${c.url(`services/${s.slug}`)}">All about ${esc(inSentence(short))}</a>
       <a href="${c.url(`service-areas/${a.slug}`)}">Everything we do in ${esc(a.city)}</a>
     </div>
   </div>
