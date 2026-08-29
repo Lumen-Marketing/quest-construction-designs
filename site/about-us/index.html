@@ -36,7 +36,7 @@
 <link rel="manifest" href="../site.webmanifest">
 <meta name="theme-color" content="#D07C42">
 
-<link rel="stylesheet" href="../assets/styles.75af3fb4a2.css">
+<link rel="stylesheet" href="../assets/styles.b37eedee18.css">
 
 <script type="application/ld+json">
 {
@@ -910,6 +910,59 @@
     if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}})},
     {threshold:.1,rootMargin:'0px 0px -8% 0px'});
   els.forEach(function(e){io.observe(e)});
+})();
+(function(){
+  // ---- page-transition skeleton ----
+  // This is a multi-page site: the browser holds the current page on screen
+  // until the next one paints, so on a slow connection a click looks like
+  // nothing happened at all. Nothing shows for the first 450ms — a cached
+  // static page is finished well inside that, and a skeleton that flashes is
+  // worse than no skeleton — and after it the page below the header is
+  // replaced by its own outline. The header stays exactly where it is,
+  // because the next page has the same one.
+  var DELAY=450, FAILSAFE=12000, wait, fail, box, say;
+  box=document.createElement('div');
+  box.className='skel'; box.setAttribute('aria-hidden','true');
+  box.innerHTML='<div class="skel-hero"><div class="wrap">'
+    +'<span class="sk sk-crumb"></span><span class="sk sk-h1"></span>'
+    +'<span class="sk sk-h1 sk-h1b"></span><span class="sk sk-lede"></span>'
+    +'<span class="sk sk-btn"></span></div></div>'
+    +'<div class="skel-body"><div class="wrap"><span class="sk sk-eyebrow"></span>'
+    +'<span class="sk sk-h2"></span><div class="skel-cards">'
+    +'<span class="sk sk-card"></span><span class="sk sk-card"></span>'
+    +'<span class="sk sk-card"></span></div></div></div>';
+  // The blocks are scenery and are hidden from assistive technology; the wait
+  // itself is worth saying, so it is said in words instead.
+  say=document.createElement('p'); say.className='skel-say'; say.setAttribute('role','status');
+  document.body.appendChild(box); document.body.appendChild(say);
+  function hide(){
+    clearTimeout(wait); clearTimeout(fail);
+    box.classList.remove('on'); say.textContent='';
+  }
+  function show(){
+    box.classList.add('on'); say.textContent='Loading';
+    // If the navigation never lands — a dropped connection, a stopped load —
+    // the page underneath is still perfectly usable, so give it back.
+    fail=setTimeout(hide,FAILSAFE);
+  }
+  document.addEventListener('click',function(e){
+    if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+    var a=e.target&&e.target.closest?e.target.closest('a[href]'):null;
+    if(!a||a.hasAttribute('download')||(a.target&&a.target!=='_self')) return;
+    var u; try{u=new URL(a.href,location.href)}catch(err){return}
+    // Another origin, a tel: or a mailto: — whose origin is not this one —
+    // and an anchor within this same page: none of those replace the
+    // document, so none of them get a skeleton.
+    if(u.origin!==location.origin) return;
+    if(u.pathname===location.pathname&&u.search===location.search) return;
+    clearTimeout(wait); wait=setTimeout(show,DELAY);
+  });
+  // Escape stops a load in most browsers, so it has to take the skeleton with
+  // it or the page is left behind a screen it cannot dismiss.
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') hide(); });
+  // Coming back through the bfcache restores the DOM exactly as it was left,
+  // skeleton and all. pagehide runs once the outgoing page is already spent.
+  addEventListener('pageshow',hide); addEventListener('pagehide',hide);
 })();
 </script>
 </body>

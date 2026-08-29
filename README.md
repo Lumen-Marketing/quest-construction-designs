@@ -499,6 +499,44 @@ that the drawer is absolutely positioned and opaque, that the header height is
 one token the anchor offset is derived from, that the call button survives the
 breakpoint, and that the form fields never drop back under 16px.
 
+## The wait between pages
+
+This is a static multi-page site, and a browser holds the current page on
+screen until the next one paints. On a fast connection that is the best
+behaviour there is. On a slow one it is a click that appears to do nothing,
+and the second click is a second request.
+
+So a click on an internal link **arms a 450ms timer**, and if the page has not
+been replaced by the time it fires, everything below the header becomes a
+skeleton of itself: a dark hero band with a headline, a lede and a button
+blocked out, then a cream body with three cards.
+
+**The delay is the design.** A skeleton that appears and vanishes inside a
+fifth of a second reads as a flicker and costs more confidence than it buys,
+so most navigations here never show one at all. **The header is not covered**
+either — the page being loaded carries the same one, and leaving it in place is
+what makes the wait read as a navigation rather than as a crash.
+
+The rest is the edges, which is most of the work in something like this:
+
+- It arms only on links that genuinely replace the document. Another origin, a
+  `tel:` or `mailto:`, a `download`, a new tab, a modified click, or an anchor
+  within the page it is already on — none of those get a skeleton.
+- `pageshow` and `pagehide` clear it. A page restored from the bfcache comes
+  back with its DOM exactly as it was left, and without this the skeleton would
+  come back with it and never leave.
+- Escape clears it, because Escape is what stops a load in most browsers.
+- A 12-second failsafe clears it. If the navigation never lands, the page
+  underneath is still perfectly usable and it should be given back.
+- The blocks are `aria-hidden`; the wait is announced in words through a
+  `role="status"` instead. `prefers-reduced-motion` keeps the outline and drops
+  the shimmer.
+
+It is about thirty lines in `baseScript` and no markup on any page — the
+overlay is built once at runtime, so the 540 generated pages carry nothing for
+it. Two tests pin the delay, the link filter, the two lifecycle listeners and
+the fact that the overlay clears the header rather than covering it.
+
 ## SEO
 
 Every direction is a *fully optimised* page, not a mockup with a title tag. Whichever one Quest

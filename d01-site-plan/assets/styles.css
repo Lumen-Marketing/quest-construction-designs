@@ -1741,3 +1741,53 @@ h1,h2,h3,h4{overflow-wrap:break-word}
      line away from the words next to it. */
   .pj .cap .go{width:34px;height:34px;font-size:13px}
 }
+
+/* ---------- 10 PAGE-TRANSITION SKELETON ----------
+   Ten directions and a static site: every navigation is a full document load,
+   and the browser leaves the old page on screen until the new one paints. On
+   a fast connection that is invisible. On a slow one it is a click that
+   appears to do nothing, and the second click is a second request.
+
+   So: a 450ms delay, then the page below the header becomes its own outline.
+   The delay is the whole design — a skeleton that appears and vanishes inside
+   a fifth of a second reads as a flicker and costs confidence rather than
+   buying it. The header is not covered, because the next page carries the
+   same one and leaving it in place is what makes the load read as a
+   navigation rather than as a crash. */
+.skel{position:fixed;inset:var(--navh) 0 0;z-index:240;background:var(--cream);
+  overflow:hidden;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .18s ease,visibility 0s linear .18s}
+.skel.on{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
+/* Every inner page opens on a dark hero band over a cream body. The outline
+   says that much and no more: guessing at the specific page's layout would be
+   wrong more often than right, and a wrong skeleton is a worse promise than a
+   vague one. */
+.skel-hero{background:var(--dark);padding:clamp(30px,4.5vw,54px) 0 clamp(38px,5.5vw,66px)}
+.skel-body{padding:clamp(34px,5vw,56px) 0}
+.sk{display:block;border-radius:9px;background-color:rgba(21,20,15,.07);
+  background-image:linear-gradient(90deg,transparent,rgba(21,20,15,.05),transparent);
+  background-size:260px 100%;background-repeat:no-repeat;
+  animation:skelpass 1.15s linear infinite}
+.skel-hero .sk{background-color:rgba(243,239,230,.09);
+  background-image:linear-gradient(90deg,transparent,rgba(243,239,230,.08),transparent)}
+@keyframes skelpass{from{background-position:-260px 0}to{background-position:calc(100% + 260px) 0}}
+.sk-crumb{width:180px;height:11px;margin-bottom:26px}
+.sk-h1{width:min(560px,72%);height:clamp(30px,4.4vw,48px);margin-bottom:14px;border-radius:11px}
+.sk-h1b{width:min(360px,50%)}
+.sk-lede{width:min(440px,62%);height:14px;margin-top:24px}
+.sk-btn{width:186px;height:52px;border-radius:26px;margin-top:30px}
+.sk-eyebrow{width:118px;height:10px;margin-bottom:18px}
+.sk-h2{width:min(400px,58%);height:clamp(22px,2.6vw,32px);margin-bottom:28px;border-radius:11px}
+.skel-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.8vw,24px)}
+.sk-card{height:clamp(150px,17vw,205px);border-radius:var(--r)}
+@media(max-width:760px){.skel-cards{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.skel-cards{grid-template-columns:1fr}.sk-card:nth-child(3){display:none}}
+/* The wait is announced in words rather than mimed in grey boxes. */
+.skel-say{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap;border:0}
+/* A shimmer is a decorative animation, and the whole overlay is one long
+   moving thing. Reduced motion gets the same outline, holding still. */
+@media(prefers-reduced-motion:reduce){
+  .sk{animation:none}
+  .skel{transition:none}
+}

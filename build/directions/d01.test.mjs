@@ -154,6 +154,38 @@ test('the footer groups the cities by valley, and loses none of them', () => {
   }
 });
 
+test('a slow navigation gets a skeleton and a fast one never sees it', () => {
+  const html = renderPage({ mod: d01, key: 'home' });
+  // The delay is the whole design. Every navigation on this site is a full
+  // document load, and most of them are done in well under a fifth of a
+  // second — a skeleton that appears and vanishes inside that reads as a
+  // flicker and costs confidence rather than buying it.
+  assert.match(html, /DELAY=450/);
+  // Armed on links that actually replace the document, and on nothing else:
+  // another origin, a tel: or mailto:, or an anchor inside this page.
+  assert.match(html, /u\.origin!==location\.origin\) return/);
+  assert.match(html, /u\.pathname===location\.pathname&&u\.search===location\.search\) return/);
+  // A restored bfcache page brings the DOM back exactly as it was left, so
+  // without this the skeleton comes back with it and never leaves.
+  assert.match(html, /addEventListener\('pageshow',hide\)/);
+  assert.match(html, /addEventListener\('pagehide',hide\)/);
+  // And a load that never lands has to give the page back.
+  assert.match(html, /FAILSAFE=12000/);
+});
+
+test('the skeleton sits below the header and holds still for reduced motion', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  const skel = css.match(/\.skel\{[\s\S]*?\}/);
+  assert.ok(skel, 'no rule for the skeleton overlay');
+  // Below the header rather than over it: the page being loaded carries the
+  // same header, and leaving it in place is what makes the wait read as a
+  // navigation rather than as a crash.
+  assert.match(skel[0], /inset:var\(--navh\) 0 0/);
+  // Above the dropdown panels, or an open menu floats over the skeleton.
+  assert.match(skel[0], /z-index:240/);
+  assert.ok(css.includes('.sk{animation:none}'), 'the shimmer ignores reduced motion');
+});
+
 test('the phone drawer survives its own scroll lock', () => {
   const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
 
