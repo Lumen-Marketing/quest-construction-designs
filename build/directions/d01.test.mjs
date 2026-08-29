@@ -84,10 +84,20 @@ test('the call button survives the phone breakpoint, and carries a glyph there',
 
 test('every rendered phone number is set in the mono face, and none is tracked tight', () => {
   const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
-  // The typeface lives in one rule rather than smeared across six layout
+  // The treatment lives in one rule rather than smeared across six layout
   // selectors, so there is one place to change it again.
-  assert.match(css, /\.telnum\{font-family:'JetBrains Mono'/);
-  assert.match(css, /font-variant-numeric:tabular-nums/);
+  const rule = /\.telnum\{[^}]*\}/.exec(css);
+  assert.ok(rule, 'no rule for the phone number');
+  assert.match(rule[0], /font-variant-numeric:tabular-nums/,
+    'the digits do not share an advance width');
+  assert.match(rule[0], /letter-spacing:\.0[1-9]/,
+    'the digits are not given room');
+
+  // Not a monospace face. JetBrains Mono's zero is dotted — a code convention
+  // for telling 0 from a capital O — and at the sizes this renders it reads as
+  // an 8. A phone number has no letters in it, so that trade is all cost.
+  assert.doesNotMatch(rule[0], /monospace|JetBrains/,
+    'the number is back on a face whose zero carries a dot');
 
   // Wherever the number renders as digits a visitor reads and dials, it carries
   // the class. Prose links keep the body face on purpose — a mono run inside a
