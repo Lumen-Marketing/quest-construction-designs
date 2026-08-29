@@ -256,6 +256,26 @@ export function footer(c) {
     `<li><a href="${href}">${esc(label)}</a></li>`).join('')}</ul>
 </div>`;
 
+  // The cities are the one list long enough to set the footer's height on its
+  // own: thirty-four links two-up ran to eighteen rows while Company and
+  // Services finished in eight, so a third of the footer was one column of
+  // cities beside a lot of nothing. They are grouped by valley here, the same
+  // five regions the nav panel uses, and the block runs three columns wide
+  // into the space the other lists were not using. It is the shorter footer
+  // as well as the legible one — the tallest region is fourteen rows, not
+  // eighteen, and the width comes off tracks that were already empty below
+  // their eighth link.
+  const byslug = new Map(c.areas.areas.map((a) => [a.slug, a]));
+  const areaCol = () => `<div class="fareas">
+  <h2>Areas Served</h2>
+  ${c.hubs ? `<a class="fall" href="${c.url('service-areas')}">All Areas Served</a>` : ''}
+  <div class="fgrps">${(c.areas.regions || []).map((r) => `<div class="fgrp">
+    <p class="fgrp-h">${esc(r.name)}</p>
+    <ul>${r.cities.map((slug) => byslug.get(slug)).filter(Boolean).map((a) =>
+    `<li><a href="${c.url(`service-areas/${a.slug}`)}">${esc(a.city)}</a></li>`).join('')}</ul>
+  </div>`).join('')}</div>
+</div>`;
+
   return `<footer>
 <div class="wrap fg">
   <div class="about">
@@ -276,9 +296,7 @@ export function footer(c) {
   ${col('Services', [
     ...(c.hubs ? [[c.url('services'), 'All Services']] : []),
     ...c.services.map((s) => [c.url(`services/${s.slug}`), trade(s)])], 'col2')}
-  ${col('Areas Served', [
-    ...(c.hubs ? [[c.url('service-areas'), 'All Areas Served']] : []),
-    ...c.areas.areas.map((a) => [c.url(`service-areas/${a.slug}`), a.name])], 'col2')}
+  ${areaCol()}
 </div>
 <div class="wrap fbar">
   <p class="mono">&copy; 2026 ${esc(c.site.name)} &middot; Since ${c.site.foundingYear}</p>

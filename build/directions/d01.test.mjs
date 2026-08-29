@@ -11,6 +11,7 @@ const esc = (s) => String(s)
 
 const services = JSON.parse(readFileSync('content/services.json', 'utf8'));
 const areas = JSON.parse(readFileSync('content/areas.json', 'utf8')).areas;
+const regions = JSON.parse(readFileSync('content/areas.json', 'utf8')).regions;
 const site = JSON.parse(readFileSync('content/site.json', 'utf8'));
 
 test('direction 01 is the one indexable direction', () => {
@@ -132,9 +133,25 @@ test('the drawer ends with the number, and the wide nav does not repeat it', () 
 
 test('the long footer lists are marked for the two-up phone layout', () => {
   const html = renderPage({ mod: d01, key: 'home' });
-  // The fourteen trades and the eleven cities, and nothing else: the five-item
-  // Company column is short enough to stay one per row.
-  assert.equal((html.match(/<div class="col2">/g) || []).length, 2);
+  // The fourteen trades, and nothing else: the five-item Company column is
+  // short enough to stay one per row, and the cities have their own block.
+  assert.equal((html.match(/<div class="col2">/g) || []).length, 1);
+});
+
+test('the footer groups the cities by valley, and loses none of them', () => {
+  const html = renderPage({ mod: d01, key: 'home' });
+  const foot = html.slice(html.indexOf('<footer'));
+  const block = foot.slice(foot.indexOf('<div class="fareas">'));
+  for (const r of regions) {
+    assert.ok(block.includes(`<p class="fgrp-h">${esc(r.name)}</p>`),
+      `footer missing the ${r.name} block`);
+  }
+  // Every city reachable from the footer, and named without the state it is
+  // already standing under.
+  for (const a of areas) {
+    assert.ok(block.includes(`service-areas/${a.slug}/index.html">${esc(a.city)}</a>`),
+      `footer missing ${a.slug}`);
+  }
 });
 
 test('the phone drawer survives its own scroll lock', () => {

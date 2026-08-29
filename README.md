@@ -139,6 +139,16 @@ Valley to one in Phoenix, and being found twice costs less than being missed onc
 in at least one region — `d01.test.mjs` still asserts the nav reaches all thirty-four, so one
 falling out of the regions list fails the build rather than quietly disappearing from the menu.
 
+**The footer prints the same grouping**, and it is the shorter footer for it. Thirty-four links
+two-up ran to eighteen rows while Company and Services finished in eight, so a third of the footer
+was one column of cities beside a lot of nothing; grouped, the tallest region is fourteen rows and
+the block runs three columns wide into the space the other lists were not using. The areas track is
+the widest of the four now — `1.95fr` against `1.2fr .62fr 1.38fr` — because it is the list that
+sets the footer's height, and the width comes off tracks that were standing empty below their
+eighth link. `columns:120px` rather than a column count: three fit the desktop footer, two fit it
+folded, and neither wraps a city name. Below 900px the block spans both tracks rather than taking
+half of one, where it would be a single column of thirty-nine names.
+
 ## Design languages
 
 The first pass made all three brutalist. That was wrong for 01 and 02 — brutalism is deliberately

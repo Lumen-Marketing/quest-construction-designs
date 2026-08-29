@@ -795,10 +795,14 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 
 /* ---------- 09 FOOTER ---------- */
 footer{background:var(--dark);color:var(--on-dark-2);padding-top:clamp(50px,7vw,90px)}
-/* Company is five links; Services is fifteen and Areas twelve. Giving all
+/* Company is five links; Services is fifteen and Areas thirty-four. Giving all
    three the same track ran the footer to half a screen of one link per row, so
-   the two long ones get double the width and split it into two columns. */
-.fg{display:grid;grid-template-columns:1.3fr .75fr 1.6fr 1.5fr;gap:clamp(24px,4vw,56px);
+   the two long ones get double the width and split it into columns.
+   Areas takes the widest track of the four: it is the list that sets the
+   footer's height, and every 60px it gains off the others buys a whole column
+   back. The three it borrows from all finish inside eight rows, so the width
+   comes out of space that was standing empty. */
+.fg{display:grid;grid-template-columns:1.2fr .62fr 1.38fr 1.95fr;gap:clamp(24px,4vw,56px);
   padding-bottom:var(--sp-3)}
 .fg ul{list-style:none;padding:0;margin:0}
 .fg .col2 ul{columns:2;column-gap:clamp(16px,1.8vw,26px)}
@@ -813,12 +817,37 @@ footer{background:var(--dark);color:var(--on-dark-2);padding-top:clamp(50px,7vw,
 .fg a{display:block;padding:9px 0;font-size:14.5px;color:var(--on-dark-2);transition:color .2s}
 @media (hover:hover) and (pointer:fine){.fg a:hover{color:var(--acc)}}
 .fg .about p{font-size:14.5px;max-width:36ch;margin:16px 0 0}
+
+/* ---- the cities, grouped by valley ----
+   The same five regions the nav panel prints. Multicol rather than a three
+   track grid: the West Valley is thirteen cities and the Central Valley four,
+   and a grid row is as tall as its tallest cell, so the short regions would
+   leave holes. Multicol keeps document order, balances the height, and
+   `break-inside` stops a region being split across the fold. */
+/* A column width, not a column count: the block is a quarter of the footer
+   at 1440 and half of it at 900, and the count that suits one is wrong for
+   the other. 120px is "Apache Junction" and "CENTRAL VALLEY" on one line
+   each, so the browser fits three columns on the desktop footer and two once
+   the footer folds — and neither of them wraps a city name. */
+.fgrps{columns:120px;column-gap:clamp(14px,1.6vw,24px)}
+.fgrp{break-inside:avoid;margin:0 0 14px}
+.fgrp li{break-inside:avoid}
+/* Brighter and bolder than the links under it — on a dark ground the heading
+   has to out-read the list, and `--mute` at 10px reads as a footnote. */
+.fgrp-h{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;font-weight:700;color:var(--on-dark);margin:0 0 4px;line-height:1.4}
+.fgrp a,.fall{padding:6px 0;line-height:1.35}
+.fall{margin-bottom:14px;color:var(--on-dark)}
 .fbar{border-top:1px solid rgba(243,239,230,.1);padding:20px 0 30px;display:flex;flex-wrap:wrap;
   gap:12px 26px;justify-content:space-between;font-family:'JetBrains Mono',monospace;
   font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
 /* Two across: the blurb and Company pair up, then the two long lists, each
    still two-up inside its own half. */
-@media(max-width:900px){.fg{grid-template-columns:1fr 1fr}}
+/* Two across — and the cities take the whole width rather than half of it.
+   In one of two tracks the block is 230px, which is one column of thirty-nine
+   names; across both it is five columns at 860 and three at 560. It costs a
+   row of its own and saves several screens of scrolling. */
+@media(max-width:900px){.fg{grid-template-columns:1fr 1fr}.fareas{grid-column:1/-1}}
 @media(max-width:540px){.fg{grid-template-columns:1fr}}
 
 /* reveal */
