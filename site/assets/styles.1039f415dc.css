@@ -1381,6 +1381,26 @@ footer .brand img{height:38px}
   border-left:3px solid var(--acc);border-radius:0 var(--r) var(--r) 0;
   font-size:clamp(15px,1.5vw,17.5px);font-weight:600;color:var(--ink);text-wrap:pretty}
 
+/* ---- "from the build log", on the pages that link into the blog ----
+   Not the index card: this row sits at the foot of a trade or a city page,
+   under everything that page is actually about, so it has to read as a
+   footnote rather than compete with it. Three lines, no photograph. */
+.logrow{position:relative;z-index:3;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(12px,1.6vw,18px)}
+.logrow a{display:block;background:#fff;border-radius:var(--r);padding:22px 24px;
+  box-shadow:var(--sh);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+.logmeta{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:700;color:var(--acc-dim);margin-bottom:12px}
+.logtitle{display:block;font-weight:800;font-size:clamp(15.5px,1.6vw,18px);
+  line-height:1.25;margin-bottom:9px;text-wrap:balance}
+.logdek{display:block;color:var(--ink-2);font-size:14px;line-height:1.55;text-wrap:pretty}
+@media (hover:hover) and (pointer:fine){.logrow a:hover{transform:translateY(-3px)}}
+
+/* The questions block at the foot of a post. Its heading is one of the article's
+   own h2s, so it takes the article's rhythm rather than a section heading's. */
+.postfaq-h{font-size:clamp(20px,2.2vw,28px);font-weight:900;margin:44px 0 18px}
+.postbodycopy .faqlist{max-width:none}
+
 /* Seven items and a phone number is more than the desktop bar was drawn for,
    so the gap tightens before the drawer takes over at 940px. */
 @media(max-width:1180px){.nav nav{gap:clamp(11px,1.5vw,20px)}}

@@ -348,6 +348,51 @@ test('a post lastmod is the day it was written, not the day of the build', () =>
     `${p.key} claims it changed on the build date`);
 });
 
+test('the pages that carry authority link back into the blog', () => {
+  // The blog was receiving a link from every page and giving one back only
+  // from the sitemap. A post names the trades it belongs to; those trade
+  // pages, and every trade-by-city page under them, print it.
+  const roofing = render('services/roofing');
+  for (const slug of ['what-a-monsoon-does-to-an-arizona-roof',
+    'tile-roofs-and-the-underlayment-underneath']) {
+    assert.ok(roofing.includes(`blog/${slug}/index.html`), `roofing does not link ${slug}`);
+  }
+  assert.ok(render('services/roofing/mesa-az').includes('blog/what-a-monsoon'),
+    'a trade-by-city page does not link its trade posts');
+  // areas: 'all' puts the permits post on every city page.
+  for (const key of ['service-areas/mesa-az', 'service-areas/buckeye-az']) {
+    assert.ok(render(key).includes('blog/who-issues-your-building-permit/index.html'),
+      `${key} does not link the permits post`);
+  }
+  // And nothing renders where a page has no post to show.
+  assert.ok(!render('gallery').includes('logrow'), 'the gallery page prints an empty log row');
+
+  // The count that made this worth doing: posts should now be reachable from
+  // far more than the sitemap page.
+  const inbound = PAGES.filter((p) => p.kind !== 'post' && p.key !== 'blog')
+    .filter((p) => /blog\/[a-z-]+\/index\.html/.test(render(p.key))).length;
+  assert.ok(inbound > 200, `only ${inbound} pages link a post`);
+});
+
+test('a post declares the questions it prints, and prints the ones it declares', () => {
+  for (const p of PAGES.filter((x) => x.kind === 'post')) {
+    const html = render(p.key);
+    const faqs = p.item.faqs || [];
+    assert.ok(faqs.length >= 3, `${p.key} has ${faqs.length} questions`);
+    const node = JSON.parse(
+      /<script type="application\/ld\+json">\n([\s\S]*?)\n<\/script>/.exec(html)[1],
+    )['@graph'].find((n) => n['@type'] === 'FAQPage');
+    assert.ok(node, `${p.key} declares no FAQPage`);
+    assert.equal(node.mainEntity.length, faqs.length);
+    // Every declared question is visible on the page. Schema that says more
+    // than the page does is the kind of thing that gets a site penalised.
+    for (const f of faqs) {
+      assert.ok(html.includes(`<summary>${esc(f.q)}</summary>`), `${p.key}: ${f.q} not shown`);
+      assert.ok(html.includes(esc(f.a)), `${p.key}: an answer is declared but not shown`);
+    }
+  }
+});
+
 test('the demo directions carry no blog at all', () => {
   // Not in the manifest, and not linked from the nav or the footer either —
   // a link to a page that was never built is a 404 in ten directions at once.

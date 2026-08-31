@@ -597,6 +597,22 @@ on by the same kind of profile flag as the hubs and the trade-by-city pages, and
 links are conditional on it — a link to a page that was never built is a 404 in ten directions at
 once.
 
+**The link graph runs both ways.** The first version of the blog received a link from all 253
+pages and gave one back only from the sitemap, which meant the 246 pages carrying whatever
+authority this site has passed none of it on, and the posts fed no traffic to the pages that
+convert. A post declares the `trades` it belongs to and, optionally, `areas: "all"`; those trade
+pages, the trade-by-city pages under them and the city pages print a "from the build log" row.
+**233 pages link at least one post now, against one before.** Nothing renders where a page has no
+post to show, and nothing renders in a demo direction.
+
+**The questions at the foot of each post are visible first and declared second.** Four per post,
+rendered as the same `<details>` list the concrete service page uses, and emitted as `FAQPage`
+with a test asserting every declared question and answer actually appears on the page — schema
+that says more than the page does is what gets a site penalised. It buys no rich result: Google
+withdrew FAQ snippets for commercial sites in 2023. It is there because an answer engine reading
+the page still uses it, and because the visible questions are themselves the long-tail queries
+people type. They also took the posts from 519 words to 757.
+
 **What every page carries:**
 
 - Unique `<title>` (≤60 chars) and `<meta name="description">` (≤155, so the snippet is never

@@ -32,8 +32,11 @@ export function loadContent() {
 export function loadPosts() {
   const { posts, index } = json('posts.json');
   const withMeta = posts.map((b) => {
-    const words = [b.standfirst, b.takeaway, ...b.sections.flatMap(
-      (sec) => [sec.heading, ...sec.paras, ...(sec.list || [])])]
+    const words = [b.standfirst, b.takeaway,
+      ...b.sections.flatMap((sec) => [sec.heading, ...sec.paras, ...(sec.list || [])]),
+      // The questions are on the page, so they are part of what there is to
+      // read. Counting only the article understated every post by a minute.
+      ...(b.faqs || []).flatMap((f) => [f.q, f.a])]
       .join(' ').split(/\s+/).filter(Boolean).length;
     return { ...b, key: `blog/${b.slug}`, words, minutes: Math.max(1, Math.round(words / 220)) };
   });

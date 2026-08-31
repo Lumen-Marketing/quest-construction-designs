@@ -239,6 +239,22 @@ export function graphFor({ page, res, content }, opts = {}) {
     });
   }
 
+  // The questions printed at the foot of the post, declared. Google withdrew
+  // FAQ rich results for commercial sites in 2023, so this buys no stars in a
+  // search result — it is here because an answer engine reading the page still
+  // uses it, and because the schema must not disagree with what is on the page.
+  if (page.kind === 'post' && page.item.faqs?.length) {
+    graph.push({
+      '@type': 'FAQPage',
+      '@id': `${res.canonical}#faq`,
+      mainEntity: page.item.faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    });
+  }
+
   // The index's job is the list it carries, the same as the two hubs.
   if (page.kind === 'blogIndex') {
     graph.push({

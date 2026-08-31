@@ -1,5 +1,5 @@
 {
-  "_README": "The blog. One entry per post, newest first — the build sorts by date anyway, so a new post can be appended rather than inserted. `titleTag` is the short form for the <title> element, because a headline that reads well on the page is usually too long for one; leave it out and the title is used, clipped. `sections` is the body: a heading, its paragraphs, and an optional list. `related` holds page keys, not URLs, so a link cannot rot when a slug moves; the resolver turns them into paths. `shot` is a photograph from assets/quest, and `og` is one of the eight cuts in assets/og. Reading time is computed from the words at build time rather than stored, so it cannot go stale. UNVERIFIED, exactly as content/service-areas.json is: the jurisdiction claims trace to docs/service-area-verification.md, but everything describing how Quest works is written from public knowledge of the trade and Quest must cut anything that is not how it actually operates.",
+  "_README": "The blog. One entry per post, newest first — the build sorts by date anyway, so a new post can be appended rather than inserted. `titleTag` is the short form for the <title> element, because a headline that reads well on the page is usually too long for one; leave it out and the title is used, clipped. `sections` is the body: a heading, its paragraphs, and an optional list. `trades` and `areas` are the reverse of `related`: which pages link back to this post, so the 246 pages that carry the site's authority pass some of it to the blog rather than only receiving from it. `areas: \"all\"` puts a post on every city page. `faqs` render visibly on the post and are emitted as FAQPage — the schema follows what is on the page, never the other way round. `related` holds page keys, not URLs, so a link cannot rot when a slug moves; the resolver turns them into paths. `shot` is a photograph from assets/quest, and `og` is one of the eight cuts in assets/og. Reading time is computed from the words at build time rather than stored, so it cannot go stale. UNVERIFIED, exactly as content/service-areas.json is: the jurisdiction claims trace to docs/service-area-verification.md, but everything describing how Quest works is written from public knowledge of the trade and Quest must cut anything that is not how it actually operates.",
   "index": {
     "h1": "The Build Log",
     "lede": "What we have learned on Arizona jobs, written down. No news, no company announcements — the things worth knowing before you spend money on your house.",
@@ -55,10 +55,33 @@
         }
       ],
       "takeaway": "If the patio is unusable from May, the answer is shade, and the answer is shade before it is furniture, misters or a bigger air conditioner.",
+      "trades": [
+        "deck-building-uses-trex-system",
+        "framing",
+        "concrete"
+      ],
       "related": [
         "services/deck-building-uses-trex-system",
         "projects",
         "services/concrete"
+      ],
+      "faqs": [
+        {
+          "q": "Do I need a permit for a pergola in Arizona?",
+          "a": "Generally yes. Anything with a footing and a roof is a permitted structure across most of the valley, and attaching it to the house makes it one almost everywhere. Where a community has an architectural committee that is a second, separate consent. We pull the permit: an unpermitted structure attached to the house is a problem on the day it is sold, and a more expensive one then."
+        },
+        {
+          "q": "What is the difference between a pergola and a ramada?",
+          "a": "A pergola has open rafters and gives filtered light. A ramada or patio cover has a solid roof, so it gives real shade and somewhere dry to sit out a storm. Most people who ask us for a pergola describe a ramada when we ask what they want to do under it."
+        },
+        {
+          "q": "How much shade does an open pergola actually give?",
+          "a": "Enough to cut the glare and take the edge off, and not enough on its own to make a west-facing patio usable in July. If the aim is a room you will actually sit in through the summer, the solid roof is the honest answer."
+        },
+        {
+          "q": "Will a patio cover blow off in a monsoon?",
+          "a": "Only if its connections were built for weight rather than uplift. A flat roof on posts is a wing, and a gust lifts it rather than pressing it down. Footings sized for uplift, hold-downs at the posts and ties at every rafter are what keep it where it was put."
+        }
       ]
     },
     {
@@ -114,10 +137,31 @@
         }
       ],
       "takeaway": "After a storm, look at the edges and the penetrations rather than the middle, and treat a ceiling stain that arrives the next day as urgent rather than minor.",
+      "trades": [
+        "roofing"
+      ],
       "related": [
         "services/roofing",
         "service-areas/mesa-az",
         "service-areas/phoenix-az"
+      ],
+      "faqs": [
+        {
+          "q": "How do I tell whether a monsoon damaged my roof?",
+          "a": "From the ground, and there is more to see than people expect: a lifted, slipped or missing tile along an edge or the ridge, granules collecting where a downspout discharges, staining at the soffit line, and anything that has come off the roof and landed in the garden. Do not walk a hot tile roof to check."
+        },
+        {
+          "q": "Why did my ceiling stain appear a day after the storm?",
+          "a": "Because the water has been travelling — along a rafter or across the top of a ceiling — before it found somewhere to come through. The stain shows you where it stopped, not where it started. That is a roof to look at now rather than in October."
+        },
+        {
+          "q": "Where do Arizona roof leaks usually start?",
+          "a": "Almost never in the open field of the roof. They start at the edges and the ridge, and around anything that penetrates the surface: old evaporative cooler openings, the air-conditioning penetrations that came later, and plumbing vent boots whose rubber has perished in the ultraviolet."
+        },
+        {
+          "q": "Do I need a permit to replace a roof in Phoenix or Mesa?",
+          "a": "Yes. A reroof is its own permit in most valley cities, including Phoenix and Mesa, and it carries a review window. We file before anything comes off, because a tear-off started against a permit that has not cleared leaves a house open to the sky waiting on paperwork."
+        }
       ]
     },
     {
@@ -161,10 +205,30 @@
         }
       ],
       "takeaway": "Ask who issues the permit for your specific address before you ask anyone for a start date. On most valley streets it is the city; where it is not, it changes the programme rather than a detail of it.",
+      "trades": [],
+      "areas": "all",
       "related": [
         "service-areas",
         "service-areas/san-tan-valley-az",
         "service-areas/maricopa-az"
+      ],
+      "faqs": [
+        {
+          "q": "Does the City of Maricopa permit through Maricopa County?",
+          "a": "No. The City of Maricopa is in Pinal County, about thirty-five miles south of Phoenix, and its building safety department is a Pinal jurisdiction. It is the single most common mix-up on any list of valley cities."
+        },
+        {
+          "q": "Who issues building permits in San Tan Valley?",
+          "a": "It is mid-handover. San Tan Valley incorporated on 1 July 2026, and to the end of 2026 it is a two-step: a zoning clearance from the Town first, then the building permit from Pinal County with that clearance attached. The Town is expected to take permitting over in full during 2027, so we confirm which path is live at the time of the project."
+        },
+        {
+          "q": "Is HOA approval the same as a building permit?",
+          "a": "No — they are two separate consents from two unrelated bodies, and having one does not help you with the other. Filing them one after the other is how a month disappears from a schedule, so we submit both together."
+        },
+        {
+          "q": "Do Sun City and Anthem permit through a city?",
+          "a": "Neither is incorporated, so both are Maricopa County submittals. In Sun City there is also a separate fire and life-safety permit from the Sun City Fire District, which is easy to miss because nothing else in the valley works that way."
+        }
       ]
     },
     {
@@ -207,10 +271,31 @@
         }
       ],
       "takeaway": "On a valley tile roof, age the underlayment, not the tile. Twenty years is when the conversation starts, whatever the roof looks like from the kerb.",
+      "trades": [
+        "roofing"
+      ],
       "related": [
         "services/roofing",
         "service-areas/gilbert-az",
         "service-areas/chandler-az"
+      ],
+      "faqs": [
+        {
+          "q": "How long does tile roof underlayment last in Arizona?",
+          "a": "Roughly twenty to twenty-five years in this climate, against fifty years or more for the concrete tile sitting on top of it. That gap is the whole point: the layer you can see outlives the layer doing the waterproofing by decades."
+        },
+        {
+          "q": "Do I need a whole new roof if my tiles look fine?",
+          "a": "Usually not. If the tiles are sound and the underlayment has reached the end of its life, the job is a lift-and-relay rather than a replacement, and it is a substantially smaller number. Cracked and spalling tile across the field is a different job and should be explained rather than assumed."
+        },
+        {
+          "q": "What is a tile lift-and-relay?",
+          "a": "The tiles come off and are stacked, the old underlayment comes up, the deck is inspected and repaired where it needs it, new underlayment goes down, and the same tiles go back with an allowance for the ones that break in handling. The elevation looks exactly as it did, because it is the same roof."
+        },
+        {
+          "q": "How can I tell my tile roof needs new underlayment?",
+          "a": "Age is the most reliable indicator, because the visible layer looks fine long after the waterproofing has stopped working. On a valley tile roof, twenty years is when the conversation starts whatever it looks like from the kerb."
+        }
       ]
     },
     {
@@ -259,10 +344,32 @@
         }
       ],
       "takeaway": "If a contractor offers to match your stucco off a board without spraying a test patch on the wall, they are matching the specification rather than the house.",
+      "trades": [
+        "stucco",
+        "painting"
+      ],
       "related": [
         "services/stucco",
         "service-areas/mesa-az",
         "services/painting"
+      ],
+      "faqs": [
+        {
+          "q": "Can new stucco be matched to old stucco?",
+          "a": "Yes, but on the wall rather than off a sample board, and it usually takes more than one attempt. Test patches go on the actual elevation, in the actual light, and get looked at across a day rather than approved ten minutes after they are sprayed."
+        },
+        {
+          "q": "Why does my stucco patch look different from the wall?",
+          "a": "Two reasons. Texture is read by shadow, so the angle of the light does most of the work and a board matched flat in shade tells you very little. And the original has faded unevenly, face by face, because the west wall has taken several times the ultraviolet the north wall has."
+        },
+        {
+          "q": "Is it better to patch stucco or recoat the whole wall?",
+          "a": "Where an elevation carries several patches, or the fade is far enough advanced, three excellent matches will still read as three patches. Preparing and recoating the whole elevation costs more than the repair and less than most people assume, and it produces a wall rather than a repaired wall."
+        },
+        {
+          "q": "What stucco texture is standard in Arizona?",
+          "a": "Knockdown and orange peel are the local vernacular, and every crew that ever sprayed one did it slightly differently — pressure, distance, how long before the knock. It is not a specification you can look up; it is a thing you copy off the wall in front of you."
+        }
       ]
     },
     {
@@ -305,10 +412,33 @@
         }
       ],
       "takeaway": "Before anyone quotes to open up a kitchen, establish whether the wall is bearing. If nobody has been in the roof space, nobody knows.",
+      "trades": [
+        "full-remodel-kitchen-bathroomcabinets-flooring-counter-tops",
+        "framing",
+        "dry-wall"
+      ],
       "related": [
         "services/full-remodel-kitchen-bathroomcabinets-flooring-counter-tops",
         "services/framing",
         "services/dry-wall"
+      ],
+      "faqs": [
+        {
+          "q": "How do I know if a wall is load bearing?",
+          "a": "Look in the roof space at which way the framing runs and what is sitting on what. Most valley houses built from the 1980s onwards have engineered trusses spanning exterior wall to exterior wall, which leaves many interior walls carrying nothing but themselves — but girder trusses, mid-span bearing points and later additions all break that rule."
+        },
+        {
+          "q": "How much does it cost to remove a load bearing wall?",
+          "a": "It depends on the span and on where the load has to go, but the parts are always the same: a beam sized by an engineer, posts under each end, and a load path down to something that can take a point load. On slab-on-grade that occasionally means cutting the slab and pouring a pad, which is far cheaper to find before demolition than during it."
+        },
+        {
+          "q": "Do I need a permit to remove an interior wall?",
+          "a": "For a structural alteration, yes, and the jurisdiction will want to see the engineering. That is a good outcome rather than an obstacle: a beam somebody sized by eye is the sort of thing a buyer's inspector discovers years later, at the worst possible moment."
+        },
+        {
+          "q": "What happens if a load bearing wall is removed without a beam?",
+          "a": "It does not fall over, which is what makes it dangerous. It sags: a door that stops closing, a crack that opens across a ceiling, a line in the drywall that comes back every time it is filled. The repair at that point is the original job plus the damage."
+        }
       ]
     }
   ]

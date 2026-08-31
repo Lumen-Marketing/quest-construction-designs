@@ -794,7 +794,41 @@ ${faq}
 
 ${tradeCities(c, s)}
 
+${fromTheLog(c, (b) => b.trades.includes(s.slug),
+    `Reading on <span>${esc(s.name)}</span>`)}
+
 ${closingCta(c, s.ctaHeading, s.ctaBody)}`;
+}
+
+/**
+ * The posts that point at this page — the reverse of a post's `related`.
+ *
+ * The blog was receiving a link from all 253 pages and giving one back only
+ * from the sitemap, which meant the pages carrying whatever authority this
+ * site has passed none of it on. A post declares the trades it belongs to and
+ * whether it is city-wide; those pages print it. Nothing renders where a page
+ * has no post, and nothing renders in a demo direction, which has no blog.
+ *
+ * @param match  (post) -> boolean, asked once per post
+ */
+function fromTheLog(c, match, heading) {
+  if (!c.blog) return '';
+  const hits = c.posts.posts.filter(match);
+  if (!hits.length) return '';
+  return `
+<section class="sec cream alt">
+  ${grid(false)}
+  <div class="wrap">
+    ${shead('— From the build log', heading, '')}
+    <div class="logrow rv">${hits.map((b) => `
+      <a href="${c.url(`blog/${b.slug}`)}">
+        <span class="logmeta mono">${esc(b.topic)} &middot; ${b.minutes} min</span>
+        <span class="logtitle">${esc(b.title)}</span>
+        <span class="logdek">${esc(b.standfirst)}</span>
+      </a>`).join('')}
+    </div>
+  </div>
+</section>`;
 }
 
 /** Service-area page. d01 renders authored local copy; see content/areas-local.json. */
@@ -879,6 +913,9 @@ ${cityTrades(c, a)}
     <div class="arealinks rv">${others}</div>
   </div>
 </section>
+
+${fromTheLog(c, (b) => b.areas === 'all' || (b.related || []).includes(c.page.key),
+    `Worth Knowing in <span>${fill('{{city}}')}</span>`)}
 
 ${closingCta(c, raw(t.ctaHeading), raw(t.ctaBody))}`;
 }
@@ -1417,6 +1454,9 @@ ${band(c, areaShots(ai), '— Recent work',
   </div>
 </section>
 
+${fromTheLog(c, (b) => b.trades.includes(s.slug) || b.areas === 'all',
+    `Reading on <span>${esc(short)}</span>`)}
+
 ${closingCta(c, `${short} in ${a.city}, done properly`,
   `Tell us what you need doing and we will come and look at it. ${c.site.availability}.`)}`;
 }
@@ -1602,6 +1642,10 @@ export function post(c) {
     <article class="prose postbodycopy rv">
       ${body}
       <p class="posttakeaway">${esc(b.takeaway)}</p>
+      ${(b.faqs || []).length ? `<h2 class="postfaq-h">Questions we get asked</h2>
+      <div class="faqlist">${b.faqs.map((f) => `
+        <details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}
+      </div>` : ''}
     </article>
     <aside class="localnotes rv">
       <h3>Talk to us about this</h3>
