@@ -508,6 +508,7 @@ const BANNER_PAGE = {
   sitemap: 'quest/sheathing-panel.webp',
   serviceIndex: 'quest/framing-garage.webp',
   areaIndex: 'quest/custom-home-wide.webp',
+  blog: 'quest/framing-ladder.webp',
 };
 
 /**

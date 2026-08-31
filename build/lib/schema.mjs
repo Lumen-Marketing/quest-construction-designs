@@ -74,7 +74,7 @@ function business(content, areasServed, opts) {
   };
 }
 
-const CRUMB = { serviceIndex: 'Services', areaIndex: 'Service Areas' };
+const CRUMB = { serviceIndex: 'Services', areaIndex: 'Service Areas', blogIndex: 'Blog' };
 
 function breadcrumbs(page, res) {
   const trail = [{ name: 'Home', key: 'home' }];
@@ -90,6 +90,12 @@ function breadcrumbs(page, res) {
     trail.push({ name: 'Services', key: res.hubKey('services') });
     trail.push({ name: page.item.service.name, key: `services/${page.item.service.slug}` });
     trail.push({ name: page.item.area.city, key: page.key });
+  } else if (page.kind === 'post') {
+    // Home / Blog / the headline. The blog index always exists where a post
+    // does — they are switched on by the same profile flag — so this one does
+    // not need the hubKey fallback the service and area trails carry.
+    trail.push({ name: 'Blog', key: 'blog' });
+    trail.push({ name: page.item.title, key: page.key });
   } else if (page.kind !== 'home') {
     trail.push({
       name: CRUMB[page.kind] || page.title.split('|')[0].trim(),
@@ -112,6 +118,7 @@ const PAGE_TYPE = {
   projects: 'CollectionPage',
   serviceIndex: 'CollectionPage',
   areaIndex: 'CollectionPage',
+  blogIndex: 'CollectionPage',
 };
 
 /**
@@ -205,6 +212,50 @@ export function graphFor({ page, res, content }, opts = {}) {
       description: page.item.copy.lede,
       provider: { '@id': `${ORIGIN}/#business` },
       areaServed: city(a.city),
+    });
+  }
+
+  // A post is an article with a date on it, which is the one thing the rest of
+  // this site does not have. The BlogPosting sits beside the WebPage rather
+  // than replacing it, so the page keeps its breadcrumb and its site identity
+  // and the article carries its own authorship and dates.
+  if (page.kind === 'post') {
+    const b = page.item;
+    graph.push({
+      '@type': 'BlogPosting',
+      '@id': `${res.canonical}#post`,
+      headline: b.title,
+      description: b.standfirst,
+      articleSection: b.topic,
+      datePublished: b.date,
+      dateModified: b.date,
+      wordCount: b.words,
+      inLanguage: 'en-US',
+      isAccessibleForFree: true,
+      mainEntityOfPage: { '@id': `${res.canonical}#webpage` },
+      image: res.absAsset(`og/${page.ogImage}`),
+      author: { '@id': `${ORIGIN}/#business` },
+      publisher: { '@id': `${ORIGIN}/#business` },
+    });
+  }
+
+  // The index's job is the list it carries, the same as the two hubs.
+  if (page.kind === 'blogIndex') {
+    graph.push({
+      '@type': 'Blog',
+      '@id': `${res.canonical}#blog`,
+      name: page.title.split('|')[0].trim(),
+      description: content.posts.index.lede,
+      inLanguage: 'en-US',
+      publisher: { '@id': `${ORIGIN}/#business` },
+      blogPost: content.posts.posts.map((b) => ({
+        '@type': 'BlogPosting',
+        '@id': `${res.abs(`blog/${b.slug}`)}#post`,
+        headline: b.title,
+        description: b.standfirst,
+        datePublished: b.date,
+        url: res.abs(`blog/${b.slug}`),
+      })),
     });
   }
 

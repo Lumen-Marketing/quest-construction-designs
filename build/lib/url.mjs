@@ -26,13 +26,20 @@ export const CITY_SERVICE_KEYS = Object.entries(cross)
   .filter(([trade]) => trade !== '_README')
   .flatMap(([trade, byCity]) => Object.keys(byCity).map((city) => `services/${trade}/${city}`));
 
+// The blog: an index at /blog/ and one page per post. Standalone only, like
+// the hubs and the trade-by-city pages — a demo direction has no posts and
+// the fifty-four page contract has no room for them. Driven off
+// content/posts.json so a key exists exactly where a post does.
+const posts = JSON.parse(readFileSync('content/posts.json', 'utf8')).posts;
+export const BLOG_KEYS = ['blog', ...posts.map((b) => `blog/${b.slug}`)];
+
 export const PAGE_KEYS = [
   ...Object.keys(FIXED),
   ...services.map((s) => `services/${s.slug}`),
   ...areas.map((a) => `service-areas/${a.slug}`),
 ];
 
-const KEYS = new Set([...PAGE_KEYS, ...HUB_KEYS, ...CITY_SERVICE_KEYS]);
+const KEYS = new Set([...PAGE_KEYS, ...HUB_KEYS, ...CITY_SERVICE_KEYS, ...BLOG_KEYS]);
 
 const dirFor = (key) => {
   if (!KEYS.has(key)) throw new Error(`unknown page key: ${key}`);

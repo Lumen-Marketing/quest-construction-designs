@@ -228,6 +228,7 @@ export function nav(c) {
     </div>
     <a href="${c.url('projects')}">Projects</a>
     <a href="${c.url('gallery')}">Gallery</a>
+    ${c.blog ? `<a href="${c.url('blog')}">Blog</a>` : ''}
     <a href="${c.url('about')}">About</a>
     <a href="${c.url('contact')}">Contact</a>
     <div class="navcall">
@@ -294,6 +295,7 @@ export function footer(c) {
     [c.url('about'), 'About Us'],
     [c.url('projects'), 'Project Showcase'],
     [c.url('gallery'), 'Gallery'],
+    ...(c.blog ? [[c.url('blog'), 'Blog']] : []),
     [c.url('contact'), 'Contact'],
     [c.url('sitemap'), 'Sitemap'],
   ])}
@@ -1487,6 +1489,174 @@ ${closingCta(c, 'Tell us where the job is',
   `${c.site.positioning} — reachable ${c.site.availability} on ${c.site.phoneDisplay}.`)}`;
 }
 
+// ------------------------------------------------------------------------ blog
+// The blog is the only part of this site with a date on it, and that is the
+// whole design problem: everything else here is true until Quest changes how it
+// works, and a post is true on the day it was written. So the date is printed
+// on the card and on the article rather than tucked into the schema, and the
+// reading time beside it is counted from the words at build time — a number
+// typed next to a body that later grows is wrong and looks authoritative.
+
+/** The metadata row that appears under every headline: topic, date, length. */
+const postMeta = (b, cls = 'postmeta mono') => `<p class="${cls}">
+      <span class="topic">${esc(b.topic)}</span>
+      <time datetime="${esc(b.date)}">${esc(longDate(b.date))}</time>
+      <span>${b.minutes} min read</span>
+    </p>`;
+
+// Written out rather than left as 2026-08-11: a reader should not have to parse
+// a date, and toLocaleDateString would make the output depend on the locale of
+// whichever machine ran the build.
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+  'August', 'September', 'October', 'November', 'December'];
+function longDate(iso) {
+  const [y, m, d] = iso.split('-');
+  return `${Number(d)} ${MONTHS[Number(m) - 1]} ${y}`;
+}
+
+export function blogIndex(c) {
+  const { index: ix, posts } = c.posts;
+  // A page key rather than a URL, so a related link cannot rot when a slug
+  // moves — the resolver is the only thing that knows what a key addresses.
+  // An article with a real h3 rather than an anchor wrapping the whole card.
+  // A card is a heading and a summary, and a list of six of them is something
+  // a screen reader should be able to jump through — which it cannot if every
+  // headline is a span inside a link. The link is on the heading and stretched
+  // over the card in CSS, so the whole tile is still one click.
+  const cards = posts.map((b) => `
+      <article class="postcard rv">
+        <div class="postshot">${img(c, ...shot(b.shot))}</div>
+        <div class="postbody">
+          ${postMeta(b)}
+          <h3 class="posth3"><a href="${c.url(`blog/${b.slug}`)}">${esc(b.title)}</a></h3>
+          <p class="postdek">${esc(b.standfirst)}</p>
+          <span class="go">Read it <i aria-hidden="true">&#8599;</i></span>
+        </div>
+      </article>`).join('');
+
+  return `${pageHero(c, {
+    h1: ix.h1, lede: ix.lede, crumb: 'Blog', banner: bannerShot('blog'), accent: 'Build Log',
+  })}
+
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap">
+    ${shead(`— ${ix.eyebrow}`, `Everything We Have <span>Written Down</span>`,
+    `${posts.length} posts, all of them about work we actually do in Arizona.`)}
+    <div class="posts">${cards || `<p class="lede">${esc(ix.empty)}</p>`}</div>
+  </div>
+</section>
+
+<section class="sec dark">
+  ${grid(true)}
+  <div class="wrap">
+    ${shead('— Related', 'The Trades <span>Behind</span> These Posts', '')}
+    <div class="arealinks light rv">${c.services.slice(0, 6).map((s) =>
+    `<a href="${c.url(`services/${s.slug}`)}">${esc(s.name)}</a>`).join('')}</div>
+  </div>
+</section>
+
+${closingCta(c, c.pages.home.ctaHeading, c.pages.home.ctaBody)}`;
+}
+
+export function post(c) {
+  const b = c.item;
+  const others = c.posts.posts.filter((x) => x.slug !== b.slug).slice(0, 3);
+
+  // The body. A section is a heading, its paragraphs and an optional list —
+  // three shapes rather than arbitrary markup, because the moment a content
+  // file can carry HTML it will, and then the words are no longer portable.
+  const body = b.sections.map((sec) => `
+      <h2>${esc(sec.heading)}</h2>
+      ${sec.paras.map((t) => `<p>${esc(t)}</p>`).join('')}
+      ${sec.list ? `<ul class="postlist">${sec.list.map((li) =>
+    `<li>${esc(li)}</li>`).join('')}</ul>` : ''}`).join('');
+
+  const related = (b.related || []).map((key) =>
+    `<a href="${c.url(key)}">${esc(pageLabel(c, key))}</a>`).join('');
+
+  return `
+<section class="subhero">
+  ${bannerPlate(c, shot(b.shot))}
+  ${bannerBack()}
+  ${grid(true)}
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="${c.url('home')}">Home</a> <span aria-hidden="true">/</span>
+      <a href="${c.url('blog')}">Blog</a> <span aria-hidden="true">/</span>
+      <b>${esc(b.topic)}</b>
+    </nav>
+    <div class="subhero-in">
+      <div>
+        <h1>${esc(b.title)}</h1>
+        <p class="lede">${esc(b.standfirst)}</p>
+        ${postMeta(b, 'postmeta mono on-dark')}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap prose-wrap">
+    <article class="prose postbodycopy rv">
+      ${body}
+      <p class="posttakeaway">${esc(b.takeaway)}</p>
+    </article>
+    <aside class="localnotes rv">
+      <h3>Talk to us about this</h3>
+      <ul><li>Written from Quest jobs across the Valley</li><li>Family-owned, Arizona-based since ${
+  esc(c.site.foundingYear)}</li><li>${c.services.length} trades under one contractor</li></ul>
+      <div class="localcall">
+        <b class="telnum">${esc(c.site.phoneDisplay)}</b>
+        <span>${esc(c.site.availability)} &middot; ${esc(b.topic)}</span>
+      </div>
+    </aside>
+  </div>
+</section>
+
+${related ? `<section class="sec cream alt">
+  ${grid(false)}
+  <div class="wrap">
+    ${shead('— Read next', 'Pages This Post <span>Refers</span> To', '')}
+    <div class="arealinks trades rv">${related}</div>
+  </div>
+</section>` : ''}
+
+<section class="sec dark">
+  ${grid(true)}
+  <div class="wrap">
+    ${shead('— More from the log', 'Other Things <span>Worth</span> Knowing', '')}
+    <div class="arealinks light rv">${others.map((x) =>
+    `<a href="${c.url(`blog/${x.slug}`)}">${esc(x.titleTag || x.title)}</a>`).join('')}</div>
+  </div>
+</section>
+
+${closingCta(c, `Got a ${b.topic.toLowerCase()} job in mind?`,
+    `Tell us what you need doing and we will come and look at it. ${c.site.availability}.`)}`;
+}
+
+/**
+ * A human label for a page key, for the "read next" row.
+ *
+ * The related list holds keys rather than link text so the words cannot drift
+ * from the page they point at: rename a trade in content/services.json and this
+ * follows, where a hand-written label would quietly go stale.
+ */
+function pageLabel(c, key) {
+  const svc = c.services.find((x) => `services/${x.slug}` === key);
+  if (svc) return SHORT_NAME[svc.slug] || svc.name;
+  const area = c.areas.areas.find((x) => `service-areas/${x.slug}` === key);
+  if (area) return `Building in ${area.city}`;
+  const FIXED = {
+    projects: 'Project Showcase', gallery: 'Gallery', about: 'About Us',
+    contact: 'Contact', blog: 'The Build Log', 'service-areas': 'Every Area We Serve',
+    services: 'Every Service',
+  };
+  if (FIXED[key]) return FIXED[key];
+  throw new Error(`no label for related key: ${key}`);
+}
+
 export function sitemap(c) {
   const col = (title, items) => `<div class="rv">
   <h2>${esc(title)}</h2>
@@ -1507,9 +1677,12 @@ export function sitemap(c) {
       [c.url('about'), 'About Us'],
       [c.url('projects'), 'Project Showcase'],
       [c.url('gallery'), 'Gallery'],
+      ...(c.blog ? [[c.url('blog'), 'The Build Log']] : []),
       [c.url('contact'), 'Contact'],
       [c.url('sitemap'), 'Sitemap'],
     ])}
+    ${c.blog ? col('The Build Log', c.posts.posts.map(
+      (b) => [c.url(`blog/${b.slug}`), b.titleTag || b.title])) : ''}
     ${col('Services', [
       ...(c.hubs ? [[c.url('services'), 'All Services']] : []),
       ...c.services.map((s) => [c.url(`services/${s.slug}`), s.name])])}

@@ -1317,6 +1317,74 @@ footer .brand img{height:38px}
 .wc p{margin:0;font-size:14.5px;color:var(--ink-2)}
 @media(max-width:900px){.prose-wrap{grid-template-columns:1fr}}
 
+/* ---------- the blog ----------
+   The one part of this site with a date on it, which is the only thing it
+   needs that nothing else here has: a meta line. Everything else is furniture
+   already in this stylesheet — the card is the project card with an anchor
+   round it, the article is .prose, and the aside is the trade-by-city notes
+   panel. */
+.postmeta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:0 0 16px;
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+  color:var(--mute-lt)}
+.postmeta .topic{color:var(--acc-dim)}
+/* Between the three items rather than around them, so the row still reads as
+   one line when it wraps on a phone. */
+.postmeta>*+*{position:relative;padding-left:15px}
+.postmeta>*+*::before{content:"";position:absolute;left:0;top:50%;width:5px;height:1px;
+  background:currentColor;opacity:.55}
+.postmeta.on-dark{color:var(--on-dark-2);margin:22px 0 0}
+.postmeta.on-dark .topic{color:var(--acc-on-dark)}
+
+.posts{position:relative;z-index:3;display:grid;gap:clamp(16px,2.2vw,26px)}
+.postcard{position:relative;display:grid;grid-template-columns:.8fr 1.2fr;background:#fff;
+  border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-lg);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+/* The link is on the heading, for a screen reader, and stretched over the card,
+   for a mouse. One link, one accessible name, one click target — and the global
+   :focus-visible ring is left on the heading itself rather than moved to the
+   card, because moving it needs :has() and a ring around the words is a
+   perfectly good indicator that works everywhere. */
+.posth3 a::after{content:"";position:absolute;inset:0;border-radius:var(--r-lg)}
+.postshot{overflow:hidden;display:block}
+.postshot img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;display:block;
+  transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.postbody{padding:var(--sp-2);display:flex;flex-direction:column;justify-content:center}
+.posth3{font-size:clamp(20px,2.4vw,31px);font-weight:900;letter-spacing:-.02em;
+  line-height:1.15;margin:0 0 12px;text-wrap:balance}
+.postdek{color:var(--ink-2);font-size:clamp(14.5px,1.4vw,16.5px);
+  margin:0 0 22px;text-wrap:pretty}
+.postcard .go{display:inline-flex;align-items:center;gap:10px;min-height:24px;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;font-weight:700;color:var(--acc-dim)}
+.postcard .go i{font-style:normal;transition:transform .28s ease}
+@media (hover:hover) and (pointer:fine){
+  .postcard:hover{transform:translateY(-4px)}
+  .postcard:hover .postshot img{transform:scale(1.06)}
+  .postcard:hover .go i{transform:translate(5px,-5px)}
+}
+@media(max-width:820px){.postcard{grid-template-columns:1fr}}
+
+/* ---- the article ----
+   .prose sets the type; this sets the rhythm of a long body, which the two
+   pages that used .prose before never needed because neither runs past four
+   paragraphs. */
+.postbodycopy{max-width:68ch}
+.postbodycopy h2{font-size:clamp(20px,2.2vw,28px);margin:38px 0 16px}
+.postbodycopy h2:first-child{margin-top:0}
+.postlist{list-style:none;margin:0 0 22px;padding:0;display:grid;gap:10px}
+.postlist li{position:relative;padding-left:24px;color:var(--ink-2);
+  font-size:clamp(14.5px,1.4vw,16.5px)}
+.postlist li::before{content:"";position:absolute;left:0;top:.62em;width:11px;height:2px;
+  background:var(--acc-dim)}
+/* The one line the reader keeps if they keep nothing else. */
+.posttakeaway{margin:34px 0 0;padding:22px 26px;background:var(--cream-2);
+  border-left:3px solid var(--acc);border-radius:0 var(--r) var(--r) 0;
+  font-size:clamp(15px,1.5vw,17.5px);font-weight:600;color:var(--ink);text-wrap:pretty}
+
+/* Seven items and a phone number is more than the desktop bar was drawn for,
+   so the gap tightens before the drawer takes over at 940px. */
+@media(max-width:1180px){.nav nav{gap:clamp(11px,1.5vw,20px)}}
+
 /* ---- scope cards + quality note (concrete only) ---- */
 .scope{position:relative;z-index:3;display:grid;grid-template-columns:repeat(2,1fr);
   gap:clamp(14px,1.8vw,22px)}

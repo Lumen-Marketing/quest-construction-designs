@@ -17,7 +17,7 @@ import {
 } from '../lib/page-rules.mjs';
 
 const OUT = 'site';
-const PAGES = pageList({ hubs: true, cityServices: true });
+const PAGES = pageList({ hubs: true, cityServices: true, blog: true });
 
 // The four things that would mean the chooser leaked into the standalone build.
 // The placeholder-identity list is not repeated here — it lives in page-rules.

@@ -33,7 +33,7 @@ flip its flag, and the rest can come down.
 deployable site — the deliverable, as opposed to the demo directions, which are the pitch.
 
 ```bash
-node build/site/build-site.mjs      # write site/ — 246 pages, 404, assets, robots, sitemap
+node build/site/build-site.mjs      # write site/ — 253 pages, 404, assets, robots, sitemap
 node build/site/verify-site.mjs     # the gate: links, heads, schema, sitemap, accent, fonts
 ```
 
@@ -44,7 +44,7 @@ What is different from `d01-site-plan/` sitting in a subfolder:
 | URLs | `/d01-site-plan/services/adu/` | `/services/adu/` |
 | Accent | swapped live off the URL and the chooser | Burnt Orange baked into the stylesheet |
 | Fonts | Google Fonts, render-blocking third party | two self-hosted variable woff2, 75KB total |
-| Pages | 54 | 246 — plus `/services/`, `/service-areas/` and the trade-by-city pages |
+| Pages | 54 | 253 — plus `/services/`, `/service-areas/`, the trade-by-city pages and the blog |
 | Assets | shared repo-root `assets/` | its own `assets/`, only what is referenced |
 | Root files | shares the chooser's | own `robots.txt`, `sitemap.xml`, `llms.txt`, `404.html`, manifest, host config |
 
@@ -553,7 +553,7 @@ the fact that the overlay clears the header rather than covering it.
 Every direction is a *fully optimised* page, not a mockup with a title tag. Whichever one Quest
 picks ships search-ready rather than needing an SEO pass afterwards.
 
-**One indexable site, 246 targeted pages.** The mockups each chased a different head term
+**One indexable site, 253 targeted pages.** The mockups each chased a different head term
 so ten homepages would not compete. That is no longer how the cannibalisation is handled: only
 `d01-site-plan` is indexable, and inside it each page targets its own query — one per trade, one
 per city, one for each trade-and-city pairing that has been written, plus the six standalone pages.
@@ -578,6 +578,24 @@ The twelve are Phoenix, Mesa, Chandler, Gilbert, Glendale, Scottsdale, Tempe, Pe
 Goodyear, Queen Creek and Buckeye. The remaining twenty-two cities carry roofing and their own area
 page, and nothing else — a drywall page for Youngtown would be the trade page with a name in it,
 which is the whole thing these pairings exist to avoid.
+
+**The blog is the only dated thing on the site.** `/blog/` and six posts under it, written
+from `content/posts.json`. Everything else here is true until Quest changes how it works; a post
+is true on the day it was written, so the date and the reading time are printed on the page rather
+than buried in the schema, and the reading time is counted from the words at build time — a number
+typed beside a body that later grows is wrong and looks authoritative. Each post carries a
+`BlogPosting` node *beside* its `WebPage` rather than instead of it, so the page keeps its
+breadcrumb and its site identity while the article carries its own dates and authorship. Its
+`<lastmod>` in `sitemap.xml` is the day it was written, not the day of the build: telling a crawler
+a March article changed in August is the fastest way to have every `<lastmod>` on a site ignored.
+
+Posts are structured data, not markup — a heading, its paragraphs and an optional list — because
+the moment a content file can carry HTML it will, and the words stop being portable. `related`
+holds page keys rather than URLs, so a link cannot rot when a slug moves and the anchor text is
+read from `content/services.json` rather than typed twice. The blog is standalone-only, switched
+on by the same kind of profile flag as the hubs and the trade-by-city pages, and the nav and footer
+links are conditional on it — a link to a page that was never built is a 404 in ten directions at
+once.
 
 **What every page carries:**
 

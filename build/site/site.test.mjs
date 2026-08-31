@@ -8,7 +8,7 @@ import { pageList, pageCount, loadContent, loadServiceAreas } from '../lib/pages
 import { demoProfile, siteProfile, BUILT } from '../lib/profile.mjs';
 import { resolver, ORIGIN } from '../lib/url.mjs';
 import { MAIN_TAG, documentFindings } from '../lib/page-rules.mjs';
-import { buildCss } from './build-site.mjs';
+import { buildCss, buildSitemap } from './build-site.mjs';
 import { fingerprint, stylesheetName } from '../lib/site-css.mjs';
 import * as mod from './module.mjs';
 
@@ -20,11 +20,13 @@ const esc = (x) => String(x)
 const PAGES = siteProfile.pages();
 const render = (key) => renderPage({ mod, key, profile: siteProfile });
 
-test('the manifest carries the two hub pages a demo direction does not', () => {
-  assert.equal(PAGES.length, pageCount({ hubs: true, cityServices: true }));
+test('the manifest carries the hubs and the blog a demo direction does not', () => {
+  assert.equal(PAGES.length, pageCount({ hubs: true, cityServices: true, blog: true }));
   assert.equal(pageList().length, pageCount());
   assert.ok(PAGES.some((p) => p.key === 'services'));
   assert.ok(PAGES.some((p) => p.key === 'service-areas'));
+  assert.ok(PAGES.some((p) => p.key === 'blog'));
+  assert.ok(PAGES.some((p) => p.kind === 'post'));
 });
 
 test('every page renders with a real body and breaks no page rule', () => {
@@ -142,11 +144,15 @@ test('the stylesheet comes out Burnt Orange with no ochre left in it', () => {
   assert.ok(!css.includes('http'), 'the stylesheet reaches off-origin');
 });
 
-test('the two profiles differ in exactly four ways, all of them named', () => {
+test('the two profiles differ in exactly five ways, all of them named', () => {
   assert.equal(demoProfile.hubs, false);
   assert.equal(siteProfile.hubs, true);
+  // The fifth: the blog exists in one product and not the other.
+  assert.equal(demoProfile.blog, false);
+  assert.equal(siteProfile.blog, true);
   assert.equal(demoProfile.pages().length, pageCount());
-  assert.equal(siteProfile.pages().length, pageCount({ hubs: true, cityServices: true }));
+  assert.equal(siteProfile.pages().length,
+    pageCount({ hubs: true, cityServices: true, blog: true }));
   assert.deepEqual(demoProfile.schemaOpts(), { rich: false, built: null });
   assert.deepEqual(siteProfile.schemaOpts(), { rich: true, built: BUILT });
   // The fourth: only the standalone is served behind an immutable cache, so
@@ -271,6 +277,83 @@ test('a trade-by-city title never truncates the city out of itself', () => {
     assert.ok(p.title.includes(`in ${p.item.area.city}`),
       `${p.key} lost its city: ${p.title}`);
   }
+});
+
+// ----------------------------------------------------------------------- blog
+
+test('every post renders its own body, its date and its reading time', () => {
+  const posts = PAGES.filter((p) => p.kind === 'post');
+  assert.ok(posts.length > 0, 'no posts in the manifest');
+  for (const p of posts) {
+    const html = render(p.key);
+    const b = p.item;
+    assert.ok(html.includes(esc(b.title)), `${p.key} is missing its headline`);
+    assert.ok(html.includes(esc(b.standfirst)), `${p.key} is missing its standfirst`);
+    for (const sec of b.sections) {
+      assert.ok(html.includes(esc(sec.heading)), `${p.key} is missing a heading`);
+      for (const para of sec.paras) {
+        assert.ok(html.includes(esc(para)), `${p.key} is missing a paragraph`);
+      }
+    }
+    assert.ok(html.includes(esc(b.takeaway)), `${p.key} is missing its takeaway`);
+    // A dated page has to say so in a form a machine can read as well as a
+    // person: the printed date is the human half, datetime is the other.
+    assert.ok(html.includes(`<time datetime="${b.date}">`), `${p.key} has no machine date`);
+    assert.ok(html.includes(`${b.minutes} min read`), `${p.key} has no reading time`);
+    // Both parents, so no post is an orphan reachable only from a sitemap.
+    assert.ok(html.includes('blog/index.html'), `${p.key} -> blog index`);
+  }
+  // Reading time is derived, so it cannot be wrong in the way a typed number is.
+  const monsoon = posts.find((p) => p.key.endsWith('what-a-monsoon-does-to-an-arizona-roof'));
+  assert.ok(monsoon.item.minutes >= 2, 'a 700-word post came out under two minutes');
+});
+
+test('the blog index lists every post, newest first', () => {
+  const html = render('blog');
+  const posts = PAGES.filter((p) => p.kind === 'post');
+  for (const p of posts) {
+    assert.ok(html.includes(`blog/${p.item.slug}/index.html`), `index missing ${p.item.slug}`);
+    assert.ok(html.includes(esc(p.item.title)), `index missing ${p.item.slug} headline`);
+  }
+  // Sorted on the way out of the content file, so appending a post to the end
+  // of posts.json still puts it at the top of the page.
+  const dates = posts.map((p) => p.item.date);
+  assert.deepEqual(dates, [...dates].sort().reverse(), 'posts are not newest first');
+});
+
+test('a post carries a BlogPosting node with real dates', () => {
+  const p = PAGES.find((x) => x.kind === 'post');
+  const graph = JSON.parse(
+    /<script type="application\/ld\+json">\n([\s\S]*?)\n<\/script>/.exec(render(p.key))[1],
+  )['@graph'];
+  const node = graph.find((n) => n['@type'] === 'BlogPosting');
+  assert.ok(node, 'no BlogPosting node');
+  assert.equal(node.headline, p.item.title);
+  assert.equal(node.datePublished, p.item.date);
+  assert.equal(node.author['@id'], `${ORIGIN}/#business`);
+  // The article sits beside the WebPage rather than replacing it, so the page
+  // keeps its own identity and its breadcrumb.
+  assert.ok(graph.some((n) => String(n['@id']).endsWith('#webpage')));
+  const crumb = graph.find((n) => n['@type'] === 'BreadcrumbList');
+  assert.deepEqual(crumb.itemListElement.map((i) => i.name),
+    ['Home', 'Blog', p.item.title]);
+});
+
+test('a post lastmod is the day it was written, not the day of the build', () => {
+  const xml = buildSitemap(new Map());
+  const p = PAGES.find((x) => x.kind === 'post');
+  const block = xml.split('<url>').find((u) => u.includes(`/blog/${p.item.slug}/`));
+  assert.ok(block, 'the post is not in the sitemap');
+  assert.ok(block.includes(`<lastmod>${p.item.date}</lastmod>`),
+    `${p.key} claims it changed on the build date`);
+});
+
+test('the demo directions carry no blog at all', () => {
+  // Not in the manifest, and not linked from the nav or the footer either —
+  // a link to a page that was never built is a 404 in ten directions at once.
+  assert.ok(!pageList().some((p) => p.key === 'blog' || p.kind === 'post'));
+  const demo = renderPage({ mod, key: 'home' });
+  assert.ok(!demo.includes('blog/index.html'), 'a demo direction links the blog');
 });
 
 test('the demo directions neither build nor link the trade-by-city pages', () => {

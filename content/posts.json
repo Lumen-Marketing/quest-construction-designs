@@ -1,0 +1,315 @@
+{
+  "_README": "The blog. One entry per post, newest first — the build sorts by date anyway, so a new post can be appended rather than inserted. `titleTag` is the short form for the <title> element, because a headline that reads well on the page is usually too long for one; leave it out and the title is used, clipped. `sections` is the body: a heading, its paragraphs, and an optional list. `related` holds page keys, not URLs, so a link cannot rot when a slug moves; the resolver turns them into paths. `shot` is a photograph from assets/quest, and `og` is one of the eight cuts in assets/og. Reading time is computed from the words at build time rather than stored, so it cannot go stale. UNVERIFIED, exactly as content/service-areas.json is: the jurisdiction claims trace to docs/service-area-verification.md, but everything describing how Quest works is written from public knowledge of the trade and Quest must cut anything that is not how it actually operates.",
+  "index": {
+    "h1": "The Build Log",
+    "lede": "What we have learned on Arizona jobs, written down. No news, no company announcements — the things worth knowing before you spend money on your house.",
+    "eyebrow": "Notes from the job",
+    "empty": "Nothing published yet."
+  },
+  "posts": [
+    {
+      "slug": "shade-first-what-a-pergola-changes",
+      "title": "Shade first: what a pergola actually changes",
+      "titleTag": "Shade first: what a pergola changes",
+      "topic": "Outdoor living",
+      "date": "2026-08-11",
+      "shot": "quest/deck-finished.webp",
+      "og": "deck.jpg",
+      "standfirst": "A shade structure is the cheapest change you can make to how a west-facing room behaves in July.",
+      "sections": [
+        {
+          "heading": "It is not garden furniture",
+          "paras": [
+            "A pergola in this climate is a piece of building services as much as a piece of landscaping. Put one over a west-facing patio and two things happen: the patio becomes usable for five months of the year it was not, and the wall and glass behind it stop taking direct afternoon sun. The second effect is the one people do not expect and the one that shows up on a utility bill.",
+            "That is the honest argument for building one, and it is a better argument than the pictures. A patio that is too hot to stand on at four in the afternoon is not a feature of the house, and no amount of furniture fixes it."
+          ]
+        },
+        {
+          "heading": "Three kinds, and the third is the difficult one",
+          "paras": [
+            "An open-rafter pergola gives filtered light and the look of one. Rafters on a beam, gaps between them, shadow that moves across the day. It reduces glare and takes the edge off, and it does not give you anywhere dry to sit.",
+            "A solid-roof ramada or patio cover gives real shade and a roof. It is a building, it wants a proper roof structure and a way for water to leave, and it is what most people actually mean when they ask for a pergola.",
+            "The third is a cover attached to the house, and it is the hardest of the three by some distance. Everything hangs on the junction where the new roof meets the existing one. Done properly it is flashed and lapped into the existing roof covering. Done in a hurry it is a bead of sealant, and a bead of sealant in Arizona sun has a service life measured in a couple of summers."
+          ]
+        },
+        {
+          "heading": "It starts underground",
+          "paras": [
+            "The part of a shade structure that decides whether it is still standing in twenty years is the part nobody looks at. Posts land on footings sized for the span above them and for uplift, and they sit on standoff bases that hold the timber clear of the concrete so it cannot wick water and rot from the bottom up.",
+            "Uplift is the load that catches people out. A monsoon gust does not push a flat roof on posts downwards, it lifts it — a patio cover is a wing. So the connections that matter most are the ones holding the structure down: ties at every rafter, hold-downs at the posts, and a footing with enough mass to argue with the wind."
+          ],
+          "list": [
+            "Footings sized for the span and for uplift, not to a rule of thumb",
+            "Standoff post bases, so no timber sits in concrete",
+            "Beams and rafters sized to the span they actually cross",
+            "Ties and hold-downs at every post and beam connection",
+            "Flashed into the roof where it attaches, not caulked onto it"
+          ]
+        },
+        {
+          "heading": "Most jurisdictions want a permit",
+          "paras": [
+            "Anything with a footing and a roof is generally a permitted structure across the valley, and attaching it to the house makes it one almost everywhere. Where a community has an architectural committee, the design goes to them as well, and the two submissions are worth making in parallel rather than one after the other.",
+            "It is worth doing properly for a reason that has nothing to do with rules. An unpermitted structure attached to the house is a problem on the day the house is sold, and it is a much more expensive problem then than it was at the start."
+          ]
+        }
+      ],
+      "takeaway": "If the patio is unusable from May, the answer is shade, and the answer is shade before it is furniture, misters or a bigger air conditioner.",
+      "related": [
+        "services/deck-building-uses-trex-system",
+        "projects",
+        "services/concrete"
+      ]
+    },
+    {
+      "slug": "what-a-monsoon-does-to-an-arizona-roof",
+      "title": "What a monsoon actually does to a roof",
+      "titleTag": "What a monsoon does to a roof",
+      "topic": "Roofing",
+      "date": "2026-07-14",
+      "shot": "quest/roof-valley.webp",
+      "og": "gables.jpg",
+      "standfirst": "The leak is almost never where the water came in, and almost always where somebody patched something years ago.",
+      "sections": [
+        {
+          "heading": "The wind does more than the water",
+          "paras": [
+            "Valley roofs are shallow, and a shallow roof is a large flat plane presented to a gust. What a monsoon storm does first is lift: at the eaves, along a rake, at the ridge. It only takes one edge breaking its seal or one tile shifting for the wind to have something to get underneath, and after that the rain has a path that did not exist an hour earlier.",
+            "That is why the open field of a roof is rarely where the failure is. The field is doing the easy job. The edges, the ridge and anything that sticks through the surface are doing the hard one."
+          ]
+        },
+        {
+          "heading": "Old penetrations are where it starts",
+          "paras": [
+            "Every hole in a roof was detailed by somebody, and on a lot of valley housing that somebody was working forty years ago. Post-war and 1970s stock in Mesa and Phoenix carries decades of patch repairs around evaporative cooler openings and the air-conditioning penetrations that came later, often stacked on top of each other.",
+            "Vent boots are the other reliable offender. The rubber collar around a plumbing vent perishes in this ultraviolet long before the roof covering above it wears out, and a cracked boot puts water directly into the roof structure with nothing visible from the ground at all."
+          ]
+        },
+        {
+          "heading": "What to look at after a storm, from the ground",
+          "paras": [
+            "Do not walk a hot tile roof, and do not walk a shingle roof in the afternoon. Almost everything worth spotting can be seen from a garden with a decent pair of eyes."
+          ],
+          "list": [
+            "A lifted, slipped or missing tile, particularly along an edge or the ridge",
+            "Granules collecting where a downspout discharges, on a shingle roof",
+            "Staining or dampness at the soffit and the eaves line",
+            "A ceiling stain that appears a day after the storm rather than during it",
+            "Anything that has come off the roof and landed in the garden"
+          ]
+        },
+        {
+          "heading": "Why the stain that arrives late is the one to worry about",
+          "paras": [
+            "Water that shows up inside during the storm has taken a short route. Water that shows up a day later has been travelling — along a rafter, across the top of a ceiling, until it found somewhere to come through. The stain is telling you where it stopped, not where it started, and that is a roof to look at now rather than in October.",
+            "The same logic applies to a stain that is not growing. A dried mark is evidence of a path, and the path is still there waiting for the next storm."
+          ]
+        },
+        {
+          "heading": "We file the permit before anything comes off",
+          "paras": [
+            "A reroof is its own permit in most valley cities, and in Mesa, Phoenix and the rest that means a submittal and a review window. Starting a tear-off against a permit that has not cleared is how a house ends up open to the sky waiting on paperwork, and between June and September that is not a theoretical risk.",
+            "So the permit sits at the front of the programme rather than beside it, and the tear-off is scheduled against a weather window rather than against a diary."
+          ]
+        }
+      ],
+      "takeaway": "After a storm, look at the edges and the penetrations rather than the middle, and treat a ceiling stain that arrives the next day as urgent rather than minor.",
+      "related": [
+        "services/roofing",
+        "service-areas/mesa-az",
+        "service-areas/phoenix-az"
+      ]
+    },
+    {
+      "slug": "who-issues-your-building-permit",
+      "title": "Who issues your permit, and why it moves the date",
+      "titleTag": "Who issues your building permit",
+      "topic": "Permits",
+      "date": "2026-06-02",
+      "shot": "quest/framing-desert-lot.webp",
+      "og": "framing.jpg",
+      "standfirst": "Two houses four miles apart can be two applications, to two authorities, on two timetables.",
+      "sections": [
+        {
+          "heading": "Most valley cities issue their own",
+          "paras": [
+            "Phoenix, Mesa, Chandler, Glendale, Scottsdale, Gilbert, Tempe, Peoria, Surprise, Avondale, Goodyear, Buckeye and Queen Creek all run their own building departments. So do the small towns people assume would contract it out — Carefree, Guadalupe, Youngtown, Litchfield Park and Tolleson each issue their own permits.",
+            "Where that is the case the process is familiar and the review window is reasonably predictable, which is most of what a programme needs from it."
+          ]
+        },
+        {
+          "heading": "The exceptions are the ones worth knowing",
+          "paras": [
+            "The City of Maricopa is in Pinal County, not Maricopa County, about thirty-five miles south of Phoenix. It catches people out often enough that it is worth saying twice.",
+            "San Tan Valley incorporated on 1 July 2026 and is mid-handover. To the end of 2026 it is a two-step: a zoning clearance from the Town first, then the building permit from Pinal County with that clearance attached, under an intergovernmental agreement. The Town is expected to take permitting over in full during 2027, so this is a fact with a shelf life and we confirm which path is live at the time of the project rather than assuming.",
+            "Sun City, Sun City West and Anthem are unincorporated, so those permits are a Maricopa County submittal. In Sun City there is also a separate fire and life-safety permit from the Sun City Fire District."
+          ]
+        },
+        {
+          "heading": "Phoenix is one authority with several boundaries inside it",
+          "paras": [
+            "Laveen, Ahwatukee, Deer Valley and the areas people call North and South Phoenix are not municipalities — they are urban villages or informal names inside the city, and inside the city limits they permit through Phoenix. Two boundaries matter.",
+            "The Gila River Indian Community borders Laveen and South Phoenix to the south. It is sovereign, runs its own building safety, adopts its own code editions and requires third-party plan review, so a parcel on the wrong side of that line is not a Phoenix permit at all. And North Phoenix is colloquial: its northern fringe runs into unincorporated Maricopa County, where the permit is a county submittal."
+          ]
+        },
+        {
+          "heading": "Why it sits at the front of the schedule",
+          "paras": [
+            "A review window is not dead time if it is planned for and it is a lost month if it is not. The failure we see most often is a demolition or a tear-off started against a permit that has not cleared, which turns a controlled programme into a house standing open while somebody waits on a queue.",
+            "The second failure is sequential approvals. Where a community has an architectural committee, that is a separate consent from the city permit, and finding the committee after the city has already approved costs a month for no reason anybody can point at afterwards. Both go in together."
+          ]
+        }
+      ],
+      "takeaway": "Ask who issues the permit for your specific address before you ask anyone for a start date. On most valley streets it is the city; where it is not, it changes the programme rather than a detail of it.",
+      "related": [
+        "service-areas",
+        "service-areas/san-tan-valley-az",
+        "service-areas/maricopa-az"
+      ]
+    },
+    {
+      "slug": "tile-roofs-and-the-underlayment-underneath",
+      "title": "Tile roofs do not wear out. The underlayment does.",
+      "titleTag": "Tile roofs: it is the underlayment",
+      "topic": "Roofing",
+      "date": "2026-05-19",
+      "shot": "quest/roof-desert.webp",
+      "og": "gables.jpg",
+      "standfirst": "The tile is a rain screen and a sunshade. The thing keeping water out of the house is underneath it, and it has a much shorter life.",
+      "sections": [
+        {
+          "heading": "The tile is not the waterproofing",
+          "paras": [
+            "A concrete tile roof works in two layers. The tile sheds most of the water, breaks up the wind and keeps the sun off everything below it, and it will do that job for a very long time — concrete tile outlives most of the people who buy it. The layer doing the actual waterproofing is the underlayment beneath, and that is a felt or synthetic membrane with a service life closer to twenty or twenty-five years in this climate.",
+            "Which means a tile roof can look completely sound from the street and be at the end of its useful life. The visible layer is not the one that fails."
+          ]
+        },
+        {
+          "heading": "Why Gilbert and Chandler are having this conversation now",
+          "paras": [
+            "A great deal of the East Valley went up through the 1990s and 2000s, master-planned and tile-roofed, all at roughly the same time. That stock is reaching its first real renewal cycle together, street by street, which is why underlayment comes up so often on those streets and so rarely in a neighbourhood built in 1968.",
+            "It also means the problems repeat. Where a subdivision shares a builder and a vintage, the roof detail we are looking at is usually one we have looked at a few streets away."
+          ]
+        },
+        {
+          "heading": "A lift-and-relay, not a replacement",
+          "paras": [
+            "The work is not a re-roof in the sense most people mean. The tiles come off and are stacked, the old underlayment comes up, the deck is inspected and repaired where it needs it, new underlayment goes down, and the same tiles go back with an allowance for the ones that break in handling.",
+            "That is a substantially smaller job than replacing a roof covering, and the tiles you keep are the reason. The elevation looks exactly as it did, because it is the same roof."
+          ]
+        },
+        {
+          "heading": "If somebody quotes you a full replacement, ask which layer",
+          "paras": [
+            "It is a fair question and it has a short answer. If the tiles are sound and the underlayment has gone, the honest quote is a lift-and-relay. If the tiles themselves are cracked and spalling across the field, that is a different job and a bigger number, and it should be explained rather than assumed.",
+            "We would rather say a roof only needs underlayment and be right than quote the larger job, for the same reason we would rather say a stucco elevation only needs preparation and a recoat. A homeowner finds out either way eventually."
+          ]
+        }
+      ],
+      "takeaway": "On a valley tile roof, age the underlayment, not the tile. Twenty years is when the conversation starts, whatever the roof looks like from the kerb.",
+      "related": [
+        "services/roofing",
+        "service-areas/gilbert-az",
+        "service-areas/chandler-az"
+      ]
+    },
+    {
+      "slug": "matching-forty-year-old-stucco",
+      "title": "Matching stucco that has been in the sun for forty years",
+      "titleTag": "Matching forty-year-old stucco",
+      "topic": "Stucco",
+      "date": "2026-04-07",
+      "shot": "quest/casita-stucco.webp",
+      "og": "custom-home.jpg",
+      "standfirst": "The reason an addition looks like an addition is almost never the framing. It is a texture that was matched off a sample board.",
+      "sections": [
+        {
+          "heading": "New stucco does not look like old stucco",
+          "paras": [
+            "Two things have happened to an elevation that has been in Arizona sun since the 1980s. The colour has faded, unevenly, and it has faded differently on each face of the house because the west wall has taken several times the ultraviolet the north wall has. And the texture itself has softened — edges have rounded off, and the surface reads differently under a low sun than a freshly sprayed one does.",
+            "So a patch that matches the original specification will still be visible. It is matching the wrong thing: the wall as it was, rather than the wall as it is."
+          ]
+        },
+        {
+          "heading": "Why the sample board lies",
+          "paras": [
+            "A texture is read by shadow, not by colour. That means the angle of the light is doing most of the work, and a board matched flat in shade or in a garage tells you almost nothing about how the same texture will look on a vertical wall at four in the afternoon.",
+            "Knockdown and orange peel are the local vernacular, and every crew that ever sprayed one did it slightly differently — pressure, distance, how long before the knock. It is not a specification you can look up. It is a thing you copy off the wall in front of you."
+          ]
+        },
+        {
+          "heading": "How it is actually done",
+          "paras": [
+            "Test patches go on the actual wall, in the actual light, and get looked at across the day rather than approved in the ten minutes after they are sprayed. It usually takes more than one attempt, and that iteration is time we put in the programme rather than discover at the end of it.",
+            "The repair is then feathered well past the edge of the damage, so there is no line for the eye to catch. A perfectly executed patch that stops abruptly is more visible than a rougher one that fades out."
+          ],
+          "list": [
+            "Match on the wall, in the light it will be seen in",
+            "Expect more than one test patch, and allow the time",
+            "Feather well past the repair rather than stopping at it",
+            "Check the match across a day, not in the first ten minutes"
+          ]
+        },
+        {
+          "heading": "Sometimes the honest answer is to recoat the whole elevation",
+          "paras": [
+            "Where a wall carries several patches, or where the fade is far enough advanced, three excellent matches will still read as three patches. Preparing and recoating the whole elevation costs more than the repair and less than most people assume, and it produces a wall rather than a repaired wall.",
+            "That is a conversation worth having before the patching starts rather than after two attempts at it."
+          ]
+        }
+      ],
+      "takeaway": "If a contractor offers to match your stucco off a board without spraying a test patch on the wall, they are matching the specification rather than the house.",
+      "related": [
+        "services/stucco",
+        "service-areas/mesa-az",
+        "services/painting"
+      ]
+    },
+    {
+      "slug": "bearing-wall-or-partition",
+      "title": "Bearing wall or partition: the question that prices a kitchen",
+      "titleTag": "Bearing wall or partition?",
+      "topic": "Remodeling",
+      "date": "2026-03-24",
+      "shot": "quest/remodel-studs.webp",
+      "og": "framing.jpg",
+      "standfirst": "Two walls that look identical from the kitchen side can be a day of work apart, or several thousand dollars.",
+      "sections": [
+        {
+          "heading": "They look the same from the room",
+          "paras": [
+            "Opening a kitchen into a living space is the most common remodel we are asked about, and the whole price of it turns on one question: is that wall holding anything up. From inside the room there is nothing to tell you. Both walls are drywall over studs at the same spacing, painted the same colour, with the same skirting.",
+            "A partition can come out in an afternoon. A bearing wall comes out with a header, posts, a load path down to something that can carry it, and a permit."
+          ]
+        },
+        {
+          "heading": "Under a truss roof the answer is usually findable",
+          "paras": [
+            "Most valley houses built from the 1980s onwards have engineered roof trusses, and a truss is designed to span from exterior wall to exterior wall. Where that is true the interior walls are frequently carrying nothing but themselves, which is good news for anyone wanting an open plan.",
+            "Frequently is not always. Girder trusses, mid-span bearing points and any house that has been added to break the rule, and a look in the roof space at which way the framing runs and what is sitting on what is worth more than any assumption made from below."
+          ]
+        },
+        {
+          "heading": "What it costs when it is bearing",
+          "paras": [
+            "The wall is replaced by a beam, and the beam has to be sized by an engineer for the span and the load. That beam lands on posts, and the posts put a point load into the floor — which on slab-on-grade means knowing what is under the bearing point, and occasionally cutting the slab and pouring a pad to take it.",
+            "None of that is exotic and none of it is cheap, and all of it is easier to price before demolition than during it. The jurisdiction will want to see the engineering, which is a good outcome rather than an obstacle: a beam somebody sized by eye is the sort of thing that is discovered years later by a buyer's inspector."
+          ]
+        },
+        {
+          "heading": "Why guessing is the expensive option",
+          "paras": [
+            "A wall taken out that should not have been does not fall over. It sags — a door that stops closing, a crack that opens across a ceiling, a line in the drywall that comes back every time it is filled. The repair at that point is the original job plus the damage plus the reason it happened.",
+            "An engineer's letter is a small number against that, and it is the number that turns a guess into a specification."
+          ]
+        }
+      ],
+      "takeaway": "Before anyone quotes to open up a kitchen, establish whether the wall is bearing. If nobody has been in the roof space, nobody knows.",
+      "related": [
+        "services/full-remodel-kitchen-bathroomcabinets-flooring-counter-tops",
+        "services/framing",
+        "services/dry-wall"
+      ]
+    }
+  ]
+}

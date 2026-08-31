@@ -24,7 +24,7 @@ export { BUILT, buildCss };
 
 const PAGES = siteProfile.pages();
 const content = loadContent();
-const { site, services, areas } = content;
+const { site, services, areas, posts } = content;
 
 const write = (rel, body) => {
   const file = join(OUT, rel);
@@ -115,6 +115,7 @@ function copyAssets(htmls) {
 // ------------------------------------------------------------------- sitemap
 const PRIORITY = {
   home: '1.0', serviceIndex: '0.9', areaIndex: '0.9', service: '0.8', area: '0.8',
+  blogIndex: '0.7',
 };
 
 export function buildSitemap(images) {
@@ -122,10 +123,14 @@ export function buildSitemap(images) {
     const loc = `${ORIGIN}/${outPath(p.key).replace(/index\.html$/, '')}`;
     const imgs = (images.get(p.key) || []).map((src) => `
     <image:image><image:loc>${ORIGIN}/assets/${src}</image:loc></image:image>`).join('');
+    // A post's lastmod is the day it was written, not the day the site was
+    // generated. Telling a crawler that a March article changed in August is
+    // the fastest way to have every <lastmod> on the site ignored.
+    const modified = p.kind === 'post' ? p.item.date : BUILT;
     return `  <url>
     <loc>${loc}</loc>
-    <lastmod>${BUILT}</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>${modified}</lastmod>
+    <changefreq>${p.kind === 'post' ? 'yearly' : 'monthly'}</changefreq>
     <priority>${PRIORITY[p.kind] || '0.6'}</priority>${imgs}
   </url>`;
   }).join('\n');
@@ -204,6 +209,13 @@ ${services.map((s) => `- [${s.name}](${ORIGIN}/services/${s.slug}/): ${s.shortDe
 
 ${areas.areas.map((a) => `- [${a.name}](${ORIGIN}/service-areas/${a.slug}/)`).join('\n')}
 
+## The Build Log
+
+Written advice about doing this work in this climate, not company news.
+
+${posts.posts.map((b) => `- [${b.title}](${ORIGIN}/blog/${b.slug}/) `
+  + `— ${b.topic}, ${b.date}: ${b.standfirst}`).join('\n')}
+
 ## Key pages
 
 - [Home](${ORIGIN}/): what Quest does and who it is
@@ -212,6 +224,7 @@ ${areas.areas.map((a) => `- [${a.name}](${ORIGIN}/service-areas/${a.slug}/)`).jo
 - [About](${ORIGIN}/about-us/): the firm's history and how it works
 - [Projects](${ORIGIN}/projects/): completed work
 - [Gallery](${ORIGIN}/gallery/): jobsite photography
+- [The Build Log](${ORIGIN}/blog/): ${posts.posts.length} posts on how the work is actually done
 - [Contact](${ORIGIN}/contact-us/): phone, form and coverage
 
 ## Notes
@@ -303,7 +316,8 @@ The live site. Static HTML, no build step, no runtime dependency: point a host
 at this directory and it serves.
 
 - **${PAGES.length} pages** — home, ${services.length} services, ${areas.areas.length} service areas,
-  two section landing pages, about, gallery, projects, contact and sitemap — plus a 404.
+  the trade-by-city pages, two section landing pages, the blog index and
+  ${posts.posts.length} posts, about, gallery, projects, contact and sitemap — plus a 404.
 - **Design**: "Site Plan" in Burnt Orange (\`#D07C42\`).
 - **Fonts**: Archivo and JetBrains Mono, self-hosted variable woff2. No third-party requests.
 - Canonicals, Open Graph, JSON-LD and \`sitemap.xml\` all assume **${ORIGIN}**.

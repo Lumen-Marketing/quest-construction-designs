@@ -16,7 +16,29 @@ export function loadContent() {
     areasLocal: json('areas-local.json'),
     // Authored trade-by-city copy, keyed trade then city. Same caveats.
     serviceAreas: loadServiceAreas(),
+    // The blog. Same caveats again — see the file's own _README.
+    posts: loadPosts(),
   };
+}
+
+/**
+ * The posts, newest first and with their reading time computed.
+ *
+ * Sorted here rather than trusted from the file, so appending a post cannot
+ * quietly put it in the wrong place; and the minute count is derived from the
+ * words rather than stored beside them, because a number typed next to a body
+ * that later grows is a number that is wrong and looks authoritative.
+ */
+export function loadPosts() {
+  const { posts, index } = json('posts.json');
+  const withMeta = posts.map((b) => {
+    const words = [b.standfirst, b.takeaway, ...b.sections.flatMap(
+      (sec) => [sec.heading, ...sec.paras, ...(sec.list || [])])]
+      .join(' ').split(/\s+/).filter(Boolean).length;
+    return { ...b, key: `blog/${b.slug}`, words, minutes: Math.max(1, Math.round(words / 220)) };
+  });
+  withMeta.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+  return { index, posts: withMeta };
 }
 
 // Two service names are far too long for a 60-character title once the brand
@@ -44,6 +66,10 @@ const OG = {
   serviceIndex: ['framing.jpg', 'Framed walls under an Arizona sky on a Quest Construction build'],
   areaIndex: ['custom-home.jpg', 'A Quest Construction custom home under construction'],
   serviceArea: ['gables.jpg', 'Gables and windows on a Quest Construction custom home'],
+  blogIndex: ['lumber.jpg', 'Framing lumber laid out across a Quest Construction slab'],
+  // A post overrides this with its own `og`, so six posts do not all share one
+  // social card. This is the fallback for one that names nothing.
+  post: ['framing.jpg', 'Framed walls under an Arizona sky on a Quest Construction build'],
 };
 
 const clip = (s, n) => {
@@ -77,7 +103,8 @@ export function pageCount(opts = {}) {
     ? Object.values(loadServiceAreas())
       .reduce((n, byCity) => n + Object.keys(byCity).length, 0)
     : 0;
-  return 1 + services.length + areas.areas.length + 5 + (opts.hubs ? 2 : 0) + cross;
+  const blog = opts.blog ? loadPosts().posts.length + 1 : 0;
+  return 1 + services.length + areas.areas.length + 5 + (opts.hubs ? 2 : 0) + cross + blog;
 }
 
 /** "a, b and c" — an English list, for a meta description read by a person. */
@@ -106,7 +133,7 @@ export function pageList(opts = {}) {
 
   const push = (key, kind, title, description, item) => {
     const [img, alt] = OG[kind];
-    out.push({ key, kind, title, description, ogImage: img, ogAlt: alt, item });
+    out.push({ key, kind, title, description, ogImage: item?.og || img, ogAlt: alt, item });
   };
 
   push('home', 'home',
@@ -149,6 +176,22 @@ export function pageList(opts = {}) {
             `${site.phoneDisplay}.`, 155),
           { service: s, area: a, copy });
       }
+    }
+  }
+
+  // The blog, standalone only. Off by default for the same reason the hubs
+  // are: the ten demo directions are held to a fifty-four page contract.
+  if (opts.blog) {
+    const blog = loadPosts();
+    push('blog', 'blogIndex', clip(blog.index.h1, budget) + brand,
+      clip(blog.index.lede, 155));
+    for (const b of blog.posts) {
+      // titleTag, not title: a headline that reads well above the article is
+      // reliably longer than 39 characters, and clipping one produces
+      // "Shade first: what a pergola actually" — a sentence cut mid-thought
+      // in the one place a reader sees it before they see the page.
+      push(`blog/${b.slug}`, 'post', clip(b.titleTag || b.title, budget) + brand,
+        clip(b.standfirst, 155), b);
     }
   }
 

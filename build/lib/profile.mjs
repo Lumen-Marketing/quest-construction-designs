@@ -21,7 +21,7 @@ import { stylesheetName } from './site-css.mjs';
  */
 export const BUILT = '2026-08-22';
 
-function makeProfile({ name, hubs, cityServices, richSchema, built, fingerprintCss }) {
+function makeProfile({ name, hubs, cityServices, blog, richSchema, built, fingerprintCss }) {
   // pageList re-reads the content files, so the manifest is built once.
   let manifest = null;
 
@@ -33,9 +33,12 @@ function makeProfile({ name, hubs, cityServices, richSchema, built, fingerprintC
     /** Whether the trade-by-city landing pages exist in this product. */
     cityServices,
 
+    /** Whether the blog exists in this product. */
+    blog,
+
     /** The page manifest this product renders. */
     pages() {
-      if (!manifest) manifest = pageList({ hubs, cityServices });
+      if (!manifest) manifest = pageList({ hubs, cityServices, blog });
       return manifest;
     },
 
@@ -74,7 +77,7 @@ function makeProfile({ name, hubs, cityServices, richSchema, built, fingerprintC
  * reach an index.
  */
 export const demoProfile = makeProfile({
-  name: 'demo', hubs: false, cityServices: false, richSchema: false, built: null,
+  name: 'demo', hubs: false, cityServices: false, blog: false, richSchema: false, built: null,
   fingerprintCss: false,
 });
 
@@ -85,6 +88,6 @@ export const demoProfile = makeProfile({
  * an index is a lot of build for nothing.
  */
 export const siteProfile = makeProfile({
-  name: 'site', hubs: true, cityServices: true, richSchema: true, built: BUILT,
+  name: 'site', hubs: true, cityServices: true, blog: true, richSchema: true, built: BUILT,
   fingerprintCss: true,
 });

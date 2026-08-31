@@ -27,7 +27,7 @@ href="${c.local('assets/fonts/jetbrains-mono-latin-var.woff2')}" crossorigin>
 export const { nav, footer } = d01;
 export const {
   home, service, area, serviceIndex, areaIndex, serviceArea,
-  about, gallery, projects, contact, sitemap,
+  about, gallery, projects, contact, sitemap, blogIndex, post,
 } = d01;
 
 // Everything direction 01's script does except read an accent off the URL.

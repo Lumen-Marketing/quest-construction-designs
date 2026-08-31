@@ -33,10 +33,12 @@ export function contextFor({ mod, key, profile = demoProfile, absolute = false }
     page, res,
     url: res.url, asset: res.asset, local: res.local, root: res.root,
     hub: res.hub, hubs: profile.hubs, cityServices: profile.cityServices,
+    blog: profile.blog,
     site: content.site, services: content.services,
     areas: content.areas, pages: content.pages,
     areasLocal: content.areasLocal,
     serviceAreas: content.serviceAreas,
+    posts: content.posts,
     item: page.item,
   };
 }
@@ -84,7 +86,7 @@ export function buildDirection(mod, profile = demoProfile) {
   // Clear the generated page trees so a renamed slug cannot leave orphans
   // behind. assets/ is left alone — the stylesheet is not generated.
   for (const d of ['services', 'service-areas', 'about-us', 'gallery', 'projects',
-    'contact-us', 'sitemap']) {
+    'contact-us', 'sitemap', 'blog']) {
     rmSync(join(root, d), { recursive: true, force: true });
   }
   let written = 0;
