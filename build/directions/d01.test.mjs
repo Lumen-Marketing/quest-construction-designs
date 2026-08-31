@@ -168,19 +168,40 @@ test('no trade name carries a parenthetical, in the menu or anywhere else', () =
   }
 });
 
-test('the footer groups the cities by valley, and loses none of them', () => {
+test('the footer lists the principal cities, not all thirty-four', () => {
   const html = renderPage({ mod: d01, key: 'home' });
   const foot = html.slice(html.indexOf('<footer'));
-  const block = foot.slice(foot.indexOf('<div class="fareas">'));
-  for (const r of regions) {
-    assert.ok(block.includes(`<p class="fgrp-h">${esc(r.name)}</p>`),
-      `footer missing the ${r.name} block`);
+  const block = foot.slice(foot.indexOf('<div class="fareas fcities">'));
+  const listed = [...block.matchAll(/service-areas\/([a-z0-9-]+)\/index\.html/g)]
+    .map((m) => m[1]);
+  assert.ok(listed.length <= 12, `the footer lists ${listed.length} cities`);
+  assert.ok(listed.length >= 8, `the footer lists only ${listed.length} cities`);
+  // Named without the state they are already standing under.
+  for (const slug of listed) {
+    const a = areas.find((x) => x.slug === slug);
+    assert.ok(block.includes(`${slug}/index.html">${esc(a.city)}</a>`), `${slug} label`);
   }
-  // Every city reachable from the footer, and named without the state it is
-  // already standing under.
+  // No valley headings: five of them over a partial list would read as the
+  // whole coverage.
+  for (const r of regions) {
+    assert.ok(!block.includes(`<p class="fgrp-h">${esc(r.name)}</p>`),
+      `the footer still heads a partial list with ${r.name}`);
+  }
+});
+
+test('the footer loses no crawl path, because the nav already carries them all', () => {
+  // The thirty-four cities and fourteen trades were in the footer AND in the
+  // nav panel on every page. Cutting the footer list is only safe while that
+  // stays true, so this asserts it rather than trusting it.
+  const html = renderPage({ mod: d01, key: 'home' });
+  const nav = html.slice(html.indexOf('<header class="nav">'), html.indexOf('</header>'));
   for (const a of areas) {
-    assert.ok(block.includes(`service-areas/${a.slug}/index.html">${esc(a.city)}</a>`),
-      `footer missing ${a.slug}`);
+    assert.ok(nav.includes(`service-areas/${a.slug}/index.html`),
+      `the nav does not reach ${a.slug}`);
+  }
+  for (const svc of services) {
+    assert.ok(nav.includes(`services/${svc.slug}/index.html`),
+      `the nav does not reach ${svc.slug}`);
   }
 });
 

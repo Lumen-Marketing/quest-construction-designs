@@ -268,15 +268,6 @@ export function footer(c) {
     `<li><a href="${href}">${esc(label)}</a></li>`).join('')}</ul>
 </div>`;
 
-  // The cities are the one list long enough to set the footer's height on its
-  // own: thirty-four links two-up ran to eighteen rows while Company and
-  // Services finished in eight, so a third of the footer was one column of
-  // cities beside a lot of nothing. They are grouped by valley here, the same
-  // five regions the nav panel uses, and the block runs three columns wide
-  // into the space the other lists were not using. It is the shorter footer
-  // as well as the legible one — the tallest region is fourteen rows, not
-  // eighteen, and the width comes off tracks that were already empty below
-  // their eighth link.
   // The trades are grouped in the footer for the same reason the cities are,
   // and into the same four blocks the nav panel uses. Fourteen links two-up was
   // a legible enough column; four headed blocks is a legible *index*, and a
@@ -293,15 +284,40 @@ export function footer(c) {
   </div>`).join('')}</div>
 </div>`;
 
-  const byslug = new Map(c.areas.areas.map((a) => [a.slug, a]));
-  const areaCol = () => `<div class="fareas">
+  // The cities used to be all thirty-four, grouped by valley. That set the
+  // footer's height on its own and could not be made shorter: `break-inside`
+  // keeps a valley whole, so the thirteen-city West Valley meant a fourteen-row
+  // column however many columns the block was given.
+  //
+  // They are the twelve principal markets now. The thirty-four in the footer
+  // were a duplicate of the thirty-four in the nav panel — every page carries
+  // both — so nothing was reachable from the footer that was not already one
+  // menu away, and cutting the list costs no crawl path and no sitewide link.
+  // What it buys is a footer a third of the height, on all 253 pages.
+  //
+  // "Principal" is derived rather than typed: a city with authored copy for
+  // more than one trade is one Quest has decided to compete in. Write a
+  // thirteenth and it appears here, and the cap stops the list growing back
+  // into the wall it just came out of. No valley headings on a partial list —
+  // five of them would read as the whole coverage, and it is not.
+  const tradeCount = (slug) => Object.values(c.serviceAreas || {})
+    .filter((byCity) => byCity[slug]).length;
+  const principal = () => {
+    const ranked = c.areas.areas
+      .map((a) => [a, tradeCount(a.slug)])
+      .filter(([, n]) => n > 1)
+      .sort((x, y) => y[1] - x[1])
+      .map(([a]) => a);
+    // A demo direction renders no trade-by-city pages, so nothing ranks there.
+    // It still needs a footer, and the list leads with the largest markets.
+    return (ranked.length ? ranked : c.areas.areas).slice(0, 12);
+  };
+  const areaCol = () => `<div class="fareas fcities">
   <h2>Areas Served</h2>
-  ${c.hubs ? `<a class="fall" href="${c.url('service-areas')}">All Areas Served</a>` : ''}
-  <div class="fgrps">${(c.areas.regions || []).map((r) => `<div class="fgrp">
-    <p class="fgrp-h">${esc(r.name)}</p>
-    <ul>${r.cities.map((slug) => byslug.get(slug)).filter(Boolean).map((a) =>
+  ${c.hubs ? `<a class="fall" href="${c.url('service-areas')}">All ${
+  c.areas.areas.length} Areas Served</a>` : ''}
+  <ul>${principal().map((a) =>
     `<li><a href="${c.url(`service-areas/${a.slug}`)}">${esc(a.city)}</a></li>`).join('')}</ul>
-  </div>`).join('')}</div>
 </div>`;
 
   return `<footer>

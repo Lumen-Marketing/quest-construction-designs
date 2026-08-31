@@ -802,7 +802,7 @@ footer{background:var(--dark);color:var(--on-dark-2);padding-top:clamp(50px,7vw,
    footer's height, and every 60px it gains off the others buys a whole column
    back. The three it borrows from all finish inside eight rows, so the width
    comes out of space that was standing empty. */
-.fg{display:grid;grid-template-columns:1.1fr .58fr 1.52fr 1.8fr;gap:clamp(24px,4vw,56px);
+.fg{display:grid;grid-template-columns:1.25fr .62fr 1.75fr 1.05fr;gap:clamp(24px,4vw,56px);
   padding-bottom:var(--sp-3)}
 .fg ul{list-style:none;padding:0;margin:0}
 .fg h2{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
@@ -811,18 +811,23 @@ footer{background:var(--dark);color:var(--on-dark-2);padding-top:clamp(50px,7vw,
 @media (hover:hover) and (pointer:fine){.fg a:hover{color:var(--acc)}}
 .fg .about p{font-size:14.5px;max-width:36ch;margin:16px 0 0}
 
-/* ---- the cities, grouped by valley ----
-   The same five regions the nav panel prints. Multicol rather than a three
-   track grid: the West Valley is thirteen cities and the Central Valley four,
-   and a grid row is as tall as its tallest cell, so the short regions would
-   leave holes. Multicol keeps document order, balances the height, and
-   `break-inside` stops a region being split across the fold. */
-/* A column width, not a column count: the block is a quarter of the footer
-   at 1440 and half of it at 900, and the count that suits one is wrong for
-   the other. 120px is "Apache Junction" and "CENTRAL VALLEY" on one line
-   each, so the browser fits three columns on the desktop footer and two once
-   the footer folds — and neither of them wraps a city name. */
+/* ---- the grouped block: the trades ----
+   Multicol rather than a grid: a grid row is as tall as its tallest cell, so
+   the two-trade Structure block would leave a hole under the five-trade
+   Exterior one. Multicol keeps document order, balances the height, and
+   `break-inside` stops a group splitting across a column boundary.
+
+   A column width, not a column count: the block is a third of the footer at
+   1440 and the whole row at 900, and the count that suits one is wrong for
+   the other. */
 .fgrps{columns:120px;column-gap:clamp(14px,1.6vw,24px)}
+/* The twelve principal cities, two-up. A flat list rather than a grouped one:
+   five valley headings over a partial list would read as the whole coverage,
+   and it is not. The full thirty-four are one link away and already in the
+   nav panel on this page. */
+.fcities ul{columns:2;column-gap:clamp(14px,1.6vw,24px)}
+.fcities li{break-inside:avoid}
+.fcities a{padding:6px 0;line-height:1.35}
 /* The trades need a wider column than the cities: "Residential Development"
    is twice the length of "Apache Junction", and a 120px track would wrap
    half the list. Two columns of four blocks, which is what the width gives. */
@@ -844,7 +849,10 @@ footer{background:var(--dark);color:var(--on-dark-2);padding-top:clamp(50px,7vw,
    In one of two tracks the block is 230px, which is one column of thirty-nine
    names; across both it is five columns at 860 and three at 560. It costs a
    row of its own and saves several screens of scrolling. */
-@media(max-width:900px){.fg{grid-template-columns:1fr 1fr}.fareas{grid-column:1/-1}}
+/* Folded, it is two clean rows: the blurb beside Company, then the trades
+   beside the cities. Nothing spans any more — the cities were the block that
+   needed a row to itself, and twelve of them two-up do not. */
+@media(max-width:900px){.fg{grid-template-columns:1fr 1fr}}
 @media(max-width:540px){.fg{grid-template-columns:1fr}}
 
 /* reveal */
