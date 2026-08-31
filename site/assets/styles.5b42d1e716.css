@@ -1514,6 +1514,23 @@ footer .brand img{height:38px}
 .fmail{display:inline-flex;align-items:center;min-height:24px;margin-top:14px;
   font-size:14px;color:var(--on-dark-2);word-break:break-word}
 @media (hover:hover) and (pointer:fine){.fmail:hover{color:var(--acc)}}
+/* ---- the social link ----
+   One profile, so one link. It lived at 10px in the legal bar, which is a
+   footnote; it is a chip with the mark on it now, in the two places somebody
+   looks for it. The glyph is filled and carries its own colour, so the trade
+   icons' stroke rules cannot reach it. */
+.fsocial,.help-social{display:inline-flex;align-items:center;gap:11px;min-height:44px;
+  font-size:14px;font-weight:600;color:var(--on-dark-2);transition:color .2s}
+.fsocial{margin-top:12px}
+.help-social{color:var(--on-dark);margin-bottom:20px}
+.soc-ic{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;
+  border-radius:50%;background:rgba(243,239,230,.1);flex:0 0 auto;
+  transition:background .22s ease,color .22s ease}
+.soc-ic svg{width:17px;height:17px;display:block}
+@media (hover:hover) and (pointer:fine){
+  .fsocial:hover,.help-social:hover{color:var(--on-dark)}
+  .fsocial:hover .soc-ic,.help-social:hover .soc-ic{background:var(--acc);color:var(--on-acc)}
+}
 .localcall{border-top:1px solid rgba(243,239,230,.14);padding-top:20px}
 .localcall b{display:block;font-size:clamp(20px,2.3vw,27px);color:var(--acc)}
 .localcall span{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;
@@ -1841,9 +1858,9 @@ h1,h2,h3,h4{overflow-wrap:break-word}
 
 /* ---- a 17px-tall link is under the 24px target floor ---- */
 .svc .go,.citycard .go{min-height:24px;align-items:center}
-/* The breadcrumb trail is 10.5px mono, so its links measured 17px tall, and
-   the footer's social link 23px. Both are padded to clear 24px without
-   moving the type off its line. */
+/* The breadcrumb trail is 10.5px mono, so its links measured 17px tall. They
+   are padded to clear 24px without moving the type off its line. The footer's
+   social link used to need the same treatment; it is a 44px chip now. */
 .crumbs a,.crumbs b{display:inline-flex;align-items:center;min-height:24px}
 .fbar a{display:inline-flex;align-items:center;min-height:24px;padding:4px 0}
 

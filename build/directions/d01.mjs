@@ -3,7 +3,7 @@
 // boundary, and a floating badge card over the lot. Pill buttons, generous
 // radii, soft layered shadows.
 import { img, preloadImage, size } from '../lib/images.mjs';
-import { icon } from '../lib/icons.mjs';
+import { icon, socialIcon } from '../lib/icons.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 import {
   shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO, OFFER_SHOTS,
@@ -257,6 +257,13 @@ export function nav(c) {
 </header>`;
 }
 
+// Quest keeps one profile, so this is one link rather than a row of them. It
+// was 10px mono in the bottom bar next to the copyright, which is where a site
+// puts the things it is obliged to say rather than the things it wants read.
+const socialLink = (c, cls) => `<a class="${cls}" href="${c.site.facebook}" `
+  + `target="_blank" rel="noreferrer"><span class="soc-ic">${socialIcon('facebook')}</span>`
+  + '<span>Facebook</span></a>';
+
 export function footer(c) {
   // `col2` marks the long lists — the fourteen trades and the eleven cities.
   // They run two-up at every width, not just on the phone: fifteen rows of one
@@ -330,6 +337,7 @@ export function footer(c) {
     <p class="mono">${esc(c.site.positioning)}</p>
     ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn acc telnum')}
     <a class="fmail" href="mailto:${c.site.email}">${esc(c.site.email)}</a>
+    ${socialLink(c, 'fsocial')}
   </div>
   ${col('Company', [
     [c.url('about'), 'About Us'],
@@ -344,7 +352,7 @@ export function footer(c) {
 </div>
 <div class="wrap fbar">
   <p class="mono">&copy; 2026 ${esc(c.site.name)} &middot; Since ${c.site.foundingYear}</p>
-  <p class="mono"><a href="${c.site.facebook}" target="_blank" rel="noreferrer">Facebook</a></p>
+  <p class="mono">${esc(c.site.legalName)} &middot; ${esc(c.site.regionName)}</p>
 </div>
 </footer>`;
 }
@@ -1318,6 +1326,8 @@ export function contact(c) {
         <a class="phone telnum" href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a>
         <p class="mono eyebrow">Email</p>
         <a class="help-mail" href="mailto:${c.site.email}">${esc(c.site.email)}</a>
+        <p class="mono eyebrow">Follow</p>
+        ${socialLink(c, 'help-social')}
         <p>${esc(c.site.footerBlurb)}</p>
         <ul class="help-facts mono">${facts.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>
       </div>

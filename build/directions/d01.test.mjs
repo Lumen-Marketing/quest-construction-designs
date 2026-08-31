@@ -697,6 +697,22 @@ test('the contact form validates in the page, and says where to go when it canno
     'a failed post does not hand over the email address');
 });
 
+test('the one social profile is a chip, not a footnote in the legal bar', () => {
+  const html = renderPage({ mod: d01, key: 'home' });
+  const foot = html.slice(html.indexOf('<footer'));
+  assert.match(foot, /class="fsocial"[\s\S]{0,80}href="https:\/\/www\.facebook\.com/,
+    'the footer has no social link beside the phone and the email');
+  assert.ok(foot.includes('<span class="soc-ic">'), 'the social link has no mark on it');
+  // Out of the bottom bar, which is where a site puts what it is obliged to
+  // say rather than what it wants read.
+  const bar = foot.slice(foot.indexOf('class="wrap fbar"'));
+  assert.ok(!bar.includes('facebook.com'), 'the legal bar still carries the profile');
+  // And on the page where somebody is choosing how to make contact.
+  assert.match(renderPage({ mod: d01, key: 'contact' }),
+    /class="help-social"[\s\S]{0,80}href="https:\/\/www\.facebook\.com/,
+    'the contact aside has no social link');
+});
+
 test('the email address is somewhere a visitor can actually read it', () => {
   // It was in the JSON-LD and in the form's failure message and nowhere else,
   // which is an address published to crawlers and hidden from customers.

@@ -30,3 +30,20 @@ export function icon(slug) {
 }
 
 export const SLUGS = Object.keys(P);
+
+// The social marks are filled rather than stroked, unlike every icon above.
+// A brand glyph is a shape, not a line drawing, and outlining Facebook's "f"
+// to match the trade icons would produce something that is recognisably not
+// the mark. It carries its own fill so the `.ic svg` rules do not reach it.
+const SOCIAL = {
+  facebook: 'M13.4 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.45 1.55-1.45h1.65V3.68'
+    + 'A22 22 0 0 0 14.2 3.56c-2.38 0-4 1.45-4 4.11v2.23H7.5V13h2.7v8z',
+};
+
+/** Inline SVG for a social platform, filled, sized by its container. */
+export function socialIcon(name) {
+  const d = SOCIAL[name];
+  if (!d) throw new Error(`no social icon for ${name}`);
+  return `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" `
+    + `fill="currentColor" stroke="none"><path d="${d}"/></svg>`;
+}
