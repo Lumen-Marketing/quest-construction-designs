@@ -54,12 +54,17 @@ function business(content, areasServed, opts) {
     description: site.footerBlurb,
     slogan: site.tagline,
     telephone: site.phoneE164,
+    email: site.email,
+    // The one profile Quest actually publishes. sameAs is how a knowledge
+    // panel ties the page to the page people already leave reviews on.
+    sameAs: [site.facebook],
     foundingDate: site.foundingYear,
     priceRange: '$$',
     areaServed: list.map(city),
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: site.phoneE164,
+      email: site.email,
       contactType: 'sales',
       areaServed: 'US',
       availableLanguage: ['en', 'es'],

@@ -304,7 +304,7 @@ export function footer(c) {
 </div>
 <div class="wrap fbar">
   <p class="mono">&copy; 2026 ${esc(c.site.name)} &middot; Since ${c.site.foundingYear}</p>
-  <p class="mono"><a href="${c.site.instagram}" target="_blank" rel="noreferrer">Instagram</a></p>
+  <p class="mono"><a href="${c.site.facebook}" target="_blank" rel="noreferrer">Facebook</a></p>
 </div>
 </footer>`;
 }
@@ -452,11 +452,36 @@ export function baseScript(c) {
         var i=ctl(bad[0]); if(i) i.focus();
         return;
       }
-      // Nothing is wired to a mailbox yet, so the honest thing is to say so
-      // and hand over a route that does work rather than show a green tick.
+      // Everything checks out, so post it. The tick only goes up once the
+      // mailbox has actually accepted it — a green message written before
+      // the response lands is a lie the visitor cannot see through, and the
+      // one thing worse than a form that fails is one that fails silently.
+      var btn=f.querySelector('[type=submit]');
       note.className='form-note mono';
-      note.innerHTML='This form is not connected yet &#8212; please call '
-        +'<a class="telnum" href="${c.site.phoneHref}">${c.site.phoneDisplay}</a> and we will pick up.';
+      note.textContent='Sending…';
+      if(btn){ btn.disabled=true; }
+      function fail(){
+        if(btn){ btn.disabled=false; }
+        note.className='form-note mono bad';
+        note.innerHTML='That did not send. Please call '
+          +'<a class="telnum" href="${c.site.phoneHref}">${c.site.phoneDisplay}</a>, '
+          +'or email <a href="mailto:${c.site.email}">${c.site.email}</a>.';
+      }
+      // No-fetch browsers fall to the same message as a failed post: both mean
+      // the form did not go, and both want the phone number.
+      if(!window.fetch||!window.FormData){ fail(); return; }
+      fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:new FormData(f)})
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          if(String(d&&d.success)!=='true') throw new Error('rejected');
+          f.reset();
+          flds.forEach(function(fl){ mark(fl,false); });
+          note.className='form-note mono';
+          note.textContent='Thank you — that is with us. '
+            +'We reply the same day, and sooner if you call.';
+          if(btn){ btn.disabled=false; }
+        })
+        .catch(fail);
     });
   });
 })();
@@ -1139,6 +1164,12 @@ export function contact(c) {
     `${c.areas.areas.length} cities across the Valley`,
   ];
 
+  // The four hidden controls are the form host's own vocabulary: _subject
+  // titles the mail, _template asks for the readable table rather than a wall
+  // of key=value, _captcha is off because the AJAX post never renders their
+  // challenge page, and _honey is the honeypot — a bot fills every field it
+  // finds, a person never sees this one, and anything arriving with it filled
+  // is dropped before it reaches the inbox.
   return `${pageHero(c, {
     h1: p.h1, lede: p.lede, crumb: 'Contact', banner: bannerShot('contact'), accent: 'us',
   })}
@@ -1146,7 +1177,13 @@ export function contact(c) {
 <section class="sec cream">
   ${grid(false)}
   <div class="wrap contact-grid">
-    <form class="contact-form rv" novalidate>
+    <form class="contact-form rv" novalidate method="post"
+      action="${c.site.formEndpoint}">
+      <input type="hidden" name="_subject" value="New enquiry from the ${esc(c.site.name)} website">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input class="cf-honey" type="text" name="_honey" tabindex="-1" autocomplete="off"
+        aria-hidden="true">
       <div class="cf-head">
         <h2>${esc(p.formHeading)}</h2>
         <p>${esc(p.formLede)}</p>

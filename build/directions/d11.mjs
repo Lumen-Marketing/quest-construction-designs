@@ -116,7 +116,7 @@ export function footer(c) {
   </div>
   <div class="bar">
     <span>&copy; 2026 ${esc(c.site.name)} &mdash; building since ${c.site.foundingYear}</span>
-    <a href="${c.site.instagram}" target="_blank" rel="noreferrer">Instagram</a>
+    <a href="${c.site.facebook}" target="_blank" rel="noreferrer">Facebook</a>
   </div>
 </div>
 <div class="marquee" aria-hidden="true"><div class="track">${word.repeat(8)}</div></div>

@@ -627,15 +627,23 @@ test('the contact form validates in the page, and says where to go when it canno
   // novalidate suppresses the browser's own bubbles, so the page has to do
   // the work itself — the attribute without the script is a form that
   // accepts an empty submission in silence.
-  assert.match(html, /<form class="contact-form rv" novalidate>/);
+  assert.match(html, /<form class="contact-form rv" novalidate/);
   assert.match(html, /checkValidity\(\)/, 'no constraint validation in the page');
   assert.match(html, /addEventListener\('blur'/, 'nothing validates when a field is left');
   assert.match(html, /aria-invalid/, 'invalid fields are never marked as such');
   assert.match(html, /still needs? attention/, 'a failed submit reports nothing');
   assert.match(html, /\.focus\(\)/, 'a failed submit does not move to the first bad field');
-  // The dead end has an exit: the form is not wired to a mailbox, and the
-  // notice that says so hands over the number instead.
-  assert.match(html, /not connected yet[\s\S]{0,120}tel:16023996455/);
+  // A valid submission goes somewhere: the form posts to the mailbox in the
+  // content file rather than congratulating the visitor and dropping it.
+  assert.match(html, new RegExp(`action="${site.formEndpoint}"`),
+    'the form does not post to the configured endpoint');
+  assert.match(html, /name="_honey"/, 'no honeypot, so the mailbox takes every bot');
+  assert.match(html, /fetch\(f\.action/, 'nothing posts the form');
+  // And when the post fails the dead end still has an exit — the number and
+  // the address, rather than a spinner that never resolves.
+  assert.match(html, /did not send[\s\S]{0,200}tel:16023996455/);
+  assert.match(html, new RegExp(`mailto:${site.email}`),
+    'a failed post does not hand over the email address');
 });
 
 test('the contact aside claims nothing the content file does not already say', () => {

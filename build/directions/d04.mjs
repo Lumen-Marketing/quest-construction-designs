@@ -99,7 +99,7 @@ export function footer(c) {
   <hr class="rule">
   <div class="fbar">
     <p class="cap">&copy; 2026 ${esc(c.site.name)} — since ${c.site.foundingYear}</p>
-    <p class="cap"><a href="${c.site.instagram}" target="_blank" rel="noreferrer">Instagram</a></p>
+    <p class="cap"><a href="${c.site.facebook}" target="_blank" rel="noreferrer">Facebook</a></p>
   </div>
 </div>
 </footer>`;

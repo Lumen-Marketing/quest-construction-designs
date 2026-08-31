@@ -2,8 +2,8 @@
 
 Ten design directions for **Quest Construction** (general contracting). Each one is a complete
 **fifty-four page site** — home, fourteen services, thirty-four service areas, about, gallery, projects,
-contact and sitemap — so 540 pages in total. Nothing here is wired to a live site; the contact form
-is not connected.
+contact and sitemap — so 540 pages in total. Nothing here is wired to a live site, and the demo
+directions' contact forms are not connected; the deployed `site/` form is.
 
 **Open `index.html`** — that is the chooser. Each card is a live, scaled iframe of the real
 homepage, and the direction's whole site sits behind it.
@@ -87,9 +87,20 @@ byte-identical to what it was.
 
 ### Before `site/` goes live
 
-Everything in "Before this goes live" below still applies — the domain, the unverified per-city
-copy and the unwired contact form. Three things are now done: the fonts are self-hosted, the
-indexable direction has been chosen, and the photography is Quest's own throughout.
+Everything in "Before this goes live" below still applies — the domain and the unverified
+per-city copy. Four things are now done: the fonts are self-hosted, the indexable direction has
+been chosen, the photography is Quest's own throughout, and **the contact form posts to
+`info@questconstruction.com`.**
+
+**The form.** `site.formEndpoint` in `content/site.json` is the address it posts to — FormSubmit's
+AJAX endpoint, chosen because a static tree on Vercel has no backend and this needs no account,
+no API key and no build step. The page posts with `fetch`, so the visitor never leaves it, and the
+confirmation only appears once the endpoint has accepted the mail; a rejected or failed post shows
+the phone number and the address instead of a green tick. A hidden `_honey` field takes the bots.
+It is one-time-activated: the first submission mails an activation link to
+`info@questconstruction.com`, and nothing is delivered until someone clicks it. Swapping to a
+self-hosted mailer later is a one-line change to `formEndpoint` — the markup and the script do not
+care what is on the other end.
 
 ## The build
 
@@ -603,10 +614,11 @@ every in-page anchor to an element that exists.
   the permitting authorities named for each city — Florence as Pinal County rather than Maricopa,
   Camelback East Village permitting through Phoenix, and Paradise Valley as its own town. A test
   enforces that the warning stays in the file until someone removes it deliberately.
-- **Address, ROC number and email remain unpublished.** Nothing invents them, and no
-  `PostalAddress`, licence `identifier` or `aggregateRating` appears in any schema node. If Quest
-  supplies real values they can be added; until then, leaving them out is the correct answer, not
-  an omission to fix.
+- **Address and ROC number remain unpublished.** Nothing invents them, and no `PostalAddress`,
+  licence `identifier` or `aggregateRating` appears in any schema node. If Quest supplies real
+  values they can be added; until then, leaving them out is the correct answer, not an omission to
+  fix. The email is published now — `info@questconstruction.com`, in `email` on the business and
+  contact-point nodes — as is the one social profile Quest keeps, the Facebook page, in `sameAs`.
 - Only `d01-site-plan` is indexable today. Whichever direction Quest picks, flip `indexable` in
   its `meta`, regenerate, and take the other nine down.
 - Self-host the fonts. Google Fonts is still a render-blocking third-party request on every page.

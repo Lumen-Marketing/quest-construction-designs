@@ -1617,6 +1617,13 @@ footer .brand img{height:38px}
 .cf-alt{color:var(--mute-lt);text-transform:none;letter-spacing:.02em;font-size:12px}
 .cf-alt a{color:var(--acc-dim);font-weight:700;text-decoration:underline;
   text-underline-offset:3px;display:inline-flex;align-items:center;min-height:24px}
+/* The honeypot. Off the page rather than display:none — some bots skip the
+   fields they can tell are hidden, and this one wants to be filled in. */
+.cf-honey{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;
+  pointer-events:none}
+/* While the post is in flight. The button stays put and stops taking clicks,
+   so a second tap cannot send the same enquiry twice. */
+.cf-foot .btn:disabled{opacity:.55;cursor:progress}
 .form-note{margin:0;color:var(--acc-dim);letter-spacing:.02em;text-transform:none;
   font-size:12.5px;font-weight:500;line-height:1.6}
 .form-note:empty{display:none}

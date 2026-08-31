@@ -52,6 +52,10 @@
       "description": "Expert craftsmanship for construction, remodeling, and home improvement projects across Arizona.",
       "slogan": "From Concept to Creation",
       "telephone": "+1-602-399-6455",
+      "email": "info@questconstruction.com",
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61575634252103"
+      ],
       "foundingDate": "2018",
       "priceRange": "$$",
       "areaServed": [
@@ -331,6 +335,7 @@
       "contactPoint": {
         "@type": "ContactPoint",
         "telephone": "+1-602-399-6455",
+        "email": "info@questconstruction.com",
         "contactType": "sales",
         "areaServed": "US",
         "availableLanguage": [
@@ -555,7 +560,7 @@
 </div>
 <div class="wrap fbar">
   <p class="mono">&copy; 2026 Quest Construction &middot; Since 2018</p>
-  <p class="mono"><a href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram</a></p>
+  <p class="mono"><a href="https://www.facebook.com/profile.php?id=61575634252103" target="_blank" rel="noreferrer">Facebook</a></p>
 </div>
 </footer>
 <script>
@@ -695,11 +700,36 @@
         var i=ctl(bad[0]); if(i) i.focus();
         return;
       }
-      // Nothing is wired to a mailbox yet, so the honest thing is to say so
-      // and hand over a route that does work rather than show a green tick.
+      // Everything checks out, so post it. The tick only goes up once the
+      // mailbox has actually accepted it — a green message written before
+      // the response lands is a lie the visitor cannot see through, and the
+      // one thing worse than a form that fails is one that fails silently.
+      var btn=f.querySelector('[type=submit]');
       note.className='form-note mono';
-      note.innerHTML='This form is not connected yet &#8212; please call '
-        +'<a class="telnum" href="tel:16023996455">(602) 399-6455</a> and we will pick up.';
+      note.textContent='Sending…';
+      if(btn){ btn.disabled=true; }
+      function fail(){
+        if(btn){ btn.disabled=false; }
+        note.className='form-note mono bad';
+        note.innerHTML='That did not send. Please call '
+          +'<a class="telnum" href="tel:16023996455">(602) 399-6455</a>, '
+          +'or email <a href="mailto:info@questconstruction.com">info@questconstruction.com</a>.';
+      }
+      // No-fetch browsers fall to the same message as a failed post: both mean
+      // the form did not go, and both want the phone number.
+      if(!window.fetch||!window.FormData){ fail(); return; }
+      fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:new FormData(f)})
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          if(String(d&&d.success)!=='true') throw new Error('rejected');
+          f.reset();
+          flds.forEach(function(fl){ mark(fl,false); });
+          note.className='form-note mono';
+          note.textContent='Thank you — that is with us. '
+            +'We reply the same day, and sooner if you call.';
+          if(btn){ btn.disabled=false; }
+        })
+        .catch(fail);
     });
   });
 })();

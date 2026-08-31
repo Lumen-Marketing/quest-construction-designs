@@ -107,7 +107,7 @@ export function footer(c) {
   </div>
   <div class="bar">
     <span>&copy; 2026 ${esc(c.site.name)} — building since ${c.site.foundingYear}</span>
-    <span><a href="${c.site.instagram}" target="_blank" rel="noreferrer">Instagram</a></span>
+    <span><a href="${c.site.facebook}" target="_blank" rel="noreferrer">Facebook</a></span>
   </div>
 </div>
 </footer>`;
