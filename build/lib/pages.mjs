@@ -155,7 +155,13 @@ export function pageList(opts = {}) {
   push('projects', 'projects', `Project Showcase${brand}`,
     // The showcase items themselves, so adding one to content/pages.json puts
     // it in the description too rather than leaving the list quietly stale.
-    clip(`${pages.projects.lede} See ${listOf(pages.projects.items.map((i) => i.title))}.`, 155));
+    // Pergolas are on the page as a section rather than a card, so they are
+    // named alongside the cards instead of being read out of the same list.
+    // listAs, not the section heading: "pergolas, ramadas and patio covers"
+    // as the last item of a list of four runs the description past 155 and
+    // loses its own full stop to the clip.
+    clip(`${pages.projects.lede} See ${listOf([...pages.projects.items.map((i) => i.title),
+      pages.projects.pergolas.listAs])}.`, 155));
   push('contact', 'contact', `Contact Us${brand}`,
     clip(`Talk to Quest Construction about your project. Call ${site.phoneDisplay}, ` +
       `${site.availability}, or send us a message.`, 155));

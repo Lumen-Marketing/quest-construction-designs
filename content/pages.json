@@ -43,13 +43,29 @@
         "title": "Concrete Work",
         "body": "Durable foundations, slabs, walkways, patios, and custom concrete projects.",
         "alt": "Concrete project"
-      },
-      {
-        "title": "Pergolas",
-        "body": "Shade structures, ramadas and patio covers built on posts and beams that hold up to Arizona sun.",
-        "alt": "Pergola project"
       }
-    ]
+    ],
+    "pergolas": {
+      "heading": "Pergolas, Ramadas and Patio Covers",
+      "accent": "Patio Covers",
+      "listAs": "Pergolas",
+      "lede": "The thing we are asked for most that is not part of the house.",
+      "paras": [
+        "A pergola in Arizona is not garden furniture. It is the difference between a patio you use and one you look at through the glass for five months of the year, and on a west-facing lot the shade it throws changes what the room behind it costs to cool.",
+        "We build them three ways. An open-rafter pergola, for filtered light and the look of one. A solid-roof ramada or patio cover, where you want real shade and somewhere dry to sit out a storm. And a cover attached to the house, which is the hardest of the three, because the junction where it meets the existing roof is where it will leak if anyone rushes it.",
+        "All three start underground. Posts land on footings sized for the span and for uplift, on standoff bases that hold the timber clear of the concrete so it cannot wick water and rot from the bottom up. A monsoon gust loads a shade structure from beneath — a flat roof on posts is a wing — so the connections that matter most are the ones holding it down."
+      ],
+      "notesHeading": "What goes into one",
+      "notes": [
+        "Footings sized for the span and for uplift, not to a rule of thumb",
+        "Standoff post bases, so no timber sits in concrete",
+        "Beams and rafters sized to the span they actually cross",
+        "Ties and hold-downs at every post and beam connection",
+        "Flashed into the roof, not caulked onto it, where it attaches",
+        "Permitted where the jurisdiction asks for one — most do"
+      ],
+      "cta": "Decks and shade structures"
+    }
   },
   "contact": {
     "h1": "Contact us",

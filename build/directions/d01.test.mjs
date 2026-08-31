@@ -765,10 +765,32 @@ test('the projects page shows every showcase project with its own photograph', (
   for (const it of items) assert.ok(html.includes(it.title), `projects missing ${it.title}`);
   assert.equal((html.match(/class="pjcard rv"/g) || []).length, items.length);
   // One Quest photograph each, in order, and no two cards sharing one.
-  const shots = ['quest/hero.webp', 'quest/custom-home-wide.webp',
-    'quest/slab-blockwall.webp', 'quest/deck-finished.webp'];
+  const shots = ['quest/hero.webp', 'quest/custom-home-wide.webp', 'quest/slab-blockwall.webp'];
   assert.equal(shots.length, items.length, 'a project was added without a photograph');
   for (const f of shots) assert.ok(html.includes(f), `projects missing ${f}`);
+});
+
+test('pergolas get a section of their own on the showcase, not a fourth card', () => {
+  const html = renderPage({ mod: d01, key: 'projects' });
+  const g = JSON.parse(readFileSync('content/pages.json', 'utf8')).projects.pergolas;
+  assert.match(html, /<section class="sec cream alt" id="pergolas">/,
+    'no pergola section on the projects page');
+  // Every line of it comes out of the content file, heading included.
+  assert.ok(html.includes(g.heading.replace(g.accent, `<span class="hl">${g.accent}</span>`)),
+    'the pergola heading does not accent its own word');
+  for (const t of g.paras) assert.ok(html.includes(esc(t)), 'a pergola paragraph is missing');
+  for (const n of g.notes) assert.ok(html.includes(esc(n)), 'a pergola note is missing');
+  // The two post-and-beam photographs, and neither of them twice: the band
+  // below subtracts them, so a duplicate here means taken() stopped covering
+  // this section.
+  for (const f of ['quest/deck-finished.webp', 'quest/porch-dusk.webp']) {
+    assert.equal((html.match(new RegExp(f, 'g')) || []).length, 1,
+      `${f} appears more than once on the projects page`);
+  }
+  // The section is a dead end without it: shade structures are sold on the
+  // deck page, and this is the only route to it from here.
+  assert.match(html, /services\/deck-building-uses-trex-system\/[\s\S]{0,120}Decks and shade/,
+    'the pergola section does not link the trade that builds them');
 });
 
 test('the about page renders both real story paragraphs', () => {

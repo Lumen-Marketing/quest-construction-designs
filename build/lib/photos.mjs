@@ -248,7 +248,16 @@ export const PROJECT_SHOTS = [
   'quest/hero.webp',            // Residential Framing
   'quest/custom-home-wide.webp',// Home Construction
   'quest/slab-blockwall.webp',  // Concrete Work
-  'quest/deck-finished.webp',   // Pergolas
+];
+
+/** The pergola section on the showcase. These are the only two post-and-beam
+    photographs in the library: the finished cover over the composite deck, and
+    the timber porch posts with their hardware still showing at dusk. Both are
+    subtracted from the projects band below, so neither appears twice on the
+    page. A third tile would have to be a picture of something else. */
+export const PERGOLA_SHOTS = [
+  'quest/deck-finished.webp',
+  'quest/porch-dusk.webp',
 ];
 
 /** A fourteen-shot sampler across both shoots — one per trade card, marquee,
@@ -535,7 +544,7 @@ function taken(kind, key) {
     case 'about':
       return [...base, bannerShot('about')[0], STORY];
     case 'projects':
-      return [...base, bannerShot('projects')[0], ...PROJECT_SHOTS];
+      return [...base, bannerShot('projects')[0], ...PROJECT_SHOTS, ...PERGOLA_SHOTS];
     default:
       return [...base, bannerShot(kind)[0]];
   }

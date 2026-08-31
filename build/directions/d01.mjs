@@ -9,7 +9,7 @@ import { scriptMap } from '../lib/palette.mjs';
 import {
   shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO, OFFER_SHOTS,
   STORY, CONTACT,
-  CLOSING, PROJECT_SHOTS,
+  CLOSING, PROJECT_SHOTS, PERGOLA_SHOTS,
   serviceShots, areaShots,
 } from '../lib/photos.mjs';
 
@@ -608,12 +608,10 @@ export function home(c) {
       </div>
     </div>`).join('');
 
-  // A teaser, not the full showcase: the projects page carries every item.
-  // It stops at three because Quest has no pergola photograph — the only
-  // overhead post-and-beam shot in the library is the finished deck, which the
-  // trade card above already spends, and the same picture twice on one page is
-  // worse than one card fewer. Raise this the day a pergola photograph lands;
-  // the stylesheet already lays out four and five tiles.
+  // A teaser, not the full showcase: the projects page carries the same three
+  // cards and a section on pergolas underneath them. The slice is a ceiling
+  // rather than a count — the stylesheet lays out four and five tiles, so a
+  // fourth item in the content file needs one line changed here, not a design.
   const work = c.pages.projects.items.slice(0, 3).map((p, i) => `
     <a class="pj ${'abcde'[i] || ''} rv" href="${c.url('projects')}">
       ${img(c, ...shot(PROJECT_SHOTS[i % PROJECT_SHOTS.length]))}
@@ -896,7 +894,7 @@ function tradeCities(c, s) {
 <section class="sec cream alt">
   ${grid(false)}
   <div class="wrap">
-    ${shead('&mdash; By city', `<span>${esc(short)}</span> Where You Are`,
+    ${shead('— By city', `<span>${esc(short)}</span> Where You Are`,
       `What changes about ${esc(inSentence(short))} city by city, written for each one.`)}
     <div class="arealinks trades rv">${cities.map((a) =>
       `<a href="${c.url(`services/${s.slug}/${a.slug}`)}">${esc(short)} in ${esc(a.city)}</a>`).join('')}</div>
@@ -1061,6 +1059,44 @@ export function gallery(c) {
 ${closingCta(c, c.pages.home.ctaHeading, c.pages.home.ctaBody)}`;
 }
 
+// Pergolas get a section rather than a fourth card. A card is a photograph and
+// two lines, which is the right amount of room for "we build these" and not
+// nearly enough for the part that decides whether one lasts — the footing, the
+// standoff base, the uplift. It is also the single most-asked-for thing on this
+// site that is not one of the fourteen trades, so it earns the band.
+//
+// The furniture is the trade-by-city page's: copy on the left, the dark notes
+// card on the right, and the two photographs underneath. Nothing new was drawn
+// for it, which is the point — a section that needs its own components is a
+// section that will drift away from the rest of the site the first time either
+// is touched.
+function pergolaBand(c) {
+  const g = c.pages.projects.pergolas;
+  return `
+<section class="sec cream alt" id="pergolas">
+  ${grid(false)}
+  <div class="wrap">
+    ${shead('— Shade structures', hl(g.heading, g.accent), g.lede)}
+    <div class="split">
+      <div class="rv">
+        ${g.paras.map((t) => `<p>${esc(t)}</p>`).join('')}
+        ${arrowBtn(c.url('services/deck-building-uses-trex-system'), g.cta)}
+      </div>
+      <div class="localnotes rv">
+        <h3>${esc(g.notesHeading)}</h3>
+        <ul>${g.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
+        <div class="localcall">
+          <b class="telnum">${esc(c.site.phoneDisplay)}</b>
+          <span>${esc(c.site.availability)} &middot; Shade structures</span>
+        </div>
+      </div>
+    </div>
+    <div class="shotband pergola-shots n${PERGOLA_SHOTS.length}">${PERGOLA_SHOTS.map((f) =>
+    `<figure class="rv">${img(c, ...shot(f))}</figure>`).join('')}</div>
+  </div>
+</section>`;
+}
+
 export function projects(c) {
   const p = c.pages.projects;
   return `${pageHero(c, {
@@ -1070,7 +1106,7 @@ export function projects(c) {
 <section class="sec cream">
   ${grid(false)}
   <div class="wrap">
-    ${shead('&mdash; Selected work', 'Projects We Have <span>Built</span>',
+    ${shead('— Selected work', 'Projects We Have <span>Built</span>',
       'Each one photographed on our own jobs, not staged and not stock.')}
     <div class="pjs">${p.items.map((it, i) => `
       <article class="pjcard rv">
@@ -1084,6 +1120,8 @@ export function projects(c) {
     </div>
   </div>
 </section>
+
+${pergolaBand(c)}
 
 ${bigBand(c, pageShots('projects', 6), '— More from the same jobs', 'DETAIL SHOTS',
   'The stages of a build that do not get a card of their own.')}
@@ -1353,7 +1391,7 @@ export function serviceArea(c) {
 <section class="sec dark">
   ${grid(true)}
   <div class="wrap">
-    ${shead(`&mdash; ${esc(short)}`, `How We Run <span>${esc(short)}</span> Work`,
+    ${shead(`— ${short}`, `How We Run <span>${esc(short)}</span> Work`,
       `The same approach everywhere we build. The full ${esc(inSentence(short))} page has the `
       + 'detail; this is the short version.')}
     <div class="svcpts rv">${s.whyChoose.map((w) => `<p>${esc(w)}</p>`).join('')}</div>
@@ -1364,7 +1402,7 @@ export function serviceArea(c) {
   </div>
 </section>
 
-${band(c, areaShots(ai), '&mdash; Recent work',
+${band(c, areaShots(ai), '— Recent work',
   `Jobs Behind the <span>${esc(a.city)}</span> Crew`,
   `The same crew that answers a ${esc(a.city)} call ran these. Photographs are from Quest jobs `
   + 'across the service area, not staged, and not stock.', 'sec cream alt')}
@@ -1372,7 +1410,7 @@ ${band(c, areaShots(ai), '&mdash; Recent work',
 <section class="sec cream">
   ${grid(false)}
   <div class="wrap">
-    ${shead('&mdash; Elsewhere', `<span>${esc(short)}</span> in Other Cities`, '')}
+    ${shead('— Elsewhere', `<span>${esc(short)}</span> in Other Cities`, '')}
     <div class="arealinks trades rv">${elsewhere}</div>
   </div>
 </section>

@@ -68,6 +68,15 @@ export function documentFindings(html) {
   const h1s = (html.match(/<h1[ >]/g) || []).length;
   if (h1s !== 1) out.push(finding('one-h1', `${h1s} h1 elements, expected exactly 1`));
 
+  // A double-escaped entity: an author handed "&mdash;" to a renderer that
+  // escapes its argument, and the page prints the source rather than the
+  // character. It is invisible in a diff of the generator and obvious to a
+  // reader, which is the wrong way round — eighty-eight pages carried
+  // "&mdash; Selected work" before this rule existed.
+  for (const m of html.matchAll(/&amp;(?:mdash|ndash|nbsp|middot|quot|amp|lt|gt|#\d+);/g)) {
+    out.push(finding('double-escaped', `entity printed as text: ${m[0]}`));
+  }
+
   for (const m of html.matchAll(/<img\b[^>]*>/g)) {
     const tag = m[0];
     const where = tag.slice(0, 88);
