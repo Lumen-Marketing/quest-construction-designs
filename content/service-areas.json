@@ -1,5 +1,5 @@
 {
-  "_README": "Per-city copy for the service-area landing pages: /services/<trade>/<city>/. Each entry is the INTERSECTION of one trade and one city — what changes about that trade in that place — not the trade description repeated with a name swapped in, which would make these doorway pages. Jurisdiction claims match docs/service-area-verification.md, verified 2026-08-29. Build practice is UNVERIFIED: Quest must review and cut anything that does not match how it actually works. Five trades are written: roofing across all thirty-four cities, and concrete, stucco, ADU and full remodel across the twelve largest markets — eighty-two pairings. A trade with no entry here simply has no city pages, which is the point. Only the standalone site renders these; the ten demo directions do not carry them.",
+  "_README": "Per-city copy for the service-area landing pages: /services/<trade>/<city>/. Each entry is the INTERSECTION of one trade and one city — what changes about that trade in that place — not the trade description repeated with a name swapped in, which would make these doorway pages. Jurisdiction claims match docs/service-area-verification.md, verified 2026-08-29. Build practice is UNVERIFIED: Quest must review and cut anything that does not match how it actually works. All fourteen trades are written now: roofing across all thirty-four cities, and the other thirteen across the twelve largest markets — one hundred and ninety pairings. A trade with no entry for a city simply has no page there, which is the point. Only the standalone site renders these; the ten demo directions do not carry them.",
   "roofing": {
     "phoenix-az": {
       "lede": "Phoenix spans a century of roofs, so the first question is never what it costs — it is what is actually up there.",
@@ -991,6 +991,1320 @@
         "Glazing and shade in the brief",
         "Few surprises behind new drywall",
         "Trades consolidated over long distances"
+      ]
+    }
+  },
+  "framing": {
+    "phoenix-az": {
+      "lede": "Framing in Phoenix means working against whatever the last hundred years left standing.",
+      "paras": [
+        "The city holds every construction era Arizona has had. A 1920s bungalow near the centre has real dimensional lumber, balloon-framed walls and a plaster substrate that does not behave like drywall. A house finished last year north of the 101 has engineered trusses and a load path that runs through particular walls and nowhere else. Which of those we are standing in gets established before anything is cut.",
+        "A large share of the mid-century stock is block, and a block house has no stud wall to nail an addition to. The connection is anchored into masonry and the new framing is furred out to meet the existing plane, which is a different detail and a different inspection from timber to timber. Inside a historic overlay the roofline and the street elevation are part of the permit, so the framing is planned around what has to stay."
+      ],
+      "notes": [
+        "Block-to-timber connections, anchored not nailed",
+        "Historic overlay limits on roofline and elevation",
+        "Balloon frame through engineered truss in one city"
+      ]
+    },
+    "mesa-az": {
+      "lede": "Most Mesa framing starts against a block wall rather than a stud wall, and that changes the detail.",
+      "paras": [
+        "Post-war ranch and 1970s and 1980s block make up the bulk of the stock. An addition on a masonry house does not tie in by finding a stud: the ledger is anchored into the block, the new wall is set out to meet the existing plane, and the inspection is on the anchors rather than on a nailing pattern. It lays out slower and it does not come loose in ten years.",
+        "The newer half is truss-framed on shallow pitches. A truss is an engineered assembly, and cutting one to make room for something is a structural alteration rather than a carpentry decision, so an addition frames alongside and ties in at the ridge instead of through it. Mesa reviews all of it as a City submittal, and we file before the saws come out."
+      ],
+      "notes": [
+        "Ledger anchored into block, not nailed",
+        "No truss cut without an engineer on it",
+        "City of Mesa submittal before demolition"
+      ]
+    },
+    "chandler-az": {
+      "lede": "Framing work in Chandler is mostly interior: walls out, headers in, and the roof left where it is.",
+      "paras": [
+        "The houses here are largely sound with dated layouts, so the request is usually to open a kitchen into a living space rather than to add square footage. That turns on one question, which is whether the wall is carrying anything. Under a truss roof the load runs to specific bearing walls and the rest are partitions that can go in an afternoon. Get that the wrong way round and the ceiling will tell you inside a week.",
+        "Where a wall is bearing it comes out with a header and posts carrying down to something that can take a point load, which on a slab means knowing what is underneath the bearing point before the wall goes rather than after. Chandler permits structural alterations, and a beam sized by an engineer on paper is what keeps the sign-off uneventful."
+      ],
+      "notes": [
+        "Bearing or partition, settled before demolition",
+        "Point loads traced down to the slab",
+        "Engineered header sizing for the permit"
+      ]
+    },
+    "gilbert-az": {
+      "lede": "Gilbert subdivisions repeat, so we usually know what is behind a wall before we open it.",
+      "paras": [
+        "Most of the town went up through the 1990s and 2000s to a handful of builder plans, which means the same elevation carries the same truss layout, the same header sizes and the same bearing lines street after street. We have generally been inside that plan before. That is worth real money to a homeowner: it is the difference between a quote, and a quote plus a day of exploratory demolition to find out what the quote should have said.",
+        "It also means the bearing-wall answer is usually available before anyone swings anything. Where an architectural committee governs the community, a framing change that alters an elevation goes to them as well as to the Town, and the two are submitted together. Finding the committee after Gilbert has already approved is a month nobody budgeted for."
+      ],
+      "notes": [
+        "Repeating builder plans, known truss layouts",
+        "Town permit and architectural review in parallel",
+        "No exploratory demolition needed to price it"
+      ]
+    },
+    "glendale-az": {
+      "lede": "Glendale framing splits at the 101: real floor joists on one side, slab and trusses on the other.",
+      "paras": [
+        "Around downtown and Catlin Court there is genuine pre-war fabric, some of it on raised foundations with a crawl space and actual floor framing underneath, meaning joists, girders and a rim that can be inspected and repaired. That is uncommon in this valley, and it means a floor problem here has a cause somebody can look at rather than a slab that can only be guessed at.",
+        "West of the 101 the stock is 2000s production on slab under engineered trusses, and the framing is extension and reconfiguration rather than repair. The older side carries a second constraint that has nothing to do with carpentry: flood irrigation and mature trees over the work area. We set the framing days around the irrigation turn instead of standing a wall in four inches of water."
+      ],
+      "notes": [
+        "Raised foundations and real floor framing downtown",
+        "Slab and truss production west of the 101",
+        "Framing scheduled around the irrigation turn"
+      ]
+    },
+    "scottsdale-az": {
+      "lede": "Scottsdale wants the framing documented before it is built, and on a hillside lot it means it.",
+      "paras": [
+        "Design review here is genuinely enforced, so massing, rooflines and elevations are settled and submitted before a stick is cut. That front-loads the work and it removes the expensive version of the problem, which is a framed wall coming back down because it moved a roof plane the committee had approved on paper.",
+        "The hillside and desert-adjacent lots bring stepped foundations, engineered framing packages and disturbed-area limits that govern where a crew is even allowed to stand. West elevations take punishing afternoon sun, and overhang, glazing and shading get decided at framing rather than added afterwards. An overhang is a framing dimension, not a finish."
+      ],
+      "notes": [
+        "Elevations approved before anything is cut",
+        "Stepped foundations and engineered packages",
+        "Overhangs sized at framing, not bolted on later"
+      ]
+    },
+    "tempe-az": {
+      "lede": "Tempe lots are too tight to build a wall flat and stand it, so most of it is framed in place.",
+      "paras": [
+        "The city is landlocked and effectively built out, which makes nearly everything infill. On a small lot with neighbours a few feet away there is no ground to lay out a panel and tilt it up, so walls go together stick by stick and the layout has to be right the first time. Where a delivery can stop, what hours the saws run and how the dust is kept on site are part of the framing plan rather than an afterthought.",
+        "The stock around the university is 1950s to 1970s ranch, a good deal of it rented and repeatedly altered. We routinely open a wall and find circuits, ducts or a header put in by someone who never pulled a permit. That gets priced honestly at the start rather than discovered halfway through, because a sixty-year-old wall very rarely opens clean."
+      ],
+      "notes": [
+        "Framed in place, no room to tilt a panel",
+        "Layered unpermitted work inside old walls",
+        "Access, hours and dust planned with the layout"
+      ]
+    },
+    "peoria-az": {
+      "lede": "Peoria framing changes with the latitude: tie-ins and repairs south, additions north of the 101.",
+      "paras": [
+        "South Peoria is post-war and 1970s block on established streets. Framing there usually ties into masonry, and opening a wall means dealing with whatever the last fifty years put inside it. North of the 101 the ground is master-planned and recent, and the framing is what the production builder left off: a patio enclosure, a casita, a garage conversion, a room extended into a lot that had space for it.",
+        "Those northern communities nearly all carry architectural review on top of the City permit. Anything that changes an elevation goes to both, and the two go in together. Sequential submittals are how a month disappears from a schedule for a reason nobody can point at afterwards."
+      ],
+      "notes": [
+        "Masonry tie-ins south, additions north",
+        "City permit and HOA review filed together",
+        "Patio enclosures and garage conversions"
+      ]
+    },
+    "surprise-az": {
+      "lede": "Almost every house in Surprise is post-1998, so framing adds to a building rather than repairing one.",
+      "paras": [
+        "The fabric is consistent in a way older valley cities are not: slab-on-grade, engineered truss roofs, stucco over frame. Structural failure is rare. What people want is more house, so a room extended, a patio enclosed, a casita on a lot that was platted with room for one. The framing itself is straightforward; tying it into an engineered roof without touching a truss is the part that takes thought.",
+        "Sun City Grand and the other age-restricted communities inside the city set their own contractor access hours and their own architectural rules. A framing programme that ignores a seven-to-four gate is not a programme, so those rules get read before the quote rather than after a date has been promised."
+      ],
+      "notes": [
+        "Additions onto sound post-1998 stock",
+        "Tied alongside engineered trusses, never through",
+        "Age-restricted access hours built into the dates"
+      ]
+    },
+    "goodyear-az": {
+      "lede": "In Goodyear the framing question is usually about what the slab underneath it is going to do.",
+      "paras": [
+        "The south and west edges of the city carry expansive soil in places, and a flat lot with poor fall does not forgive a slab placed without thinking about where the water goes. Finished floor level and fall are set against the existing grade at design stage, because framing standing on a slab that moves is not a problem framing can fix.",
+        "Above that, Palm Valley, Estrella and the newer tracts are production-built and sound: slab, truss, stucco over frame. Most of what gets framed here is the outdoor living the builder did not include, so extended patios, ramadas and casitas on lots that were platted with room for them and then handed over without them."
+      ],
+      "notes": [
+        "Finished floor and fall set before the slab",
+        "Expansive soil on the south and west edges",
+        "Outdoor living framed onto sound production stock"
+      ]
+    },
+    "queen-creek-az": {
+      "lede": "Queen Creek lots are big enough for the framing nobody in the inner valley has the room for.",
+      "paras": [
+        "Shops, detached garages, casitas and covered outdoor space are a large share of what we build here, and the spans are longer than anything in a house. A forty-foot clear shop is an engineered framing package rather than a scaled-up patio cover, and it wants a footing schedule and hold-downs to match. That is a different drawing set and a different inspection from an addition on the back of a tract home.",
+        "Parcels toward the edges of town can still be on well and septic, and the utility run out to a new outbuilding is regularly longer than a homeowner expects. We survey that run before quoting: a hundred and fifty feet of trench is a real line item and it belongs on the estimate rather than in a change order."
+      ],
+      "notes": [
+        "Long clear spans on engineered packages",
+        "Utility runs surveyed before the quote goes out",
+        "Detached shops, garages and casitas"
+      ]
+    },
+    "buckeye-az": {
+      "lede": "Buckeye has the newest housing in the valley, so nearly all the framing here is shade.",
+      "paras": [
+        "Verrado, Sundance and Festival Ranch are recent production work and structurally sound. What people call about is what the builder did not include, and out here that is shade before anything else: ramadas, extended patio covers and pergolas on lots platted open with west exposure that is genuinely punishing. The framing is post, beam and rafter, and the connections that matter are carrying uplift rather than weight.",
+        "The city is geographically enormous, and a job on the far side of it is a real drive for a crew and for every delivery. Material goes in fewer, larger drops and gets staged on site rather than running the road four times a day, which is what stops a small framing job costing what a large one should."
+      ],
+      "notes": [
+        "Post-and-beam shade rather than structural repair",
+        "Uplift-rated connections for monsoon loading",
+        "Fewer, larger material drops across a big city"
+      ]
+    }
+  },
+  "casita": {
+    "phoenix-az": {
+      "lede": "A Phoenix casita has to look as though it came with the house, and that is the hard part.",
+      "paras": [
+        "The first thing to settle is which building you actually want. A casita is a guest suite, an office or a room for a parent: bedroom, bathroom, sometimes a wet bar. Put a full kitchen and a separate entrance on it and it becomes an accessory dwelling in the eyes of the city, which is a different application and a different set of rules. We ask that question before anyone draws anything.",
+        "Then it has to match, and Phoenix makes that harder than most cities because the house it is matching could be from any decade since 1920. Roof pitch, fascia depth, stucco texture and window proportion are what give a casita away, not the paint colour. On a 1970s block house that means matching painted masonry rather than approximating it, and inside a historic overlay it means a design the district will actually approve."
+      ],
+      "notes": [
+        "Guest suite or accessory dwelling, decided first",
+        "Pitch, fascia and window proportion matched to the house",
+        "Historic overlay design where the district applies"
+      ]
+    },
+    "mesa-az": {
+      "lede": "The craft problem with a Mesa casita is matching stucco that has been weathering for forty years.",
+      "paras": [
+        "New stucco does not look like old stucco, and a texture that matches the sample board will still read as an obvious addition against an elevation that has been in the sun since the 1980s. Matching a weathered finish is a different job from matching a new one: it is done on site against the actual wall, in the actual light, and it takes more than one attempt. That is time we build into the programme rather than discovering at the end.",
+        "A good deal of Mesa is painted masonry rather than stucco over frame, which changes what a casita is being tied to and how the two elevations meet. In east Mesa the newer subdivisions add architectural review to the City of Mesa permit, and both go in together so the design that clears one clears the other."
+      ],
+      "notes": [
+        "Weathered stucco matched on the wall, not off a board",
+        "Painted masonry tie-ins on the older stock",
+        "City permit and east Mesa HOA review together"
+      ]
+    },
+    "chandler-az": {
+      "lede": "Most Chandler casitas are the room the house is short of, on a lot that already has space for it.",
+      "paras": [
+        "The housing here is largely sound with dated layouts, which is why a casita is so often the answer instead of a remodel. Rather than reconfiguring a floor plan that basically works, the extra bedroom, the office or the suite for a parent goes in the garden, and the house is left alone. It is usually the less disruptive of the two and it adds space rather than moving it around.",
+        "Tile roof and stucco dominate the city, and both are what a casita gets judged against from the street. Matching a discontinued tile profile is a sourcing problem worth solving before the roof is framed, because a casita in a near-enough tile is the thing a visitor notices first and stops noticing never."
+      ],
+      "notes": [
+        "Added space rather than a reconfigured floor plan",
+        "Tile profile sourced before the roof is framed",
+        "Stucco matched against the existing elevation"
+      ]
+    },
+    "gilbert-az": {
+      "lede": "In Gilbert a casita is a matching exercise before it is a building one, and the committee decides.",
+      "paras": [
+        "Communities here were built to a controlled palette, and the architectural committee governing yours has an approved list of finishes, tile profiles and colours. That narrows the design conversation usefully: the question is not what is available, it is what will clear review, and bringing options that cannot is a wasted month. We work from what is approved for the community.",
+        "The upside of a master-planned town is that the elevations repeat. We have generally matched the same builder detail on the same plan somewhere else in Gilbert, which means the tile, the fascia and the stucco texture are known quantities rather than a sample order and a wait."
+      ],
+      "notes": [
+        "Designed to the community approved palette",
+        "Town permit and committee submitted in parallel",
+        "Builder elevations already matched elsewhere"
+      ]
+    },
+    "glendale-az": {
+      "lede": "Where a Glendale casita can go is usually decided by a mature tree and an irrigation schedule.",
+      "paras": [
+        "The older neighbourhoods around downtown still run flood irrigation, and a sixty-year-old ash or citrus over the only sensible corner of the garden is a real constraint on siting. Both are worth designing around rather than through. We plan the placement, the pour and the deliveries against the irrigation turn, because a yard under four inches of water on the morning of a pour is a lost day that was entirely foreseeable.",
+        "The matching problem changes across the city. Near Catlin Court a casita sits against pre-war fabric and, in the historic districts, against rules about what may face the street. West of the 101 it is 2000s production stock, where the palette is narrow and the match has to be exact for the same reason it does in any tract."
+      ],
+      "notes": [
+        "Siting planned around mature trees and irrigation",
+        "Historic district rules near the downtown core",
+        "Exact palette matching on the 2000s stock"
+      ]
+    },
+    "scottsdale-az": {
+      "lede": "A Scottsdale casita is approved on paper before it is built, materials and colours included.",
+      "paras": [
+        "Design review here is documented and enforced, and a casita is a visible second building rather than something hidden behind the house. Elevations, materials and colours are settled and submitted before anything is ordered. A rejected finish schedule costs a redraw on paper and a rebuild on a wall, and the difference between those two numbers is the whole argument for doing it in that order.",
+        "On the hillside and desert-adjacent lots, siting is governed by drainage and disturbed-area limits as much as by where you would like the guest suite to look. West exposure decides the glazing and the overhang. In north Scottsdale the community architectural committee sits on top of all of it, so both submissions run together."
+      ],
+      "notes": [
+        "Materials and colours approved before ordering",
+        "Drainage and disturbed-area limits govern siting",
+        "City review and HOA committee run together"
+      ]
+    },
+    "tempe-az": {
+      "lede": "On a Tempe lot a casita is measured against the setbacks before it is measured against anything else.",
+      "paras": [
+        "The city is built out and the lots are small, so the honest first answer is often that a detached casita will not fit, and the room is better won by converting a garage or extending under the existing roofline. We work out which of those the lot actually supports before drawing, rather than producing a design that the setbacks will not let anyone build.",
+        "Where the plot does take one, neighbours are a few feet away and that shapes everything: where a delivery stops, what hours the work runs, and how the dust stays on site. Several older Tempe neighbourhoods have alleys, and where there is one it is usually the difference between a straightforward build and a job that runs through the front garden."
+      ],
+      "notes": [
+        "Setbacks checked before a line is drawn",
+        "Conversion or extension where a detached one will not fit",
+        "Alley access used where the neighbourhood has it"
+      ]
+    },
+    "peoria-az": {
+      "lede": "A Peoria casita is a different build north of the 101 than it is on the older streets south of it.",
+      "paras": [
+        "North of the freeway the ground is master-planned and recent, the lots were platted with room for a second building, and the work is a matching exercise against a production elevation under an architectural committee. South Peoria is post-war and 1970s block on established streets, where a casita is tied to masonry and matched against a painted or stucco-over-block wall that has aged for fifty years.",
+        "Both go through City of Peoria development and engineering, but only one of them also goes to a committee. Where both apply we file them in parallel, because discovering an architectural review after the City has already approved is a month lost for nothing."
+      ],
+      "notes": [
+        "Production matching north, masonry tie-ins south",
+        "City and committee submitted in parallel",
+        "Lots north of the 101 platted with room for one"
+      ]
+    },
+    "surprise-az": {
+      "lede": "Surprise lots were mostly platted with room for a casita, so the work is fitting it to the house.",
+      "paras": [
+        "Nearly the whole city is post-1998 and consistent: slab-on-grade, engineered trusses, stucco over frame. Placing a second building is rarely the problem. Making it look like part of the original is, because a twenty-year-old stucco elevation and twenty-year-old roof tile do not match anything currently on a shelf. Tile is sourced and stucco is matched on the wall before either is ordered in quantity.",
+        "Inside Sun City Grand and the other age-restricted communities there are architectural rules and contractor access hours to work to, and a casita is often specifically a caregiver or family suite. Those rules get read before we quote, because a gate that closes at four in the afternoon is a fact about the schedule, not a detail."
+      ],
+      "notes": [
+        "Roof tile sourced to match a twenty-year-old elevation",
+        "Stucco matched on the wall before bulk ordering",
+        "Age-restricted architectural rules and access hours"
+      ]
+    },
+    "goodyear-az": {
+      "lede": "Goodyear casitas go on flat production lots, which makes drainage the first thing we settle.",
+      "paras": [
+        "Palm Valley, Estrella and the newer tracts are sound and recent, and the lots are generally open enough to take a second building comfortably. What they are not is steep. Water has to be given somewhere to go before a second slab goes into the middle of a flat garden, and on the south and west edges of the city there is expansive soil to account for as well. Both are design-stage decisions, not monsoon-season discoveries.",
+        "Above the slab it is a matching job: stucco over frame, truss roof, a narrow builder palette. Because the stock is young the finishes are usually still obtainable, which makes a Goodyear casita one of the more straightforward ones in the valley to make look original."
+      ],
+      "notes": [
+        "Fall and drainage designed before the second slab",
+        "Expansive soil accounted for on the outer edges",
+        "Young stock, so builder finishes still obtainable"
+      ]
+    },
+    "queen-creek-az": {
+      "lede": "On a Queen Creek acre the casita is often one building of two or three, so it is planned as a group.",
+      "paras": [
+        "Lots here take what the inner valley cannot: a casita, a shop and covered outdoor space between them. Planned together they share a trench, a pad and one mobilisation, and they read as a considered group from the house. Planned one at a time over five years they cost more and look it, so we lay out the whole thing even where only the first part is being built now.",
+        "Much of the housing is recent enough to still carry some form of builder coverage, and we are straightforward about which parts of a problem belong to the original builder and which are genuinely ours to take on. Matching a five-year-old elevation is easy; the planning around it is where the value is."
+      ],
+      "notes": [
+        "Casita, shop and covered space planned as one group",
+        "Shared trench, pad and mobilisation where possible",
+        "Builder coverage separated from our scope plainly"
+      ]
+    },
+    "buckeye-az": {
+      "lede": "A Buckeye casita is usually asked for with shade attached, because the lots are open and west-facing.",
+      "paras": [
+        "Verrado, Sundance and Festival Ranch are recent, sound and platted open. A guest suite out here is rarely wanted on its own: it comes with a ramada or a covered walk between it and the house, because the fifty feet of open gravel between two buildings in July is the part that makes people stop using the casita. Designing the shade with the building rather than after it is what makes it get used.",
+        "Distances inside the city are real, so material goes in fewer and larger drops and gets staged on site. On a build with two structures and a connecting cover that matters more than it sounds, because the alternative is a crew standing in the sun waiting for a truck that left the yard forty minutes ago."
+      ],
+      "notes": [
+        "Shade and covered link designed with the building",
+        "The newest stock in the valley, so finishes still match",
+        "Material staged on site across a very large city"
+      ]
+    }
+  },
+  "custom-home-building": {
+    "phoenix-az": {
+      "lede": "A custom home in Phoenix is nearly always an infill build, and the lot comes with a history.",
+      "paras": [
+        "There is very little raw ground left inside the city, so a custom house here usually replaces something or fills a gap between two houses that have been standing for sixty years. That means demolition, an existing service connection of unknown age, and neighbours on both sides for the whole programme. All three are cheaper to plan for than to discover.",
+        "Zoning and, near the centre, historic overlay set what can be built long before taste does: height, setbacks, how the house meets the street. We establish the envelope and the design guidance that applies to that specific parcel before drawings start, because a house designed to the wrong envelope is months of nobody's time well spent."
+      ],
+      "notes": [
+        "Infill lots with existing services and demolition",
+        "Envelope and overlay confirmed before design",
+        "Neighbours on both sides for the whole programme"
+      ]
+    },
+    "mesa-az": {
+      "lede": "Custom homes in Mesa go up between existing ones, so the neighbours are part of the programme.",
+      "paras": [
+        "The buildable ground here is infill: a lot in an established street, often carved from something larger, with mature landscaping and utilities that have been in the ground since the 1960s. West Mesa in particular has tight access, and a street that has to stay passable for the people who live on it shapes deliveries, crane days and where a skip can stand.",
+        "Everything goes through City of Mesa development services as a full plan review, and the review window sits at the front of the schedule rather than beside it. We programme it as the first item, because a slab date promised against a permit that has not cleared is a date that will move."
+      ],
+      "notes": [
+        "Infill lots on established streets",
+        "City of Mesa plan review at the front of the schedule",
+        "Street access and deliveries planned with neighbours"
+      ]
+    },
+    "chandler-az": {
+      "lede": "Chandler custom homes sit between two vintages, and the lot usually decides which one it answers to.",
+      "paras": [
+        "Near the historic centre the ground is older, the lots are smaller and a new house has established neighbours on either side to sit comfortably beside. Further south the parcels are newer and more open, and the constraint is less about context than about what the subdivision and its committee will accept. The same brief produces two different houses depending on which half of the city it lands in.",
+        "Tile roof and stucco are the local vernacular, and they are worth doing properly on a new build rather than fixing later. Detailing the roof and the stucco terminations correctly at the outset is most of what decides whether the house needs attention in fifteen years or in five."
+      ],
+      "notes": [
+        "Historic-centre context or newer southern parcels",
+        "Roof and stucco terminations detailed at the outset",
+        "Subdivision review where the parcel carries one"
+      ]
+    },
+    "gilbert-az": {
+      "lede": "A custom home in Gilbert is designed against a committee as much as against a site.",
+      "paras": [
+        "Most of the town is master-planned, and the remaining lots inside those communities come with an architectural committee, an approved palette and a set of guidelines about massing and elevation. A genuinely custom house is still possible; it is designed within that, and knowing where the boundaries sit at the sketch stage is what stops a design being redrawn twice.",
+        "Because so much of Gilbert was built by a handful of production builders to a handful of plans, a custom house is also the one on the street that is not one of them. That is the point of it, and it is why the detailing matters: proportion, roof form and the way the elevation meets the ground are what separate a custom house from a large one."
+      ],
+      "notes": [
+        "Designed inside the community guidelines from the sketch",
+        "Town of Gilbert review alongside committee approval",
+        "Proportion and roof form carry the difference"
+      ]
+    },
+    "glendale-az": {
+      "lede": "Custom building in Glendale means checking first whether the parcel sits inside a historic district.",
+      "paras": [
+        "The rules around the downtown core and Catlin Court are their own application, and a new house three streets outside one is a materially different project from the same house inside it. That is the first thing established on a Glendale parcel, because it governs height, elevation and street presentation rather than merely commenting on them.",
+        "Older Glendale lots also carry flood irrigation and mature trees, both of which affect where the house can sit, how the ground drains once it is there, and what the programme can promise about pour dates. All of that is settled at design stage, along with what the existing services on the street can actually deliver."
+      ],
+      "notes": [
+        "Historic district status confirmed before design",
+        "Flood irrigation and mature trees in the siting",
+        "Existing street services checked for capacity"
+      ]
+    },
+    "scottsdale-az": {
+      "lede": "Scottsdale is the city where a custom home is genuinely decided in the drawings, not on the site.",
+      "paras": [
+        "Design review is documented and enforced, and hillside parcels bring an additional layer: disturbed-area limits, drainage, cut and fill, and a building envelope that can be a good deal smaller than the lot line suggests. Elevations, materials and colours are settled and submitted before anything is ordered. Front-loading that is not bureaucracy, it is the cheapest place to change your mind.",
+        "Exposure does the rest of the design work. A west elevation here punishes glazing that was chosen in a showroom, so orientation, overhang and glass specification are settled together at design stage. In north Scottsdale a community architectural committee sits above all of it, and its submission runs in parallel with the city's."
+      ],
+      "notes": [
+        "Elevations, materials and colours approved before ordering",
+        "Hillside envelope, drainage and disturbed-area limits",
+        "Orientation, overhang and glazing specified together"
+      ]
+    },
+    "tempe-az": {
+      "lede": "A Tempe custom home is a teardown or an alley lot, because there is no other ground left.",
+      "paras": [
+        "The city is landlocked and effectively built out, so a new house here replaces one. That makes demolition, an old service connection and an established street part of the project from day one, and it makes the neighbours a genuine stakeholder for the length of the build. Hours, dust and where a truck can stand are agreed rather than assumed.",
+        "The lots are small and the setbacks take a real bite out of them, so the design work is mostly about getting a house that lives large onto a plot that is not. Shade and west-facing glass matter more here than almost anywhere, and they are worth solving in the plan rather than with equipment afterwards."
+      ],
+      "notes": [
+        "Replacement builds on established streets",
+        "Small lots where setbacks drive the plan",
+        "Shade and west glazing solved in the design"
+      ]
+    },
+    "peoria-az": {
+      "lede": "Peoria still has custom ground north of the 101, and it comes with a committee attached.",
+      "paras": [
+        "The northern half of the city is master-planned and recent, and the lots left in it are governed by architectural guidelines as well as by City of Peoria development and engineering. Both submissions go in together. In the older south the work is infill on established streets, where a new house sits among post-war and 1970s block and the context is the constraint rather than the guidelines.",
+        "Peoria runs a long way north to south, and that distance is a scheduling fact rather than a map detail. Deliveries, inspections and the crew's day all look different at the two ends of the city, and a programme written for one end does not hold at the other."
+      ],
+      "notes": [
+        "Committee guidelines and City review filed together",
+        "Infill among older block stock in the south",
+        "The length of the city built into the programme"
+      ]
+    },
+    "surprise-az": {
+      "lede": "Building custom in Surprise means building something the rest of the city was not built like.",
+      "paras": [
+        "Almost the entire city went up after 1998 to production standards: slab-on-grade, engineered trusses, stucco over frame. A custom house here is deliberately not that, which is the reason for building one, and it puts the emphasis on the parts production building does not spend on — wall assembly, glazing specification, roof detailing and how the house handles a west elevation in July.",
+        "Where the parcel sits inside an age-restricted community there are architectural rules and contractor access hours that shape the programme as much as the design does. Those are read at the quoting stage. A gate that closes at four is a constraint on the build, not a note in an appendix."
+      ],
+      "notes": [
+        "Wall assembly and glazing above production standard",
+        "City of Surprise plan review from the outset",
+        "Community access hours written into the programme"
+      ]
+    },
+    "goodyear-az": {
+      "lede": "A Goodyear custom home starts with the soil report, because the flat ground here is not all the same.",
+      "paras": [
+        "Parts of the south and west of the city carry expansive soil, and a custom house is exactly the sort of building that shows it if the foundation was designed on an assumption. The soil report, the foundation design and the drainage across a very flat lot are settled together at the beginning, and the finished floor level is set against existing grade rather than found on the day.",
+        "Above ground the argument for building custom here is context: the surrounding tracts are production-built and recent, so the things worth spending on are the ones production skips — orientation, overhang, wall assembly and covered outdoor space that actually works in summer."
+      ],
+      "notes": [
+        "Soil report and foundation design settled first",
+        "Finished floor and fall set against existing grade",
+        "Orientation, overhang and covered space designed in"
+      ]
+    },
+    "queen-creek-az": {
+      "lede": "Queen Creek has the acreage for a custom home, and the services are what set the budget.",
+      "paras": [
+        "Lots here are generous, and that changes the brief: a single-storey house that spreads, a shop, a casita and covered outdoor space, planned as a group rather than added over a decade. Where a parcel is on well and septic, the system is sized for the finished house rather than for the first phase of it, and that is a design-stage decision.",
+        "Service runs on a large parcel are long, and the trench for water, waste and power is a real line item rather than a rounding error. We survey and price it before quoting, along with the access a machine needs to get to the back of the plot at all."
+      ],
+      "notes": [
+        "Well and septic sized for the finished house",
+        "Long service runs surveyed and priced up front",
+        "House, shop and casita planned as one group"
+      ]
+    },
+    "buckeye-az": {
+      "lede": "Buckeye is one of the few valley cities where a custom home still means open ground.",
+      "paras": [
+        "The city is geographically enormous and growing faster than almost anywhere in the country, which means there is genuinely space to build on rather than between. Open ground brings its own brief: full west exposure with nothing to break it, so orientation, overhang, shaded outdoor space and glazing specification carry more of the design than they would on a sheltered infill lot.",
+        "Distance is the other constant. A parcel on the far side of Buckeye is a long run for every delivery, every inspection and every crew day, so material is booked in fewer and larger loads and staged on site. That is planned into the programme rather than absorbed as it happens."
+      ],
+      "notes": [
+        "Open ground with full, unbroken west exposure",
+        "Shade and orientation carrying the design",
+        "Fewer, larger deliveries across a very large city"
+      ]
+    }
+  },
+  "residential-development": {
+    "phoenix-az": {
+      "lede": "Development inside Phoenix is nearly all infill, and no two of the lots behave the same way.",
+      "paras": [
+        "A run of infill parcels in one part of the city is not a subdivision phase. Each lot has its own service connection, its own neighbours, its own demolition and, near the centre, possibly its own overlay. Sequencing them so that one crew moves cleanly from one to the next is the whole exercise, and it is planned before the first slab rather than improvised at the third.",
+        "City of Phoenix review runs per address, so the submissions stack up rather than clearing together. We build the review windows into the programme in the order the lots will actually be built, and we establish the zoning envelope on every parcel at the outset. One lot in a run turning out to be a different envelope is the thing that resets a schedule."
+      ],
+      "notes": [
+        "Per-lot envelopes established before any design",
+        "City review windows sequenced with the build order",
+        "Demolition and existing services on each parcel"
+      ]
+    },
+    "mesa-az": {
+      "lede": "Multi-home work in Mesa is carved out of established streets, so access governs the sequence.",
+      "paras": [
+        "The ground available here is infill: a split parcel, a pair of lots, a small phase among houses that have been standing since the 1960s. On a street that has to stay usable for the people living on it, deliveries, material storage and where machinery can stand decide the build order at least as much as the drawings do.",
+        "Every address is its own City of Mesa submittal and its own inspection sequence. Where several are running together, the review window on the last one is the date that matters, so they go in early and in the order they will be built rather than in the order they were drawn."
+      ],
+      "notes": [
+        "Access and storage set the build order",
+        "One City of Mesa submittal per address",
+        "Established streets kept passable throughout"
+      ]
+    },
+    "chandler-az": {
+      "lede": "Chandler development divides cleanly: infill near the centre, and remaining parcels in the south.",
+      "paras": [
+        "A small phase in the south sits on newer ground with subdivision guidelines to work within, and the homes are being placed among production stock that sets the expectation for elevation and finish. Near the historic centre the parcels are smaller and older and the constraint is context, so the same brief produces a different sequence and a different set of approvals.",
+        "Tile roofs and stucco are the local vernacular either way, and at multiple-home scale the sourcing matters: profiles, colours and textures are locked and ordered as one package. Running out of a tile halfway through a phase is the kind of problem that only exists because someone bought it house by house."
+      ],
+      "notes": [
+        "Southern parcels or central infill, sequenced differently",
+        "Tile and stucco sourced as one package",
+        "Subdivision guidelines settled before design"
+      ]
+    },
+    "gilbert-az": {
+      "lede": "Development in Gilbert happens inside master-planned communities, so guidelines come before drawings.",
+      "paras": [
+        "The remaining ground sits within communities that already have architectural guidelines, an approved palette and a committee. At multiple-home scale those guidelines are an advantage rather than a constraint: they are known in advance, they apply to every lot in the run, and a design that clears one clears the rest.",
+        "The Town review and the committee review run in parallel from the start. Sequentially they are the single most reliable way to lose a month, and at this scale a month lost at the front is a month lost on every house behind it rather than on one."
+      ],
+      "notes": [
+        "Community guidelines settled before drawings begin",
+        "Town and committee review run in parallel",
+        "One approved palette across every lot in the run"
+      ]
+    },
+    "glendale-az": {
+      "lede": "A Glendale development parcel has to be checked for historic district status before anything else.",
+      "paras": [
+        "The rules around the downtown core and Catlin Court change what may be built and how it addresses the street, and they apply to a small phase exactly as they apply to one house. That status is confirmed on every parcel at the outset. West of the 101 the ground is 2000s production and the constraints are the ordinary ones: guidelines, services and drainage.",
+        "The older parts of the city still run flood irrigation, and on multiple lots that is a scheduling constraint rather than a curiosity. Pours and deliveries are planned around the irrigation turn, because a phase where three lots are unusable on the same morning is a week that will not be made up."
+      ],
+      "notes": [
+        "Historic district status checked on every parcel",
+        "Pours planned around the flood irrigation turn",
+        "City of Glendale review per address"
+      ]
+    },
+    "scottsdale-az": {
+      "lede": "Scottsdale development is decided in design review, and every parcel is documented separately.",
+      "paras": [
+        "Review here is genuinely enforced, and at multiple-home scale that front-loads a great deal of work: elevations, materials and colours settled and submitted for each address before anything is ordered. It is also where the efficiency is, because one approved material schedule can carry across a run of houses instead of being argued lot by lot.",
+        "On hillside and desert-adjacent ground the buildable envelope can be considerably smaller than the parcel, and disturbed-area limits govern where machinery is allowed to work at all. Those limits are surveyed before a sequence is written, since they decide which lot can be built while which other lot is being accessed."
+      ],
+      "notes": [
+        "One approved material schedule across the run",
+        "Disturbed-area limits surveyed before sequencing",
+        "Per-address design review documented up front"
+      ]
+    },
+    "tempe-az": {
+      "lede": "There is no undeveloped ground in Tempe, so development here means replacement, lot by lot.",
+      "paras": [
+        "A multi-home project in this city is a set of teardowns and infill plots on established streets, and each carries demolition, an old service connection and neighbours who will be living beside the work for its full length. Hours, dust, parking and where a skip can stand are agreed at the start and hold for the whole run rather than being renegotiated at every address.",
+        "The lots are small and the setbacks take a real bite, so the plans are worked to the envelope rather than the envelope worked to the plans. Where a neighbourhood has alleys, they usually decide which lots can be worked in parallel and which have to wait."
+      ],
+      "notes": [
+        "Replacement lots on established streets",
+        "One access and working-hours agreement across the run",
+        "Alleys deciding what can run in parallel"
+      ]
+    },
+    "peoria-az": {
+      "lede": "Peoria runs a long way north to south, and a development programme has to account for the drive.",
+      "paras": [
+        "The two halves of the city are different projects. North of the 101 the ground is master-planned and recent, with architectural guidelines applying across a run of lots. South of it the work is infill among post-war and 1970s block, where each parcel brings its own context, its own services and its own neighbours.",
+        "City of Peoria development and engineering reviews each address, and where guidelines also apply the two go in together. Distance is the constraint people underestimate: a crew, a delivery and an inspector all cost more time at the far end, and a sequence written without that is a sequence that slips."
+      ],
+      "notes": [
+        "Guidelines north, parcel-by-parcel context south",
+        "City review and guidelines filed together",
+        "Travel time inside the city built into the sequence"
+      ]
+    },
+    "surprise-az": {
+      "lede": "Surprise is used to volume building, which sets the standard a small development is measured against.",
+      "paras": [
+        "Nearly everything here went up after 1998 to production standards, so a run of new homes is being compared directly with what a production builder delivers on the next street. That decides where the effort goes: wall assembly, glazing, roof detailing and covered outdoor space, which are the parts volume building trims and the parts an owner notices in July.",
+        "City of Surprise development services reviews each address. Where a parcel sits inside an age-restricted community there are architectural rules and contractor access hours on top, and at multiple-home scale an access window is a hard constraint on the programme rather than a note about one delivery."
+      ],
+      "notes": [
+        "Measured against production building next door",
+        "Per-address City of Surprise review",
+        "Community access windows as a hard programme limit"
+      ]
+    },
+    "goodyear-az": {
+      "lede": "In Goodyear the soil and the drainage across flat ground decide a development before the plans do.",
+      "paras": [
+        "Expansive soil appears in places on the south and west edges of the city, and across a run of lots that is a foundation design question rather than a single-house one. Soil reports, foundation design and where water goes on very flat ground are settled together at the front of the programme, and finished floor levels are set against existing grade for the whole run.",
+        "Above ground the tracts around them are recent production work, so the sequencing is straightforward and the differentiator is what production skips: orientation, overhang, and outdoor space that is genuinely usable in summer rather than nominally provided."
+      ],
+      "notes": [
+        "Soil and foundation design settled across the run",
+        "Finished floor levels set against existing grade",
+        "Drainage designed for very flat ground"
+      ]
+    },
+    "queen-creek-az": {
+      "lede": "Queen Creek parcels are big, so a development here is often a handful of homes on a lot of ground.",
+      "paras": [
+        "The lots are generous and the houses tend to spread rather than stack, frequently with a shop or a casita alongside. Where parcels are on well and septic, capacity is established for the finished scheme rather than for the first house, because a system sized for phase one is the constraint that stops phase two.",
+        "Service runs at this scale are long and they are a real cost. Water, waste and power are surveyed across the whole parcel before quoting, and the trenching is planned once for everything rather than dug three times for three houses."
+      ],
+      "notes": [
+        "Well and septic sized for the finished scheme",
+        "Trenching planned once across the whole parcel",
+        "Large lots with outbuildings in the brief"
+      ]
+    },
+    "buckeye-az": {
+      "lede": "Buckeye has the open ground and the growth rate, and the distances are the thing to plan around.",
+      "paras": [
+        "This is one of the few places in the valley where a residential development still means building on open ground rather than between existing houses. That removes the neighbour and demolition constraints and replaces them with exposure: full unbroken west sun, so orientation, overhang and shade structures carry more of the design than they would anywhere sheltered.",
+        "The city is geographically enormous. Material goes in fewer and larger loads and is staged on site, and inspections and crew days are sequenced with the drive in mind. On a single house that is an inconvenience; across a run of them it is the difference between a programme that holds and one that does not."
+      ],
+      "notes": [
+        "Open ground rather than infill between houses",
+        "Shade and orientation designed across the scheme",
+        "Deliveries and inspections sequenced around distance"
+      ]
+    }
+  },
+  "deck-building-uses-trex-system": {
+    "phoenix-az": {
+      "lede": "A deck in Phoenix lives or dies on surface temperature, so the shade goes in the same drawing.",
+      "paras": [
+        "Composite boards hold heat, and a south or west-facing deck with nothing over it is a surface nobody walks on barefoot between May and September. That is not a reason to avoid the material, it is a reason to design the cover at the same time as the deck rather than adding one two summers later when the point has been proved.",
+        "The city runs from 1920s bungalows to houses finished last year, and what the deck attaches to differs accordingly. On a raised older house there is real floor framing to tie into. On a mid-century block house the ledger is anchored into masonry. Both are better than the third option, which is a freestanding frame beside a wall it never touches."
+      ],
+      "notes": [
+        "Shade designed with the deck, not added later",
+        "Ledger anchored to masonry on block houses",
+        "Board colour chosen for heat, not only for looks"
+      ]
+    },
+    "mesa-az": {
+      "lede": "Most Mesa decks attach to a block wall, and the ledger detail is the part that matters.",
+      "paras": [
+        "On post-war and 1970s masonry there is no rim joist to bolt through, so the ledger is anchored into the block with the right fixing at the right spacing, flashed above, and left with a drainage gap behind it. That last detail is the one skipped most often and the one that shows up as a stained wall and a soft board four years later.",
+        "A great deal of Mesa sits on shallow, open ground with mature landscaping, and a deck built at grade over a level pad has to be given ventilation underneath and a way for water to leave. City of Mesa permits the structure where it is attached or raised, and that goes in before anyone starts setting posts."
+      ],
+      "notes": [
+        "Anchored, flashed and gapped ledger on block",
+        "Ventilation and drainage under a low deck",
+        "City of Mesa permit before posts go in"
+      ]
+    },
+    "chandler-az": {
+      "lede": "Chandler decks are mostly about the transition from a tiled patio to something that is not.",
+      "paras": [
+        "A great many houses here already have a covered concrete patio, and the deck is being added beside or beyond it. Getting the two to meet at one level, with a clean edge and no lip to catch a foot, is most of the craft in the job. It is a levelling and framing problem well before it is a decking problem.",
+        "The homes here are generally well maintained with dated finishes, which is the ideal starting point: the structure is sound, so the work is entirely additive. Where the deck runs under an existing patio cover we check the cover is carrying what it should before hanging anything new from it."
+      ],
+      "notes": [
+        "Deck and existing patio brought to one level",
+        "Existing patio covers checked before loading them",
+        "Additive work on sound, well-maintained houses"
+      ]
+    },
+    "gilbert-az": {
+      "lede": "A Gilbert deck usually needs committee approval, and the approved board colours are a short list.",
+      "paras": [
+        "Communities here run architectural review, and anything visible over a wall generally goes to it. That includes board colour, rail style and the height of a raised deck. Knowing which finishes are on the approved list before showing samples saves a round trip, and we work from the list for the specific community rather than the catalogue.",
+        "The stock is 1990s and 2000s production and it repeats, which means the patio slab, the wall construction and the roof overhang behind the deck are usually known quantities. The ledger detail on a given builder plan is something we have generally done before on the same elevation somewhere else in town."
+      ],
+      "notes": [
+        "Board colour and rail style taken from the approved list",
+        "Committee and Town submitted together",
+        "Known builder details behind the ledger"
+      ]
+    },
+    "glendale-az": {
+      "lede": "In older Glendale the deck design starts with the tree and the irrigation, not the boards.",
+      "paras": [
+        "Mature ash and citrus over a garden are worth building around, and flood irrigation means the ground under a low deck is periodically under water. Both change the design: more clearance underneath, ventilation that actually works, posts on piers rather than sitting anywhere near standing water, and a framing schedule set around the irrigation turn.",
+        "West of the 101 the picture is ordinary 2000s production and the deck is a straightforward addition to a slab-on-grade house with a truss roof. The difference between the two halves of the city is not the decking, it is everything underneath it."
+      ],
+      "notes": [
+        "Clearance and ventilation for irrigated ground",
+        "Posts on piers, clear of standing water",
+        "Built around mature trees rather than through them"
+      ]
+    },
+    "scottsdale-az": {
+      "lede": "Scottsdale decks are approved on colour and rail before they are built, and the sun sets the rest.",
+      "paras": [
+        "Design review and, in the north of the city, community architectural committees have opinions about board colour, rail design and how a raised deck reads from a neighbouring lot. Those are settled and submitted before material is ordered, because composite decking is not a thing anyone wants to buy twice.",
+        "On hillside and desert-adjacent lots the deck is often the flat ground the house does not have, which means posts of varying height, a stepped or piered foundation, and drainage that has to keep working underneath. West exposure decides the shade: an unshaded composite surface on a hillside afternoon is a deck people admire from indoors."
+      ],
+      "notes": [
+        "Colour and rail approved before ordering material",
+        "Stepped or piered footings on sloping ground",
+        "Shade specified for west-facing exposure"
+      ]
+    },
+    "tempe-az": {
+      "lede": "Tempe decks are small, close to a neighbour, and usually the only outdoor room a lot has.",
+      "paras": [
+        "On these lot sizes a deck is the garden rather than part of it, so the design is about getting the most usable square footage inside the setbacks, and about privacy from a house that is a few feet away. Rail height, screening and where the deck sits relative to a neighbour's window are part of the design conversation rather than an afterthought.",
+        "The stock is 1950s to 1970s ranch, much of it altered repeatedly and some of it rented for decades. Where a deck is replacing an older one we expect to find the previous ledger was never flashed, and we price on the assumption that the wall behind it needs attention rather than hoping it does not."
+      ],
+      "notes": [
+        "Designed to the setbacks and for privacy",
+        "Old ledgers assumed unflashed until opened",
+        "Screening and rail height in the design"
+      ]
+    },
+    "peoria-az": {
+      "lede": "Peoria decks divide at the 101: additions to newer patios north, repairs to older ones south.",
+      "paras": [
+        "North of the freeway a deck is one of the outdoor-living pieces a production builder left off, going onto a recent house with a known slab and a known wall construction. It goes to the community committee as well as the City. South Peoria is block and post-war stock, where the deck attaches to masonry and often replaces something built decades ago.",
+        "Either way the covered part is what gets used. An uncovered composite deck facing west in Peoria is a surface, not a room, so the cover and the deck are designed and permitted together rather than as two projects a year apart."
+      ],
+      "notes": [
+        "Committee review north, masonry anchoring south",
+        "Deck and cover designed and permitted together",
+        "Production-builder outdoor living completed"
+      ]
+    },
+    "surprise-az": {
+      "lede": "Decks in Surprise go onto sound post-1998 houses, so almost all of the work is additive.",
+      "paras": [
+        "The construction is consistent across the city: slab-on-grade, truss roof, stucco over frame. That makes the ledger detail predictable and the framing straightforward. What is not automatic is the shade, because these lots are open and a west-facing composite surface with nothing over it will be too hot to use for a third of the year.",
+        "Inside Sun City Grand and the other age-restricted communities the architectural rules cover rail design and colour, and the contractor access hours cover when anyone can be on site at all. Both are read before quoting, since a deck is a short job and an access window can easily double its calendar length."
+      ],
+      "notes": [
+        "Predictable ledger detail on consistent stock",
+        "Shade treated as part of the deck, not an option",
+        "Age-restricted rail rules and access hours"
+      ]
+    },
+    "goodyear-az": {
+      "lede": "A Goodyear deck sits on flat, open ground, so the water under it needs somewhere to go.",
+      "paras": [
+        "Lots here have very little fall, and a low deck over ground that does not drain traps moisture underneath it for months. We set the frame with clearance and cross-ventilation, and where necessary regrade or drain the pad under it before a single board is laid. On the south and west edges of the city there is expansive soil to allow for in the footings as well.",
+        "Palm Valley, Estrella and the newer tracts are sound and recent, so the house side of the job is easy. The exposure is not: this is a place where deck, cover and orientation genuinely have to be designed together to produce something usable in summer."
+      ],
+      "notes": [
+        "Pad graded and drained before boards go down",
+        "Clearance and cross-ventilation under a low deck",
+        "Footings allowing for soil movement at the edges"
+      ]
+    },
+    "queen-creek-az": {
+      "lede": "Queen Creek decks are big, often detached, and the connection to the house is a design choice.",
+      "paras": [
+        "On an acre the deck does not have to be against the back wall. It can sit by a pool, between the house and a casita, or under a ramada away from both, which changes the framing from a ledger job to a freestanding structure on its own footings. Freestanding is more work below ground and considerably less risk above it, because nothing is being hung off an existing wall.",
+        "These are also the lots where a deck is one part of a group — cover, shop, casita, outdoor kitchen. Laid out together they share a pad and a mobilisation. Built one at a time over several years they cost more and never quite line up."
+      ],
+      "notes": [
+        "Freestanding structures on their own footings",
+        "Deck planned with the cover and the buildings around it",
+        "One layout and one mobilisation for the group"
+      ]
+    },
+    "buckeye-az": {
+      "lede": "In Buckeye the cover comes first and the deck goes under it, which is the right way round here.",
+      "paras": [
+        "Verrado, Sundance and Festival Ranch are platted open, and the west exposure is as hard as anywhere in the valley. An uncovered composite deck on one of these lots is a surface people cross rather than sit on. We design the ramada or patio cover and the deck as one structure, sized and oriented together, because that is what decides whether it gets used.",
+        "The city is very large, and material for a deck arrives from a long way off. Boards, framing and fixings go in on fewer and larger drops and are staged on site, which keeps a two-week job from turning into a month of half-days waiting on deliveries."
+      ],
+      "notes": [
+        "Cover and deck designed as one structure",
+        "Orientation chosen against full west exposure",
+        "Material staged on site given the distances"
+      ]
+    }
+  },
+  "window-installation": {
+    "phoenix-az": {
+      "lede": "Phoenix has every window opening from a 1920s wood frame to a 2015 nail fin, in the same city.",
+      "paras": [
+        "What comes out determines what goes back in. A century-old wood-framed opening in a bungalow is a rebuild rather than a swap, and inside a historic overlay the original windows are often part of what the district is protecting, so replacement in kind is the conversation rather than replacement in vinyl. That gets established before anything is measured.",
+        "Mid-century block houses are a different job again: the window sits in masonry with a stucco return, and the difference between a retrofit into the existing frame and a full removal back to the block changes the price, the flashing and the finish. On any of them a west elevation is where the glazing specification actually earns its money."
+      ],
+      "notes": [
+        "Historic overlay replacement in kind where it applies",
+        "Retrofit or full tear-out established before measuring",
+        "Glazing specified hardest on west elevations"
+      ]
+    },
+    "mesa-az": {
+      "lede": "Mesa windows usually come out of block walls, and the stucco return is what gives a bad job away.",
+      "paras": [
+        "On 1970s and 1980s masonry the window sits in an opening with a stucco return around it, and taking one out means the return has to be cut back and rebuilt. Matching that patch into forty-year-old weathered stucco is the visible part of the job, and it is done on the wall rather than off a sample board. A perfectly installed window in an obvious stucco patch is still a job that looks wrong from the street.",
+        "The other decision is retrofit or full removal. A retrofit into a sound existing frame is quicker and disturbs less; a full tear-out back to the block is the right answer where the frame has gone or where the flashing was never right. We open one and look before pricing the whole house."
+      ],
+      "notes": [
+        "Stucco return rebuilt and matched on the wall",
+        "Retrofit or full tear-out decided by opening one",
+        "Flashing corrected rather than covered over"
+      ]
+    },
+    "chandler-az": {
+      "lede": "Chandler window work is usually a whole-house replacement on a sound, well-maintained home.",
+      "paras": [
+        "The stock here is generally in good order with dated finishes, so windows tend to be replaced as a set rather than one at a time after a failure. That is the cheaper way to do it: one measure, one order, one scaffold, one set of stucco patches, and a consistent frame colour across every elevation instead of two generations of window on one house.",
+        "Stucco over frame is the common construction, so the flashing and the sealant at the head and jambs is where a job succeeds or fails. Done properly it is invisible; done badly it shows up as a stain below a window in the first monsoon and as a soft frame in about five years."
+      ],
+      "notes": [
+        "Whole-house sets rather than one at a time",
+        "Head and jamb flashing detailed properly",
+        "One frame colour across every elevation"
+      ]
+    },
+    "gilbert-az": {
+      "lede": "Gilbert windows are on their first replacement cycle, and the committee has a view on the frames.",
+      "paras": [
+        "The 1990s and 2000s stock is now old enough that original builder-grade windows are failing in a predictable way: seals gone, a fogged unit here and there, and frames that never performed well on a west elevation to begin with. Because the subdivisions repeat, the same plan tends to have the same sizes and the same failures, which makes a whole-house quote straightforward.",
+        "Frame colour and, in some communities, grid pattern are governed by architectural guidelines, so what is approved for your community is settled before samples are ordered. That review runs alongside the Town permit rather than after it."
+      ],
+      "notes": [
+        "Predictable, repeating failures across a builder plan",
+        "Frame colour and grids taken from the guidelines",
+        "Committee review alongside the Town permit"
+      ]
+    },
+    "glendale-az": {
+      "lede": "Glendale windows near the downtown core sit in pre-war walls, and those openings are not standard.",
+      "paras": [
+        "Around Catlin Court and the older streets the openings are original, occasionally out of square, and sometimes protected by district rules that have a view on what may face the street. Measuring every opening individually rather than assuming a size is not thoroughness for its own sake here, it is the only way the order arrives correct.",
+        "West of the 101 the houses are 2000s production with nail-fin windows in stucco over frame, and replacement is a well-understood sequence. The two halves of the city genuinely need two different quotes, and a company that gives you one number for both has not looked at the house."
+      ],
+      "notes": [
+        "Every opening measured individually on older stock",
+        "Historic district rules on street-facing elevations",
+        "Standard nail-fin replacement west of the 101"
+      ]
+    },
+    "scottsdale-az": {
+      "lede": "In Scottsdale the glazing specification is a design decision, and design review will want to see it.",
+      "paras": [
+        "Frame colour, glass tint and grid pattern are visible from the street and from the neighbouring lot, so they go through review and, in the north of the city, through a community committee as well. Those are settled before an order is placed, since a window is not something anyone wants to hold in a garage while an approval is argued.",
+        "Exposure does the technical work. A west elevation on a desert-adjacent lot takes afternoon sun that a showroom does not simulate, and the coating, the tint and the shading around the opening are specified for that elevation rather than for the house as a whole. The north-facing rooms rarely need what the west-facing ones do."
+      ],
+      "notes": [
+        "Frame, tint and grids approved before ordering",
+        "Specified per elevation, not per house",
+        "Shading and overhang considered with the glass"
+      ]
+    },
+    "tempe-az": {
+      "lede": "Tempe is where window replacement pays back fastest, because the west glass is doing real damage.",
+      "paras": [
+        "The mid-century ranch stock around the university has single glazing or early double units in aluminium frames that conduct heat straight into the room. On a small house with west-facing glass and no shade, replacing those windows and dealing with the insulation at the same time changes what the house costs to run more than almost any other single job.",
+        "These houses have often been rented and altered for decades, so we expect to find previous work behind the trim: an opening resized without a header, flashing that was never installed, a frame packed out with whatever was to hand. That is priced as likely rather than as a surprise."
+      ],
+      "notes": [
+        "Aluminium single glazing on west elevations first",
+        "Previous unpermitted alterations expected behind trim",
+        "Windows and insulation upgraded together"
+      ]
+    },
+    "peoria-az": {
+      "lede": "Peoria window jobs split by age: sealed-unit failures north, aluminium and block openings south.",
+      "paras": [
+        "North of the 101 the housing is recent enough that replacement is about performance and failed seals rather than deterioration, and it goes through a community committee for frame colour as well as through the City. In south Peoria the stock is post-war and 1970s block, where the opening is masonry, the return is stucco, and the job includes rebuilding that return properly.",
+        "On either half the west elevation is where the money goes first. Replacing every window in a house at once is the efficient way to do it, but where a budget only reaches half of them, the west and south glass is the half worth doing."
+      ],
+      "notes": [
+        "Committee approval on frame colour north of the 101",
+        "Masonry openings and stucco returns in the south",
+        "West and south glazing prioritised on a part job"
+      ]
+    },
+    "surprise-az": {
+      "lede": "Surprise houses are reaching the age where the original builder-grade windows start failing together.",
+      "paras": [
+        "Post-1998 stock, stucco over frame, nail-fin windows fitted as part of a production build: consistent construction and consistent failures. Units fog, seals go, and the west-facing openings show it first because they always took the most heat. Because the construction is uniform, a whole-house replacement here is one of the more predictable jobs we quote.",
+        "Inside Sun City Grand and the other age-restricted communities the architectural rules cover frame colour and grid pattern, and the contractor access hours cover the working day. Both are read before quoting, because a house of windows is a job measured in days and an access window changes how many of them there are."
+      ],
+      "notes": [
+        "Uniform construction, so predictable whole-house quotes",
+        "West-facing units failing first, replaced first",
+        "Community frame rules and access hours checked early"
+      ]
+    },
+    "goodyear-az": {
+      "lede": "Goodyear glass faces open desert with nothing between it and the afternoon, which sets the spec.",
+      "paras": [
+        "Palm Valley, Estrella and the newer tracts are recent and sound, so the frames are usually fine and the question is performance. On an open lot with no mature shade, the coating and the tint on a west elevation do more for a room than any amount of extra cooling capacity, and they are specified per elevation rather than uniformly across the house.",
+        "The construction is stucco over frame throughout, which makes the sequence predictable: fin, flashing, stucco patch, sealant. Getting the flashing lapped correctly is the whole job, because everything visible about a window installation looks the same for the first two years whether or not it was done properly."
+      ],
+      "notes": [
+        "Coatings and tint specified per elevation",
+        "Predictable stucco-over-frame sequence",
+        "Flashing lapped correctly, which is the whole job"
+      ]
+    },
+    "queen-creek-az": {
+      "lede": "Most Queen Creek houses are new enough that windows are about performance, not deterioration.",
+      "paras": [
+        "The stock is recent, and a good deal of it still carries some form of builder coverage. We are straightforward about that: where a failed unit is the original builder's to replace we will say so rather than quoting it. What is genuinely worth doing is upgrading the west and south glazing on a large, spread-out house where the afternoon sun reaches a lot of glass.",
+        "These are also the houses with the biggest openings — sliders, multi-panel doors and tall glass onto covered outdoor space. Those are heavier, they need more hands and better preparation, and they are worth measuring twice because a large unit ordered wrong is a long wait for the second one."
+      ],
+      "notes": [
+        "Builder coverage identified before anything is quoted",
+        "Large sliders and multi-panel units measured twice",
+        "West and south glazing upgraded first"
+      ]
+    },
+    "buckeye-az": {
+      "lede": "Buckeye windows are new, so the work here is shading them rather than replacing them.",
+      "paras": [
+        "The housing is the youngest in the valley and the glazing is generally intact, which makes the honest answer on most Buckeye houses that the windows are not the problem — the exposure is. A ramada, a deeper overhang or a covered patio in front of a west elevation does more than a replacement window would, and costs less than being told otherwise.",
+        "Where replacement is genuinely wanted, the construction is uniform recent stucco over frame and the sequence is straightforward. The constraint is distance: units are ordered and delivered from a long way off, so measurements are confirmed before the order and everything for a house arrives together rather than in three visits."
+      ],
+      "notes": [
+        "Shade recommended over replacement where it is the real fix",
+        "Uniform recent construction, straightforward sequence",
+        "Measurements confirmed before a long-distance order"
+      ]
+    }
+  },
+  "dry-wall": {
+    "phoenix-az": {
+      "lede": "Half the walls we open in Phoenix are not drywall at all, and that changes how the patch is made.",
+      "paras": [
+        "The older central stock is lath and plaster, which is harder, thicker and considerably less forgiving than board. Cutting a plaster wall for a new opening and finishing back to it is a different job from patching drywall, and the joint between the two materials is where a bad repair announces itself six months later as a hairline crack running the same line every time.",
+        "Mid-century block houses have no stud wall at all: the board is on furring strips fixed to masonry, so there is very little depth for anything and a fixing has to find the furring or the block behind it. Knowing which of the three constructions is behind the paint before quoting is most of what makes a Phoenix quote accurate."
+      ],
+      "notes": [
+        "Plaster and board joints detailed, not just filled",
+        "Board on furring over block, with no stud depth",
+        "Construction identified before the wall is priced"
+      ]
+    },
+    "mesa-az": {
+      "lede": "The visible part of a Mesa drywall job is matching a texture that was sprayed forty years ago.",
+      "paras": [
+        "Knockdown and orange peel are the local vernacular, and every crew that ever sprayed one did it slightly differently. Matching an existing texture is done on a test board against the actual wall in the actual light, and then again, because a patch in a near-enough texture is more obvious than no patch at all. That iteration is time we allow for rather than discover.",
+        "The other Mesa constant is masonry. On block houses the board sits on furring, which means limited depth for boxes and services, and a header or a new opening has to be planned around what the block will actually carry. Where a remodel opens walls, it is usually also the moment to bring the original branch circuits up to current code."
+      ],
+      "notes": [
+        "Texture matched on a test board at the wall",
+        "Shallow depth over furring on block houses",
+        "Circuits brought up to code while walls are open"
+      ]
+    },
+    "chandler-az": {
+      "lede": "Chandler drywall work is mostly the finishing half of a remodel in a house that was already sound.",
+      "paras": [
+        "The structure here is generally good and the finishes are what have dated, so the work is retexturing, patching where walls have come out, and frequently taking a ceiling back from an older texture to something current. Ceilings are the part homeowners underestimate: a whole-ceiling retexture is a bigger and dustier job than a wall, and it wants the room genuinely emptied.",
+        "Where a wall has been removed the patch runs across the ceiling as well as the floor line, and matching both in one pass is what makes an opened kitchen look designed rather than repaired. That is planned as one continuous finish rather than as two patches that happen to meet."
+      ],
+      "notes": [
+        "Retexture and patch as one continuous finish",
+        "Ceiling work planned and contained separately",
+        "Sound structure, so the work is entirely finish"
+      ]
+    },
+    "gilbert-az": {
+      "lede": "Gilbert subdivisions were textured to a builder spec, so the match is usually already known.",
+      "paras": [
+        "The same builder sprayed the same texture across a whole community in the same period, which means the finish on your wall is very likely one we have matched before a few streets away. That takes the guesswork out of a patch and shortens the part of the job that usually needs two attempts.",
+        "The 1990s and 2000s stock is now in its first real remodel cycle, so most of the work is opening a kitchen into a living room, closing an old serving hatch, or reworking a laundry. All of it is board against existing texture, and all of it is judged from six feet away in the afternoon light rather than from a foot away with a torch."
+      ],
+      "notes": [
+        "Builder textures already matched elsewhere in town",
+        "Kitchen openings and hatch closures the common job",
+        "Finish judged in the room light it will live in"
+      ]
+    },
+    "glendale-az": {
+      "lede": "Glendale interiors are plaster downtown and board west of the 101, and they need different crews.",
+      "paras": [
+        "Around Catlin Court and the older streets there is real pre-war plaster over lath, sometimes over a raised floor structure that moves a little with the seasons. Repairs there are made in a compatible material and detailed at the joint, because a rigid modern patch in a wall that flexes is a crack waiting for the first cold snap.",
+        "West of the 101 it is 2000s production board and standard texture, and the work is ordinary remodel finishing. The two are far enough apart in method that a quote written for one half of the city is not a quote for the other."
+      ],
+      "notes": [
+        "Compatible repairs into pre-war plaster",
+        "Movement allowed for over raised floor structures",
+        "Standard board and texture west of the 101"
+      ]
+    },
+    "scottsdale-az": {
+      "lede": "Scottsdale interiors take raking desert light through large glass, which shows every flaw in a wall.",
+      "paras": [
+        "Low winter sun through a wide west opening will find a joint that would be invisible in an ordinary room, so the flat and near-flat finishes that are common here have to be genuinely flat rather than nearly. That means more coats, more sanding, and a light held along the wall before anyone calls it done. It is slower and it is the entire difference between a good wall and an expensive one.",
+        "The two halves of the city ask for different things. Central and south Scottsdale ranch houses are usually being reconfigured, so the work is patching into existing texture. Newer north Scottsdale interiors are more often smooth-wall specifications where there is nowhere for a defect to hide."
+      ],
+      "notes": [
+        "Smooth finishes checked under a raking light",
+        "Reconfiguration patching in the older ranch stock",
+        "Extra coats and sanding priced in, not skipped"
+      ]
+    },
+    "tempe-az": {
+      "lede": "Tempe drywall is usually repair work in a small occupied house with a neighbour a few feet away.",
+      "paras": [
+        "Containment is most of the job. On a small lot in a lived-in house, dust control, floor protection and a sealed work area are what make the difference between a repair and a fortnight of cleaning. We set that up before the first cut rather than apologising for it afterwards.",
+        "The mid-century stock around the university has usually been repaired repeatedly by different hands, so a wall can carry three generations of patch under one coat of paint. We open enough to see what is actually there before pricing, because a wall that has been fixed badly twice is a different job from one that has never been touched."
+      ],
+      "notes": [
+        "Sealed containment set up before the first cut",
+        "Layered previous repairs found before pricing",
+        "Occupied houses on tight lots planned around"
+      ]
+    },
+    "peoria-az": {
+      "lede": "Peoria drywall changes at the 101: furring over block in the south, standard board in the north.",
+      "paras": [
+        "South Peoria is post-war and 1970s masonry, so interior board sits on furring with almost no depth behind it, and opening a wall is as much an electrical and mechanical exercise as a finishing one. North of the freeway the houses are recent production with ordinary stud walls, and the work is the finishing half of a garage conversion or a patio enclosure.",
+        "The northern jobs frequently sit behind an architectural approval for the exterior change that created them, which is worth having in hand before the interior is booked. Nobody wants a finished room inside an elevation the committee has not signed off."
+      ],
+      "notes": [
+        "Furring over block with minimal depth in the south",
+        "Conversion and enclosure finishing in the north",
+        "Exterior approval in hand before interior finishing"
+      ]
+    },
+    "surprise-az": {
+      "lede": "Surprise walls are consistent post-1998 board, so the work is matching a twenty-year-old texture.",
+      "paras": [
+        "Construction across the city is uniform, which makes the hanging and the taping predictable. What is not automatic is the finish: a texture sprayed twenty years ago has been painted over several times and no longer matches what comes out of a gun today. It is matched on a test board at the wall, and the patch is feathered well past the repair so the eye has nothing to catch on.",
+        "A great many of these houses are occupied and a good number are in age-restricted communities with contractor access hours. Containment and a working day that fits inside a gate schedule are planned into the quote, because drywall is the dustiest trade in the house and the least welcome surprise."
+      ],
+      "notes": [
+        "Twenty-year-old textures matched at the wall",
+        "Patches feathered well beyond the repair",
+        "Containment and access hours planned into the quote"
+      ]
+    },
+    "goodyear-az": {
+      "lede": "Goodyear drywall is nearly all new hanging in additions onto young, uniform production houses.",
+      "paras": [
+        "Because the stock is recent, the original texture is usually still a current product and the match is one of the easier ones in the valley. That makes an addition read as part of the house rather than as an extension, provided the join between old ceiling and new is planned as a continuous plane rather than a butt joint at the old wall line.",
+        "The other advantage of young houses is that opening a wall rarely produces a surprise. Circuits are to a recent code, the framing is engineered and documented, and the price we give at the start is generally the price at the end."
+      ],
+      "notes": [
+        "Original textures still current and easy to match",
+        "Old and new ceilings finished as one plane",
+        "Few surprises behind recent, documented framing"
+      ]
+    },
+    "queen-creek-az": {
+      "lede": "Queen Creek rooms are big and the ceilings are tall, which changes how drywall is hung and finished.",
+      "paras": [
+        "A long wall and a high ceiling need fewer joints, not more, so board is specified and laid out to minimise butt joints across the field rather than cut to whatever the stack allows. On a twelve-foot wall a badly placed butt joint is visible from across the room for the life of the house.",
+        "A good share of the work here is in new buildings rather than existing ones: a casita, a shop office, a room over a garage. Those are hung from scratch, which is faster and cleaner than patching, and they are the jobs where getting the layout right at the start pays back most."
+      ],
+      "notes": [
+        "Board laid out to minimise butt joints on long walls",
+        "Tall ceilings planned rather than cut to the stack",
+        "New hanging in casitas, shops and additions"
+      ]
+    },
+    "buckeye-az": {
+      "lede": "Buckeye is new enough that drywall here is almost always new board rather than a repair.",
+      "paras": [
+        "The houses are the youngest in the valley and structurally sound, so interior work is additive: an enclosed patio, a converted garage, a room built into space the plan left over. That is hanging and finishing from scratch against a known, recent texture, which is about as predictable as this trade gets.",
+        "The complication is distance. Board is heavy, it is bought by the sheet and it comes a long way, so the whole job is delivered in one drop and staged inside rather than fetched as it runs out. A crew standing around waiting for eight more sheets is the most expensive thing on a small drywall job."
+      ],
+      "notes": [
+        "New hanging against recent, matchable textures",
+        "Whole job delivered in one drop and staged inside",
+        "Additive interior work on sound young houses"
+      ]
+    }
+  },
+  "siding": {
+    "phoenix-az": {
+      "lede": "Very few Phoenix houses are sided all over, so most of this work is gables, fascia and accents.",
+      "paras": [
+        "Stucco is the envelope on the overwhelming majority of the city, and siding turns up as a gable end, a bay under a porch, or the fascia and soffit that everyone forgets until the paint fails on them. Treating those runs as their own job, with proper flashing where they meet stucco, is what stops water finding the joint between two materials.",
+        "The exception is the older central stock, where a bungalow may have original wood siding that is part of what a historic district is protecting. There the answer is repair in kind and replacement of individual boards rather than wrapping the elevation in something modern, and that is a conversation to have with the district before it is a conversation about product."
+      ],
+      "notes": [
+        "Gables, bays, fascia and soffit rather than whole walls",
+        "Flashed properly where siding meets stucco",
+        "Repair in kind on protected original woodwork"
+      ]
+    },
+    "mesa-az": {
+      "lede": "Mesa is a masonry city, so siding here is nearly always a gable end above a block wall.",
+      "paras": [
+        "On post-war and 1970s block the wall itself is painted masonry or stucco over block, and the sided area is the framed gable above it. That junction — framed above, solid below — is where the flashing matters, and it is the detail most often found packed with sealant instead of lapped correctly when we open one up.",
+        "Fascia and soffit are the other recurring job. Forty years of Arizona sun does more to a fascia board than any amount of weather does elsewhere, and replacing a run properly means dealing with what is behind it rather than facing over a board that has already gone soft."
+      ],
+      "notes": [
+        "Framed gable over solid masonry, flashed at the junction",
+        "Fascia and soffit runs replaced, not faced over",
+        "Sealant-packed junctions opened and detailed properly"
+      ]
+    },
+    "chandler-az": {
+      "lede": "In Chandler siding is an accent on a stucco house, and the point of it is the elevation, not the wall.",
+      "paras": [
+        "The city is stucco and tile, so siding appears as a deliberate accent: a board-and-batten entry, a lap panel under a gable, a change of material to give a flat elevation some relief. Done well it reads as design. Done badly it reads as a patch, and the difference is usually the trim detail and the termination at the stucco rather than the boards themselves.",
+        "The houses here are generally sound and well maintained, so this is discretionary work being done to improve how a home looks rather than to fix a failure. That is worth saying plainly, because it means the standard to hit is appearance from the street and the budget belongs in the detailing."
+      ],
+      "notes": [
+        "Accent panels and entries rather than full elevations",
+        "Trim and stucco terminations carry the result",
+        "Discretionary work judged from the street"
+      ]
+    },
+    "gilbert-az": {
+      "lede": "Gilbert siding accents have to come off the community approved list before they come off a truck.",
+      "paras": [
+        "Architectural committees here govern exterior materials and colours, and a change of material on a street-facing elevation is exactly the sort of thing that goes to review. The practical effect is that the design conversation starts from what is approved for your community rather than from a catalogue, which saves the round trip of choosing something that will not clear.",
+        "The stock is 1990s and 2000s production, and where siding exists on those elevations it is usually a builder accent panel of a known profile. Matching or replacing one is a sourcing question we have generally answered before somewhere else in the town."
+      ],
+      "notes": [
+        "Materials and colour taken from the approved list",
+        "Builder accent profiles already sourced elsewhere",
+        "Committee review before anything is ordered"
+      ]
+    },
+    "glendale-az": {
+      "lede": "Real sided houses in Glendale are downtown, and there the boards are older than the neighbourhood.",
+      "paras": [
+        "Around Catlin Court and the older streets there is genuine pre-war fabric with original wood siding, and in a historic district what faces the street is governed. Replacing individual boards in kind and repairing what can be repaired is both the correct answer and usually the approvable one; wrapping the elevation in a modern product generally is not.",
+        "West of the 101 the houses are 2000s production in stucco with siding as an accent at most, and the work there is ordinary. As with most trades in this city, the two halves need separate quotes because they are separate jobs."
+      ],
+      "notes": [
+        "Individual boards replaced in kind downtown",
+        "Historic district governs the street elevation",
+        "Accent-only siding on the production stock west"
+      ]
+    },
+    "scottsdale-az": {
+      "lede": "Scottsdale reviews the material as well as the colour, so siding is approved before it is bought.",
+      "paras": [
+        "Design review here has a view on what an elevation is made of, and in the north of the city a community committee will have one too. Material, profile and colour are settled and submitted before an order goes in, because siding is bought by the elevation and a rejected specification is an expensive stack of boards in a garage.",
+        "Exposure is the technical constraint. A west elevation on a desert lot moves a great deal with temperature and takes UV that will find any product specified on looks alone, so expansion gaps, fastening and finish are chosen for that elevation rather than for the sample in a showroom."
+      ],
+      "notes": [
+        "Material and profile approved before ordering",
+        "Expansion and fastening specified for west exposure",
+        "City review and community committee run together"
+      ]
+    },
+    "tempe-az": {
+      "lede": "Tempe siding work is small, close to a neighbour, and usually a gable or a fascia that has failed.",
+      "paras": [
+        "The mid-century ranch stock has modest sided areas: a gable end, a porch return, a fascia run. Because so much of it has been rented and patched for decades, we expect to find a previous repair underneath that was made without flashing, and to price on that basis rather than on the assumption that the boards are the only problem.",
+        "Access is the other reality. On these lot widths a ladder or a small scaffold is often going up within a few feet of a neighbouring wall, so where the work happens from and at what hours are agreed at the start rather than negotiated on the morning."
+      ],
+      "notes": [
+        "Gables, porch returns and fascia runs",
+        "Previous unflashed repairs expected underneath",
+        "Access and hours agreed with neighbours first"
+      ]
+    },
+    "peoria-az": {
+      "lede": "Peoria siding is fascia and gable repair in the older south, and accent panels in the newer north.",
+      "paras": [
+        "South of the 101 the houses are post-war and 1970s block, so what is sided is the framed gable and the eaves, and after fifty years those are the parts that need attention. Replacement means dealing with what is behind the board rather than covering it, particularly where an old fascia has been carrying a gutter for decades.",
+        "North of the freeway the stock is recent production with builder accent panels, and any change to one goes to the community committee as well as to the City. The two submissions go in together, as they do for every exterior change up there."
+      ],
+      "notes": [
+        "Gable and eaves repair on the older southern stock",
+        "Builder accent panels on the newer north",
+        "Committee and City filed together for elevation changes"
+      ]
+    },
+    "surprise-az": {
+      "lede": "Surprise elevations are stucco with accent siding, and the accent is what has faded first.",
+      "paras": [
+        "On post-1998 production houses the siding is a deliberate accent — a gable, an entry, a band under a window run — and it is generally a different product from the stucco around it with a different weathering rate. Twenty years on, the accent looks tired while the stucco still looks reasonable, which is why so much of this work is refreshing one part of an elevation without repainting all of it.",
+        "Inside the age-restricted communities the material and colour go to an architectural committee, and the contractor access hours limit the working day. Both matter more on exterior work than interior, because there is no way to do a gable end quietly or after the gate closes."
+      ],
+      "notes": [
+        "Accent areas weathering faster than the stucco",
+        "Committee approval on material and colour",
+        "Exterior work planned around gate access hours"
+      ]
+    },
+    "goodyear-az": {
+      "lede": "Goodyear has the newer farmhouse elevations, which means real board-and-batten and real movement.",
+      "paras": [
+        "A good number of the recent tracts use board-and-batten and lap accents rather than stucco alone, and those products move with temperature far more than a stucco wall does. Expansion gaps, correct fastening and a finish specified for full sun are what decide whether an elevation still looks right in ten years or shows every joint by year four.",
+        "The stock is young and sound, so this is usually a repair, a replacement of a failed run, or a change of colour and material for appearance. The house itself is rarely the problem, which means the money belongs in the detail rather than in scope."
+      ],
+      "notes": [
+        "Board-and-batten and lap accents on recent tracts",
+        "Expansion gaps and fastening set for full sun",
+        "Young stock, so the work is detail rather than scope"
+      ]
+    },
+    "queen-creek-az": {
+      "lede": "On a Queen Creek parcel the largest sided areas are usually the shop, not the house.",
+      "paras": [
+        "Outbuildings out here are big, and a shop or a detached garage is often clad in lap or metal over a much larger uninterrupted area than anything on the house. Large runs move, so the fastening pattern and the expansion allowance matter more than they would on a gable end, and the trim at openings is what stops a big flat elevation looking like a shed.",
+        "Where the house and the outbuildings are being treated together, the material and colour are chosen as a group so the parcel reads as one property. That is easier to decide once at the start than to correct across three buildings later."
+      ],
+      "notes": [
+        "Large uninterrupted runs on shops and outbuildings",
+        "Fastening and expansion set for the run length",
+        "House and outbuildings specified as one palette"
+      ]
+    },
+    "buckeye-az": {
+      "lede": "Buckeye siding is young, so the work here is protecting it from the sun rather than replacing it.",
+      "paras": [
+        "Verrado, Sundance and the surrounding tracts are recent, and where they use lap or board-and-batten accents those are generally sound. What they take is full unbroken west sun, which fades a finish and works every joint in the elevation. Recoating on the right cycle, and correcting the fastening or the expansion gaps where a run has started to move, is far better value than replacing boards that have not failed.",
+        "Distance shapes the job as it shapes everything here. Material arrives in one delivery and is staged on site, because a partial run left waiting on a second load is an elevation that weathers unevenly before it is even finished."
+      ],
+      "notes": [
+        "Recoating and correcting rather than replacing sound board",
+        "Joints and fastening checked where a run has moved",
+        "One delivery, staged, given the distances involved"
+      ]
+    }
+  },
+  "painting": {
+    "phoenix-az": {
+      "lede": "A Phoenix exterior is repainted because of the sun, and the west elevation always goes first.",
+      "paras": [
+        "Ultraviolet does more to paint here than weather does almost anywhere else, and it does it unevenly. South and west walls fade and chalk years ahead of north-facing ones, which is why a house can look fine from the street and be overdue on the side nobody photographs. Where a budget will not stretch to the whole house, those are the elevations worth doing.",
+        "What is underneath decides the product. Painted masonry on a mid-century block house is a different substrate from stucco over frame, and both are different again from the older central stock, where a historic district may have a view on the colour before anyone has a view on the finish. Preparation is most of the job on all three."
+      ],
+      "notes": [
+        "South and west elevations prioritised on a part job",
+        "Product chosen for masonry or stucco, not both",
+        "District colour guidance checked in the historic core"
+      ]
+    },
+    "mesa-az": {
+      "lede": "Much of Mesa is painted block, which takes different preparation from stucco over frame.",
+      "paras": [
+        "Masonry moves, breathes and holds moisture differently, and a coating chosen for a framed stucco wall will not last the same length of time on a painted block elevation. Getting the surface genuinely clean and sound first, and dealing with hairline cracking properly rather than bridging it with paint, is what determines whether the finish holds for eight years or for three.",
+        "Interior work is the other half. Where a remodel has opened walls, painting is the last trade in and the one that shows every shortcut taken by the ones before it. We would rather correct a texture or a joint before colour goes on than paint over something that will be visible in the finished room."
+      ],
+      "notes": [
+        "Preparation matched to painted masonry, not stucco",
+        "Cracking repaired rather than bridged with coating",
+        "Defects corrected before colour rather than after"
+      ]
+    },
+    "chandler-az": {
+      "lede": "In Chandler paint is usually the alternative to replacement, and it is often the right one.",
+      "paras": [
+        "A great many stucco elevations here are structurally fine and simply look tired, and a properly prepared and recoated wall will do everything a homeowner actually wants at a fraction of what a re-stucco costs. Where that is the case we will say so rather than quoting the larger job, which is the same position we take on tile roofs that only need underlayment.",
+        "The interiors follow the same pattern: sound houses with dated colour. A whole-house repaint is a straightforward job made good or bad entirely by preparation, masking and the number of coats, none of which are visible in a quote and all of which are visible on a wall."
+      ],
+      "notes": [
+        "Recoating recommended where re-stucco is not needed",
+        "Preparation and coat count where the quality sits",
+        "Sound houses with dated colour, inside and out"
+      ]
+    },
+    "gilbert-az": {
+      "lede": "Gilbert colours come off an approved community list, so the palette conversation comes first.",
+      "paras": [
+        "Nearly every community here runs architectural review, and exterior colour is the thing it reviews most often. The scheme is chosen from what is approved for your specific community, submitted, and confirmed before a drop of paint is bought. Repainting a house a colour the committee has not approved is a letter and a second repaint.",
+        "Because the subdivisions repeat, the elevations do too, and body, trim and accent breakdowns tend to follow a known pattern across a whole street. That makes quoting quick and it makes it easy to show what a scheme will actually look like on your plan rather than on a card."
+      ],
+      "notes": [
+        "Scheme approved by the committee before purchase",
+        "Body, trim and accent breakdown known per plan",
+        "Town-wide repetition makes quoting straightforward"
+      ]
+    },
+    "glendale-az": {
+      "lede": "Painting in Glendale means working around flood irrigation, mature trees and, downtown, colour rules.",
+      "paras": [
+        "An elevation cannot be prepared or coated with a yard under four inches of water, and the irrigation turn is a fixed date rather than a negotiable one, so the schedule is built around it. Mature ash and citrus close to a wall bring their own problems: shade that keeps a surface damp, and debris that will find wet paint if the work is not planned around them.",
+        "In the historic districts around the downtown core, colour on a street-facing elevation is governed rather than suggested. That is confirmed before a scheme is agreed with a homeowner, because it is a great deal easier to choose within the guidance than to be corrected after the fact."
+      ],
+      "notes": [
+        "Schedule set around the flood irrigation turn",
+        "Trees and debris planned for on close elevations",
+        "Historic district colour guidance confirmed first"
+      ]
+    },
+    "scottsdale-az": {
+      "lede": "Scottsdale approves the colour before it goes on the wall, and the desert palette is narrow on purpose.",
+      "paras": [
+        "Design review and, in the north, community architectural committees govern exterior colour, and the palettes tend to sit within a fairly narrow desert range so that the built environment reads as one thing from a distance. Schemes are settled and approved before any material is ordered. This is the city where painting a house the wrong colour is genuinely expensive.",
+        "Sun exposure decides how long it lasts. West and south elevations on a desert-adjacent lot take the worst of it, and darker colours in that range fade measurably faster, so the scheme and the product are chosen with the orientation in mind rather than off a card held up in a north-facing room."
+      ],
+      "notes": [
+        "Scheme approved by review before material is ordered",
+        "Colour and product chosen against orientation",
+        "Darker tones assessed for fade on west elevations"
+      ]
+    },
+    "tempe-az": {
+      "lede": "Tempe painting is mostly interiors in small occupied houses that have been repainted many times.",
+      "paras": [
+        "Decades of rental turnover leave walls with layers of colour, patches of different sheen, and the odd area where something was painted over that should have been removed. Preparation on those walls is the job, and a quote that assumes two coats over a sound surface is a quote that will not produce the room in the photograph.",
+        "Because the houses are small, occupied and close together, containment, ventilation and hours are planned in. On the exterior, the west-facing walls of these mid-century houses take the same punishment as anywhere in the valley on far less wall area, so they are worth the better product rather than the cheaper one."
+      ],
+      "notes": [
+        "Layered previous coats assessed before quoting",
+        "Containment and ventilation in occupied rooms",
+        "Better product on the small west-facing wall area"
+      ]
+    },
+    "peoria-az": {
+      "lede": "Peoria repaints split north and south: committee-approved schemes above the 101, older substrates below.",
+      "paras": [
+        "North of the freeway the houses are recent, the stucco is sound, and the constraint is the community palette and getting the scheme approved alongside anything else being submitted. South Peoria is post-war and 1970s block, where the substrate is often painted masonry and the preparation is a much larger share of the work than the coating is.",
+        "The length of the city is a scheduling fact for exterior work in particular. A repaint is weather and temperature dependent, and a crew working the far end of Peoria loses real time to the drive, which is planned for rather than absorbed."
+      ],
+      "notes": [
+        "Community palette approval north of the 101",
+        "Painted masonry preparation in the older south",
+        "Travel across a long city built into the programme"
+      ]
+    },
+    "surprise-az": {
+      "lede": "Surprise houses are hitting their second repaint, and the patching matters more than the colour.",
+      "paras": [
+        "Twenty-year-old stucco over frame develops hairline cracking at the corners of openings and along control joints, and paint alone does not fix any of it. Those get cut out and repaired properly before coating, because the alternative is a wall that looks excellent for one summer and shows every crack again by the second. The repair is the job; the colour is the easy part.",
+        "In Sun City Grand and the other age-restricted communities the scheme goes to an architectural committee and the work has to fit inside contractor access hours. Exterior painting is weather-dependent and daylight-dependent, so a restricted working day is a real constraint on the calendar and it is priced honestly at the start."
+      ],
+      "notes": [
+        "Hairline cracking cut out and repaired before coating",
+        "Committee approval on the scheme",
+        "Restricted access hours reflected in the programme"
+      ]
+    },
+    "goodyear-az": {
+      "lede": "Goodyear is reaching its first real repaint cycle, and the west elevations are showing it first.",
+      "paras": [
+        "Palm Valley, Estrella and the surrounding tracts were finished with production coatings that have now had fifteen or twenty summers of full, unshaded sun. Fade and chalking appear on the west and south walls long before anything else, and a whole-house repaint on the right cycle is considerably cheaper than waiting until the substrate itself needs attention.",
+        "Because the stock is uniform, the preparation is predictable: wash, repair the control joints and opening corners, prime what needs priming, coat. Where a house is in a community with a palette, the scheme is approved before the material is bought."
+      ],
+      "notes": [
+        "First full repaint cycle on production coatings",
+        "West and south walls showing fade first",
+        "Control joints and opening corners repaired first"
+      ]
+    },
+    "queen-creek-az": {
+      "lede": "Queen Creek elevations are long and low, and there is usually a shop to paint as well.",
+      "paras": [
+        "Houses here spread rather than stack, so a repaint is a lot of wall at reachable height, which is efficient. What adds to it is everything else on the parcel: a shop, a detached garage, walls and gates. Quoting the property rather than the house avoids the situation where a freshly painted home is standing next to an outbuilding that now looks worse than it did.",
+        "Access is generally good on these lots, which makes spraying practical and the work quick. Where a parcel is rural the surrounding ground is dustier than a tract garden, so timing and masking are planned rather than assumed."
+      ],
+      "notes": [
+        "Whole parcel quoted, not only the house",
+        "Long low elevations at reachable height",
+        "Dust and masking planned on rural parcels"
+      ]
+    },
+    "buckeye-az": {
+      "lede": "Buckeye paint is young but it takes the hardest sun in the valley, so the cycle comes round early.",
+      "paras": [
+        "Verrado, Sundance and Festival Ranch are recent, and the elevations are open to full unbroken west exposure with no mature landscaping to break it. Production coatings under those conditions fade sooner than the same paint would in a shaded inner-valley street, so the useful repaint cycle out here is shorter than a homeowner expects and running it on time is much cheaper than repairing a substrate later.",
+        "The city is enormous, and exterior painting is weather and daylight dependent. Material comes in one delivery and the elevations are sequenced to make full days out of the drive, rather than a crew arriving late and leaving early on a wall that needed one uninterrupted pass."
+      ],
+      "notes": [
+        "Shorter useful repaint cycle under full exposure",
+        "Elevations sequenced to make full days of the drive",
+        "One material delivery, staged on site"
       ]
     }
   }

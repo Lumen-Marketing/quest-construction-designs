@@ -81,6 +81,20 @@ export function pageCount(opts = {}) {
 }
 
 /** "a, b and c" — an English list, for a meta description read by a person. */
+// The city is the one part of a trade-by-city title that must not be lost.
+// Handing the whole string to clip() cut "Residential Development in Queen
+// Creek, AZ" down to "Residential Development in Queen", which names a
+// different place — and reads as a typo rather than as a truncation. So the
+// title sheds ", AZ" first, and only then starts on the trade name; the city
+// comes through whole in every case.
+const areaTitle = (short, city, budget) => {
+  const full = `${short} in ${city}, AZ`;
+  if (full.length <= budget) return full;
+  const bare = `${short} in ${city}`;
+  if (bare.length <= budget) return bare;
+  return `${clip(short, budget - city.length - 4)} in ${city}`;
+};
+
 const listOf = (xs) => (xs.length < 2 ? (xs[0] || '')
   : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`).toLowerCase();
 
@@ -130,7 +144,7 @@ export function pageList(opts = {}) {
         if (!copy) continue;
         const short = SHORT_NAME[s.slug] || s.name;
         push(`services/${s.slug}/${a.slug}`, 'serviceArea',
-          clip(`${short} in ${a.city}, AZ`, budget) + brand,
+          areaTitle(short, a.city, budget) + brand,
           clip(`${copy.lede} Quest Construction, ${site.availability}, ` +
             `${site.phoneDisplay}.`, 155),
           { service: s, area: a, copy });

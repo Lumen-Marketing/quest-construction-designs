@@ -261,6 +261,18 @@ test('every trade-by-city page is titled, described and unique', () => {
   }
 });
 
+test('a trade-by-city title never truncates the city out of itself', () => {
+  // "Residential Development in Queen Creek, AZ" clipped to the title budget
+  // was "Residential Development in Queen", which is a different place and
+  // reads as a typo. The state abbreviation is what gives way first.
+  const list = pageList({ hubs: true, cityServices: true })
+    .filter((p) => p.kind === 'serviceArea');
+  for (const p of list) {
+    assert.ok(p.title.includes(`in ${p.item.area.city}`),
+      `${p.key} lost its city: ${p.title}`);
+  }
+});
+
 test('the demo directions neither build nor link the trade-by-city pages', () => {
   // They are noindex, so 340 extra pages would be build time for nothing — but
   // a link to a page that was never written is a 404 in ten directions.
