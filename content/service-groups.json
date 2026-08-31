@@ -1,0 +1,39 @@
+{
+  "_README": "How the fourteen trades are divided in the Services menu and the footer, the way content/areas.json divides the thirty-four cities by valley. Separate from services.json on purpose: that file is machine-extracted from the recovered site by build/extract.mjs, and this is an authored editorial decision about presentation — keeping them apart means re-running the extractor cannot quietly clobber the grouping. Unlike the valleys, where a city may sit in two regions, every trade belongs to exactly one group: a menu that lists Roofing twice is a menu that has stopped being an index. d01.test.mjs fails the build if a trade falls out of the groups or appears in two.",
+  "groups": [
+    {
+      "name": "New Builds",
+      "services": [
+        "custom-home-building",
+        "residential-development",
+        "casita",
+        "adu"
+      ]
+    },
+    {
+      "name": "Structure",
+      "services": [
+        "framing",
+        "concrete"
+      ]
+    },
+    {
+      "name": "Exterior",
+      "services": [
+        "roofing",
+        "stucco",
+        "siding",
+        "window-installation",
+        "deck-building-uses-trex-system"
+      ]
+    },
+    {
+      "name": "Interior",
+      "services": [
+        "full-remodel-kitchen-bathroomcabinets-flooring-counter-tops",
+        "dry-wall",
+        "painting"
+      ]
+    }
+  ]
+}

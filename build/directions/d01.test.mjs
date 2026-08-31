@@ -11,6 +11,7 @@ const esc = (s) => String(s)
 
 const services = JSON.parse(readFileSync('content/services.json', 'utf8'));
 const areas = JSON.parse(readFileSync('content/areas.json', 'utf8')).areas;
+const groups = JSON.parse(readFileSync('content/service-groups.json', 'utf8')).groups;
 const regions = JSON.parse(readFileSync('content/areas.json', 'utf8')).regions;
 const site = JSON.parse(readFileSync('content/site.json', 'utf8'));
 
@@ -131,11 +132,40 @@ test('the drawer ends with the number, and the wide nav does not repeat it', () 
   assert.match(css, /\.navcall\{display:none\}/);
 });
 
-test('the long footer lists are marked for the two-up phone layout', () => {
+test('the footer groups the trades, and loses none of them', () => {
   const html = renderPage({ mod: d01, key: 'home' });
-  // The fourteen trades, and nothing else: the five-item Company column is
-  // short enough to stay one per row, and the cities have their own block.
-  assert.equal((html.match(/<div class="col2">/g) || []).length, 1);
+  const foot = html.slice(html.indexOf('<footer'));
+  const block = foot.slice(foot.indexOf('<div class="fareas ftrades">'));
+  // Four headed blocks rather than one two-up column of fourteen. col2 is
+  // gone with it: the Company list is short enough to stay one per row and
+  // both long lists have their own grouped block now.
+  assert.ok(!html.includes('class="col2"'), 'the two-up trade column survived');
+  for (const g of groups) {
+    assert.ok(block.includes(`<p class="fgrp-h">${esc(g.name)}</p>`),
+      `footer missing the ${g.name} block`);
+  }
+  for (const s of services) {
+    assert.ok(block.includes(`services/${s.slug}/index.html">${esc(s.name)}</a>`),
+      `footer missing ${s.slug}`);
+  }
+});
+
+test('every trade sits in exactly one menu group, and none is left out', () => {
+  const placed = groups.flatMap((g) => g.services);
+  assert.deepEqual([...placed].sort(), services.map((s) => s.slug).sort(),
+    'the groups and the trades have drifted apart');
+  assert.equal(new Set(placed).size, placed.length, 'a trade is in two groups');
+});
+
+test('no trade name carries a parenthetical, in the menu or anywhere else', () => {
+  // "Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops)" was the
+  // longest label in the site and the reason SHORT_NAME existed. The detail is
+  // prose on the page now, not a bracket in a menu.
+  for (const s of services) {
+    assert.ok(!s.name.includes('('), `${s.slug} name still has a parenthetical`);
+    assert.ok(!s.h1.includes('('), `${s.slug} h1 still has a parenthetical`);
+    assert.ok(!s.ctaHeading.includes('('), `${s.slug} CTA still has a parenthetical`);
+  }
 });
 
 test('the footer groups the cities by valley, and loses none of them', () => {
@@ -644,6 +674,17 @@ test('the contact form validates in the page, and says where to go when it canno
   assert.match(html, /did not send[\s\S]{0,200}tel:16023996455/);
   assert.match(html, new RegExp(`mailto:${site.email}`),
     'a failed post does not hand over the email address');
+});
+
+test('the email address is somewhere a visitor can actually read it', () => {
+  // It was in the JSON-LD and in the form's failure message and nowhere else,
+  // which is an address published to crawlers and hidden from customers.
+  const contact = renderPage({ mod: d01, key: 'contact' });
+  assert.match(contact, new RegExp(`class="help-mail" href="mailto:${site.email}"`),
+    'the contact aside does not show the email address');
+  const home = renderPage({ mod: d01, key: 'home' });
+  const foot = home.slice(home.indexOf('<footer'));
+  assert.ok(foot.includes(`mailto:${site.email}`), 'the footer does not show the email address');
 });
 
 test('the contact aside claims nothing the content file does not already say', () => {

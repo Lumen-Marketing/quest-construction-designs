@@ -9,6 +9,10 @@ export function loadContent() {
   return {
     site: json('site.json'),
     services: json('services.json'),
+    // How the fourteen trades are divided in the menu and the footer. Its own
+    // file rather than a key in services.json, because that file is written by
+    // build/extract.mjs and this is authored — see its _README.
+    serviceGroups: json('service-groups.json').groups,
     areas: json('areas.json'),
     pages: json('pages.json'),
     // Authored per-city copy. Only the indexable direction renders it; see the
@@ -43,16 +47,6 @@ export function loadPosts() {
   withMeta.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
   return { index, posts: withMeta };
 }
-
-// Two service names are far too long for a 60-character title once the brand
-// suffix is added. Shortening them here beats clipping mid-parenthesis. The
-// footer reads the same map: those two labels are what force its trade list
-// into one very long column, and "Full Remodel" is honest anchor text for a
-// page whose h1 spells the rest out.
-export const SHORT_NAME = {
-  'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops': 'Full Remodel',
-  'deck-building-uses-trex-system': 'Deck Building',
-};
 
 // The social card, chosen per page kind. Every one of these is cropped from a
 // photograph Quest took on one of its own jobs — see build/lib/photos.mjs —
@@ -144,7 +138,7 @@ export function pageList(opts = {}) {
     clip(`${pages.home.heroBody} Serving Arizona homeowners since ${site.foundingYear}.`, 155));
 
   for (const s of services) {
-    const short = SHORT_NAME[s.slug] || s.name;
+    const short = s.name;
     push(`services/${s.slug}`, 'service',
       clip(`${short} Services`, budget) + brand,
       clip(`${s.intro[0]} Quest Construction serves homeowners across Arizona.`, 155),
@@ -172,7 +166,7 @@ export function pageList(opts = {}) {
       for (const a of areas.areas) {
         const copy = byCity[a.slug];
         if (!copy) continue;
-        const short = SHORT_NAME[s.slug] || s.name;
+        const short = s.name;
         push(`services/${s.slug}/${a.slug}`, 'serviceArea',
           areaTitle(short, a.city, budget) + brand,
           clip(`${copy.lede} Quest Construction, ${site.availability}, ` +

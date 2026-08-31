@@ -35,6 +35,7 @@ export function contextFor({ mod, key, profile = demoProfile, absolute = false }
     hub: res.hub, hubs: profile.hubs, cityServices: profile.cityServices,
     blog: profile.blog,
     site: content.site, services: content.services,
+    serviceGroups: content.serviceGroups,
     areas: content.areas, pages: content.pages,
     areasLocal: content.areasLocal,
     serviceAreas: content.serviceAreas,

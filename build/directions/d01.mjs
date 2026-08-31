@@ -4,7 +4,6 @@
 // radii, soft layered shadows.
 import { img, preloadImage, size } from '../lib/images.mjs';
 import { icon } from '../lib/icons.mjs';
-import { SHORT_NAME } from '../lib/pages.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 import {
   shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO, OFFER_SHOTS,
@@ -168,7 +167,7 @@ const closingCta = (c, heading, body) => `
         <p>${esc(body)}</p>
       </div>
       <ul class="cta-trades mono">${c.services.slice(0, 4).map((x) =>
-    `<li><a href="${c.url(`services/${x.slug}`)}">${esc(SHORT_NAME[x.slug] || x.name)}</a></li>`).join('')}</ul>
+    `<li><a href="${c.url(`services/${x.slug}`)}">${esc(x.name)}</a></li>`).join('')}</ul>
     </div>
     <div class="cta-bar">
       <p class="mono">${esc(CTA_PROMPT)}</p>
@@ -196,6 +195,18 @@ export function nav(c) {
   // the menu is a way in, and being found twice costs less than being missed
   // once. Every city belongs to at least one region, and d01.test.mjs fails
   // the build if one falls out of the nav.
+  // Fourteen trades in two undivided columns is the same wall the cities were:
+  // no ordering a visitor can predict, so finding one means reading all of it.
+  // content/service-groups.json divides them into four, and unlike the valleys
+  // a trade sits in exactly one — a menu that lists Roofing twice has stopped
+  // being an index.
+  const svcBySlug = new Map(c.services.map((x) => [x.slug, x]));
+  const svcGroups = () => c.serviceGroups.map((g) => `<div class="dropgrp">
+        <p class="dropgrp-h mono">${esc(g.name)}</p>
+        ${g.services.map((slug) => svcBySlug.get(slug)).filter(Boolean).map((x) =>
+    `<a href="${c.url(`services/${x.slug}`)}">${esc(x.name)}</a>`).join('')}
+      </div>`).join('');
+
   const byslug = new Map(c.areas.areas.map((a) => [a.slug, a]));
   const areaGroups = () => (c.areas.regions || []).map((r) => `<div class="dropgrp">
         <p class="dropgrp-h mono">${esc(r.name)}</p>
@@ -214,9 +225,10 @@ export function nav(c) {
     <div class="drop">
       <button type="button" aria-expanded="false" aria-haspopup="true"
         aria-controls="menu-services">Services</button>
-      <div class="dropmenu dropmenu--svc" id="menu-services">${col([
-        ...(c.hubs ? [[c.url('services'), 'All Services']] : []),
-        ...c.services.map((s) => [c.url(`services/${s.slug}`), s.name])])}</div>
+      <div class="dropmenu dropmenu--svc" id="menu-services">${c.hubs
+    ? `<a class="dropall" href="${c.url('services')}">All Services</a>` : ''}
+        <div class="dropgrps">${svcGroups()}</div>
+      </div>
     </div>
     <div class="drop">
       <button type="button" aria-expanded="false" aria-haspopup="true"
@@ -250,11 +262,6 @@ export function footer(c) {
   // They run two-up at every width, not just on the phone: fifteen rows of one
   // link is half a screen of footer before the cities even start.
   //
-  // Two trade names carry a parenthesis longer than the name itself, and in a
-  // half-width column they wrap to six lines each and undo the saving. The
-  // footer prints the short form for those two — the same map the <title> uses,
-  // so there is one place to change it and the page's h1 still spells it out.
-  const trade = (x) => SHORT_NAME[x.slug] || x.name;
   const col = (title, items, cls = '') => `<div${cls ? ` class="${cls}"` : ''}>
   <h2>${esc(title)}</h2>
   <ul>${items.map(([href, label]) =>
@@ -270,6 +277,22 @@ export function footer(c) {
   // as well as the legible one — the tallest region is fourteen rows, not
   // eighteen, and the width comes off tracks that were already empty below
   // their eighth link.
+  // The trades are grouped in the footer for the same reason the cities are,
+  // and into the same four blocks the nav panel uses. Fourteen links two-up was
+  // a legible enough column; four headed blocks is a legible *index*, and a
+  // visitor scanning a footer for "who does my roof" reads one heading rather
+  // than fourteen names.
+  const svcBySlug = new Map(c.services.map((x) => [x.slug, x]));
+  const svcCol = () => `<div class="fareas ftrades">
+  <h2>Services</h2>
+  ${c.hubs ? `<a class="fall" href="${c.url('services')}">All Services</a>` : ''}
+  <div class="fgrps">${c.serviceGroups.map((g) => `<div class="fgrp">
+    <p class="fgrp-h">${esc(g.name)}</p>
+    <ul>${g.services.map((slug) => svcBySlug.get(slug)).filter(Boolean).map((x) =>
+    `<li><a href="${c.url(`services/${x.slug}`)}">${esc(x.name)}</a></li>`).join('')}</ul>
+  </div>`).join('')}</div>
+</div>`;
+
   const byslug = new Map(c.areas.areas.map((a) => [a.slug, a]));
   const areaCol = () => `<div class="fareas">
   <h2>Areas Served</h2>
@@ -290,6 +313,7 @@ export function footer(c) {
     <p>${esc(c.site.footerBlurb)}</p>
     <p class="mono">${esc(c.site.positioning)}</p>
     ${arrowBtn(c.site.phoneHref, c.site.phoneDisplay, 'btn acc telnum')}
+    <a class="fmail" href="mailto:${c.site.email}">${esc(c.site.email)}</a>
   </div>
   ${col('Company', [
     [c.url('about'), 'About Us'],
@@ -299,9 +323,7 @@ export function footer(c) {
     [c.url('contact'), 'Contact'],
     [c.url('sitemap'), 'Sitemap'],
   ])}
-  ${col('Services', [
-    ...(c.hubs ? [[c.url('services'), 'All Services']] : []),
-    ...c.services.map((s) => [c.url(`services/${s.slug}`), trade(s)])], 'col2')}
+  ${svcCol()}
   ${areaCol()}
 </div>
 <div class="wrap fbar">
@@ -928,7 +950,7 @@ function tradeCities(c, s) {
   if (!byCity) return '';
   const cities = c.areas.areas.filter((a) => byCity[a.slug]);
   if (!cities.length) return '';
-  const short = SHORT_NAME[s.slug] || s.name;
+  const short = s.name;
   return `
 <section class="sec cream alt">
   ${grid(false)}
@@ -956,7 +978,7 @@ function cityTrades(c, a) {
     ${shead(`— In ${esc(a.city)}`, `What We Do in <span>${esc(a.city)}</span>`,
       `Written for ${esc(a.city)} specifically rather than for Arizona in general.`)}
     <div class="arealinks trades rv">${trades.map((s) =>
-      `<a href="${c.url(`services/${s.slug}/${a.slug}`)}">${esc(SHORT_NAME[s.slug] || s.name)} in ${esc(a.city)}</a>`).join('')}</div>
+      `<a href="${c.url(`services/${s.slug}/${a.slug}`)}">${esc(s.name)} in ${esc(a.city)}</a>`).join('')}</div>
   </div>
 </section>`;
 }
@@ -1278,6 +1300,8 @@ export function contact(c) {
         <h2>${esc(p.helpHeading)}</h2>
         <p class="mono eyebrow">Phone — ${esc(c.site.availability)}</p>
         <a class="phone telnum" href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a>
+        <p class="mono eyebrow">Email</p>
+        <a class="help-mail" href="mailto:${c.site.email}">${esc(c.site.email)}</a>
         <p>${esc(c.site.footerBlurb)}</p>
         <ul class="help-facts mono">${facts.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>
       </div>
@@ -1372,7 +1396,7 @@ ${closingCta(c, c.pages.home.ctaHeading, c.pages.home.ctaBody)}`;
 export function serviceArea(c) {
   const { service: s, area: a, copy } = c.item;
   const ai = c.areas.areas.findIndex((x) => x.slug === a.slug);
-  const short = SHORT_NAME[s.slug] || s.name;
+  const short = s.name;
 
   // The same trade in the other cities. This is the row a visitor who landed on
   // the wrong city needs, and the link graph that stops these pages being
@@ -1689,7 +1713,7 @@ ${closingCta(c, `Got a ${b.topic.toLowerCase()} job in mind?`,
  */
 function pageLabel(c, key) {
   const svc = c.services.find((x) => `services/${x.slug}` === key);
-  if (svc) return SHORT_NAME[svc.slug] || svc.name;
+  if (svc) return svc.name;
   const area = c.areas.areas.find((x) => `service-areas/${x.slug}` === key);
   if (area) return `Building in ${area.city}`;
   const FIXED = {

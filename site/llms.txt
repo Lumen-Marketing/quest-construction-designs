@@ -27,10 +27,10 @@ rather than co-ordinating several.
 - [Dry Wall](https://questconstruction.com/services/dry-wall/): Expertly finishes, seamless installations, perfect for any interior project.
 - [Siding](https://questconstruction.com/services/siding/): Enhance curb appeal and protect your home with expert siding.
 - [Roofing](https://questconstruction.com/services/roofing/): Protect your home with reliable, durable, and expert roofing solutions.
-- [Full Remodel (kitchen, bathroom,cabinets, flooring, counter tops)](https://questconstruction.com/services/full-remodel-kitchen-bathroomcabinets-flooring-counter-tops/): Transform your space with expert craftsmanship and modern design.
+- [Full Remodel](https://questconstruction.com/services/full-remodel-kitchen-bathroomcabinets-flooring-counter-tops/): Transform your space with expert craftsmanship and modern design.
 - [Custom Home Building](https://questconstruction.com/services/custom-home-building/): Crafting your dream home with precision, style, and reliability.
 - [Painting](https://questconstruction.com/services/painting/): Transforming spaces with vibrant colors and exceptional precision.
-- [Deck Building (uses Trex System)](https://questconstruction.com/services/deck-building-uses-trex-system/): Transform your outdoor spaces with our top-quality Trex decking.
+- [Deck Building](https://questconstruction.com/services/deck-building-uses-trex-system/): Transform your outdoor spaces with our top-quality Trex decking.
 - [Window Installation](https://questconstruction.com/services/window-installation/): Enhance your home's energy efficiency with expert window installation.
 
 ## Service areas
