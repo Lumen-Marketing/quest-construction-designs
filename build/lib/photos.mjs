@@ -260,7 +260,8 @@ export const PERGOLA_SHOTS = [
   'quest/porch-dusk.webp',
 ];
 
-/** A fourteen-shot sampler across both shoots — one per trade card, marquee,
+/** A fourteen-shot sampler across both shoots — one per trade the recovered
+    site carried, marquee,
     tile strip, whatever a direction needs a spread of work for. */
 export const SAMPLER = [
   'quest/slab-poured.webp',
@@ -376,7 +377,7 @@ export const GALLERY = [
 //
 // That rule is easy to state and impossible to hold by hand. A service page
 // carries a banner, a four-shot band and the closing plate. A city page carries
-// a banner, a three-shot band, fourteen trade tiles and the closing plate — 19
+// a banner, a three-shot band, fifteen trade tiles and the closing plate — 20
 // frames drawn from a library of 49 by four separate pieces of markup that know
 // nothing about each other. Picking them all by eye means re-checking 32 pages
 // every time one line changes, and the first pass got it wrong on 15 of them.
@@ -390,7 +391,7 @@ export const GALLERY = [
 // library, so the banner and the closing plate necessarily appear inside it.
 
 /**
- * One photograph per trade for the service card. All fourteen differ.
+ * One photograph per trade for the service card. All fifteen differ.
  *
  * Nine of these were stand-ins until the third shoot arrived: the deck card
  * showed joists on grade because there was no photograph of a finished deck,
@@ -417,9 +418,14 @@ const CARD_SHOTS = {
   painting: 'custom-home-gables',
   'deck-building-uses-trex-system': 'deck-finished',
   'window-installation': 'window-stucco',
+  // The only machine in the library, and the only frame in it where the ground
+  // is torn open rather than being built on. It is a footing dig, and the alt
+  // text says so — but a tracked excavator with its bucket down beside a house
+  // is what this trade looks like at card size, and nothing else here is close.
+  demolition: 'footings-excavator',
 };
 
-// The tile repeats fourteen times on the home page, on every city page and on
+// The tile repeats fifteen times on the home page, on every city page and on
 // the services hub, in a fixed 3:2 slot about 430px wide. Forty-two tiles a page
 // pulling 1500px originals is four megabytes to show one and a half, so the crop
 // is pre-baked at 900x600 under assets/quest/card/ — 816KB for the whole set,
@@ -482,9 +488,13 @@ const SERVICE_BANNER = {
   // band below leads on the finished deck instead.
   'deck-building-uses-trex-system': 'quest/deck-joists.webp',
   'window-installation': 'quest/window-scaffold.webp',
+  // A whole roof off from above. It is the one photograph Quest has of a
+  // structure being taken apart at building scale rather than at wall scale,
+  // and it is an aerial, so it fills a 500x340 plate without being cropped.
+  demolition: 'quest/aerial-tearoff.webp',
 };
 
-// Eleven cities, eleven frames, none of them one of the fourteen trade tiles
+// Eleven frames, none of them one of the fifteen trade tiles
 // that sit further down the same page.
 const AREA_BANNER = [
   'quest/framing-roof.webp',
@@ -621,6 +631,14 @@ const SERVICE_POOL = {
     'quest/window-demo.webp', 'quest/window-flashed.webp', 'quest/window-reflection.webp',
     'quest/window-fitted.webp', 'quest/window-opening.webp', 'quest/window-interior.webp',
     'quest/gable-window.webp', 'quest/home-windows.webp', 'quest/framing-openings.webp'],
+  // Quest photographs what it builds, so the demolition frames are the moments
+  // in other jobs where something came out first: the wall opened up for a
+  // wider window, the interior taken back to studs, the ground cut open beside
+  // a standing house. Each alt still describes its own frame.
+  demolition: [
+    'quest/window-demo.webp', 'quest/remodel-studs.webp', 'quest/footings-excavator.webp',
+    'quest/framing-inside.webp', 'quest/aerial-reroof.webp', 'quest/framing-court.webp',
+    'quest/slab-blockwall.webp'],
 };
 
 /** The photographs that belong on a service page, as [file, alt] pairs. */

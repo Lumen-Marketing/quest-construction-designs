@@ -459,11 +459,11 @@ test('the accent bar is textured in ink and never in the ink it carries', () => 
   assert.match(bar, /0 22px 44px -16px rgba\(0,0,0/, 'the bar casts no shadow on the plate');
 });
 
-test('the home page carries all fourteen service cards with icons', () => {
+test('the home page carries a card, with an icon, for every trade', () => {
   const html = renderPage({ mod: d01, key: 'home' });
   for (const s of services) assert.ok(html.includes(`<h3>${esc(s.name)}</h3>`), `card ${s.slug}`);
   const cards = html.match(/<article class="svc[\s\S]*?<\/article>/g) || [];
-  assert.equal(cards.length, 14);
+  assert.equal(cards.length, services.length);
   for (const card of cards) {
     assert.match(card, /<span class="ic"><svg viewBox="0 0 24 24"/, 'card without an icon');
     assert.match(card, /class="go" href="[^"]*services\//, 'card without a link');
@@ -495,9 +495,10 @@ test('the home page teases three projects, each with a layout slot', () => {
 test('the hero states only facts drawn from the real content', () => {
   const html = renderPage({ mod: d01, key: 'home' });
   assert.match(html, /<b>2018<\/b><span>Building since<\/span>/);
-  // Fourteen is the number of service pages, not the number of trades Quest
+  // The count is the number of service pages, not the number of trades Quest
   // works in, so the figure is a floor and says so.
-  assert.match(html, /<b>14<i>\+<\/i><\/b><span>Services<\/span>/);
+  assert.match(html,
+    new RegExp(`<b>${services.length}<i>\\+</i></b><span>Services</span>`));
   // The city count came out: thirty-four is a coverage fact, and standing in
   // a row of trust figures it was the smallest claim of the three it sat with.
   assert.doesNotMatch(html, /Arizona cities<\/span>/);
@@ -970,4 +971,75 @@ test('the hero is sized to leave the trade strip above the fold', () => {
   const strip = css.split('.strip{')[1].split('}')[0];
   assert.match(strip, /height:var\(--striph\)/);
   assert.match(css, /--striph:\d+px/);
+});
+
+// Every count on this site used to be a word somebody typed. "Serving Eleven
+// Arizona Cities" survived three rounds of new city pages and was wrong by
+// twenty-three of them before anyone read it; "Fourteen Trades" went wrong the
+// hour a fifteenth trade was added. Both are derived now, and this is the rule
+// that keeps them that way.
+test('a heading that counts something counts the real thing', async () => {
+  const { Words } = await import('../lib/html.mjs');
+  const { siteProfile } = await import('../lib/profile.mjs');
+  assert.equal(Words(15), 'Fifteen');
+  assert.equal(Words(34), 'Thirty-four');
+
+  const trades = Words(services.length);
+  const cities = Words(areas.length);
+  const home = renderPage({ mod: d01, key: 'home' });
+  const contact = renderPage({ mod: d01, key: 'contact' });
+  const about = renderPage({ mod: d01, key: 'about' });
+  const areaHub = renderPage({ mod: d01, key: 'service-areas', profile: siteProfile });
+
+  assert.ok(home.includes(`${trades.toLowerCase()} trades, one contractor`)
+    || home.includes(`${trades} trades, one contractor`), 'the home page miscounts the trades');
+  assert.ok(contact.includes(`<span>${cities}</span> Arizona Cities`),
+    'the contact page miscounts the cities');
+  assert.ok(about.includes(`${trades} Trades, <span>One</span> Contractor`),
+    'the about page miscounts the trades');
+  assert.ok(areaHub.includes(`— ${cities} cities`), 'the areas hub miscounts the cities');
+  assert.ok(areaHub.includes(`The Same <span>${trades}</span> Trades`),
+    'the areas hub miscounts the trades');
+
+  // And the source carries no typed count word at all, which is the part that
+  // actually prevents the next one going stale.
+  const src = readFileSync('build/directions/d01.mjs', 'utf8');
+  for (const w of ['Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen',
+    'Thirty-four', 'Thirty-five']) {
+    assert.ok(!src.includes(`>${w}<`) && !src.includes(`'${w} `) && !src.includes(` ${w} Trades`),
+      `d01.mjs types the count "${w}" into a heading instead of deriving it`);
+  }
+});
+
+// Demolition is the first trade Quest has added since the site was recovered,
+// so it is also the test of whether a fifteenth trade drops in cleanly: a page,
+// a card, an icon, a group in the menu, photographs that are not another
+// trade's, and copy that is its own rather than the boilerplate.
+test('the trade added after the recovery is a first-class page', async () => {
+  const { cardShot, bannerShot } = await import('../lib/photos.mjs');
+  const { siteProfile } = await import('../lib/profile.mjs');
+  const demo = services.find((x) => x.slug === 'demolition');
+  assert.ok(demo, 'demolition is not in content/services.json');
+
+  const html = renderPage({ mod: d01, key: 'services/demolition', profile: siteProfile });
+  assert.match(html, /<h1>[\s\S]*?Demolition[\s\S]*?<\/h1>/);
+  assert.ok(html.includes(bannerShot('service', 'demolition')[0]), 'no banner photograph');
+
+  // Its own words. Thirteen of the fourteen recovered services share a
+  // byte-identical subheroTagline and closing intro; this one shares neither.
+  const others = services.filter((x) => x.slug !== 'demolition');
+  assert.ok(!others.some((x) => x.subheroTagline === demo.subheroTagline),
+    'demolition reuses another trade’s tagline');
+  assert.ok(!others.some((x) => x.intro.some((p) => demo.intro.includes(p))),
+    'demolition reuses another trade’s intro paragraph');
+  assert.ok(demo.faqs.length >= 4, 'demolition needs its own questions');
+
+  // In the menu, the footer and the card grid like every other trade.
+  assert.ok(groups.some((g) => g.services.includes('demolition')),
+    'demolition is not in any menu group');
+  const home = renderPage({ mod: d01, key: 'home' });
+  assert.ok(home.includes(`<h3>${esc(demo.name)}</h3>`), 'no card on the home page');
+  assert.ok(home.includes(cardShot('demolition')[0]), 'the card has no photograph');
+  const { icon } = await import('../lib/icons.mjs');
+  assert.notEqual(icon('demolition'), icon('__none__'), 'demolition falls back to the house icon');
 });

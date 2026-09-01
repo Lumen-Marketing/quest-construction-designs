@@ -17,6 +17,11 @@ const P = {
   painting: 'M5 3h11v6H5zM10 9v3M8 12h4v9H8zM16 4h3v4h-3z',
   'deck-building-uses-trex-system': 'M3 8h18M3 12h18M3 16h18M6 8v12M18 8v12M3 8l3-4h12l3 4',
   'window-installation': 'M4 3h16v18H4zM12 3v18M4 12h16M2 21h20',
+  // A ball on a chain over a wall with its far half already gone. Every other
+  // icon here draws the thing that gets built; this one has to draw the thing
+  // that gets removed, and a wall alone reads as masonry.
+  demolition: 'M3 21h18M5 21V9h3v3h3v3h2v6M18 6.5V3h3'
+    + 'M15.5 9a2.5 2.5 0 1 0 5 0 2.5 2.5 0 1 0-5 0',
 };
 
 const FALLBACK = 'M3 20h18M5 20V9l7-5 7 5v11';

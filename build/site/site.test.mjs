@@ -74,7 +74,7 @@ test('the section landing pages index what they claim to', () => {
   const list = (html) => JSON.parse(
     /<script type="application\/ld\+json">\n([\s\S]*?)\n<\/script>/.exec(html)[1],
   )['@graph'].find((n) => n['@type'] === 'ItemList');
-  assert.equal(list(services).numberOfItems, 14);
+  assert.equal(list(services).numberOfItems, loadContent().services.length);
   assert.equal(list(areas).numberOfItems, loadContent().areas.areas.length);
 });
 
@@ -92,7 +92,7 @@ test('the richer business node is opt-in, and carries nothing invented', () => {
 
   const biz = graph(render('home')).find((n) => String(n['@id']).endsWith('#business'));
   assert.ok(biz.hasOfferCatalog, 'no offer catalogue');
-  assert.equal(biz.hasOfferCatalog.itemListElement.length, 14);
+  assert.equal(biz.hasOfferCatalog.itemListElement.length, loadContent().services.length);
   assert.ok(biz.openingHoursSpecification, 'no opening hours');
   assert.ok(!biz.address, 'invented a PostalAddress');
   assert.ok(!biz.aggregateRating, 'invented an aggregateRating');

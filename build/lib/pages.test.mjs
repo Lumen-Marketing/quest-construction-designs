@@ -61,7 +61,8 @@ test('service and area pages carry their content item', () => {
 
 test('loadContent returns all four content files', () => {
   const c = loadContent();
-  assert.equal(c.services.length, 14);
+  // Fourteen recovered from the old site, plus demolition, which Quest added.
+  assert.equal(c.services.length, 15);
   assert.ok(c.areas.areas.length > 0, 'the render context carries the cities');
   assert.equal(c.site.phoneDisplay, '(602) 399-6455');
   assert.ok(c.pages.home.heroTitle);

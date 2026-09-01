@@ -9,6 +9,27 @@ const ENTITIES = {
   '&#8211;': '–', '&ndash;': '–', '&#9670;': '◆',
 };
 
+// Headings count things in words, not digits, and a typed word goes stale
+// silently: "Serving Eleven Arizona Cities" sat on the contact page through
+// three rounds of new city pages and was wrong by twenty-three of them. Every
+// counted word on the site comes from here now, so the sentence cannot drift
+// from the list it describes.
+const WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven',
+  'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen',
+  'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+const TENS = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy',
+  'eighty', 'ninety'];
+
+/** A count as an English word: 15 -> 'fifteen', 34 -> 'thirty-four'. */
+export function words(n) {
+  if (n < 20) return WORDS[n];
+  if (n < 100) return TENS[Math.floor(n / 10)] + (n % 10 ? `-${WORDS[n % 10]}` : '');
+  return String(n);
+}
+
+/** The same, capitalised for a heading. */
+export const Words = (n) => words(n).replace(/^./, (c) => c.toUpperCase());
+
 export function decode(s) {
   return String(s).replace(/&(?:#x?[0-9a-fA-F]+|[a-zA-Z]+);/g, (m) => {
     if (ENTITIES[m]) return ENTITIES[m];

@@ -26,8 +26,18 @@ const ARROW = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 const RULE = `<div class="drule short" aria-hidden="true"><i></i></div>`;
 
 // Roman numerals, because the whole direction is 1930s signage.
-const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X',
-  'XI', 'XII', 'XIII', 'XIV'];
+// Generated rather than typed. This was fourteen literals, indexed by the
+// service's position with no modulo behind it, so the fifteenth trade printed
+// `undefined` in a numeral slot on every page that numbers the services. A
+// count well past the trades means the sixteenth is not a bug either.
+const ROMAN = Array.from({ length: 30 }, (_, i) => {
+  let n = i + 1;
+  let out = '';
+  for (const [v, s] of [[10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']]) {
+    while (n >= v) { out += s; n -= v; }
+  }
+  return out;
+});
 
 const SHOTS = SAMPLER;
 

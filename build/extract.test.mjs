@@ -3,6 +3,9 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { extractServices, extractAreas, extractPages } from './extract.mjs';
 
+// The archive's fourteen. content/services.json carries a fifteenth now —
+// demolition, authored rather than recovered — so this count is deliberately
+// not the site's count.
 test('extracts all fourteen services', () => {
   const s = extractServices();
   assert.equal(s.length, 14);

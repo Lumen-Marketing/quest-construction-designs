@@ -3,7 +3,7 @@
 The live site. Static HTML, no build step, no runtime dependency: point a host
 at this directory and it serves.
 
-- **253 pages** — home, 14 services, 34 service areas,
+- **254 pages** — home, 15 services, 34 service areas,
   the trade-by-city pages, two section landing pages, the blog index and
   6 posts, about, gallery, projects, contact and sitemap — plus a 404.
 - **Design**: "Site Plan" in Burnt Orange (`#D07C42`).

@@ -2,7 +2,7 @@
 
 > Quest Construction LLC is a family-owned general contractor working across
 > 34 cities in Arizona. Founded 2018.
-> 14 trades, all self-managed rather than brokered out.
+> 15 trades, all self-managed rather than brokered out.
 > Reachable 24/7 on (602) 399-6455.
 
 Quest builds and remodels residential property: new custom homes and residential
@@ -32,6 +32,7 @@ rather than co-ordinating several.
 - [Painting](https://questconstruction.com/services/painting/): Transforming spaces with vibrant colors and exceptional precision.
 - [Deck Building](https://questconstruction.com/services/deck-building-uses-trex-system/): Transform your outdoor spaces with our top-quality Trex decking.
 - [Window Installation](https://questconstruction.com/services/window-installation/): Enhance your home's energy efficiency with expert window installation.
+- [Demolition](https://questconstruction.com/services/demolition/): Careful teardowns and strip-outs, from permit and disconnect to a clear lot.
 
 ## Service areas
 
@@ -84,7 +85,7 @@ Written advice about doing this work in this climate, not company news.
 ## Key pages
 
 - [Home](https://questconstruction.com/): what Quest does and who it is
-- [All services](https://questconstruction.com/services/): the 14 trades in one index
+- [All services](https://questconstruction.com/services/): the 15 trades in one index
 - [All service areas](https://questconstruction.com/service-areas/): the 34 cities in one index
 - [About](https://questconstruction.com/about-us/): the firm's history and how it works
 - [Projects](https://questconstruction.com/projects/): completed work

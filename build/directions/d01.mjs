@@ -4,6 +4,7 @@
 // radii, soft layered shadows.
 import { img, preloadImage, size } from '../lib/images.mjs';
 import { icon, socialIcon } from '../lib/icons.mjs';
+import { words, Words } from '../lib/html.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 import {
   shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO, OFFER_SHOTS,
@@ -104,7 +105,7 @@ const band = (c, pairs, eyebrow, heading, lede = '', cls = 'sec cream') => `
 </section>`;
 
 // The service tile, and the one place it is built: the home page, every area
-// page and the services hub all print the same fourteen.
+// page and the services hub all print the same set.
 //
 // The photograph is a plate laminated onto the top of the card, bleeding to
 // its edges rather than sitting in a box inside a box, and the icon chip
@@ -127,7 +128,7 @@ const svcCards = (c, cta) => c.services.map((s, i) => `
 const CTA_PROMPT = 'Got a project in need of a builder?';
 
 // The trade marquee. It used to be written by a script on load, which meant the
-// fourteen trade names were invisible to a crawler and unreachable without JS —
+// the trade names were invisible to a crawler and unreachable without JS —
 // so it is rendered here instead, and every name is the link to its own page.
 //
 // The loop needs two identical halves for the -50% translate to be seamless.
@@ -195,7 +196,7 @@ export function nav(c) {
   // the menu is a way in, and being found twice costs less than being missed
   // once. Every city belongs to at least one region, and d01.test.mjs fails
   // the build if one falls out of the nav.
-  // Fourteen trades in two undivided columns is the same wall the cities were:
+  // Every trade in two undivided columns is the same wall the cities were:
   // no ordering a visitor can predict, so finding one means reading all of it.
   // content/service-groups.json divides them into four, and unlike the valleys
   // a trade sits in exactly one — a menu that lists Roofing twice has stopped
@@ -265,7 +266,7 @@ const socialLink = (c, cls) => `<a class="${cls}" href="${c.site.facebook}" `
   + '<span>Facebook</span></a>';
 
 export function footer(c) {
-  // `col2` marks the long lists — the fourteen trades and the eleven cities.
+  // `col2` marks the long lists — the trades and the cities.
   // They run two-up at every width, not just on the phone: fifteen rows of one
   // link is half a screen of footer before the cities even start.
   //
@@ -276,10 +277,10 @@ export function footer(c) {
 </div>`;
 
   // The trades are grouped in the footer for the same reason the cities are,
-  // and into the same four blocks the nav panel uses. Fourteen links two-up was
+  // and into the same four blocks the nav panel uses. A flat list two-up was
   // a legible enough column; four headed blocks is a legible *index*, and a
   // visitor scanning a footer for "who does my roof" reads one heading rather
-  // than fourteen names.
+  // than a column of trade names.
   const svcBySlug = new Map(c.services.map((x) => [x.slug, x]));
   const svcCol = () => `<div class="fareas ftrades">
   <h2>Services</h2>
@@ -667,7 +668,7 @@ export function home(c) {
       <span class="go" aria-hidden="true">&#8599;</span></span>
     </a>`).join('');
 
-  // A floor, not a total. Fourteen is how many trades have a page of their
+  // A floor, not a total. The count is how many trades have a page of their
   // own, not how many Quest works in, and a bare count in a row of trust
   // figures reads as the whole list. The plus is the figure's own <i>, set
   // back to 55%, so it reads as part of the number rather than as punctuation
@@ -709,7 +710,8 @@ ${strip(c)}
   ${grid(true)}
   <div class="wrap">
     ${shead('— Our Top Services', `Our Expert <span>Construction</span> Services`,
-      'Fourteen trades, one contractor. Everything below is self-managed from first conversation through final walkthrough.')}
+      `${Words(c.services.length)} trades, one contractor. Everything below is self-managed `
+      + 'from first conversation through final walkthrough.')}
     <div class="svcs">${cards}</div>
   </div>
 </section>
@@ -1063,7 +1065,7 @@ ${bigBand(c, pageShots('about', 4), '— The work itself', 'FRAMING TO FINISH',
 <section class="sec dark">
   ${grid(true)}
   <div class="wrap">
-    ${shead('— What we do', 'Fourteen Trades, <span>One</span> Contractor',
+    ${shead('— What we do', `${Words(c.services.length)} Trades, <span>One</span> Contractor`,
       'Everything Quest offers, self-managed from first conversation through final walkthrough.')}
     <div class="arealinks light rv">${c.services.map((s) =>
       `<a href="${c.url(`services/${s.slug}`)}">${esc(s.name)}</a>`).join('')}</div>
@@ -1155,7 +1157,7 @@ ${closingCta(c, c.pages.home.ctaHeading, c.pages.home.ctaBody)}`;
 // two lines, which is the right amount of room for "we build these" and not
 // nearly enough for the part that decides whether one lasts — the footing, the
 // standoff base, the uplift. It is also the single most-asked-for thing on this
-// site that is not one of the fourteen trades, so it earns the band.
+// site that is not one of the trades, so it earns the band.
 //
 // The furniture is the trade-by-city page's: copy on the left, the dark notes
 // card on the right, and the two photographs underneath. Nothing new was drawn
@@ -1346,7 +1348,8 @@ export function contact(c) {
 <section class="sec dark">
   ${grid(true)}
   <div class="wrap">
-    ${shead('— Where we work', 'Serving <span>Eleven</span> Arizona Cities', '')}
+    ${shead('— Where we work',
+    `Serving <span>${Words(c.areas.areas.length)}</span> Arizona Cities`, '')}
     <div class="arealinks light rv">${c.areas.areas.map((a) =>
       `<a href="${c.url(`service-areas/${a.slug}`)}">${esc(a.name)}</a>`).join('')}</div>
   </div>
@@ -1519,7 +1522,7 @@ ${closingCta(c, `${short} in ${a.city}, done properly`,
 }
 
 export function areaIndex(c) {
-  // A register, not a card grid. Eleven cities on cards is eleven boxes of the
+  // A register, not a card grid. The cities on cards is that many boxes of the
   // same shape holding one clipped sentence each — the reader scans none of it
   // and learns nothing without clicking. As rows they read as an index, which
   // is what this direction is named after, and the disclosure pays for itself:
@@ -1563,7 +1566,7 @@ export function areaIndex(c) {
 <section class="sec cream">
   ${grid(false)}
   <div class="wrap">
-    ${shead('— Eleven cities', 'Where <span>Quest</span> Builds',
+    ${shead(`— ${Words(c.areas.areas.length)} cities`, 'Where <span>Quest</span> Builds',
       'One crew, one licence, one phone number across the East Valley, Phoenix and Pinal County.')}
     <div class="register">${rows}</div>
   </div>
@@ -1575,7 +1578,7 @@ ${band(c, pageShots('areaIndex', 4), '— Across the valley', 'Arizona <span>Job
 <section class="sec dark">
   ${grid(true)}
   <div class="wrap">
-    ${shead('— In every city', 'The Same <span>Fourteen</span> Trades',
+    ${shead('— In every city', `The Same <span>${Words(c.services.length)}</span> Trades`,
       `Everything Quest offers is available in all ${c.areas.areas.length} cities above.`)}
     <div class="arealinks light rv">${c.services.map((s) =>
       `<a href="${c.url(`services/${s.slug}`)}">${esc(s.name)}</a>`).join('')}</div>

@@ -116,7 +116,11 @@ test('the front page is Quest photography, and the machines are off it', async (
   // them; what matters is that the indexable direction does not.
   const d01 = readFileSync('d01-site-plan/index.html', 'utf8');
   for (const c of CUTOUTS) {
-    assert.ok(!d01.includes(c), `the home page still references the machine cut-out ${c}`);
+    // The full path, not the bare filename: the cut-outs sit at assets/<name>,
+    // and a bare `excavator.webp` also matches the demolition card's
+    // footings-excavator.webp, which is Quest's own photograph.
+    assert.ok(!d01.includes(`assets/${c}`),
+      `the home page still references the machine cut-out ${c}`);
   }
 });
 

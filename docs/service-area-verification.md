@@ -122,3 +122,23 @@ Eight claims were wrong or too loose when first drafted, and all eight are fixed
 - **Queen Creek** is primarily Maricopa County but has extended into Pinal on its eastern
   and southern edges since the Ironwood Crossing annexation in 2018.
 - **Apache Junction** spans both counties, most of it Pinal.
+
+## Not verified: the demolition page's regulatory claims
+
+The demolition service page, added 2026-09-01, makes four claims about how demolition is
+regulated in the Valley. None of them was checked against a jurisdiction's own site the
+way the permit-issuing bodies above were, and **Quest should confirm all four or cut
+them** before they are quoted back at the company by a homeowner:
+
+1. A demolition permit is a separate application from the building permit for whatever
+   replaces the structure.
+2. Cities want evidence of utility disconnection before issuing it.
+3. Maricopa County wants a structure surveyed for asbestos before demolition.
+4. Maricopa County is a federal non-attainment area for particulates, and larger sites
+   need a dust control permit whose plan is enforceable.
+
+The first two are how the trade generally works and the page states them as such. The
+third and fourth name a specific regulator and are the two most worth checking, because
+they are the two a reader could act on. The page deliberately does not quote a site-size
+threshold, a permit fee or a processing time — those vary by city and by year, and a
+stale number is worse than no number.
