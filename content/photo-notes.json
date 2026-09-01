@@ -1,0 +1,4 @@
+{
+  "_README": "What Quest says about a photograph, shown as its caption in the gallery when a visitor puts a pointer on the frame. This is for the thing only the person who was on the job knows — 'framing stage, but that is a custom bathroom, sauna and steam room and shower' — rather than a description of what is visibly in the picture. The description already exists: build/lib/photos.mjs carries ALT for every frame, it is written to describe the frame honestly, and it is what the caption falls back to. So a photograph needs no entry here to work, and an entry here should earn its place by saying something the picture does not say for itself. Key on the same path photos.mjs uses, e.g. 'quest/remodel-studs.webp'. Anything named here that is not in the library fails the build, so a typo cannot sit unnoticed.",
+  "notes": {}
+}

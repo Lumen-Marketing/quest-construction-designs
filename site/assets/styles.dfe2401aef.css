@@ -1622,10 +1622,58 @@ footer .brand img{height:38px}
    on both edges and level along the bottom, at any width, with nothing
    cropped and no height written down anywhere. Which frames share a row is
    decided at build time — see justified() in the direction. */
+/* ---- the gallery's chapters ----
+   Seventy-five frames in one unbroken run read as a camera roll even though
+   they were already ordered as a build sequence. The order did not change; the
+   breaks in it are visible now, and the rail below names them so the run is
+   navigable rather than just long. */
+.galnav{position:relative;z-index:3;display:flex;flex-wrap:wrap;gap:8px;
+  margin:0 0 clamp(30px,4vw,52px)}
+.galnav a{display:inline-flex;align-items:center;gap:9px;min-height:44px;
+  padding:0 17px;border-radius:999px;background:#fff;box-shadow:var(--sh);
+  font-size:13.5px;font-weight:600;
+  transition:background .22s ease,color .22s ease,transform .22s ease}
+.galnav a span{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  color:var(--acc-dim);transition:color .22s ease}
+@media (hover:hover) and (pointer:fine){
+  .galnav a:hover{background:var(--acc);color:var(--on-acc);translate:0 -2px}
+  .galnav a:hover span{color:var(--on-acc)}
+}
+.galchap{position:relative;z-index:3}
+.galchap+.galchap{margin-top:clamp(46px,6vw,88px)}
+/* The anchor has to clear the sticky header, the same as every other target. */
+.galchap{scroll-margin-top:calc(var(--navh) + 22px)}
+.galchap-h{display:grid;grid-template-columns:1fr auto;gap:6px clamp(20px,3vw,44px);
+  align-items:baseline;margin:0 0 clamp(16px,2vw,26px)}
+.galchap-h h3{font-size:clamp(20px,2.4vw,30px);font-weight:900;letter-spacing:-.02em;
+  display:flex;align-items:baseline;gap:14px}
+.galchap-n{font-size:12px;font-weight:700;color:var(--acc-dim);letter-spacing:.1em}
+.galchap-note{margin:0;color:var(--ink-2);font-size:14.5px;max-width:52ch;
+  justify-self:end;text-align:right}
+@media(max-width:820px){
+  .galchap-h{grid-template-columns:1fr}
+  .galchap-note{justify-self:start;text-align:left}
+}
+
 .gal{position:relative;z-index:3;display:grid;gap:clamp(12px,1.6vw,18px)}
 .galrow{display:flex;gap:clamp(12px,1.6vw,18px)}
-.galrow figure{margin:0;flex:var(--ar) 1 0;min-width:0;aspect-ratio:var(--ar);
+.galrow figure{position:relative;margin:0;flex:var(--ar) 1 0;min-width:0;aspect-ratio:var(--ar);
   border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh);background:var(--dark-2)}
+/* ---- the caption ----
+   Visible by default and hidden only where there is a pointer to reveal it
+   with. A touch device has no hover, so a caption that only appears on hover
+   is a caption it never gets; this way the fallback is the caption showing,
+   not the caption vanishing. aria-hidden on the element itself: the text is
+   the img's alt unless Quest has written a note, and a screen reader has had
+   the alt already. */
+.galcap{position:absolute;left:0;right:0;bottom:0;margin:0;padding:34px 18px 15px;
+  font-size:13px;line-height:1.4;color:var(--on-dark);text-wrap:pretty;
+  background:linear-gradient(180deg,transparent,rgba(12,11,9,.62) 42%,rgba(12,11,9,.88))}
+@media (hover:hover) and (pointer:fine){
+  .galcap{transform:translateY(101%);transition:transform .34s cubic-bezier(.2,.8,.2,1)}
+  .galrow figure:hover .galcap{transform:none}
+}
+@media(prefers-reduced-motion:reduce){.galcap{transition:none}}
 .gal img{display:block;width:100%;height:100%;object-fit:cover;
   transition:transform .8s cubic-bezier(.2,.8,.2,1)}
 @media (hover:hover) and (pointer:fine){.galrow figure:hover img{transform:scale(1.06)}}
@@ -1638,6 +1686,13 @@ footer .brand img{height:38px}
   .galrow{display:contents}
   .galrow figure{aspect-ratio:1}
   .gal.odd .galrow:last-child figure:last-child{grid-column:span 2;aspect-ratio:2}
+  /* Two-up, the frames are about 170px across. A caption on one is a block of
+     type too small to read, over the picture it is describing. The text is
+     still on the img as alt, where a screen reader gets it either way. */
+  .galcap{display:none}
+  .galchap-h h3{gap:10px}
+  .galnav{gap:7px}
+  .galnav a{padding:0 13px;font-size:12.5px}
 }
 
 /* ---- the display band ----

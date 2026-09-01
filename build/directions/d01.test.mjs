@@ -1201,3 +1201,45 @@ test('a service card on a city page goes to the page written for that city', asy
       `${key} sends a service card to a city page`);
   }
 });
+
+test('the gallery is a sequence with the breaks in it written down', async () => {
+  const photos = await import('../lib/photos.mjs');
+  const { GALLERY, GALLERY_STAGES, caption, ALT } = photos;
+
+  // Every frame is in exactly one stage, and the stages are the gallery.
+  const staged = GALLERY_STAGES.flatMap((st) => st.files);
+  assert.deepEqual(staged, GALLERY, 'the flat gallery is not the stages in order');
+  assert.equal(new Set(staged).size, staged.length, 'a frame is in two stages');
+
+  // justified() breaks a run into rows of three to five, so a stage whose
+  // count is not a sum of 3, 4 and 5 throws at build time. 1 and 2 are the
+  // counts that cannot, and a stage is easy to whittle down to two.
+  for (const st of GALLERY_STAGES) {
+    assert.ok(st.files.length >= 3,
+      `the ${st.slug} stage has ${st.files.length} frames and will not break into rows`);
+    assert.ok(st.name && st.note, `the ${st.slug} stage has no heading or no note`);
+  }
+
+  const html = renderPage({ mod: d01, key: 'gallery' });
+  for (const st of GALLERY_STAGES) {
+    assert.ok(html.includes(`id="stage-${st.slug}"`), `no ${st.slug} chapter`);
+    assert.ok(html.includes(`href="#stage-${st.slug}"`), `no jump link to ${st.slug}`);
+  }
+  // Every frame carries a visible caption, and it is hidden from a screen
+  // reader because the same words are already on the image as alt.
+  assert.equal((html.match(/class="galcap" aria-hidden="true"/g) || []).length,
+    GALLERY.length, 'not every frame has a caption');
+  // The caption falls back to the alt text, so a photograph needs no note.
+  assert.equal(caption('quest/hero.webp'), ALT['quest/hero.webp']);
+});
+
+test('a caption Quest writes wins, and one for a photograph that is not there fails', async () => {
+  const { caption, ALT } = await import('../lib/photos.mjs');
+  const notes = JSON.parse(readFileSync('content/photo-notes.json', 'utf8'));
+  for (const [f, note] of Object.entries(notes.notes)) {
+    assert.ok(ALT[f], `photo-notes.json names ${f}, which is not a photograph`);
+    assert.equal(caption(f), note, `${f} does not use the note written for it`);
+  }
+  // The file is where Quest edits captions, so it has to say what it is for.
+  assert.ok(notes._README && notes._README.length > 200, 'photo-notes.json has no README');
+});

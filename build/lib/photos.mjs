@@ -20,6 +20,7 @@
 // Filenames live under assets/quest/. The alt text lives here and only here,
 // so the ten directions cannot drift apart on what a photograph depicts.
 
+import { readFileSync } from 'node:fs';
 import { known } from './images.mjs';
 
 /** file -> alt. The single source of truth for what each photograph shows. */
@@ -289,86 +290,157 @@ export const TRADES = [
   ['quest/spare.webp', 'Interiors', 'Drywall through finish'],
 ];
 
-// The gallery, ordered as a walk through a job rather than as a dump of the
-// camera roll: ground and slab, framing going up, sheathing and openings, the
-// roof, then the finished exteriors.
-export const GALLERY = [
-  'quest/footings-excavator.webp',
-  'quest/slab-blockwall.webp',
-  'quest/slab-lumber.webp',
-  'quest/slab-walls.webp',
-  'quest/sheathing-panel.webp',
-  'quest/slab-poured.webp',
-  'quest/framing-braced.webp',
-  'quest/framing-patio.webp',
-  'quest/framing-slab.webp',
-  'quest/framing-walls.webp',
-  'quest/framing-long-wall.webp',
-  'quest/framing-palms.webp',
-  'quest/framing-block.webp',
-  'quest/framing-court.webp',
-  'quest/framing-progress.webp',
-  'quest/framing-wide.webp',
-  'quest/framing-desert-lot.webp',
-  'quest/framing-addition.webp',
-  'quest/framing-garage.webp',
-  'quest/framing-clouds.webp',
-  'quest/framing-sky.webp',
-  'quest/framing-sun.webp',
-  'quest/framing-shade.webp',
-  'quest/framing-ladder.webp',
-  'quest/framing-lumber.webp',
-  'quest/framing-hose.webp',
-  'quest/framing-corner.webp',
-  'quest/framing-openings.webp',
-  'quest/framing-header.webp',
-  'quest/framing-inside.webp',
-  'quest/framing-roof.webp',
-  'quest/framing-turret.webp',
-  'quest/framing-curve.webp',
-  'quest/sheathing-curve.webp',
-  'quest/aerial-crane.webp',
-  'quest/casita-shell.webp',
-  'quest/casita-sunset.webp',
-  'quest/casita-stucco.webp',
-  'quest/deck-joists.webp',
-  'quest/deck-finished.webp',
-  'quest/story.webp',
-  'quest/hero.webp',
-  'quest/custom-home-wide.webp',
-  'quest/custom-home-shell.webp',
-  'quest/custom-home-gables.webp',
-  'quest/home-trusses.webp',
-  'quest/framing-cricket.webp',
-  'quest/home-windows.webp',
-  'quest/gable-window.webp',
-  'quest/gables-underlayment.webp',
-  'quest/roof-underlayment.webp',
-  'quest/roof-deck.webp',
-  'quest/roof-eave.webp',
-  'quest/roof-shingles.webp',
-  'quest/roof-ridge.webp',
-  'quest/roof-valley.webp',
-  'quest/roof-field.webp',
-  'quest/roof-desert.webp',
-  'quest/aerial-reroof.webp',
-  'quest/aerial-tearoff.webp',
-  'quest/roof-windows.webp',
-  'quest/window-demo.webp',
-  'quest/window-opening.webp',
-  'quest/window-interior.webp',
-  'quest/window-flashed.webp',
-  'quest/window-reflection.webp',
-  'quest/window-stucco.webp',
-  'quest/window-scaffold.webp',
-  'quest/window-fitted.webp',
-  'quest/remodel-studs.webp',
-  'quest/siding-lap.webp',
-  'quest/home-side.webp',
-  'quest/porch-dusk.webp',
-  'quest/home-dusk.webp',
-  'quest/spare.webp',
+// The gallery, as a walk through a job rather than as a dump of the camera
+// roll. It was already in this order — ground, slab, framing, sheathing, roof,
+// finished — but it was one flat run of seventy-five frames and nothing on the
+// page said so, so it read as the dump it was ordered not to be. The stages are
+// declared now, which is the only difference: same photographs, same sequence,
+// with the breaks written down.
+//
+// A stage's count has to be expressible as a sum of 3, 4 and 5 or justified()
+// cannot break it into rows. Five is the smallest that works.
+export const GALLERY_STAGES = [
+  {
+    slug: 'ground',
+    name: 'Ground and slab',
+    note: 'Footings cut beside what is already standing, the pad poured and '
+      + 'floated, and the first lumber stacked on it.',
+    files: [
+      'quest/footings-excavator.webp',
+      'quest/slab-poured.webp',
+      'quest/slab-blockwall.webp',
+      'quest/slab-lumber.webp',
+      'quest/slab-walls.webp',
+    ],
+  },
+  {
+    slug: 'framing',
+    name: 'Framing',
+    note: 'Walls braced and standing, and the sun moving across them from one '
+      + 'end of the day to the other.',
+    files: [
+      'quest/framing-braced.webp',
+      'quest/framing-patio.webp',
+      'quest/framing-slab.webp',
+      'quest/framing-walls.webp',
+      'quest/framing-long-wall.webp',
+      'quest/framing-palms.webp',
+      'quest/framing-block.webp',
+      'quest/framing-court.webp',
+      'quest/framing-progress.webp',
+      'quest/framing-wide.webp',
+      'quest/framing-addition.webp',
+      'quest/framing-clouds.webp',
+      'quest/framing-sky.webp',
+      'quest/framing-sun.webp',
+      'quest/framing-shade.webp',
+      'quest/framing-ladder.webp',
+      'quest/framing-lumber.webp',
+      'quest/framing-hose.webp',
+      'quest/framing-inside.webp',
+      'quest/framing-curve.webp',
+      'quest/framing-turret.webp',
+      'quest/framing-roof.webp',
+      'quest/story.webp',
+      'quest/hero.webp',
+      'quest/deck-joists.webp',
+    ],
+  },
+  {
+    slug: 'sheathing',
+    name: 'Sheathing and openings',
+    note: 'Panels on, and the windows and doors cut back out of them.',
+    files: [
+      'quest/sheathing-panel.webp',
+      'quest/sheathing-curve.webp',
+      'quest/framing-desert-lot.webp',
+      'quest/framing-garage.webp',
+      'quest/framing-corner.webp',
+      'quest/framing-openings.webp',
+      'quest/framing-header.webp',
+      'quest/custom-home-shell.webp',
+      'quest/custom-home-wide.webp',
+      'quest/custom-home-gables.webp',
+      'quest/home-windows.webp',
+      'quest/gable-window.webp',
+      'quest/casita-shell.webp',
+    ],
+  },
+  {
+    slug: 'roof',
+    name: 'Roof',
+    note: 'Trusses set, underlayment down, and the last course of shingles.',
+    files: [
+      'quest/aerial-crane.webp',
+      'quest/home-trusses.webp',
+      'quest/framing-cricket.webp',
+      'quest/gables-underlayment.webp',
+      'quest/roof-underlayment.webp',
+      'quest/roof-deck.webp',
+      'quest/roof-eave.webp',
+      'quest/roof-shingles.webp',
+      'quest/roof-ridge.webp',
+      'quest/roof-valley.webp',
+      'quest/roof-field.webp',
+      'quest/roof-desert.webp',
+      'quest/aerial-reroof.webp',
+      'quest/aerial-tearoff.webp',
+      'quest/roof-windows.webp',
+    ],
+  },
+  {
+    slug: 'retrofit',
+    name: 'Windows and remodels',
+    note: 'The half of the work that happens inside a house somebody is still '
+      + 'living in.',
+    files: [
+      'quest/window-demo.webp',
+      'quest/window-opening.webp',
+      'quest/window-flashed.webp',
+      'quest/window-reflection.webp',
+      'quest/window-stucco.webp',
+      'quest/window-scaffold.webp',
+      'quest/window-fitted.webp',
+      'quest/window-interior.webp',
+      'quest/remodel-studs.webp',
+      'quest/siding-lap.webp',
+    ],
+  },
+  {
+    slug: 'finished',
+    name: 'Finished',
+    note: 'The ones that are done.',
+    files: [
+      'quest/casita-sunset.webp',
+      'quest/casita-stucco.webp',
+      'quest/deck-finished.webp',
+      'quest/home-side.webp',
+      'quest/porch-dusk.webp',
+      'quest/home-dusk.webp',
+      'quest/spare.webp',
+    ],
+  },
 ];
+
+/** Every gallery frame, flat and in stage order. */
+export const GALLERY = GALLERY_STAGES.flatMap((s) => s.files);
+
+// What a frame says when a visitor puts a pointer on it. ALT describes what is
+// in the picture, which is what a screen reader needs and is a fair caption on
+// its own. content/photo-notes.json is where Quest says the thing only Quest
+// knows — "framing stage, but that is a custom bathroom, sauna and steam room"
+// — and a note there wins. Nothing has to be written for a frame to work.
+const NOTES = JSON.parse(readFileSync('content/photo-notes.json', 'utf8')).notes;
+for (const f of Object.keys(NOTES)) {
+  // A note keyed on a path that is not in the library would simply never show,
+  // and Quest would have written a caption that silently goes nowhere.
+  if (!ALT[f]) throw new Error(`content/photo-notes.json names ${f}, which is not a photograph`);
+}
+
+/** The visible caption for a frame: Quest's note if there is one, else the alt. */
+export function caption(file) {
+  return NOTES[file] || ALT[file] || '';
+}
 
 // ---------------------------------------------------------------- assignment
 //

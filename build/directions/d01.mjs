@@ -7,7 +7,8 @@ import { icon, socialIcon } from '../lib/icons.mjs';
 import { words, Words } from '../lib/html.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 import {
-  shot, shots, cardShot, bannerShot, pageShots, GALLERY, HERO, OFFER_SHOTS,
+  shot, shots, cardShot, bannerShot, pageShots, GALLERY, GALLERY_STAGES,
+  caption, HERO, OFFER_SHOTS,
   STORY, CONTACT,
   CLOSING, PROJECT_SHOTS, PERGOLA_SHOTS,
   serviceShots, areaShots,
@@ -1165,14 +1166,26 @@ export function gallery(c) {
 <section class="sec cream">
   ${grid(false)}
   <div class="wrap">
-    ${shead('— From Quest projects', 'Every Photograph Here Is <span>Ours</span>',
-      'Two jobs, start to finish: a slab-up addition on a Phoenix-area lot, and a custom home '
-      + 'from framing through the last course of shingles.')}
-    <div class="gal${GALLERY.length % 2 ? ' odd' : ''}">${justified(GALLERY).map((row) =>
-      `<div class="galrow rv">${shots(...row).map(([f, alt]) => {
-    const [w, h] = size(f);
-    return `<figure style="--ar:${(w / h).toFixed(4)}">${img(c, f, alt)}</figure>`;
-  }).join('')}</div>`).join('')}</div>
+    ${shead('— From Quest projects', 'How a Job <span>Goes Up</span>',
+      `Every photograph here is Quest's own, and they run in the order the work does: `
+      + `${GALLERY.length} frames from the ground to the last course of shingles.`)}
+    <nav class="galnav rv" aria-label="Jump to a stage">${GALLERY_STAGES.map((st) =>
+    `<a href="#stage-${st.slug}">${esc(st.name)} <span>${st.files.length}</span></a>`).join('')}</nav>
+    ${GALLERY_STAGES.map((st, i) => `
+    <div class="galchap" id="stage-${st.slug}">
+      <div class="galchap-h rv">
+        <h3><span class="galchap-n mono">${String(i + 1).padStart(2, '0')}</span>${esc(st.name)}</h3>
+        <p class="galchap-note">${esc(st.note)}</p>
+      </div>
+      <div class="gal${st.files.length % 2 ? ' odd' : ''}">${justified(st.files).map((row) =>
+    `<div class="galrow rv">${shots(...row).map(([f, alt]) => {
+      const [w, h] = size(f);
+      // aria-hidden: the caption is the alt text unless Quest has written a
+      // note, and a screen reader has already been given the alt.
+      return `<figure style="--ar:${(w / h).toFixed(4)}">${img(c, f, alt)}`
+        + `<figcaption class="galcap" aria-hidden="true">${esc(caption(f))}</figcaption></figure>`;
+    }).join('')}</div>`).join('')}</div>
+    </div>`).join('')}
   </div>
 </section>
 
