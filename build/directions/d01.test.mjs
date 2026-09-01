@@ -1075,3 +1075,31 @@ test('a service page runs the process before the pitch, and keeps alternating', 
   assert.match(css, /\.sec\.dark \.prose p\{color:var\(--on-dark-2\)\}/,
     'the prose has no dark-ground colour');
 });
+
+// The FAQ list carried a 940px cap and no auto margins, so on any window wide
+// enough to reach the wrap's 1280px it stopped 340px short of the right edge
+// while the heading above it ran the full width. Every other content block in
+// this stylesheet fills the wrap; a fixed pixel cap on one of them is the bug,
+// and a text measure in ch on the paragraph inside it is the fix.
+test('no content block is capped in pixels inside a section that is not', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  const faq = /\.faqlist\{[^}]*\}/.exec(css);
+  assert.ok(faq, 'no rule for the FAQ list');
+  assert.doesNotMatch(faq[0], /max-width/,
+    'the FAQ list is capped again, and it has no auto margins to centre it');
+  // The measure belongs on the text, not on the box around it.
+  assert.match(css, /\.faqlist details p\{[^}]*max-width:\d+ch/,
+    'the answer paragraph lost its measure');
+
+  // And nothing else grew one. Every remaining fixed-pixel cap belongs to the
+  // wrap itself, or to a hero/subhero column sized against the photograph it
+  // shares a band with — those are deliberate and they are the whole list.
+  // The breakpoints go first: `@media(max-width:940px)` is a condition, not a
+  // declaration, and matching it here is how this check first read every
+  // responsive rule in the file as a capped block.
+  const capped = css.replace(/@media[^{]*\{/g, '').split('}')
+    .filter((rule) => /max-width:(?:min\()?\d+px/.test(rule.split('{').slice(1).join('{')))
+    .map((rule) => rule.split('{')[0].trim().split(/\r?\n/).pop().trim());
+  const stray = capped.filter((sel) => !/\.wrap|hero|subhero/.test(sel));
+  assert.deepEqual(stray, [], `a pixel cap crept back onto ${stray.join(', ')}`);
+});

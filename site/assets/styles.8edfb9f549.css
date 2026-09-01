@@ -1412,7 +1412,6 @@ footer .brand img{height:38px}
 /* The questions block at the foot of a post. Its heading is one of the article's
    own h2s, so it takes the article's rhythm rather than a section heading's. */
 .postfaq-h{font-size:clamp(20px,2.2vw,28px);font-weight:900;margin:44px 0 18px}
-.postbodycopy .faqlist{max-width:none}
 
 /* Seven items and a phone number is more than the desktop bar was drawn for,
    so the gap tightens before the drawer takes over at 940px. */
@@ -1492,8 +1491,17 @@ footer .brand img{height:38px}
   .reg-name{font-size:clamp(19px,5vw,26px)}
 }
 
-/* ---- FAQ accordion ---- */
-.faqlist{position:relative;z-index:3;display:grid;gap:12px;max-width:940px}
+/* ---- FAQ accordion ----
+   No max-width. It carried 940px with no auto margins, which is the one inner
+   column in this stylesheet that neither filled its section nor centred in it:
+   the wrap is 1280px at full width, so the questions stopped 340px short of
+   the right-hand edge while the section heading above them ran the whole way.
+   That reads as a block that failed to load rather than as a narrow measure.
+   Everything else here — the cards, the steps, the register, the bands — fills
+   the wrap, and the wrap is what centres the page. The rows are long and thin
+   at 1280, which is what an accordion row is; the answer inside still sets to
+   78ch, because a measure belongs on the text and not on the box around it. */
+.faqlist{position:relative;z-index:3;display:grid;gap:12px}
 .faqlist details{background:#fff;border-radius:var(--r);padding:20px 24px;box-shadow:var(--sh)}
 .faqlist summary{font-weight:800;cursor:pointer;list-style:none;font-size:clamp(15px,1.5vw,18px);
   display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
