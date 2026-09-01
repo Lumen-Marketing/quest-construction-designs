@@ -397,8 +397,8 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 .hero-acts{animation-delay:.22s}
 .hero-trust{animation-delay:.30s}
 @media(prefers-reduced-motion:reduce){.hero-copy>*,.hero-trust{animation:none}}
-/* Four figures with nothing between them read as one run-on line. A hairline
-   between each turns them into four things, which is what they are, and the
+/* Figures with nothing between them read as one run-on line. A hairline
+   between each turns them into three things, which is what they are, and the
    rule above now runs the width of the row rather than stopping wherever the
    last label happened to end. */
 .hero-trust{max-width:min(500px,42%);flex:1 1 auto;
@@ -464,20 +464,18 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
   .hero-trust{margin-top:clamp(18px,4vw,28px)}
   .badge-float{display:none}
   .hero .wrap{display:flex;flex-direction:column}
-  /* Four figures, four columns. Three orphaned the fourth on a row of its
-     own, and the copy no longer shares the band with an object, so there is
-     more room per figure here, not less. */
-  .hero-trust{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}}
-/* Four figures across three columns orphans the fourth on a row of its own.
-   Two by two is even, and there is room for it from the tablet down. */
-/* Two up. :last-child is the only exception the wide rule needs, because in a
-   row the last item IS the right-hand edge — in a two-column grid every even
-   item is, and the separator was hanging off the right of "14" and "24/7"
-   with nothing on the other side of it. */
-@media(max-width:880px){
-  .hero-trust{grid-template-columns:1fr 1fr;gap:18px 20px}
-  .hero-trust div:nth-child(2n){border-right:0;padding-right:0;margin-right:0}}
+  /* Three figures, three columns. It was four across four, and before that
+     four across two, because four divides badly into the widths a hero has to
+     survive. Three divides evenly into every one of them, so this is the last
+     rule the row needs — there is no fold below it. */
+  .hero-trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}}
+/* The gutter, not the column count, is what a phone runs out of. At 390 the
+   three tracks are 112px each and the separator was eating 32 of them, which
+   set "Building since" on two lines under a one-line figure. Halving it buys
+   the label its line back on all but the narrowest handsets, and where it
+   still wraps the grid keeps the three figures on one baseline. */
 @media(max-width:620px){
+  .hero-trust div{padding-right:11px;margin-right:11px}
   .badge-float{display:none}}
 /* A phone-width bleed used to live here, drawn for a cut-out object that has
    been through three replacements and is now gone: the hero is a full-bleed

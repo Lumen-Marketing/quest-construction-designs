@@ -667,6 +667,14 @@ export function home(c) {
       <span class="go" aria-hidden="true">&#8599;</span></span>
     </a>`).join('');
 
+  // A floor, not a total. Fourteen is how many trades have a page of their
+  // own, not how many Quest works in, and a bare count in a row of trust
+  // figures reads as the whole list. The plus is the figure's own <i>, set
+  // back to 55%, so it reads as part of the number rather than as punctuation
+  // after it. The city count used to stand here too; thirty-four is coverage,
+  // which the areas menu and the footer both already say.
+  const trades = `<div><b>${c.services.length}<i>+</i></b><span>Services</span></div>`;
+
   return `
 <section class="hero">
   ${grid(true)}
@@ -684,8 +692,7 @@ export function home(c) {
     <div class="hero-foot">
       <div class="hero-trust">
         <div><b>${c.site.foundingYear}</b><span>Building since</span></div>
-        <div><b>${c.services.length}</b><span>Services</span></div>
-        <div><b>${c.areas.areas.length}</b><span>Arizona cities</span></div>
+        ${trades}
         <div><b>${esc(c.site.availability)}</b><span>Reach us</span></div>
       </div>
       <div class="badge badge-float">

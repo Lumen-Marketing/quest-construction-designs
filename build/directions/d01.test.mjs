@@ -495,8 +495,16 @@ test('the home page teases three projects, each with a layout slot', () => {
 test('the hero states only facts drawn from the real content', () => {
   const html = renderPage({ mod: d01, key: 'home' });
   assert.match(html, /<b>2018<\/b><span>Building since<\/span>/);
-  assert.match(html, /<b>14<\/b><span>Services<\/span>/);
-  assert.match(html, new RegExp(`<b>${areas.length}</b><span>Arizona cities</span>`));
+  // Fourteen is the number of service pages, not the number of trades Quest
+  // works in, so the figure is a floor and says so.
+  assert.match(html, /<b>14<i>\+<\/i><\/b><span>Services<\/span>/);
+  // The city count came out: thirty-four is a coverage fact, and standing in
+  // a row of trust figures it was the smallest claim of the three it sat with.
+  assert.doesNotMatch(html, /Arizona cities<\/span>/);
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  // Three figures. The row is a grid on tablets down, and a track count that
+  // does not divide the figures leaves a hole or an orphan.
+  assert.doesNotMatch(css, /\.hero-trust\{grid-template-columns:repeat\(4/);
 });
 
 test('the LCP hero image is eager and preloaded, and only on the home page', () => {
