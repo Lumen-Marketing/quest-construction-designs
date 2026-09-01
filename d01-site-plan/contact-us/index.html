@@ -709,6 +709,93 @@
   rail.scrollLeft=Math.max(0,rail.scrollLeft+d);
 })();
 (function(){
+  // The gallery showcase: one frame large, the rest on a rail under it.
+  //
+  // Every thumbnail is a real fragment link to its figure, so with this script
+  // off the rail still works — the browser jumps to the figure. What the script
+  // buys is that the jump happens inside the viewer instead of dragging the
+  // whole document down to it, and that the rail knows which frame is up.
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var canDrift=matchMedia('(hover:hover) and (pointer:fine)').matches&&!reduce;
+  document.querySelectorAll('.showcase').forEach(function(sc){
+    var view=sc.querySelector('[data-view]'), rail=sc.querySelector('[data-rail]');
+    if(!view||!rail) return;
+    var shots=[].slice.call(view.children), thumbs=[].slice.call(rail.querySelectorAll('.thumb'));
+    if(!shots.length||thumbs.length!==shots.length) return;
+    var behavior=reduce?'auto':'smooth';
+
+    // Measured off bounding rects rather than offsetLeft: neither the viewer
+    // nor the rail is a positioned element, so offsetLeft is relative to the
+    // body and every sum comes out wrong by the page gutter.
+    function slide(el,box,target,centre){
+      var d=target.getBoundingClientRect().left-box.getBoundingClientRect().left;
+      var want=box.scrollLeft+d-(centre?(box.clientWidth-target.offsetWidth)/2:0);
+      box.scrollTo({left:Math.max(0,want),behavior:behavior});
+    }
+    function nearest(){
+      var c=view.scrollLeft+view.clientWidth/2, best=0, min=Infinity;
+      for(var i=0;i<shots.length;i++){
+        var r=shots[i].getBoundingClientRect(), v=view.getBoundingClientRect();
+        var mid=view.scrollLeft+(r.left-v.left)+r.width/2, d=Math.abs(mid-c);
+        if(d<min){min=d;best=i}
+      }
+      return best;
+    }
+    var at=0;
+    function mark(i,follow){
+      if(i===at&&thumbs[i].getAttribute('aria-current')==='true') return;
+      at=i;
+      thumbs.forEach(function(t,j){
+        if(j===i) t.setAttribute('aria-current','true'); else t.removeAttribute('aria-current');
+      });
+      if(follow) slide(null,rail,thumbs[i],true);
+    }
+    thumbs.forEach(function(t,i){
+      t.addEventListener('click',function(e){
+        e.preventDefault();
+        stop();
+        slide(null,view,shots[i],false);
+        mark(i,false);
+      });
+    });
+    var tick=null;
+    view.addEventListener('scroll',function(){
+      clearTimeout(tick);
+      tick=setTimeout(function(){mark(nearest(),true)},110);
+    },{passive:true});
+
+    // ---- the drift ----
+    // It moves so a visitor can see there is more than one frame; it stops for
+    // good the moment they do anything, which is the point of it moving at all.
+    // Never on a touch screen, where there is no hover to pause it with, and
+    // never when the machine has asked for less motion.
+    var raf=null, held=false, dead=!canDrift, seen=false;
+    function step(){
+      raf=null;
+      if(dead||held||!seen) return;
+      var max=rail.scrollWidth-rail.clientWidth;
+      if(max<4) return;
+      rail.scrollLeft=rail.scrollLeft>=max-1?0:rail.scrollLeft+0.28;
+      raf=requestAnimationFrame(step);
+    }
+    function run(){ if(!dead&&!held&&seen&&raf===null) raf=requestAnimationFrame(step); }
+    function stop(){ dead=true; if(raf!==null){cancelAnimationFrame(raf);raf=null} }
+    ['wheel','pointerdown','keydown'].forEach(function(ev){
+      rail.addEventListener(ev,stop,{passive:true});
+    });
+    rail.addEventListener('pointerenter',function(){held=true});
+    rail.addEventListener('pointerleave',function(){held=false;run()});
+    rail.addEventListener('focusin',stop);
+    if(!dead&&'IntersectionObserver' in window){
+      // Six rails on one page, and only one of them is ever on screen.
+      new IntersectionObserver(function(es){
+        es.forEach(function(e){ seen=e.isIntersecting; if(seen) run(); else stop2(); });
+      },{rootMargin:'80px'}).observe(rail);
+    }
+    function stop2(){ if(raf!==null){cancelAnimationFrame(raf);raf=null} }
+  });
+})();
+(function(){
   document.querySelectorAll('[data-copy]').forEach(function(b){
     b.addEventListener('click',async function(){
       var code=b.getAttribute('data-copy'), old=b.textContent;

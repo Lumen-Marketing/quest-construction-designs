@@ -9,6 +9,7 @@ const esc = (s) => String(s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;')
   .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
+const NEWLINE = new RegExp('\r?\n');
 const services = JSON.parse(readFileSync('content/services.json', 'utf8'));
 const areas = JSON.parse(readFileSync('content/areas.json', 'utf8')).areas;
 const groups = JSON.parse(readFileSync('content/service-groups.json', 'utf8')).groups;
@@ -1100,8 +1101,16 @@ test('no content block is capped in pixels inside a section that is not', () => 
   const capped = css.replace(/@media[^{]*\{/g, '').split('}')
     .filter((rule) => /max-width:(?:min\()?\d+px/.test(rule.split('{').slice(1).join('{')))
     .map((rule) => rule.split('{')[0].trim().split(/\r?\n/).pop().trim());
-  const stray = capped.filter((sel) => !/\.wrap|hero|subhero/.test(sel));
-  assert.deepEqual(stray, [], `a pixel cap crept back onto ${stray.join(', ')}`);
+  // A cap is only the bug when the block does not centre itself. That was the
+  // whole of the FAQ fault: 940px hard against the left edge of a 1280px wrap.
+  // A capped block with auto margins is a measure, which is legitimate.
+  const centred = css.replace(/@media[^{]*\{/g, '').split('}')
+    .filter((rule) => /margin-inline:auto|margin:[^;]* auto/.test(rule))
+    .map((rule) => rule.split('{')[0].trim().split(NEWLINE).pop().trim());
+  const stray = capped.filter((sel) => !/\.wrap|hero|subhero/.test(sel)
+    && !centred.includes(sel));
+  assert.deepEqual(stray, [],
+    `a pixel cap crept onto ${stray.join(', ')} without auto margins to centre it`);
 });
 
 // ---------------------------------------------------------------- viewports
@@ -1211,12 +1220,12 @@ test('the gallery is a sequence with the breaks in it written down', async () =>
   assert.deepEqual(staged, GALLERY, 'the flat gallery is not the stages in order');
   assert.equal(new Set(staged).size, staged.length, 'a frame is in two stages');
 
-  // justified() breaks a run into rows of three to five, so a stage whose
-  // count is not a sum of 3, 4 and 5 throws at build time. 1 and 2 are the
-  // counts that cannot, and a stage is easy to whittle down to two.
+  // Three is an editorial floor rather than a technical one now that the rows
+  // are gone: a stage with two frames in it is not a stage, it is two frames
+  // that belong in the one either side.
   for (const st of GALLERY_STAGES) {
     assert.ok(st.files.length >= 3,
-      `the ${st.slug} stage has ${st.files.length} frames and will not break into rows`);
+      `the ${st.slug} stage has only ${st.files.length} frames`);
     assert.ok(st.name && st.note, `the ${st.slug} stage has no heading or no note`);
   }
 
@@ -1225,10 +1234,23 @@ test('the gallery is a sequence with the breaks in it written down', async () =>
     assert.ok(html.includes(`id="stage-${st.slug}"`), `no ${st.slug} chapter`);
     assert.ok(html.includes(`href="#stage-${st.slug}"`), `no jump link to ${st.slug}`);
   }
-  // Every frame carries a visible caption, and it is hidden from a screen
-  // reader because the same words are already on the image as alt.
-  assert.equal((html.match(/class="galcap" aria-hidden="true"/g) || []).length,
+  // Every frame is in the large viewer at full size with its caption, and on
+  // the rail as a thumbnail. Both, because a viewer that swaps one <img>'s src
+  // would take seventy-four photographs out of the document.
+  assert.equal((html.match(/class="shotcap" aria-hidden="true"/g) || []).length,
     GALLERY.length, 'not every frame has a caption');
+  assert.equal((html.match(/class="shot" id="p-/g) || []).length, GALLERY.length);
+  assert.equal((html.match(/class="thumb"/g) || []).length, GALLERY.length);
+
+  // The thumbnail is a real fragment link to its figure, so the rail still
+  // works with the script off; and it is labelled, because its own image is
+  // decorative once the link says what it opens.
+  for (const st of GALLERY_STAGES) {
+    assert.ok(html.includes(`href="#p-${st.slug}-1"`), `no fragment link into ${st.slug}`);
+  }
+  assert.ok(html.includes('aria-label="Photograph 1 of'), 'the thumbnails are unlabelled');
+  assert.equal((html.match(/aria-current="true"/g) || []).length, GALLERY_STAGES.length,
+    'each stage should open on exactly one current frame');
   // The caption falls back to the alt text, so a photograph needs no note.
   assert.equal(caption('quest/hero.webp'), ALT['quest/hero.webp']);
 });

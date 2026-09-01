@@ -1622,42 +1622,58 @@ footer .brand img{height:38px}
   .galchap-note{justify-self:start;text-align:left}
 }
 
-.gal{position:relative;z-index:3;display:grid;gap:clamp(12px,1.6vw,18px)}
-.galrow{display:flex;gap:clamp(12px,1.6vw,18px)}
-.galrow figure{position:relative;margin:0;flex:var(--ar) 1 0;min-width:0;aspect-ratio:var(--ar);
-  border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh);background:var(--dark-2)}
-/* ---- the caption ----
-   Visible by default and hidden only where there is a pointer to reveal it
-   with. A touch device has no hover, so a caption that only appears on hover
-   is a caption it never gets; this way the fallback is the caption showing,
-   not the caption vanishing. aria-hidden on the element itself: the text is
-   the img's alt unless Quest has written a note, and a screen reader has had
-   the alt already. */
-.galcap{position:absolute;left:0;right:0;bottom:0;margin:0;padding:34px 18px 15px;
-  font-size:13px;line-height:1.4;color:var(--on-dark);text-wrap:pretty;
-  background:linear-gradient(180deg,transparent,rgba(12,11,9,.62) 42%,rgba(12,11,9,.88))}
-@media (hover:hover) and (pointer:fine){
-  .galcap{transform:translateY(101%);transition:transform .34s cubic-bezier(.2,.8,.2,1)}
-  .galrow figure:hover .galcap{transform:none}
-}
-@media(prefers-reduced-motion:reduce){.galcap{transition:none}}
-.gal img{display:block;width:100%;height:100%;object-fit:cover;
-  transition:transform .8s cubic-bezier(.2,.8,.2,1)}
-@media (hover:hover) and (pointer:fine){.galrow figure:hover img{transform:scale(1.06)}}
+/* ---- the showcase ----
+   One frame large with the rest on a rail beneath it. The viewer is a
+   scroll-snap track holding every frame in the stage at full size rather than
+   one <img> whose src gets swapped: the swap would take seventy-four
+   photographs out of the document, and they are what a crawler indexes. It
+   also means a swipe works on a touch screen without a line of script.
+   object-fit:contain, not cover. Half this library is portrait phone frames
+   and the point of the large view is to inspect one, which a crop defeats. The
+   dark ground is what makes the letterboxing read as a mount. */
+/* Capped and centred, which is a different thing from the FAQ list that was
+   capped and not centred. Half the library is portrait phone frames, and
+   contain in a box the full 1280 of the wrap floated a 450px photograph in the
+   middle of 830px of black. At 1000 the mount reads as a mount. */
+.showcase{position:relative;z-index:3;max-width:1000px;margin-inline:auto}
+.showcase-view{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;overscroll-behavior-x:contain;scrollbar-width:none;
+  border-radius:var(--r-lg);background:var(--dark);box-shadow:var(--sh-lg)}
+.showcase-view::-webkit-scrollbar{display:none}
+@media(prefers-reduced-motion:reduce){.showcase-view{scroll-behavior:auto}}
+.shot{flex:0 0 100%;scroll-snap-align:center;margin:0;min-width:0;
+  display:grid;grid-template-rows:1fr auto}
+.shot img{width:100%;height:clamp(260px,53vh,600px);object-fit:contain;
+  background:var(--dark)}
+.shotcap{padding:14px 20px 18px;margin:0;text-align:center;color:var(--on-dark-2);
+  font-size:13.5px;line-height:1.45;text-wrap:pretty;
+  border-top:1px solid rgba(243,239,230,.1)}
+
+/* The rail. Hidden scrollbar, snap, and a fade at the right edge that says the
+   frames carry on past it — the same three things the trade rail does. */
+.showcase-rail{margin-top:clamp(10px,1.2vw,15px);overflow-x:auto;scrollbar-width:none;
+  scroll-snap-type:x proximity;scroll-padding-inline:2px;-webkit-overflow-scrolling:touch;
+  -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent);
+          mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent)}
+.showcase-rail::-webkit-scrollbar{display:none}
+.showcase-track{display:flex;gap:clamp(7px,.8vw,11px);width:max-content;padding:3px}
+.thumb{flex:0 0 auto;scroll-snap-align:start;width:clamp(66px,7.4vw,102px);aspect-ratio:1;
+  border-radius:11px;overflow:hidden;background:var(--dark-2);
+  outline:2px solid transparent;outline-offset:2px;opacity:.5;
+  transition:opacity .25s ease,outline-color .25s ease}
+.thumb img{width:100%;height:100%;object-fit:cover}
+/* The frame that is up. Not a colour change on the picture — an outline round
+   it, because the pictures are already every colour. */
+.thumb[aria-current="true"]{opacity:1;outline-color:var(--acc)}
+@media (hover:hover) and (pointer:fine){.thumb:hover{opacity:1}}
+.thumb:focus-visible{outline-color:var(--acc);opacity:1}
+@media(prefers-reduced-motion:reduce){.thumb{transition:none}}
+
 @media(max-width:760px){
-  /* Rows of four are 80px tall on a phone. The row structure is dissolved with
-     display:contents and the frames re-flow as a square two-up, which is the
-     one arrangement that also ends flat. An odd frame at the end takes the
-     whole width rather than leaving a hole beside it. */
-  .gal{grid-template-columns:1fr 1fr}
-  .galrow{display:contents}
-  .galrow figure{aspect-ratio:1}
-  .gal.odd .galrow:last-child figure:last-child{grid-column:span 2;aspect-ratio:2}
-  /* Two-up, the frames are about 170px across. A caption on one is a block of
-     type too small to read, over the picture it is describing. The text is
-     still on the img as alt, where a screen reader gets it either way. */
-  .galcap{display:none}
   .galchap-h h3{gap:10px}
+  /* The rail's frames get smaller before the large one does: the large one is
+     the point of the component and the rail is how you get to it. */
+  .shotcap{padding:11px 15px 14px;font-size:12.5px}
   .galnav{gap:7px}
   .galnav a{padding:0 13px;font-size:12.5px}
 }

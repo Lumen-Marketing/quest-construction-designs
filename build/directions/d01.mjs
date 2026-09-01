@@ -2,12 +2,12 @@
 // cream, a hard-edged accent plane, a frameless cut-out object straddling the
 // boundary, and a floating badge card over the lot. Pill buttons, generous
 // radii, soft layered shadows.
-import { img, preloadImage, size } from '../lib/images.mjs';
+import { img, preloadImage } from '../lib/images.mjs';
 import { icon, socialIcon } from '../lib/icons.mjs';
 import { words, Words } from '../lib/html.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 import {
-  shot, shots, cardShot, bannerShot, pageShots, GALLERY, GALLERY_STAGES,
+  shot, cardShot, bannerShot, pageShots, GALLERY, GALLERY_STAGES,
   caption, HERO, OFFER_SHOTS,
   STORY, CONTACT,
   CLOSING, PROJECT_SHOTS, PERGOLA_SHOTS,
@@ -454,6 +454,93 @@ export function baseScript(c) {
   // chip flush against the screen edge instead of inside the gutter.
   var d=on.getBoundingClientRect().left-rail.getBoundingClientRect().left-14;
   rail.scrollLeft=Math.max(0,rail.scrollLeft+d);
+})();
+(function(){
+  // The gallery showcase: one frame large, the rest on a rail under it.
+  //
+  // Every thumbnail is a real fragment link to its figure, so with this script
+  // off the rail still works — the browser jumps to the figure. What the script
+  // buys is that the jump happens inside the viewer instead of dragging the
+  // whole document down to it, and that the rail knows which frame is up.
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var canDrift=matchMedia('(hover:hover) and (pointer:fine)').matches&&!reduce;
+  document.querySelectorAll('.showcase').forEach(function(sc){
+    var view=sc.querySelector('[data-view]'), rail=sc.querySelector('[data-rail]');
+    if(!view||!rail) return;
+    var shots=[].slice.call(view.children), thumbs=[].slice.call(rail.querySelectorAll('.thumb'));
+    if(!shots.length||thumbs.length!==shots.length) return;
+    var behavior=reduce?'auto':'smooth';
+
+    // Measured off bounding rects rather than offsetLeft: neither the viewer
+    // nor the rail is a positioned element, so offsetLeft is relative to the
+    // body and every sum comes out wrong by the page gutter.
+    function slide(el,box,target,centre){
+      var d=target.getBoundingClientRect().left-box.getBoundingClientRect().left;
+      var want=box.scrollLeft+d-(centre?(box.clientWidth-target.offsetWidth)/2:0);
+      box.scrollTo({left:Math.max(0,want),behavior:behavior});
+    }
+    function nearest(){
+      var c=view.scrollLeft+view.clientWidth/2, best=0, min=Infinity;
+      for(var i=0;i<shots.length;i++){
+        var r=shots[i].getBoundingClientRect(), v=view.getBoundingClientRect();
+        var mid=view.scrollLeft+(r.left-v.left)+r.width/2, d=Math.abs(mid-c);
+        if(d<min){min=d;best=i}
+      }
+      return best;
+    }
+    var at=0;
+    function mark(i,follow){
+      if(i===at&&thumbs[i].getAttribute('aria-current')==='true') return;
+      at=i;
+      thumbs.forEach(function(t,j){
+        if(j===i) t.setAttribute('aria-current','true'); else t.removeAttribute('aria-current');
+      });
+      if(follow) slide(null,rail,thumbs[i],true);
+    }
+    thumbs.forEach(function(t,i){
+      t.addEventListener('click',function(e){
+        e.preventDefault();
+        stop();
+        slide(null,view,shots[i],false);
+        mark(i,false);
+      });
+    });
+    var tick=null;
+    view.addEventListener('scroll',function(){
+      clearTimeout(tick);
+      tick=setTimeout(function(){mark(nearest(),true)},110);
+    },{passive:true});
+
+    // ---- the drift ----
+    // It moves so a visitor can see there is more than one frame; it stops for
+    // good the moment they do anything, which is the point of it moving at all.
+    // Never on a touch screen, where there is no hover to pause it with, and
+    // never when the machine has asked for less motion.
+    var raf=null, held=false, dead=!canDrift, seen=false;
+    function step(){
+      raf=null;
+      if(dead||held||!seen) return;
+      var max=rail.scrollWidth-rail.clientWidth;
+      if(max<4) return;
+      rail.scrollLeft=rail.scrollLeft>=max-1?0:rail.scrollLeft+0.28;
+      raf=requestAnimationFrame(step);
+    }
+    function run(){ if(!dead&&!held&&seen&&raf===null) raf=requestAnimationFrame(step); }
+    function stop(){ dead=true; if(raf!==null){cancelAnimationFrame(raf);raf=null} }
+    ['wheel','pointerdown','keydown'].forEach(function(ev){
+      rail.addEventListener(ev,stop,{passive:true});
+    });
+    rail.addEventListener('pointerenter',function(){held=true});
+    rail.addEventListener('pointerleave',function(){held=false;run()});
+    rail.addEventListener('focusin',stop);
+    if(!dead&&'IntersectionObserver' in window){
+      // Six rails on one page, and only one of them is ever on screen.
+      new IntersectionObserver(function(es){
+        es.forEach(function(e){ seen=e.isIntersecting; if(seen) run(); else stop2(); });
+      },{rootMargin:'80px'}).observe(rail);
+    }
+    function stop2(){ if(raf!==null){cancelAnimationFrame(raf);raf=null} }
+  });
 })();
 (function(){
   document.querySelectorAll('[data-copy]').forEach(function(b){
@@ -1103,60 +1190,6 @@ ${closingCta(c, 'Build with a team that answers the phone',
   `${c.site.positioning} — reachable ${c.site.availability}.`)}`;
 }
 
-// ---- justified rows -------------------------------------------------------
-// The gallery used to be a CSS `columns` masonry, and a masonry cannot end
-// flat: the browser pours the photographs down three columns and whichever
-// column draws the last tall frame overruns the other two. On this library —
-// thirty-seven portraits, eleven landscapes — that overrun measured about four
-// hundred pixels of empty cream under two of the columns.
-//
-// So the photographs are broken into rows instead, the way a picture editor
-// breaks them: every row is filled to the full measure, and within a row each
-// frame is given a flex-grow equal to its own aspect ratio. Widths then come
-// out proportional to the ratios, so every frame in the row resolves to the
-// same height, the row is flush left and flush right, and the last row is as
-// full as the first. Nothing is cropped and nothing is scaled by hand — the
-// browser does the arithmetic, at any width, from one number per photograph.
-//
-// Which photographs share a row is the only decision left, and it is made here
-// rather than by the browser because it needs to look at the whole sequence.
-// A row of k frames comes out (1 - (k-1) * gap) / sum-of-ratios tall as a
-// fraction of the measure, so the run is broken to keep that near TARGET —
-// exactly, by dynamic programming over the 49 frames, not greedily. Order is
-// preserved, which a masonry does not do either: the gallery reads slab,
-// framing, roof, dusk, in the order the jobs were built.
-const TARGET = 0.30;   // row height as a fraction of the measure — about 380px
-const GAPR = 0.014;    // the 18px gap, likewise — see .gal in the stylesheet
-const MINROW = 3;
-const MAXROW = 5;
-
-function justified(files) {
-  const r = files.map((f) => { const [w, h] = size(f); return w / h; });
-  const sum = [0];
-  r.forEach((x) => sum.push(sum[sum.length - 1] + x));
-  // The height a row of files[i..j) resolves to, as a fraction of the measure.
-  const height = (i, j) => (1 - (j - i - 1) * GAPR) / (sum[j] - sum[i]);
-
-  const cost = new Array(r.length + 1).fill(Infinity);
-  const from = new Array(r.length + 1).fill(-1);
-  cost[0] = 0;
-  for (let j = 1; j <= r.length; j++) {
-    for (let k = MINROW; k <= MAXROW; k++) {
-      const i = j - k;
-      if (i < 0 || cost[i] === Infinity) continue;
-      const d = height(i, j) - TARGET;
-      const c = cost[i] + d * d;
-      if (c < cost[j]) { cost[j] = c; from[j] = i; }
-    }
-  }
-  if (cost[r.length] === Infinity) {
-    throw new Error(`${files.length} photographs will not break into rows of ${MINROW}-${MAXROW}`);
-  }
-  const rows = [];
-  for (let j = r.length; j > 0;) { const i = from[j]; rows.unshift(files.slice(i, j)); j = i; }
-  return rows;
-}
-
 export function gallery(c) {
   const g = c.pages.gallery;
   return `${pageHero(c, {
@@ -1171,21 +1204,38 @@ export function gallery(c) {
       + `${GALLERY.length} frames from the ground to the last course of shingles.`)}
     <nav class="galnav rv" aria-label="Jump to a stage">${GALLERY_STAGES.map((st) =>
     `<a href="#stage-${st.slug}">${esc(st.name)} <span>${st.files.length}</span></a>`).join('')}</nav>
-    ${GALLERY_STAGES.map((st, i) => `
+    ${GALLERY_STAGES.map((st, i) => {
+    // One large frame at a time with the rest on a rail underneath. Every
+    // photograph is in the document at full size either way — the rail reuses
+    // the same file rather than a second crop, so a thumbnail costs a decode
+    // and not a download, and nothing is hidden from a crawler.
+    const n = st.files.length;
+    return `
     <div class="galchap" id="stage-${st.slug}">
       <div class="galchap-h rv">
         <h3><span class="galchap-n mono">${String(i + 1).padStart(2, '0')}</span>${esc(st.name)}</h3>
         <p class="galchap-note">${esc(st.note)}</p>
       </div>
-      <div class="gal${st.files.length % 2 ? ' odd' : ''}">${justified(st.files).map((row) =>
-    `<div class="galrow rv">${shots(...row).map(([f, alt]) => {
-      const [w, h] = size(f);
-      // aria-hidden: the caption is the alt text unless Quest has written a
-      // note, and a screen reader has already been given the alt.
-      return `<figure style="--ar:${(w / h).toFixed(4)}">${img(c, f, alt)}`
-        + `<figcaption class="galcap" aria-hidden="true">${esc(caption(f))}</figcaption></figure>`;
-    }).join('')}</div>`).join('')}</div>
-    </div>`).join('')}
+      <div class="showcase rv">
+        <div class="showcase-view" data-view>${st.files.map((f, j) => {
+      // aria-hidden on the caption: it is the img's alt unless Quest has
+      // written a note, and a screen reader has had the alt already.
+      const [, alt] = shot(f);
+      return `
+          <figure class="shot" id="p-${st.slug}-${j + 1}">${img(c, f, alt)}
+            <figcaption class="shotcap" aria-hidden="true">${esc(caption(f))}</figcaption>
+          </figure>`;
+    }).join('')}</div>
+        <div class="showcase-rail" data-rail>
+          <div class="showcase-track">${st.files.map((f, j) => `
+            <a class="thumb" href="#p-${st.slug}-${j + 1}"${j === 0 ? ' aria-current="true"' : ''}
+              aria-label="Photograph ${j + 1} of ${n}: ${esc(caption(f))}"
+              >${img(c, f, null, { decorative: true })}</a>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('')}
   </div>
 </section>
 
