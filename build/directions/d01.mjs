@@ -792,6 +792,17 @@ export function service(c) {
   </div>
 </section>` : '';
 
+  // The four stages come before the pitch. Someone who has landed on a trade
+  // page already knows they want the trade; what they do not know is what
+  // working with Quest looks like, and "why choose us" answers a question they
+  // have not asked yet. The process answers the one they have.
+  //
+  // The two blocks swapped position; the tones stayed where they were. The
+  // subhero and the tab strip under it are both dark, so a dark band third
+  // would read as one long dark run rather than as three things — and .steps
+  // was drawn on cream in the first place, which is why its discs are cream
+  // with an accent ring. The prose and the why-choose cards take the dark
+  // band instead, where the cards go from white-on-cream to white-on-dark.
   return `
 <section class="subhero">
   ${bannerPlate(c, bannerShot('service', s.slug))}
@@ -820,15 +831,10 @@ export function service(c) {
 
 <section class="sec cream">
   ${grid(false)}
-  <div class="wrap prose-wrap">
-    <div class="prose rv">
-      <h2>${esc(s.name)} Services by <span>${esc(c.site.name)}</span></h2>
-      ${s.intro.map((p) => `<p>${esc(p)}</p>`).join('')}
-    </div>
-    <div class="wcs">
-      <h3>Why choose ${esc(c.site.name)}?</h3>
-      <div class="wcgrid">${why}</div>
-    </div>
+  <div class="wrap">
+    ${shead('— How it runs', `Our Unique <span>${esc(s.name)}</span> Service Process`,
+      'Four stages, the same on every job, so you always know what happens next.')}
+    <div class="steps">${steps}</div>
   </div>
 </section>
 ${scope}
@@ -839,10 +845,15 @@ ${band(c, serviceShots(s.slug), '— On the job',
 
 <section class="sec dark">
   ${grid(true)}
-  <div class="wrap">
-    ${shead('— How it runs', `Our Unique <span>${esc(s.name)}</span> Service Process`,
-      'Four stages, the same on every job, so you always know what happens next.')}
-    <div class="steps">${steps}</div>
+  <div class="wrap prose-wrap">
+    <div class="prose rv">
+      <h2>${esc(s.name)} Services by <span>${esc(c.site.name)}</span></h2>
+      ${s.intro.map((p) => `<p>${esc(p)}</p>`).join('')}
+    </div>
+    <div class="wcs">
+      <h3>Why choose ${esc(c.site.name)}?</h3>
+      <div class="wcgrid">${why}</div>
+    </div>
   </div>
 </section>
 ${faq}

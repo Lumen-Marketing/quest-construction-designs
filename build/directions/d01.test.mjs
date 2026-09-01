@@ -1043,3 +1043,35 @@ test('the trade added after the recovery is a first-class page', async () => {
   const { icon } = await import('../lib/icons.mjs');
   assert.notEqual(icon('demolition'), icon('__none__'), 'demolition falls back to the house icon');
 });
+
+// Quest asked for the four stages above the pitch, and the reason it is worth
+// a test is the tones rather than the order: the subhero and the tab strip
+// under it are both dark, so whichever block lands first has to be light, and
+// a later edit that moves the sections as written blocks would put three dark
+// bands in a row.
+test('a service page runs the process before the pitch, and keeps alternating', () => {
+  const html = renderPage({ mod: d01, key: 'services/framing' });
+  const body = html.slice(html.indexOf('<main'));
+  const process = body.indexOf('How it runs');
+  const pitch = body.indexOf('Why choose');
+  assert.ok(process > 0 && pitch > 0, 'a service page lost one of the two blocks');
+  assert.ok(process < pitch, 'the pitch is back above the process');
+
+  // The tone belongs to the position, not to the block.
+  const sections = [...body.matchAll(/<section class="(sec [^"]*)"/g)].map((m) => m[1]);
+  const at = (i) => sections[i];
+  assert.equal(at(0), 'sec cream', 'the section under the dark subhero is dark too');
+  assert.ok(body.slice(0, process).includes('sec cream'), 'the process band is not on cream');
+  const darkStart = body.lastIndexOf('<section class="sec dark"', pitch);
+  assert.ok(darkStart > 0 && darkStart < pitch, 'the pitch is not on the dark band');
+  assert.ok(body.slice(darkStart, pitch).includes('prose-wrap'),
+    'the dark band is not the prose and why-choose block');
+
+  // .steps is drawn for cream — cream discs, an accent ring, a dark dashed
+  // connector. The overrides that restated all three for a dark ground are
+  // gone, so putting it back on dark would ship near-white on cream discs.
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  assert.doesNotMatch(css, /\.sec\.dark \.step/, 'a dead dark-process override came back');
+  assert.match(css, /\.sec\.dark \.prose p\{color:var\(--on-dark-2\)\}/,
+    'the prose has no dark-ground colour');
+});

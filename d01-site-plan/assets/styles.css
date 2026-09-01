@@ -1280,6 +1280,14 @@ footer .brand img{height:38px}
 .prose h2{font-size:clamp(26px,3.4vw,44px);font-weight:900;margin-bottom:22px}
 .prose h2 span{color:var(--acc-dim)}
 .prose p{color:var(--ink-2);margin-bottom:18px;font-size:clamp(14.5px,1.4vw,16.5px)}
+/* On a dark band, which is where the service pages run this block now. Only
+   the two colours that were set against cream need restating — the heading
+   takes --on-dark from .sec.dark, and the why-choose cards are white either
+   way, so their ink and their numeral are already right. --acc-dim is the
+   accent mixed toward the ink for a cream ground and it goes muddy on dark;
+   --acc-on-dark is the same accent lifted the other way. */
+.sec.dark .prose h2 span{color:var(--acc-on-dark)}
+.sec.dark .prose p{color:var(--on-dark-2)}
 .wcs h3{font-size:clamp(18px,2vw,23px);font-weight:800;margin-bottom:20px}
 .wcgrid{display:grid;gap:12px}
 .wc{position:relative;background:#fff;border-radius:var(--r);padding:20px 22px;
@@ -1517,17 +1525,12 @@ footer .brand img{height:38px}
   .arealinks a:hover{background:var(--acc);color:var(--on-acc);translate:0 -3px}
 }
 
-/* ---- process band on dark ----
-   The mockup only ever placed .steps on cream, so its numerals inherit the
-   section colour: on a dark section that put near-white text on a cream disc
-   and dark body copy on near-black. Both need restating here. */
-.sec.dark .step .n{color:var(--ink)}
-.sec.dark .step p{color:var(--on-dark-2)}
-.sec.dark .steps::before{
-  background:repeating-linear-gradient(90deg,rgba(243,239,230,.22) 0 8px,transparent 8px 16px)}
-@media (hover:hover) and (pointer:fine){
-  .sec.dark .step:hover .n{background:var(--acc)}
-}
+/* The four .sec.dark overrides that used to live here are gone with the band
+   they served. The process moved to the cream section under the subhero, which
+   is the ground .steps was drawn on — cream discs with an accent ring, a dark
+   dashed connector — so the base rules are the whole treatment again. If it
+   ever goes back on dark, the numerals and the connector need restating: on a
+   dark section the disc took near-white text and the copy went dark-on-black. */
 
 /* ---- footer call button ----
    `.fg a` is one class plus an element (0,1,1) and outranks `.btn` (0,1,0)
