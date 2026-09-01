@@ -1,0 +1,144 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>viewport sweep</title>
+<style>html,body{margin:0}iframe{border:0;display:block}</style>
+<body>
+<iframe id="f"></iframe>
+<pre id="probe-result" hidden></pre>
+<script>
+// Chrome will not open a window narrower than 500px, so the phone widths are
+// driven through an iframe instead: an iframe has its own viewport, and media
+// queries inside it answer to the iframe's width, which is exactly what a
+// narrow window would give. --allow-file-access-from-files lets this page read
+// the frame's document back out.
+var PAGES = window.__PAGES__;
+var WIDTH = window.__WIDTH__;
+var HEIGHT = window.__HEIGHT__ || 900;
+var frame = document.getElementById('f');
+frame.style.width = WIDTH + 'px';
+frame.style.height = HEIGHT + 'px';
+
+function measure(win) {
+  var doc = win.document;
+  var W = win.innerWidth;
+  var out = {
+    innerWidth: W,
+    scrollWidth: Math.max(doc.documentElement.scrollWidth, doc.body.scrollWidth),
+    overflow: [], smallTargets: [], smallText: [], clipped: [],
+  };
+  function label(el) {
+    var s = el.tagName.toLowerCase();
+    if (el.id) s += '#' + el.id;
+    var c = el.getAttribute('class');
+    if (c) s += '.' + c.trim().split(/\s+/).slice(0, 3).join('.');
+    return s;
+  }
+  // A component that scrolls sideways on purpose. Anything inside one is
+  // allowed to be wider than the viewport; that is what it is for.
+  function inScroller(el) {
+    for (var n = el; n && n !== doc.body; n = n.parentElement) {
+      var cs = win.getComputedStyle(n);
+      if (cs.overflowX === 'auto' || cs.overflowX === 'scroll'
+          || cs.overflowX === 'hidden') return true;
+    }
+    return false;
+  }
+  // Whether anything between this element and the body actually cuts content
+  // off, rather than letting it paint outside its box.
+  function clipsSomewhere(el) {
+    for (var n = el; n && n !== doc.body; n = n.parentElement) {
+      var o = win.getComputedStyle(n);
+      if (/hidden|clip|scroll|auto/.test(o.overflowX)) return true;
+    }
+    return false;
+  }
+  function hiddenFromAT(el) {
+    for (var n = el; n && n !== doc.body; n = n.parentElement) {
+      if (n.getAttribute && n.getAttribute('aria-hidden') === 'true') return true;
+    }
+    return false;
+  }
+
+  var all = doc.querySelectorAll('body *');
+  for (var i = 0; i < all.length; i++) {
+    var el = all[i], cs = win.getComputedStyle(el);
+    if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+    var r = el.getBoundingClientRect();
+    if (r.width === 0 && r.height === 0) continue;
+
+    if ((r.right > W + 1 || r.left < -1) && !inScroller(el)) {
+      out.overflow.push({ el: label(el), l: Math.round(r.left),
+        rt: Math.round(r.right), w: Math.round(r.width) });
+    }
+    // Text wider than its own box AND inside something that cuts it off: a
+    // long word, an email, a URL. Without the clipping-ancestor test this also
+    // reports every rotated pseudo-element whose painted bounds exceed its
+    // layout box — the nav caret is 6px square rotated 45deg, so it reads 3px
+    // wider than its button and is not clipped at all.
+    if (el.children.length === 0 && el.scrollWidth > el.clientWidth + 1
+        && (el.textContent || '').trim().length > 0
+        && clipsSomewhere(el)) {
+      out.clipped.push({ el: label(el), sw: el.scrollWidth, cw: el.clientWidth,
+        t: (el.textContent || '').trim().slice(0, 40) });
+    }
+
+    var tag = el.tagName, role = el.getAttribute('role');
+    var interactive = tag === 'A' || tag === 'BUTTON' || tag === 'SUMMARY'
+      || tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA'
+      || role === 'button';
+    if (interactive && !hiddenFromAT(el) && el.className !== 'skip-link') {
+      var p = el.parentElement;
+      var inline = p && /^(P|LI|SPAN|EM|STRONG|SMALL|H1|H2|H3|B)$/.test(p.tagName)
+        && cs.display.indexOf('inline') === 0;
+      if (!inline && (r.height < 44 || r.width < 44)) {
+        out.smallTargets.push({ el: label(el), w: Math.round(r.width),
+          h: Math.round(r.height) });
+      }
+    }
+
+    var fs = parseFloat(cs.fontSize);
+    if (fs && fs < 11.5 && el.children.length === 0 && !hiddenFromAT(el)
+        && (el.textContent || '').trim().length > 12) {
+      out.smallText.push({ el: label(el), px: Math.round(fs * 10) / 10 });
+    }
+  }
+  function dedupe(list) {
+    var seen = {}, o = [];
+    for (var i = 0; i < list.length; i++) {
+      if (seen[list[i].el]) continue;
+      seen[list[i].el] = 1; o.push(list[i]);
+    }
+    return o;
+  }
+  out.overflow = dedupe(out.overflow).slice(0, 20);
+  out.smallTargets = dedupe(out.smallTargets).slice(0, 20);
+  out.smallText = dedupe(out.smallText).slice(0, 20);
+  out.clipped = dedupe(out.clipped).slice(0, 20);
+  return out;
+}
+
+var results = {};
+var i = 0;
+function next() {
+  if (i >= PAGES.length) {
+    var pre = document.getElementById('probe-result');
+    pre.textContent = JSON.stringify(results);
+    pre.removeAttribute('hidden');
+    document.title = 'done';
+    return;
+  }
+  var page = PAGES[i++];
+  frame.onload = function () {
+    setTimeout(function () {
+      try {
+        results[page] = measure(frame.contentWindow);
+      } catch (e) {
+        results[page] = { error: String(e) };
+      }
+      next();
+    }, 250);
+  };
+  frame.src = page;
+}
+next();
+</script>

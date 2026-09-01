@@ -1,0 +1,84 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>bleed + short-viewport sweep</title>
+<style>html,body{margin:0}iframe{border:0;display:block}</style>
+<body>
+<iframe id="f"></iframe>
+<pre id="probe-result" hidden></pre>
+<script>
+// The main sweep excuses anything inside a component that clips, because a
+// section with overflow:hidden is how the grid overlays and the photographic
+// bleeds are drawn. That excuse also hides real content that has been cut off,
+// so this pass reports every one of them with the ancestor doing the cutting,
+// to be read rather than counted.
+var PAGES = window.__PAGES__;
+var frame = document.getElementById('f');
+frame.style.width = window.__WIDTH__ + 'px';
+frame.style.height = window.__HEIGHT__ + 'px';
+
+function label(el) {
+  var s = el.tagName.toLowerCase();
+  var c = el.getAttribute && el.getAttribute('class');
+  if (c) s += '.' + c.trim().split(/\s+/).slice(0, 2).join('.');
+  return s;
+}
+
+function measure(win) {
+  var doc = win.document, W = win.innerWidth, H = win.innerHeight;
+  var out = { w: W, h: H,
+    scrollWidth: Math.max(doc.documentElement.scrollWidth, doc.body.scrollWidth),
+    bleed: [], overlap: [] };
+  var all = doc.querySelectorAll('body *');
+  for (var i = 0; i < all.length; i++) {
+    var el = all[i], cs = win.getComputedStyle(el);
+    if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+    var r = el.getBoundingClientRect();
+    if (r.width === 0 && r.height === 0) continue;
+
+    if (r.right > W + 1 || r.left < -1) {
+      var clipper = null;
+      for (var n = el.parentElement; n && n !== doc.body; n = n.parentElement) {
+        if (/hidden|clip|scroll|auto/.test(win.getComputedStyle(n).overflowX)) {
+          clipper = label(n); break;
+        }
+      }
+      // How much of it is outside the window. A decorative plate leaning off
+      // the edge is meant to; a paragraph is not.
+      var lost = Math.round(Math.max(0, r.right - W) + Math.max(0, -r.left));
+      var text = (el.textContent || '').trim();
+      out.bleed.push({ el: label(el), lost: lost, w: Math.round(r.width),
+        clipper: clipper, hasText: text.length > 0 && el.children.length === 0,
+        t: text.slice(0, 30) });
+    }
+  }
+  // Dedupe on the element label plus its clipper.
+  var seen = {}, keep = [];
+  for (var j = 0; j < out.bleed.length; j++) {
+    var k = out.bleed[j].el + '|' + out.bleed[j].clipper;
+    if (seen[k]) continue;
+    seen[k] = 1; keep.push(out.bleed[j]);
+  }
+  out.bleed = keep.slice(0, 30);
+  return out;
+}
+
+var results = {}, i = 0;
+function next() {
+  if (i >= PAGES.length) {
+    var pre = document.getElementById('probe-result');
+    pre.textContent = JSON.stringify(results);
+    pre.removeAttribute('hidden');
+    return;
+  }
+  var page = PAGES[i++];
+  frame.onload = function () {
+    setTimeout(function () {
+      try { results[page] = measure(frame.contentWindow); }
+      catch (e) { results[page] = { error: String(e) }; }
+      next();
+    }, 250);
+  };
+  frame.src = page;
+}
+next();
+</script>

@@ -89,6 +89,14 @@
   --striph:56px;
 }
 *{box-sizing:border-box}
+/* iOS Safari inflates the text of a wide block when a phone is turned to
+   landscape, on its own initiative and by a factor it picks. The site is
+   otherwise sized in clamps against the viewport, so an inflated body face is
+   the one thing that can push a laid-out line past its box on a device this
+   sweep cannot open: Chrome does not do it, so no width in the ladder below
+   would ever catch it. Pinning it to 100% turns the behaviour off and changes
+   nothing anywhere else. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{margin:0;background:var(--cream);color:var(--ink);
   font:400 16px/1.62 'Archivo','Helvetica Neue',Arial,sans-serif;overflow-x:hidden}
 img{display:block;max-width:100%}
@@ -490,7 +498,13 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 .strip .strip-i,.strip .d{font-family:'JetBrains Mono',monospace;font-size:12px;
   letter-spacing:.16em;text-transform:uppercase;padding:0 24px;white-space:nowrap}
 .strip .d{color:var(--acc-on-dark)}
-.strip-i{color:inherit;text-decoration:none;transition:color .25s ease}
+/* The strip is 56px tall and the link inside it was 19px — a line box centred
+   in a band with 37px of dead space around it. The row already stops moving
+   under a pointer so that these can be clicked; this is the other half of
+   that, and it costs nothing, because the 44px sits inside the 56px the strip
+   already occupies. */
+.strip-i{color:inherit;text-decoration:none;transition:color .25s ease;
+  display:inline-flex;align-items:center;min-height:44px}
 .strip-i:hover,.strip-i:focus-visible{color:var(--acc-on-dark);
   text-decoration:underline;text-underline-offset:5px}
 .strip-i:focus-visible{outline:2px solid var(--acc-on-dark);outline-offset:3px;border-radius:2px}
@@ -1502,14 +1516,21 @@ footer .brand img{height:38px}
    at 1280, which is what an accordion row is; the answer inside still sets to
    78ch, because a measure belongs on the text and not on the box around it. */
 .faqlist{position:relative;z-index:3;display:grid;gap:12px}
-.faqlist details{background:#fff;border-radius:var(--r);padding:20px 24px;box-shadow:var(--sh)}
+/* The padding is on the summary, not on the details around it. A <summary> is
+   the only part of a <details> that toggles, so with the padding on the parent
+   the card drew a 64px-tall button of which the middle 24px responded to a tap
+   and the 20px above and below did nothing. Closed, the box measures exactly
+   what it did before; what changed is that all of it is now the control. */
+.faqlist details{background:#fff;border-radius:var(--r);box-shadow:var(--sh)}
 .faqlist summary{font-weight:800;cursor:pointer;list-style:none;font-size:clamp(15px,1.5vw,18px);
+  padding:20px 24px;
   display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
 .faqlist summary::-webkit-details-marker{display:none}
 .faqlist summary::after{content:"+";font-weight:500;color:var(--acc-dim);flex:0 0 auto;
   font-size:22px;line-height:1;transition:transform .25s ease}
 .faqlist details[open] summary::after{transform:rotate(45deg)}
-.faqlist details p{margin:14px 0 0;color:var(--ink-2);font-size:14.5px;max-width:78ch}
+.faqlist details p{margin:0;padding:0 24px 20px;color:var(--ink-2);font-size:14.5px;
+  max-width:78ch}
 
 /* ---- service-area local notes ---- */
 .localnotes{background:var(--dark);color:var(--on-dark);border-radius:var(--r-lg);
@@ -1628,7 +1649,22 @@ footer .brand img{height:38px}
    is the size that fills the measure whatever the word turns out to be, which
    is what a fixed clamp cannot do: it either wraps "FRAMING TO FINISH" or
    wastes half the line on "DETAIL SHOTS". */
-.bigband{--big:clamp(38px,calc(118vw / var(--len,12)),190px);overflow:hidden}
+/* The word is sized to fill the band, so it has to be measured against the
+   band and not against the window. It was `118vw / --len`, which tracks the
+   viewport past the point where the wrap stops growing: above about 1800px the
+   wrap is still 1280 and the word kept widening, so on a large monitor
+   "DETAIL SHOTS" ran 1374px inside a 1280px box and overflow:hidden took a
+   letter off each end. The 38px floor did the same thing at the other end —
+   below about 420px it overrode the fit and "FRAMING TO FINISH" came out 379px
+   wide in a 276px band.
+   min(100vw,--maxw) less the two page margins IS the band's width, and 1.327
+   is the old constant re-expressed against it: at 1400, where the two agree,
+   the size is unchanged to within a tenth of a pixel, and everywhere else it
+   is within 3.5% of what it was. The floor is the smallest this reads at as a
+   ghost behind the tiles, and now it only engages under about 330px. */
+.bigband{--big:clamp(24px,
+  calc(1.327 * (min(100vw, var(--maxw)) - 2 * var(--m)) / var(--len,12)),190px);
+  overflow:hidden}
 .bigband .eyebrow{color:var(--acc-on-dark);margin:0 0 clamp(10px,1.4vw,18px);
   position:relative;z-index:3}
 .bigband h2.bigword{position:relative;z-index:1;margin:0;text-align:center;white-space:nowrap;
@@ -1888,6 +1924,10 @@ h1,h2,h3,h4{overflow-wrap:break-word}
      phone. Nothing here is display type; it is all labelling. */
   .mono,.pill,.figs .f span,.hero-trust div span,.badge span,.svc .go,
   .fg h2,.smap h2,.crumbs,.eyebrow,.localcall span,.citycard .go,
+  /* The two grouped-menu headings were written after this list and never
+     joined it, so the footer's valley and trade labels stayed at 10px on a
+     phone — the exact size the note above says does not work there. */
+  .fgrp-h,.dropgrp-h,
   .fbar,.note{font-size:11.5px}
   .strip span{font-size:12px}
   /* The band under the hero scrolls its own text past at 36s; on a narrow

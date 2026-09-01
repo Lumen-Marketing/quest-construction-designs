@@ -1103,3 +1103,63 @@ test('no content block is capped in pixels inside a section that is not', () => 
   const stray = capped.filter((sel) => !/\.wrap|hero|subhero/.test(sel));
   assert.deepEqual(stray, [], `a pixel cap crept back onto ${stray.join(', ')}`);
 });
+
+// ---------------------------------------------------------------- viewports
+// Every one of these came out of rendering all 17 page kinds in headless
+// Chrome at 27 widths from 320 to 2560 and at 17 real device geometries,
+// portrait and landscape, and reading what left the viewport. They are pinned
+// here because the stylesheet is the only place they can regress and none of
+// them shows up in the built HTML.
+
+test('type that is sized to fill a band is measured against the band', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  const rule = /\.bigband\{[^}]*\}/.exec(css);
+  assert.ok(rule, 'no rule for the big-word band');
+  // Sized off the raw viewport, it kept growing after the wrap stopped: at
+  // 1920 the word ran 1374px inside a 1280px box and overflow:hidden took a
+  // letter off each end. The wrap's own width is the only correct input.
+  assert.match(rule[0], /min\(100vw, ?var\(--maxw\)\)/,
+    'the display word is sized against the window rather than against the wrap');
+  assert.doesNotMatch(rule[0], /calc\(118vw/, 'the viewport-relative sizing is back');
+  // And the floor has to be low enough that the longest word still fits the
+  // narrowest phone: 17 characters in the 276px a 320px screen leaves.
+  const floor = Number(/clamp\((\d+)px/.exec(rule[0])[1]);
+  assert.ok(floor <= 27, `a ${floor}px floor overflows a 320px screen`);
+});
+
+test('the page is pinned against the browser resizing its own text', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  // iOS Safari inflates text in landscape on its own initiative. No width in
+  // a Chrome sweep can catch it, so it is pinned rather than measured.
+  assert.match(css, /html\{[^}]*-webkit-text-size-adjust:100%/);
+  assert.match(css, /html\{[^}]*[^-]text-size-adjust:100%/);
+});
+
+test('a control is as big as the box it draws', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  // A <summary> is the only part of a <details> that toggles. With the padding
+  // on the details, the FAQ drew a 64px card whose middle 24px answered a tap.
+  const details = /\.faqlist details\{[^}]*\}/.exec(css);
+  assert.ok(details, 'no rule for the FAQ card');
+  assert.doesNotMatch(details[0], /padding/,
+    'the padding is back on the card instead of on the control inside it');
+  assert.match(css, /\.faqlist summary\{[^}]*padding:20px 24px/);
+
+  // The marquee row is 56px tall and its links were a 19px line box in the
+  // middle of it.
+  assert.match(css, /\.strip-i\{[^}]*min-height:44px/);
+});
+
+test('the small mono labels are all bumped on a phone, not just the old ones', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  // Anchored on the selector list itself: there are five max-width:620px
+  // blocks in the file, and matching on the breakpoint alone finds the wrong
+  // one and passes for the wrong reason.
+  const bump = /\.mono,\.pill,[\s\S]*?font-size:11\.5px\}/.exec(css);
+  assert.ok(bump, 'no phone bump for the mono labels');
+  // Both grouped-menu headings were written after this list and missed it, so
+  // they stayed at 10px on a phone — the size the rule exists to fix.
+  for (const sel of ['.fgrp-h', '.dropgrp-h']) {
+    assert.ok(bump[0].includes(sel), `${sel} is still 10px on a phone`);
+  }
+});
