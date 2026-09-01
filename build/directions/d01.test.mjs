@@ -1163,3 +1163,41 @@ test('the small mono labels are all bumped on a phone, not just the old ones', (
     assert.ok(bump[0].includes(sel), `${sel} is still 10px on a phone`);
   }
 });
+
+// Quest went Areas -> a city -> a service and landed on the general trade
+// page every time. The grid on a city page is headed "Construction Services in
+// Mesa, AZ" and the 190 pages written for a trade in a city were reachable
+// only from a text list below it, which is a route nobody takes.
+test('a service card on a city page goes to the page written for that city', async () => {
+  const { siteProfile } = await import('../lib/profile.mjs');
+  const areasFor = JSON.parse(readFileSync('content/service-areas.json', 'utf8'));
+  const local = (trade, city) => Boolean(areasFor[trade] && areasFor[trade][city]);
+
+  for (const citySlug of ['mesa-az', 'phoenix-az', 'carefree-az']) {
+    const html = renderPage({ mod: d01, key: `service-areas/${citySlug}`,
+      profile: siteProfile });
+    const grid = html.slice(html.indexOf('<section class="sec dark"'));
+    const cards = grid.slice(0, grid.indexOf('</section>'));
+    let localCards = 0;
+    for (const s of services) {
+      const want = local(s.slug, citySlug)
+        ? `services/${s.slug}/${citySlug}/index.html`
+        : `services/${s.slug}/index.html`;
+      assert.ok(cards.includes(`href="../../${want}"`),
+        `${citySlug}: the ${s.slug} card does not point at ${want}`);
+      if (local(s.slug, citySlug)) localCards += 1;
+    }
+    // And the card says where it goes rather than "Learn more".
+    const city = areas.find((a) => a.slug === citySlug).city;
+    assert.equal((cards.match(new RegExp(`>In ${city} <i`, 'g')) || []).length,
+      localCards, `${citySlug}: the local cards are not labelled with the city`);
+  }
+
+  // The home page and the services hub carry the same component with no city
+  // behind it, and must still point at the general pages.
+  for (const [key, profile] of [['home', null], ['services', siteProfile]]) {
+    const html = renderPage({ mod: d01, key, ...(profile ? { profile } : {}) });
+    assert.doesNotMatch(html, /class="go" href="[^"]*services\/[a-z-]+\/[a-z-]+-az\//,
+      `${key} sends a service card to a city page`);
+  }
+});

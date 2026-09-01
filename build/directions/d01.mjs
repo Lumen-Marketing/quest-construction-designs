@@ -112,15 +112,30 @@ const band = (c, pairs, eyebrow, heading, lede = '', cls = 'sec cream') => `
 // breaks its lower edge the way the phone badge breaks the hero photograph.
 // That overlap is the whole point — it is what turns two rectangles into a
 // stack, and it is what the empty half of the old card was waiting for.
-const svcCards = (c, cta) => c.services.map((s, i) => `
+// @param area  the city whose page this grid is on, if it is on one.
+const svcCards = (c, cta, area) => c.services.map((s, i) => {
+  // On a city page the grid is headed "Construction Services in Mesa, AZ" and
+  // every card used to land on the general trade page — the one page that does
+  // not mention Mesa. Where Quest has written this trade for this city, the
+  // card goes to the page written for the pair, and says so instead of saying
+  // "Learn more". Where it has not, it still goes to the general page, which is
+  // the honest destination: there is nothing local to read yet.
+  // c.cityServices, not just the content: the ten demo directions read the
+  // same service-areas file but render none of those pages, so the content
+  // alone would have them linking thirty-four URLs that do not exist.
+  const local = area && c.cityServices && c.serviceAreas?.[s.slug]?.[area.slug];
+  const href = c.url(local ? `services/${s.slug}/${area.slug}` : `services/${s.slug}`);
+  return `
     <article class="svc rv${i === 4 ? ' svc--acc' : ''}">
       <span class="svcshot">${img(c, ...cardShot(s.slug))}</span>
       <span class="ic">${icon(s.slug)}</span>
       <h3>${esc(s.name)}</h3>
       <p>${esc(s.shortDesc)}</p>
-      <a class="go" href="${c.url(`services/${s.slug}`)}">${esc(cta)} <i aria-hidden="true">&#8599;</i></a>
+      <a class="go" href="${href}">${
+  local ? `In ${esc(area.city)}` : esc(cta)} <i aria-hidden="true">&#8599;</i></a>
       <span class="n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
-    </article>`).join('');
+    </article>`;
+}).join('');
 
 // The one line of copy on the site that is furniture rather than content: the
 // label on the accent bar. It lives here because it belongs to the component,
@@ -908,7 +923,7 @@ export function area(c) {
   const fill = (s) => esc(raw(s));
   const local = c.areasLocal[a.slug];
 
-  const cards = svcCards(c, 'Learn more');
+  const cards = svcCards(c, 'Learn more', a);
 
   const others = c.areas.areas.filter((x) => x.slug !== a.slug).map((x) =>
     `<a href="${c.url(`service-areas/${x.slug}`)}">${esc(x.name)}</a>`).join('');
