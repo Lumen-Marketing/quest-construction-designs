@@ -7,7 +7,7 @@ import { icon, socialIcon } from '../lib/icons.mjs';
 import { words, Words } from '../lib/html.mjs';
 import { scriptMap } from '../lib/palette.mjs';
 import {
-  shot, cardShot, bannerShot, pageShots, GALLERY, GALLERY_STAGES,
+  shot, cardShot, bannerShot, pageShots, GALLERY, GALLERY_TRADES,
   caption, HERO, OFFER_SHOTS,
   STORY, CONTACT,
   CLOSING, PROJECT_SHOTS, PERGOLA_SHOTS,
@@ -1383,12 +1383,13 @@ export function gallery(c) {
 <section class="sec cream">
   ${grid(false)}
   <div class="wrap">
-    ${shead('— From Quest projects', 'How a Job <span>Goes Up</span>',
-      `Every photograph here is Quest's own, and they run in the order the work does: `
-      + `${GALLERY.length} frames from the ground to the last course of shingles.`)}
-    <nav class="galnav rv" aria-label="Jump to a stage">${GALLERY_STAGES.map((st) =>
-    `<a href="#stage-${st.slug}">${esc(st.name)} <span>${st.files.length}</span></a>`).join('')}</nav>
-    ${GALLERY_STAGES.map((st, i) => {
+    ${shead('— From Quest projects', 'The Work, <span>Trade by Trade</span>',
+      `Every photograph here is Quest's own, filed under the trade that did the work: `
+      + `${GALLERY.length} frames across ${words(GALLERY_TRADES.length)} trades. `
+      + `The trades with no photograph yet are not listed, rather than listed empty.`)}
+    <nav class="galnav rv" aria-label="Jump to a trade">${GALLERY_TRADES.map((t) =>
+    `<a href="#trade-${t.slug}">${esc(t.name)} <span>${t.files.length}</span></a>`).join('')}</nav>
+    ${GALLERY_TRADES.map((st, i) => {
     // One large frame at a time with the rest on a rail underneath. Every
     // photograph is in the document at full size either way — the rail reuses
     // the same file rather than a second crop, so a thumbnail costs a decode
@@ -1400,6 +1401,9 @@ export function gallery(c) {
     // end of it. The rail is the full 1280 of the wrap, the same width as the
     // frame above it, against a 190px thumbnail and its margin — so seven
     // frames fill it, and the short stages take a third copy to get there.
+    // A trade with one photograph gets no rail: there is nothing to move
+    // between, and the copy count below would print that one frame eight
+    // times to fill the width.
     const copies = Math.max(2, Math.ceil(7 / n) + 1);
     const shift = `${(-100 / copies).toFixed(4)}%`;
     // One set passes in n * 2.5s, so a frame crosses the rail at the same
@@ -1417,9 +1421,10 @@ export function gallery(c) {
               >${img(c, f, null, { decorative: true })}</a>`;
     }).join('')).join('');
     return `
-    <div class="galchap" id="stage-${st.slug}">
+    <div class="galchap" id="trade-${st.slug}">
       <div class="galchap-h rv">
-        <h3><span class="galchap-n mono">${String(i + 1).padStart(2, '0')}</span>${esc(st.name)}</h3>
+        <h3><span class="galchap-n mono">${String(i + 1).padStart(2, '0')}</span><a
+          href="${c.url('services/' + st.slug)}">${esc(st.name)}</a></h3>
         <p class="galchap-note">${esc(st.note)}</p>
       </div>
       <div class="showcase rv">
@@ -1442,10 +1447,10 @@ export function gallery(c) {
             </figcaption>
           </figure>`;
     }).join('')}</div>
-        <div class="showcase-rail" data-rail>
+        ${n === 1 ? '' : `<div class="showcase-rail" data-rail>
           <div class="showcase-track" style="--shift:${shift};--dur:${dur}">${rail}
           </div>
-        </div>
+        </div>`}
       </div>
     </div>`;
   }).join('')}

@@ -290,140 +290,184 @@ export const TRADES = [
   ['quest/spare.webp', 'Interiors', 'Drywall through finish'],
 ];
 
-// The gallery, as a walk through a job rather than as a dump of the camera
-// roll. It was already in this order — ground, slab, framing, sheathing, roof,
-// finished — but it was one flat run of seventy-five frames and nothing on the
-// page said so, so it read as the dump it was ordered not to be. The stages are
-// declared now, which is the only difference: same photographs, same sequence,
-// with the breaks written down.
+// The gallery, filed under the trade that did the work.
 //
-// A stage's count has to be expressible as a sum of 3, 4 and 5 or justified()
-// cannot break it into rows. Five is the smallest that works.
-export const GALLERY_STAGES = [
-  {
-    slug: 'ground',
-    name: 'Ground and slab',
-    note: 'Footings cut beside what is already standing, the pad poured and '
-      + 'floated, and the first lumber stacked on it.',
-    files: [
-      'quest/footings-excavator.webp',
-      'quest/slab-poured.webp',
-      'quest/slab-blockwall.webp',
-      'quest/slab-lumber.webp',
-      'quest/slab-walls.webp',
-    ],
-  },
-  {
-    slug: 'framing',
-    name: 'Framing',
-    note: 'Walls braced and standing, and the sun moving across them from one '
-      + 'end of the day to the other.',
-    files: [
-      'quest/framing-braced.webp',
-      'quest/framing-patio.webp',
-      'quest/framing-slab.webp',
-      'quest/framing-walls.webp',
-      'quest/framing-long-wall.webp',
-      'quest/framing-palms.webp',
-      'quest/framing-block.webp',
-      'quest/framing-court.webp',
-      'quest/framing-progress.webp',
-      'quest/framing-wide.webp',
-      'quest/framing-addition.webp',
-      'quest/framing-clouds.webp',
-      'quest/framing-sky.webp',
-      'quest/framing-sun.webp',
-      'quest/framing-shade.webp',
-      'quest/framing-ladder.webp',
-      'quest/framing-lumber.webp',
-      'quest/framing-hose.webp',
-      'quest/framing-inside.webp',
-      'quest/framing-curve.webp',
-      'quest/framing-turret.webp',
-      'quest/framing-roof.webp',
-      'quest/story.webp',
-      'quest/hero.webp',
-      'quest/deck-joists.webp',
-    ],
-  },
-  {
-    slug: 'sheathing',
-    name: 'Sheathing and openings',
-    note: 'Panels on, and the windows and doors cut back out of them.',
-    files: [
-      'quest/sheathing-panel.webp',
-      'quest/sheathing-curve.webp',
-      'quest/framing-desert-lot.webp',
-      'quest/framing-garage.webp',
-      'quest/framing-corner.webp',
-      'quest/framing-openings.webp',
-      'quest/framing-header.webp',
-      'quest/custom-home-shell.webp',
-      'quest/custom-home-wide.webp',
-      'quest/custom-home-gables.webp',
-      'quest/home-windows.webp',
-      'quest/gable-window.webp',
-      'quest/casita-shell.webp',
-    ],
-  },
-  {
-    slug: 'roof',
-    name: 'Roof',
-    note: 'Trusses set, underlayment down, and the last course of shingles.',
-    files: [
-      'quest/aerial-crane.webp',
-      'quest/home-trusses.webp',
-      'quest/framing-cricket.webp',
-      'quest/gables-underlayment.webp',
-      'quest/roof-underlayment.webp',
-      'quest/roof-deck.webp',
-      'quest/roof-eave.webp',
-      'quest/roof-shingles.webp',
-      'quest/roof-ridge.webp',
-      'quest/roof-valley.webp',
-      'quest/roof-field.webp',
-      'quest/roof-desert.webp',
-      'quest/aerial-reroof.webp',
-      'quest/aerial-tearoff.webp',
-      'quest/roof-windows.webp',
-    ],
-  },
-  {
-    slug: 'retrofit',
-    name: 'Windows and remodels',
-    note: 'The half of the work that happens inside a house somebody is still '
-      + 'living in.',
-    files: [
-      'quest/window-demo.webp',
-      'quest/window-opening.webp',
-      'quest/window-flashed.webp',
-      'quest/window-reflection.webp',
-      'quest/window-stucco.webp',
-      'quest/window-scaffold.webp',
-      'quest/window-fitted.webp',
-      'quest/window-interior.webp',
-      'quest/remodel-studs.webp',
-      'quest/siding-lap.webp',
-    ],
-  },
-  {
-    slug: 'finished',
-    name: 'Finished',
-    note: 'The ones that are done.',
-    files: [
-      'quest/casita-sunset.webp',
-      'quest/casita-stucco.webp',
-      'quest/deck-finished.webp',
-      'quest/home-side.webp',
-      'quest/porch-dusk.webp',
-      'quest/home-dusk.webp',
-      'quest/spare.webp',
-    ],
-  },
-];
+// It used to be filed by build stage — ground, framing, sheathing, roof,
+// finished — which is a true story about a job and the wrong index for this
+// site, because every other page here is organised by trade and a visitor
+// arriving from one has no idea which stage their trade lives in.
+//
+// One photograph belongs to one trade: the one whose work the picture is of.
+// That is deliberately not what SERVICE_POOL above does. A pool illustrates a
+// service page and the same frame may serve several, which is right there and
+// would be wrong here — the same photograph turning up in three chapters
+// reads as padding, and it would make the frame count a lie.
+//
+// Six of the fifteen trades have no photograph of their own and are simply
+// absent: residential development, ADU, stucco, dry wall, painting and
+// demolition. Nothing in this library shows stucco going on or a room being
+// painted. Frames that merely have a stucco wall in the background exist —
+// the window job is full of them — but filing those under Stucco would be a
+// claim the pictures do not support.
+const TRADE_FILES = {
+  casita: [
+    'quest/casita-shell.webp',
+    'quest/casita-sunset.webp',
+    'quest/casita-stucco.webp',
+  ],
+  framing: [
+    'quest/slab-walls.webp',
+    'quest/framing-braced.webp',
+    'quest/framing-patio.webp',
+    'quest/framing-slab.webp',
+    'quest/framing-walls.webp',
+    'quest/framing-long-wall.webp',
+    'quest/framing-palms.webp',
+    'quest/framing-block.webp',
+    'quest/framing-court.webp',
+    'quest/framing-progress.webp',
+    'quest/framing-wide.webp',
+    'quest/framing-addition.webp',
+    'quest/framing-clouds.webp',
+    'quest/framing-sky.webp',
+    'quest/framing-sun.webp',
+    'quest/framing-shade.webp',
+    'quest/framing-ladder.webp',
+    'quest/framing-lumber.webp',
+    'quest/framing-hose.webp',
+    'quest/framing-inside.webp',
+    'quest/framing-curve.webp',
+    'quest/framing-turret.webp',
+    'quest/framing-roof.webp',
+    'quest/story.webp',
+    'quest/hero.webp',
+    'quest/sheathing-panel.webp',
+    'quest/sheathing-curve.webp',
+    'quest/framing-desert-lot.webp',
+    'quest/framing-garage.webp',
+    'quest/framing-corner.webp',
+    'quest/framing-openings.webp',
+    'quest/framing-header.webp',
+    'quest/aerial-crane.webp',
+    'quest/home-trusses.webp',
+    'quest/framing-cricket.webp',
+  ],
+  concrete: [
+    'quest/footings-excavator.webp',
+    'quest/slab-poured.webp',
+    'quest/slab-blockwall.webp',
+    'quest/slab-lumber.webp',
+  ],
+  siding: [
+    'quest/siding-lap.webp',
+  ],
+  roofing: [
+    'quest/gables-underlayment.webp',
+    'quest/roof-underlayment.webp',
+    'quest/roof-deck.webp',
+    'quest/roof-eave.webp',
+    'quest/roof-shingles.webp',
+    'quest/roof-ridge.webp',
+    'quest/roof-valley.webp',
+    'quest/roof-field.webp',
+    'quest/roof-desert.webp',
+    'quest/aerial-reroof.webp',
+    'quest/aerial-tearoff.webp',
+    'quest/roof-windows.webp',
+  ],
+  'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops': [
+    'quest/remodel-studs.webp',
+    'quest/spare.webp',
+  ],
+  'custom-home-building': [
+    'quest/custom-home-shell.webp',
+    'quest/custom-home-wide.webp',
+    'quest/custom-home-gables.webp',
+    'quest/home-side.webp',
+    'quest/porch-dusk.webp',
+    'quest/home-dusk.webp',
+  ],
+  'deck-building-uses-trex-system': [
+    'quest/deck-joists.webp',
+    'quest/deck-finished.webp',
+  ],
+  'window-installation': [
+    'quest/window-demo.webp',
+    'quest/window-opening.webp',
+    'quest/window-flashed.webp',
+    'quest/window-reflection.webp',
+    'quest/window-stucco.webp',
+    'quest/window-scaffold.webp',
+    'quest/window-fitted.webp',
+    'quest/window-interior.webp',
+    'quest/home-windows.webp',
+    'quest/gable-window.webp',
+  ],
+};
 
-/** Every gallery frame, flat and in stage order. */
-export const GALLERY = GALLERY_STAGES.flatMap((s) => s.files);
+// What the frames under a heading actually show. Not the service's shortDesc,
+// which is a sales line written for a service page and says nothing at all
+// about the photographs underneath it.
+const TRADE_NOTE = {
+  casita: 'One casita at three points: the shell up, the same kind of building '
+    + 'at sunset, and one finished in stucco with its roof tile stacked alongside.',
+  framing: 'Half the library, because it is half the work. Walls braced and '
+    + 'standing, sheathing on, the openings cut back out of it, and trusses set.',
+  concrete: 'Footings cut beside what is already standing, the pad poured and '
+    + 'floated, and the first lumber stacked on it.',
+  siding: 'One frame, and it is the one that shows the job: new lap siding and '
+    + 'a new window under exposed rafter tails.',
+  roofing: 'Underlayment down, the eave detailed and the last course of '
+    + 'shingles laid, plus two tear-offs seen from above.',
+  'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops':
+    'A house taken back to the studs, and a room taken all the way to finished.',
+  'custom-home-building': 'Whole houses rather than a stage of one: the shell, '
+    + 'the gables, and the porch at dusk.',
+  'deck-building-uses-trex-system': 'The joists laid out on grade beside a '
+    + 'pool, and a finished composite deck under a covered patio.',
+  'window-installation': 'The most complete sequence here. The wall opened, the '
+    + 'opening cut and flashed, the unit set, and the room left waiting on trim.',
+};
+
+const SERVICES = JSON.parse(readFileSync('content/services.json', 'utf8'));
+
+// The name and the order come from services.json rather than being written a
+// second time here, so a chapter cannot name a trade the site does not sell,
+// and cannot drift from the heading on that trade's own page.
+export const GALLERY_TRADES = SERVICES
+  .filter((s) => TRADE_FILES[s.slug])
+  .map((s) => ({
+    slug: s.slug, name: s.name, note: TRADE_NOTE[s.slug], files: TRADE_FILES[s.slug],
+  }));
+
+// Declared rather than inferred. A filename is not evidence of a subject:
+// casita-stucco and window-stucco both have the word in them and neither is a
+// photograph of stucco going on. This is the list to look at when Quest sends
+// more photographs, and it is derived, so it cannot drift from the chapters.
+export const TRADES_WITHOUT_PHOTOGRAPHS = SERVICES
+  .filter((s) => !TRADE_FILES[s.slug])
+  .map((s) => s.slug);
+
+for (const slug of Object.keys(TRADE_FILES)) {
+  if (!SERVICES.some((s) => s.slug === slug)) {
+    throw new Error('the gallery files photographs under ' + slug + ', which is not a service');
+  }
+  if (!TRADE_NOTE[slug]) throw new Error('the ' + slug + ' gallery chapter has no note');
+}
+
+/** Every gallery frame, flat and in trade order. */
+export const GALLERY = GALLERY_TRADES.flatMap((t) => t.files);
+
+// One frame, one trade. A photograph in two chapters would be padding; a
+// photograph in none would have dropped out of the gallery unnoticed.
+{
+  const seen = new Set();
+  for (const f of GALLERY) {
+    if (!ALT[f]) throw new Error('the gallery files ' + f + ', which is not a photograph');
+    if (seen.has(f)) throw new Error(f + ' is filed under two trades');
+    seen.add(f);
+  }
+}
 
 // What a frame says when a visitor puts a pointer on it. ALT describes what is
 // in the picture, which is what a screen reader needs and is a fair caption on

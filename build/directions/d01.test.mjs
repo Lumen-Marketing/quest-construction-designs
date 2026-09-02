@@ -1211,52 +1211,79 @@ test('a service card on a city page goes to the page written for that city', asy
   }
 });
 
-test('the gallery is a sequence with the breaks in it written down', async () => {
+test('the gallery is filed by trade, and a trade with no photograph is absent', async () => {
   const photos = await import('../lib/photos.mjs');
-  const { GALLERY, GALLERY_STAGES, caption, ALT } = photos;
+  const { GALLERY, GALLERY_TRADES, caption, ALT } = photos;
+  const slugs = services.map((s) => s.slug);
 
-  // Every frame is in exactly one stage, and the stages are the gallery.
-  const staged = GALLERY_STAGES.flatMap((st) => st.files);
-  assert.deepEqual(staged, GALLERY, 'the flat gallery is not the stages in order');
-  assert.equal(new Set(staged).size, staged.length, 'a frame is in two stages');
+  // Every frame is under exactly one trade, and the trades are the gallery.
+  const filed = GALLERY_TRADES.flatMap((t) => t.files);
+  assert.deepEqual(filed, GALLERY, 'the flat gallery is not the trades in order');
+  assert.equal(new Set(filed).size, filed.length, 'a frame is filed under two trades');
 
-  // Three is an editorial floor rather than a technical one now that the rows
-  // are gone: a stage with two frames in it is not a stage, it is two frames
-  // that belong in the one either side.
-  for (const st of GALLERY_STAGES) {
-    assert.ok(st.files.length >= 3,
-      `the ${st.slug} stage has only ${st.files.length} frames`);
-    assert.ok(st.name && st.note, `the ${st.slug} stage has no heading or no note`);
+  for (const t of GALLERY_TRADES) {
+    assert.ok(slugs.includes(t.slug), `${t.slug} is a chapter but not a service`);
+    assert.ok(t.files.length >= 1, `the ${t.slug} chapter is empty`);
+    assert.ok(t.name && t.note, `the ${t.slug} chapter has no heading or no note`);
   }
+  // The chapters run in the order the services do, so the gallery and the
+  // services menu agree about what comes first.
+  assert.deepEqual(GALLERY_TRADES.map((t) => t.slug),
+    slugs.filter((s) => GALLERY_TRADES.some((t) => t.slug === s)),
+    'the chapters are not in services.json order');
+  // The name is the service's own, never a second copy of it.
+  for (const t of GALLERY_TRADES) {
+    assert.equal(t.name, services.find((s) => s.slug === t.slug).name);
+  }
+  // And the point of the whole exercise: a trade with nothing to show is not
+  // listed with an empty chapter, it is not listed at all. The omission is
+  // declared rather than inferred — a filename is not evidence of a subject,
+  // and casita-stucco is a photograph of a casita.
+  const { TRADES_WITHOUT_PHOTOGRAPHS: missing } = photos;
+  assert.ok(missing.length > 0, 'no trade is being left out, so the rule is untested');
+  assert.deepEqual([...GALLERY_TRADES.map((t) => t.slug), ...missing].sort(),
+    [...slugs].sort(), 'a service is neither in a chapter nor declared missing');
 
   const html = renderPage({ mod: d01, key: 'gallery' });
-  for (const st of GALLERY_STAGES) {
-    assert.ok(html.includes(`id="stage-${st.slug}"`), `no ${st.slug} chapter`);
-    assert.ok(html.includes(`href="#stage-${st.slug}"`), `no jump link to ${st.slug}`);
+  for (const t of GALLERY_TRADES) {
+    assert.ok(html.includes(`id="trade-${t.slug}"`), `no ${t.slug} chapter`);
+    assert.ok(html.includes(`href="#trade-${t.slug}"`), `no jump link to ${t.slug}`);
+    // The heading is the way into that trade's own page.
+    assert.ok(html.includes(`services/${t.slug}/">${esc(t.name)}</a>`)
+      || html.includes(`services/${t.slug}/index.html">${esc(t.name)}</a>`),
+    `the ${t.slug} chapter does not link to its service page`);
   }
+  for (const s of services) {
+    if (GALLERY_TRADES.some((t) => t.slug === s.slug)) continue;
+    assert.ok(!html.includes(`id="trade-${s.slug}"`),
+      `${s.slug} has no photographs but has a chapter`);
+  }
+
   // Every frame is in the large viewer at full size with its caption, and on
   // the rail as a thumbnail. Both, because a viewer that swaps one <img>'s src
   // would take seventy-four photographs out of the document.
   assert.equal((html.match(/class="shotcap" aria-hidden="true"/g) || []).length,
     GALLERY.length, 'not every frame has a caption');
   assert.equal((html.match(/class="shot" id="p-/g) || []).length, GALLERY.length);
-  // One thumbnail per frame that counts — the ones a screen reader and the tab
-  // key see. The rail carries the set over again so the marquee can loop, and
-  // those repeats are hidden from both.
+
+  // A trade with one photograph gets no rail — there is nothing to move
+  // between — so the thumbnail count is every frame in a chapter of two or
+  // more, not every frame.
+  const railed = GALLERY_TRADES.filter((t) => t.files.length > 1);
+  const onRails = railed.reduce((sum, t) => sum + t.files.length, 0);
   assert.equal(
     (html.match(/class="thumb"/g) || []).length
       - (html.match(/aria-hidden="true" tabindex="-1"/g) || []).length,
-    GALLERY.length, 'the rail is not one labelled thumbnail per frame');
+    onRails, 'the rail is not one labelled thumbnail per frame');
+  assert.ok(railed.length < GALLERY_TRADES.length,
+    'no single-frame chapter left to prove the rail is suppressed');
 
-  // The thumbnail is a real fragment link to its figure, so the rail still
-  // works with the script off; and it is labelled, because its own image is
-  // decorative once the link says what it opens.
-  for (const st of GALLERY_STAGES) {
-    assert.ok(html.includes(`href="#p-${st.slug}-1"`), `no fragment link into ${st.slug}`);
+  for (const t of railed) {
+    assert.ok(html.includes(`href="#p-${t.slug}-1"`), `no fragment link into ${t.slug}`);
   }
   assert.ok(html.includes('aria-label="Photograph 1 of'), 'the thumbnails are unlabelled');
-  assert.equal((html.match(/aria-current="true"/g) || []).length, GALLERY_STAGES.length,
-    'each stage should open on exactly one current frame');
+  assert.equal((html.match(/aria-current="true"/g) || []).length, railed.length,
+    'each railed chapter should open on exactly one current frame');
 
   // The seam. The track is translated by exactly one set, so the shift has to
   // be one over the number of copies to the pixel — and a set has to be wider
@@ -1265,19 +1292,19 @@ test('the gallery is a sequence with the breaks in it written down', async () =>
   // 190px thumbnail and its margin: seven frames fill it.
   const RAIL = /class="showcase-track" style="--shift:(-[\d.]+)%;--dur:([\d.]+)s"([\s\S]*?)<\/div>/g;
   const rails = [...html.matchAll(RAIL)];
-  assert.equal(rails.length, GALLERY_STAGES.length, 'not one rail per stage');
+  assert.equal(rails.length, railed.length, 'not one rail per railed chapter');
   rails.forEach(([, shift, dur, body], i) => {
-    const n = GALLERY_STAGES[i].files.length;
+    const n = railed[i].files.length;
     const copies = (body.match(/class="thumb"/g) || []).length / n;
     assert.ok(Number.isInteger(copies) && copies >= 2,
-      `the ${GALLERY_STAGES[i].slug} rail holds ${copies} copies of its set`);
+      `the ${railed[i].slug} rail holds ${copies} copies of its set`);
     assert.equal(Number(shift).toFixed(3), (-100 / copies).toFixed(3),
-      `the ${GALLERY_STAGES[i].slug} rail would jump at the seam`);
+      `the ${railed[i].slug} rail would jump at the seam`);
     assert.ok((copies - 1) * n >= 7,
-      `the ${GALLERY_STAGES[i].slug} rail can show a gap before the set comes round`);
-    // Proportional to the set, so a frame crosses at one speed in all six.
+      `the ${railed[i].slug} rail can show a gap before the set comes round`);
+    // Proportional to the set, so a frame crosses at one speed in all of them.
     assert.equal(Number(dur), n * 2.5,
-      `the ${GALLERY_STAGES[i].slug} rail runs at its own speed`);
+      `the ${railed[i].slug} rail runs at its own speed`);
   });
   // The caption falls back to the alt text, so a photograph needs no note.
   assert.equal(caption('quest/hero.webp'), ALT['quest/hero.webp']);
