@@ -1664,17 +1664,15 @@ footer .brand img{height:38px}
    object-fit:contain, not cover. Half this library is portrait phone frames
    and the point of the large view is to inspect one, which a crop defeats. The
    dark ground is what makes the letterboxing read as a mount. */
-/* The cap belongs to the large frame and not to the component. Capped and
-   centred is a different thing from the FAQ list that was capped and not
-   centred: half the library is portrait phone frames, and contain in a box the
-   full 1280 of the wrap floated a 450px photograph in the middle of 830px of
-   black. At 1000 the mount reads as a mount.
-   The rail underneath has no such problem — a wider rail is simply more
-   photographs — so it takes the whole wrap and the frames on it get bigger
-   without showing fewer of them. */
+/* The mount and the rail are the same width — the whole wrap — because a
+   filmstrip that runs wider than the frame it feeds reads as a mistake, and
+   Quest asked for them flush. The 1000px cap that used to sit here was buying
+   something real: half this library is portrait phone frames, and contain in a
+   box the full 1280 floats a 450px photograph in 830px of black rather than
+   280px of it. That is the trade, made deliberately, and the letterbox is the
+   price of it. */
 .showcase{position:relative;z-index:3}
 .showcase-view{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;
-  max-width:1000px;margin-inline:auto;
   scroll-behavior:smooth;overscroll-behavior-x:contain;scrollbar-width:none;
   border-radius:var(--r-lg);background:var(--dark);box-shadow:var(--sh-lg)}
 .showcase-view::-webkit-scrollbar{display:none}
