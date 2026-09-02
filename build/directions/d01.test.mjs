@@ -1283,6 +1283,54 @@ test('the gallery is a sequence with the breaks in it written down', async () =>
   assert.equal(caption('quest/hero.webp'), ALT['quest/hero.webp']);
 });
 
+test('the zoom dialog is out of the layout until it is opened', () => {
+  // This one shipped. A <dialog> is display:none until it is open and that
+  // comes from the UA stylesheet, so an author rule that sets display without
+  // keying it to [open] outranks it and the dialog is laid out for ever. The
+  // closed one was a full-viewport black block sitting in the flow under the
+  // gallery, with every z-index:3 section painting up through it.
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8')
+    .replace(/\/\*[\s\S]*?\*\//g, '');
+  let keyed = 0;
+  for (const [, sel, body] of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    if (!/(^|;)\s*display\s*:/.test(body)) continue;
+    for (const one of sel.split(',')) {
+      const s = one.trim();
+      // .zoom itself, not .zoom-stage or .zoom-bar, which are ordinary
+      // elements inside it and may have any display they like.
+      if (!/\.zoom(?![-\w])/.test(s)) continue;
+      assert.match(s, /\.zoom\[open\]/,
+        `"${s}" gives the dialog a display without keying it to [open]`);
+      keyed++;
+    }
+  }
+  assert.ok(keyed > 0, 'no rule opens the dialog at all');
+
+  // And it ships empty: an <img> with no src has no alt worth writing and no
+  // intrinsic size, which the page rules would reject and rightly.
+  const html = renderPage({ mod: d01, key: 'gallery' });
+  assert.equal((html.match(/<dialog class="zoom"/g) || []).length, 1);
+  assert.match(html, /<div class="zoom-stage" data-zoomstage><\/div>/);
+});
+
+test('every gallery photograph is a link to its own file, so zoom works with no script', async () => {
+  const { GALLERY } = await import('../lib/photos.mjs');
+  const html = renderPage({ mod: d01, key: 'gallery' });
+  assert.equal((html.match(/class="shotzoom"/g) || []).length, GALLERY.length);
+  // The href is the photograph itself and not a fragment or a page: that is
+  // what makes the dialog an enhancement rather than the only way in. The
+  // number of ../ in front of it belongs to the direction, and check-links
+  // is what proves each one resolves, so only the tail is asserted here.
+  // The depth of ../ belongs to the direction, so it is read once from the
+  // page rather than written into the test. Searching for the filename alone
+  // would find the thumbnail rail's <img src> first, which is not the link.
+  const prefix = html.match(/class="shotzoom" href="([./]*)assets\//)[1];
+  for (const f of GALLERY) {
+    assert.ok(html.includes(`class="shotzoom" href="${prefix}assets/${f}"`),
+      `${f} is not linked to its own file`);
+  }
+});
+
 test('a caption Quest writes wins, and one for a photograph that is not there fails', async () => {
   const { caption, ALT } = await import('../lib/photos.mjs');
   const notes = JSON.parse(readFileSync('content/photo-notes.json', 'utf8'));

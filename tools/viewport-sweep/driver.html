@@ -70,6 +70,19 @@ function measure(win) {
     return false;
   }
 
+  // A <dialog> that is not open must not be in the layout. The UA stylesheet
+  // says display:none, but any author rule that sets display without keying it
+  // to [open] outranks that, and the dialog then sits on the page for ever.
+  // This shipped once: a closed full-viewport black block under the gallery.
+  // Nothing else in this probe would have caught it — it does not overflow,
+  // it does not clip, and it does not scroll.
+  var stray = doc.querySelectorAll('dialog:not([open])');
+  for (var q = 0; q < stray.length; q++) {
+    var ds = win.getComputedStyle(stray[q]);
+    if (ds.display !== 'none') {
+      out.overflow.push({ el: label(stray[q]) + ' (closed dialog, display:' + ds.display + ')' });
+    }
+  }
   var all = doc.querySelectorAll('body *');
   for (var i = 0; i < all.length; i++) {
     var el = all[i], cs = win.getComputedStyle(el);
