@@ -43,6 +43,17 @@ function measure(win) {
     }
     return false;
   }
+  // Text that is deliberately taken off the screen for the eye and left in
+  // place for a screen reader. The idiom is a 1px box with clip-path:inset(50%)
+  // on it, and by construction its content is wider than its box and clipped —
+  // which is the whole point of it, not a defect. Reporting it would be the
+  // same mistake as reporting the rotated caret below.
+  function screenReaderOnly(el) {
+    var cs = win.getComputedStyle(el);
+    return (el.clientWidth <= 1 || el.clientHeight <= 1)
+      && cs.position === 'absolute'
+      && cs.clipPath && cs.clipPath !== 'none';
+  }
   // Whether anything between this element and the body actually cuts content
   // off, rather than letting it paint outside its box.
   function clipsSomewhere(el) {
@@ -77,6 +88,7 @@ function measure(win) {
     // wider than its button and is not clipped at all.
     if (el.children.length === 0 && el.scrollWidth > el.clientWidth + 1
         && (el.textContent || '').trim().length > 0
+        && !screenReaderOnly(el)
         && clipsSomewhere(el)) {
       out.clipped.push({ el: label(el), sw: el.scrollWidth, cw: el.clientWidth,
         t: (el.textContent || '').trim().slice(0, 40) });

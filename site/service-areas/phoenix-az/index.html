@@ -36,7 +36,7 @@
 <link rel="manifest" href="../../site.webmanifest">
 <meta name="theme-color" content="#D07C42">
 
-<link rel="stylesheet" href="../../assets/styles.cfcdbe5358.css">
+<link rel="stylesheet" href="../../assets/styles.7a75f5cb12.css">
 
 <script type="application/ld+json">
 {
@@ -1117,6 +1117,107 @@
     });
     mark(0);
   });
+})();
+(function(){
+  // Zoom. Every photograph in the gallery is a link to its own file, so with
+  // this script off — or in a browser without <dialog> — clicking one opens
+  // the full-resolution image, and that is already a zoom. What the script
+  // adds is that it opens over the page instead of leaving it, and that a
+  // second click goes to native pixels with the point under the pointer held.
+  var dlg=document.querySelector('.zoom');
+  if(!dlg||!dlg.showModal) return;
+  var stage=dlg.querySelector('[data-zoomstage]');
+  var cap=dlg.querySelector('[data-zoomcap]');
+  var big=null, zoomed=false;
+
+  function fit(){
+    zoomed=false;
+    stage.classList.remove('is-zoomed');
+    stage.scrollLeft=0; stage.scrollTop=0;
+  }
+  // Only offer the zoom when there is more picture to show. Fifty-two of these
+  // seventy-five frames are under 1200px wide, and on a large screen the
+  // fitted view is already every pixel of one; a magnifier that made the
+  // photograph smaller would be a lie.
+  function canZoom(){ return !!big && big.naturalWidth > big.clientWidth+8; }
+  function mark(){ stage.classList.toggle('can-zoom',canZoom()); }
+  function zoomTo(fx,fy){
+    if(!canZoom()) return;
+    zoomed=true;
+    stage.classList.add('is-zoomed');
+    stage.scrollLeft=fx*big.naturalWidth-stage.clientWidth/2;
+    stage.scrollTop=fy*big.naturalHeight-stage.clientHeight/2;
+  }
+  function open(a){
+    var im=a.querySelector('img'), fig=a.closest('.shot');
+    var t=fig&&fig.querySelector('.shott');
+    if(big&&big.parentNode) big.parentNode.removeChild(big);
+    big=document.createElement('img');
+    big.decoding='async';
+    big.alt=im.getAttribute('alt')||'';
+    big.width=im.getAttribute('width');
+    big.height=im.getAttribute('height');
+    big.src=a.getAttribute('href');
+    stage.appendChild(big);
+    cap.textContent=t?t.textContent:'';
+    fit();
+    if(big.complete) mark(); else big.addEventListener('load',mark);
+    // A modal dialog stops the page being clicked, not scrolled. Behind an
+    // open frame the gallery would still run under the finger. A class rather
+    // than a stashed value: stashing means the restore depends on the order
+    // two closes happen in, and the close event is queued, not synchronous.
+    // showModal throws if the dialog is somehow already open, and a lock put
+    // on before it would then never come off. Open first, lock second.
+    try{ dlg.showModal(); }catch(err){ return; }
+    document.documentElement.classList.add('has-zoom');
+  }
+  document.querySelectorAll('.shotzoom').forEach(function(a){
+    a.addEventListener('click',function(e){
+      // A modified click is somebody asking for a new tab. Leave it alone —
+      // the href is the photograph, which is exactly what they want.
+      if(e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+      e.preventDefault();
+      open(a);
+    });
+  });
+
+  // A drag is a pan and not a click, so the pointer has to travel a little
+  // before letting go stops counting as a toggle.
+  var drag=null, moved=false;
+  stage.addEventListener('pointerdown',function(e){
+    moved=false;
+    if(!zoomed) return;
+    drag={x:e.clientX,y:e.clientY,l:stage.scrollLeft,t:stage.scrollTop};
+    try{stage.setPointerCapture(e.pointerId)}catch(err){}
+  });
+  stage.addEventListener('pointermove',function(e){
+    if(!drag) return;
+    var dx=e.clientX-drag.x, dy=e.clientY-drag.y;
+    if(Math.abs(dx)>4||Math.abs(dy)>4) moved=true;
+    stage.scrollLeft=drag.l-dx;
+    stage.scrollTop=drag.t-dy;
+  });
+  ['pointerup','pointercancel'].forEach(function(ev){
+    stage.addEventListener(ev,function(){drag=null});
+  });
+  stage.addEventListener('click',function(e){
+    if(moved) return;
+    if(e.target!==big){ if(!zoomed) dlg.close(); return; }
+    if(zoomed){ fit(); return; }
+    var r=big.getBoundingClientRect();
+    zoomTo((e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height);
+  });
+  dlg.addEventListener('click',function(e){ if(e.target===dlg) dlg.close(); });
+  var x=dlg.querySelector('[data-zoomclose]');
+  if(x) x.addEventListener('click',function(){dlg.close()});
+  // Esc closes a modal dialog on its own, so this runs either way.
+  dlg.addEventListener('close',function(){
+    document.documentElement.classList.remove('has-zoom');
+    fit();
+    if(big&&big.parentNode) big.parentNode.removeChild(big);
+    big=null;
+  });
+  addEventListener('resize',function(){ if(!zoomed) mark(); });
 })();
 (function(){
   document.querySelectorAll('[data-copy]').forEach(function(b){

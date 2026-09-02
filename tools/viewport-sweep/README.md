@@ -43,18 +43,27 @@ That was the tool being wrong, not the site.
 | small targets | Interactive boxes under 44px. This site's own bar is **24px**, which is the WCAG 2.2 AA threshold; 44px is the Apple HIG figure and is printed for information, not as a failure. |
 | tiny text | Under 11.5px, which the stylesheet names as the floor for a phone. |
 
-`bleed` is expected in exactly three components and nowhere else:
+`bleed` is expected in these places and nowhere else:
 
 - `nav.strip` — the marquee, a continuous scroller
 - `.svctabs .wrap` — the trade rail, `overflow-x:auto` with scroll-snap and a
   mask fade at its edge
-- `.showcase-view` — the gallery's large frame, a scroll-snap track holding
-  every photograph in the stage. The caption reported is the next figure's,
-  waiting off to the right of the one on screen. The thumbnail rail under it
-  does **not** appear here: it is a marquee on `overflow:hidden`, so its frames
-  are clipped rather than bleeding.
+- the gallery viewer — a scroll-snap track holding every photograph in the
+  stage. What is reported is the next figure's plate, waiting off to the right
+  of the one on screen. The clipper named is whichever ancestor actually cuts
+  it: `div.showcase-view` before the plate carried `overflow:hidden` of its
+  own, `figcaption.shotcap` since. The thumbnail rail under it does **not**
+  appear here — it is a marquee on `overflow:hidden`, so its frames are clipped
+  rather than bleeding.
+- `span.offer-ghost` — the voucher's numeral, printed enormous and deliberately
+  run off the edge of its own card.
 
 Anything else in that column is a finding.
+
+The `clipped` column has one exclusion worth knowing about besides the rotated
+caret: text held off-screen for a screen reader — a 1px box with
+`clip-path:inset(50%)` — is wider than its box and clipped by construction.
+That is what it is for, so `screenReaderOnly()` skips it.
 
 ## What the first full run found
 

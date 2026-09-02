@@ -524,6 +524,107 @@ export function baseScript(c) {
   });
 })();
 (function(){
+  // Zoom. Every photograph in the gallery is a link to its own file, so with
+  // this script off — or in a browser without <dialog> — clicking one opens
+  // the full-resolution image, and that is already a zoom. What the script
+  // adds is that it opens over the page instead of leaving it, and that a
+  // second click goes to native pixels with the point under the pointer held.
+  var dlg=document.querySelector('.zoom');
+  if(!dlg||!dlg.showModal) return;
+  var stage=dlg.querySelector('[data-zoomstage]');
+  var cap=dlg.querySelector('[data-zoomcap]');
+  var big=null, zoomed=false;
+
+  function fit(){
+    zoomed=false;
+    stage.classList.remove('is-zoomed');
+    stage.scrollLeft=0; stage.scrollTop=0;
+  }
+  // Only offer the zoom when there is more picture to show. Fifty-two of these
+  // seventy-five frames are under 1200px wide, and on a large screen the
+  // fitted view is already every pixel of one; a magnifier that made the
+  // photograph smaller would be a lie.
+  function canZoom(){ return !!big && big.naturalWidth > big.clientWidth+8; }
+  function mark(){ stage.classList.toggle('can-zoom',canZoom()); }
+  function zoomTo(fx,fy){
+    if(!canZoom()) return;
+    zoomed=true;
+    stage.classList.add('is-zoomed');
+    stage.scrollLeft=fx*big.naturalWidth-stage.clientWidth/2;
+    stage.scrollTop=fy*big.naturalHeight-stage.clientHeight/2;
+  }
+  function open(a){
+    var im=a.querySelector('img'), fig=a.closest('.shot');
+    var t=fig&&fig.querySelector('.shott');
+    if(big&&big.parentNode) big.parentNode.removeChild(big);
+    big=document.createElement('img');
+    big.decoding='async';
+    big.alt=im.getAttribute('alt')||'';
+    big.width=im.getAttribute('width');
+    big.height=im.getAttribute('height');
+    big.src=a.getAttribute('href');
+    stage.appendChild(big);
+    cap.textContent=t?t.textContent:'';
+    fit();
+    if(big.complete) mark(); else big.addEventListener('load',mark);
+    // A modal dialog stops the page being clicked, not scrolled. Behind an
+    // open frame the gallery would still run under the finger. A class rather
+    // than a stashed value: stashing means the restore depends on the order
+    // two closes happen in, and the close event is queued, not synchronous.
+    // showModal throws if the dialog is somehow already open, and a lock put
+    // on before it would then never come off. Open first, lock second.
+    try{ dlg.showModal(); }catch(err){ return; }
+    document.documentElement.classList.add('has-zoom');
+  }
+  document.querySelectorAll('.shotzoom').forEach(function(a){
+    a.addEventListener('click',function(e){
+      // A modified click is somebody asking for a new tab. Leave it alone —
+      // the href is the photograph, which is exactly what they want.
+      if(e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+      e.preventDefault();
+      open(a);
+    });
+  });
+
+  // A drag is a pan and not a click, so the pointer has to travel a little
+  // before letting go stops counting as a toggle.
+  var drag=null, moved=false;
+  stage.addEventListener('pointerdown',function(e){
+    moved=false;
+    if(!zoomed) return;
+    drag={x:e.clientX,y:e.clientY,l:stage.scrollLeft,t:stage.scrollTop};
+    try{stage.setPointerCapture(e.pointerId)}catch(err){}
+  });
+  stage.addEventListener('pointermove',function(e){
+    if(!drag) return;
+    var dx=e.clientX-drag.x, dy=e.clientY-drag.y;
+    if(Math.abs(dx)>4||Math.abs(dy)>4) moved=true;
+    stage.scrollLeft=drag.l-dx;
+    stage.scrollTop=drag.t-dy;
+  });
+  ['pointerup','pointercancel'].forEach(function(ev){
+    stage.addEventListener(ev,function(){drag=null});
+  });
+  stage.addEventListener('click',function(e){
+    if(moved) return;
+    if(e.target!==big){ if(!zoomed) dlg.close(); return; }
+    if(zoomed){ fit(); return; }
+    var r=big.getBoundingClientRect();
+    zoomTo((e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height);
+  });
+  dlg.addEventListener('click',function(e){ if(e.target===dlg) dlg.close(); });
+  var x=dlg.querySelector('[data-zoomclose]');
+  if(x) x.addEventListener('click',function(){dlg.close()});
+  // Esc closes a modal dialog on its own, so this runs either way.
+  dlg.addEventListener('close',function(){
+    document.documentElement.classList.remove('has-zoom');
+    fit();
+    if(big&&big.parentNode) big.parentNode.removeChild(big);
+    big=null;
+  });
+  addEventListener('resize',function(){ if(!zoomed) mark(); });
+})();
+(function(){
   document.querySelectorAll('[data-copy]').forEach(function(b){
     b.addEventListener('click',async function(){
       var code=b.getAttribute('data-copy'), old=b.textContent;
@@ -1228,7 +1329,9 @@ export function gallery(c) {
       const [, alt] = shot(f);
       const pad = (x) => String(x).padStart(2, '0');
       return `
-          <figure class="shot" id="p-${st.slug}-${j + 1}">${img(c, f, alt)}
+          <figure class="shot" id="p-${st.slug}-${j + 1}"><a class="shotzoom" href="${
+      c.asset(f)}">${img(c, f, alt)}<span class="vh"> — open full size</span
+              ><span class="shotzi" aria-hidden="true">${ZOOM}</span></a>
             <figcaption class="shotcap" aria-hidden="true">
               <span class="shotghost">${pad(j + 1)}</span>
               <span class="shotn mono">${pad(j + 1)}<i>/</i>${pad(n)}</span>
@@ -1247,8 +1350,24 @@ export function gallery(c) {
   </div>
 </section>
 
+<dialog class="zoom" aria-label="Photograph, full size">
+  <div class="zoom-stage" data-zoomstage></div>
+  <div class="zoom-bar">
+    <p class="zoom-cap" data-zoomcap></p>
+    <button class="zoom-x" type="button" data-zoomclose>Close</button>
+  </div>
+</dialog>
+
 ${closingCta(c, c.pages.home.ctaHeading, c.pages.home.ctaBody)}`;
 }
+
+// A magnifier with a plus in it. It lives here rather than in icons.mjs
+// because that module is keyed by service slug and this is furniture, not a
+// trade — and because it is the only icon on this site that is drawn over a
+// photograph, so it carries its own weight rather than the .ic chip's.
+const ZOOM = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+  + '<circle cx="10.5" cy="10.5" r="6.5"/>'
+  + '<path d="M20.5 20.5 15.5 15.5M10.5 7.5v6M7.5 10.5h6"/></svg>';
 
 // Pergolas get a section rather than a fourth card. A card is a photograph and
 // two lines, which is the right amount of room for "we build these" and not
