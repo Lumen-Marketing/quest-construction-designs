@@ -1677,13 +1677,45 @@ footer .brand img{height:38px}
   border-radius:var(--r-lg);background:var(--dark);box-shadow:var(--sh-lg)}
 .showcase-view::-webkit-scrollbar{display:none}
 @media(prefers-reduced-motion:reduce){.showcase-view{scroll-behavior:auto}}
+/* Two panels, not a picture with a line of type under it. Most of this library
+   is portrait phone frames, and a mount the full width of the wrap left a
+   contained portrait sitting in 830px of black. The plate is what that black
+   becomes.
+
+   The picture column is sized by the picture: the height is fixed and the
+   width is auto, so a portrait takes about 460px of the box and a landscape
+   takes about 900px of the same box, and neither is letterboxed sideways.
+   Whatever is left over is the plate. Its 280px minimum is what stops a
+   panorama from squeezing the type out of existence — past that the picture
+   column gives ground instead. */
 .shot{flex:0 0 100%;scroll-snap-align:center;margin:0;min-width:0;
-  display:grid;grid-template-rows:1fr auto}
-.shot img{width:100%;height:clamp(260px,53vh,600px);object-fit:contain;
-  background:var(--dark)}
-.shotcap{padding:14px 20px 18px;margin:0;text-align:center;color:var(--on-dark-2);
-  font-size:13.5px;line-height:1.45;text-wrap:pretty;
-  border-top:1px solid rgba(243,239,230,.1)}
+  display:grid;grid-template-columns:minmax(0,auto) minmax(280px,1fr)}
+/* The height answers to the width as well as to the viewport. A flat 62vh with
+   a column that narrows is what put a landscape in 326px of vertical black at
+   640: the picture column had 309px to give and the box still wanted 558. The
+   vw term is what falls with it.
+
+   58, not 46. The picture column is sized by the picture, so the height is
+   what decides how big a frame gets; at 46vw a portrait came out 242px wide on
+   a 700px screen with 364px of column going spare. 58 fills it. The cost lands
+   on landscapes, which letterbox by up to ~130px between 600 and 1100 — and
+   that is the right way round, because 53 of the 75 frames are portrait. */
+.shot img{height:clamp(300px,min(68vh,58vw),720px);width:auto;max-width:100%;
+  object-fit:contain;background:var(--dark);align-self:center}
+.shotcap{display:grid;grid-template-rows:auto 1fr auto;gap:16px;
+  padding:clamp(22px,2.6vw,40px);margin:0;text-align:left;
+  border-left:1px solid rgba(243,239,230,.1)}
+.shotn{font-size:11.5px;font-weight:700;letter-spacing:.16em;color:var(--acc-on-dark)}
+.shotn i{font-style:normal;opacity:.4;padding:0 5px}
+/* Set large. At 20px in an 860px plate the sentence wrapped at a third of the
+   width and the plate read as empty rather than as room; the measure does the
+   composing, not the padding. 24ch is still a measure — the plate is wide, the
+   line is not allowed to be. */
+.shott{margin:0;align-self:center;max-width:24ch;color:var(--on-dark);
+  font-size:clamp(16px,2.1vw,30px);line-height:1.34;letter-spacing:-.01em;
+  text-wrap:pretty}
+.shotstage{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--on-dark-2)}
 
 /* The rail. It runs, and it runs the way the marquee under the header runs:
    one set of frames repeated and translated by exactly one set, so the loop
@@ -1735,12 +1767,32 @@ footer .brand img{height:38px}
 .thumb:focus-visible{outline-color:var(--acc);opacity:1}
 @media(prefers-reduced-motion:reduce){.thumb{transition:none}}
 
+/* Two columns hold a long way down. Measured at 700 wide, stacking put a
+   portrait in a 644px box with 320px of black beside it — the exact fault the
+   plate exists to remove — while two columns at the same width give the
+   picture 364px and the plate its 280px floor.
+
+   600 is where it stops paying, and the number is derived rather than picked:
+   the plate's floor is 280px, so the picture only out-measures the plate while
+   the wrap is over 560, which is a viewport of about 605. Below that the text
+   panel would be the larger half of a photograph's own showcase, and stacking
+   is the better answer. */
+@media(max-width:600px){
+  /* Everything on the plate stays when it goes back under the picture — the
+     number, the sentence, the stage. None of it was there to fill space. */
+  .shot{grid-template-columns:minmax(0,1fr)}
+  /* One box has to hold both orientations here and cannot suit both, so it is
+     shaped for the one the library is mostly made of. At 4:5 a portrait loses
+     20px of black and a landscape loses 158; square would split that evenly
+     and make the common case worse. */
+  .shot img{width:100%;height:auto;aspect-ratio:4/5}
+  .shotcap{grid-template-rows:auto auto auto;gap:10px;
+    border-left:0;border-top:1px solid rgba(243,239,230,.1)}
+  .shott{max-width:none;align-self:start;font-size:14.5px}
+}
+
 @media(max-width:760px){
   .galchap-h h3{gap:10px}
-  /* The caption is the first thing to give ground on a phone: the frame above
-     it and the rail below it are both the point of the component, and a
-     caption is a line of text that can afford to be a smaller line of text. */
-  .shotcap{padding:11px 15px 14px;font-size:12.5px}
   .galnav{gap:7px}
   .galnav a{padding:0 13px;font-size:12.5px}
 }

@@ -1221,12 +1221,19 @@ export function gallery(c) {
       </div>
       <div class="showcase rv">
         <div class="showcase-view" data-view>${st.files.map((f, j) => {
-      // aria-hidden on the caption: it is the img's alt unless Quest has
-      // written a note, and a screen reader has had the alt already.
+      // aria-hidden on the whole plate. The sentence on it is the img's alt
+      // unless Quest has written a note, and a screen reader has had the alt
+      // already; the number and the stage beside it are there to steady the
+      // eye in a long stage, not to carry anything a reader would be missing.
       const [, alt] = shot(f);
+      const pad = (x) => String(x).padStart(2, '0');
       return `
           <figure class="shot" id="p-${st.slug}-${j + 1}">${img(c, f, alt)}
-            <figcaption class="shotcap" aria-hidden="true">${esc(caption(f))}</figcaption>
+            <figcaption class="shotcap" aria-hidden="true">
+              <span class="shotn mono">${pad(j + 1)}<i>/</i>${pad(n)}</span>
+              <p class="shott">${esc(caption(f))}</p>
+              <span class="shotstage mono">${esc(st.name)}</span>
+            </figcaption>
           </figure>`;
     }).join('')}</div>
         <div class="showcase-rail" data-rail>
