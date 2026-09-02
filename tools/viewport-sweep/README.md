@@ -43,11 +43,16 @@ That was the tool being wrong, not the site.
 | small targets | Interactive boxes under 44px. This site's own bar is **24px**, which is the WCAG 2.2 AA threshold; 44px is the Apple HIG figure and is printed for information, not as a failure. |
 | tiny text | Under 11.5px, which the stylesheet names as the floor for a phone. |
 
-`bleed` is expected in exactly two components and nowhere else:
+`bleed` is expected in exactly three components and nowhere else:
 
 - `nav.strip` — the marquee, a continuous scroller
 - `.svctabs .wrap` — the trade rail, `overflow-x:auto` with scroll-snap and a
   mask fade at its edge
+- `.showcase-view` — the gallery's large frame, a scroll-snap track holding
+  every photograph in the stage. The caption reported is the next figure's,
+  waiting off to the right of the one on screen. The thumbnail rail under it
+  does **not** appear here: it is a marquee on `overflow:hidden`, so its frames
+  are clipped rather than bleeding.
 
 Anything else in that column is a finding.
 

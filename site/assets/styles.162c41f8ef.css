@@ -1682,17 +1682,47 @@ footer .brand img{height:38px}
   font-size:13.5px;line-height:1.45;text-wrap:pretty;
   border-top:1px solid rgba(243,239,230,.1)}
 
-/* The rail. Hidden scrollbar, snap, and a fade at the right edge that says the
-   frames carry on past it — the same three things the trade rail does. */
-.showcase-rail{margin-top:clamp(10px,1.2vw,15px);overflow-x:auto;scrollbar-width:none;
-  scroll-snap-type:x proximity;scroll-padding-inline:2px;-webkit-overflow-scrolling:touch;
-  -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent);
-          mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent)}
+/* The rail. It runs, and it runs the way the marquee under the header runs:
+   one set of frames repeated and translated by exactly one set, so the loop
+   closes on itself with no seam. --shift and --dur are written by the builder,
+   which knows how many copies it laid down and how many frames are in a set.
+   The duration is proportional to the set, so a frame crosses the rail at the
+   same speed in a five-frame stage and a twenty-five-frame one.
+
+   The spacing is a margin on each frame and not a gap on the track. A gap sits
+   between frames and not after the last one, so one set would be a gap short
+   of a clean division of the track and the loop would jump by a few pixels
+   every time it came round. A margin belongs to the frame and repeats with it.
+
+   A moving picture cannot be clicked, so the whole track holds still under a
+   pointer, under the keyboard, and under a finger — :active is in that list
+   for touch, where there is no hover to pause with and a finger down says the
+   same thing. This is the bargain the strip already makes. */
+.showcase-rail{margin-top:clamp(11px,1.3vw,16px);padding:5px 0;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 44px,
+    #000 calc(100% - 44px),transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 44px,
+    #000 calc(100% - 44px),transparent)}
 .showcase-rail::-webkit-scrollbar{display:none}
-.showcase-track{display:flex;gap:clamp(7px,.8vw,11px);width:max-content;padding:3px}
-.thumb{flex:0 0 auto;scroll-snap-align:start;width:clamp(66px,7.4vw,102px);aspect-ratio:1;
-  border-radius:11px;overflow:hidden;background:var(--dark-2);
-  outline:2px solid transparent;outline-offset:2px;opacity:.5;
+.showcase-track{display:flex;width:max-content;
+  animation:railrun var(--dur,40s) linear infinite}
+@keyframes railrun{to{transform:translateX(var(--shift,-50%))}}
+.showcase-rail:hover .showcase-track,
+.showcase-rail:focus-within .showcase-track,
+.showcase-rail:active .showcase-track{animation-play-state:paused}
+/* With the animation off the track cannot move at all, and every frame past
+   the first screenful would be unreachable. So the rail goes back to being
+   what it was before it ran: a scroller, holding one set of frames. */
+@media(prefers-reduced-motion:reduce){
+  .showcase-rail{overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch}
+  .showcase-track{animation:none}
+  .showcase-track .thumb[aria-hidden="true"]{display:none}
+}
+.thumb{flex:0 0 auto;scroll-snap-align:start;width:clamp(96px,10.4vw,148px);aspect-ratio:1;
+  margin-right:clamp(9px,1vw,13px);
+  border-radius:13px;overflow:hidden;background:var(--dark-2);
+  outline:2px solid transparent;outline-offset:2px;opacity:.82;
   transition:opacity .25s ease,outline-color .25s ease}
 .thumb img{width:100%;height:100%;object-fit:cover}
 /* The frame that is up. Not a colour change on the picture — an outline round
@@ -1704,8 +1734,9 @@ footer .brand img{height:38px}
 
 @media(max-width:760px){
   .galchap-h h3{gap:10px}
-  /* The rail's frames get smaller before the large one does: the large one is
-     the point of the component and the rail is how you get to it. */
+  /* The caption is the first thing to give ground on a phone: the frame above
+     it and the rail below it are both the point of the component, and a
+     caption is a line of text that can afford to be a smaller line of text. */
   .shotcap{padding:11px 15px 14px;font-size:12.5px}
   .galnav{gap:7px}
   .galnav a{padding:0 13px;font-size:12.5px}

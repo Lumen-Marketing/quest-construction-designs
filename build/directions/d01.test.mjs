@@ -1240,7 +1240,13 @@ test('the gallery is a sequence with the breaks in it written down', async () =>
   assert.equal((html.match(/class="shotcap" aria-hidden="true"/g) || []).length,
     GALLERY.length, 'not every frame has a caption');
   assert.equal((html.match(/class="shot" id="p-/g) || []).length, GALLERY.length);
-  assert.equal((html.match(/class="thumb"/g) || []).length, GALLERY.length);
+  // One thumbnail per frame that counts — the ones a screen reader and the tab
+  // key see. The rail carries the set over again so the marquee can loop, and
+  // those repeats are hidden from both.
+  assert.equal(
+    (html.match(/class="thumb"/g) || []).length
+      - (html.match(/aria-hidden="true" tabindex="-1"/g) || []).length,
+    GALLERY.length, 'the rail is not one labelled thumbnail per frame');
 
   // The thumbnail is a real fragment link to its figure, so the rail still
   // works with the script off; and it is labelled, because its own image is
@@ -1251,6 +1257,28 @@ test('the gallery is a sequence with the breaks in it written down', async () =>
   assert.ok(html.includes('aria-label="Photograph 1 of'), 'the thumbnails are unlabelled');
   assert.equal((html.match(/aria-current="true"/g) || []).length, GALLERY_STAGES.length,
     'each stage should open on exactly one current frame');
+
+  // The seam. The track is translated by exactly one set, so the shift has to
+  // be one over the number of copies to the pixel — and a set has to be wider
+  // than the rail, or a repeat that has not arrived yet leaves a hole at the
+  // end of the one that has. The rail is at most the showcase's 1000px cap
+  // against a 148px thumbnail: seven frames fill it.
+  const RAIL = /class="showcase-track" style="--shift:(-[\d.]+)%;--dur:([\d.]+)s"([\s\S]*?)<\/div>/g;
+  const rails = [...html.matchAll(RAIL)];
+  assert.equal(rails.length, GALLERY_STAGES.length, 'not one rail per stage');
+  rails.forEach(([, shift, dur, body], i) => {
+    const n = GALLERY_STAGES[i].files.length;
+    const copies = (body.match(/class="thumb"/g) || []).length / n;
+    assert.ok(Number.isInteger(copies) && copies >= 2,
+      `the ${GALLERY_STAGES[i].slug} rail holds ${copies} copies of its set`);
+    assert.equal(Number(shift).toFixed(3), (-100 / copies).toFixed(3),
+      `the ${GALLERY_STAGES[i].slug} rail would jump at the seam`);
+    assert.ok((copies - 1) * n >= 7,
+      `the ${GALLERY_STAGES[i].slug} rail can show a gap before the set comes round`);
+    // Proportional to the set, so a frame crosses at one speed in all six.
+    assert.equal(Number(dur), n * 2.5,
+      `the ${GALLERY_STAGES[i].slug} rail runs at its own speed`);
+  });
   // The caption falls back to the alt text, so a photograph needs no note.
   assert.equal(caption('quest/hero.webp'), ALT['quest/hero.webp']);
 });

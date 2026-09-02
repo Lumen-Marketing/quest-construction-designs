@@ -36,7 +36,7 @@
 <link rel="manifest" href="../../../site.webmanifest">
 <meta name="theme-color" content="#D07C42">
 
-<link rel="stylesheet" href="../../../assets/styles.b8c36ca33e.css">
+<link rel="stylesheet" href="../../../assets/styles.162c41f8ef.css">
 
 <script type="application/ld+json">
 {
@@ -685,22 +685,25 @@
   // off the rail still works — the browser jumps to the figure. What the script
   // buys is that the jump happens inside the viewer instead of dragging the
   // whole document down to it, and that the rail knows which frame is up.
+  //
+  // The rail's movement is not here. It is a CSS marquee, the same one the
+  // strip under the header runs, and it holds still under a pointer in CSS —
+  // a moving thumbnail cannot be clicked, and pausing is what makes the rail a
+  // control rather than a decoration that happens to have hrefs.
   var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  var canDrift=matchMedia('(hover:hover) and (pointer:fine)').matches&&!reduce;
   document.querySelectorAll('.showcase').forEach(function(sc){
     var view=sc.querySelector('[data-view]'), rail=sc.querySelector('[data-rail]');
     if(!view||!rail) return;
     var shots=[].slice.call(view.children), thumbs=[].slice.call(rail.querySelectorAll('.thumb'));
-    if(!shots.length||thumbs.length!==shots.length) return;
+    if(!shots.length||!thumbs.length) return;
     var behavior=reduce?'auto':'smooth';
 
-    // Measured off bounding rects rather than offsetLeft: neither the viewer
-    // nor the rail is a positioned element, so offsetLeft is relative to the
-    // body and every sum comes out wrong by the page gutter.
-    function slide(el,box,target,centre){
-      var d=target.getBoundingClientRect().left-box.getBoundingClientRect().left;
-      var want=box.scrollLeft+d-(centre?(box.clientWidth-target.offsetWidth)/2:0);
-      box.scrollTo({left:Math.max(0,want),behavior:behavior});
+    // Measured off bounding rects rather than offsetLeft: the viewer is not a
+    // positioned element, so offsetLeft is relative to the body and every sum
+    // comes out wrong by the width of the page gutter.
+    function slide(i){
+      var d=shots[i].getBoundingClientRect().left-view.getBoundingClientRect().left;
+      view.scrollTo({left:Math.max(0,view.scrollLeft+d),behavior:behavior});
     }
     function nearest(){
       var c=view.scrollLeft+view.clientWidth/2, best=0, min=Infinity;
@@ -711,58 +714,36 @@
       }
       return best;
     }
-    var at=0;
-    function mark(i,follow){
-      if(i===at&&thumbs[i].getAttribute('aria-current')==='true') return;
+    var at=-1;
+    function mark(i){
+      if(i===at) return;
       at=i;
-      thumbs.forEach(function(t,j){
-        if(j===i) t.setAttribute('aria-current','true'); else t.removeAttribute('aria-current');
+      // Every copy of that frame, not one of them: the rail carries the set
+      // two or three times over so the loop has no seam, and the repeat a
+      // visitor happens to be looking at is the one that has to light up.
+      thumbs.forEach(function(t){
+        if(+t.getAttribute('data-i')===i) t.setAttribute('aria-current','true');
+        else t.removeAttribute('aria-current');
       });
-      if(follow) slide(null,rail,thumbs[i],true);
     }
-    thumbs.forEach(function(t,i){
+    thumbs.forEach(function(t){
       t.addEventListener('click',function(e){
         e.preventDefault();
-        stop();
-        slide(null,view,shots[i],false);
-        mark(i,false);
+        var i=+t.getAttribute('data-i');
+        slide(i); mark(i);
       });
     });
     var tick=null;
     view.addEventListener('scroll',function(){
       clearTimeout(tick);
-      tick=setTimeout(function(){mark(nearest(),true)},110);
+      tick=setTimeout(function(){mark(nearest())},110);
     },{passive:true});
-
-    // ---- the drift ----
-    // It moves so a visitor can see there is more than one frame; it stops for
-    // good the moment they do anything, which is the point of it moving at all.
-    // Never on a touch screen, where there is no hover to pause it with, and
-    // never when the machine has asked for less motion.
-    var raf=null, held=false, dead=!canDrift, seen=false;
-    function step(){
-      raf=null;
-      if(dead||held||!seen) return;
-      var max=rail.scrollWidth-rail.clientWidth;
-      if(max<4) return;
-      rail.scrollLeft=rail.scrollLeft>=max-1?0:rail.scrollLeft+0.28;
-      raf=requestAnimationFrame(step);
-    }
-    function run(){ if(!dead&&!held&&seen&&raf===null) raf=requestAnimationFrame(step); }
-    function stop(){ dead=true; if(raf!==null){cancelAnimationFrame(raf);raf=null} }
-    ['wheel','pointerdown','keydown'].forEach(function(ev){
-      rail.addEventListener(ev,stop,{passive:true});
+    // Tabbing to a thumbnail scrolls the rail to it, and the rail has no
+    // scrollbar and no way back once the focus has gone. Put it back.
+    rail.addEventListener('focusout',function(e){
+      if(!rail.contains(e.relatedTarget)) rail.scrollLeft=0;
     });
-    rail.addEventListener('pointerenter',function(){held=true});
-    rail.addEventListener('pointerleave',function(){held=false;run()});
-    rail.addEventListener('focusin',stop);
-    if(!dead&&'IntersectionObserver' in window){
-      // Six rails on one page, and only one of them is ever on screen.
-      new IntersectionObserver(function(es){
-        es.forEach(function(e){ seen=e.isIntersecting; if(seen) run(); else stop2(); });
-      },{rootMargin:'80px'}).observe(rail);
-    }
-    function stop2(){ if(raf!==null){cancelAnimationFrame(raf);raf=null} }
+    mark(0);
   });
 })();
 (function(){

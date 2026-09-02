@@ -240,10 +240,12 @@ def devices_pass():
             print('      %-38s %-16s lost=%-5d in %s'
                   % (page[:38], b['el'], b['lost'], b['clipper']))
         sys.stdout.flush()
-    print('\n  off-screen text is expected in two places and nowhere else: the'
-          '\n  marquee (nav.strip, a continuous scroller) and the service tab'
+    print('\n  off-screen text is expected in three places and nowhere else:'
+          '\n  the marquee (nav.strip, a continuous scroller), the service tab'
           '\n  rail (.svctabs .wrap, overflow-x:auto with snap and an edge'
-          '\n  fade). Anything else in that column is a finding.')
+          '\n  fade), and the gallery viewer (.showcase-view, a snap track of'
+          '\n  every frame in the stage — the caption reported is the next'
+          '\n  figure\'s, waiting off to the right). Anything else is a finding.')
     return bad
 
 
