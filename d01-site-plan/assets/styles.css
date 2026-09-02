@@ -1656,7 +1656,7 @@ footer .brand img{height:38px}
    panorama from squeezing the type out of existence — past that the picture
    column gives ground instead. */
 .shot{flex:0 0 100%;scroll-snap-align:center;margin:0;min-width:0;
-  display:grid;grid-template-columns:minmax(0,auto) minmax(280px,1fr)}
+  display:grid;grid-template-columns:minmax(0,auto) minmax(clamp(300px,26%,420px),1fr)}
 /* The height answers to the width as well as to the viewport. A flat 62vh with
    a column that narrows is what put a landscape in 326px of vertical black at
    640: the picture column had 309px to give and the box still wanted 558. The
@@ -1667,21 +1667,69 @@ footer .brand img{height:38px}
    a 700px screen with 364px of column going spare. 58 fills it. The cost lands
    on landscapes, which letterbox by up to ~130px between 600 and 1100 — and
    that is the right way round, because 53 of the 75 frames are portrait. */
-.shot img{height:clamp(300px,min(68vh,58vw),720px);width:auto;max-width:100%;
+.shot img{height:clamp(300px,min(74vh,58vw),780px);width:auto;max-width:100%;
   object-fit:contain;background:var(--dark);align-self:center}
+/* ---- the plate, which was the flat half ----
+   --dark with three lines on it and nothing else: no light, no material, no
+   depth. That is the same fault the voucher stub had, and these are the same
+   three layers that fixed it, at the strengths measured there. All of them sit
+   behind z-index 2, so nothing lands on the type. */
 .shotcap{display:grid;grid-template-rows:auto 1fr auto;gap:16px;
   padding:clamp(22px,2.6vw,40px);margin:0;text-align:left;
+  position:relative;overflow:hidden;container-type:inline-size;
   border-left:1px solid rgba(243,239,230,.1)}
-.shotn{font-size:11.5px;font-weight:700;letter-spacing:.16em;color:var(--acc-on-dark)}
+/* 1. THE LIGHT, thrown from beyond the right edge and low, with the head of
+      the plate pooled in shadow. Not from the picture's side, tempting as that
+      is. The frame number is set in --acc-on-dark at the top left and measures
+      5.9:1 on this ground against a 4.5:1 bar; lifting the field under it
+      would spend that margin, and the shadow at the head buys margin instead.
+      It also means the plate is lit from away from the photograph, so the two
+      halves read as two surfaces rather than one flat one. */
+.shotcap::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(72% 108% at 116% 74%,
+      color-mix(in srgb,var(--acc) 16%,transparent) 0%,
+      color-mix(in srgb,var(--acc) 5%,transparent) 40%,transparent 70%),
+    linear-gradient(180deg,rgba(0,0,0,.34) 0%,rgba(0,0,0,.08) 30%,
+      transparent 50%,rgba(0,0,0,.16) 100%)}
+/* 2. THE MATERIAL. The raking hatch the voucher stub and the CTA bar carry —
+      enough that the surface has a weave under the light and not enough to
+      read as a pattern. Masked away from the head for the reason the light is:
+      the hatch is white at three percent, which is a lift, and the head is the
+      one part of this plate that cannot afford one. */
+.shotcap::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:repeating-linear-gradient(108deg,
+    rgba(243,239,230,.03) 0 1px,transparent 1px 8px);
+  -webkit-mask-image:radial-gradient(96% 108% at 104% 66%,#000 0 34%,transparent 82%);
+          mask-image:radial-gradient(96% 108% at 104% 66%,#000 0 34%,transparent 82%)}
+.shotcap>*{position:relative;z-index:2}
+/* 3. THE NUMBER, PRINTED TWICE — once at reading size and once enormous behind
+      it, bleeding off the right edge. The eye reads two copies of one number
+      at two scales as near and far rather than as a repeat, which is depth for
+      the price of one span. Faded out downward so the only thing it can sit
+      behind is its own small copy, never the sentence. */
+.shotghost{position:absolute;z-index:1;top:-.2em;right:-.08em;
+  font-size:clamp(90px,38cqi,300px);font-weight:900;letter-spacing:-.06em;
+  line-height:.78;white-space:nowrap;pointer-events:none;user-select:none;
+  color:rgba(243,239,230,.045);
+  -webkit-mask-image:linear-gradient(172deg,#000 0 36%,transparent 76%);
+          mask-image:linear-gradient(172deg,#000 0 36%,transparent 76%)}
+.shotn{font-size:13px;font-weight:700;letter-spacing:.16em;color:var(--acc-on-dark)}
 .shotn i{font-style:normal;opacity:.4;padding:0 5px}
-/* Set large. At 20px in an 860px plate the sentence wrapped at a third of the
-   width and the plate read as empty rather than as room; the measure does the
-   composing, not the padding. 24ch is still a measure — the plate is wide, the
-   line is not allowed to be. */
+/* Set large, and sized in cqi — a percentage of the plate, not of the window.
+   The plate is what varies: a landscape frame is 888px wide at 1280 and leaves
+   the plate on its floor, and 34px type in a 224px column came out at seven
+   characters a line. The viewport knew nothing about that; the container does.
+   The measure is still 24ch, because the plate is allowed to be wide and the
+   line is not.
+   The floor is 21px and not the 17px the ratio alone would give: two frames in
+   one stage can hold a portrait and a landscape, their plates are 678 and 306
+   wide, and a caption that halved in size between one swipe and the next read
+   as a fault. 21 to 34 is a range the eye takes as one setting. */
 .shott{margin:0;align-self:center;max-width:24ch;color:var(--on-dark);
-  font-size:clamp(16px,2.1vw,30px);line-height:1.34;letter-spacing:-.01em;
+  font-size:clamp(21px,6.4cqi,34px);line-height:1.32;letter-spacing:-.01em;
   text-wrap:pretty}
-.shotstage{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+.shotstage{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
   color:var(--on-dark-2)}
 
 /* The rail. It runs, and it runs the way the marquee under the header runs:
@@ -1755,7 +1803,12 @@ footer .brand img{height:38px}
   .shot img{width:100%;height:auto;aspect-ratio:4/5}
   .shotcap{grid-template-rows:auto auto auto;gap:10px;
     border-left:0;border-top:1px solid rgba(243,239,230,.1)}
-  .shott{max-width:none;align-self:start;font-size:14.5px}
+  /* The stacked plate is a 130px strip, and the ghost is taller than it is —
+     measured, its painted band reached down into the sentence, which is the
+     one thing the fade exists to stop. There is no room for depth theatre on
+     a strip; the light and the hatch stay, the numeral goes. */
+  .shotghost{display:none}
+  .shott{max-width:none;align-self:start;font-size:clamp(16px,4.4cqi,21px)}
 }
 
 @media(max-width:760px){

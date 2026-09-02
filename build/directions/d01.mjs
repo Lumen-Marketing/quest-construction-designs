@@ -1230,6 +1230,7 @@ export function gallery(c) {
       return `
           <figure class="shot" id="p-${st.slug}-${j + 1}">${img(c, f, alt)}
             <figcaption class="shotcap" aria-hidden="true">
+              <span class="shotghost">${pad(j + 1)}</span>
               <span class="shotn mono">${pad(j + 1)}<i>/</i>${pad(n)}</span>
               <p class="shott">${esc(caption(f))}</p>
               <span class="shotstage mono">${esc(st.name)}</span>
