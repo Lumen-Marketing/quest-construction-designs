@@ -1261,8 +1261,8 @@ test('the gallery is a sequence with the breaks in it written down', async () =>
   // The seam. The track is translated by exactly one set, so the shift has to
   // be one over the number of copies to the pixel — and a set has to be wider
   // than the rail, or a repeat that has not arrived yet leaves a hole at the
-  // end of the one that has. The rail is at most the showcase's 1000px cap
-  // against a 148px thumbnail: seven frames fill it.
+  // end of the one that has. The rail is the full 1280 of the wrap against a
+  // 190px thumbnail and its margin: seven frames fill it.
   const RAIL = /class="showcase-track" style="--shift:(-[\d.]+)%;--dur:([\d.]+)s"([\s\S]*?)<\/div>/g;
   const rails = [...html.matchAll(RAIL)];
   assert.equal(rails.length, GALLERY_STAGES.length, 'not one rail per stage');

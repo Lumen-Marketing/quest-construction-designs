@@ -1194,9 +1194,10 @@ export function gallery(c) {
     // The rail runs the way the marquee under the header runs: one set of
     // frames repeated, translated by exactly one set, so the loop has no seam.
     // The set has to be wider than the rail or the repeat shows a gap at the
-    // end of it. The widest the rail ever gets is the showcase's 1000px cap
-    // against a 148px thumbnail, so seven frames fill it — and the short
-    // stages take a third copy to get there.
+    // end of it. The rail is the full 1280 of the wrap — the 1000px cap is on
+    // the large frame above it and not on the component — against a 190px
+    // thumbnail and its margin, so seven frames fill it and the short stages
+    // take a third copy to get there.
     const copies = Math.max(2, Math.ceil(7 / n) + 1);
     const shift = `${(-100 / copies).toFixed(4)}%`;
     // One set passes in n * 2.5s, so a frame crosses the rail at the same

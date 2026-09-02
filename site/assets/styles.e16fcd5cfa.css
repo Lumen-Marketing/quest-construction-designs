@@ -1664,12 +1664,17 @@ footer .brand img{height:38px}
    object-fit:contain, not cover. Half this library is portrait phone frames
    and the point of the large view is to inspect one, which a crop defeats. The
    dark ground is what makes the letterboxing read as a mount. */
-/* Capped and centred, which is a different thing from the FAQ list that was
-   capped and not centred. Half the library is portrait phone frames, and
-   contain in a box the full 1280 of the wrap floated a 450px photograph in the
-   middle of 830px of black. At 1000 the mount reads as a mount. */
-.showcase{position:relative;z-index:3;max-width:1000px;margin-inline:auto}
+/* The cap belongs to the large frame and not to the component. Capped and
+   centred is a different thing from the FAQ list that was capped and not
+   centred: half the library is portrait phone frames, and contain in a box the
+   full 1280 of the wrap floated a 450px photograph in the middle of 830px of
+   black. At 1000 the mount reads as a mount.
+   The rail underneath has no such problem — a wider rail is simply more
+   photographs — so it takes the whole wrap and the frames on it get bigger
+   without showing fewer of them. */
+.showcase{position:relative;z-index:3}
 .showcase-view{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;
+  max-width:1000px;margin-inline:auto;
   scroll-behavior:smooth;overscroll-behavior-x:contain;scrollbar-width:none;
   border-radius:var(--r-lg);background:var(--dark);box-shadow:var(--sh-lg)}
 .showcase-view::-webkit-scrollbar{display:none}
@@ -1699,10 +1704,10 @@ footer .brand img{height:38px}
    for touch, where there is no hover to pause with and a finger down says the
    same thing. This is the bargain the strip already makes. */
 .showcase-rail{margin-top:clamp(11px,1.3vw,16px);padding:5px 0;overflow:hidden;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 44px,
-    #000 calc(100% - 44px),transparent);
-          mask-image:linear-gradient(90deg,transparent,#000 44px,
-    #000 calc(100% - 44px),transparent)}
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 56px,
+    #000 calc(100% - 56px),transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 56px,
+    #000 calc(100% - 56px),transparent)}
 .showcase-rail::-webkit-scrollbar{display:none}
 .showcase-track{display:flex;width:max-content;
   animation:railrun var(--dur,40s) linear infinite}
@@ -1719,9 +1724,9 @@ footer .brand img{height:38px}
   .showcase-track{animation:none}
   .showcase-track .thumb[aria-hidden="true"]{display:none}
 }
-.thumb{flex:0 0 auto;scroll-snap-align:start;width:clamp(96px,10.4vw,148px);aspect-ratio:1;
-  margin-right:clamp(9px,1vw,13px);
-  border-radius:13px;overflow:hidden;background:var(--dark-2);
+.thumb{flex:0 0 auto;scroll-snap-align:start;width:clamp(118px,13.2vw,190px);aspect-ratio:1;
+  margin-right:clamp(11px,1.2vw,16px);
+  border-radius:15px;overflow:hidden;background:var(--dark-2);
   outline:2px solid transparent;outline-offset:2px;opacity:.82;
   transition:opacity .25s ease,outline-color .25s ease}
 .thumb img{width:100%;height:100%;object-fit:cover}
