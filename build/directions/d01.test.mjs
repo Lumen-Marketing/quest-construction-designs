@@ -1283,6 +1283,28 @@ test('the gallery is a sequence with the breaks in it written down', async () =>
   assert.equal(caption('quest/hero.webp'), ALT['quest/hero.webp']);
 });
 
+test('the lens never blocks the click that opens a photograph full size', () => {
+  // The lens and its panel are drawn over the picture, and the picture is a
+  // link. If either one took pointer events, hovering would make the frame
+  // unclickable — the enhancement would have eaten the thing it enhances.
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8')
+    .replace(/\/\*[\s\S]*?\*\//g, '');
+  // Anchored on a newline so this finds the standalone rule and not
+  // ".shot.lensing .shotzi", which is a different rule about a different
+  // thing and would have made this pass by accident.
+  for (const cls of ['.lens', '.lenspanel', '.shotzi']) {
+    const at = css.indexOf('\n' + cls + '{');
+    assert.ok(at >= 0, cls + ' has no rule of its own');
+    const rule = css.slice(at, css.indexOf('}', at));
+    assert.ok(rule.includes('pointer-events:none'),
+      cls + ' is drawn over the link and would swallow its clicks');
+  }
+  // And the badge has to lose to the lens, not to hovering: both selectors
+  // are three classes, so only source order decides which wins.
+  assert.ok(css.indexOf('.shot.lensing .shotzi') > css.indexOf('.shotzoom:hover .shotzi'),
+    'the zoom badge would stay lit underneath the lens');
+});
+
 test('the zoom dialog is out of the layout until it is opened', () => {
   // This one shipped. A <dialog> is display:none until it is open and that
   // comes from the UA stylesheet, so an author rule that sets display without

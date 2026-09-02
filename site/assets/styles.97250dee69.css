@@ -1691,7 +1691,7 @@ footer .brand img{height:38px}
    Whatever is left over is the plate. Its 280px minimum is what stops a
    panorama from squeezing the type out of existence — past that the picture
    column gives ground instead. */
-.shot{flex:0 0 100%;scroll-snap-align:center;margin:0;min-width:0;
+.shot{flex:0 0 100%;scroll-snap-align:center;margin:0;min-width:0;position:relative;
   display:grid;grid-template-columns:minmax(0,auto) minmax(clamp(300px,26%,420px),1fr)}
 /* The height answers to the width as well as to the viewport. A flat 62vh with
    a column that narrows is what put a landscape in 326px of vertical black at
@@ -1769,6 +1769,7 @@ footer .brand img{height:38px}
   color:var(--on-dark-2)}
 
 
+
 /* ---- zoom ----
    The photograph is a link to its own file. With this stylesheet's dialog
    unavailable — script off, or a browser without <dialog> — clicking a frame
@@ -1844,6 +1845,33 @@ html.has-zoom{overflow:hidden}
   .zoom-cap{font-size:13px}
   .zoom-bar{gap:12px;padding:11px 14px}
 }
+/* ---- the hover lens ----
+   A square follows the pointer over the photograph and the plate beside it
+   shows that square at native resolution. It is the thing catalogue sites do,
+   and the plate is already the panel that pattern needs, so it is drawn there
+   rather than floated somewhere new.
+
+   Pointer only, and by omission rather than by a media query: nothing builds
+   it unless the script finds a fine pointer that hovers. On a touch screen
+   there is no hover to drive it with, and a tap opens the frame full size,
+   which is the better answer there anyway. */
+.lens{position:absolute;z-index:4;pointer-events:none;border-radius:3px;
+  border:1.5px solid rgba(243,239,230,.9);background:rgba(243,239,230,.1);
+  box-shadow:0 2px 16px rgba(10,10,9,.5),inset 0 0 0 1px rgba(10,10,9,.4)}
+.lenspanel{position:absolute;z-index:5;pointer-events:none;
+  border-radius:var(--r);background-repeat:no-repeat;background-color:var(--dark);
+  box-shadow:var(--sh-lg),0 0 0 1px rgba(243,239,230,.18)}
+/* The plate's own three lines stand down while the panel is over them. They
+   are not hidden: at .16 the number and the stage still read as the furniture
+   of the plate, so the panel looks like it is sitting on the plate rather than
+   replacing it. */
+.shotn,.shott,.shotstage,.shotzi{transition:opacity .18s ease}
+.shot.lensing .shotn,.shot.lensing .shott,.shot.lensing .shotstage{opacity:.16}
+.shot.lensing .shotzi{opacity:0}
+@media(prefers-reduced-motion:reduce){
+  .shotn,.shott,.shotstage,.shotzi{transition:none}
+}
+
 
 /* The rail. It runs, and it runs the way the marquee under the header runs:
    one set of frames repeated and translated by exactly one set, so the loop

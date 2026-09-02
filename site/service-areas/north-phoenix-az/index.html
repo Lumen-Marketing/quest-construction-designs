@@ -36,7 +36,7 @@
 <link rel="manifest" href="../../site.webmanifest">
 <meta name="theme-color" content="#D07C42">
 
-<link rel="stylesheet" href="../../assets/styles.61c48efba6.css">
+<link rel="stylesheet" href="../../assets/styles.97250dee69.css">
 
 <script type="application/ld+json">
 {
@@ -1111,6 +1111,108 @@
       if(!rail.contains(e.relatedTarget)) rail.scrollLeft=0;
     });
     mark(0);
+  });
+})();
+(function(){
+  // The hover lens. A square follows the pointer over the photograph and the
+  // plate beside it shows that square at native resolution — the thing a
+  // catalogue site does with a product shot.
+  //
+  // Nothing here is built without a fine pointer that hovers. On a touch
+  // screen there is no hover to drive a lens with, and a tap opens the frame
+  // full size instead, which is the better answer there anyway.
+  if(!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+  // One scroll listener for the page and not one per figure. There are
+  // seventy-five figures and six horizontal scrollers on this page, and a
+  // capturing listener fires for every one of them; multiplying that by
+  // seventy-five to service the single lens that can exist at a time is the
+  // kind of thing that makes a page feel heavy for no reason.
+  var live=null;
+  addEventListener('scroll',function(){ if(live) live(); },{passive:true,capture:true});
+  document.querySelectorAll('.shot').forEach(function(shot){
+    var a=shot.querySelector('.shotzoom');
+    var img=a&&a.querySelector('img');
+    var plate=shot.querySelector('.shotcap');
+    if(!a||!img||!plate) return;
+    var lens=null, panel=null, raf=null, at=null;
+
+    function build(){
+      lens=document.createElement('div'); lens.className='lens';
+      panel=document.createElement('div'); panel.className='lenspanel';
+      // The same file the picture already showed, so the panel costs a paint
+      // and not a download.
+      panel.style.backgroundImage='url("'+a.getAttribute('href')+'")';
+      shot.appendChild(lens); shot.appendChild(panel);
+      shot.classList.add('lensing');
+      live=schedule;
+    }
+    function drop(){
+      if(raf!==null){cancelAnimationFrame(raf);raf=null}
+      shot.classList.remove('lensing');
+      if(lens&&lens.parentNode) lens.parentNode.removeChild(lens);
+      if(panel&&panel.parentNode) panel.parentNode.removeChild(panel);
+      lens=null; panel=null; at=null;
+      if(live===schedule) live=null;
+    }
+    function place(){
+      raf=null;
+      if(!lens||!at) return;
+      var sr=shot.getBoundingClientRect();
+      var ir=img.getBoundingClientRect();
+      var pr=plate.getBoundingClientRect();
+      // How much bigger than life the panel draws the picture. Native
+      // resolution when the file can supply it, and 2.5 when it cannot.
+      //
+      // The first version of this used native and nothing else, which is the
+      // honest number and made a useless lens: these frames are only 1.5 to
+      // 1.7 times the size they are shown at on a wide screen, so the square
+      // came out covering half the photograph. A lens has to be small to be a
+      // lens. 2.5 is the smallest magnification that reads as one, and where
+      // the file has more than that to give — the 1800px frames do — it is
+      // used instead, up to 3.5.
+      var native=img.naturalWidth/ir.width;
+      var mag=Math.max(2.5,Math.min(native,3.5));
+      // Square, fitting the plate with room around it and never taller than
+      // the picture it reads from.
+      var room=Math.min(pr.width-44,ir.height,470);
+      var l=Math.max(70,Math.min(room/mag,Math.min(ir.width,ir.height)*0.3));
+      var size=Math.min(l*mag,room);
+      l=size/mag;
+      if(l>ir.width-2||l>ir.height-2){ drop(); return; }
+      panel.style.width=size+'px';
+      panel.style.height=size+'px';
+      panel.style.left=(pr.left-sr.left+(pr.width-size)/2)+'px';
+      panel.style.top=(ir.top-sr.top+(ir.height-size)/2)+'px';
+      var x=Math.min(Math.max(at.x-ir.left-l/2,0),ir.width-l);
+      var y=Math.min(Math.max(at.y-ir.top-l/2,0),ir.height-l);
+      lens.style.width=l+'px'; lens.style.height=l+'px';
+      lens.style.left=(ir.left-sr.left+x)+'px';
+      lens.style.top=(ir.top-sr.top+y)+'px';
+      panel.style.backgroundSize=(ir.width*mag)+'px '+(ir.height*mag)+'px';
+      panel.style.backgroundPosition=(-x*mag)+'px '+(-y*mag)+'px';
+    }
+    function schedule(){ if(raf===null) raf=requestAnimationFrame(place); }
+
+    a.addEventListener('pointerenter',function(e){
+      if(e.pointerType==='touch') return;
+      // Nothing to magnify, and a lens that showed the same pixels bigger
+      // would be a lie — the same test the dialog's zoom makes.
+      if(!img.naturalWidth||img.naturalWidth < img.clientWidth*1.3) return;
+      if(!lens) build();
+      at={x:e.clientX,y:e.clientY};
+      place();
+    });
+    a.addEventListener('pointermove',function(e){
+      if(!lens) return;
+      at={x:e.clientX,y:e.clientY};
+      schedule();
+    });
+    a.addEventListener('pointerleave',drop);
+    a.addEventListener('pointercancel',drop);
+    // Clicking opens the frame full size, and the pointer never leaves the
+    // link on the way, so the lens has to be told.
+    a.addEventListener('click',drop);
+
   });
 })();
 (function(){
