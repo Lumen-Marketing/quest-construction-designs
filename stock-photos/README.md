@@ -1,64 +1,67 @@
 # Stock photographs — openly licensed, not Quest's own work
 
-27 openly licensed photographs, sized for the web and named by service.
-Sourced from Wikimedia Commons, which is the only free photo library reachable
-from this machine that serves images at full resolution.
+56 openly licensed photographs from Wikimedia Commons, sized for the web and
+named by the service they belong to. 50 are trade work. 6 are Arizona desert
+scene-setters for page backgrounds.
 
-**Nothing in here is a Quest job.** It is deliberately kept out of
-`assets/quest/`, out of `site/`, and out of the build, so it can never be picked
-up by the gallery by accident. The gallery on `/gallery/` reads from
-`build/lib/photos.mjs`, which only ever lists files in `assets/quest/`.
+**Nothing here is a Quest job.** It is kept out of `assets/quest/`, out of
+`site/`, and out of the build, so the gallery can never pick it up by accident.
+The gallery reads from `build/lib/photos.mjs`, which only ever lists files in
+`assets/quest/`.
+
+## What is here
+
+| Service | Files | What they show |
+| --- | --- | --- |
+| Residential Development | 6 | Aerials of finished and part-built subdivisions, tile roofs, desert edges |
+| Custom Home Building | 4 | Houses in open frame, sheathing going on |
+| Concrete | 6 | Slab pours at framed houses, chutes, screeding, driveway pours |
+| Roofing | 3 | Tear-off back to the deck, tear-off truck at the house |
+| Siding | 5 | Lap courses, window returns, finished elevations |
+| Dry Wall | 6 | Hanging, taping, running compound, a finished corner |
+| Painting | 6 | Cutting in, rolling out, exterior ladder work, spray and masking |
+| Full Remodel | 5 | Finished kitchens and bathrooms, plus mid-fit shots |
+| Deck Building | 4 | New deck off the house, boards and rail, finished deck |
+| Demolition | 5 | Excavators working, loading out to a clear site |
+| Arizona / Sonoran desert | 6 | Saguaro, desert plain, a Tucson street — for backgrounds |
 
 ## Read this before using any of it
 
 **1. Do not put these in the project gallery.** The gallery is presented as
 Quest's completed work. A stock photograph in there is a claim about a job Quest
-did not do — and a contractor's own customers are the people most likely to spot
-it. Use them for page backgrounds, section headers, and service page imagery,
-where they read as illustration rather than as a portfolio.
+did not do, and Quest's own customers are the people most likely to spot it. Use
+them for page backgrounds, section headers and service page imagery, where they
+read as illustration rather than as a portfolio.
 
-**2. 26 of the 27 require a credit line wherever they are published.** Only
-`demolition-2.webp` is CC0 (no credit needed). The rest are CC BY or
-CC BY-SA. `CREDITS.md` has the exact line for each. One credits page carrying
-those lines, linked from any page that uses one, satisfies the licence. If Quest
-will not maintain that page, use only the CC0 file.
+**2. 39 of the 56 need a credit line wherever they are published.** The other 17
+are public domain and need nothing. `CREDITS.md` has the exact line for each. One
+credits page carrying those lines, linked from any page that uses one, satisfies
+the licence.
 
-**3. The CC BY-SA files are share-alike.** Placing one on a page does not put the
+**3. Some are CC BY-SA (share-alike).** Placing one on a page does not put the
 page under that licence, but publishing a *modified* version of the photograph
-does. These were resized only, which is not an adaptation. Do not crop, recolour
-or composite them without checking `CREDITS.md` for which licence applies.
+does. These were resized only, which is not an adaptation. Check `CREDITS.md`
+before cropping, recolouring or compositing.
 
-## What is here
+## Services with nothing here
 
-| Service | Files | Note |
-| --- | --- | --- |
-| General Arizona / Sonoran desert | 19 | Genuine Arizona. The strongest material here. |
-| Residential Development | 3 | Aerials of tile-roof tract housing; reads Southwest. |
-| ADU | 2 | Small detached units. Neutral, not identifiably Arizona. |
-| Stucco | 1 | A surface texture, not stucco being applied. |
-| Demolition | 2 | Real demolition plant, but European urban sites. |
+**Casita**, **ADU**, **Stucco** and **Framing**.
 
-## What is not here, and why
+Roughly 5,800 files were walked out of the Commons trade categories and reviewed
+by eye. Those four came back empty of anything usable: "stucco" on Commons is
+Islamic architectural relief in museums, "ADU" is Nepalese guest houses and German
+pensions, "casita" is historic adobe and Californian mission buildings, and the
+framing categories are commercial steel and timber roofs rather than American
+stick framing.
 
-Nine services have no file in this folder: Casita, Framing, Concrete, Siding,
-Roofing, Full Remodel, Custom Home Building, Deck Building, Window Installation,
-Dry Wall and Painting.
-
-Around 1,650 candidates were searched across Openverse and Wikimedia Commons and
-reviewed by eye. Free-licence photo libraries have very thin coverage of American
-residential trade work, and almost none of it is in the Southwest. What came back
-for those services was English Georgian terraces, museum stucco reliefs, military
-public-affairs photographs, 19th-century prints of Pompeii, and amateur snapshots
-of backyard decks in the Pacific Northwest. None of it would sit next to Quest's
-own photographs without looking borrowed.
-
-The trades in that list already have real Quest photographs on the gallery —
-Framing has 35, Roofing 12, Window Installation 10. The gap worth closing is the
-six services with no photographs at all, and the way to close it is a phone
-camera on a Quest job, not stock.
+Framing needs nothing anyway — it has 35 real Quest photographs. Casita has 3.
+Stucco and ADU have none, and the honest fix for those two is a phone camera on a
+Quest job.
 
 ## Sourcing more
 
-If more stock is genuinely wanted, Pexels, Unsplash and Pixabay have far better
-coverage of these trades and their licences need no attribution. Both need a free
-API key, which this machine does not have. Say the word and it can be wired up.
+Pexels, Pixabay and Unsplash have far better coverage of American residential
+trades and their licences need no attribution at all. Their image CDNs are
+reachable from this machine, but searching them needs a free API key that is not
+set up here. Get a key from any one of them and this can be re-run against a much
+better library.
