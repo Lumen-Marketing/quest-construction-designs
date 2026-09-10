@@ -122,6 +122,82 @@ export const ALT = {
   'quest/window-interior.webp': 'A stripped room with two new windows fitted, waiting on trim and paint',
   'quest/roof-windows.webp': 'A newly shingled roof with the tools still out and new windows going in behind it',
 
+  // ---- the fourth shoot: roofing, two jobs
+  // Quest supplied these as two folders. The first is a roofing job carried
+  // start to finish — stripped deck, underlayment, flashings, battens, tile —
+  // and it is the only sequence in the library that covers a trade end to end.
+  // The second is a single completed shingle re-roof, shot from the roof
+  // itself: skylights, a curbed air handler, parapets, and the mountains
+  // behind. Eighteen further frames arrived with them and are already here
+  // under the custom home above; they were the same shoot sent twice.
+  'quest/aerial-reroof-strip.webp': 'A house from above with its roof stripped back for replacement',
+  'quest/roof-deck-sheathing.webp': 'Working an open roof deck with fresh sheathing stacked ready',
+  'quest/underlayment-rolls.webp': 'Rolls of underlayment on a clean roof deck',
+  'quest/pipe-flashing.webp': 'A vent pipe flashed through the roof underlayment',
+  'quest/valley-flashing.webp': 'Metal valley flashing set into the sheathing before the tile goes back',
+  'quest/flashing-repair.webp': 'Sealant worked into a flashing repair by hand',
+  'quest/tile-battens-slope.webp': 'A roof slope battened out over underlayment, ready for tile',
+  'quest/tile-battens-crew.webp': 'Two on the roof laying battens up the slope',
+  'quest/tile-staged.webp': 'Roof tiles stacked in rows across the underlayment, ready to lay',
+  'quest/tile-roof-ridge.webp': 'Standing at the ridge of a finished tile roof',
+  'quest/tile-roof-inspection.webp': 'Standing on a tile roof to inspect it, tablet in hand',
+  'quest/aerial-overhead-protection.webp': 'Sheeting laid over a pool and patio to protect them during a re-roof',
+  'quest/shingle-roof-finished.webp': 'A finished shingle roof over a hipped house',
+
+  // the shingle re-roof, all one house
+  'quest/shingle-skylight-flashed.webp': 'A skylight flashed into a finished shingle roof',
+  'quest/shingle-wall-flashing.webp': 'Shingles and flashing worked into a stucco wall',
+  'quest/shingle-parapet-hip.webp': 'Shingles running up to a stucco parapet on a finished roof',
+  'quest/shingle-hvac-curb.webp': 'A rooftop air handler curbed and flashed into a finished shingle roof',
+  'quest/shingle-vents-skylight.webp': 'Vents and a skylight on a finished shingle roof',
+  'quest/shingle-skylight-pair.webp': 'A pair of skylights on a finished shingle roof under a clear sky',
+  'quest/shingle-skylights-street.webp': 'Skylights set into a finished shingle roof above a palm-lined street',
+  'quest/shingle-ridge-palms.webp': 'The ridge of a finished shingle roof with palms beyond',
+  'quest/shingle-plane-peak.webp': 'A finished shingle roof plane running out towards a desert peak',
+  'quest/shingle-hip-skyline.webp': 'A finished shingle roof with the mountains on the skyline behind it',
+  'quest/shingle-parapet-street.webp': 'A finished shingle roof meeting a stucco parapet above the street',
+  'quest/shingle-field-palms.webp': 'The open field of a finished shingle roof with palms on the skyline',
+
+  // ---- STOCK PLACEHOLDERS — NOT QUEST'S WORK, TO BE REPLACED ----
+  // These are openly licensed photographs of other firms' jobs, added at
+  // Quest's request to cover trades Quest has no photograph of yet. They live
+  // under assets/stock/ so the path itself says what they are, and they appear
+  // on service pages only — never in the gallery, which is captioned as Quest's
+  // own completed work. content/outsourced.json carries the licence, the
+  // credit line and the source for every one, and images.test.mjs keeps that
+  // record honest.
+  //
+  // SIXTEEN OF THE TWENTY REQUIRE A VISIBLE CREDIT WHEREVER THEY ARE PUBLISHED.
+  // The site carries no credit line today. Either a credits page goes up, or
+  // those files come out. See content/outsourced.json -> placeholders.rule.
+  //
+  // When Quest supplies its own frame for a trade, delete the placeholder for
+  // that trade from here, from assets/stock/ and from outsourced.json. It is a
+  // stand-in, not a fixture.
+  //
+  // The alt text describes the photograph and nothing more. None of it claims
+  // to be a Quest job and the test fails if it ever does.
+  'stock/concrete-1.webp': 'Concrete being placed for a slab beside a framed house',
+  'stock/concrete-3.webp': 'Concrete running down the chute onto a prepared subgrade',
+  'stock/custom-home-building-1.webp': 'A house standing in open timber frame on a cleared lot',
+  'stock/custom-home-building-2.webp': 'The framed shell of a house under a clear sky',
+  'stock/custom-home-building-3.webp': 'New houses going up along a street, still in frame and sheathing',
+  'stock/custom-home-building-4.webp': 'Wall sheathing and a ladder on a house under construction',
+  'stock/deck-building-1.webp': 'A new timber deck built off the back of a house',
+  'stock/deck-building-3.webp': 'A timber deck set out with a table under a covered roof',
+  'stock/deck-building-4.webp': 'A finished timber deck running up to full-height glazing',
+  'stock/demolition-1.webp': 'A tracked excavator standing in the rubble of a demolished building',
+  'stock/demolition-5.webp': 'An excavator loading demolition debris out to a cleared site',
+  'stock/dry-wall-6.webp': 'A finished plasterboard corner, taped and sanded flat',
+  'stock/full-remodel-2.webp': 'A fitted kitchen with wall cabinets, worktop and oven in place',
+  'stock/full-remodel-3.webp': 'A finished bathroom with a round mirror and a basin on a stone top',
+  'stock/full-remodel-5.webp': 'A bathroom stripped back to the brickwork partway through a refit',
+  'stock/roofing-2.webp': 'A tear-off truck pulled up to a house with the roof being stripped',
+  'stock/roofing-3.webp': 'A roof opened up and covered over with sheeting',
+  'stock/siding-2.webp': 'Lap siding courses running across a wall, close',
+  'stock/siding-3.webp': 'A sided elevation with the trim picked out in a second colour',
+  'stock/siding-4.webp': 'Dark board siding on a modern elevation',
+
   // ---- the two alpha cut-outs; see CUTOUTS
   'excavator.webp': 'A tracked excavator on a Quest Construction site',
   'loader.webp': 'A wheel loader on a Quest Construction site',
@@ -374,6 +450,32 @@ const TRADE_FILES = {
     'quest/aerial-reroof.webp',
     'quest/aerial-tearoff.webp',
     'quest/roof-windows.webp',
+    // the fourth shoot: one roof carried through, then a finished re-roof
+    'quest/aerial-reroof-strip.webp',
+    'quest/roof-deck-sheathing.webp',
+    'quest/underlayment-rolls.webp',
+    'quest/pipe-flashing.webp',
+    'quest/valley-flashing.webp',
+    'quest/flashing-repair.webp',
+    'quest/tile-battens-slope.webp',
+    'quest/tile-battens-crew.webp',
+    'quest/tile-staged.webp',
+    'quest/tile-roof-ridge.webp',
+    'quest/tile-roof-inspection.webp',
+    'quest/aerial-overhead-protection.webp',
+    'quest/shingle-roof-finished.webp',
+    'quest/shingle-skylight-flashed.webp',
+    'quest/shingle-wall-flashing.webp',
+    'quest/shingle-parapet-hip.webp',
+    'quest/shingle-hvac-curb.webp',
+    'quest/shingle-vents-skylight.webp',
+    'quest/shingle-skylight-pair.webp',
+    'quest/shingle-skylights-street.webp',
+    'quest/shingle-ridge-palms.webp',
+    'quest/shingle-plane-peak.webp',
+    'quest/shingle-hip-skyline.webp',
+    'quest/shingle-parapet-street.webp',
+    'quest/shingle-field-palms.webp',
   ],
   'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops': [
     'quest/remodel-studs.webp',
@@ -694,7 +796,10 @@ function fill(pool, used, n, where) {
 // than the trade it sits under.
 const SERVICE_POOL = {
   'residential-development': [
-    'quest/aerial-tearoff.webp', 'quest/framing-desert-lot.webp', 'quest/framing-garage.webp',
+    'quest/aerial-tearoff.webp',
+    // STOCK PLACEHOLDER (assets/stock/) — not Quest's work, to be
+    // replaced by Quest's own photograph of this trade.
+    'stock/custom-home-building-4.webp', 'quest/framing-desert-lot.webp', 'quest/framing-garage.webp',
     'quest/framing-clouds.webp', 'quest/slab-lumber.webp', 'quest/custom-home-wide.webp',
     'quest/home-dusk.webp', 'quest/framing-progress.webp', 'quest/framing-sky.webp'],
   casita: [
@@ -710,36 +815,71 @@ const SERVICE_POOL = {
     'quest/framing-desert-lot.webp', 'quest/framing-roof.webp', 'quest/framing-header.webp',
     'quest/home-trusses.webp', 'quest/framing-sky.webp'],
   concrete: [
-    'quest/slab-poured.webp', 'quest/footings-excavator.webp', 'quest/framing-patio.webp',
+    'quest/slab-poured.webp',
+    // STOCK PLACEHOLDERS (assets/stock/) — not Quest's work, to be
+    // replaced by Quest's own photographs of this trade.
+    'stock/concrete-1.webp',
+    'stock/concrete-3.webp',
+    'quest/footings-excavator.webp', 'quest/framing-patio.webp',
     'quest/framing-braced.webp', 'quest/slab-walls.webp',
     'quest/slab-lumber.webp', 'quest/framing-shade.webp'],
   stucco: [
     'quest/casita-stucco.webp', 'quest/custom-home-shell.webp', 'quest/window-flashed.webp',
     'quest/home-side.webp', 'quest/framing-walls.webp', 'quest/gables-underlayment.webp'],
   'dry-wall': [
+    // STOCK PLACEHOLDERS (assets/stock/) — not Quest's work, to be
+    // replaced by Quest's own photographs of this trade.
+    'stock/dry-wall-6.webp',
     'quest/spare.webp', 'quest/framing-inside.webp', 'quest/framing-openings.webp',
     'quest/framing-hose.webp', 'quest/framing-corner.webp'],
   siding: [
+    // STOCK PLACEHOLDERS (assets/stock/) — not Quest's work, to be
+    // replaced by Quest's own photographs of this trade.
+    'stock/siding-2.webp',
+    'stock/siding-3.webp',
+    'stock/siding-4.webp',
     'quest/window-fitted.webp', 'quest/framing-garage.webp', 'quest/home-side.webp',
     'quest/home-trusses.webp', 'quest/custom-home-shell.webp',
     'quest/sheathing-panel.webp', 'quest/framing-walls.webp'],
   roofing: [
-    'quest/aerial-tearoff.webp', 'quest/roof-windows.webp', 'quest/framing-cricket.webp',
+    'quest/aerial-tearoff.webp',
+    // STOCK PLACEHOLDERS (assets/stock/) — not Quest's work, to be
+    // replaced by Quest's own photographs of this trade.
+    'stock/roofing-2.webp',
+    'stock/roofing-3.webp',
+    'quest/roof-windows.webp', 'quest/framing-cricket.webp',
     'quest/roof-shingles.webp', 'quest/roof-ridge.webp', 'quest/roof-desert.webp',
     'quest/roof-eave.webp', 'quest/roof-valley.webp'],
   'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops': [
+    // STOCK PLACEHOLDERS (assets/stock/) — not Quest's work, to be
+    // replaced by Quest's own photographs of this trade.
+    'stock/full-remodel-2.webp',
+    'stock/full-remodel-3.webp',
+    'stock/full-remodel-5.webp',
     'quest/remodel-studs.webp', 'quest/window-opening.webp', 'quest/spare.webp',
     'quest/framing-addition.webp', 'quest/framing-inside.webp', 'quest/framing-corner.webp',
     'quest/slab-walls.webp', 'quest/framing-openings.webp'],
   'custom-home-building': [
-    'quest/custom-home-wide.webp', 'quest/custom-home-gables.webp', 'quest/home-trusses.webp',
+    'quest/custom-home-wide.webp',
+    // STOCK PLACEHOLDERS (assets/stock/) — not Quest's work, to be
+    // replaced by Quest's own photographs of this trade.
+    'stock/custom-home-building-1.webp',
+    'stock/custom-home-building-2.webp',
+    'stock/custom-home-building-3.webp',
+    'quest/custom-home-gables.webp', 'quest/home-trusses.webp',
     'quest/custom-home-shell.webp', 'quest/home-side.webp', 'quest/porch-dusk.webp',
     'quest/home-dusk.webp'],
   painting: [
     'quest/spare.webp', 'quest/window-interior.webp', 'quest/casita-stucco.webp',
     'quest/home-windows.webp', 'quest/gables-underlayment.webp', 'quest/custom-home-shell.webp'],
   'deck-building-uses-trex-system': [
-    'quest/deck-finished.webp', 'quest/framing-lumber.webp', 'quest/slab-lumber.webp',
+    'quest/deck-finished.webp',
+    // STOCK PLACEHOLDERS (assets/stock/) — not Quest's work, to be
+    // replaced by Quest's own photographs of this trade.
+    'stock/deck-building-1.webp',
+    'stock/deck-building-3.webp',
+    'stock/deck-building-4.webp',
+    'quest/framing-lumber.webp', 'quest/slab-lumber.webp',
     'quest/porch-dusk.webp', 'quest/framing-slab.webp'],
   // The one trade with a start-to-finish sequence of its own: the wall opened
   // up, the unit flashed in, the sky in the glass, the finished opening.
@@ -752,6 +892,10 @@ const SERVICE_POOL = {
   // wider window, the interior taken back to studs, the ground cut open beside
   // a standing house. Each alt still describes its own frame.
   demolition: [
+    // STOCK PLACEHOLDERS (assets/stock/) — not Quest's work, to be
+    // replaced by Quest's own photographs of this trade.
+    'stock/demolition-1.webp',
+    'stock/demolition-5.webp',
     'quest/window-demo.webp', 'quest/remodel-studs.webp', 'quest/footings-excavator.webp',
     'quest/framing-inside.webp', 'quest/aerial-reroof.webp', 'quest/framing-court.webp',
     'quest/slab-blockwall.webp'],

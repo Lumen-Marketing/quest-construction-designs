@@ -25,7 +25,7 @@ test('every photograph in the library is present and measured', async () => {
   assert.ok(Object.keys(ALT).length >= 45, 'the library shrank unexpectedly');
 });
 
-test('every photograph Quest did not take is accounted for in writing', () => {
+test('every photograph Quest did not take is accounted for in writing', async () => {
   const sizes = JSON.parse(readFileSync('content/images.json', 'utf8'));
   const out = JSON.parse(readFileSync('content/outsourced.json', 'utf8'));
   const strays = Object.keys(sizes)
@@ -38,12 +38,13 @@ test('every photograph Quest did not take is accounted for in writing', () => {
   const CUTOUTS = ['excavator.webp', 'loader.webp'];
   const sourced = out.images.map((i) => i.file);
   const supplied = out.supplied.images.map((i) => i.file);
-  const allowed = new Set([...CUTOUTS, ...sourced, ...supplied]);
+  const placeholders = out.placeholders.images.map((i) => i.file);
+  const allowed = new Set([...CUTOUTS, ...sourced, ...supplied, ...placeholders]);
   for (const f of strays) {
     assert.ok(allowed.has(f),
       `${f} is not Quest's and is not in content/outsourced.json — where did it come from?`);
   }
-  for (const f of [...sourced, ...supplied]) {
+  for (const f of [...sourced, ...supplied, ...placeholders]) {
     assert.ok(sizes[f], `content/outsourced.json lists ${f}, which is not in the tree`);
   }
 
@@ -84,9 +85,35 @@ test('every photograph Quest did not take is accounted for in writing', () => {
     }
   }
 
+  // The placeholders are the one block that is allowed to need attribution, so
+  // it has to say so loudly and keep saying so. They stand in for photographs
+  // Quest has not taken; the moment that sentence goes quiet, the credit line
+  // owed on sixteen of them goes quiet with it.
+  assert.match(out.placeholders.status, /TO BE REPLACED/,
+    'the placeholder block no longer says these are to be replaced');
+  assert.match(out.placeholders.rule, /NOT attribution-free/,
+    'the placeholder block no longer warns that these need crediting');
+  for (const i of out.placeholders.images) {
+    assert.ok(i.file.startsWith('stock/'),
+      `${i.file} is a placeholder but does not live under assets/stock/`);
+    assert.equal(typeof i.attribution_required, 'boolean',
+      `${i.file} does not say whether it needs attribution`);
+    for (const k of ['license', 'credit_line', 'landing_page', 'alt', 'service']) {
+      assert.ok(i[k], `${i.file} has no ${k} recorded`);
+    }
+  }
+
+  // A placeholder is not Quest's work, so it must never reach the gallery —
+  // that page is captioned as Quest's own completed jobs.
+  const { GALLERY } = await import('./photos.mjs');
+  for (const f of placeholders) {
+    assert.ok(!GALLERY.includes(f), `${f} is stock and is in the project gallery`);
+  }
+
   // Alt text that describes the picture, not a Quest job. None of these show
   // Quest's own work and none of them may imply otherwise.
-  for (const i of [...out.images, ...out.supplied.images, ...out.retired.images]) {
+  for (const i of [...out.images, ...out.supplied.images, ...out.retired.images,
+                   ...out.placeholders.images]) {
     assert.doesNotMatch(i.alt, /Quest/i, `${i.file} alt implies it is a Quest job`);
   }
 });
