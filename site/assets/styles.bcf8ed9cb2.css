@@ -522,14 +522,20 @@ h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-.03
 .sec.dark{background:var(--dark);color:var(--on-dark)}
 .sec.dark h2{color:var(--on-dark)}
 .sec.cream{background:var(--cream)}
-.shead{position:relative;z-index:3;display:grid;grid-template-columns:1.08fr .92fr;
-  gap:clamp(22px,4vw,68px);align-items:end;margin-bottom:clamp(36px,5vw,66px)}
-.shead h2{font-size:clamp(30px,4.6vw,62px);font-weight:900}
+/* The head is one column. Two columns left the right half of the row empty on
+   every section whose second cell carries nothing, and gave the ones that do
+   carry a lede a column sized for four lines to hold two. The heading runs the
+   full measure on one line and the lede sits under it, held short enough to set
+   at two or three lines. 66px is the size at which the longest single line
+   heading fills 91 percent of a 1286px row, measured in Archivo 900 at the
+   real letter spacing rather than guessed. */
+.shead{position:relative;z-index:3;margin-bottom:clamp(36px,5vw,66px)}
+.shead h2{font-size:clamp(30px,4.86vw,70px);font-weight:900;text-wrap:balance}
 .shead h2 span{color:var(--acc)}
 .sec.cream .shead h2 span{color:var(--acc-dim)}
-.shead .lede{margin:0;color:var(--ink-2);font-size:clamp(14.5px,1.4vw,17px)}
+.shead .lede{margin:clamp(16px,1.8vw,26px) 0 0;color:var(--ink-2);
+  font-size:clamp(14.5px,1.4vw,17px);max-width:clamp(320px,44vw,640px);text-wrap:pretty}
 .sec.dark .shead .lede{color:var(--on-dark-2)}
-@media(max-width:880px){.shead{grid-template-columns:1fr;align-items:start}}
 
 /* ---------- 04 SERVICE CARDS (dark) ---------- */
 .svcs{position:relative;z-index:3;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.8vw,24px)}
