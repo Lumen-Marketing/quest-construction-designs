@@ -134,7 +134,9 @@ export function pageList(opts = {}) {
   };
 
   push('home', 'home',
-    `Arizona Construction & Remodeling${brand}`,
+    // The brand leads on the home page. A tab truncates to the first word or
+    // two, and "Arizona C..." told nobody whose site they had open.
+    'Quest Construction | Arizona Construction & Remodeling',
     clip(`${pages.home.heroBody} Serving Arizona homeowners since ${site.foundingYear}.`, 155));
 
   for (const s of services) {
