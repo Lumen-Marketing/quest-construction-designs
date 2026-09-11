@@ -633,7 +633,21 @@ const CARD_SHOTS = {
   roofing: 'aerial-reroof',
   'full-remodel-kitchen-bathroomcabinets-flooring-counter-tops': 'remodel-studs',
   'custom-home-building': 'porch-dusk',
-  painting: 'custom-home-gables',
+  // Quest has no painting photograph. All three shoots were read frame by frame
+  // and there is nothing: no brush, no roller, no masked room, no fresh coat.
+  // Wikimedia has none worth using either. Its painting categories run to 95
+  // files and the eight that are public domain and landscape are service
+  // personnel volunteering, a scanned invoice, a black-and-white from the 1900s
+  // and one dated domestic snapshot. Everything usable is share-alike, and the
+  // site carries no credit line.
+  //
+  // So the card takes the one frame in the library whose own alt text names
+  // the trade: a room stripped back, windows in, waiting on trim and paint.
+  // It is the hour before a painter starts rather than a painter working, and
+  // it is the closest honest thing here. It was bare sheathing before, and OSB
+  // under a heading that reads Painting is the one thing this card must not be.
+  // Replace it the day Quest sends a photograph of a paint job.
+  painting: 'window-interior',
   'deck-building-uses-trex-system': 'deck-finished',
   'window-installation': 'window-stucco',
   // The only machine in the library, and the only frame in it where the ground
