@@ -6,8 +6,18 @@ const P = {
   casita: 'M4 20h16M6 20v-8l6-4 6 4v8M10 20v-4h4v4M3 12l9-6 9 6',
   adu: 'M3 21h18M6 21V10h6v11M12 14h6v7M8 13h2M8 17h2',
   framing: 'M4 21V4h16v17M4 21h16M4 12h16M12 4v17M4 8h16M4 16h16',
-  concrete: 'M3 16h18v5H3zM5 16l2-5h10l2 5M8 11V7M12 11V6M16 11V7',
-  stucco: 'M4 4h16v16H4zM7 8h.01M11 7h.01M15 9h.01M9 12h.01M13 13h.01M17 12h.01M7 16h.01M11 17h.01M15 16h.01',
+  // A mixer truck. The slab-and-stakes drawing this replaces read as a lump on
+  // a box: nothing in it said concrete, and it sat in a row of icons that draw
+  // a recognisable thing. A drum on a chassis is what a customer pictures.
+  concrete: 'M3 17h16M3 17v-4h3l2 4M9.5 13.5 11.5 8h5.5l2 3.5-2 3.5h-5.5z'
+    + 'M19 15l2.5 2.5M5.3 19a1.7 1.7 0 1 0 3.4 0 1.7 1.7 0 1 0-3.4 0'
+    + 'M14.3 19a1.7 1.7 0 1 0 3.4 0 1.7 1.7 0 1 0-3.4 0',
+  // A plasterer's trowel, blade flat to the wall, with two strokes of render
+  // above it. The square of scattered dots this replaces was texture with no
+  // subject, and at chip size the dots read as specks of dirt. Drawn flat
+  // rather than angled: angled, the blade and its grip read as a pencil.
+  stucco: 'M3.5 15h13.5l2.5 3H6zM11.5 12.9v-1.5M9.6 11.4h3.8'
+    + 'M5 8.5h9',
   'dry-wall': 'M3 5h18v14H3zM3 12h18M12 5v7M8 12v7M17 12v7',
   siding: 'M3 5h18v3H3zM3 8h18v3H3zM3 11h18v3H3zM3 14h18v3H3zM3 17h18v2H3z',
   roofing: 'M2 12 12 4l10 8M5 12v8h14v-8M9 20v-5h6v5',
