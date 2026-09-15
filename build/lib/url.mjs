@@ -33,13 +33,19 @@ export const CITY_SERVICE_KEYS = Object.entries(cross)
 const posts = JSON.parse(readFileSync('content/posts.json', 'utf8')).posts;
 export const BLOG_KEYS = ['blog', ...posts.map((b) => `blog/${b.slug}`)];
 
+// The privacy policy, the terms of use and the photo credits. Standalone only:
+// a noindex design direction collects nothing from anyone and is published to
+// nobody, so it owes neither a policy nor a credit line.
+export const LEGAL_KEYS = ['privacy-policy', 'terms-of-use', 'photo-credits'];
+
 export const PAGE_KEYS = [
   ...Object.keys(FIXED),
   ...services.map((s) => `services/${s.slug}`),
   ...areas.map((a) => `service-areas/${a.slug}`),
 ];
 
-const KEYS = new Set([...PAGE_KEYS, ...HUB_KEYS, ...CITY_SERVICE_KEYS, ...BLOG_KEYS]);
+const KEYS = new Set([...PAGE_KEYS, ...HUB_KEYS, ...CITY_SERVICE_KEYS, ...BLOG_KEYS,
+  ...LEGAL_KEYS]);
 
 const dirFor = (key) => {
   if (!KEYS.has(key)) throw new Error(`unknown page key: ${key}`);

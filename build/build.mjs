@@ -33,13 +33,15 @@ export function contextFor({ mod, key, profile = demoProfile, absolute = false }
     page, res,
     url: res.url, asset: res.asset, local: res.local, root: res.root,
     hub: res.hub, hubs: profile.hubs, cityServices: profile.cityServices,
-    blog: profile.blog,
+    blog: profile.blog, legal: profile.legal,
     site: content.site, services: content.services,
     serviceGroups: content.serviceGroups,
     areas: content.areas, pages: content.pages,
     areasLocal: content.areasLocal,
     serviceAreas: content.serviceAreas,
     posts: content.posts,
+    legalCopy: content.legal,
+    outsourced: content.outsourced,
     item: page.item,
   };
 }

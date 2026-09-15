@@ -108,13 +108,26 @@ export function documentFindings(html) {
  *                 a direction folder resolves relatively, the standalone site
  *                 also understands a leading slash and directory form.
  */
+// Paths the host serves for the project rather than files in the tree. Vercel
+// answers /_vercel/insights/* once Web Analytics is on; nothing is ever on disk
+// there, so a file check can only call it broken. Only this prefix is exempt.
+const HOST_PATHS = /^\/_vercel\//;
+
 export function linkFindings(html, { file, resolve }) {
   const out = [];
   const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]));
 
-  for (const m of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
-    const href = m[1];
+  // A srcset is a list of links. Every candidate is one the browser may fetch
+  // instead of the src, so each has to exist as surely as the src does.
+  const refs = [
+    ...[...html.matchAll(/(?:href|src)="([^"]+)"/g)].map((m) => m[1]),
+    ...[...html.matchAll(/\bsrcset="([^"]+)"/g)]
+      .flatMap((m) => m[1].split(',').map((c) => c.trim().split(/\s+/)[0]).filter(Boolean)),
+  ];
+
+  for (const href of refs) {
     if (/^(https?:|tel:|mailto:|data:|\/\/)/.test(href)) continue;
+    if (HOST_PATHS.test(href)) continue;
 
     if (href.startsWith('#')) {
       const id = href.slice(1);

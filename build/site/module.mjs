@@ -9,6 +9,16 @@ import * as d01 from '../directions/d01.mjs';
 import { preloadImage } from '../lib/images.mjs';
 import { HERO } from '../lib/photos.mjs';
 
+// Vercel Web Analytics. Page views, the referrer, device and country, counted
+// without a cookie and without following anyone to another site — which is
+// why the site needs no consent banner, and the privacy policy says so. The
+// script lives on a path Vercel serves for the project once Web Analytics is
+// switched on in its dashboard; until then it is a 404 that costs nothing. The
+// queue catches an event fired before the deferred script has arrived.
+export const ANALYTICS = `<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+`;
+
 export const meta = {
   slug: '',                 // '' means the origin root, not a subfolder
   name: 'Quest Construction',
@@ -21,13 +31,14 @@ href="${c.local('assets/fonts/archivo-latin-var.woff2')}" crossorigin>
 href="${c.local('assets/fonts/jetbrains-mono-latin-var.woff2')}" crossorigin>
 <link rel="manifest" href="${c.root('site.webmanifest')}">
 <meta name="theme-color" content="#D07C42">
-`,
+${ANALYTICS}`,
 };
 
 export const { nav, footer } = d01;
 export const {
   home, service, area, serviceIndex, areaIndex, serviceArea,
   about, gallery, projects, contact, sitemap, blogIndex, post,
+  privacy, terms, credits,
 } = d01;
 
 // Everything direction 01's script does except read an accent off the URL.

@@ -75,6 +75,21 @@ test('off-site and non-http schemes are left alone', () => {
   assert.deepEqual(linkFindings(html, opts), []);
 });
 
+test('a path the host itself serves is not a broken link, and nothing else gets that pass', () => {
+  const opts = { file: 'x.html', resolve: () => null };
+  // Vercel answers /_vercel/insights/* for the project; no file is ever on disk.
+  assert.deepEqual(linkFindings('<script defer src="/_vercel/insights/script.js"></script>', opts), []);
+  assert.deepEqual(rules(linkFindings('<script src="/_vercelx/script.js"></script>', opts)), ['link']);
+  assert.deepEqual(rules(linkFindings('<script src="/vercel/insights/script.js"></script>', opts)), ['link']);
+});
+
+test('every candidate in a srcset is a link, and a missing one is broken', () => {
+  const html = '<img src="a.webp" srcset="w480/a.webp 480w, w960/a.webp 960w, a.webp 1500w">';
+  const onDisk = new Set(['a.webp', 'w480/a.webp']);
+  const found = linkFindings(html, { file: 'x.html', resolve: (p) => (onDisk.has(p) ? p : null) });
+  assert.deepEqual(found.map((f) => f.message), ['broken link w960/a.webp']);
+});
+
 test('the resolve adapter decides what counts as broken', () => {
   const html = '<a href="somewhere/index.html"></a>';
   assert.deepEqual(rules(linkFindings(html, { file: 'x.html', resolve: () => null })), ['link']);

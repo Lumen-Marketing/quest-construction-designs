@@ -9,7 +9,6 @@
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { walk } from '../check-links.mjs';
-import { pageList } from '../lib/pages.mjs';
 import { outPath, ORIGIN } from '../lib/url.mjs';
 import { siteProfile } from '../lib/profile.mjs';
 import {
@@ -17,7 +16,10 @@ import {
 } from '../lib/page-rules.mjs';
 
 const OUT = 'site';
-const PAGES = pageList({ hubs: true, cityServices: true, blog: true });
+// The profile's own manifest, not a second copy of its flags: this was a
+// literal { hubs, cityServices, blog } and would have missed every page kind
+// added after it.
+const PAGES = siteProfile.pages();
 
 // The four things that would mean the chooser leaked into the standalone build.
 // The placeholder-identity list is not repeated here — it lives in page-rules.

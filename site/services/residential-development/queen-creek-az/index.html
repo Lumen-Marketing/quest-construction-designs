@@ -35,8 +35,10 @@
 <link rel="preload" as="font" type="font/woff2" href="../../../assets/fonts/jetbrains-mono-latin-var.woff2" crossorigin>
 <link rel="manifest" href="../../../site.webmanifest">
 <meta name="theme-color" content="#D07C42">
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
 
-<link rel="stylesheet" href="../../../assets/styles.bcf8ed9cb2.css">
+<link rel="stylesheet" href="../../../assets/styles.cc0924352e.css">
 
 <script type="application/ld+json">
 {
@@ -449,7 +451,7 @@
 <main id="main" tabindex="-1">
 
 <section class="subhero">
-  <div class="subhero-shot" aria-hidden="true"><img src="../../../assets/quest/story.webp" alt="Framing and structural work on a Quest Construction project" width="1800" height="1350" loading="lazy" decoding="async"></div>
+  <div class="subhero-shot" aria-hidden="true"><img src="../../../assets/quest/story.webp" srcset="../../../assets/w480/quest/story.webp 480w, ../../../assets/w960/quest/story.webp 960w, ../../../assets/quest/story.webp 1800w" sizes="100vw" alt="Framing and structural work on a Quest Construction project" width="1800" height="1350" loading="eager" fetchpriority="high" decoding="async"></div>
   <div class="subhero-beam" aria-hidden="true"></div>
   <div class="grid-bg on-dark" aria-hidden="true"></div>
   <div class="wrap">
@@ -485,7 +487,7 @@
       <h3>What that means on site</h3>
       <ul><li>Well and septic sized for the finished scheme</li><li>Trenching planned once across the whole parcel</li><li>Large lots with outbuildings in the brief</li></ul>
       <div class="localcall">
-        <b class="telnum">(602) 399-6455</b>
+        <a href="tel:16023996455"><b class="telnum">(602) 399-6455</b></a>
         <span>24/7 &middot; Queen Creek, AZ</span>
       </div>
     </div>
@@ -515,7 +517,7 @@
   <div><p class="mono eyebrow">— Recent work</p><h2>Jobs Behind the <span>Queen Creek</span> Crew</h2></div>
   <p class="lede">The same crew that answers a Queen Creek call ran these. Photographs are from Quest jobs across the service area, not staged, and not stock.</p>
 </div>
-    <div class="shotband n3"><figure class="rv"><img src="../../../assets/quest/framing-cricket.webp" alt="A carpenter framing a roof cricket on a sheathed roof deck" width="1125" height="1500" loading="lazy" decoding="async"></figure><figure class="rv"><img src="../../../assets/quest/window-fitted.webp" alt="A new window fitted into a widened opening with fresh siding below it" width="1125" height="1500" loading="lazy" decoding="async"></figure><figure class="rv"><img src="../../../assets/quest/framing-desert-lot.webp" alt="Sheathed exterior walls standing across the footprint of a house on an open desert lot" width="1500" height="1125" loading="lazy" decoding="async"></figure></div>
+    <div class="shotband n3"><figure class="rv"><img src="../../../assets/quest/framing-cricket.webp" srcset="../../../assets/w480/quest/framing-cricket.webp 480w, ../../../assets/w960/quest/framing-cricket.webp 960w, ../../../assets/quest/framing-cricket.webp 1125w" sizes="(max-width: 820px) 46vw, 430px" alt="A carpenter framing a roof cricket on a sheathed roof deck" width="1125" height="1500" loading="lazy" decoding="async"></figure><figure class="rv"><img src="../../../assets/quest/window-fitted.webp" srcset="../../../assets/w480/quest/window-fitted.webp 480w, ../../../assets/w960/quest/window-fitted.webp 960w, ../../../assets/quest/window-fitted.webp 1125w" sizes="(max-width: 820px) 46vw, 430px" alt="A new window fitted into a widened opening with fresh siding below it" width="1125" height="1500" loading="lazy" decoding="async"></figure><figure class="rv"><img src="../../../assets/quest/framing-desert-lot.webp" srcset="../../../assets/w480/quest/framing-desert-lot.webp 480w, ../../../assets/w960/quest/framing-desert-lot.webp 960w, ../../../assets/quest/framing-desert-lot.webp 1500w" sizes="(max-width: 820px) 46vw, 430px" alt="Sheathed exterior walls standing across the footprint of a house on an open desert lot" width="1500" height="1125" loading="lazy" decoding="async"></figure></div>
   </div>
 </section>
 
@@ -609,8 +611,11 @@
 </div>
 </div>
 <div class="wrap fbar">
-  <p class="mono">&copy; 2026 Quest Construction &middot; Since 2018</p>
+  <p class="mono">&copy; <span data-year>2026</span> Quest Construction &middot; Since 2018</p>
   <p class="mono">Quest Construction LLC &middot; Arizona</p>
+  <p class="mono flegal"><a href="../../../privacy-policy/index.html">Privacy Policy</a><a
+    href="../../../terms-of-use/index.html">Terms of Use</a><a
+    href="../../../photo-credits/index.html">Photo Credits</a></p>
 </div>
 </footer>
 <script>
@@ -803,7 +808,11 @@
       // lens. 2.5 is the smallest magnification that reads as one, and where
       // the file has more than that to give — the 1800px frames do — it is
       // used instead, up to 3.5.
-      var native=img.naturalWidth/ir.width;
+      // The width attribute, not naturalWidth: with a srcset the element may
+      // be holding the 480px copy, while the panel paints from the href, which
+      // is always the full-size file.
+      var full=+img.getAttribute('width')||img.naturalWidth;
+      var native=full/ir.width;
       var mag=Math.max(2.5,Math.min(native,3.5));
       // Square, fitting the plate with room around it and never taller than
       // the picture it reads from.
@@ -830,7 +839,8 @@
       if(e.pointerType==='touch') return;
       // Nothing to magnify, and a lens that showed the same pixels bigger
       // would be a lie — the same test the dialog's zoom makes.
-      if(!img.naturalWidth||img.naturalWidth < img.clientWidth*1.3) return;
+      var full=+img.getAttribute('width')||img.naturalWidth;
+      if(!full||full < img.clientWidth*1.3) return;
       if(!lens) build();
       at={x:e.clientX,y:e.clientY};
       place();
@@ -1035,6 +1045,9 @@
           if(String(d&&d.success)!=='true') throw new Error('rejected');
           f.reset();
           flds.forEach(function(fl){ mark(fl,false); });
+          // Counted only once the mailbox has accepted it, for the same reason
+          // the thank-you waits: a lead that did not arrive is not a lead.
+          if(window.va) window.va('event',{name:'Contact form sent'});
           note.className='form-note mono';
           note.textContent='Thank you — that is with us. '
             +'We reply the same day, and sooner if you call.';
@@ -1043,6 +1056,22 @@
         .catch(fail);
     });
   });
+})();
+(function(){
+  // Most of Quest's leads are a phone call, and a call leaves nothing behind
+  // on a website. The tap that starts one is the nearest thing to count. The
+  // standalone site's head defines va; everywhere else this does nothing.
+  document.addEventListener('click',function(e){
+    var a=e.target&&e.target.closest?e.target.closest('a[href^="tel:"]'):null;
+    if(a&&window.va) window.va('event',{name:'Phone call tap'});
+  });
+})();
+(function(){
+  // The build writes the year it ran in, and a static page is only rebuilt
+  // when something on it changes. Without this the footer is wrong from the
+  // first of January until somebody happens to publish.
+  var y=String(new Date().getFullYear());
+  document.querySelectorAll('[data-year]').forEach(function(e){ e.textContent=y; });
 })();
 (function(){
   var els=document.querySelectorAll('.rv');

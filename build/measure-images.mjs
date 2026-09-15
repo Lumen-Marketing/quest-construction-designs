@@ -44,6 +44,11 @@ const sizes = {};
 for (const rel of walk('assets')) {
   // Intermediate cut-out sources are gitignored and never referenced.
   if (rel.startsWith('cut/')) continue;
+  // The smaller copies under assets/w480/ and assets/w960/ are not photographs
+  // in their own right: they are derived from the ones below, they are listed
+  // in content/image-variants.json, and measuring them here would have every
+  // stock copy read as an unaccounted-for photograph in images.test.mjs.
+  if (/^w\d+\//.test(rel)) continue;
   const b = readFileSync(join('assets', rel));
   const s = /\.webp$/i.test(rel) ? webpSize(b) : jpegSize(b);
   if (s) sizes[rel] = s;

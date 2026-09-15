@@ -22,6 +22,11 @@ export function loadContent() {
     serviceAreas: loadServiceAreas(),
     // The blog. Same caveats again — see the file's own _README.
     posts: loadPosts(),
+    // The privacy policy, terms and the photo credits page's own copy.
+    legal: json('legal.json'),
+    // Where every photograph Quest did not take came from, and its licence.
+    // The photo credits page is printed from this rather than from a copy.
+    outsourced: json('outsourced.json'),
   };
 }
 
@@ -67,6 +72,9 @@ const OG = {
   // A post overrides this with its own `og`, so six posts do not all share one
   // social card. This is the fallback for one that names nothing.
   post: ['framing.jpg', 'Framed walls under an Arizona sky on a Quest Construction build'],
+  privacy: ['slab.jpg', 'A finished slab and block wall on a Quest Construction build'],
+  terms: ['lumber.jpg', 'Framing lumber laid out across a Quest Construction slab'],
+  credits: ['gables.jpg', 'Gables and windows on a Quest Construction custom home'],
 };
 
 const clip = (s, n) => {
@@ -101,7 +109,8 @@ export function pageCount(opts = {}) {
       .reduce((n, byCity) => n + Object.keys(byCity).length, 0)
     : 0;
   const blog = opts.blog ? loadPosts().posts.length + 1 : 0;
-  return 1 + services.length + areas.areas.length + 5 + (opts.hubs ? 2 : 0) + cross + blog;
+  return 1 + services.length + areas.areas.length + 5 + (opts.hubs ? 2 : 0) + cross + blog
+    + (opts.legal ? 3 : 0);
 }
 
 /** "a, b and c" — an English list, for a meta description read by a person. */
@@ -224,6 +233,19 @@ export function pageList(opts = {}) {
   push('sitemap', 'sitemap', `Sitemap${brand}`,
     clip('Every page on the Quest Construction site: services, service areas, projects ' +
       'and contact details.', 155));
+
+  // Standalone only, like the hubs. See LEGAL_KEYS in url.mjs.
+  if (opts.legal) {
+    push('privacy-policy', 'privacy', `Privacy Policy${brand}`,
+      clip('What the Quest Construction website collects, who handles it and what you can ' +
+        'ask us to do with it. No cookies, no advertising trackers.', 155));
+    push('terms-of-use', 'terms', `Terms of Use${brand}`,
+      clip('The terms for using the Quest Construction website. General information, not a ' +
+        'quote: every job is agreed in its own written estimate.', 155));
+    push('photo-credits', 'credits', `Photo Credits${brand}`,
+      clip('The licensed stock photographs on the Quest Construction website, with the ' +
+        'photographer, licence and source for each one.', 155));
+  }
 
   return out;
 }

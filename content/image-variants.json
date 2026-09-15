@@ -1,0 +1,454 @@
+{
+  "quest/aerial-crane.webp": [
+    480,
+    960
+  ],
+  "quest/aerial-overhead-protection.webp": [
+    480,
+    960
+  ],
+  "quest/aerial-reroof-strip.webp": [
+    480,
+    960
+  ],
+  "quest/aerial-reroof.webp": [
+    480,
+    960
+  ],
+  "quest/aerial-tearoff.webp": [
+    480,
+    960
+  ],
+  "quest/casita-shell.webp": [
+    480
+  ],
+  "quest/casita-stucco.webp": [
+    480,
+    960
+  ],
+  "quest/casita-sunset.webp": [
+    480
+  ],
+  "quest/custom-home-gables.webp": [
+    480,
+    960
+  ],
+  "quest/custom-home-shell.webp": [
+    480
+  ],
+  "quest/custom-home-wide.webp": [
+    480,
+    960
+  ],
+  "quest/deck-finished.webp": [
+    480
+  ],
+  "quest/deck-joists.webp": [
+    480,
+    960
+  ],
+  "quest/flashing-repair.webp": [
+    480,
+    960
+  ],
+  "quest/footings-excavator.webp": [
+    480,
+    960
+  ],
+  "quest/framing-addition.webp": [
+    480
+  ],
+  "quest/framing-block.webp": [
+    480,
+    960
+  ],
+  "quest/framing-braced.webp": [
+    480
+  ],
+  "quest/framing-clouds.webp": [
+    480,
+    960
+  ],
+  "quest/framing-corner.webp": [
+    480,
+    960
+  ],
+  "quest/framing-court.webp": [
+    480,
+    960
+  ],
+  "quest/framing-cricket.webp": [
+    480,
+    960
+  ],
+  "quest/framing-curve.webp": [
+    480,
+    960
+  ],
+  "quest/framing-desert-lot.webp": [
+    480,
+    960
+  ],
+  "quest/framing-garage.webp": [
+    480,
+    960
+  ],
+  "quest/framing-header.webp": [
+    480,
+    960
+  ],
+  "quest/framing-hose.webp": [
+    480,
+    960
+  ],
+  "quest/framing-inside.webp": [
+    480
+  ],
+  "quest/framing-ladder.webp": [
+    480,
+    960
+  ],
+  "quest/framing-long-wall.webp": [
+    480
+  ],
+  "quest/framing-lumber.webp": [
+    480
+  ],
+  "quest/framing-openings.webp": [
+    480,
+    960
+  ],
+  "quest/framing-palms.webp": [
+    480,
+    960
+  ],
+  "quest/framing-patio.webp": [
+    480
+  ],
+  "quest/framing-progress.webp": [
+    480,
+    960
+  ],
+  "quest/framing-roof.webp": [
+    480,
+    960
+  ],
+  "quest/framing-shade.webp": [
+    480,
+    960
+  ],
+  "quest/framing-sky.webp": [
+    480,
+    960
+  ],
+  "quest/framing-slab.webp": [
+    480,
+    960
+  ],
+  "quest/framing-sun.webp": [
+    480,
+    960
+  ],
+  "quest/framing-turret.webp": [
+    480,
+    960
+  ],
+  "quest/framing-walls.webp": [
+    480,
+    960
+  ],
+  "quest/framing-wide.webp": [
+    480,
+    960
+  ],
+  "quest/gable-window.webp": [
+    480,
+    960
+  ],
+  "quest/gables-underlayment.webp": [
+    480,
+    960
+  ],
+  "quest/hero.webp": [
+    480,
+    960
+  ],
+  "quest/home-dusk.webp": [
+    480,
+    960
+  ],
+  "quest/home-side.webp": [
+    480,
+    960
+  ],
+  "quest/home-trusses.webp": [
+    480
+  ],
+  "quest/home-windows.webp": [
+    480,
+    960
+  ],
+  "quest/pipe-flashing.webp": [
+    480,
+    960
+  ],
+  "quest/porch-dusk.webp": [
+    480,
+    960
+  ],
+  "quest/remodel-studs.webp": [
+    480,
+    960
+  ],
+  "quest/roof-deck-sheathing.webp": [
+    480,
+    960
+  ],
+  "quest/roof-deck.webp": [
+    480,
+    960
+  ],
+  "quest/roof-desert.webp": [
+    480,
+    960
+  ],
+  "quest/roof-eave.webp": [
+    480,
+    960
+  ],
+  "quest/roof-field.webp": [
+    480,
+    960
+  ],
+  "quest/roof-ridge.webp": [
+    480,
+    960
+  ],
+  "quest/roof-shingles.webp": [
+    480,
+    960
+  ],
+  "quest/roof-underlayment.webp": [
+    480,
+    960
+  ],
+  "quest/roof-valley.webp": [
+    480,
+    960
+  ],
+  "quest/roof-windows.webp": [
+    480,
+    960
+  ],
+  "quest/sheathing-curve.webp": [
+    480
+  ],
+  "quest/sheathing-panel.webp": [
+    480,
+    960
+  ],
+  "quest/shingle-field-palms.webp": [
+    480
+  ],
+  "quest/shingle-hip-skyline.webp": [
+    480,
+    960
+  ],
+  "quest/shingle-hvac-curb.webp": [
+    480,
+    960
+  ],
+  "quest/shingle-parapet-hip.webp": [
+    480
+  ],
+  "quest/shingle-parapet-street.webp": [
+    480,
+    960
+  ],
+  "quest/shingle-plane-peak.webp": [
+    480
+  ],
+  "quest/shingle-ridge-palms.webp": [
+    480
+  ],
+  "quest/shingle-roof-finished.webp": [
+    480,
+    960
+  ],
+  "quest/shingle-skylight-flashed.webp": [
+    480,
+    960
+  ],
+  "quest/shingle-skylight-pair.webp": [
+    480,
+    960
+  ],
+  "quest/shingle-skylights-street.webp": [
+    480
+  ],
+  "quest/shingle-vents-skylight.webp": [
+    480
+  ],
+  "quest/shingle-wall-flashing.webp": [
+    480
+  ],
+  "quest/siding-lap.webp": [
+    480,
+    960
+  ],
+  "quest/slab-blockwall.webp": [
+    480,
+    960
+  ],
+  "quest/slab-lumber.webp": [
+    480,
+    960
+  ],
+  "quest/slab-poured.webp": [
+    480,
+    960
+  ],
+  "quest/slab-walls.webp": [
+    480
+  ],
+  "quest/spare.webp": [
+    480,
+    960
+  ],
+  "quest/story.webp": [
+    480,
+    960
+  ],
+  "quest/tile-battens-crew.webp": [
+    480,
+    960
+  ],
+  "quest/tile-battens-slope.webp": [
+    480,
+    960
+  ],
+  "quest/tile-roof-inspection.webp": [
+    480,
+    960
+  ],
+  "quest/tile-roof-ridge.webp": [
+    480,
+    960
+  ],
+  "quest/tile-staged.webp": [
+    480,
+    960
+  ],
+  "quest/underlayment-rolls.webp": [
+    480,
+    960
+  ],
+  "quest/valley-flashing.webp": [
+    480
+  ],
+  "quest/window-demo.webp": [
+    480
+  ],
+  "quest/window-fitted.webp": [
+    480,
+    960
+  ],
+  "quest/window-flashed.webp": [
+    480
+  ],
+  "quest/window-interior.webp": [
+    480,
+    960
+  ],
+  "quest/window-opening.webp": [
+    480
+  ],
+  "quest/window-reflection.webp": [
+    480,
+    960
+  ],
+  "quest/window-scaffold.webp": [
+    480,
+    960
+  ],
+  "quest/window-stucco.webp": [
+    480
+  ],
+  "stock/concrete-1.webp": [
+    480,
+    960
+  ],
+  "stock/concrete-3.webp": [
+    480,
+    960
+  ],
+  "stock/custom-home-building-1.webp": [
+    480,
+    960
+  ],
+  "stock/custom-home-building-2.webp": [
+    480,
+    960
+  ],
+  "stock/custom-home-building-3.webp": [
+    480,
+    960
+  ],
+  "stock/custom-home-building-4.webp": [
+    480,
+    960
+  ],
+  "stock/deck-building-1.webp": [
+    480,
+    960
+  ],
+  "stock/deck-building-3.webp": [
+    480,
+    960
+  ],
+  "stock/deck-building-4.webp": [
+    480,
+    960
+  ],
+  "stock/demolition-1.webp": [
+    480,
+    960
+  ],
+  "stock/demolition-5.webp": [
+    480,
+    960
+  ],
+  "stock/dry-wall-6.webp": [
+    480,
+    960
+  ],
+  "stock/full-remodel-2.webp": [
+    480,
+    960
+  ],
+  "stock/full-remodel-3.webp": [
+    480
+  ],
+  "stock/full-remodel-5.webp": [
+    480
+  ],
+  "stock/roofing-2.webp": [
+    480,
+    960
+  ],
+  "stock/roofing-3.webp": [
+    480,
+    960
+  ],
+  "stock/siding-2.webp": [
+    480,
+    960
+  ],
+  "stock/siding-3.webp": [
+    480
+  ],
+  "stock/siding-4.webp": [
+    480,
+    960
+  ]
+}

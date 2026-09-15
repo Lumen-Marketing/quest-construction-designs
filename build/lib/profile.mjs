@@ -21,7 +21,9 @@ import { stylesheetName } from './site-css.mjs';
  */
 export const BUILT = '2026-08-22';
 
-function makeProfile({ name, hubs, cityServices, blog, richSchema, built, fingerprintCss }) {
+function makeProfile({
+  name, hubs, cityServices, blog, legal, richSchema, built, fingerprintCss,
+}) {
   // pageList re-reads the content files, so the manifest is built once.
   let manifest = null;
 
@@ -36,9 +38,12 @@ function makeProfile({ name, hubs, cityServices, blog, richSchema, built, finger
     /** Whether the blog exists in this product. */
     blog,
 
+    /** Whether the privacy policy, terms of use and photo credits exist. */
+    legal,
+
     /** The page manifest this product renders. */
     pages() {
-      if (!manifest) manifest = pageList({ hubs, cityServices, blog });
+      if (!manifest) manifest = pageList({ hubs, cityServices, blog, legal });
       return manifest;
     },
 
@@ -77,8 +82,8 @@ function makeProfile({ name, hubs, cityServices, blog, richSchema, built, finger
  * reach an index.
  */
 export const demoProfile = makeProfile({
-  name: 'demo', hubs: false, cityServices: false, blog: false, richSchema: false, built: null,
-  fingerprintCss: false,
+  name: 'demo', hubs: false, cityServices: false, blog: false, legal: false,
+  richSchema: false, built: null, fingerprintCss: false,
 });
 
 /**
@@ -88,6 +93,6 @@ export const demoProfile = makeProfile({
  * an index is a lot of build for nothing.
  */
 export const siteProfile = makeProfile({
-  name: 'site', hubs: true, cityServices: true, blog: true, richSchema: true, built: BUILT,
-  fingerprintCss: true,
+  name: 'site', hubs: true, cityServices: true, blog: true, legal: true,
+  richSchema: true, built: BUILT, fingerprintCss: true,
 });

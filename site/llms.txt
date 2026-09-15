@@ -92,10 +92,13 @@ Written advice about doing this work in this climate, not company news.
 - [Gallery](https://questconstruction.com/gallery/): jobsite photography
 - [The Build Log](https://questconstruction.com/blog/): 6 posts on how the work is actually done
 - [Contact](https://questconstruction.com/contact-us/): phone, form and coverage
+- [Privacy policy](https://questconstruction.com/privacy-policy/) and [terms of use](https://questconstruction.com/terms-of-use/)
 
 ## Notes
 
 - Quest has not published a street address, a licence number or a review score,
   so none appears on the site or in its structured data.
-- Photography outside the three images marked as Quest's own is stock standing
-  in for jobsite photographs; the gallery page says so on the page.
+- The photography is from Quest's own jobs, with one exception: some service
+  pages use licensed stock photographs where Quest has not yet photographed a
+  stage of the trade. Each is marked "Stock photo" where it appears and is
+  credited at https://questconstruction.com/photo-credits/. The gallery is Quest's work only.

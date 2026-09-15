@@ -58,7 +58,8 @@ function splitOnMarker(text, marker) {
   return [text.slice(0, i), text.slice(i)];
 }
 
-export function buildCss() {
+/** The stylesheet as authored, comments and all — what a person edits. */
+export function sourceCss() {
   const css = swapAccent(
     readFileSync('d01-site-plan/assets/styles.css', 'utf8'), AUTHORED_KEY, CHOSEN_KEY,
   );
@@ -67,6 +68,24 @@ export function buildCss() {
   return `${faces}
 ${css}
 ${rest}`;
+}
+
+// The authored file explains itself at length, which is right for the person
+// editing it and wrong for the visitor downloading it: 47% of the shipped bytes
+// were comments, render-blocking on every page. What comes out is comments and
+// layout whitespace only. Runs of whitespace keep one space, because a space
+// is meaningful in a selector (`.a .b`) and inside calc(); it is dropped only
+// beside { } and ;, where it never is. No string in the stylesheet contains
+// a comment opener, and site.test.mjs holds the output to exactly this.
+//
+// It also makes the fingerprint the same on every machine: a Windows checkout
+// reads the source with CRLF line endings, and those no longer reach the hash.
+export function buildCss() {
+  return sourceCss()
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/\s+/g, ' ')
+    .replace(/ ?([{};]) ?/g, '$1')
+    .trim();
 }
 
 /** Ten hex characters of the contents — enough that a collision is not a risk. */

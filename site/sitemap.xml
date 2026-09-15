@@ -3701,4 +3701,51 @@
     <image:image><image:loc>https://questconstruction.com/assets/quest/sheathing-panel.webp</image:loc></image:image>
     <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
   </url>
+  <url>
+    <loc>https://questconstruction.com/privacy-policy/</loc>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/framing-slab.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/terms-of-use/</loc>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/deck-joists.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://questconstruction.com/photo-credits/</loc>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/logo.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/roof-windows.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/concrete-1.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/concrete-3.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/custom-home-building-1.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/custom-home-building-2.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/custom-home-building-3.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/custom-home-building-4.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/deck-building-1.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/deck-building-3.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/deck-building-4.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/demolition-1.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/demolition-5.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/dry-wall-6.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/full-remodel-2.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/full-remodel-3.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/full-remodel-5.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/roofing-2.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/roofing-3.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/siding-2.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/siding-3.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/stock/siding-4.webp</image:loc></image:image>
+    <image:image><image:loc>https://questconstruction.com/assets/quest/home-dusk.webp</image:loc></image:image>
+  </url>
 </urlset>

@@ -8,9 +8,11 @@
 // studs, siding, a window job start to finish, a casita at three stages, and
 // the first aerials Quest has ever handed over.
 //
-// There is no stock photography left in the tree, so nothing on the site shows
-// work Quest did not do — which also means the alt text below has to describe
-// what is actually in the frame and no more. Where a trade still has no
+// Twenty stock stand-ins came back later, at Quest's request, for trades the
+// library does not cover: see STOCK PLACEHOLDERS below. Every one is labelled
+// Stock photo where it is shown and credited on /photo-credits/. The rule for
+// the rest stands — the alt text below has to describe what is actually in the
+// frame and no more. Where a trade still has no
 // photograph of its own (drywall, paint, cabinetry) it borrows the closest
 // honest one and the alt text says what that picture really shows.
 //
@@ -751,6 +753,9 @@ const BANNER_PAGE = {
   serviceIndex: 'quest/framing-garage.webp',
   areaIndex: 'quest/custom-home-wide.webp',
   blog: 'quest/framing-ladder.webp',
+  privacy: 'quest/framing-slab.webp',
+  terms: 'quest/deck-joists.webp',
+  credits: 'quest/roof-windows.webp',
 };
 
 /**

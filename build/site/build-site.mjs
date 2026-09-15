@@ -18,6 +18,7 @@ import { palette, CHOSEN_KEY } from '../lib/palette.mjs';
 // that the profile can hand every page's <head> the name it ships under.
 import { buildCss } from '../lib/site-css.mjs';
 import * as mod from './module.mjs';
+import { ANALYTICS } from './module.mjs';
 
 export const OUT = 'site';
 export { BUILT, buildCss };
@@ -36,7 +37,7 @@ const write = (rel, body) => {
 // Served in place of whatever URL was requested, so every path on it has to be
 // root-absolute — a relative one would resolve against the missing URL.
 
-function notFound() {
+export function notFound() {
   // Root-absolute paths, because this page is served in place of whatever URL
   // was requested — a relative one would resolve against the missing URL.
   const c = contextFor({ mod, key: 'home', profile: siteProfile, absolute: true });
@@ -48,7 +49,9 @@ function notFound() {
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="${palette(CHOSEN_KEY).acc}">
-<link rel="stylesheet" href="/${siteProfile.stylesheet()}">`;
+<link rel="stylesheet" href="/${siteProfile.stylesheet()}">
+${ANALYTICS}`;
+  // Counted like any other page: the 404 is where a broken inbound link shows up.
 
   return `<!doctype html>
 <html lang="en">
@@ -93,6 +96,15 @@ function copyAssets(htmls) {
   for (const html of htmls) {
     for (const m of html.matchAll(/(?:src|href|content)="[^"]*?assets\/([^"]+)"/g)) {
       if (!m[1].startsWith('styles.')) wanted.add(m[1]);
+    }
+    // A srcset names the smaller copies, and it is the only place they are
+    // named: without this the pages ship pointing at files that are not there.
+    for (const m of html.matchAll(/\bsrcset="([^"]+)"/g)) {
+      for (const candidate of m[1].split(',')) {
+        const url = candidate.trim().split(/\s+/)[0];
+        const at = url.indexOf('assets/');
+        if (at >= 0) wanted.add(url.slice(at + 'assets/'.length));
+      }
     }
   }
   // The social cards are only ever named in absolute form, in the OG tags and
@@ -183,7 +195,7 @@ Allow: /
 Sitemap: ${ORIGIN}/sitemap.xml
 `;
 
-const llms = () => `# ${site.name}
+export const llms = () => `# ${site.name}
 
 > ${site.legalName} is a family-owned general contractor working across
 > ${areas.areas.length} cities in Arizona. Founded ${site.foundingYear}.
@@ -226,13 +238,16 @@ ${posts.posts.map((b) => `- [${b.title}](${ORIGIN}/blog/${b.slug}/) `
 - [Gallery](${ORIGIN}/gallery/): jobsite photography
 - [The Build Log](${ORIGIN}/blog/): ${posts.posts.length} posts on how the work is actually done
 - [Contact](${ORIGIN}/contact-us/): phone, form and coverage
+- [Privacy policy](${ORIGIN}/privacy-policy/) and [terms of use](${ORIGIN}/terms-of-use/)
 
 ## Notes
 
 - Quest has not published a street address, a licence number or a review score,
   so none appears on the site or in its structured data.
-- Photography outside the three images marked as Quest's own is stock standing
-  in for jobsite photographs; the gallery page says so on the page.
+- The photography is from Quest's own jobs, with one exception: some service
+  pages use licensed stock photographs where Quest has not yet photographed a
+  stage of the trade. Each is marked "Stock photo" where it appears and is
+  credited at ${ORIGIN}/photo-credits/. The gallery is Quest's work only.
 `;
 
 const webmanifest = () => `${JSON.stringify({
@@ -337,14 +352,19 @@ headers, so Vercel, Netlify and Cloudflare Pages all work with no further config
 
 ## Before it goes live
 
-- **Wire the contact form.** It currently prints a note asking the visitor to call.
+- **Switch on Web Analytics** in the Vercel project (Analytics tab), then redeploy. The pages
+  already load \`/_vercel/insights/script.js\`; it answers 404 until the feature is on.
+- **Have Quest read the privacy policy and terms** (\`/privacy-policy/\`, \`/terms-of-use/\`).
+  They describe what the site actually does, in plain language, and are not legal advice.
 - **Check the per-city copy.** The thirty-four service-area pages name a permitting authority
   for each city; those claims need Quest's sign-off, particularly Florence (Pinal County
   rather than Maricopa), Camelback East Village (permitted through Phoenix) and Paradise
   Valley (its own town).
-- **Replace the stock photography.** Three images are Quest's own; the rest stand in, and
-  the gallery page says so on the page.
+- **Replace the stock photography.** Some service pages carry licensed stock stand-ins,
+  each marked "Stock photo" and credited on \`/photo-credits/\`. Swap them for Quest's own.
 - **Confirm the domain** before submitting \`sitemap.xml\` to Search Console.
+
+The contact form posts to FormSubmit, which forwards it to ${site.email}.
 
 No street address, licence number or review score appears anywhere on the site or in its
 structured data. Quest has published none of them, and invented values in structured data

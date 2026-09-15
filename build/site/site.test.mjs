@@ -21,7 +21,7 @@ const PAGES = siteProfile.pages();
 const render = (key) => renderPage({ mod, key, profile: siteProfile });
 
 test('the manifest carries the hubs and the blog a demo direction does not', () => {
-  assert.equal(PAGES.length, pageCount({ hubs: true, cityServices: true, blog: true }));
+  assert.equal(PAGES.length, pageCount({ hubs: true, cityServices: true, blog: true, legal: true }));
   assert.equal(pageList().length, pageCount());
   assert.ok(PAGES.some((p) => p.key === 'services'));
   assert.ok(PAGES.some((p) => p.key === 'service-areas'));
@@ -144,15 +144,36 @@ test('the stylesheet comes out Burnt Orange with no ochre left in it', () => {
   assert.ok(!css.includes('http'), 'the stylesheet reaches off-origin');
 });
 
-test('the two profiles differ in exactly five ways, all of them named', () => {
+test('the stylesheet ships without its authoring comments or its indentation', async () => {
+  const siteCss = await import('../lib/site-css.mjs');
+  assert.equal(typeof siteCss.sourceCss, 'function', 'there is no unminified source to compare with');
+  const css = buildCss();
+  // Nearly half the file was notes to the next person to edit it, sent to
+  // every visitor on every page as render-blocking bytes.
+  assert.ok(!css.includes('/*'), 'a comment shipped');
+  assert.ok(!/\r|\n/.test(css), 'line breaks and indentation shipped');
+  assert.ok(css.length < siteCss.sourceCss().length * 0.6,
+    `the shipped stylesheet is ${css.length} of ${siteCss.sourceCss().length} bytes`);
+  // Nothing but comments and layout whitespace came out: with both removed
+  // from the source and single spaces kept, the two are the same text.
+  const same = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ')
+    .replace(/ ?([{};]) ?/g, '$1').trim();
+  assert.equal(css, same(siteCss.sourceCss()));
+});
+
+test('the two profiles differ in exactly six ways, all of them named', () => {
   assert.equal(demoProfile.hubs, false);
   assert.equal(siteProfile.hubs, true);
   // The fifth: the blog exists in one product and not the other.
   assert.equal(demoProfile.blog, false);
   assert.equal(siteProfile.blog, true);
+  // The sixth: the privacy policy, terms and photo credits. A noindex design
+  // direction collects nothing and publishes no licensed photograph to anyone.
+  assert.equal(demoProfile.legal, false);
+  assert.equal(siteProfile.legal, true);
   assert.equal(demoProfile.pages().length, pageCount());
   assert.equal(siteProfile.pages().length,
-    pageCount({ hubs: true, cityServices: true, blog: true }));
+    pageCount({ hubs: true, cityServices: true, blog: true, legal: true }));
   assert.deepEqual(demoProfile.schemaOpts(), { rich: false, built: null });
   assert.deepEqual(siteProfile.schemaOpts(), { rich: true, built: BUILT });
   // The fourth: only the standalone is served behind an immutable cache, so
@@ -221,6 +242,132 @@ test('the stylesheet keeps its folder, because the font urls are relative to it'
   // stylesheet — so the name may move but the folder may not.
   assert.match(siteProfile.stylesheet(), /^assets\//);
   assert.match(buildCss(), /url\(fonts\/archivo-latin-var\.woff2\)/);
+});
+
+// ---------------------------------------------------------------------- legal
+// The contact form sends a name, an email address and a phone number to a
+// third party, and the site had no page saying so. Sixteen of the stock
+// photographs are licensed on condition of a visible credit, and the site
+// carried none. These pages are what launching requires.
+
+const LEGAL = ['privacy-policy', 'terms-of-use', 'photo-credits'];
+const visible = (html) => html.replace(/<script[\s\S]*?<\/script>/g, '')
+  .replace(/<!--[\s\S]*?-->/g, '').replace(/<[^>]+>/g, ' ');
+
+test('the site carries a privacy policy, terms of use and photo credits', () => {
+  for (const key of LEGAL) assert.ok(PAGES.some((p) => p.key === key), `no ${key} page`);
+  assert.equal(PAGES.length, pageCount({ hubs: true, cityServices: true, blog: true, legal: true }));
+  // The demo directions are held to their own page contract and link none of them.
+  assert.ok(!pageList().some((p) => LEGAL.includes(p.key)));
+  const demo = renderPage({ mod, key: 'home' });
+  for (const key of LEGAL) assert.ok(!demo.includes(`${key}/index.html`), `a demo links ${key}`);
+});
+
+test('every page links the three legal pages from its footer, at any depth', () => {
+  for (const key of ['home', 'services/adu', 'services/roofing/mesa-az', 'blog']) {
+    const html = render(key);
+    const foot = html.slice(html.indexOf('<footer'));
+    const up = '../'.repeat(key.split('/').length - (key === 'home' ? 1 : 0));
+    for (const legal of LEGAL) {
+      assert.ok(foot.includes(`href="${key === 'home' ? '' : up}${legal}/index.html"`),
+        `${key} footer does not link ${legal}`);
+    }
+  }
+});
+
+test('the privacy policy names every party a visitor\'s details reach', () => {
+  const { site } = loadContent();
+  const text = visible(render('privacy-policy'));
+  for (const must of ['FormSubmit', 'Vercel', site.legalName, site.email, 'cookies']) {
+    assert.ok(text.includes(must), `the privacy policy does not mention ${must}`);
+  }
+  // It says what the form collects, in the form's own terms.
+  for (const field of ['name', 'email address', 'phone number', 'message']) {
+    assert.ok(text.includes(field), `the privacy policy does not say it collects the ${field}`);
+  }
+});
+
+test('the legal pages carry no em dash and invent no figure', () => {
+  for (const key of LEGAL) {
+    // The page's own content. The header and footer are shared furniture,
+    // held to account on every page rather than here.
+    const html = render(key).split(MAIN_TAG)[1].split('</main>')[0];
+    const text = visible(html);
+    assert.ok(!text.includes('—') && !html.includes('&mdash;'), `${key} prints an em dash`);
+    assert.doesNotMatch(text, /licen[sc]e (no|number|#)|ROC\b|bonded|insured/i,
+      `${key} claims a licence or insurance Quest has not published`);
+  }
+});
+
+test('the photo credits page credits every stock photograph, with its source', async () => {
+  const { readFileSync } = await import('node:fs');
+  const out = JSON.parse(readFileSync('content/outsourced.json', 'utf8'));
+  const html = render('photo-credits');
+  for (const i of out.placeholders.images) {
+    const id = `stock-${i.file.replace(/^stock\//, '').replace(/\.webp$/, '')}`;
+    assert.ok(html.includes(`id="${id}"`), `no credit entry for ${i.file}`);
+    assert.ok(html.includes(esc(i.credit_line)), `${i.file}: credit line missing`);
+    assert.ok(html.includes(`href="${esc(i.landing_page)}"`), `${i.file}: no link to its source`);
+  }
+});
+
+test('a stock photograph says so where it is shown, and links its credit', () => {
+  let stock = 0;
+  // The credits page is the credit: each photograph there sits beside its own
+  // photographer and licence rather than behind a label pointing at them.
+  for (const p of PAGES.filter((x) => x.key !== 'photo-credits')) {
+    const html = render(p.key);
+    for (const m of html.matchAll(/<figure[^>]*>((?:(?!<\/figure>)[\s\S])*assets\/stock\/([a-z0-9-]+)\.webp[\s\S]*?)<\/figure>/g)) {
+      stock++;
+      assert.match(m[1], new RegExp(`href="[^"]*photo-credits/index\\.html#stock-${m[2]}"`),
+        `${p.key}: stock/${m[2]} is not linked to its credit`);
+      assert.match(m[1], />Stock photo</, `${p.key}: stock/${m[2]} is not marked as stock`);
+    }
+    // And no stock image is shown anywhere but inside a figure that can say so.
+    const bare = (html.match(/assets\/stock\//g) || []).length;
+    const inFigures = [...html.matchAll(/<figure[\s\S]*?<\/figure>/g)]
+      .reduce((n, f) => n + (f[0].match(/assets\/stock\//g) || []).length, 0);
+    assert.equal(bare, inFigures, `${p.key}: a stock image is shown outside a labelled figure`);
+  }
+  assert.ok(stock > 0, 'no stock photograph found on any page, so this proved nothing');
+});
+
+test('no page says every photograph is Quest\'s while the site shows stock', () => {
+  for (const p of PAGES) {
+    const text = visible(render(p.key));
+    assert.doesNotMatch(text, /Every photograph on this site is from a Quest job/,
+      `${p.key} claims the whole site is Quest's photography`);
+    assert.doesNotMatch(text, /Nothing here is stock/, `${p.key} claims nothing here is stock`);
+  }
+});
+
+test('llms.txt describes the photography as it actually is', async () => {
+  const { llms } = await import('./build-site.mjs');
+  const txt = llms();
+  assert.doesNotMatch(txt, /the gallery page says so/, 'llms.txt points at a disclaimer that does not exist');
+  assert.match(txt, /photo-credits\//, 'llms.txt does not point at the photo credits');
+});
+
+// ------------------------------------------------------------------ analytics
+
+test('every page counts a visit, cookie-free, and the demo directions do not', async () => {
+  const tag = '<script defer src="/_vercel/insights/script.js"></script>';
+  for (const key of ['home', 'services/adu', 'contact']) {
+    const html = render(key);
+    assert.ok(html.includes(tag), `${key} carries no analytics`);
+    assert.match(html, /window\.va=window\.va\|\|function/, `${key} has no queue for early events`);
+  }
+  const { notFound } = await import('./build-site.mjs');
+  assert.ok(notFound().includes(tag), 'the 404 is not counted, so broken links go unseen');
+  const d01 = await import('../directions/d01.mjs');
+  assert.ok(!renderPage({ mod: d01, key: 'home' }).includes('_vercel/insights'),
+    'a demo direction reports visits into the live site\'s analytics');
+});
+
+test('a sent enquiry and a tap on the number are counted as events', () => {
+  const html = render('contact');
+  assert.match(html, /va\('event',\{name:'Contact form sent'\}\)/, 'a sent form is not counted');
+  assert.match(html, /va\('event',\{name:'Phone call tap'\}\)/, 'a tap to call is not counted');
 });
 
 // ---------------------------------------------------------------- trade × city

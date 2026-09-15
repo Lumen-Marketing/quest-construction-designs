@@ -47,8 +47,12 @@ const arrowBtn = (href, label, cls = 'btn') =>
 // interlock rather than sitting side by side, and it bleeds off the right edge
 // the way the plane bleeds off the left. No frame — this direction does not put
 // photographs in boxes.
+//
+// It is also the largest thing above the fold on every page below the home
+// page, which makes it the page's LCP element. Lazy, it waited for layout
+// before it was even requested, on 253 pages.
 const bannerPlate = (c, pair) =>
-  `<div class="subhero-shot" aria-hidden="true">${img(c, ...pair)}</div>`;
+  `<div class="subhero-shot" aria-hidden="true">${img(c, ...pair, { eager: true, sizes: '100vw' })}</div>`;
 
 // One word of the heading in accent. The reference sets a single word of its
 // headline in colour and lets the rest sit white; this finds that word in an
@@ -70,6 +74,25 @@ const hl = (text, word) => {
 // here the beam carries the band on its own.
 const bannerBack = () => '<div class="subhero-beam" aria-hidden="true"></div>';
 
+// How wide a band's tiles are drawn, so a phone can take a smaller copy of the
+// photograph than a 1440px desktop does. Four across the wrap is about 320px a
+// tile, three about 430, and every band stacks to two columns on a phone.
+const bandSizes = (n) => {
+  if (n <= 2) return '(max-width: 820px) 92vw, 640px';
+  return n === 3 ? '(max-width: 820px) 46vw, 430px' : '(max-width: 820px) 46vw, 320px';
+};
+
+// A photograph Quest did not take says so where it is shown. The path is the
+// record: everything under assets/stock/ is a licensed stand-in, and the photo
+// credits page carries its photographer and licence under the same name. A
+// demo direction has no credits page, so there the label is not a link.
+const stockTag = (c, file) => {
+  if (!file.startsWith('stock/')) return '';
+  const id = `stock-${file.slice('stock/'.length).replace(/\.webp$/, '')}`;
+  return `<figcaption class="stocktag mono">${c.legal
+    ? `<a href="${c.url('photo-credits')}#${id}">Stock photo</a>` : 'Stock photo'}</figcaption>`;
+};
+
 // The display band. One word of the page set as large as the line will carry,
 // the photographs pulled up over its foot so the type runs behind them, and the
 // sentence that would have been a lede justified edge to edge underneath as a
@@ -86,7 +109,8 @@ const bigBand = (c, pairs, eyebrow, word, lede) => `
     <p class="mono eyebrow">${esc(eyebrow)}</p>
     <h2 class="bigword">${esc(word)}</h2>
     <div class="shotband n${pairs.length}">${pairs.map(([f, alt]) =>
-    `<figure class="rv">${img(c, f, alt)}</figure>`).join('')}</div>
+    `<figure class="rv">${img(c, f, alt, { sizes: bandSizes(pairs.length) })}${
+      stockTag(c, f)}</figure>`).join('')}</div>
     <p class="justrow mono">${esc(lede)}</p>
   </div>
 </section>`;
@@ -101,7 +125,8 @@ const band = (c, pairs, eyebrow, heading, lede = '', cls = 'sec cream') => `
   <div class="wrap">
     ${shead(eyebrow, heading, lede)}
     <div class="shotband n${pairs.length}">${pairs.map(([f, alt]) =>
-      `<figure class="rv">${img(c, f, alt)}</figure>`).join('')}</div>
+      `<figure class="rv">${img(c, f, alt, { sizes: bandSizes(pairs.length) })}${
+        stockTag(c, f)}</figure>`).join('')}</div>
   </div>
 </section>`;
 
@@ -368,8 +393,11 @@ export function footer(c) {
   ${areaCol()}
 </div>
 <div class="wrap fbar">
-  <p class="mono">&copy; 2026 ${esc(c.site.name)} &middot; Since ${c.site.foundingYear}</p>
+  <p class="mono">&copy; <span data-year>${new Date().getFullYear()}</span> ${esc(c.site.name)} &middot; Since ${c.site.foundingYear}</p>
   <p class="mono">${esc(c.site.legalName)} &middot; ${esc(c.site.regionName)}</p>
+  ${c.legal ? `<p class="mono flegal"><a href="${c.url('privacy-policy')}">Privacy Policy</a><a
+    href="${c.url('terms-of-use')}">Terms of Use</a><a
+    href="${c.url('photo-credits')}">Photo Credits</a></p>` : ''}
 </div>
 </footer>`;
 }
@@ -580,7 +608,11 @@ export function baseScript(c) {
       // lens. 2.5 is the smallest magnification that reads as one, and where
       // the file has more than that to give — the 1800px frames do — it is
       // used instead, up to 3.5.
-      var native=img.naturalWidth/ir.width;
+      // The width attribute, not naturalWidth: with a srcset the element may
+      // be holding the 480px copy, while the panel paints from the href, which
+      // is always the full-size file.
+      var full=+img.getAttribute('width')||img.naturalWidth;
+      var native=full/ir.width;
       var mag=Math.max(2.5,Math.min(native,3.5));
       // Square, fitting the plate with room around it and never taller than
       // the picture it reads from.
@@ -607,7 +639,8 @@ export function baseScript(c) {
       if(e.pointerType==='touch') return;
       // Nothing to magnify, and a lens that showed the same pixels bigger
       // would be a lie — the same test the dialog's zoom makes.
-      if(!img.naturalWidth||img.naturalWidth < img.clientWidth*1.3) return;
+      var full=+img.getAttribute('width')||img.naturalWidth;
+      if(!full||full < img.clientWidth*1.3) return;
       if(!lens) build();
       at={x:e.clientX,y:e.clientY};
       place();
@@ -812,6 +845,9 @@ export function baseScript(c) {
           if(String(d&&d.success)!=='true') throw new Error('rejected');
           f.reset();
           flds.forEach(function(fl){ mark(fl,false); });
+          // Counted only once the mailbox has accepted it, for the same reason
+          // the thank-you waits: a lead that did not arrive is not a lead.
+          if(window.va) window.va('event',{name:'Contact form sent'});
           note.className='form-note mono';
           note.textContent='Thank you — that is with us. '
             +'We reply the same day, and sooner if you call.';
@@ -820,6 +856,22 @@ export function baseScript(c) {
         .catch(fail);
     });
   });
+})();
+(function(){
+  // Most of Quest's leads are a phone call, and a call leaves nothing behind
+  // on a website. The tap that starts one is the nearest thing to count. The
+  // standalone site's head defines va; everywhere else this does nothing.
+  document.addEventListener('click',function(e){
+    var a=e.target&&e.target.closest?e.target.closest('a[href^="tel:"]'):null;
+    if(a&&window.va) window.va('event',{name:'Phone call tap'});
+  });
+})();
+(function(){
+  // The build writes the year it ran in, and a static page is only rebuilt
+  // when something on it changes. Without this the footer is wrong from the
+  // first of January until somebody happens to publish.
+  var y=String(new Date().getFullYear());
+  document.querySelectorAll('[data-year]').forEach(function(e){ e.textContent=y; });
 })();
 (function(){
   var els=document.querySelectorAll('.rv');
@@ -985,7 +1037,7 @@ export function home(c) {
       </div>
       <div class="badge badge-float">
         <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h5l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v5a15 15 0 0 1-16-16z"/></svg></span>
-        <span><b class="telnum">${esc(c.site.phoneDisplay)}</b><span>${esc(c.site.availability)} &middot; family owned</span></span>
+        <span><a href="${c.site.phoneHref}"><b class="telnum">${esc(c.site.phoneDisplay)}</b></a><span>${esc(c.site.availability)} &middot; family owned</span></span>
       </div>
     </div>
   </div>
@@ -1017,8 +1069,12 @@ ${strip(c)}
 </section>
 
 ${bigBand(c, pageShots('home', 8), '— On site', 'SLAB TO SHINGLE',
-  'Every photograph on this site is from a Quest job. Nothing here is stock.')}
+  // About this band, which is true, rather than about the site, which stopped
+  // being true when stock stand-ins went onto nine service pages.
+  'Every photograph in this band is from a Quest job. None of them is stock.')}
 
+<!-- OFFERS: hidden for now, not deleted. To bring it back, remove this line
+     and the closing marker after </section> below.
 <section class="sec dark" id="offers">
   ${grid(true)}
   <div class="wrap">
@@ -1026,6 +1082,7 @@ ${bigBand(c, pageShots('home', 8), '— On site', 'SLAB TO SHINGLE',
     <div class="offers">${offers}</div>
   </div>
 </section>
+END OFFERS -->
 
 <section class="sec cream" id="work">
   ${grid(false)}
@@ -1041,6 +1098,12 @@ ${closingCta(c, h.ctaHeading, h.ctaBody)}`;
 /** Service page — hero, tabs, intro, why-choose badges, process, FAQ, CTA. */
 export function service(c) {
   const s = c.item;
+
+  // The band's lede used to say "Photographs from Quest jobs" on every trade,
+  // including the nine whose band carries a stock stand-in. Where one is shown
+  // the sentence says so, and each stock frame is labelled and credited.
+  const onTheJob = serviceShots(s.slug);
+  const withStock = onTheJob.some(([f]) => f.startsWith('stock/'));
 
   const tabs = c.services.map((x) => {
     const on = x.slug === s.slug;
@@ -1125,10 +1188,15 @@ export function service(c) {
   </div>
 </section>
 ${scope}
-${band(c, serviceShots(s.slug), '— On the job',
-  `<span>${esc(s.name)}</span> Work We Have Photographed`,
-  'Photographs from Quest jobs. Where a stage of this trade is not in the camera roll yet, '
-  + 'the nearest one is, and the caption says what it shows.', 'sec cream alt')}
+${band(c, onTheJob, '— On the job',
+  // "Work We Have Photographed" over a stock frame is the same claim again.
+  withStock ? `What <span>${esc(s.name)}</span> Work Looks Like`
+    : `<span>${esc(s.name)}</span> Work We Have Photographed`,
+  withStock
+    ? 'Photographs from Quest jobs, and where a stage of this trade is not in the camera roll '
+      + 'yet, a licensed stock photograph marked as one.'
+    : 'Photographs from Quest jobs. Where a stage of this trade is not in the camera roll yet, '
+      + 'the nearest one is, and the caption says what it shows.', 'sec cream alt')}
 
 <section class="sec dark">
   ${grid(true)}
@@ -1237,7 +1305,7 @@ export function area(c) {
       <h3>What that means on site</h3>
       <ul>${local.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
       <div class="localcall">
-        <b class="telnum">${esc(c.site.phoneDisplay)}</b>
+        <a href="${c.site.phoneHref}"><b class="telnum">${esc(c.site.phoneDisplay)}</b></a>
         <span>${esc(c.site.availability)} &middot; ${esc(a.name)}</span>
       </div>
     </div>
@@ -1418,7 +1486,12 @@ export function gallery(c) {
           + ` aria-label="Photograph ${j + 1} of ${n}: ${esc(caption(f))}"`;
       return `
             <a class="thumb" href="#p-${st.slug}-${j + 1}" data-i="${j}"${solo}
-              >${img(c, f, null, { decorative: true })}</a>`;
+              >${img(c, f, null, {
+      decorative: true,
+      // The rail's own clamp(118px,13.2vw,190px). Declaring the desktop 190
+      // had a phone multiply it by its pixel ratio and take the original.
+      sizes: '(max-width: 900px) 118px, 190px',
+    })}</a>`;
     }).join('')).join('');
     return `
     <div class="galchap" id="trade-${st.slug}">
@@ -1437,7 +1510,8 @@ export function gallery(c) {
       const pad = (x) => String(x).padStart(2, '0');
       return `
           <figure class="shot" id="p-${st.slug}-${j + 1}"><a class="shotzoom" href="${
-      c.asset(f)}">${img(c, f, alt)}<span class="vh"> — open full size</span
+      c.asset(f)}">${img(c, f, alt, { sizes: '(max-width: 600px) 92vw, 1040px' })}<span
+              class="vh"> — open full size</span
               ><span class="shotzi" aria-hidden="true">${ZOOM}</span></a>
             <figcaption class="shotcap" aria-hidden="true">
               <span class="shotghost">${pad(j + 1)}</span>
@@ -1503,7 +1577,7 @@ function pergolaBand(c) {
         <h3>${esc(g.notesHeading)}</h3>
         <ul>${g.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
         <div class="localcall">
-          <b class="telnum">${esc(c.site.phoneDisplay)}</b>
+          <a href="${c.site.phoneHref}"><b class="telnum">${esc(c.site.phoneDisplay)}</b></a>
           <span>${esc(c.site.availability)} &middot; Shade structures</span>
         </div>
       </div>
@@ -1803,7 +1877,7 @@ export function serviceArea(c) {
       <h3>What that means on site</h3>
       <ul>${copy.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
       <div class="localcall">
-        <b class="telnum">${esc(c.site.phoneDisplay)}</b>
+        <a href="${c.site.phoneHref}"><b class="telnum">${esc(c.site.phoneDisplay)}</b></a>
         <span>${esc(c.site.availability)} &middot; ${esc(a.name)}</span>
       </div>
     </div>
@@ -1909,7 +1983,9 @@ ${band(c, pageShots('areaIndex', 4), '— Across the valley', 'Arizona <span>Job
 </section>
 
 ${closingCta(c, 'Tell us where the job is',
-  `${c.site.positioning} — reachable ${c.site.availability} on ${c.site.phoneDisplay}.`)}`;
+  // No number in the sentence: it was the one place the number printed as
+  // text a phone could not dial, and the bar under it carries the call button.
+  `${c.site.positioning}, reachable ${c.site.availability}.`)}`;
 }
 
 // ------------------------------------------------------------------------ blog
@@ -2035,7 +2111,7 @@ export function post(c) {
       <ul><li>Written from Quest jobs across the Valley</li><li>Family-owned, Arizona-based since ${
   esc(c.site.foundingYear)}</li><li>${c.services.length} trades under one contractor</li></ul>
       <div class="localcall">
-        <b class="telnum">${esc(c.site.phoneDisplay)}</b>
+        <a href="${c.site.phoneHref}"><b class="telnum">${esc(c.site.phoneDisplay)}</b></a>
         <span>${esc(c.site.availability)} &middot; ${esc(b.topic)}</span>
       </div>
     </aside>
@@ -2116,6 +2192,112 @@ export function sitemap(c) {
     ${col('Areas Served', [
       ...(c.hubs ? [[c.url('service-areas'), 'All Areas Served']] : []),
       ...c.areas.areas.map((a) => [c.url(`service-areas/${a.slug}`), a.name])])}
+    ${c.legal ? col('Legal', [
+      [c.url('privacy-policy'), 'Privacy Policy'],
+      [c.url('terms-of-use'), 'Terms of Use'],
+      [c.url('photo-credits'), 'Photo Credits']]) : ''}
+  </div>
+</section>
+
+${closingCta(c, c.pages.home.ctaHeading, c.pages.home.ctaBody)}`;
+}
+
+// ---------------------------------------------------------------------- legal
+// The privacy policy, the terms of use and the photo credits. Standalone only;
+// see LEGAL_KEYS in lib/url.mjs. Read top to bottom by the few people who open
+// them, so they are one column of ruled sections: no eyebrow, no cards.
+
+/**
+ * A sentence from content/legal.json, escaped, with the business's own facts
+ * put in from content/site.json. An unknown token throws rather than printing
+ * "{emial}" on a legal page.
+ */
+function legalText(c, s) {
+  const TOKENS = {
+    legalName: () => esc(c.site.legalName),
+    email: () => `<a href="mailto:${c.site.email}">${esc(c.site.email)}</a>`,
+    phoneDisplay: () => `<a class="telnum" href="${c.site.phoneHref}">${esc(c.site.phoneDisplay)}</a>`,
+    credits: () => `<a href="${c.url('photo-credits')}">photo credits page</a>`,
+  };
+  return esc(s).replace(/\{([a-zA-Z]+)\}/g, (m, name) => {
+    if (!TOKENS[name]) throw new Error(`unknown token ${m} in content/legal.json`);
+    return TOKENS[name]();
+  });
+}
+
+function legalPage(c, copy, kind) {
+  // Paragraphs and lists in the order the content file writes them: some
+  // sections lead with the list and close on a sentence, some the other way.
+  const body = (sec) => Object.entries(sec).map(([k, v]) => {
+    if (k === 'paras') return v.map((p) => `<p>${legalText(c, p)}</p>`).join('');
+    if (k === 'list') return `<ul>${v.map((li) => `<li>${legalText(c, li)}</li>`).join('')}</ul>`;
+    return '';
+  }).join('');
+  const { updated } = c.legalCopy;
+  return `${pageHero(c, { h1: copy.h1, lede: copy.lede, crumb: copy.h1, banner: bannerShot(kind) })}
+
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap legal">
+    <p class="legal-date mono">Last updated <time datetime="${esc(updated)}">${esc(longDate(updated))}</time></p>
+    ${copy.sections.map((sec) => `<div class="legal-sec rv">
+      <h2>${esc(sec.heading)}</h2>
+      <div>${body(sec)}</div>
+    </div>`).join('')}
+  </div>
+</section>
+
+${closingCta(c, c.pages.home.ctaHeading, c.pages.home.ctaBody)}`;
+}
+
+export function privacy(c) { return legalPage(c, c.legalCopy.privacy, 'privacy'); }
+export function terms(c) { return legalPage(c, c.legalCopy.terms, 'terms'); }
+
+/** Where a licence's own terms are published. Unknown licences throw. */
+function licenceUrl(licence) {
+  if (licence === 'Public domain') return null;
+  if (licence === 'CC0') return 'https://creativecommons.org/publicdomain/zero/1.0/';
+  const m = /^CC (BY|BY-SA) (\d\.\d)$/.exec(licence);
+  if (!m) throw new Error(`no licence link known for ${licence}`);
+  return `https://creativecommons.org/licenses/${m[1].toLowerCase()}/${m[2]}/`;
+}
+
+// Printed from content/outsourced.json, the same record images.test.mjs holds
+// to account, so a stand-in added there is credited here without a second edit.
+// Each entry's id is what the Stock photo label on the service page links to.
+export function credits(c) {
+  const copy = c.legalCopy.credits;
+  const trade = (slug) => {
+    const s = c.services.find((x) => x.slug === slug);
+    if (!s) throw new Error(`content/outsourced.json names a trade that does not exist: ${slug}`);
+    return s;
+  };
+  const items = c.outsourced.placeholders.images.map((i) => {
+    const id = `stock-${i.file.slice('stock/'.length).replace(/\.webp$/, '')}`;
+    const lic = licenceUrl(i.license);
+    const s = trade(i.service);
+    return `
+      <li class="credit rv" id="${id}">
+        <span class="credit-shot">${img(c, i.file, i.alt, { sizes: '120px' })}</span>
+        <div class="credit-body">
+          <p class="credit-what">${esc(i.alt)}</p>
+          <p class="credit-line">${esc(i.credit_line)}</p>
+          <p class="credit-meta mono">${lic
+    ? `<a href="${lic}" target="_blank" rel="license noreferrer">${esc(i.license)}</a>`
+    : `<span>${esc(i.license)}</span>`}<a href="${esc(i.landing_page)}" target="_blank"
+            rel="noreferrer">Source</a><a href="${c.url(`services/${s.slug}`)}">Used on ${esc(s.name)}</a></p>
+        </div>
+      </li>`;
+  }).join('');
+
+  return `${pageHero(c, { h1: copy.h1, lede: copy.lede, crumb: copy.h1, banner: bannerShot('credits') })}
+
+<section class="sec cream">
+  ${grid(false)}
+  <div class="wrap legal">
+    <p class="legal-intro">${esc(copy.intro)}</p>
+    <ul class="credits">${items}
+    </ul>
   </div>
 </section>
 

@@ -1,0 +1,133 @@
+{
+  "_README": "The privacy policy, terms of use and photo credits. Written from what the site actually does: the contact form posts to FormSubmit, Vercel hosts the site and counts visits without cookies, and nothing else runs. If any of that changes (a CRM, a chat widget, an advertising pixel, a new form service), this file has to change with it. Facts about the business come from content/site.json through the {legalName}, {email} and {phoneDisplay} tokens, so they are stated once. {credits} renders as a link to the photo credits page. These are plain-language policies for a small contractor, not legal advice: Quest should have them read before relying on them.",
+  "updated": "2026-09-16",
+  "privacy": {
+    "h1": "Privacy Policy",
+    "lede": "What this website collects, who handles it, and what you can ask us to do with it.",
+    "sections": [
+      {
+        "heading": "Who we are",
+        "paras": [
+          "This website is run by {legalName}, a general contractor working across Arizona. Where this policy says we or us, it means {legalName}.",
+          "Questions about this policy go to {email} or {phoneDisplay}."
+        ]
+      },
+      {
+        "heading": "What we collect",
+        "paras": ["We collect what you choose to send us, and a count of visits to the site."],
+        "list": [
+          "When you use the contact form: your name, your email address, your phone number if you give one, and your message.",
+          "When you call, text or email us: whatever you include, such as the address of the job or photographs of it.",
+          "When you visit: which pages are viewed, the page that sent you here, and your device type, browser and country. Vercel Web Analytics counts this without cookies, and it does not build a profile of you or follow you to other websites.",
+          "Our hosting provider keeps short-lived server logs, which include IP addresses, to keep the site running and secure."
+        ]
+      },
+      {
+        "heading": "How we use it",
+        "list": [
+          "To answer your enquiry and prepare an estimate.",
+          "To plan and carry out work you hire us for, and to keep the records that work requires.",
+          "To see which pages people read, so we can improve the site."
+        ],
+        "paras": ["We do not sell or rent your information, and we do not use it for advertising."]
+      },
+      {
+        "heading": "Who else handles it",
+        "list": [
+          "FormSubmit (formsubmit.co), which receives the contact form and forwards it to our email inbox.",
+          "Vercel, which hosts this website and provides its visitor counts.",
+          "Our email and phone providers, which carry the messages you send us."
+        ],
+        "paras": ["We share your information with anyone else only when the law requires it."]
+      },
+      {
+        "heading": "Cookies",
+        "paras": [
+          "This website sets no cookies, and it loads no advertising or tracking code from anyone else. The Facebook link in the footer takes you to Facebook, where Facebook's own privacy policy applies."
+        ]
+      },
+      {
+        "heading": "How long we keep it",
+        "paras": [
+          "We keep an enquiry for as long as we need it to answer you. If you hire us, we keep project records for as long as our business, tax and legal obligations require."
+        ]
+      },
+      {
+        "heading": "Your choices",
+        "paras": [
+          "You can ask us what information we hold about you, ask us to correct it, or ask us to delete it, by emailing {email}."
+        ]
+      },
+      {
+        "heading": "Children",
+        "paras": [
+          "This website is for adults planning construction work. We do not knowingly collect information from children under 13."
+        ]
+      },
+      {
+        "heading": "Changes to this policy",
+        "paras": ["If we change this policy, we will update this page and the date at the top of it."]
+      }
+    ]
+  },
+  "terms": {
+    "h1": "Terms of Use",
+    "lede": "The terms for using this website. They cover the site, not the work: every job is agreed in its own written estimate or contract.",
+    "sections": [
+      {
+        "heading": "Using this website",
+        "paras": ["By using this website you agree to these terms. If you do not agree, please do not use the site."]
+      },
+      {
+        "heading": "Information, not a quote",
+        "paras": [
+          "The service descriptions, city pages and articles on this site are general information about construction work in Arizona. They are not a quote, a contract, or professional advice about your property. Price, schedule and scope are set only in a written estimate or contract for your project.",
+          "Permitting rules differ between cities and change over time. Check the requirements for your property with the office that issues its permits."
+        ]
+      },
+      {
+        "heading": "Photographs",
+        "paras": [
+          "Most photographs on this site were taken on Quest Construction jobs. Some service pages use licensed stock photographs where we have not yet photographed a stage of the work. Each one is marked Stock photo where it appears and is listed on the {credits}."
+        ]
+      },
+      {
+        "heading": "Our content",
+        "paras": [
+          "The text, the logo and our own photographs belong to {legalName}. Please do not copy or reuse them without our written permission. Stock photographs belong to their photographers and are used under the licences listed on the {credits}."
+        ]
+      },
+      {
+        "heading": "Accuracy",
+        "paras": [
+          "We work to keep this site accurate and current, but it is provided as it is, and details on it may change without notice."
+        ]
+      },
+      {
+        "heading": "Limitation of liability",
+        "paras": [
+          "To the extent the law allows, {legalName} is not liable for any loss arising from your use of this website or from relying on the general information on it. Nothing here limits any right you have under a contract with us or under Arizona law."
+        ]
+      },
+      {
+        "heading": "Other websites",
+        "paras": [
+          "Links to other websites, such as Facebook or a city permitting office, are there for convenience. We are not responsible for their content or their policies."
+        ]
+      },
+      {
+        "heading": "Governing law",
+        "paras": ["These terms are governed by the laws of the State of Arizona."]
+      },
+      {
+        "heading": "Contact",
+        "paras": ["Questions about these terms go to {email} or {phoneDisplay}."]
+      }
+    ]
+  },
+  "credits": {
+    "h1": "Photo Credits",
+    "lede": "Almost every photograph on this site was taken on a Quest Construction job. The ones below were not.",
+    "intro": "Where Quest has not yet photographed a stage of a trade, the service page uses a licensed stock photograph instead. Each one is marked Stock photo where it appears, and each is listed here with its photographer, its licence and where it came from. They were resized for this site and are otherwise unchanged. They will come down as Quest photographs its own work."
+  }
+}

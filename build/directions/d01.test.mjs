@@ -4,6 +4,9 @@ import { readFileSync } from 'node:fs';
 import { renderPage, allPagesFor } from '../build.mjs';
 import * as d01 from './d01.mjs';
 import { MAIN_TAG } from '../lib/page-rules.mjs';
+import { siteProfile } from '../lib/profile.mjs';
+import * as siteMod from '../site/module.mjs';
+import { PALETTES, luminance } from '../lib/palette.mjs';
 
 const esc = (s) => String(s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -41,6 +44,101 @@ test('the footer states the real founding year and no invented figures', () => {
   const html = renderPage({ mod: d01, key: 'home' });
   assert.ok(html.includes('Since 2018'));
   assert.doesNotMatch(html, /est\.\s*2010|340\+|\b96%|4\.9\b|87 reviews/);
+});
+
+test('the copyright year is the current one, and the page keeps it current', () => {
+  const html = renderPage({ mod: d01, key: 'home' });
+  const bar = html.slice(html.indexOf('class="wrap fbar"'));
+  const year = String(new Date().getFullYear());
+  assert.match(bar, new RegExp(`&copy; <span data-year>${year}</span>`),
+    'the footer year is typed in rather than taken from the calendar');
+  // A static page is rebuilt only when something on it changes, so a year set
+  // at build time alone goes stale on the first of January. The page sets it.
+  assert.match(html, /querySelectorAll\('\[data-year\]'\)/, 'nothing keeps the year current');
+});
+
+// Every template, on the product that has them all.
+const onePerKind = () => {
+  const seen = new Set();
+  return siteProfile.pages().filter((p) => !seen.has(p.kind) && seen.add(p.kind));
+};
+const renderSite = (key) => renderPage({ mod: siteMod, key, profile: siteProfile });
+
+test('every phone number a visitor can read is a number they can tap', () => {
+  const phone = site.phoneDisplay;
+  for (const p of onePerKind()) {
+    const html = renderSite(p.key)
+      .replace(/<script[\s\S]*?<\/script>/g, '').replace(/<!--[\s\S]*?-->/g, '');
+    let at = html.indexOf(phone);
+    assert.ok(at >= 0, `${p.key} does not show the number`);
+    for (; at >= 0; at = html.indexOf(phone, at + 1)) {
+      const before = html.slice(0, at);
+      // Inside a tag is an attribute (an aria-label), not text on the page.
+      if (before.lastIndexOf('<') > before.lastIndexOf('>')) continue;
+      const open = before.lastIndexOf('<a ');
+      assert.ok(open > before.lastIndexOf('</a>'),
+        `${p.key}: the number is printed outside a link: ${html.slice(at - 60, at + 20)}`);
+      assert.match(before.slice(open, before.indexOf('>', open)), /href="tel:/,
+        `${p.key}: the number sits in a link that does not dial it`);
+    }
+  }
+});
+
+test('every inner page fetches its banner photograph first, not last', () => {
+  for (const p of onePerKind().filter((x) => x.kind !== 'home')) {
+    const html = renderSite(p.key);
+    const banner = /<div class="subhero-shot"[^>]*><img([^>]*)>/.exec(html);
+    if (!banner) continue;
+    // It is the largest thing above the fold on every page below the home
+    // page, so it is the one image that must not wait for layout to be asked for.
+    assert.match(banner[1], /fetchpriority="high"/, `${p.key}: the banner is not prioritised`);
+    assert.doesNotMatch(banner[1], /loading="lazy"/, `${p.key}: the banner is lazy`);
+  }
+});
+
+test('the photographs that are shown small ask for a copy their own size', () => {
+  const tagFor = (html, re) => (re.exec(html) || [])[1] || '';
+  const gallery = renderSite('gallery');
+  const thumb = tagFor(gallery, /<a class="thumb"[^>]*>\s*<img([^>]*)>/);
+  assert.match(thumb, /srcset="[^"]*w480\//, 'a 190px thumbnail still downloads the original');
+  // Its phone width, not its desktop width: a phone multiplies what it is told
+  // by its pixel ratio, and 190 by three took the original every time.
+  assert.match(thumb, /sizes="\(max-width: 900px\) 118px, 190px"/);
+  assert.match(tagFor(gallery, /<a class="shotzoom"[^>]*><img([^>]*)>/), /srcset=/,
+    'the gallery frame offers a phone no smaller copy');
+  assert.match(tagFor(renderSite('services/roofing'), /<figure class="rv"><img([^>]*)>/), /srcset=/,
+    'the photograph band offers no smaller copy');
+  assert.match(tagFor(renderSite('about'), /<div class="subhero-shot"[^>]*><img([^>]*)>/),
+    /srcset="[^"]*" sizes="100vw"/, 'the banner offers a phone no smaller copy');
+});
+
+test('the lens and the zoom still magnify the full-size file, whichever copy is shown', () => {
+  const html = renderSite('gallery');
+  // With a srcset the <img> may hold the 480 copy, so its naturalWidth is no
+  // longer the size of the photograph the lens panel paints from its href.
+  assert.doesNotMatch(html, /img\.naturalWidth\/ir\.width/, 'the lens measures the copy, not the file');
+  assert.match(html, /\+img\.getAttribute\('width'\)/, 'the lens does not read the original width');
+});
+
+test('the body copy on the accent card clears 4.5:1 in every accent', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  const rule = /\.svc--acc p\{color:([^;}]+)/.exec(css);
+  assert.ok(rule, 'no colour for the accent card body copy');
+  // Drawn from the accent's own ink so it follows the accent, softened by a
+  // share of transparency rather than by a fixed near-black that suits only one.
+  const mix = /^color-mix\(in srgb,var\(--on-acc\) (\d+)%,transparent\)$/.exec(rule[1]);
+  assert.ok(mix, `the card body copy is not drawn from --on-acc: ${rule[1]}`);
+  const alpha = Number(mix[1]) / 100;
+  const rgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  const hex = (c) => `#${c.map((v) => Math.round(v).toString(16).padStart(2, '0')).join('')}`;
+  for (const p of Object.values(PALETTES)) {
+    const on = rgb(p.onAcc.length === 4 ? `#${[...p.onAcc.slice(1)].map((x) => x + x).join('')}` : p.onAcc);
+    const bg = rgb(p.acc);
+    const text = hex(on.map((v, i) => v * alpha + bg[i] * (1 - alpha)));
+    const [hi, lo] = [luminance(text), luminance(p.acc)].sort((a, b) => b - a);
+    const ratio = (hi + 0.05) / (lo + 0.05);
+    assert.ok(ratio >= 4.5, `${p.name}: card body copy is ${ratio.toFixed(2)}:1`);
+  }
 });
 
 test('the mobile nav toggle and dropdowns are present and labelled', () => {
@@ -471,10 +569,15 @@ test('the home page carries a card, with an icon, for every trade', () => {
   }
 });
 
-test('the home page carries both real offers with their codes', () => {
+test('the home page keeps both real offers, commented out until they come back', () => {
   const html = renderPage({ mod: d01, key: 'home' });
   assert.ok(html.includes('data-copy="WELCOME10"'));
   assert.ok(html.includes('data-copy="REFER100"'));
+  // Hidden for now at Quest's request, not deleted: the markup stays in the
+  // page inside a comment, so bringing it back is removing two lines.
+  const live = html.replace(/<!--[\s\S]*?-->/g, '');
+  assert.ok(!live.includes('id="offers"'), 'the offers section is live on the home page');
+  assert.ok(!live.includes('data-copy='), 'an offer code button is live on the home page');
 });
 
 test('the home page teases three projects, each with a layout slot', () => {
@@ -1157,6 +1260,12 @@ test('a control is as big as the box it draws', () => {
   // The marquee row is 56px tall and its links were a 19px line box in the
   // middle of it.
   assert.match(css, /\.strip-i\{[^}]*min-height:44px/);
+
+  // The phone menu button is the one control every phone visitor needs, and
+  // it was drawn 44 wide by 40 tall.
+  const toggle = /\.navtoggle\{[^}]*\}/.exec(css)[0];
+  assert.match(toggle, /width:44px/);
+  assert.match(toggle, /height:44px/, 'the menu button is shorter than a 44px tap target');
 });
 
 test('the small mono labels are all bumped on a phone, not just the old ones', () => {

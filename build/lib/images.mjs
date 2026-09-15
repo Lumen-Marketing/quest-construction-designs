@@ -5,6 +5,13 @@ import { readFileSync } from 'node:fs';
 
 const SIZES = JSON.parse(readFileSync('content/images.json', 'utf8'));
 
+// The smaller copies of each photograph, written by tools/responsive-images.py
+// to assets/w480/<path> and assets/w960/<path>. A file is listed here only
+// where that copy is meaningfully smaller than the original, so most of the
+// portrait phone photography carries one copy and the wide frames carry two.
+const VARIANTS = JSON.parse(readFileSync('content/image-variants.json', 'utf8'));
+export const VARIANT_WIDTHS = [480, 960];
+
 // Photographs that must never ship. The last entry was stock with a visible
 // third-party logo on it; the stock library is gone now, so the set is empty
 // and the guard stands ready for the next one.
@@ -32,6 +39,12 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
  *             LCP element — the masthead logo. It wants the early fetch but
  *             not fetchpriority="high", which would make it compete with the
  *             hero photograph for the same bandwidth.
+ *             { sizes } how wide this image is drawn, as a CSS sizes list, e.g.
+ *             '190px' for a gallery thumbnail or '100vw' for a full-bleed
+ *             banner. That is what lets a browser take a smaller copy: without
+ *             it a browser assumes the image fills the viewport and downloads
+ *             the original, which is what every page did. Pass it wherever the
+ *             image is drawn smaller than it was shot.
  *             { decorative } for an image that carries no information: it
  *             takes an empty alt and is hidden from the accessibility tree.
  *             Without this the renderer had no way to express a decorative
@@ -51,7 +64,15 @@ export function img(c, file, alt, opts = {}) {
   if (opts.eager) load = ' loading="eager" fetchpriority="high" decoding="async"';
   else if (opts.load === 'eager') load = ' loading="eager" decoding="async"';
   const a = opts.decorative ? ' alt="" aria-hidden="true"' : ` alt="${esc(alt)}"`;
-  return `<img${cls} src="${c.asset(file)}"${a} width="${w}" height="${h}"${load}>`;
+  // The original stays the src: a browser without srcset gets the photograph,
+  // and so does every script that reads the attribute — the gallery's lens and
+  // its zoom both paint from the full-size file.
+  const copies = opts.sizes ? (VARIANTS[file] || []) : [];
+  const srcset = copies.length
+    ? ` srcset="${[...copies.map((x) => `${c.asset(`w${x}/${file}`)} ${x}w`),
+      `${c.asset(file)} ${w}w`].join(', ')}" sizes="${esc(opts.sizes)}"`
+    : '';
+  return `<img${cls} src="${c.asset(file)}"${srcset}${a} width="${w}" height="${h}"${load}>`;
 }
 
 /** <link rel="preload"> for a direction's LCP hero image. */
