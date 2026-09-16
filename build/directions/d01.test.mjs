@@ -141,6 +141,141 @@ test('the body copy on the accent card clears 4.5:1 in every accent', () => {
   }
 });
 
+// ------------------------------------------------------------ on a phone
+// Measured at 390px: the legal bar sat flush against the screen edge, and the
+// link clouds ran to 1,715px on the roofing page, two screens of ragged pills.
+
+const phoneBlock = (css, width) => {
+  const at = css.indexOf(`/* ---- the link clouds, on a phone`);
+  assert.ok(at >= 0, 'there is no phone treatment for the link clouds');
+  const open = css.indexOf(`@media(max-width:${width}px){`, at);
+  assert.ok(open >= 0, `the link cloud block is not at ${width}px`);
+  let depth = 0;
+  for (let i = css.indexOf('{', open); i < css.length; i++) {
+    if (css[i] === '{') depth++;
+    if (css[i] === '}' && --depth === 0) return css.slice(open, i + 1);
+  }
+  throw new Error('unclosed media block');
+};
+
+test('the legal bar keeps the page gutter, and its lines are spaced by the bar alone', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  const bar = /\.fbar\{[^}]*\}/.exec(css)[0];
+  // `padding:20px 0 30px` on an element that is also .wrap zeroes the gutter
+  // .wrap gives it: on a phone the copyright ran into the screen edge.
+  assert.doesNotMatch(bar, /[{;]padding:/, 'the bar sets its padding with a shorthand again');
+  assert.match(bar, /padding-block:/);
+  // A <p> brings a font-size's worth of margin with it, so the three lines sat
+  // 51, then 39 pixels apart. The gap is the only spacing.
+  assert.match(css, /\.fbar p\{margin:0\}/);
+
+  // The legal links shorten on the narrowest phones. Each is an inline-flex
+  // box, and a flex box trims a plain leading space from its children, so
+  // " Policy" rendered as "PRIVACYPOLICY". The space has to be one that
+  // cannot collapse.
+  const foot = renderSite('home').split('class="wrap fbar"')[1];
+  assert.match(foot, /Privacy<span\s+class="fl-long">&nbsp;Policy<\/span>/,
+    'the space before Policy collapses inside the flex link');
+  assert.match(foot, /Terms<span\s+class="fl-long">&nbsp;of Use<\/span>/,
+    'the space before "of Use" collapses inside the flex link');
+});
+
+test('on a phone a link cloud is a ruled column set, not a wall of pills', () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  const phone = phoneBlock(css, 760);
+  assert.match(phone, /\.arealinks\{[^}]*display:grid;grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
+  const row = /\.arealinks a,\.arealinks\.light a\{[^}]*\}/.exec(phone);
+  assert.ok(row, 'no row rule for the links');
+  assert.match(row[0], /min-height:48px/, 'a row is not a comfortable tap target');
+  assert.match(row[0], /border-radius:0/, 'the row is still a pill');
+  assert.match(row[0], /background:none/, 'the row is still a filled chip');
+  assert.match(row[0], /box-shadow:none/, 'the row still casts a card shadow');
+  assert.match(phone, /\.arealinks\.arealinks--wide\{grid-template-columns:1fr\}/);
+  // The gallery's jump chips swipe on one row, the way the service tabs do.
+  const rail = /\.galnav\{[^}]*\}/.exec(phone)[0];
+  assert.match(rail, /flex-wrap:nowrap;overflow-x:auto/);
+  // Without scroll-padding, snapping lays the first chip against the glass and
+  // undoes the gutter: it was measured flush with the screen edge.
+  assert.match(rail, /scroll-padding-inline:var\(--m\)/, 'the first chip snaps into the screen edge');
+  // A shadow inside a scroller is cut off at its edge and reads as a grey band.
+  assert.match(phone, /\.galnav a\{[^}]*box-shadow:none/, 'the chips cast shadows the rail clips');
+});
+
+test('a link label drops the words its heading already says, but only for the eye', () => {
+  const text = (html) => html.replace(/<[^>]+>/g, '');
+  const trade = renderSite('services/window-installation');
+  const cities = /<div class="arealinks trades rv"[^>]*>([\s\S]*?)<\/div>/.exec(trade)[1];
+  assert.match(cities, /<a [^>]*><span class="al-ctx">Window Installation in <\/span>Phoenix<\/a>/,
+    'the trade name is still printed in every city link');
+  // A screen reader and a crawler read the whole label, as before.
+  assert.ok(text(cities).includes('Window Installation in Phoenix'));
+
+  const mesa = renderSite('service-areas/mesa-az');
+  assert.match(mesa, /Roofing<span class="al-ctx"> in Mesa<\/span><\/a>/,
+    'the city name is still printed in every trade link on the city page');
+  assert.match(mesa, /Gilbert<span class="al-ctx">, AZ<\/span><\/a>/,
+    'every nearby city still says AZ under a heading about Arizona');
+
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  // Visually hidden, not display:none: display:none takes it from a screen
+  // reader too, and the link would be announced as "Phoenix, link" alone.
+  assert.match(phoneBlock(css, 760), /\.al-ctx\{position:absolute;[^}]*clip-path:inset\(50%\)/);
+  assert.doesNotMatch(css, /\.al-ctx\{[^}]*display:none/);
+});
+
+test('a long list shows ten on a phone and says how many are left', () => {
+  const roofing = renderSite('services/roofing');
+  assert.match(roofing, /<div class="arealinks trades rv" data-more="cities">/,
+    'a thirty-four city list is not marked as one to shorten');
+  const windows = renderSite('services/window-installation');
+  assert.doesNotMatch(windows, /data-more=/, 'a twelve city list is shortened for no reason');
+  for (const key of ['contact', 'services', 'service-areas/mesa-az']) {
+    assert.match(renderSite(key), /class="arealinks[^"]*" data-more="cities"/, `${key} list is not shortened`);
+  }
+  // The page shows everything until the script says otherwise, so a phone
+  // without the script, and every wide screen, gets the whole list.
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  assert.match(phoneBlock(css, 760), /\.arealinks\.is-capped a:nth-child\(n\+11\)\{display:none\}/);
+  assert.match(css, /\.al-more\{display:none\}/);
+  assert.match(roofing, /querySelectorAll\('\.arealinks\[data-more\]'\)/, 'nothing shortens the list');
+});
+
+test('on a phone a gallery frame is the shape of the photographs in it', async () => {
+  const css = readFileSync('d01-site-plan/assets/styles.css', 'utf8');
+  const at = css.indexOf('@media(max-width:600px){', css.indexOf('Two columns hold a long way down'));
+  assert.ok(at >= 0, 'no phone block for the gallery frame');
+  const frame = /\.shot img\{[^}]*\}/.exec(css.slice(at))[0];
+  // The library is phone photography: 72 of the 100 gallery frames are exactly
+  // 3:4. A 4:5 box shrank every one of them to fit its height, and left a bar
+  // of black down each side with the photograph pressed against the top edge.
+  assert.match(frame, /aspect-ratio:3\/4/, 'the phone frame is not the shape of a portrait');
+
+  const { GALLERY, GALLERY_TRADES } = await import('../lib/photos.mjs');
+  const sizes = JSON.parse(readFileSync('content/images.json', 'utf8'));
+  const portraits = GALLERY.filter((f) => Math.abs(sizes[f][0] / sizes[f][1] - 0.75) < 0.02);
+  assert.ok(portraits.length / GALLERY.length > 0.6,
+    'the gallery is no longer mostly 3:4 portraits, so the phone frame shape needs another look');
+
+  // A trade whose photographs are mostly landscape gets a landscape frame, or
+  // its one wide photograph floats in 200px of black. A tie stays portrait.
+  assert.match(css.slice(at), /\.showcase--landscape \.shot img\{aspect-ratio:4\/3\}/);
+  const html = renderSite('gallery');
+  for (const t of GALLERY_TRADES) {
+    const wide = t.files.filter((f) => sizes[f][0] > sizes[f][1]).length;
+    const block = html.split(`id="trade-${t.slug}"`)[1].split('class="galchap"')[0];
+    const tagged = /class="showcase showcase--landscape rv"/.test(block);
+    assert.equal(tagged, wide > t.files.length - wide,
+      `${t.slug}: ${wide} of ${t.files.length} landscape, landscape frame ${tagged}`);
+  }
+});
+
+test('a list of long labels runs one to a row', () => {
+  const post = renderSite('blog/who-issues-your-building-permit');
+  assert.match(post, /class="arealinks light arealinks--wide rv"/, 'post titles are squeezed two across');
+  assert.match(renderSite('services/roofing/mesa-az'),
+    /class="arealinks light arealinks--wide rv"/, 'the two sentence-length links are squeezed two across');
+});
+
 test('the mobile nav toggle and dropdowns are present and labelled', () => {
   const html = renderPage({ mod: d01, key: 'home' });
   assert.match(html, /class="navtoggle"[^>]*aria-label="Toggle navigation"/);
@@ -729,7 +864,7 @@ test('area pages resolve the city token everywhere and name their own city', () 
 
 test('each area page links every other area and never itself', () => {
   const html = renderPage({ mod: d01, key: 'service-areas/mesa-az' });
-  const cloud = /<div class="arealinks rv">([\s\S]*?)<\/div>/.exec(html)[1];
+  const cloud = /<div class="arealinks rv"[^>]*>([\s\S]*?)<\/div>/.exec(html)[1];
   assert.equal((cloud.match(/<a /g) || []).length, areas.length - 1);
   assert.ok(!cloud.includes('mesa-az'), 'an area links to itself in the nearby cloud');
 });

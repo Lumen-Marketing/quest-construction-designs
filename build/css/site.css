@@ -65,6 +65,26 @@ a.sc p{flex:1}
 .flegal{display:flex;flex-wrap:wrap;gap:4px 22px;margin:0}
 .fbar .flegal a{color:var(--on-dark-2)}
 @media (hover:hover) and (pointer:fine){.fbar .flegal a:hover{color:var(--on-dark)}}
+/* On a phone the three pieces of the bar stack: two lines of small print a
+   few pixels apart, then the legal links as a row of real tap targets. */
+@media(max-width:620px){
+  .fbar{flex-direction:column;align-items:flex-start;gap:6px;padding-block:22px 28px}
+  /* One row spread across the gutter. At the mono labels' own .13em tracking
+     the three links measured 352px against 346 of room at 390, so the last
+     one dropped to a second 44px row of its own. The tracking is set on the
+     .mono paragraph itself, which is why it has to be overridden here and not
+     on the bar. */
+  .fbar .mono{letter-spacing:.08em}
+  .flegal{align-self:stretch;justify-content:space-between;gap:0 12px;margin-top:4px}
+  .fbar .flegal a{min-height:44px}
+}
+/* Below 380 even the tighter row does not fit, so the links shorten to the
+   words people scan for. Hidden the accessible way: a screen reader still
+   hears "Privacy Policy", and so does anything that reads the link text. */
+@media(max-width:380px){
+  .fl-long{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;
+    clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+}
 
 /* Ruled rows rather than cards: the heading on the left, the text on the
    right, and the pair filling the wrap so the page is not a strip down one

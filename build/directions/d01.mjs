@@ -2,7 +2,7 @@
 // cream, a hard-edged accent plane, a frameless cut-out object straddling the
 // boundary, and a floating badge card over the lot. Pill buttons, generous
 // radii, soft layered shadows.
-import { img, preloadImage } from '../lib/images.mjs';
+import { img, preloadImage, size } from '../lib/images.mjs';
 import { icon, socialIcon } from '../lib/icons.mjs';
 import { words, Words } from '../lib/html.mjs';
 import { scriptMap } from '../lib/palette.mjs';
@@ -73,6 +73,23 @@ const hl = (text, word) => {
 // type, and it fought the heading for the same space. The hero keeps it; down
 // here the beam carries the band on its own.
 const bannerBack = () => '<div class="subhero-beam" aria-hidden="true"></div>';
+
+// The part of a link label its section heading already says. A wide screen
+// has room for it; on a phone "Window Installation in" printed twelve times
+// under "Window Installation Where You Are" is most of what made the list two
+// screens long. Hidden the accessible way on a phone only, so a screen reader
+// and a crawler still get the whole label, and so does every wide screen.
+const ctx = (text) => `<span class="al-ctx">${text}</span>`;
+
+/** A city named in a list about Arizona: "Mesa", with ", AZ" kept for readers. */
+const cityLabel = (x) => (x.name.startsWith(x.city)
+  ? `${esc(x.city)}${ctx(esc(x.name.slice(x.city.length)))}` : esc(x.name));
+
+// A list longer than this is cut to ten on a phone, with one row saying how
+// many are left. Sixteen is the longest a list gets and still reads as a list
+// at two across; the city lists run to thirty-four.
+const MORE_AFTER = 16;
+const more = (n, noun) => (n > MORE_AFTER ? ` data-more="${noun}"` : '');
 
 // How wide a band's tiles are drawn, so a phone can take a smaller copy of the
 // photograph than a 1440px desktop does. Four across the wrap is about 320px a
@@ -395,9 +412,9 @@ export function footer(c) {
 <div class="wrap fbar">
   <p class="mono">&copy; <span data-year>${new Date().getFullYear()}</span> ${esc(c.site.name)} &middot; Since ${c.site.foundingYear}</p>
   <p class="mono">${esc(c.site.legalName)} &middot; ${esc(c.site.regionName)}</p>
-  ${c.legal ? `<p class="mono flegal"><a href="${c.url('privacy-policy')}">Privacy Policy</a><a
-    href="${c.url('terms-of-use')}">Terms of Use</a><a
-    href="${c.url('photo-credits')}">Photo Credits</a></p>` : ''}
+  ${c.legal ? `<p class="mono flegal"><a href="${c.url('privacy-policy')}">Privacy<span
+    class="fl-long">&nbsp;Policy</span></a><a href="${c.url('terms-of-use')}">Terms<span
+    class="fl-long">&nbsp;of Use</span></a><a href="${c.url('photo-credits')}">Photo Credits</a></p>` : ''}
 </div>
 </footer>`;
 }
@@ -858,6 +875,28 @@ export function baseScript(c) {
   });
 })();
 (function(){
+  // Thirty-odd cities at two across is still two screens on a phone. A long
+  // list is cut to ten there, with one row that says how many are left. The
+  // cut is CSS inside the phone breakpoint, so a wide screen shows the whole
+  // list regardless, and a page whose script never ran shows it too.
+  document.querySelectorAll('.arealinks[data-more]').forEach(function(list){
+    var links=list.querySelectorAll('a');
+    if(links.length<=12) return;
+    list.classList.add('is-capped');
+    var b=document.createElement('button');
+    b.type='button'; b.className='al-more';
+    b.textContent='Show all '+links.length+' '+list.getAttribute('data-more');
+    b.addEventListener('click',function(){
+      list.classList.remove('is-capped');
+      if(b.parentNode) b.parentNode.removeChild(b);
+      // The button is gone, so focus goes to the first link it was hiding
+      // rather than falling back to the top of the document.
+      try{ links[10].focus({preventScroll:true}); }catch(e){ links[10].focus(); }
+    });
+    list.parentNode.insertBefore(b,list.nextSibling);
+  });
+})();
+(function(){
   // Most of Quest's leads are a phone call, and a call leaves nothing behind
   // on a website. The tap that starts one is the nearest thing to count. The
   // standalone site's head defines va; everywhere else this does nothing.
@@ -1265,8 +1304,9 @@ export function area(c) {
 
   const cards = svcCards(c, 'Learn more', a);
 
-  const others = c.areas.areas.filter((x) => x.slug !== a.slug).map((x) =>
-    `<a href="${c.url(`service-areas/${x.slug}`)}">${esc(x.name)}</a>`).join('');
+  const nearby = c.areas.areas.filter((x) => x.slug !== a.slug);
+  const others = nearby.map((x) =>
+    `<a href="${c.url(`service-areas/${x.slug}`)}">${cityLabel(x)}</a>`).join('');
 
   return `
 <section class="subhero">
@@ -1331,7 +1371,7 @@ ${cityTrades(c, a)}
   ${grid(false)}
   <div class="wrap">
     ${shead('— Nearby', 'Other <span>Areas</span> We Serve', '')}
-    <div class="arealinks rv">${others}</div>
+    <div class="arealinks rv"${more(nearby.length, 'cities')}>${others}</div>
   </div>
 </section>
 
@@ -1356,8 +1396,9 @@ function tradeCities(c, s) {
   <div class="wrap">
     ${shead('— By city', `<span>${esc(short)}</span> Where You Are`,
       `What changes about ${esc(inSentence(short))} city by city, written for each one.`)}
-    <div class="arealinks trades rv">${cities.map((a) =>
-      `<a href="${c.url(`services/${s.slug}/${a.slug}`)}">${esc(short)} in ${esc(a.city)}</a>`).join('')}</div>
+    <div class="arealinks trades rv"${more(cities.length, 'cities')}>${cities.map((a) =>
+      `<a href="${c.url(`services/${s.slug}/${a.slug}`)}">${ctx(`${esc(short)} in `)}${
+        esc(a.city)}</a>`).join('')}</div>
   </div>
 </section>`;
 }
@@ -1376,8 +1417,9 @@ function cityTrades(c, a) {
   <div class="wrap">
     ${shead(`— In ${esc(a.city)}`, `What We Do in <span>${esc(a.city)}</span>`,
       `Written for ${esc(a.city)} specifically rather than for Arizona in general.`)}
-    <div class="arealinks trades rv">${trades.map((s) =>
-      `<a href="${c.url(`services/${s.slug}/${a.slug}`)}">${esc(s.name)} in ${esc(a.city)}</a>`).join('')}</div>
+    <div class="arealinks trades rv"${more(trades.length, 'trades')}>${trades.map((s) =>
+      `<a href="${c.url(`services/${s.slug}/${a.slug}`)}">${esc(s.name)}${
+        ctx(` in ${esc(a.city)}`)}</a>`).join('')}</div>
   </div>
 </section>`;
 }
@@ -1473,6 +1515,12 @@ export function gallery(c) {
     // between, and the copy count below would print that one frame eight
     // times to fill the width.
     const copies = Math.max(2, Math.ceil(7 / n) + 1);
+    // On a phone every frame in a stage shares one box, so the box takes the
+    // shape most of the stage's photographs are. The library is mostly 3:4
+    // portrait and that is the default; a stage that is mostly landscape gets
+    // a landscape box, or its wide photograph floats in 200px of black.
+    const wide = st.files.filter((f) => { const [w, h] = size(f); return w > h; }).length;
+    const shape = wide > n - wide ? ' showcase--landscape' : '';
     const shift = `${(-100 / copies).toFixed(4)}%`;
     // One set passes in n * 2.5s, so a frame crosses the rail at the same
     // speed whether the stage holds five photographs or twenty-five.
@@ -1500,7 +1548,7 @@ export function gallery(c) {
           href="${c.url('services/' + st.slug)}">${esc(st.name)}</a></h3>
         <p class="galchap-note">${esc(st.note)}</p>
       </div>
-      <div class="showcase rv">
+      <div class="showcase${shape} rv">
         <div class="showcase-view" data-view>${st.files.map((f, j) => {
       // aria-hidden on the whole plate. The sentence on it is the img's alt
       // unless Quest has written a note, and a screen reader has had the alt
@@ -1747,8 +1795,8 @@ export function contact(c) {
   <div class="wrap">
     ${shead('— Where we work',
     `Serving <span>${Words(c.areas.areas.length)}</span> Arizona Cities`, '')}
-    <div class="arealinks light rv">${c.areas.areas.map((a) =>
-      `<a href="${c.url(`service-areas/${a.slug}`)}">${esc(a.name)}</a>`).join('')}</div>
+    <div class="arealinks light rv"${more(c.areas.areas.length, 'cities')}>${c.areas.areas.map((a) =>
+      `<a href="${c.url(`service-areas/${a.slug}`)}">${cityLabel(a)}</a>`).join('')}</div>
   </div>
 </section>`;
 }
@@ -1814,8 +1862,8 @@ ${band(c, pageShots('serviceIndex', 4), '— The trades in practice', 'Structure
   ${grid(false)}
   <div class="wrap">
     ${shead('— Where we work', 'Available in <span>Every</span> City We Serve', '')}
-    <div class="arealinks rv">${c.areas.areas.map((a) =>
-      `<a href="${c.url(`service-areas/${a.slug}`)}">${esc(a.name)}</a>`).join('')}</div>
+    <div class="arealinks rv"${more(c.areas.areas.length, 'cities')}>${c.areas.areas.map((a) =>
+      `<a href="${c.url(`service-areas/${a.slug}`)}">${cityLabel(a)}</a>`).join('')}</div>
   </div>
 </section>
 
@@ -1834,8 +1882,9 @@ export function serviceArea(c) {
   // The same trade in the other cities. This is the row a visitor who landed on
   // the wrong city needs, and the link graph that stops these pages being
   // orphans reachable only from a sitemap.
-  const elsewhere = c.areas.areas
-    .filter((x) => x.slug !== a.slug && c.serviceAreas[s.slug]?.[x.slug])
+  const otherCities = c.areas.areas
+    .filter((x) => x.slug !== a.slug && c.serviceAreas[s.slug]?.[x.slug]);
+  const elsewhere = otherCities
     .map((x) => `<a href="${c.url(`services/${s.slug}/${x.slug}`)}">${esc(x.city)}</a>`)
     .join('');
 
@@ -1891,7 +1940,7 @@ export function serviceArea(c) {
       `The same approach everywhere we build. The full ${esc(inSentence(short))} page has the `
       + 'detail; this is the short version.')}
     <div class="svcpts rv">${s.whyChoose.map((w) => `<p>${esc(w)}</p>`).join('')}</div>
-    <div class="arealinks light rv">
+    <div class="arealinks light arealinks--wide rv">
       <a href="${c.url(`services/${s.slug}`)}">All about ${esc(inSentence(short))}</a>
       <a href="${c.url(`service-areas/${a.slug}`)}">Everything we do in ${esc(a.city)}</a>
     </div>
@@ -1907,7 +1956,7 @@ ${band(c, areaShots(ai), '— Recent work',
   ${grid(false)}
   <div class="wrap">
     ${shead('— Elsewhere', `<span>${esc(short)}</span> in Other Cities`, '')}
-    <div class="arealinks trades rv">${elsewhere}</div>
+    <div class="arealinks trades rv"${more(otherCities.length, 'cities')}>${elsewhere}</div>
   </div>
 </section>
 
@@ -2130,7 +2179,7 @@ ${related ? `<section class="sec cream alt">
   ${grid(true)}
   <div class="wrap">
     ${shead('— More from the log', 'Other Things <span>Worth</span> Knowing', '')}
-    <div class="arealinks light rv">${others.map((x) =>
+    <div class="arealinks light arealinks--wide rv">${others.map((x) =>
     `<a href="${c.url(`blog/${x.slug}`)}">${esc(x.titleTag || x.title)}</a>`).join('')}</div>
   </div>
 </section>
